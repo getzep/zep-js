@@ -1,0 +1,6 @@
+Running example-index.ts
+
+$ npm install -g typescript
+$ tsc example-index.ts
+$ node example.js
+
