@@ -109,7 +109,7 @@ export interface MemoryData {
 /**
  * Represents a memory containing messages, metadata, and a summary.
  */
-export default class Memory {
+export class Memory {
    messages: Message[];
    metadata: Record<string, any>;
    summary?: Summary;
