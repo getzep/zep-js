@@ -1,8 +1,9 @@
 import { AxiosResponse, AxiosError } from "axios";
 import axios from "axios";
-import Memory, { Message } from "./models";
+import { Memory, Message } from "./models";
+
 import { SearchPayload, SearchResult } from "./models";
-import { UnexpectedResponseError } from "../src/exceptions";
+import { ZepClientError, UnexpectedResponseError } from "./exceptions";
 
 const API_BASEURL = "/api/v1";
 const axiosInstance = axios.create();
@@ -10,7 +11,7 @@ const axiosInstance = axios.create();
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
  */
-export default class ZepClient {
+export class ZepClient {
    base_url: string;
 
    /**
