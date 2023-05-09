@@ -1,36 +1,37 @@
 {
-   "name": "zep-client",
-   "version": "0.1.1",
-   "description": "Zep JS Client",
-   "main": "dist/index.js",
-   "module": "dist/index.esm.js",
-   "types": "dist/index.d.ts",
-   "scripts": {
-      "build": "tsc && tsc --module ESNext --outDir dist/esm",
-      "start": "node dist/index.js",
-      "dev": "ts-node src/main.ts",
-      "prepare": "npm run build"
-   },
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/getzep/zep-client.git"
-   },
-   "keywords": [
-      "zep",
-      "client"
-   ],
-   "author": "Sharath Rajasekar <sharathr@gmail.com>",
-   "license": "Apache 2.0",
-   "dependencies": {
-      "@types/axios": "^0.14.0",
-      "axios": "^1.4.0",
-      "typescript": "^4.4.4"
-   },
-   "devDependencies": {
-      "@types/node": "^16.9.1",
-      "ts-node": "^10.2.1"
-   },
-   "files": [
-      "dist"
-   ]
+  "name": "zep-client",
+  "version": "0.1.1",
+  "description": "Zep JS Client",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && tsc --module ESNext --outDir dist/esm",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/main.ts",
+    "clean": "rm -rf dist/*",
+    "prepublishOnly": "npm run clean && npm run build",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/getzep/zep-client.git"
+  },
+  "keywords": [
+    "zep",
+    "client"
+  ],
+  "author": "Sharath Rajasekar <sharathr@gmail.com>",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.1",
+    "ts-node": "^10.2.1"
+  },
+  "files": [
+    "dist"
+  ]
 }
