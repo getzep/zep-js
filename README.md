@@ -82,6 +82,8 @@ Zep JS Client Sync API.
   - `session_id`: The ID of the session to retrieve memory for.
   - `lastn`: (Optional) The number of most recent memories to retrieve.
   - Returns: A promise that resolves to an array of `Memory` objects.
+---
+
 
 ### addMemoryAsync
 
@@ -90,11 +92,14 @@ Zep JS Client Sync API.
   - `memory`: The `Memory` object to add to the session.
   - Returns: A promise that resolves to the added memory.
 
+---
+
 ### deleteMemoryAsync
 
 - `deleteMemoryAsync(session_id: string)`: Deletes the memory of a specific session.
   - `session_id`: The ID of the session for which the memory should be deleted.
   - Returns: A promise that resolves to a message indicating the memory has been deleted.
+---
 
 ### searchMemoryAsync
 
@@ -103,6 +108,9 @@ Zep JS Client Sync API.
   - `search_payload`: The `SearchPayload` object containing the search criteria.
   - `limit`: (Optional) Limit on the number of search results returned.
   - Returns: A promise that resolves to an array of `SearchResult` objects.
+---
+
+## Models
 
 ### MessageData
 
@@ -111,11 +119,13 @@ Zep JS Client Sync API.
 - `role`: String for the role of the message sender.
 - `content`: String for the content of the message.
 - `token_count`: Optional number for the token count of the message.
+---
 
 ### Message
 
 - `constructor(data: MessageData)`: Constructs a new Message instance.
 - `toDict(): MessageData`: Converts the Message instance to a dictionary.
+---
 
 ### SummaryData
 
@@ -124,11 +134,13 @@ Zep JS Client Sync API.
 - `content`: String for the content of the summary.
 - `recent_message_uuid`: String for the unique identifier of the most recent message related to the summary.
 - `token_count`: Number for the token count of the summary.
+---
 
 ### Summary
 
 - `constructor(data: SummaryData)`: Constructs a new Summary instance.
 - `toDict(): SummaryData`: Converts the Summary instance to a dictionary.
+---
 
 ### MemoryData
 
@@ -138,20 +150,24 @@ Zep JS Client Sync API.
 - `uuid`: Optional string for the unique identifier of the memory.
 - `created_at`: Optional string for the creation timestamp of the memory.
 - `token_count`: Optional number for the token count of the memory.
+---
 
 ### Memory
 
 - `constructor(data: MemoryData)`: Constructs a new Memory instance.
 - `toDict(): MemoryData`: Converts the Memory instance to a dictionary.
+---
 
 ### SearchPayloadData
 
 - `meta`: Object for the metadata of the search payload.
 - `text`: String for the text to be searched.
+---
 
 ### SearchPayload
 
 - `constructor(data: SearchPayloadData)`: Constructs a new SearchPayload instance.
+---
 
 ### SearchResultData
 
@@ -160,19 +176,27 @@ Zep JS Client Sync API.
 - `score`: Optional number for the score of the search result.
 - `summary`: Optional string for the summary of the search result.
 - `dist`: Optional number for the distance of the search result.
+---
 
 ### SearchResult
 
 - `constructor(data: SearchResultData)`: Constructs a new SearchResult instance.
+---
+
+## Exceptions 
 
 ### APIError
-
 - `constructor(code: number, message: string)`: Constructs a new APIError instance.
-
+---
 ### ZepClientError
-
+- Custom error class for ZepClient errors.
 - `constructor(message: string, response_data?: any)`: Constructs a new ZepClientError instance.
-
+---
 ### UnexpectedResponseError
-
+- Custom error class for unexpected API response errors in the ZepClient.
 - `constructor(message: string)`: Constructs a new UnexpectedResponseError instance.
+---
+### NotFoundError
+- Custom error class for not found errors in the ZepClient.
+- `Constructor: (message: string)`: Constructs a NotFoundError instance
+---
