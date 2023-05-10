@@ -6,67 +6,83 @@ import {
   SearchResult,
   ZepClientError,
   UnexpectedResponseError,
-} from "zep-client";
+  NotFoundError,
+} from "zep-js";
 
 async function main() {
   const base_url = "http://localhost:8000"; // TODO: Replace with Zep API URL
   const client = new ZepClient(base_url);
 
   try {
-    // Example usage
-    const session_id = "2a2a2a";
+     // Example usage
+     const session_id = "1a1a1a";
 
-    // Get memory
-    console.log("****** GET MEMORY ******");
-    console.log("Getting memory for session 3a3a3a");
-    const memories = await client.getMemoryAsync("3a3a3a");
-    for (const memory of memories) {
-      for (const message of memory.messages) {
-        console.log(message.toDict());
-      }
-    }
+     // Get memory
+     console.log("****** GET MEMORY ******");
+     console.log("Getting memory for session ", session_id);
+     try {
+        const newMemories = await client.getMemoryAsync(session_id);
+        for (const memory of newMemories) {
+           for (const message of memory.messages) {
+              console.log(message.toDict());
+           }
+        }
+     } catch (error) {
+        if (error instanceof NotFoundError) {
+           console.log("NotFoundError:", error.message);
+        } else {
+           console.log("Unknown error:", error);
+        }
+     }
 
-    // Add memory
-    console.log("****** ADD MEMORY ******");
-    console.log("Adding new memory for session 2a2a2a");
-    const role = "user";
-    const content = "who was the first man to go to space";
-    const message = new Message({ role, content });
+     // Add memory
+     console.log("****** ADD MEMORY ******");
+     console.log("Adding new memory for session ", session_id);
+     const role = "user";
+     const content = "who was the first man to go to space";
+     const message = new Message({ role, content });
 
-    const memory = new Memory();
-    memory.messages = [message];
+     const memory = new Memory();
+     memory.messages = [message];
 
-    const result = await client.addMemoryAsync(session_id, memory);
+     const result = await client.addMemoryAsync(session_id, memory);
 
-    const newMemories = await client.getMemoryAsync(session_id);
-    for (const memory of newMemories) {
-      for (const message of memory.messages) {
-        console.log(message.toDict());
-      }
-    }
+     // Get newly added memory
+     try {
+         console.log("Getting memory for newly added memory with sessionid ", session_id);
+         const newMemories = await client.getMemoryAsync(session_id);
+         for (const memory of newMemories) {
+             for (const message of memory.messages) {
+               console.log(message.toDict());
+             }
+         }
+      } catch (error) {
+        if (error instanceof NotFoundError) {
+           console.error("NotFoundError:", error.message);
+        } else {
+           console.error("Unknown error:", error);
+        }
+     }
 
-    // Delete memory
-    const deleteResult = await client.deleteMemoryAsync(session_id);
-    console.log(deleteResult);
-    console.log("Getting memory for session 2a2a2a");
-    const deletedMemories = await client.getMemoryAsync("2a2a2a");
-    for (const memory of deletedMemories) {
-      for (const message of memory.messages) {
-        console.log(message.toDict());
-      }
-    }
+     // Search memory
+     const searchText = "Iceland";
+     console.log("Searching memory...", searchText);
 
-    // Search memory
-    const search_payload = new SearchPayload({ meta: {}, text: "Iceland" });
-    const search_results = await client.searchMemoryAsync(
-      session_id,
-      search_payload
-    );
-    for (const search_result of search_results) {
-      const message_content = search_result.message?.content;
-      console.log(message_content);
-    }
-  } catch (error) {
+     const search_payload = new SearchPayload({ meta: {}, text: searchText });
+     const search_results = await client.searchMemoryAsync(
+        session_id,
+        search_payload
+     );
+     for (const search_result of search_results) {
+        const message_content = search_result.message?.content;
+        console.log("Search Result: ", message_content);
+     }
+
+     // Delete memory
+     const deleteResult = await client.deleteMemoryAsync(session_id);
+     console.log(deleteResult);
+
+    } catch (error) {
     if (error instanceof ZepClientError) {
       console.error("ZepClientError:", error.message);
     } else if (error instanceof UnexpectedResponseError) {
