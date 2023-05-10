@@ -28,3 +28,18 @@ export class UnexpectedResponseError extends ZepClientError {
       super(message);
    }
 }
+
+
+/**
+ * Custom error class for not found errors in the ZepClient.
+ */
+export class NotFoundError extends ZepClientError {
+   
+   /**
+    * Constructs a new NotFoundError instance.
+    * @param {string} message - The error message.
+    */
+   constructor(message: string) {
+      super(message);
+   }
+}
