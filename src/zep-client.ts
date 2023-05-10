@@ -39,15 +39,10 @@ export class ZepClient {
          const response: AxiosResponse = await axios.get(url, { params });
          const response_data = response.data;
 
-         if (response.status === 404) {
-            throw new NotFoundError(
-               `Session with ID ${session_id} not found`
-            );
-         }
 
          if (response.status !== 200) {
             throw new UnexpectedResponseError(
-               `Unexpected status code: ${response.status}`
+               `Unexpected Status Code @getMemoryAsync: ${response.status}`
             );
          }
 
@@ -69,8 +64,13 @@ export class ZepClient {
          }
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
-            throw new UnexpectedResponseError(
-               `Unexpected status code: ${error.response.status}`
+            if (error.response.status === 404 || error.response.status === 500) {
+               throw new NotFoundError(
+                  `Session with ID ${session_id} not found`
+               );
+            }
+            else throw new UnexpectedResponseError(
+               `Unexpected Error: ${error.response.status}`
             );
          }
          throw error;
