@@ -3,7 +3,7 @@ import axios from "axios";
 import { Memory, Message } from "./models";
 
 import { SearchPayload, SearchResult } from "./models";
-import { ZepClientError, UnexpectedResponseError } from "./exceptions";
+import { ZepClientError, UnexpectedResponseError, NotFoundError } from "./exceptions";
 
 const API_BASEURL = "/api/v1";
 const axiosInstance = axios.create();
@@ -38,6 +38,12 @@ export class ZepClient {
       try {
          const response: AxiosResponse = await axios.get(url, { params });
          const response_data = response.data;
+
+         if (response.status === 404) {
+            throw new NotFoundError(
+               `Session with ID ${session_id} not found`
+            );
+         }
 
          if (response.status !== 200) {
             throw new UnexpectedResponseError(
@@ -108,6 +114,10 @@ export class ZepClient {
 
       try {
          const response: AxiosResponse = await axios.delete(url);
+         if (response.status == 404) {
+            throw new NotFoundError("No session found for session_id: " + session_id);
+         }
+
          if (response.status !== 200) {
             throw new UnexpectedResponseError(
                `Unexpected status code: ${response.status}`
