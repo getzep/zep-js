@@ -6,7 +6,7 @@
    "module": "dist/index.esm.js",
    "types": "dist/index.d.ts",
    "scripts": {
-      "build": "tsc && tsc --module ESNext --outDir dist/esm",
+      "build": "eslint src/* && tsc && tsc --module ESNext --outDir dist/esm",
       "start": "node dist/index.js",
       "dev": "ts-node src/main.ts",
       "clean": "rm -rf dist/*",
@@ -26,14 +26,24 @@
    "license": "Apache 2.0",
    "dependencies": {
       "axios": "^1.4.0",
-      "jaguarjs-jsdoc": "^1.1.0",
+      "jaguarjs-jsdoc": "^1.0.2",
       "minami": "^1.2.3",
       "typescript": "^4.4.4"
    },
    "devDependencies": {
       "@types/node": "^16.9.1",
+      "@typescript-eslint/eslint-plugin": "^5.59.5",
+      "@typescript-eslint/parser": "^5.59.5",
+      "eslint": "^8.40.0",
+      "eslint-config-airbnb": "^19.0.4",
+      "eslint-config-prettier": "^8.8.0",
+      "eslint-plugin-import": "^2.27.5",
+      "eslint-plugin-jsx-a11y": "^6.7.1",
+      "eslint-plugin-prettier": "^4.2.1",
+      "eslint-plugin-react": "^7.32.2",
+      "eslint-plugin-react-hooks": "^4.6.0",
       "jsdoc": "^4.0.2",
-      "taffydb": "^2.7.3",
+      "prettier": "^2.8.8",
       "ts-node": "^10.2.1",
       "typedoc": "^0.24.7"
    },

@@ -14,9 +14,13 @@ export interface MessageData {
  */
 export class Message {
    uuid?: string;
+
    created_at?: string;
+
    role: string;
+
    content: string;
+
    token_count?: number;
 
    /**
@@ -33,7 +37,7 @@ export class Message {
 
    /**
     * Converts the Message instance to a dictionary.
-    * @returns {MessageData} A dictionary representation of the Message instance.
+    * @returns {MessageData} A dictionary representation of Message instance.
     */
    toDict(): MessageData {
       return {
@@ -51,9 +55,13 @@ export class Message {
  */
 export interface SummaryData {
    uuid: string;
+
    created_at: string;
+
    content: string;
+
    recent_message_uuid: string;
+
    token_count: number;
 }
 
@@ -62,9 +70,13 @@ export interface SummaryData {
  */
 export class Summary {
    uuid: string;
+
    created_at: string;
+
    content: string;
+
    recent_message_uuid: string;
+
    token_count: number;
 
    /**
@@ -81,7 +93,7 @@ export class Summary {
 
    /**
     * Converts the Summary instance to a dictionary.
-    * @returns {SummaryData} A dictionary representation of the Summary instance.
+    * @returns {SummaryData} A dictionary representation of Summary instance.
     */
    toDict(): SummaryData {
       return {
@@ -99,10 +111,15 @@ export class Summary {
  */
 export interface MemoryData {
    messages?: MessageData[];
+
    metadata?: Record<string, any>;
+
    summary?: SummaryData;
+
    uuid?: string;
+
    created_at?: string;
+
    token_count?: number;
 }
 
@@ -111,10 +128,15 @@ export interface MemoryData {
  */
 export class Memory {
    messages: Message[];
+
    metadata: Record<string, any>;
+
    summary?: Summary;
+
    uuid?: string;
+
    created_at?: string;
+
    token_count?: number;
 
    /**
@@ -149,7 +171,7 @@ export class Memory {
 }
 
 /**
- * SearchPayloadData interface for providing input to create a SearchPayload instance.
+ * SearchPayloadData interface for providing input to create SearchPayload.
  */
 export interface SearchPayloadData {
    meta: Record<string, any>;
@@ -161,11 +183,12 @@ export interface SearchPayloadData {
  */
 export class SearchPayload {
    meta: Record<string, any>;
+
    text: string;
 
    /**
     * Constructs a new SearchPayload instance.
-    * @param {SearchPayloadData} data - The data to create a search payload instance.
+    * @param {SearchPayloadData} data - The data to create a Search Payload.
     */
    constructor(data: SearchPayloadData) {
       this.meta = data.meta;
@@ -174,13 +197,17 @@ export class SearchPayload {
 }
 
 /**
- * SearchResultData interface for providing input to create a SearchResult instance.
+ * SearchResultData interface for providing input to create a SearchResult.
  */
 export interface SearchResultData {
    message?: MessageData;
+
    meta?: Record<string, any>;
+
    score?: number;
+
    summary?: string;
+
    dist?: number;
 }
 
@@ -189,9 +216,13 @@ export interface SearchResultData {
  */
 export class SearchResult {
    message?: Message;
+
    meta: Record<string, any>;
+
    score?: number;
+
    summary?: string;
+
    dist?: number;
 
    /**
@@ -212,6 +243,7 @@ export class SearchResult {
  */
 export class APIError {
    code: number;
+
    message: string;
 
    /**

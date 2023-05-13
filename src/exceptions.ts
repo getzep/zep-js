@@ -1,45 +1,28 @@
+/* eslint-disable max-classes-per-file */
+
 /**
  * Custom error class for ZepClient errors.
  */
 export class ZepClientError extends Error {
-   response_data?: any;
+   responseData?: any;
 
    /**
     * Constructs a new ZepClientError instance.
     * @param {string} message - The error message.
-    * @param {any} [response_data] - Optional response data associated with the error.
+    * @param {any} [responseData] - Optional response associated with the error.
     */
-   constructor(message: string, response_data?: any) {
+   constructor(message: string, responseData?: any) {
       super(message);
-      this.response_data = response_data;
+      this.responseData = responseData;
    }
 }
 
 /**
  * Custom error class for unexpected API response errors in the ZepClient.
  */
-export class UnexpectedResponseError extends ZepClientError {
-   
-   /**
-    * Constructs a new UnexpectedResponseError instance.
-    * @param {string} message - The error message.
-    */
-   constructor(message: string) {
-      super(message);
-   }
-}
-
+export class UnexpectedResponseError extends ZepClientError {}
 
 /**
  * Custom error class for not found errors in the ZepClient.
  */
-export class NotFoundError extends ZepClientError {
-   
-   /**
-    * Constructs a new NotFoundError instance.
-    * @param {string} message - The error message.
-    */
-   constructor(message: string) {
-      super(message);
-   }
-}
+export class NotFoundError extends ZepClientError {}

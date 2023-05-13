@@ -1,4 +1,4 @@
-export * from "./zep-client";
+export { default as ZepClient } from "./zep-client";
 export * from "./models";
 export * from "./exceptions";
 

@@ -1,9 +1,6 @@
-import { AxiosResponse, AxiosError } from "axios";
-import axios from "axios";
-import { Memory, Message } from "./models";
-
-import { SearchPayload, SearchResult } from "./models";
-import { ZepClientError, UnexpectedResponseError, NotFoundError } from "./exceptions";
+import axios, { AxiosResponse, AxiosError } from "axios";
+import { Memory, Message, SearchPayload, SearchResult } from "./models";
+import { UnexpectedResponseError, NotFoundError } from "./exceptions";
 
 const API_BASEURL = "/api/v1";
 const axiosInstance = axios.create();
@@ -11,83 +8,88 @@ const axiosInstance = axios.create();
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
  */
-export class ZepClient {
-   base_url: string;
+export default class ZepClient {
+   baseURL: string;
 
    /**
     * Constructs a new ZepClient instance.
-    * @param {string} base_url - The base URL of the Zep API.
+    * @param {string} baseURL - The base URL of the Zep API.
     */
-   constructor(base_url: string) {
-      this.base_url = base_url;
+   constructor(baseURL: string) {
+      this.baseURL = baseURL;
    }
 
    /**
     * Retrieves memory for a specific session.
-    * @param {string} session_id - The ID of the session to retrieve memory for.
+    * @param {string} sessionID - The ID of the session to retrieve memory for.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
-    * @returns {Promise<Array<Memory>>} A promise that resolves to an array of memories.
+    * @returns {Promise<Array<Memory>>} - A promise that resolves to an array of memories.
     */
    async getMemoryAsync(
-      session_id: string,
+      sessionID: string,
       lastn?: number
    ): Promise<Array<Memory>> {
-      const url = `${this.base_url}${API_BASEURL}/sessions/${session_id}/memory`;
+      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
       const params = lastn !== undefined ? { lastn } : {};
 
+      let memory: Memory | undefined;
+
       try {
-         const response: AxiosResponse = await axios.get(url, { params });
-         const response_data = response.data;
+         const response: AxiosResponse = await axiosInstance.get(url, {
+            params,
+         });
+         const responseData = response.data;
 
+         switch (response.status) {
+            case 200:
+               // Handle success case
+               if (responseData.messages) {
+                  memory = new Memory({
+                     messages: responseData.messages.map(
+                        (message: any) => new Message(message)
+                     ),
+                     summary: responseData.summary,
+                  });
+                  return [memory];
+               }
+               return []; // Session found, but no messages found in the session
 
-         if (response.status !== 200) {
-            throw new UnexpectedResponseError(
-               `Unexpected Status Code @getMemoryAsync: ${response.status}`
-            );
-         }
+            case 404:
+               // Handle Session not found case
+               throw new NotFoundError(
+                  `Session with ID ${sessionID} not found`
+               );
 
-         if (response_data.messages) {
-            const memory = new Memory({
-               messages: response_data.messages.map(
-                  (message: any) => new Message(message)
-               ),
-               summary: response_data.summary,
-            });
-
-            return [memory];
-         } else if (response_data.messages === null) {
-            return [];
-         } else {
-            throw new UnexpectedResponseError(
-               "Unexpected response format from the API"
-            );
-         }
+            // Add more cases as needed
+            default:
+               throw new UnexpectedResponseError(
+                  `Unexpected Status Code @getMemoryAsync: ${response.status}`
+               );
+         } // end switch
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
-            if (error.response.status === 404 || error.response.status === 500) {
-               throw new NotFoundError(
-                  `Session with ID ${session_id} not found`
-               );
-            }
-            else throw new UnexpectedResponseError(
-               `Unexpected Error: ${error.response.status}`
+            throw new UnexpectedResponseError(
+               `Unexpected status code: ${error.response.status}`
             );
          }
          throw error;
       }
-   }
+   } // end getMemoryAsync
 
    /**
     * Adds a new memory to a specific session.
-    * @param {string} session_id - The ID of the session to add the memory to.
+    * @param {string} sessionID - The ID of the session to add the memory to.
     * @param {Memory} memory - The memory object to add to the session.
     * @returns {Promise<Memory>} A promise that resolves to the added memory.
     */
-   async addMemoryAsync(session_id: string, memory: Memory): Promise<string> {
-      const url = `${this.base_url}${API_BASEURL}/sessions/${session_id}/memory`;
+   async addMemoryAsync(sessionID: string, memory: Memory): Promise<string> {
+      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
       try {
-         const response: AxiosResponse = await axios.post(url, memory.toDict());
+         const response: AxiosResponse = await axiosInstance.post(
+            url,
+            memory.toDict()
+         );
          if (response.status !== 200) {
             throw new UnexpectedResponseError(
                `Unexpected status code: ${response.status}`
@@ -106,24 +108,27 @@ export class ZepClient {
 
    /**
     * Deletes the memory of a specific session.
-    * @param {string} session_id - The ID of the session for which the memory should be deleted.
-    * @returns {Promise<string>} A promise that resolves to a message indicating the memory has been deleted.
+    * @param {string} sessionID - The ID of the session for which the memory
+    *                             should be deleted.
+    * @returns {Promise<string>} - Promise message indicating the memory has
+    *                              been deleted.
     */
-   async deleteMemoryAsync(session_id: string): Promise<string> {
-      const url = `${this.base_url}${API_BASEURL}/sessions/${session_id}/memory`;
+   async deleteMemoryAsync(sessionID: string): Promise<string> {
+      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
       try {
-         const response: AxiosResponse = await axios.delete(url);
-         if (response.status == 404) {
-            throw new NotFoundError("No session found for session_id: " + session_id);
+         const response: AxiosResponse = await axiosInstance.delete(url);
+         switch (response.status) {
+            case 404:
+               throw new NotFoundError(`No session found for sessionID: 
+                     ${sessionID}`);
+            case 200:
+               return response.data;
+            default:
+               throw new UnexpectedResponseError(
+                  `Unexpected status code: ${response.status}`
+               );
          }
-
-         if (response.status !== 200) {
-            throw new UnexpectedResponseError(
-               `Unexpected status code: ${response.status}`
-            );
-         }
-         return response.data;
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
             throw new UnexpectedResponseError(
@@ -135,32 +140,41 @@ export class ZepClient {
    }
 
    /**
-    * Searches the memory of a specific session based on the search payload provided.
-    * @param {string} session_id - The ID of the session for which the memory should be searched.
-    * @param {SearchPayload} search_payload - The search payload containing the search criteria.
+    * Searches memory of a specific session based on search payload provided.
+    * @param {string} sessionID - ID of the session for which the memory should be searched.
+    * @param {SearchPayload} searchPayload - The search payload containing the search criteria.
     * @param {number} [limit] - Optional limit on the number of search results returned.
-    * @returns {Promise<Array<SearchResult>>} A promise that resolves to an array of search results.
+    * @returns {Promise<Array<SearchResult>>} - Promise that resolves to array of search results.
     */
    async searchMemoryAsync(
-      session_id: string,
-      search_payload: SearchPayload,
+      sessionID: string,
+      searchPayload: SearchPayload,
       limit?: number
    ): Promise<Array<SearchResult>> {
-      const url = `${this.base_url}${API_BASEURL}/sessions/${session_id}/search`;
+      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/search`;
       const params = limit !== undefined ? { limit } : {};
 
       try {
-         const response: AxiosResponse = await axios.post(url, search_payload, {
-            params,
-         });
-         if (response.status !== 200) {
-            throw new UnexpectedResponseError(
-               `Unexpected status code: ${response.status}`
-            );
-         }
-         return response.data.map(
-            (searchResult: any) => new SearchResult(searchResult)
+         const response: AxiosResponse = await axiosInstance.post(
+            url,
+            searchPayload,
+            {
+               params,
+            }
          );
+         switch (response.status) {
+            case 200:
+               return response.data.map(
+                  (searchResult: any) => new SearchResult(searchResult)
+               );
+            case 404:
+               throw new NotFoundError(`No session found for sessionID: 
+               sessionID`);
+            default:
+               throw new UnexpectedResponseError(
+                  `Unexpected status code: ${response.status}`
+               );
+         }
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
             throw new UnexpectedResponseError(
