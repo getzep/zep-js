@@ -1,6 +1,6 @@
 {
    "name": "zep-js",
-   "version": "0.1.0",
+   "version": "0.1.1",
    "description": "Zep JS Client",
    "main": "dist/index.js",
    "module": "dist/index.esm.js",
