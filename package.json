@@ -26,8 +26,6 @@
    "license": "Apache 2.0",
    "dependencies": {
       "axios": "^1.4.0",
-      "jaguarjs-jsdoc": "^1.0.2",
-      "minami": "^1.2.3",
       "typescript": "^4.4.4"
    },
    "devDependencies": {
