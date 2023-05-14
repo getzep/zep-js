@@ -19,11 +19,6 @@
   },
   "rules": {
      "jsx-a11y/href-no-hash": ["off"],
-     "react/jsx-props-no-spreading": ["off"],
-     "react/jsx-filename-extension": [
-        "warn",
-        { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
-     ],
      "no-console": [
         "error",
         {
@@ -37,7 +32,6 @@
      "@typescript-eslint/no-unused-vars": "error",
      "no-useless-constructor": "off",
      "@typescript-eslint/no-useless-constructor": "error",
-     "react/prop-types": 0,
      "import/extensions": [
         "error",
         "ignorePackages",
