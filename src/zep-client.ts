@@ -3,7 +3,6 @@ import { Memory, Message, SearchPayload, SearchResult } from "./models";
 import { UnexpectedResponseError, NotFoundError } from "./exceptions";
 
 const API_BASEURL = "/api/v1";
-const axiosInstance = axios.create();
 
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
@@ -15,8 +14,11 @@ export default class ZepClient {
     * Constructs a new ZepClient instance.
     * @param {string} baseURL - The base URL of the Zep API.
     */
-   constructor(baseURL: string) {
+   axiosInstance: any;
+
+   constructor(baseURL: string, axiosInstance?: any) {
       this.baseURL = baseURL;
+      this.axiosInstance = axiosInstance || axios.create();
    }
 
    /**
@@ -35,7 +37,7 @@ export default class ZepClient {
       let memory: Memory | undefined;
 
       try {
-         const response: AxiosResponse = await axiosInstance.get(url, {
+         const response: AxiosResponse = await this.axiosInstance.get(url, {
             params,
          });
          const responseData = response.data;
@@ -92,7 +94,7 @@ export default class ZepClient {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
       try {
-         const response: AxiosResponse = await axiosInstance.post(
+         const response: AxiosResponse = await this.axiosInstance.post(
             url,
             memory.toDict()
          );
@@ -123,7 +125,7 @@ export default class ZepClient {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
       try {
-         const response: AxiosResponse = await axiosInstance.delete(url);
+         const response: AxiosResponse = await this.axiosInstance.delete(url);
          switch (response.status) {
             case 404:
                throw new NotFoundError(`No session found for sessionID: 
@@ -161,7 +163,7 @@ export default class ZepClient {
       const params = limit !== undefined ? { limit } : {};
 
       try {
-         const response: AxiosResponse = await axiosInstance.post(
+         const response: AxiosResponse = await this.axiosInstance.post(
             url,
             searchPayload,
             {
