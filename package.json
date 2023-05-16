@@ -1,7 +1,7 @@
 {
    "show-config": "tsc --showConfig",
    "name": "zep-js",
-   "version": "0.2.3",
+   "version": "0.2.4",
    "description": "Zep JS Client",
    "main": "dist/index.js",
    "module": "dist/index.esm.js",
