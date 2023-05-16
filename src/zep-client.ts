@@ -68,8 +68,14 @@ export default class ZepClient {
          } // end switch
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
+            // Handle AxiosError case
+            if (error.response.status === 404) {
+               throw new NotFoundError(
+                  `Session with ID ${sessionID} not found`
+               );
+            }
             throw new UnexpectedResponseError(
-               `Unexpected status code: ${error.response.status}`
+               `getMemoryAsync got an Unexpected status code: ${error.response.status}`
             );
          }
          throw error;
@@ -92,14 +98,14 @@ export default class ZepClient {
          );
          if (response.status !== 200) {
             throw new UnexpectedResponseError(
-               `Unexpected status code: ${response.status}`
+               `addMemoryAsync got an Unexpected status code: ${response.status}`
             );
          }
          return response.data;
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
             throw new UnexpectedResponseError(
-               `Unexpected status code: ${error.response.status}`
+               `addMemoryAsync got an Unexpected status code: ${error.response.status}`
             );
          }
          throw error;
@@ -126,13 +132,13 @@ export default class ZepClient {
                return response.data;
             default:
                throw new UnexpectedResponseError(
-                  `Unexpected status code: ${response.status}`
+                  `deleteMemoryAsync got an Unexpected status code: ${response.status}`
                );
          }
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
             throw new UnexpectedResponseError(
-               `Unexpected status code: ${error.response.status}`
+               `deleteMemoryAsync got an Unexpected status code: ${error.response.status}`
             );
          }
          throw error;
@@ -172,13 +178,13 @@ export default class ZepClient {
                sessionID`);
             default:
                throw new UnexpectedResponseError(
-                  `Unexpected status code: ${response.status}`
+                  `searchMemoryAsync got an Unexpected status code: ${response.status}`
                );
          }
       } catch (error) {
          if (error instanceof AxiosError && error.response) {
             throw new UnexpectedResponseError(
-               `Unexpected status code: ${error.response.status}`
+               `searchMemoryAsync got an Unexpected status code: ${error.response.status}`
             );
          }
          throw error;
