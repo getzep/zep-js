@@ -15,16 +15,14 @@
 
       // Get memory
       try {
-         const newMemories = await client.getMemoryAsync(sessionID);
+         const newMemories = await client.getMemory(sessionID);
          console.debug("Getting memory for session ", sessionID);
 
-         if (newMemories.length === 0) {
+         if (!newMemories) {
             console.debug("No memory found for session ", sessionID);
          } else {
-            newMemories.forEach((memory) => {
-               memory.messages.forEach((message) => {
-                  console.debug(message.toDict());
-               });
+               newMemories.messages.forEach((message) => {
+               console.debug(JSON.stringify(message));
             });
          }
       } catch (error) {
@@ -105,7 +103,7 @@
          );
          const memory = new Memory({ messages });
 
-         await client.addMemoryAsync(sessionID, memory);
+         await client.addMemory(sessionID, memory);
          console.debug("Adding new memory for session ", sessionID);
       } catch (error) {
          console.debug("Got error:", error);
@@ -117,12 +115,12 @@
             "Getting memory for newly added memory with sessionid ",
             sessionID
          );
-         const newMemories = await client.getMemoryAsync(sessionID);
-         newMemories.forEach((memory) => {
+         const memory = await client.getMemory(sessionID);
+         if (memory) {
             memory.messages.forEach((message) => {
                console.debug(message.toDict());
             });
-         });
+         }
       } catch (error) {
          if (error instanceof NotFoundError) {
             console.error("Session not found:", error.message);
@@ -137,7 +135,7 @@
          console.debug("Searching memory...", searchText);
 
          const searchPayload = new SearchPayload({ meta: {}, text: searchText });
-         const searchResults = await client.searchMemoryAsync(
+         const searchResults = await client.searchMemory(
             sessionID,
             searchPayload
          );
@@ -156,7 +154,7 @@
 
       // Delete memory
       try {
-         const deleteResult = await client.deleteMemoryAsync(sessionID);
+         const deleteResult = await client.deleteMemory(sessionID);
          console.debug(deleteResult);
       } catch (error) {
          if (error instanceof NotFoundError) {

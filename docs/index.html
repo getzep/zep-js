@@ -31,6 +31,7 @@
 </ul>
 </li>
 </ul>
+<hr>
 <a id="md:addmemoryasync" class="tsd-anchor"></a><h3><a href="#md:addmemoryasync">addMemoryAsync</a></h3><ul>
 <li><code>addMemoryAsync(session_id: string, memory: Memory)</code>: Adds a new memory to a specific session.<ul>
 <li><code>session_id</code>: The ID of the session to add the memory to.</li>
@@ -39,6 +40,7 @@
 </ul>
 </li>
 </ul>
+<hr>
 <a id="md:deletememoryasync" class="tsd-anchor"></a><h3><a href="#md:deletememoryasync">deleteMemoryAsync</a></h3><ul>
 <li><code>deleteMemoryAsync(session_id: string)</code>: Deletes the memory of a specific session.<ul>
 <li><code>session_id</code>: The ID of the session for which the memory should be deleted.</li>
@@ -46,6 +48,7 @@
 </ul>
 </li>
 </ul>
+<hr>
 <a id="md:searchmemoryasync" class="tsd-anchor"></a><h3><a href="#md:searchmemoryasync">searchMemoryAsync</a></h3><ul>
 <li><code>searchMemoryAsync(session_id: string, search_payload: SearchPayload, limit?: number)</code>: Searches the memory of a specific session based on the search payload provided.<ul>
 <li><code>session_id</code>: The ID of the session for which the memory should be searched.</li>
@@ -55,17 +58,20 @@
 </ul>
 </li>
 </ul>
-<a id="md:messagedata" class="tsd-anchor"></a><h3><a href="#md:messagedata">MessageData</a></h3><ul>
+<hr>
+<a id="md:models" class="tsd-anchor"></a><h2><a href="#md:models">Models</a></h2><a id="md:messagedata" class="tsd-anchor"></a><h3><a href="#md:messagedata">MessageData</a></h3><ul>
 <li><code>uuid</code>: Optional string for the unique identifier of the message.</li>
 <li><code>created_at</code>: Optional string for the creation timestamp of the message.</li>
 <li><code>role</code>: String for the role of the message sender.</li>
 <li><code>content</code>: String for the content of the message.</li>
 <li><code>token_count</code>: Optional number for the token count of the message.</li>
 </ul>
+<hr>
 <a id="md:message" class="tsd-anchor"></a><h3><a href="#md:message">Message</a></h3><ul>
 <li><code>constructor(data: MessageData)</code>: Constructs a new Message instance.</li>
 <li><code>toDict(): MessageData</code>: Converts the Message instance to a dictionary.</li>
 </ul>
+<hr>
 <a id="md:summarydata" class="tsd-anchor"></a><h3><a href="#md:summarydata">SummaryData</a></h3><ul>
 <li><code>uuid</code>: String for the unique identifier of the summary.</li>
 <li><code>created_at</code>: String for the creation timestamp of the summary.</li>
@@ -73,10 +79,12 @@
 <li><code>recent_message_uuid</code>: String for the unique identifier of the most recent message related to the summary.</li>
 <li><code>token_count</code>: Number for the token count of the summary.</li>
 </ul>
+<hr>
 <a id="md:summary" class="tsd-anchor"></a><h3><a href="#md:summary">Summary</a></h3><ul>
 <li><code>constructor(data: SummaryData)</code>: Constructs a new Summary instance.</li>
 <li><code>toDict(): SummaryData</code>: Converts the Summary instance to a dictionary.</li>
 </ul>
+<hr>
 <a id="md:memorydata" class="tsd-anchor"></a><h3><a href="#md:memorydata">MemoryData</a></h3><ul>
 <li><code>messages</code>: Optional array of MessageData for the messages in the memory.</li>
 <li><code>metadata</code>: Optional object for metadata associated with the memory.</li>
@@ -85,17 +93,21 @@
 <li><code>created_at</code>: Optional string for the creation timestamp of the memory.</li>
 <li><code>token_count</code>: Optional number for the token count of the memory.</li>
 </ul>
+<hr>
 <a id="md:memory" class="tsd-anchor"></a><h3><a href="#md:memory">Memory</a></h3><ul>
 <li><code>constructor(data: MemoryData)</code>: Constructs a new Memory instance.</li>
 <li><code>toDict(): MemoryData</code>: Converts the Memory instance to a dictionary.</li>
 </ul>
+<hr>
 <a id="md:searchpayloaddata" class="tsd-anchor"></a><h3><a href="#md:searchpayloaddata">SearchPayloadData</a></h3><ul>
 <li><code>meta</code>: Object for the metadata of the search payload.</li>
 <li><code>text</code>: String for the text to be searched.</li>
 </ul>
+<hr>
 <a id="md:searchpayload" class="tsd-anchor"></a><h3><a href="#md:searchpayload">SearchPayload</a></h3><ul>
 <li><code>constructor(data: SearchPayloadData)</code>: Constructs a new SearchPayload instance.</li>
 </ul>
+<hr>
 <a id="md:searchresultdata" class="tsd-anchor"></a><h3><a href="#md:searchresultdata">SearchResultData</a></h3><ul>
 <li><code>message</code>: Optional MessageData for the message in the search result.</li>
 <li><code>meta</code>: Optional object for metadata associated with the search result.</li>
@@ -103,18 +115,30 @@
 <li><code>summary</code>: Optional string for the summary of the search result.</li>
 <li><code>dist</code>: Optional number for the distance of the search result.</li>
 </ul>
+<hr>
 <a id="md:searchresult" class="tsd-anchor"></a><h3><a href="#md:searchresult">SearchResult</a></h3><ul>
 <li><code>constructor(data: SearchResultData)</code>: Constructs a new SearchResult instance.</li>
 </ul>
-<a id="md:apierror" class="tsd-anchor"></a><h3><a href="#md:apierror">APIError</a></h3><ul>
+<hr>
+<a id="md:exceptions" class="tsd-anchor"></a><h2><a href="#md:exceptions">Exceptions</a></h2><a id="md:apierror" class="tsd-anchor"></a><h3><a href="#md:apierror">APIError</a></h3><ul>
 <li><code>constructor(code: number, message: string)</code>: Constructs a new APIError instance.</li>
 </ul>
+<hr>
 <a id="md:zepclienterror" class="tsd-anchor"></a><h3><a href="#md:zepclienterror">ZepClientError</a></h3><ul>
+<li>Custom error class for ZepClient errors.</li>
 <li><code>constructor(message: string, response_data?: any)</code>: Constructs a new ZepClientError instance.</li>
 </ul>
+<hr>
 <a id="md:unexpectedresponseerror" class="tsd-anchor"></a><h3><a href="#md:unexpectedresponseerror">UnexpectedResponseError</a></h3><ul>
+<li>Custom error class for unexpected API response errors in the ZepClient.</li>
 <li><code>constructor(message: string)</code>: Constructs a new UnexpectedResponseError instance.</li>
 </ul>
+<hr>
+<a id="md:notfounderror" class="tsd-anchor"></a><h3><a href="#md:notfounderror">NotFoundError</a></h3><ul>
+<li>Custom error class for not found errors in the ZepClient.</li>
+<li><code>Constructor: (message: string)</code>: Constructs a NotFoundError instance</li>
+</ul>
+<hr>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">
@@ -151,7 +175,10 @@
 <li><a href="#md:getmemoryasync"><span>get<wbr/>Memory<wbr/>Async</span></a></li>
 <li><a href="#md:addmemoryasync"><span>add<wbr/>Memory<wbr/>Async</span></a></li>
 <li><a href="#md:deletememoryasync"><span>delete<wbr/>Memory<wbr/>Async</span></a></li>
-<li><a href="#md:searchmemoryasync"><span>search<wbr/>Memory<wbr/>Async</span></a></li>
+<li><a href="#md:searchmemoryasync"><span>search<wbr/>Memory<wbr/>Async</span></a></li></ul></li>
+<li><a href="#md:models"><span>Models</span></a></li>
+<li>
+<ul>
 <li><a href="#md:messagedata"><span>Message<wbr/>Data</span></a></li>
 <li><a href="#md:message"><span>Message</span></a></li>
 <li><a href="#md:summarydata"><span>Summary<wbr/>Data</span></a></li>
@@ -161,10 +188,14 @@
 <li><a href="#md:searchpayloaddata"><span>Search<wbr/>Payload<wbr/>Data</span></a></li>
 <li><a href="#md:searchpayload"><span>Search<wbr/>Payload</span></a></li>
 <li><a href="#md:searchresultdata"><span>Search<wbr/>Result<wbr/>Data</span></a></li>
-<li><a href="#md:searchresult"><span>Search<wbr/>Result</span></a></li>
+<li><a href="#md:searchresult"><span>Search<wbr/>Result</span></a></li></ul></li>
+<li><a href="#md:exceptions"><span>Exceptions</span></a></li>
+<li>
+<ul>
 <li><a href="#md:apierror"><span>APIError</span></a></li>
 <li><a href="#md:zepclienterror"><span>Zep<wbr/>Client<wbr/>Error</span></a></li>
-<li><a href="#md:unexpectedresponseerror"><span>Unexpected<wbr/>Response<wbr/>Error</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
+<li><a href="#md:unexpectedresponseerror"><span>Unexpected<wbr/>Response<wbr/>Error</span></a></li>
+<li><a href="#md:notfounderror"><span>Not<wbr/>Found<wbr/>Error</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4-path"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)" id="icon-4-text"></path></svg><span>zep-<wbr/>js</span></a>
 <ul class="tsd-small-nested-navigation">
@@ -177,7 +208,6 @@
 <li><a href="classes/Summary.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg><span>Summary</span></a></li>
 <li><a href="classes/UnexpectedResponseError.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg><span>Unexpected<wbr/>Response<wbr/>Error</span></a></li>
 <li><a href="classes/ZepClient.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg><span>Zep<wbr/>Client</span></a></li>
-<li><a href="classes/ZepClientError.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg><span>Zep<wbr/>Client<wbr/>Error</span></a></li>
 <li><a href="interfaces/MemoryData.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-256-path"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)" id="icon-256-text"></path></svg><span>Memory<wbr/>Data</span></a></li>
 <li><a href="interfaces/MessageData.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg><span>Message<wbr/>Data</span></a></li>
 <li><a href="interfaces/SearchPayloadData.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg><span>Search<wbr/>Payload<wbr/>Data</span></a></li>
