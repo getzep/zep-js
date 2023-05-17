@@ -161,106 +161,107 @@ describe("ZepClient", () => {
             })
          );
       });
-
-      // Test Suite for addMemory()
-      describe("addMemory", () => {
-         it("should add a memory to a session", async () => {
-            const memoryData = new Memory({
-               messages: [
-                  new Message({ role: "human", content: "Hello again!" }),
-               ],
-               summary: new Summary({
-                  uuid: "",
-                  created_at: "",
-                  content: "Memory summary",
-                  recent_message_uuid: "",
-                  token_count: 0,
-               }),
-               metadata: {},
-            });
-
-            mock
-               .onPost(
-                  "http://localhost:8000/api/v1/sessions/test-session/memory"
-               )
-               .reply(200, memoryData.toDict());
-
-            const memory = await client.addMemory("test-session", memoryData);
-
-            expect(memory).toEqual(memoryData);
+   });
+   
+   // Test Suite for addMemory()
+   describe("addMemory", () => {
+      it("should add a memory to a session", async () => {
+         const memoryData = new Memory({
+            messages: [
+               new Message({ role: "human", content: "Hello again!" }),
+            ],
+            summary: new Summary({
+               uuid: "",
+               created_at: "",
+               content: "Memory summary",
+               recent_message_uuid: "",
+               token_count: 0,
+            }),
+            metadata: {},
          });
 
-         // Test for throwing Error if the error response
-         it("should throw UnexpectedResponseError if !200 OK", async () => {
-            const memoryData = new Memory({
-               messages: [
-                  new Message({ role: "system", content: "System message" }),
-               ],
-               summary: new Summary({
-                  uuid: "summary_uuid",
-                  created_at: "2023-01-01T00:00:00Z",
-                  content: "Memory summary",
-                  recent_message_uuid: "recent_message_uuid",
-                  token_count: 0,
-               }),
-               metadata: {},
-            });
+         mock
+            .onPost(
+               "http://localhost:8000/api/v1/sessions/test-session/memory"
+            )
+            .reply(200, memoryData.toDict());
 
-            // Mock a status code that is unexpected (500 in this case)
-            mock
-               .onPost(
-                  "http://localhost:8000/api/v1/sessions/test-session/memory"
-               )
-               .reply(500);
+         const memory = await client.addMemory("test-session", memoryData);
 
-            await expect(
-               client.addMemory("test-session", memoryData)
-            ).rejects.toThrow(UnexpectedResponseError);
-         });
-         // Add more test cases...
+         expect(memory).toEqual(memoryData);
       });
 
-      // Test Suite for deleteMemory()
-      describe("deleteMemory", () => {
-         // Test for deleting memory for a session
-         it("should delete memory for a session", async () => {
-            const message = "Memory deleted";
-
-            mock
-               .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
-               .reply(200, message);
-
-            const response = await client.deleteMemory("test-session");
-
-            expect(response).toEqual(message);
+      // Test for throwing Error if the error response
+      it("should throw UnexpectedResponseError if !200 OK", async () => {
+         const memoryData = new Memory({
+            messages: [
+               new Message({ role: "system", content: "System message" }),
+            ],
+            summary: new Summary({
+               uuid: "summary_uuid",
+               created_at: "2023-01-01T00:00:00Z",
+               content: "Memory summary",
+               recent_message_uuid: "recent_message_uuid",
+               token_count: 0,
+            }),
+            metadata: {},
          });
 
-         // Test for throwing NotFoundError if the session is not found
-         it("should throw NotFoundError if the session is not found", async () => {
-            mock
-               .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
-               .reply(404);
+         // Mock a status code that is unexpected (500 in this case)
+         mock
+            .onPost(
+               "http://localhost:8000/api/v1/sessions/test-session/memory"
+            )
+            .reply(500);
 
-            await expect(client.deleteMemory("test-session")).rejects.toThrow(
-               NotFoundError
-            );
-         });
+         await expect(
+            client.addMemory("test-session", memoryData)
+         ).rejects.toThrow(UnexpectedResponseError);
+      });
+      // Add more test cases...
+   });
 
-         // Test for throwing UnexpectedResponseError when unexpected status code is returned
-         it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
-            mock
-               .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
-               .reply(500);
+   // Test Suite for deleteMemory()
+   describe("deleteMemory", () => {
+      // Test for deleting memory for a session
+      it("should delete memory for a session", async () => {
+         const message = "Memory deleted";
 
-            await expect(client.deleteMemory("test-session")).rejects.toThrow(
-               UnexpectedResponseError
-            );
-         });
+         mock
+            .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .reply(200, message);
+
+         const response = await client.deleteMemory("test-session");
+
+         expect(response).toEqual(message);
       });
 
-      // Test Suite for searchMemory()
-      describe("searchMemory", () => {
-         // Test for searching memory for a session
+      // Test for throwing NotFoundError if the session is not found
+      it("should throw NotFoundError if the session is not found", async () => {
+         mock
+            .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .reply(404);
+
+         await expect(client.deleteMemory("test-session")).rejects.toThrow(
+            NotFoundError
+         );
+      });
+
+      // Test for throwing UnexpectedResponseError when unexpected status code is returned
+      it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
+         mock
+            .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .reply(500);
+
+         await expect(client.deleteMemory("test-session")).rejects.toThrow(
+            UnexpectedResponseError
+         );
+      });
+   });
+
+   // Test Suite for searchMemory()
+   describe("searchMemory", () => {
+      // Test for searching memory for a session
       it("should search memory for a session", async () => {
          const searchPayload = {
             meta: {},
@@ -294,46 +295,44 @@ describe("ZepClient", () => {
          expect(searchResults).toEqual(responseData);
       });
 
+      // Test for throwing NotFoundError if the session is not found
+      it("should throw NotFoundError if the session is not found", async () => {
+         const searchPayload = {
+            query: "system",
+            meta: { metadata_key: "metadata_value" },  // Replace with actual meta
+            text: "search text"  // Replace with actual text
+         };
 
-         // Test for throwing NotFoundError if the session is not found
-         it("should throw NotFoundError if the session is not found", async () => {
-            const searchPayload = {
-               query: "system",
-               meta: { metadata_key: "metadata_value" },  // Replace with actual meta
-               text: "search text"  // Replace with actual text
-            };
+         mock
+            .onPost(
+               "http://localhost:8000/api/v1/sessions/test-session/search",
+               searchPayload
+            )
+            .reply(404);
 
-            mock
-               .onPost(
-                  "http://localhost:8000/api/v1/sessions/test-session/search",
-                  searchPayload
-               )
-               .reply(404);
-
-            await expect(
-               client.searchMemory("test-session", searchPayload)
-            ).rejects.toThrow(NotFoundError);
-         });
-
-         // Test for throwing UnexpectedResponseError when unexpected status code is returned
-         it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
-            const searchPayload = {
-               query: "system",
-               meta: { metadata_key: "metadata_value" },  // Replace with actual meta
-               text: "search text"  // Replace with actual text
-            };
-
-            mock
-               .onPost(
-                  "http://localhost:8000/api/v1/sessions/test-session/search",
-                  searchPayload
-               )
-               .reply(500);
-
-            await expect(
-               client.searchMemory("test-session", searchPayload)
-            ).rejects.toThrow(UnexpectedResponseError);
-         });
+         await expect(
+            client.searchMemory("test-session", searchPayload)
+         ).rejects.toThrow(NotFoundError);
       });
-   });
-});
+
+      // Test for throwing UnexpectedResponseError when unexpected status code is returned
+      it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
+         const searchPayload = {
+            query: "system",
+            meta: { metadata_key: "metadata_value" },  // Replace with actual meta
+            text: "search text"  // Replace with actual text
+         };
+
+         mock
+            .onPost(
+               "http://localhost:8000/api/v1/sessions/test-session/search",
+               searchPayload
+            )
+            .reply(500);
+
+         await expect(
+            client.searchMemory("test-session", searchPayload)
+         ).rejects.toThrow(UnexpectedResponseError);
+      }); // end it
+   });// end describe
+}); // end 
