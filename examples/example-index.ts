@@ -1,10 +1,10 @@
    import {
-      ZepClient,
+      ZepClient,      
       Memory,
       Message,
       SearchPayload,
       NotFoundError,
-   } from "zep-js";
+   } from "@getzep/zep-js";
 
    async function main() {
       const baseURL = "http://localhost:8000"; // Replace with Zep API URL

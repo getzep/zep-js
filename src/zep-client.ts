@@ -7,7 +7,8 @@ const API_BASEURL = "/api/v1";
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
  */
-export default class ZepClient {
+// eslint-disable-next-line import/prefer-default-export
+export class ZepClient {
    baseURL: string;
 
    /**

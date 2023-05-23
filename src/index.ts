@@ -1,4 +1,4 @@
-export { default as ZepClient } from "./zep-client";
+export { ZepClient } from "./zep-client";
 export {
    Memory,
    Message,

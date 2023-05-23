@@ -5,7 +5,7 @@ import {
    Summary,
    NotFoundError,
    UnexpectedResponseError,
-} from "zep-js";
+} from "../";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 

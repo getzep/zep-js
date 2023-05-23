@@ -1,8 +1,9 @@
 {
    "show-config": "tsc --showConfig",
-   "name": "zep-js",
-   "version": "0.2.6",
+   "name": "@getzep/zep-js",
+   "version": "0.2.9",
    "description": "Zep JS Client",
+   "private": false,
    "main": "dist/index.js",
    "module": "dist/index.esm.js",
    "types": "dist/index.d.ts",
@@ -20,11 +21,11 @@
    },
    "repository": {
       "type": "git",
-      "url": "https://github.com/getzep/zep-client.git"
+      "url": "https://github.com/getzep/zep-js/"
    },
    "keywords": [
       "zep",
-      "client"
+      "js"
    ],
    "author": "Sharath Rajasekar <sharathr@gmail.com>",
    "license": "Apache 2.0",
