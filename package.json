@@ -1,7 +1,7 @@
 {
    "show-config": "tsc --showConfig",
    "name": "@getzep/zep-js",
-   "version": "0.2.9",
+   "version": "0.3.0",
    "description": "Zep JS Client",
    "private": false,
    "publishConfig": {

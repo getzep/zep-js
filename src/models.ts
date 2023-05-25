@@ -7,6 +7,7 @@ export interface MessageData {
    role: string;
    content: string;
    token_count?: number;
+   metadata?: Record<string, any>;
 }
 
 /**
@@ -23,6 +24,8 @@ export class Message {
 
    token_count?: number;
 
+   metadata?: Record<string, any>;
+
    /**
     * Constructs a new Message instance.
     * @param {MessageData} data - The data to create a message instance.
@@ -33,6 +36,7 @@ export class Message {
       this.role = data.role;
       this.content = data.content;
       this.token_count = data.token_count;
+      this.metadata = data.metadata;
    }
 
    /**
@@ -46,6 +50,7 @@ export class Message {
          role: this.role,
          content: this.content,
          token_count: this.token_count,
+         metadata: this.metadata,
       };
    }
 }
