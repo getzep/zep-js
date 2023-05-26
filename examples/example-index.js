@@ -37,44 +37,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var zep_js_1 = require("@getzep/zep-js");
+var uuid_1 = require("uuid");
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var baseURL, client, sessionID, newMemories, error_1, history_1, messages, memory, error_2, memory, error_3, searchText, searchPayload, searchResults, error_4, deleteResult, error_5;
+        function sleep(ms) {
+            var date = Date.now();
+            var currentDate = 0;
+            do {
+                currentDate = Date.now();
+            } while (currentDate - date < ms);
+        }
+        var baseURL, client, sessionID, isInitialized, history_1, messages, memory, error_1, memory, error_2, searchText, searchPayload, searchResults, error_3, deleteResult, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     baseURL = "http://localhost:8000";
                     client = new zep_js_1.ZepClient(baseURL);
-                    sessionID = "1a1a1a";
-                    _a.label = 1;
+                    sessionID = (0, uuid_1.v4)();
+                    return [4 /*yield*/, client.init()];
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, client.getMemory(sessionID)];
+                    isInitialized = _a.sent();
+                    if (!isInitialized) {
+                        console.debug("Unable to reach Zep server at ", baseURL);
+                        return [2 /*return*/];
+                    }
+                    _a.label = 2;
                 case 2:
-                    newMemories = _a.sent();
-                    console.debug("Getting memory for session ", sessionID);
-                    if (!newMemories) {
-                        console.debug("No memory found for session ", sessionID);
-                    }
-                    else {
-                        newMemories.messages.forEach(function (message) {
-                            console.debug(JSON.stringify(message));
-                        });
-                    }
-                    return [3 /*break*/, 4];
-                case 3:
-                    error_1 = _a.sent();
-                    // Couldn't find session
-                    if (error_1 instanceof zep_js_1.NotFoundError) {
-                        console.debug("Session not found:", error_1.message);
-                    }
-                    else {
-                        // some other error
-                        console.debug("Got error:", error_1);
-                    }
-                    return [3 /*break*/, 4];
-                case 4:
-                    _a.trys.push([4, 6, , 7]);
+                    _a.trys.push([2, 4, , 5]);
                     history_1 = [
                         { "role": "human",
                             "content": "Who was Octavia Butler?"
@@ -129,27 +118,56 @@ function main() {
                     });
                     memory = new zep_js_1.Memory({ messages: messages });
                     return [4 /*yield*/, client.addMemory(sessionID, memory)];
-                case 5:
+                case 3:
                     _a.sent();
                     console.debug("Adding new memory for session ", sessionID);
-                    return [3 /*break*/, 7];
+                    return [3 /*break*/, 5];
+                case 4:
+                    error_1 = _a.sent();
+                    console.debug("Got error:", error_1);
+                    return [3 /*break*/, 5];
+                case 5:
+                    console.log("Sleeping for 3 seconds...");
+                    sleep(3000); // Sleep for 3 seconds
+                    console.log("Done sleeping!");
+                    _a.label = 6;
                 case 6:
-                    error_2 = _a.sent();
-                    console.debug("Got error:", error_2);
-                    return [3 /*break*/, 7];
-                case 7:
-                    _a.trys.push([7, 9, , 10]);
+                    _a.trys.push([6, 8, , 9]);
                     console.debug("Getting memory for newly added memory with sessionid ", sessionID);
                     return [4 /*yield*/, client.getMemory(sessionID)];
-                case 8:
+                case 7:
                     memory = _a.sent();
                     if (memory) {
                         memory.messages.forEach(function (message) {
+                            console.debug(message.metadata);
                             console.debug(message.toDict());
                         });
                     }
-                    return [3 /*break*/, 10];
+                    return [3 /*break*/, 9];
+                case 8:
+                    error_2 = _a.sent();
+                    if (error_2 instanceof zep_js_1.NotFoundError) {
+                        console.error("Session not found:", error_2.message);
+                    }
+                    else {
+                        console.error("Got error:", error_2);
+                    }
+                    return [3 /*break*/, 9];
                 case 9:
+                    _a.trys.push([9, 11, , 12]);
+                    searchText = "Ursula";
+                    console.debug("Searching memory...", searchText);
+                    searchPayload = new zep_js_1.SearchPayload({ meta: {}, text: searchText });
+                    return [4 /*yield*/, client.searchMemory(sessionID, searchPayload)];
+                case 10:
+                    searchResults = _a.sent();
+                    searchResults.forEach(function (searchResult) {
+                        var _a;
+                        var messageContent = (_a = searchResult.message) === null || _a === void 0 ? void 0 : _a.content;
+                        console.debug("Search Result: ", messageContent);
+                    });
+                    return [3 /*break*/, 12];
+                case 11:
                     error_3 = _a.sent();
                     if (error_3 instanceof zep_js_1.NotFoundError) {
                         console.error("Session not found:", error_3.message);
@@ -157,22 +175,15 @@ function main() {
                     else {
                         console.error("Got error:", error_3);
                     }
-                    return [3 /*break*/, 10];
-                case 10:
-                    _a.trys.push([10, 12, , 13]);
-                    searchText = "Ursula";
-                    console.debug("Searching memory...", searchText);
-                    searchPayload = new zep_js_1.SearchPayload({ meta: {}, text: searchText });
-                    return [4 /*yield*/, client.searchMemory(sessionID, searchPayload)];
-                case 11:
-                    searchResults = _a.sent();
-                    searchResults.forEach(function (searchResult) {
-                        var _a;
-                        var messageContent = (_a = searchResult.message) === null || _a === void 0 ? void 0 : _a.content;
-                        console.debug("Search Result: ", messageContent);
-                    });
-                    return [3 /*break*/, 13];
+                    return [3 /*break*/, 12];
                 case 12:
+                    _a.trys.push([12, 14, , 15]);
+                    return [4 /*yield*/, client.deleteMemory(sessionID)];
+                case 13:
+                    deleteResult = _a.sent();
+                    console.debug(deleteResult);
+                    return [3 /*break*/, 15];
+                case 14:
                     error_4 = _a.sent();
                     if (error_4 instanceof zep_js_1.NotFoundError) {
                         console.error("Session not found:", error_4.message);
@@ -180,24 +191,8 @@ function main() {
                     else {
                         console.error("Got error:", error_4);
                     }
-                    return [3 /*break*/, 13];
-                case 13:
-                    _a.trys.push([13, 15, , 16]);
-                    return [4 /*yield*/, client.deleteMemory(sessionID)];
-                case 14:
-                    deleteResult = _a.sent();
-                    console.debug(deleteResult);
-                    return [3 /*break*/, 16];
-                case 15:
-                    error_5 = _a.sent();
-                    if (error_5 instanceof zep_js_1.NotFoundError) {
-                        console.error("Session not found:", error_5.message);
-                    }
-                    else {
-                        console.error("Got error:", error_5);
-                    }
-                    return [3 /*break*/, 16];
-                case 16: return [2 /*return*/];
+                    return [3 /*break*/, 15];
+                case 15: return [2 /*return*/];
             }
         });
     });

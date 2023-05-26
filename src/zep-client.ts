@@ -23,6 +23,28 @@ export class ZepClient {
    }
 
    /**
+    * Initializes the ZepClient instance by checking if the server is running.
+    * @returns {Promise<boolean>} - A promise that returns true if the server
+    *                              is running, false otherwise.
+    * @throws {Error} - Throws an error if the server is not running.
+    */
+   async init(): Promise<boolean> {
+      try {
+         const healthCheck = "/healthz";
+         const healthCheckURL = `${this.baseURL}${healthCheck}`;
+
+         const response = await this.axiosInstance.get(healthCheckURL);
+         return response.status === 200;
+      } catch (error) {
+         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
+            // The server is not accepting connections.
+            return false;
+         }
+         throw error; // Rethrow other errors.
+      }
+   }
+
+   /**
     * Retrieves memory for a specific session.
     * @param {string} sessionID - The ID of the session to retrieve memory for.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
@@ -42,9 +64,9 @@ export class ZepClient {
                // Handle success case
                if (response.data.messages) {
                   return new Memory({
-                     messages: response.data.messages.map(
-                        (message: any) => new Message(message)
-                     ),
+                     messages: response.data.messages.map((message: any) => {
+                        return new Message(message);
+                     }),
                      summary: response.data.summary,
                   });
                }
@@ -62,6 +84,13 @@ export class ZepClient {
                );
          }
       } catch (error) {
+         // Connection error
+         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
+            throw new UnexpectedResponseError(
+               `Server is down or connection was refused, from Zep at ${this.baseURL}`
+            );
+         }
+
          if (error instanceof AxiosError && error.response) {
             // Handle AxiosError case
             if (error.response.status === 404) {
@@ -73,6 +102,7 @@ export class ZepClient {
                `getMemoryAsync got an Unexpected status code: ${error.response.status}`
             );
          }
+
          throw error;
       }
    }
@@ -98,6 +128,13 @@ export class ZepClient {
          }
          return response.data;
       } catch (error) {
+         // Connection error
+         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
+            throw new UnexpectedResponseError(
+               `Server is down or connection was refused, from Zep at ${this.baseURL}`
+            );
+         }
+
          if (error instanceof AxiosError && error.response) {
             throw new UnexpectedResponseError(
                `addMemoryAsync got an Unexpected status code: ${error.response.status}`
@@ -131,6 +168,13 @@ export class ZepClient {
                );
          }
       } catch (error) {
+         // Connection error
+         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
+            throw new UnexpectedResponseError(
+               `Server is down or connection was refused, from Zep at ${this.baseURL}`
+            );
+         }
+
          if (error instanceof AxiosError && error.response) {
             // Handle AxiosError case
             if (error.response.status === 404) {
@@ -184,6 +228,13 @@ export class ZepClient {
                );
          }
       } catch (error) {
+         // Connection error
+         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
+            throw new UnexpectedResponseError(
+               `Server is down or connection was refused, from Zep at ${this.baseURL}`
+            );
+         }
+
          if (error instanceof AxiosError && error.response) {
             // Handle AxiosError case
             if (error.response.status === 404) {

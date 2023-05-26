@@ -6,33 +6,28 @@
       NotFoundError,
    } from "@getzep/zep-js";
 
+   import { v4 as uuidv4 } from "uuid";
+   
    async function main() {
       const baseURL = "http://localhost:8000"; // Replace with Zep API URL
       const client = new ZepClient(baseURL);
 
       // Example session ID
-      const sessionID = "1a1a1a";
+      let sessionID = uuidv4();
 
-      // Get memory
-      try {
-         const newMemories = await client.getMemory(sessionID);
-         console.debug("Getting memory for session ", sessionID);
+      // Initialize client
+      const isInitialized = await client.init();
+      if (!isInitialized) {
+         console.debug("Unable to reach Zep server at ", baseURL);
+         return;
+      }
 
-         if (!newMemories) {
-            console.debug("No memory found for session ", sessionID);
-         } else {
-               newMemories.messages.forEach((message) => {
-               console.debug(JSON.stringify(message));
-            });
-         }
-      } catch (error) {
-         // Couldn't find session
-         if (error instanceof NotFoundError) {
-            console.debug("Session not found:", error.message);
-         } else {
-            // some other error
-            console.debug("Got error:", error);
-         }
+      function sleep(ms: number) {
+         const date = Date.now();
+         let currentDate = 0;
+         do {
+            currentDate = Date.now();
+         } while (currentDate - date < ms);
       }
 
       // Add memory
@@ -109,6 +104,10 @@
          console.debug("Got error:", error);
       }
 
+      console.log("Sleeping for 3 seconds...");
+      sleep(3000); // Sleep for 3 seconds
+      console.log("Done sleeping!");
+
       // Get newly added memory
       try {
          console.debug(
@@ -118,6 +117,7 @@
          const memory = await client.getMemory(sessionID);
          if (memory) {
             memory.messages.forEach((message) => {
+               console.debug(message.metadata);
                console.debug(message.toDict());
             });
          }
@@ -129,6 +129,7 @@
          }
       }
 
+      
       // Search memory
       try {
          const searchText = "Ursula";
@@ -152,6 +153,7 @@
          }
       }
 
+      
       // Delete memory
       try {
          const deleteResult = await client.deleteMemory(sessionID);
@@ -163,6 +165,7 @@
             console.error("Got error:", error);
          }
       }
+      
    }
 
    main();
