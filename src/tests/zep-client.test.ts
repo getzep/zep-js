@@ -1,13 +1,15 @@
 import {
-   ZepClient,
    Memory,
    Message,
-   Summary,
    NotFoundError,
+   Summary,
    UnexpectedResponseError,
+   ZepClient,
 } from "../";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+
+const BASE_URL = "http://localhost:8000";
 
 describe("ZepClient", () => {
    let axiosInstance: any;
@@ -15,8 +17,8 @@ describe("ZepClient", () => {
    let mock: MockAdapter;
 
    beforeEach(() => {
-      axiosInstance = axios.create({ baseURL: "http://localhost:8000" });
-      client = new ZepClient("http://localhost:8000", axiosInstance);
+      axiosInstance = axios.create({ baseURL: BASE_URL });
+      client = new ZepClient(BASE_URL, axiosInstance);
       mock = new MockAdapter(axiosInstance);
    });
 
@@ -26,7 +28,7 @@ describe("ZepClient", () => {
 
    // Test Suite for getMemory()
    describe("getMemory", () => {
-      // Test for reteriving memory for a session
+      // Test for retrieving memory for a session
       it("should retrieve memory for a session", async () => {
          const responseData = {
             messages: [{ role: "human", content: "Hello" }],
@@ -40,7 +42,7 @@ describe("ZepClient", () => {
          };
 
          mock
-            .onGet("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .onGet(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(200, responseData);
 
          const memory = await client.getMemory("test-session");
@@ -63,7 +65,7 @@ describe("ZepClient", () => {
       // Test for throwing NotFoundError if the session is not found
       it("should throw NotFoundError if the session is not found", async () => {
          mock
-            .onGet("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .onGet(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(404);
 
          await expect(client.getMemory("test-session")).rejects.toThrow(
@@ -85,7 +87,7 @@ describe("ZepClient", () => {
          };
 
          mock
-            .onGet("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .onGet(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(200, responseData);
 
          const memory = await client.getMemory("test-session");
@@ -108,7 +110,7 @@ describe("ZepClient", () => {
       // Test for throwing UnexpectedResponseError when unexpected status code is returned
       it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
          mock
-            .onGet("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .onGet(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(500);
 
          await expect(client.getMemory("test-session")).rejects.toThrow(
@@ -162,14 +164,12 @@ describe("ZepClient", () => {
          );
       });
    });
-   
+
    // Test Suite for addMemory()
    describe("addMemory", () => {
       it("should add a memory to a session", async () => {
          const memoryData = new Memory({
-            messages: [
-               new Message({ role: "human", content: "Hello again!" }),
-            ],
+            messages: [new Message({ role: "human", content: "Hello again!" })],
             summary: new Summary({
                uuid: "",
                created_at: "",
@@ -181,9 +181,7 @@ describe("ZepClient", () => {
          });
 
          mock
-            .onPost(
-               "http://localhost:8000/api/v1/sessions/test-session/memory"
-            )
+            .onPost(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(200, memoryData.toDict());
 
          const memory = await client.addMemory("test-session", memoryData);
@@ -209,9 +207,7 @@ describe("ZepClient", () => {
 
          // Mock a status code that is unexpected (500 in this case)
          mock
-            .onPost(
-               "http://localhost:8000/api/v1/sessions/test-session/memory"
-            )
+            .onPost(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(500);
 
          await expect(
@@ -228,7 +224,7 @@ describe("ZepClient", () => {
          const message = "Memory deleted";
 
          mock
-            .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .onDelete(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(200, message);
 
          const response = await client.deleteMemory("test-session");
@@ -239,7 +235,7 @@ describe("ZepClient", () => {
       // Test for throwing NotFoundError if the session is not found
       it("should throw NotFoundError if the session is not found", async () => {
          mock
-            .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .onDelete(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(404);
 
          await expect(client.deleteMemory("test-session")).rejects.toThrow(
@@ -250,7 +246,7 @@ describe("ZepClient", () => {
       // Test for throwing UnexpectedResponseError when unexpected status code is returned
       it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
          mock
-            .onDelete("http://localhost:8000/api/v1/sessions/test-session/memory")
+            .onDelete(`${BASE_URL}/api/v1/sessions/test-session/memory`)
             .reply(500);
 
          await expect(client.deleteMemory("test-session")).rejects.toThrow(
@@ -264,7 +260,11 @@ describe("ZepClient", () => {
       // Test for searching memory for a session
       it("should search memory for a session", async () => {
          const searchPayload = {
-            meta: {},
+            metadata: {
+               where: {
+                  jsonpath: '$.system.entities[*] ? (@.Label == "WORK_OF_ART")',
+               },
+            },
             text: "system message",
          };
 
@@ -277,14 +277,13 @@ describe("ZepClient", () => {
                   created_at: "2023-01-01T00:00:00Z",
                },
                dist: undefined,
-               score: undefined,
                summary: undefined,
-               meta: {},
+               metadata: {},
             },
          ];
 
          mock
-            .onPost("http://localhost:8000/api/v1/sessions/test-session/search")
+            .onPost(`${BASE_URL}/api/v1/sessions/test-session/search`)
             .reply(200, responseData);
 
          const searchResults = await client.searchMemory(
@@ -299,13 +298,13 @@ describe("ZepClient", () => {
       it("should throw NotFoundError if the session is not found", async () => {
          const searchPayload = {
             query: "system",
-            meta: { metadata_key: "metadata_value" },  // Replace with actual meta
-            text: "search text"  // Replace with actual text
+            metadata: { metadata_key: "metadata_value" }, // Replace with actual meta
+            text: "search text", // Replace with actual text
          };
 
          mock
             .onPost(
-               "http://localhost:8000/api/v1/sessions/test-session/search",
+               `${BASE_URL}/api/v1/sessions/test-session/search`,
                searchPayload
             )
             .reply(404);
@@ -319,13 +318,13 @@ describe("ZepClient", () => {
       it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
          const searchPayload = {
             query: "system",
-            meta: { metadata_key: "metadata_value" },  // Replace with actual meta
-            text: "search text"  // Replace with actual text
+            metadata: { metadata_key: "metadata_value" }, // Replace with actual meta
+            text: "search text", // Replace with actual text
          };
 
          mock
             .onPost(
-               "http://localhost:8000/api/v1/sessions/test-session/search",
+               `${BASE_URL}/api/v1/sessions/test-session/search`,
                searchPayload
             )
             .reply(500);
@@ -334,5 +333,5 @@ describe("ZepClient", () => {
             client.searchMemory("test-session", searchPayload)
          ).rejects.toThrow(UnexpectedResponseError);
       }); // end it
-   });// end describe
-}); // end 
+   }); // end describe
+}); // end

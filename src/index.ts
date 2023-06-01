@@ -6,10 +6,10 @@ export {
    Summary,
    SummaryData,
    MemoryData,
-   SearchPayload,
-   SearchPayloadData,
-   SearchResult,
-   SearchResultData,
+   MemorySearchPayload,
+   MemorySearchPayloadData,
+   MemorySearchResult,
+   MemorySearchResultData,
    APIError,
 } from "./models";
 export { UnexpectedResponseError, NotFoundError } from "./exceptions";
