@@ -1,7 +1,7 @@
 {
    "parser": "@typescript-eslint/parser",
    "plugins": ["@typescript-eslint"],
-   "extends": ["airbnb", "plugin:prettier/recommended", "prettier"],
+   "extends": ["airbnb-base", "plugin:prettier/recommended", "prettier"],
    "env": {
       "browser": true,
       "es6": true
@@ -33,7 +33,6 @@
       }
    ],
    "rules": {
-      "jsx-a11y/href-no-hash": ["off"],
       "no-console": [
          "error",
          {
