@@ -1,5 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { Memory, Message, MemorySearchPayload, MemorySearchResult } from "./models";
+import {
+   Memory,
+   MemorySearchPayload,
+   MemorySearchResult,
+   Message,
+} from "./models";
 import { NotFoundError, UnexpectedResponseError } from "./exceptions";
 
 const API_BASEURL = "/api/v1";
