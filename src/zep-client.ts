@@ -1,6 +1,11 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
-import { Memory, Message, SearchPayload, SearchResult } from "./models";
-import { UnexpectedResponseError, NotFoundError } from "./exceptions";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import {
+   Memory,
+   MemorySearchPayload,
+   MemorySearchResult,
+   Message,
+} from "./models";
+import { NotFoundError, UnexpectedResponseError } from "./exceptions";
 
 const API_BASEURL = "/api/v1";
 
@@ -194,15 +199,15 @@ export class ZepClient {
    /**
     * Searches memory of a specific session based on search payload provided.
     * @param {string} sessionID - ID of the session for which the memory should be searched.
-    * @param {SearchPayload} searchPayload - The search payload containing the search criteria.
+    * @param {MemorySearchPayload} searchPayload - The search payload containing the search criteria.
     * @param {number} [limit] - Optional limit on the number of search results returned.
-    * @returns {Promise<Array<SearchResult>>} - Promise that resolves to array of search results.
+    * @returns {Promise<Array<MemorySearchResult>>} - Promise that resolves to array of search results.
     */
    async searchMemory(
       sessionID: string,
-      searchPayload: SearchPayload,
+      searchPayload: MemorySearchPayload,
       limit?: number
-   ): Promise<Array<SearchResult>> {
+   ): Promise<Array<MemorySearchResult>> {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/search`;
       const params = limit !== undefined ? { limit } : {};
 
@@ -217,11 +222,12 @@ export class ZepClient {
          switch (response.status) {
             case 200:
                return response.data.map(
-                  (searchResult: any) => new SearchResult(searchResult)
+                  (searchResult: any) => new MemorySearchResult(searchResult)
                );
             case 404:
-               throw new NotFoundError(`No session found for sessionID: 
-               sessionID`);
+               throw new NotFoundError(
+                  `No session found for sessionID: ${sessionID}`
+               );
             default:
                throw new UnexpectedResponseError(
                   `searchMemoryAsync got an Unexpected status code: ${response.status}`

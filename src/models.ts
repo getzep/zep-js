@@ -178,25 +178,25 @@ export class Memory {
 /**
  * SearchPayloadData interface for providing input to create SearchPayload.
  */
-export interface SearchPayloadData {
-   meta: Record<string, any>;
+export interface MemorySearchPayloadData {
+   metadata: Record<string, any>;
    text: string;
 }
 
 /**
  * Represents the payload for a memory search.
  */
-export class SearchPayload {
-   meta: Record<string, any>;
+export class MemorySearchPayload {
+   metadata: Record<string, any>;
 
    text: string;
 
    /**
     * Constructs a new SearchPayload instance.
-    * @param {SearchPayloadData} data - The data to create a Search Payload.
+    * @param {MemorySearchPayloadData} data - The data to create a Search Payload.
     */
-   constructor(data: SearchPayloadData) {
-      this.meta = data.meta;
+   constructor(data: MemorySearchPayloadData) {
+      this.metadata = data.metadata;
       this.text = data.text;
    }
 }
@@ -204,12 +204,10 @@ export class SearchPayload {
 /**
  * SearchResultData interface for providing input to create a SearchResult.
  */
-export interface SearchResultData {
+export interface MemorySearchResultData {
    message?: MessageData;
 
-   meta?: Record<string, any>;
-
-   score?: number;
+   metadata?: Record<string, any>;
 
    summary?: string;
 
@@ -219,12 +217,10 @@ export interface SearchResultData {
 /**
  * Represents a search result from a memory search.
  */
-export class SearchResult {
+export class MemorySearchResult {
    message?: Message;
 
-   meta: Record<string, any>;
-
-   score?: number;
+   metadata: Record<string, any>;
 
    summary?: string;
 
@@ -232,12 +228,11 @@ export class SearchResult {
 
    /**
     * Constructs a new SearchResult instance.
-    * @param {SearchResultData} data - The data to create a search result instance.
+    * @param {MemorySearchResultData} data - The data to create a search result instance.
     */
-   constructor(data: SearchResultData = {}) {
+   constructor(data: MemorySearchResultData = {}) {
       this.message = data.message ? new Message(data.message) : undefined;
-      this.meta = data.meta || {};
-      this.score = data.score;
+      this.metadata = data.metadata || {};
       this.summary = data.summary;
       this.dist = data.dist;
    }
