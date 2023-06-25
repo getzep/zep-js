@@ -16,16 +16,40 @@ const API_BASEURL = "/api/v1";
 export class ZepClient {
    baseURL: string;
 
+   axiosInstance: any;
+
    /**
     * Constructs a new ZepClient instance.
     * @param {string} baseURL - The base URL of the Zep API.
+    * @param {string} [apiKey] - Optional. The API key to use for authentication.
     */
-   axiosInstance: any;
-
-   constructor(baseURL: string, axiosInstance?: any) {
+   constructor(baseURL: string, apiKey?: string) {
       this.baseURL = baseURL;
-      this.axiosInstance = axiosInstance || axios.create();
+      const headers = apiKey
+         ? {
+              Authorization: `Bearer ${apiKey}`,
+           }
+         : {};
+      this.axiosInstance = axios.create({ headers });
    }
+
+   // /**
+   //  * Updates the headers of an axios instance.
+   //  * @param axiosInstance
+   //  * @param headers
+   //  * @private
+   //  */
+   // private static updateAxiosHeaders(axiosInstance: any, headers: object): any {
+   //    return Object.assign(axiosInstance, {
+   //       defaults: {
+   //          ...axiosInstance.defaults,
+   //          headers: {
+   //             ...axiosInstance.defaults.headers,
+   //             common: { ...axiosInstance.defaults.headers.common, ...headers },
+   //          },
+   //       },
+   //    });
+   // }
 
    /**
     * Initializes the ZepClient instance by checking if the server is running.
@@ -199,9 +223,11 @@ export class ZepClient {
    /**
     * Searches memory of a specific session based on search payload provided.
     * @param {string} sessionID - ID of the session for which the memory should be searched.
-    * @param {MemorySearchPayload} searchPayload - The search payload containing the search criteria.
+    * @param {MemorySearchPayload} searchPayload - The search payload containing
+    * the search criteria.
     * @param {number} [limit] - Optional limit on the number of search results returned.
-    * @returns {Promise<Array<MemorySearchResult>>} - Promise that resolves to array of search results.
+    * @returns {Promise<Array<MemorySearchResult>>} - Promise that resolves to array of search
+    * results.
     */
    async searchMemory(
       sessionID: string,
