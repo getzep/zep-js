@@ -33,24 +33,6 @@ export class ZepClient {
       this.axiosInstance = axios.create({ headers });
    }
 
-   // /**
-   //  * Updates the headers of an axios instance.
-   //  * @param axiosInstance
-   //  * @param headers
-   //  * @private
-   //  */
-   // private static updateAxiosHeaders(axiosInstance: any, headers: object): any {
-   //    return Object.assign(axiosInstance, {
-   //       defaults: {
-   //          ...axiosInstance.defaults,
-   //          headers: {
-   //             ...axiosInstance.defaults.headers,
-   //             common: { ...axiosInstance.defaults.headers.common, ...headers },
-   //          },
-   //       },
-   //    });
-   // }
-
    /**
     * Initializes the ZepClient instance by checking if the server is running.
     * @returns {Promise<boolean>} - A promise that returns true if the server
