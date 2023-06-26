@@ -5,9 +5,55 @@ import {
    MemorySearchResult,
    Message,
 } from "./models";
-import { NotFoundError, UnexpectedResponseError } from "./exceptions";
+import {
+   AuthenticationError,
+   NotFoundError,
+   UnexpectedResponseError,
+} from "./exceptions";
 
 const API_BASEURL = "/api/v1";
+
+/**
+ * Handles an AxiosResponse promise by returning the response if it is
+ * successful, or throwing an error if the response is unsuccessful.
+ * @param {Promise<AxiosResponse>} requestPromise - The promise to handle.
+ * @param {string} [notFoundMessage] - Optional. The message to use if the
+ *                                    response is a 404.
+ */
+async function handleRequest(
+   requestPromise: Promise<AxiosResponse>,
+   notFoundMessage: string | null = null
+) {
+   try {
+      return await requestPromise;
+   } catch (error) {
+      // Connection error
+      if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
+         throw new UnexpectedResponseError(
+            `Server is down or connection was refused.`
+         );
+      }
+
+      if (error instanceof AxiosError && error.response) {
+         // Handle AxiosError case
+         switch (error.response.status) {
+            case 404:
+               throw new NotFoundError(
+                  notFoundMessage || `Resource not found.`
+               );
+            case 401:
+               throw new AuthenticationError("Authentication failed.");
+            default:
+               throw new UnexpectedResponseError(
+                  `Got an unexpected status code: ${error.response.status}`,
+                  error.response.data
+               );
+         }
+      }
+
+      throw error;
+   }
+}
 
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
@@ -16,15 +62,21 @@ const API_BASEURL = "/api/v1";
 export class ZepClient {
    baseURL: string;
 
+   axiosInstance: any;
+
    /**
     * Constructs a new ZepClient instance.
     * @param {string} baseURL - The base URL of the Zep API.
+    * @param {string} [apiKey] - Optional. The API key to use for authentication.
     */
-   axiosInstance: any;
-
-   constructor(baseURL: string, axiosInstance?: any) {
+   constructor(baseURL: string, apiKey?: string) {
       this.baseURL = baseURL;
-      this.axiosInstance = axiosInstance || axios.create();
+      const headers = apiKey
+         ? {
+              Authorization: `Bearer ${apiKey}`,
+           }
+         : {};
+      this.axiosInstance = axios.create({ headers });
    }
 
    /**
@@ -59,57 +111,21 @@ export class ZepClient {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
       const params = lastn !== undefined ? { lastn } : {};
 
-      try {
-         const response: AxiosResponse = await this.axiosInstance.get(url, {
+      const response: AxiosResponse = await handleRequest(
+         this.axiosInstance.get(url, {
             params,
+         })
+      );
+
+      if (response.data.messages) {
+         return new Memory({
+            messages: response.data.messages.map((message: any) => {
+               return new Message(message);
+            }),
+            summary: response.data.summary,
          });
-
-         switch (response.status) {
-            case 200:
-               // Handle success case
-               if (response.data.messages) {
-                  return new Memory({
-                     messages: response.data.messages.map((message: any) => {
-                        return new Message(message);
-                     }),
-                     summary: response.data.summary,
-                  });
-               }
-               return null; // Session found, but no messages found in the session
-
-            case 404:
-               // Handle Session not found case
-               throw new NotFoundError(
-                  `Session with ID ${sessionID} not found`
-               );
-
-            default:
-               throw new UnexpectedResponseError(
-                  `Unexpected Status Code @getMemoryAsync: ${response.status}`
-               );
-         }
-      } catch (error) {
-         // Connection error
-         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
-            throw new UnexpectedResponseError(
-               `Server is down or connection was refused, from Zep at ${this.baseURL}`
-            );
-         }
-
-         if (error instanceof AxiosError && error.response) {
-            // Handle AxiosError case
-            if (error.response.status === 404) {
-               throw new NotFoundError(
-                  `Session with ID ${sessionID} not found`
-               );
-            }
-            throw new UnexpectedResponseError(
-               `getMemoryAsync got an Unexpected status code: ${error.response.status}`
-            );
-         }
-
-         throw error;
       }
+      return null; // Session found, but no messages found in the session
    }
 
    /**
@@ -121,32 +137,11 @@ export class ZepClient {
    async addMemory(sessionID: string, memory: Memory): Promise<string> {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
-      try {
-         const response: AxiosResponse = await this.axiosInstance.post(
-            url,
-            memory.toDict()
-         );
-         if (response.status !== 200) {
-            throw new UnexpectedResponseError(
-               `addMemoryAsync got an Unexpected status code: ${response.status}`
-            );
-         }
-         return response.data;
-      } catch (error) {
-         // Connection error
-         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
-            throw new UnexpectedResponseError(
-               `Server is down or connection was refused, from Zep at ${this.baseURL}`
-            );
-         }
+      const response: AxiosResponse = await handleRequest(
+         this.axiosInstance.post(url, memory.toDict())
+      );
 
-         if (error instanceof AxiosError && error.response) {
-            throw new UnexpectedResponseError(
-               `addMemoryAsync got an Unexpected status code: ${error.response.status}`
-            );
-         }
-         throw error;
-      }
+      return response.data;
    }
 
    /**
@@ -159,49 +154,22 @@ export class ZepClient {
    async deleteMemory(sessionID: string): Promise<string> {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
-      try {
-         const response: AxiosResponse = await this.axiosInstance.delete(url);
-         switch (response.status) {
-            case 404:
-               throw new NotFoundError(`No session found for sessionID: 
-                     ${sessionID}`);
-            case 200:
-               return response.data;
-            default:
-               throw new UnexpectedResponseError(
-                  `deleteMemoryAsync got an Unexpected status code: ${response.status}`
-               );
-         }
-      } catch (error) {
-         // Connection error
-         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
-            throw new UnexpectedResponseError(
-               `Server is down or connection was refused, from Zep at ${this.baseURL}`
-            );
-         }
+      const response: AxiosResponse = await handleRequest(
+         this.axiosInstance.delete(url),
+         `No session found for sessionID: ${sessionID}`
+      );
 
-         if (error instanceof AxiosError && error.response) {
-            // Handle AxiosError case
-            if (error.response.status === 404) {
-               throw new NotFoundError(
-                  `Session with ID ${sessionID} not found`
-               );
-            } else {
-               throw new UnexpectedResponseError(
-                  `deleteMemoryAsync got an Unexpected status code: ${error.response.status}`
-               );
-            }
-         }
-         throw error;
-      }
+      return response.data;
    }
 
    /**
     * Searches memory of a specific session based on search payload provided.
     * @param {string} sessionID - ID of the session for which the memory should be searched.
-    * @param {MemorySearchPayload} searchPayload - The search payload containing the search criteria.
+    * @param {MemorySearchPayload} searchPayload - The search payload containing
+    * the search criteria.
     * @param {number} [limit] - Optional limit on the number of search results returned.
-    * @returns {Promise<Array<MemorySearchResult>>} - Promise that resolves to array of search results.
+    * @returns {Promise<Array<MemorySearchResult>>} - Promise that resolves to array of search
+    * results.
     */
    async searchMemory(
       sessionID: string,
@@ -211,49 +179,14 @@ export class ZepClient {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/search`;
       const params = limit !== undefined ? { limit } : {};
 
-      try {
-         const response: AxiosResponse = await this.axiosInstance.post(
-            url,
-            searchPayload,
-            {
-               params,
-            }
-         );
-         switch (response.status) {
-            case 200:
-               return response.data.map(
-                  (searchResult: any) => new MemorySearchResult(searchResult)
-               );
-            case 404:
-               throw new NotFoundError(
-                  `No session found for sessionID: ${sessionID}`
-               );
-            default:
-               throw new UnexpectedResponseError(
-                  `searchMemoryAsync got an Unexpected status code: ${response.status}`
-               );
-         }
-      } catch (error) {
-         // Connection error
-         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
-            throw new UnexpectedResponseError(
-               `Server is down or connection was refused, from Zep at ${this.baseURL}`
-            );
-         }
+      const response: AxiosResponse = await handleRequest(
+         this.axiosInstance.post(url, searchPayload, {
+            params,
+         })
+      );
 
-         if (error instanceof AxiosError && error.response) {
-            // Handle AxiosError case
-            if (error.response.status === 404) {
-               throw new NotFoundError(
-                  `Session with ID ${sessionID} not found`
-               );
-            } else {
-               throw new UnexpectedResponseError(
-                  `searchMemoryAsync got an Unexpected status code: ${error.response.status}`
-               );
-            }
-         }
-         throw error;
-      }
+      return response.data.map(
+         (searchResult: any) => new MemorySearchResult(searchResult)
+      );
    }
 }

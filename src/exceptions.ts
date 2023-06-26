@@ -26,3 +26,8 @@ export class UnexpectedResponseError extends ZepClientError {}
  * Custom error class for not found errors in the ZepClient.
  */
 export class NotFoundError extends ZepClientError {}
+
+/**
+ * Custom error class for authentication errors in the ZepClient.
+ */
+export class AuthenticationError extends ZepClientError {}

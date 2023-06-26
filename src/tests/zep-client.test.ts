@@ -12,18 +12,32 @@ import MockAdapter from "axios-mock-adapter";
 const BASE_URL = "http://localhost:8000";
 
 describe("ZepClient", () => {
-   let axiosInstance: any;
    let client: ZepClient;
    let mock: MockAdapter;
 
    beforeEach(() => {
-      axiosInstance = axios.create({ baseURL: BASE_URL });
-      client = new ZepClient(BASE_URL, axiosInstance);
-      mock = new MockAdapter(axiosInstance);
+      // Mock the global axios instance
+      mock = new MockAdapter(axios);
+      client = new ZepClient(BASE_URL, "test-api-key");
    });
 
    afterEach(() => {
       mock.reset();
+   });
+
+   describe("ZepClient Auth", () => {
+      it("sets the correct Authorization header when apiKey is provided", async () => {
+         const expectedAuthorizationHeader = "Bearer test-api-key";
+         const healthCheckUrl = `${BASE_URL}/healthz`;
+         mock.onGet(healthCheckUrl).reply((config) => {
+            expect(config?.headers?.Authorization).toEqual(
+               expectedAuthorizationHeader
+            );
+            return [200];
+         });
+
+         await client.init();
+      });
    });
 
    // Test Suite for getMemory()
@@ -135,7 +149,7 @@ describe("ZepClient", () => {
          };
 
          mock
-            .onGet("/api/v1/sessions/test-session/memory", { lastn: 2 })
+            .onGet(`${BASE_URL}/api/v1/sessions/test-session/memory`, { lastn: 2 })
             .reply(200, responseData);
 
          const memory = await client.getMemory("test-session", 2);
