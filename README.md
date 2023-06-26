@@ -20,7 +20,7 @@ async function main() {
 
   try {
      // Example usage
-     const session_id = "1a1ab1c";
+     const sessionId = "1a1ab1c";
 
      // Add memory
      const role = "user";
@@ -28,13 +28,13 @@ async function main() {
      const message = new Message({ role, content });
      const memory = new Memory();
      memory.messages = [message];
-     const result = await client.addMemoryAsync(session_id, memory);
+     const result = await client.addMemoryAsync(sessionId, memory);
 
     // Search memory
     const searchText = "Iceland";
     const search_payload = new SearchPayload({ meta: {}, text: searchText });
     const search_results = await client.searchMemoryAsync(
-      session_id,
+      sessionId,
       search_payload
     );
 
@@ -45,10 +45,10 @@ async function main() {
     }
 
      // Get Memory
-     const memories = await client.getMemoryAsync(session_id);
+     const memories = await client.getMemoryAsync(sessionId);
 
     // Delete memory
-    const deleteResult = await client.deleteMemoryAsync(session_id);
+    const deleteResult = await client.deleteMemoryAsync(sessionId);
 
   } catch (error) {
     if (error instanceof ZepClientError) {
@@ -72,40 +72,40 @@ Zep JS Client Sync API.
 
 ## Constructor
 
-- `constructor(base_url: string)`: Constructs a new ZepClient instance with the given base URL of the Zep API.
+- `constructor(baseURL: string)`: Constructs a new ZepClient instance with the given base URL of the Zep API.
 
 ## Methods
 
-### getMemoryAsync
+### getMemory
 
-- `getMemoryAsync(session_id: string, lastn?: number)`: Retrieves memory for a specific session.
-  - `session_id`: The ID of the session to retrieve memory for.
+- `getMemory(sessionId: string, lastn?: number)`: Retrieves memory for a specific session.
+  - `sessionId`: The ID of the session to retrieve memory for.
   - `lastn`: (Optional) The number of most recent memories to retrieve.
   - Returns: A promise that resolves to an array of `Memory` objects.
 ---
 
 
-### addMemoryAsync
+### addMemory
 
-- `addMemoryAsync(session_id: string, memory: Memory)`: Adds a new memory to a specific session.
-  - `session_id`: The ID of the session to add the memory to.
+- `addMemory(sessionId: string, memory: Memory)`: Adds a new memory to a specific session.
+  - `sessionId`: The ID of the session to add the memory to.
   - `memory`: The `Memory` object to add to the session.
   - Returns: A promise that resolves to the added memory.
 
 ---
 
-### deleteMemoryAsync
+### deleteMemory
 
-- `deleteMemoryAsync(session_id: string)`: Deletes the memory of a specific session.
-  - `session_id`: The ID of the session for which the memory should be deleted.
+- `deleteMemory(sessionId: string)`: Deletes the memory of a specific session.
+  - `sessionId`: The ID of the session for which the memory should be deleted.
   - Returns: A promise that resolves to a message indicating the memory has been deleted.
 ---
 
-### searchMemoryAsync
+### searchMemory
 
-- `searchMemoryAsync(session_id: string, search_payload: SearchPayload, limit?: number)`: Searches the memory of a specific session based on the search payload provided.
-  - `session_id`: The ID of the session for which the memory should be searched.
-  - `search_payload`: The `SearchPayload` object containing the search criteria.
+- `searchMemory(sessionId: string, searchPayload: SearchPayload, limit?: number)`: Searches the memory of a specific session based on the search payload provided.
+  - `sessionID`: The ID of the session for which the memory should be searched.
+  - `searchPayload`: The `SearchPayload` object containing the search criteria.
   - `limit`: (Optional) Limit on the number of search results returned.
   - Returns: A promise that resolves to an array of `SearchResult` objects.
 ---
@@ -119,6 +119,7 @@ Zep JS Client Sync API.
 - `role`: String for the role of the message sender.
 - `content`: String for the content of the message.
 - `token_count`: Optional number for the token count of the message.
+- `metadata?` : Optional metadata
 ---
 
 ### Message
@@ -158,29 +159,28 @@ Zep JS Client Sync API.
 - `toDict(): MemoryData`: Converts the Memory instance to a dictionary.
 ---
 
-### SearchPayloadData
+### MemorySearchPayloadData
 
-- `meta`: Object for the metadata of the search payload.
+- `metadata`: Object for the metadata of the search payload.
 - `text`: String for the text to be searched.
 ---
 
-### SearchPayload
+### MemorySearchPayload
 
-- `constructor(data: SearchPayloadData)`: Constructs a new SearchPayload instance.
+- `constructor(data: MemorySearchPayloadData)`: Constructs a new MemorySearchPayload instance.
 ---
 
-### SearchResultData
+### MemorySearchResultData
 
 - `message`: Optional MessageData for the message in the search result.
-- `meta`: Optional object for metadata associated with the search result.
-- `score`: Optional number for the score of the search result.
+- `metadata`: Metadata associated with the search result.
 - `summary`: Optional string for the summary of the search result.
 - `dist`: Optional number for the distance of the search result.
 ---
 
-### SearchResult
+### MemorySearchResult
 
-- `constructor(data: SearchResultData)`: Constructs a new SearchResult instance.
+- `constructor(data: MemorySearchResultData)`: Constructs a new MemorySearchResult instance.
 ---
 
 ## Exceptions 
@@ -199,4 +199,8 @@ Zep JS Client Sync API.
 ### NotFoundError
 - Custom error class for not found errors in the ZepClient.
 - `Constructor: (message: string)`: Constructs a NotFoundError instance
+---
+### AuthenticationError
+- Custom error class for Authentication errors in the ZepClient.
+- `Constructor: (message: string)`: Constructs an AuthenticationError instance
 ---

@@ -12,4 +12,8 @@ export {
    MemorySearchResultData,
    APIError,
 } from "./models";
-export { UnexpectedResponseError, NotFoundError } from "./exceptions";
+export {
+   UnexpectedResponseError,
+   NotFoundError,
+   AuthenticationError,
+} from "./exceptions";
