@@ -45,7 +45,8 @@ async function handleRequest(
                throw new AuthenticationError("Authentication failed.");
             default:
                throw new UnexpectedResponseError(
-                  `Got an unexpected status code: ${error.response.status}`
+                  `Got an unexpected status code: ${error.response.status}`,
+                  error.response.data
                );
          }
       }
