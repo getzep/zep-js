@@ -5,18 +5,28 @@ This is the Javascript client package for the Zep service. For more information 
 ### Installation
 
 ```bash
-npm install zep-js
+npm install @getzep/zep-js
 ```
 
 ## Quick Start
 Ensure that you have a Zep server running. See https://github.com/getzep/zep.
 
 ```typescript
-import {ZepClient, Memory, Message, SearchPayload, SearchResult, ZepClientError, UnexpectedResponseError} from "zep-js";
+import {
+  ZepClient, 
+  Memory, 
+  Message, 
+  MemorySearchPayload, 
+  MemorySearchResult, 
+  NotFoundError, 
+  AuthenticationError,
+  UnexpectedResponseError
+  } from "@getzep/zep-js";
 
 async function main() {
   const base_url = "http://localhost:8000"; // Replace with Zep API URL
-  const client = new ZepClient(base_url);
+  const api_key = "optional_api_key";
+  const zepClient = new ZepClient(base_url, api_key);
 
   try {
      // Example usage
@@ -28,12 +38,12 @@ async function main() {
      const message = new Message({ role, content });
      const memory = new Memory();
      memory.messages = [message];
-     const result = await client.addMemoryAsync(sessionId, memory);
+     const result = await zepClient.addMemory(sessionId, memory);
 
     // Search memory
     const searchText = "Iceland";
-    const search_payload = new SearchPayload({ meta: {}, text: searchText });
-    const search_results = await client.searchMemoryAsync(
+    const search_payload = new MemorySearchPayload({ meta: {}, text: searchText });
+    const search_results = await zepClient.searchMemory(
       sessionId,
       search_payload
     );
@@ -45,18 +55,18 @@ async function main() {
     }
 
      // Get Memory
-     const memories = await client.getMemoryAsync(sessionId);
+     const memories = await zepClient.getMemory(sessionId);
 
     // Delete memory
-    const deleteResult = await client.deleteMemoryAsync(sessionId);
+    const deleteResult = await zepClient.deleteMemory(sessionId);
 
   } catch (error) {
-    if (error instanceof ZepClientError) {
-        console.error("ZepClientError:", error.message);
-    } else if (error instanceof UnexpectedResponseError) {
-        console.error("UnexpectedResponseError:", error.message);
+    if (error instanceof AuthenticationError) {
+        console.error("AuthenticationError:", error.message);
+    } else if (error instanceof NotFoundError) {
+        console.error("NotFoundError:", error.message);
     } else {
-        console.error("Unknown error:", error);
+        console.error("Unexpected Error:", error);
     }
   }
 }
@@ -64,7 +74,7 @@ async function main() {
 
 # Zep-JS
 
-Zep JS Client Sync API. 
+Zep JS Client Async API. 
 
 # ZepClient
 
@@ -72,7 +82,7 @@ Zep JS Client Sync API.
 
 ## Constructor
 
-- `constructor(baseURL: string)`: Constructs a new ZepClient instance with the given base URL of the Zep API.
+- `constructor(baseURL: string, apiKey?: string)`: Constructs a new ZepClient instance with the given base URL of the Zep API and an optional API Key.
 
 ## Methods
 
@@ -103,9 +113,9 @@ Zep JS Client Sync API.
 
 ### searchMemory
 
-- `searchMemory(sessionId: string, searchPayload: SearchPayload, limit?: number)`: Searches the memory of a specific session based on the search payload provided.
+- `searchMemory(sessionId: string, searchPayload: MemorySearchPayload, limit?: number)`: Searches the memory of a specific session based on the search payload provided.
   - `sessionID`: The ID of the session for which the memory should be searched.
-  - `searchPayload`: The `SearchPayload` object containing the search criteria.
+  - `searchPayload`: The `MemorySearchPayload` object containing the search criteria.
   - `limit`: (Optional) Limit on the number of search results returned.
   - Returns: A promise that resolves to an array of `SearchResult` objects.
 ---
@@ -185,11 +195,8 @@ Zep JS Client Sync API.
 
 ## Exceptions 
 
-### APIError
-- `constructor(code: number, message: string)`: Constructs a new APIError instance.
----
 ### ZepClientError
-- Custom error class for ZepClient errors.
+- Base error class for ZepClient errors.
 - `constructor(message: string, response_data?: any)`: Constructs a new ZepClientError instance.
 ---
 ### UnexpectedResponseError
