@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2
         with:
-          node-version: '14' # Set the version of Node.js to use
+          node-version: '20' # Set the version of Node.js to use
 
       - name: Cache node modules
         uses: actions/cache@v2
