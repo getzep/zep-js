@@ -182,11 +182,11 @@ describe("ZepClient", () => {
         metadata: {}
       });
 
-      fetchMock.mockResponseOnce(JSON.stringify(memoryData.toDict()));
+      fetchMock.mockResponseOnce("OK");
 
-      const memory = await client.addMemory("test-session", memoryData);
+      const result = await client.addMemory("test-session", memoryData);
 
-      expect(memory).toEqual(memoryData);
+      expect(result).toEqual("OK");
     });
 
     // Test for throwing Error if the error response
@@ -220,7 +220,7 @@ describe("ZepClient", () => {
     it("should delete memory for a session", async () => {
       const message = "Memory deleted";
 
-      fetchMock.mockResponseOnce(JSON.stringify(message));
+      fetchMock.mockResponseOnce(message);
 
       const response = await client.deleteMemory("test-session");
 
