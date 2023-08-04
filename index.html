@@ -12,134 +12,12 @@
 <div class="col-content">
 <div class="tsd-page-title">
 <h2>@getzep/zep-js</h2></div>
-<div class="tsd-panel tsd-typography"><a id="md:zep-a-long-term-memory-store-for-conversational-ai-applications" class="tsd-anchor"></a><h1><a href="#md:zep-a-long-term-memory-store-for-conversational-ai-applications">Zep: A long-term memory store for conversational AI applications</a></h1><p>This is the Javascript client package for the Zep service. For more information about Zep, see <a href="https://github.com/getzep/zep">https://github.com/getzep/zep</a></p>
-<a id="md:installation" class="tsd-anchor"></a><h3><a href="#md:installation">Installation</a></h3><pre><code class="language-bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@getzep/zep-js</span>
+<div class="tsd-panel tsd-typography"><p><img src="https://img.shields.io/npm/dw/%40getzep/zep-js" alt="npm"> <a href="https://github.com/getzep/zep-js/actions/workflows/Run%20CI.yml"><img src="https://github.com/getzep/zep-js/actions/workflows/Run%20CI.yml/badge.svg" alt="node-build"></a> <a href="https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql"><img src="https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL"></a></p>
+<a id="md:zep-a-long-term-memory-store-for-conversational-ai-applications" class="tsd-anchor"></a><h1><a href="#md:zep-a-long-term-memory-store-for-conversational-ai-applications">Zep: A long-term memory store for conversational AI applications</a></h1><p>This is the JavaScript client package for the Zep service. For more information about Zep, see <a href="https://github.com/getzep/zep">https://github.com/getzep/zep</a></p>
+<p>Zep QuickStart Guide: <a href="https://docs.getzep.com/deployment/quickstart">https://docs.getzep.com/deployment/quickstart</a></p>
+<p>Zep Documentation: <a href="https://docs.getzep.com/">https://docs.getzep.com</a></p>
+<a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><pre><code class="language-bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@getzep/zep-js</span>
 </code><button>Copy</button></pre>
-<a id="md:quick-start" class="tsd-anchor"></a><h2><a href="#md:quick-start">Quick Start</a></h2><p>Ensure that you have a Zep server running. See <a href="https://github.com/getzep/zep">https://github.com/getzep/zep</a>.</p>
-<pre><code class="language-typescript"><span class="hl-3">import</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">ZepClient</span><span class="hl-1">, </span><br/><span class="hl-1">  </span><span class="hl-4">Memory</span><span class="hl-1">, </span><br/><span class="hl-1">  </span><span class="hl-4">Message</span><span class="hl-1">, </span><br/><span class="hl-1">  </span><span class="hl-4">MemorySearchPayload</span><span class="hl-1">, </span><br/><span class="hl-1">  </span><span class="hl-4">MemorySearchResult</span><span class="hl-1">, </span><br/><span class="hl-1">  </span><span class="hl-4">NotFoundError</span><span class="hl-1">, </span><br/><span class="hl-1">  </span><span class="hl-4">AuthenticationError</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">UnexpectedResponseError</span><br/><span class="hl-1">  } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&quot;@getzep/zep-js&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">async</span><span class="hl-1"> </span><span class="hl-5">function</span><span class="hl-1"> </span><span class="hl-0">main</span><span class="hl-1">() {</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">base_url</span><span class="hl-1"> = </span><span class="hl-2">&quot;http://localhost:8000&quot;</span><span class="hl-1">; </span><span class="hl-7">// Replace with Zep API URL</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">api_key</span><span class="hl-1"> = </span><span class="hl-2">&quot;optional_api_key&quot;</span><span class="hl-1">;</span><br/><span class="hl-1">  </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">zepClient</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">ZepClient</span><span class="hl-1">(</span><span class="hl-4">base_url</span><span class="hl-1">, </span><span class="hl-4">api_key</span><span class="hl-1">);</span><br/><br/><span class="hl-1">  </span><span class="hl-3">try</span><span class="hl-1"> {</span><br/><span class="hl-1">     </span><span class="hl-7">// Example usage</span><br/><span class="hl-1">     </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">sessionId</span><span class="hl-1"> = </span><span class="hl-2">&quot;1a1ab1c&quot;</span><span class="hl-1">;</span><br/><br/><span class="hl-1">     </span><span class="hl-7">// Add memory</span><br/><span class="hl-1">     </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">role</span><span class="hl-1"> = </span><span class="hl-2">&quot;user&quot;</span><span class="hl-1">;</span><br/><span class="hl-1">     </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">content</span><span class="hl-1"> = </span><span class="hl-2">&quot;I&#39;m looking to plan a trip to Iceland. Can you help me?&quot;</span><br/><span class="hl-1">     </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">message</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">Message</span><span class="hl-1">({ </span><span class="hl-4">role</span><span class="hl-1">, </span><span class="hl-4">content</span><span class="hl-1"> });</span><br/><span class="hl-1">     </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">memory</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">Memory</span><span class="hl-1">();</span><br/><span class="hl-1">     </span><span class="hl-4">memory</span><span class="hl-1">.</span><span class="hl-4">messages</span><span class="hl-1"> = [</span><span class="hl-4">message</span><span class="hl-1">];</span><br/><span class="hl-1">     </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">result</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">zepClient</span><span class="hl-1">.</span><span class="hl-0">addMemory</span><span class="hl-1">(</span><span class="hl-4">sessionId</span><span class="hl-1">, </span><span class="hl-4">memory</span><span class="hl-1">);</span><br/><br/><span class="hl-1">    </span><span class="hl-7">// Search memory</span><br/><span class="hl-1">    </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">searchText</span><span class="hl-1"> = </span><span class="hl-2">&quot;Iceland&quot;</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">search_payload</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">MemorySearchPayload</span><span class="hl-1">({ </span><span class="hl-4">meta:</span><span class="hl-1"> {}, </span><span class="hl-4">text:</span><span class="hl-1"> </span><span class="hl-4">searchText</span><span class="hl-1"> });</span><br/><span class="hl-1">    </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">search_results</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">zepClient</span><span class="hl-1">.</span><span class="hl-0">searchMemory</span><span class="hl-1">(</span><br/><span class="hl-1">      </span><span class="hl-4">sessionId</span><span class="hl-1">,</span><br/><span class="hl-1">      </span><span class="hl-4">search_payload</span><br/><span class="hl-1">    );</span><br/><br/><span class="hl-1">    </span><span class="hl-7">// Iterate through results and print</span><br/><span class="hl-1">    </span><span class="hl-3">for</span><span class="hl-1"> (</span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">search_result</span><span class="hl-1"> </span><span class="hl-5">of</span><span class="hl-1"> </span><span class="hl-4">search_results</span><span class="hl-1">) {</span><br/><span class="hl-1">       </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">message_content</span><span class="hl-1"> = </span><span class="hl-4">search_result</span><span class="hl-1">.</span><span class="hl-4">message</span><span class="hl-1">?.</span><span class="hl-4">content</span><span class="hl-1">;</span><br/><span class="hl-1">       </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">log</span><span class="hl-1">(</span><span class="hl-2">&quot;Search Result: &quot;</span><span class="hl-1">, </span><span class="hl-4">message_content</span><span class="hl-1">);</span><br/><span class="hl-1">    }</span><br/><br/><span class="hl-1">     </span><span class="hl-7">// Get Memory</span><br/><span class="hl-1">     </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">memories</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">zepClient</span><span class="hl-1">.</span><span class="hl-0">getMemory</span><span class="hl-1">(</span><span class="hl-4">sessionId</span><span class="hl-1">);</span><br/><br/><span class="hl-1">    </span><span class="hl-7">// Delete memory</span><br/><span class="hl-1">    </span><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">deleteResult</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">zepClient</span><span class="hl-1">.</span><span class="hl-0">deleteMemory</span><span class="hl-1">(</span><span class="hl-4">sessionId</span><span class="hl-1">);</span><br/><br/><span class="hl-1">  } </span><span class="hl-3">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">    </span><span class="hl-3">if</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1"> </span><span class="hl-5">instanceof</span><span class="hl-1"> </span><span class="hl-8">AuthenticationError</span><span class="hl-1">) {</span><br/><span class="hl-1">        </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;AuthenticationError:&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">message</span><span class="hl-1">);</span><br/><span class="hl-1">    } </span><span class="hl-3">else</span><span class="hl-1"> </span><span class="hl-3">if</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1"> </span><span class="hl-5">instanceof</span><span class="hl-1"> </span><span class="hl-8">NotFoundError</span><span class="hl-1">) {</span><br/><span class="hl-1">        </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;NotFoundError:&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">message</span><span class="hl-1">);</span><br/><span class="hl-1">    } </span><span class="hl-3">else</span><span class="hl-1"> {</span><br/><span class="hl-1">        </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-0">error</span><span class="hl-1">(</span><span class="hl-2">&quot;Unexpected Error:&quot;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">);</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
-</code><button>Copy</button></pre>
-<a id="md:zep-js" class="tsd-anchor"></a><h1><a href="#md:zep-js">Zep-JS</a></h1><p>Zep JS Client Async API. </p>
-<a id="md:zepclient" class="tsd-anchor"></a><h1><a href="#md:zepclient">ZepClient</a></h1><p><code>ZepClient</code> is a TypeScript class for interacting with the Zep API.</p>
-<a id="md:constructor" class="tsd-anchor"></a><h2><a href="#md:constructor">Constructor</a></h2><ul>
-<li><code>constructor(baseURL: string, apiKey?: string)</code>: Constructs a new ZepClient instance with the given base URL of the Zep API and an optional API Key.</li>
-</ul>
-<a id="md:methods" class="tsd-anchor"></a><h2><a href="#md:methods">Methods</a></h2><a id="md:getmemory" class="tsd-anchor"></a><h3><a href="#md:getmemory">getMemory</a></h3><ul>
-<li><code>getMemory(sessionId: string, lastn?: number)</code>: Retrieves memory for a specific session.<ul>
-<li><code>sessionId</code>: The ID of the session to retrieve memory for.</li>
-<li><code>lastn</code>: (Optional) The number of most recent memories to retrieve.</li>
-<li>Returns: A promise that resolves to an array of <code>Memory</code> objects.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<a id="md:addmemory" class="tsd-anchor"></a><h3><a href="#md:addmemory">addMemory</a></h3><ul>
-<li><code>addMemory(sessionId: string, memory: Memory)</code>: Adds a new memory to a specific session.<ul>
-<li><code>sessionId</code>: The ID of the session to add the memory to.</li>
-<li><code>memory</code>: The <code>Memory</code> object to add to the session.</li>
-<li>Returns: A promise that resolves to the added memory.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<a id="md:deletememory" class="tsd-anchor"></a><h3><a href="#md:deletememory">deleteMemory</a></h3><ul>
-<li><code>deleteMemory(sessionId: string)</code>: Deletes the memory of a specific session.<ul>
-<li><code>sessionId</code>: The ID of the session for which the memory should be deleted.</li>
-<li>Returns: A promise that resolves to a message indicating the memory has been deleted.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<a id="md:searchmemory" class="tsd-anchor"></a><h3><a href="#md:searchmemory">searchMemory</a></h3><ul>
-<li><code>searchMemory(sessionId: string, searchPayload: MemorySearchPayload, limit?: number)</code>: Searches the memory of a specific session based on the search payload provided.<ul>
-<li><code>sessionID</code>: The ID of the session for which the memory should be searched.</li>
-<li><code>searchPayload</code>: The <code>MemorySearchPayload</code> object containing the search criteria.</li>
-<li><code>limit</code>: (Optional) Limit on the number of search results returned.</li>
-<li>Returns: A promise that resolves to an array of <code>SearchResult</code> objects.</li>
-</ul>
-</li>
-</ul>
-<hr>
-<a id="md:models" class="tsd-anchor"></a><h2><a href="#md:models">Models</a></h2><a id="md:messagedata" class="tsd-anchor"></a><h3><a href="#md:messagedata">MessageData</a></h3><ul>
-<li><code>uuid</code>: Optional string for the unique identifier of the message.</li>
-<li><code>created_at</code>: Optional string for the creation timestamp of the message.</li>
-<li><code>role</code>: String for the role of the message sender.</li>
-<li><code>content</code>: String for the content of the message.</li>
-<li><code>token_count</code>: Optional number for the token count of the message.</li>
-<li><code>metadata?</code> : Optional metadata</li>
-</ul>
-<hr>
-<a id="md:message" class="tsd-anchor"></a><h3><a href="#md:message">Message</a></h3><ul>
-<li><code>constructor(data: MessageData)</code>: Constructs a new Message instance.</li>
-<li><code>toDict(): MessageData</code>: Converts the Message instance to a dictionary.</li>
-</ul>
-<hr>
-<a id="md:summarydata" class="tsd-anchor"></a><h3><a href="#md:summarydata">SummaryData</a></h3><ul>
-<li><code>uuid</code>: String for the unique identifier of the summary.</li>
-<li><code>created_at</code>: String for the creation timestamp of the summary.</li>
-<li><code>content</code>: String for the content of the summary.</li>
-<li><code>recent_message_uuid</code>: String for the unique identifier of the most recent message related to the summary.</li>
-<li><code>token_count</code>: Number for the token count of the summary.</li>
-</ul>
-<hr>
-<a id="md:summary" class="tsd-anchor"></a><h3><a href="#md:summary">Summary</a></h3><ul>
-<li><code>constructor(data: SummaryData)</code>: Constructs a new Summary instance.</li>
-<li><code>toDict(): SummaryData</code>: Converts the Summary instance to a dictionary.</li>
-</ul>
-<hr>
-<a id="md:memorydata" class="tsd-anchor"></a><h3><a href="#md:memorydata">MemoryData</a></h3><ul>
-<li><code>messages</code>: Optional array of MessageData for the messages in the memory.</li>
-<li><code>metadata</code>: Optional object for metadata associated with the memory.</li>
-<li><code>summary</code>: Optional SummaryData for the summary of the memory.</li>
-<li><code>uuid</code>: Optional string for the unique identifier of the memory.</li>
-<li><code>created_at</code>: Optional string for the creation timestamp of the memory.</li>
-<li><code>token_count</code>: Optional number for the token count of the memory.</li>
-</ul>
-<hr>
-<a id="md:memory" class="tsd-anchor"></a><h3><a href="#md:memory">Memory</a></h3><ul>
-<li><code>constructor(data: MemoryData)</code>: Constructs a new Memory instance.</li>
-<li><code>toDict(): MemoryData</code>: Converts the Memory instance to a dictionary.</li>
-</ul>
-<hr>
-<a id="md:memorysearchpayloaddata" class="tsd-anchor"></a><h3><a href="#md:memorysearchpayloaddata">MemorySearchPayloadData</a></h3><ul>
-<li><code>metadata</code>: Object for the metadata of the search payload.</li>
-<li><code>text</code>: String for the text to be searched.</li>
-</ul>
-<hr>
-<a id="md:memorysearchpayload" class="tsd-anchor"></a><h3><a href="#md:memorysearchpayload">MemorySearchPayload</a></h3><ul>
-<li><code>constructor(data: MemorySearchPayloadData)</code>: Constructs a new MemorySearchPayload instance.</li>
-</ul>
-<hr>
-<a id="md:memorysearchresultdata" class="tsd-anchor"></a><h3><a href="#md:memorysearchresultdata">MemorySearchResultData</a></h3><ul>
-<li><code>message</code>: Optional MessageData for the message in the search result.</li>
-<li><code>metadata</code>: Metadata associated with the search result.</li>
-<li><code>summary</code>: Optional string for the summary of the search result.</li>
-<li><code>dist</code>: Optional number for the distance of the search result.</li>
-</ul>
-<hr>
-<a id="md:memorysearchresult" class="tsd-anchor"></a><h3><a href="#md:memorysearchresult">MemorySearchResult</a></h3><ul>
-<li><code>constructor(data: MemorySearchResultData)</code>: Constructs a new MemorySearchResult instance.</li>
-</ul>
-<hr>
-<a id="md:exceptions" class="tsd-anchor"></a><h2><a href="#md:exceptions">Exceptions</a></h2><a id="md:zepclienterror" class="tsd-anchor"></a><h3><a href="#md:zepclienterror">ZepClientError</a></h3><ul>
-<li>Base error class for ZepClient errors.</li>
-<li><code>constructor(message: string, response_data?: any)</code>: Constructs a new ZepClientError instance.</li>
-</ul>
-<hr>
-<a id="md:unexpectedresponseerror" class="tsd-anchor"></a><h3><a href="#md:unexpectedresponseerror">UnexpectedResponseError</a></h3><ul>
-<li>Custom error class for unexpected API response errors in the ZepClient.</li>
-<li><code>constructor(message: string)</code>: Constructs a new UnexpectedResponseError instance.</li>
-</ul>
-<hr>
-<a id="md:notfounderror" class="tsd-anchor"></a><h3><a href="#md:notfounderror">NotFoundError</a></h3><ul>
-<li>Custom error class for not found errors in the ZepClient.</li>
-<li><code>Constructor: (message: string)</code>: Constructs a NotFoundError instance</li>
-</ul>
-<hr>
-<a id="md:authenticationerror" class="tsd-anchor"></a><h3><a href="#md:authenticationerror">AuthenticationError</a></h3><ul>
-<li>Custom error class for Authentication errors in the ZepClient.</li>
-<li><code>Constructor: (message: string)</code>: Constructs an AuthenticationError instance</li>
-</ul>
-<hr>
 </div></div>
 <div class="col-sidebar">
 <div class="page-menu">
@@ -163,40 +41,7 @@
 <li><a href="#md:zep-a-long-term-memory-store-for-conversational-ai-applications"><span>Zep: <wbr/>A long-<wbr/>term memory store for conversational AI applications</span></a></li>
 <li>
 <ul>
-<li><a href="#md:installation"><span>Installation</span></a></li>
-<li><a href="#md:quick-start"><span>Quick <wbr/>Start</span></a></li></ul></li>
-<li><a href="#md:zep-js"><span>Zep-<wbr/>JS</span></a></li>
-<li><a href="#md:zepclient"><span>Zep<wbr/>Client</span></a></li>
-<li>
-<ul>
-<li><a href="#md:constructor"><span>Constructor</span></a></li>
-<li><a href="#md:methods"><span>Methods</span></a></li>
-<li>
-<ul>
-<li><a href="#md:getmemory"><span>get<wbr/>Memory</span></a></li>
-<li><a href="#md:addmemory"><span>add<wbr/>Memory</span></a></li>
-<li><a href="#md:deletememory"><span>delete<wbr/>Memory</span></a></li>
-<li><a href="#md:searchmemory"><span>search<wbr/>Memory</span></a></li></ul></li>
-<li><a href="#md:models"><span>Models</span></a></li>
-<li>
-<ul>
-<li><a href="#md:messagedata"><span>Message<wbr/>Data</span></a></li>
-<li><a href="#md:message"><span>Message</span></a></li>
-<li><a href="#md:summarydata"><span>Summary<wbr/>Data</span></a></li>
-<li><a href="#md:summary"><span>Summary</span></a></li>
-<li><a href="#md:memorydata"><span>Memory<wbr/>Data</span></a></li>
-<li><a href="#md:memory"><span>Memory</span></a></li>
-<li><a href="#md:memorysearchpayloaddata"><span>Memory<wbr/>Search<wbr/>Payload<wbr/>Data</span></a></li>
-<li><a href="#md:memorysearchpayload"><span>Memory<wbr/>Search<wbr/>Payload</span></a></li>
-<li><a href="#md:memorysearchresultdata"><span>Memory<wbr/>Search<wbr/>Result<wbr/>Data</span></a></li>
-<li><a href="#md:memorysearchresult"><span>Memory<wbr/>Search<wbr/>Result</span></a></li></ul></li>
-<li><a href="#md:exceptions"><span>Exceptions</span></a></li>
-<li>
-<ul>
-<li><a href="#md:zepclienterror"><span>Zep<wbr/>Client<wbr/>Error</span></a></li>
-<li><a href="#md:unexpectedresponseerror"><span>Unexpected<wbr/>Response<wbr/>Error</span></a></li>
-<li><a href="#md:notfounderror"><span>Not<wbr/>Found<wbr/>Error</span></a></li>
-<li><a href="#md:authenticationerror"><span>Authentication<wbr/>Error</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
+<li><a href="#md:installation"><span>Installation</span></a></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>@getzep/zep-<wbr/>js</span></a>
 <ul class="tsd-small-nested-navigation">
