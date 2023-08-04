@@ -1,11 +1,11 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
 
-name: Node.js Package
+name: publish-to-npm
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   build:
@@ -16,23 +16,13 @@ jobs:
         node-version: [19.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
-    - name: Cache node modules
-      uses: actions/cache@v2
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+        node-version: '18.x'
+        registry-url: 'https://registry.npmjs.org'
     - name: Install dependencies
       run: npm ci
-    - name: Build
-      run: npm run build
-    - name: Push Release to NPM
-      run: npm publish
+    - run: npm publish
       env:
-        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
