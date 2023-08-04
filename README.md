@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/dw/%40getzep/zep-js) [![node-build](https://github.com/getzep/zep-js/actions/workflows/Run%20CI.yml/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/Run%20CI.yml) [![CodeQL](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql)
+![npm](https://img.shields.io/npm/dw/%40getzep/zep-js) [![node-build-test](https://github.com/getzep/zep-js/actions/workflows/node-build-test.yml/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/node-build-test.yml) [![CodeQL](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql)
 
 # Zep: A long-term memory store for conversational AI applications
 
