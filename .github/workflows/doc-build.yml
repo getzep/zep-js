@@ -1,4 +1,4 @@
-name: Documentation
+name: documentation
 
 on:
   workflow_dispatch:
@@ -15,26 +15,19 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
         with:
-          node-version: '14' # Set the version of Node.js to use
-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm # npm caches files in ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          node-version: 18
+          cache: 'npm'
       
       - name: Install Dependencies
         run: npm ci
       
       - name: Build Project
-        run: npm run build # You should have a build script in your package.json
+        run: npm run build
       
       - name: Install TypeDoc
         run: npm install typedoc typedoc-plugin-markdown
