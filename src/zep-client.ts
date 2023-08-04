@@ -1,4 +1,3 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
 import {
    Memory,
    MemorySearchPayload,
@@ -14,29 +13,21 @@ import {
 const API_BASEURL = "/api/v1";
 
 /**
- * Handles an AxiosResponse promise by returning the response if it is
+ * Handles a Response promise by returning the response if it is
  * successful, or throwing an error if the response is unsuccessful.
- * @param {Promise<AxiosResponse>} requestPromise - The promise to handle.
+ * @param {Promise<Response>} requestPromise - The promise to handle.
  * @param {string} [notFoundMessage] - Optional. The message to use if the
  *                                    response is a 404.
  */
 async function handleRequest(
-   requestPromise: Promise<AxiosResponse>,
+   requestPromise: Promise<Response>,
    notFoundMessage: string | null = null
 ) {
    try {
-      return await requestPromise;
-   } catch (error) {
-      // Connection error
-      if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
-         throw new UnexpectedResponseError(
-            `Server is down or connection was refused.`
-         );
-      }
+      const response = await requestPromise;
 
-      if (error instanceof AxiosError && error.response) {
-         // Handle AxiosError case
-         switch (error.response.status) {
+      if (!response.ok) {
+         switch (response.status) {
             case 404:
                throw new NotFoundError(
                   notFoundMessage || `Resource not found.`
@@ -45,10 +36,18 @@ async function handleRequest(
                throw new AuthenticationError("Authentication failed.");
             default:
                throw new UnexpectedResponseError(
-                  `Got an unexpected status code: ${error.response.status}`,
-                  error.response.data
+                  `Got an unexpected status code: ${response.status}`,
+                  await response.json()
                );
          }
+      }
+
+      return response;
+   } catch (error) {
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
+         throw new UnexpectedResponseError(
+            `Server is down or connection was refused.`
+         );
       }
 
       throw error;
@@ -62,7 +61,7 @@ async function handleRequest(
 export class ZepClient {
    baseURL: string;
 
-   axiosInstance: any;
+   headers: any;
 
    /**
     * Constructs a new ZepClient instance.
@@ -71,12 +70,11 @@ export class ZepClient {
     */
    constructor(baseURL: string, apiKey?: string) {
       this.baseURL = baseURL;
-      const headers = apiKey
+      this.headers = apiKey
          ? {
               Authorization: `Bearer ${apiKey}`,
            }
          : {};
-      this.axiosInstance = axios.create({ headers });
    }
 
    /**
@@ -86,19 +84,11 @@ export class ZepClient {
     * @throws {Error} - Throws an error if the server is not running.
     */
    async init(): Promise<boolean> {
-      try {
-         const healthCheck = "/healthz";
-         const healthCheckURL = `${this.baseURL}${healthCheck}`;
+      const healthCheck = "/healthz";
+      const healthCheckURL = `${this.baseURL}${healthCheck}`;
 
-         const response = await this.axiosInstance.get(healthCheckURL);
-         return response.status === 200;
-      } catch (error) {
-         if (error instanceof AxiosError && error.code === "ECONNREFUSED") {
-            // The server is not accepting connections.
-            return false;
-         }
-         throw error; // Rethrow other errors.
-      }
+      const response = await fetch(healthCheckURL, { headers: this.headers });
+      return response.status === 200;
    }
 
    /**
@@ -109,23 +99,25 @@ export class ZepClient {
     */
    async getMemory(sessionID: string, lastn?: number): Promise<Memory | null> {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
-      const params = lastn !== undefined ? { lastn } : {};
+      const params = lastn !== undefined ? `?lastn=${lastn}` : "";
 
-      const response: AxiosResponse = await handleRequest(
-         this.axiosInstance.get(url, {
-            params,
+      const response: Response = await handleRequest(
+         fetch(`${url}${params}`, {
+            headers: this.headers,
          })
       );
 
-      if (response.data.messages) {
+      const data = await response.json();
+
+      if (data.messages) {
          return new Memory({
-            messages: response.data.messages.map((message: any) => {
+            messages: data.messages.map((message: any) => {
                return new Message(message);
             }),
-            summary: response.data.summary,
+            summary: data.summary,
          });
       }
-      return null; // Session found, but no messages found in the session
+      return null;
    }
 
    /**
@@ -137,11 +129,16 @@ export class ZepClient {
    async addMemory(sessionID: string, memory: Memory): Promise<string> {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
-      const response: AxiosResponse = await handleRequest(
-         this.axiosInstance.post(url, memory.toDict())
+      const response: Response = await handleRequest(
+         fetch(url, {
+            method: "POST",
+            headers: { ...this.headers, "Content-Type": "application/json" },
+            body: JSON.stringify(memory.toDict()),
+         }),
+         `Memory not found for session ${sessionID}.`
       );
 
-      return response.data;
+      return response.text();
    }
 
    /**
@@ -154,12 +151,15 @@ export class ZepClient {
    async deleteMemory(sessionID: string): Promise<string> {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
 
-      const response: AxiosResponse = await handleRequest(
-         this.axiosInstance.delete(url),
+      const response: Response = await handleRequest(
+         fetch(url, {
+            method: "DELETE",
+            headers: this.headers,
+         }),
          `No session found for sessionID: ${sessionID}`
       );
 
-      return response.data;
+      return response.text();
    }
 
    /**
@@ -177,15 +177,19 @@ export class ZepClient {
       limit?: number
    ): Promise<Array<MemorySearchResult>> {
       const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/search`;
-      const params = limit !== undefined ? { limit } : {};
+      const params = limit !== undefined ? `?limit=${limit}` : "";
 
-      const response: AxiosResponse = await handleRequest(
-         this.axiosInstance.post(url, searchPayload, {
-            params,
+      const response: Response = await handleRequest(
+         fetch(`${url}${params}`, {
+            method: "POST",
+            headers: { ...this.headers, "Content-Type": "application/json" },
+            body: JSON.stringify(searchPayload),
          })
       );
 
-      return response.data.map(
+      const data = await response.json();
+
+      return data.map(
          (searchResult: any) => new MemorySearchResult(searchResult)
       );
    }
