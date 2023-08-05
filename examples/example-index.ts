@@ -3,6 +3,8 @@ import {
    MemorySearchPayload,
    Message,
    NotFoundError,
+   Session,
+   SessionData,
    ZepClient,
 } from "../src";
 
@@ -30,6 +32,28 @@ async function main() {
       do {
          currentDate = Date.now();
       } while (currentDate - date < ms);
+   }
+
+   // Add session
+   try {
+      const sessionData: SessionData = {
+         session_id: sessionID,
+         metadata: {"foo": "bar"},
+      };
+      const session = new Session(sessionData);
+
+      await client.addSession(session);
+      console.debug("Adding new session ", sessionID);
+   } catch (error) {
+      console.debug("Got error:", error);
+   }
+
+   // Get session
+   try {
+      const session = await client.getSession(sessionID);
+      console.debug("Retrieved session ", session.toDict());
+   } catch (error) {
+      console.debug("Got error:", error);
    }
 
    // Add memory
@@ -78,8 +102,14 @@ async function main() {
          metadata: {
             where: {
                and: [
-                  { jsonpath: '$.system.entities[*] ? (@.Label == "WORK_OF_ART")' },
-                  { jsonpath: '$.system.entities[*] ? (@.Name like_regex "^parable*" flag "i")' },
+                  {
+                     jsonpath:
+                        '$.system.entities[*] ? (@.Label == "WORK_OF_ART")',
+                  },
+                  {
+                     jsonpath:
+                        '$.system.entities[*] ? (@.Name like_regex "^parable*" flag "i")',
+                  },
                ],
             },
          },
@@ -89,7 +119,10 @@ async function main() {
 
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.message));
-         console.debug("Search Result Distance: ", JSON.stringify(searchResult.dist));
+         console.debug(
+            "Search Result Distance: ",
+            JSON.stringify(searchResult.dist)
+         );
       });
    } catch (error) {
       if (error instanceof NotFoundError) {
