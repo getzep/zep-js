@@ -10,6 +10,8 @@ export {
    MemorySearchPayloadData,
    MemorySearchResult,
    MemorySearchResultData,
+   Session,
+   SessionData,
    APIError,
 } from "./models";
 export {

@@ -1,4 +1,61 @@
 /**
+ * Interface for Session data.
+ */
+export interface SessionData {
+   uuid?: string;
+   created_at?: string;
+   updated_at?: string;
+   deleted_at?: string;
+   session_id: string;
+   metadata: Record<string, any>;
+}
+
+/**
+ * Represents a session object with a unique identifier, metadata, and other attributes.
+ */
+export class Session {
+   uuid?: string;
+
+   created_at?: string;
+
+   updated_at?: string;
+
+   deleted_at?: string;
+
+   session_id: string;
+
+   metadata: Record<string, any>;
+
+   /**
+    * Constructs a new Session instance.
+    * @param {SessionData} data - The data to create a Session instance.
+    */
+   constructor(data: SessionData) {
+      this.uuid = data.uuid;
+      this.created_at = data.created_at;
+      this.updated_at = data.updated_at;
+      this.deleted_at = data.deleted_at;
+      this.session_id = data.session_id;
+      this.metadata = data.metadata;
+   }
+
+   /**
+    * Converts the Session instance to a dictionary.
+    * @returns {SessionData} A dictionary representation of Session instance.
+    */
+   toDict(): SessionData {
+      return {
+         uuid: this.uuid,
+         created_at: this.created_at,
+         updated_at: this.updated_at,
+         deleted_at: this.deleted_at,
+         session_id: this.session_id,
+         metadata: this.metadata,
+      };
+   }
+}
+
+/**
  * MessageData interface for providing input to create a Message instance.
  */
 export interface MessageData {

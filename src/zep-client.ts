@@ -3,6 +3,7 @@ import {
    MemorySearchPayload,
    MemorySearchResult,
    Message,
+   Session,
 } from "./models";
 import {
    AuthenticationError,
@@ -78,6 +79,15 @@ export class ZepClient {
    }
 
    /**
+    * Constructs the full URL for an API endpoint.
+    * @param {string} endpoint - The endpoint of the API.
+    * @returns {string} The full URL.
+    */
+   getFullUrl(endpoint: string): string {
+      return `${this.baseURL}${API_BASEURL}${endpoint}`;
+   }
+
+   /**
     * Initializes the ZepClient instance by checking if the server is running.
     * @returns {Promise<boolean>} - A promise that returns true if the server
     *                              is running, false otherwise.
@@ -92,13 +102,92 @@ export class ZepClient {
    }
 
    /**
+    * Retrieves a session with the specified ID.
+    *
+    * @param {string} sessionId - The ID of the session to retrieve.
+    * @returns {Promise<Session>} A promise that resolves to the Session object.
+    * @throws {Error} Will throw an error if the sessionId is not provided.
+    * @throws {Error} Will throw an error if the fetch request fails.
+    */
+   async getSession(sessionId: string): Promise<Session> {
+      if (!sessionId || sessionId.trim() === "") {
+         throw new Error("sessionId must be provided");
+      }
+
+      const url = this.getFullUrl(`/sessions/${sessionId}`);
+
+      try {
+         const response = await handleRequest(
+            fetch(url, { headers: this.headers }),
+            `No session found for session ${sessionId}`
+         );
+
+         const responseData = await response.json();
+
+         return new Session(responseData);
+      } catch (error) {
+         if (
+            error instanceof TypeError &&
+            error.message === "Failed to fetch"
+         ) {
+            throw new Error("Failed to connect to server");
+         }
+
+         throw error;
+      }
+   }
+
+   /**
+    * Adds or updates a session.
+    *
+    * @param {Session} session - The Session object to add or update.
+    * @returns {Promise<string>} A promise that resolves to the response text from the server.
+    * @throws {Error} Will throw an error if the session is not provided.
+    * @throws {Error} Will throw an error if the session.session_id is not provided.
+    * @throws {Error} Will throw an error if the fetch request fails.
+    */
+   async addSession(session: Session): Promise<string> {
+      if (!session) {
+         throw new Error("session must be provided");
+      }
+
+      if (!session.session_id || session.session_id.trim() === "") {
+         throw new Error("session.session_id must be provided");
+      }
+
+      const url = this.getFullUrl(`/sessions/${session.session_id}`);
+
+      try {
+         const response = await handleRequest(
+            fetch(url, {
+               method: "POST",
+               headers: { ...this.headers, "Content-Type": "application/json" },
+               body: JSON.stringify(session.toDict()),
+            }),
+            `Failed to add session ${session.session_id}`
+         );
+
+         return await response.text();
+      } catch (error) {
+         if (
+            error instanceof TypeError &&
+            error.message === "Failed to fetch"
+         ) {
+            throw new Error("Failed to connect to server");
+         }
+
+         throw error;
+      }
+   }
+
+   /**
     * Retrieves memory for a specific session.
     * @param {string} sessionID - The ID of the session to retrieve memory for.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
     * @returns {Promise<Array<Memory>>} - A promise that returns a Memory object.
     */
    async getMemory(sessionID: string, lastn?: number): Promise<Memory | null> {
-      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
+      const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
       const params = lastn !== undefined ? `?lastn=${lastn}` : "";
 
       const response: Response = await handleRequest(
@@ -127,7 +216,7 @@ export class ZepClient {
     * @returns {Promise<Memory>} A promise that resolves to the added memory.
     */
    async addMemory(sessionID: string, memory: Memory): Promise<string> {
-      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
+      const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
 
       const response: Response = await handleRequest(
          fetch(url, {
@@ -149,7 +238,7 @@ export class ZepClient {
     *                              been deleted.
     */
    async deleteMemory(sessionID: string): Promise<string> {
-      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/memory`;
+      const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
 
       const response: Response = await handleRequest(
          fetch(url, {
@@ -176,7 +265,7 @@ export class ZepClient {
       searchPayload: MemorySearchPayload,
       limit?: number
    ): Promise<Array<MemorySearchResult>> {
-      const url = `${this.baseURL}${API_BASEURL}/sessions/${sessionID}/search`;
+      const url = this.getFullUrl(`/sessions/${sessionID}/search`);
       const params = limit !== undefined ? `?limit=${limit}` : "";
 
       const response: Response = await handleRequest(
