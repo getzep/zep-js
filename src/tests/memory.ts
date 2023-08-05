@@ -17,9 +17,9 @@ const fetchMock = global.fetch as FetchMock;
 describe("ZepClient", () => {
    let client: ZepClient;
 
-   beforeEach(() => {
+   beforeEach(async () => {
       fetchMock.resetMocks();
-      client = new ZepClient(BASE_URL, "test-api-key");
+      client = await ZepClient.init(BASE_URL, "test-api-key");
    });
 
    describe("ZepClient Auth", () => {
@@ -35,8 +35,6 @@ describe("ZepClient", () => {
                body: JSON.stringify({}),
             });
          });
-
-         await client.init();
       });
    });
 
@@ -53,7 +51,7 @@ describe("ZepClient", () => {
 
          fetchMock.mockResponseOnce(JSON.stringify(expectedSessionData));
 
-         const session = await client.getSession(expectedSessionId);
+         const session = await client.memory.getSession(expectedSessionId);
 
          expect(session.toDict()).toEqual(expectedSessionData);
       });
@@ -64,14 +62,14 @@ describe("ZepClient", () => {
          const expectedSessionId = "test-session";
          const sessionData: SessionData = {
             session_id: expectedSessionId,
-            metadata: {"foo": "bar"},
+            metadata: { foo: "bar" },
          };
          const session = new Session(sessionData);
          const expectedResponseText = "Session added successfully";
 
          fetchMock.mockResponseOnce(expectedResponseText);
 
-         const responseText = await client.addSession(session);
+         const responseText = await client.memory.addSession(session);
 
          expect(responseText).toEqual(expectedResponseText);
       });
@@ -94,7 +92,7 @@ describe("ZepClient", () => {
 
          fetchMock.mockResponseOnce(JSON.stringify(responseData));
 
-         const memory = await client.getMemory("test-session");
+         const memory = await client.memory.getMemory("test-session");
 
          expect(memory).toEqual(
             new Memory({
@@ -116,7 +114,7 @@ describe("ZepClient", () => {
    it("should throw NotFoundError if the session is not found", async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
 
-      await expect(client.getMemory("test-session")).rejects.toThrow(
+      await expect(client.memory.getMemory("test-session")).rejects.toThrow(
          NotFoundError
       );
    });
@@ -136,7 +134,7 @@ describe("ZepClient", () => {
 
       fetchMock.mockResponseOnce(JSON.stringify(responseData));
 
-      const memory = await client.getMemory("test-session");
+      const memory = await client.memory.getMemory("test-session");
 
       expect(memory).toEqual(
          new Memory({
@@ -157,7 +155,7 @@ describe("ZepClient", () => {
    it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
-      await expect(client.getMemory("test-session")).rejects.toThrow(
+      await expect(client.memory.getMemory("test-session")).rejects.toThrow(
          UnexpectedResponseError
       );
    });
@@ -187,7 +185,7 @@ describe("ZepClient", () => {
          JSON.stringify(responseData)
       );
 
-      const memory = await client.getMemory("test-session", 2);
+      const memory = await client.memory.getMemory("test-session", 2);
 
       expect(memory).toEqual(
          new Memory({
@@ -230,7 +228,10 @@ describe("ZepClient", () => {
 
          fetchMock.mockResponseOnce("OK");
 
-         const result = await client.addMemory("test-session", memoryData);
+         const result = await client.memory.addMemory(
+            "test-session",
+            memoryData
+         );
 
          expect(result).toEqual("OK");
       });
@@ -255,7 +256,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
          await expect(
-            client.addMemory("test-session", memoryData)
+            client.memory.addMemory("test-session", memoryData)
          ).rejects.toThrow(UnexpectedResponseError);
       });
    });
@@ -268,7 +269,7 @@ describe("ZepClient", () => {
 
          fetchMock.mockResponseOnce(message);
 
-         const response = await client.deleteMemory("test-session");
+         const response = await client.memory.deleteMemory("test-session");
 
          expect(response).toEqual(message);
       });
@@ -277,18 +278,18 @@ describe("ZepClient", () => {
       it("should throw NotFoundError if the session is not found", async () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
 
-         await expect(client.deleteMemory("test-session")).rejects.toThrow(
-            NotFoundError
-         );
+         await expect(
+            client.memory.deleteMemory("test-session")
+         ).rejects.toThrow(NotFoundError);
       });
 
       // Test for throwing UnexpectedResponseError when unexpected status code is returned
       it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
-         await expect(client.deleteMemory("test-session")).rejects.toThrow(
-            UnexpectedResponseError
-         );
+         await expect(
+            client.memory.deleteMemory("test-session")
+         ).rejects.toThrow(UnexpectedResponseError);
       });
    });
 
@@ -321,7 +322,7 @@ describe("ZepClient", () => {
 
          fetchMock.mockResponseOnce(JSON.stringify(responseData));
 
-         const searchResults = await client.searchMemory(
+         const searchResults = await client.memory.searchMemory(
             "test-session",
             searchPayload
          );
@@ -340,7 +341,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
 
          await expect(
-            client.searchMemory("test-session", searchPayload)
+            client.memory.searchMemory("test-session", searchPayload)
          ).rejects.toThrow(NotFoundError);
       });
 
@@ -355,7 +356,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
          await expect(
-            client.searchMemory("test-session", searchPayload)
+            client.memory.searchMemory("test-session", searchPayload)
          ).rejects.toThrow(UnexpectedResponseError);
       }); // end it
    }); // end describe

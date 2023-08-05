@@ -1,4 +1,7 @@
+import MemoryManager from "./memory";
+
 export { ZepClient } from "./zep-client";
+export { MemoryManager };
 export {
    Memory,
    Message,
