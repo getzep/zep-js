@@ -4,7 +4,7 @@ import {
    MemorySearchResult,
    Message,
    Session,
-} from "./models";
+} from "./memory_models";
 import { IZepClient } from "./interfaces";
 import { API_BASEURL, handleRequest } from "./utils";
 
@@ -37,27 +37,16 @@ export default class MemoryManager {
          throw new Error("sessionId must be provided");
       }
 
-      const url = this.getFullUrl(`/sessions/${sessionId}`);
+      const response = await handleRequest(
+         fetch(this.getFullUrl(`/sessions/${sessionId}`), {
+            headers: this.client.headers,
+         }),
+         `No session found for session ${sessionId}`
+      );
 
-      try {
-         const response = await handleRequest(
-            fetch(url, { headers: this.client.headers }),
-            `No session found for session ${sessionId}`
-         );
+      const responseData = await response.json();
 
-         const responseData = await response.json();
-
-         return new Session(responseData);
-      } catch (error) {
-         if (
-            error instanceof TypeError &&
-            error.message === "Failed to fetch"
-         ) {
-            throw new Error("Failed to connect to server");
-         }
-
-         throw error;
-      }
+      return new Session(responseData);
    }
 
    /**
@@ -78,32 +67,19 @@ export default class MemoryManager {
          throw new Error("session.session_id must be provided");
       }
 
-      const url = this.getFullUrl(`/sessions/${session.session_id}`);
+      const response = await handleRequest(
+         fetch(this.getFullUrl(`/sessions/${session.session_id}`), {
+            method: "POST",
+            headers: {
+               ...this.client.headers,
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify(session.toDict()),
+         }),
+         `Failed to add session ${session.session_id}`
+      );
 
-      try {
-         const response = await handleRequest(
-            fetch(url, {
-               method: "POST",
-               headers: {
-                  ...this.client.headers,
-                  "Content-Type": "application/json",
-               },
-               body: JSON.stringify(session.toDict()),
-            }),
-            `Failed to add session ${session.session_id}`
-         );
-
-         return await response.text();
-      } catch (error) {
-         if (
-            error instanceof TypeError &&
-            error.message === "Failed to fetch"
-         ) {
-            throw new Error("Failed to connect to server");
-         }
-
-         throw error;
-      }
+      return response.text();
    }
 
    /**

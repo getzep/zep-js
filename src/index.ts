@@ -1,4 +1,4 @@
-import MemoryManager from "./memory";
+import MemoryManager from "./memory_manager";
 
 export { ZepClient } from "./zep-client";
 export { MemoryManager };
@@ -16,7 +16,7 @@ export {
    Session,
    SessionData,
    APIError,
-} from "./models";
+} from "./memory_models";
 export {
    UnexpectedResponseError,
    NotFoundError,

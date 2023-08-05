@@ -3,10 +3,10 @@ import {
    MemorySearchPayload,
    MemorySearchResult,
    Session,
-} from "./models";
+} from "./memory_models";
 
 import { API_BASEURL, SERVER_ERROR_MESSAGE, warnDeprecation } from "./utils";
-import MemoryManager from "./memory";
+import MemoryManager from "./memory_manager";
 
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
