@@ -41,7 +41,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (documents.length > LARGE_BATCH_WARNING_LIMIT) {
          console.warn(LARGE_BATCH_WARNING);
       }
-      const url = this.getFullUrl(`/collection/${this.name}/documents`);
+      const url = this.getFullUrl(`/collection/${this.name}/document`);
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -69,12 +69,12 @@ export default class DocumentCollection extends DocumentCollectionModel {
       );
       const response = await handleRequest(
          fetch(url, {
-            method: "PUT",
+            method: "PATCH",
             headers: {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(document),
+            body: JSON.stringify(document.toDict()),
          })
       );
 
@@ -124,7 +124,11 @@ export default class DocumentCollection extends DocumentCollectionModel {
    }
 
    async getDocuments(uuids: string[]): Promise<IDocument[]> {
-      const url = this.getFullUrl(`/collection/${this.name}/documents`);
+      if (uuids.length > LARGE_BATCH_WARNING_LIMIT) {
+         console.warn(LARGE_BATCH_WARNING);
+      }
+
+      const url = this.getFullUrl(`/collection/${this.name}/document/list/get`);
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -189,7 +193,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
       return results;
    }
 
-   async createIndex(force: boolean = false): Promise<void> {
+   async createIndex(force?: boolean): Promise<void> {
+      const forceParam = force ? `?force=${force}` : "";
       if (this.name.length === 0) {
          throw new Error("Collection name must be provided");
       }
@@ -202,7 +207,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          );
       }
       const url = this.getFullUrl(
-         `/collection/${this.name}/index?force=${force}`
+         `/collection/${this.name}/index/create${forceParam}`
       );
       await handleRequest(
          fetch(url, {

@@ -11,6 +11,8 @@ export interface IDocument {
    is_embedded?: boolean;
    embedding?: Float32Array;
    score?: number;
+
+   toDict(): IDocument;
 }
 
 export class Document implements IDocument {
