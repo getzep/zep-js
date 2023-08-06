@@ -1,8 +1,4 @@
-import {
-   AuthenticationError,
-   NotFoundError,
-   UnexpectedResponseError,
-} from "./exceptions";
+import { APIError, AuthenticationError, NotFoundError } from "./errors";
 
 const API_BASEURL = "/api/v1";
 const SERVER_ERROR_MESSAGE = `Failed to connect to Zep server. Please check that:
@@ -32,7 +28,7 @@ async function handleRequest(
             case 401:
                throw new AuthenticationError("Authentication failed.");
             default:
-               throw new UnexpectedResponseError(
+               throw new APIError(
                   `Got an unexpected status code: ${response.status}`,
                   await response.json()
                );
@@ -42,11 +38,21 @@ async function handleRequest(
       return response;
    } catch (error) {
       if (error instanceof TypeError && error.message === "Failed to fetch") {
-         throw new UnexpectedResponseError(SERVER_ERROR_MESSAGE);
+         throw new APIError(SERVER_ERROR_MESSAGE);
       }
 
       throw error;
    }
+}
+
+export function toDictFilterEmpty(instance: any): any {
+   const dict: { [key: string]: any } = {};
+   Object.keys(instance).forEach((key) => {
+      if (instance[key] !== null && instance[key] !== undefined) {
+         dict[key] = instance[key];
+      }
+   });
+   return dict;
 }
 
 export { warnDeprecation, handleRequest, SERVER_ERROR_MESSAGE, API_BASEURL };

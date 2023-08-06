@@ -11,8 +11,7 @@ import MemoryManager from "./memory_manager";
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
  */
-// eslint-disable-next-line import/prefer-default-export
-export class ZepClient {
+export default class ZepClient {
    private static constructing: boolean = false;
 
    baseURL: string;

@@ -1,9 +1,9 @@
 import {
+   ISession,
    Memory,
    Message,
    NotFoundError,
    Session,
-   SessionData,
    Summary,
    UnexpectedResponseError,
    ZepClient,
@@ -41,7 +41,7 @@ describe("ZepClient", () => {
    describe("ZepClient Session", () => {
       it("retrieves the correct session when sessionId is provided", async () => {
          const expectedSessionId = "test-session";
-         const expectedSessionData: SessionData = {
+         const expectedSessionData: ISession = {
             uuid: "uuid",
             created_at: "2022-01-01T00:00:00Z",
             updated_at: "2022-01-01T00:00:00Z",
@@ -60,7 +60,7 @@ describe("ZepClient", () => {
    describe("ZepClient Session", () => {
       it("adds a session correctly when valid session data is provided", async () => {
          const expectedSessionId = "test-session";
-         const sessionData: SessionData = {
+         const sessionData: ISession = {
             session_id: expectedSessionId,
             metadata: { foo: "bar" },
          };

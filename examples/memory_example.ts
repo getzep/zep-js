@@ -1,10 +1,10 @@
 import {
+   ISession,
    Memory,
    MemorySearchPayload,
    Message,
    NotFoundError,
    Session,
-   SessionData,
    ZepClient,
 } from "../src";
 
@@ -29,7 +29,7 @@ async function main() {
 
    // Add session
    try {
-      const sessionData: SessionData = {
+      const sessionData: ISession = {
          session_id: sessionID,
          metadata: { foo: "bar" },
       };
