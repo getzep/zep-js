@@ -1,21 +1,27 @@
-export { ZepClient } from "./zep-client";
+import MemoryManager from "./memory_manager";
+import ZepClient from "./zep-client";
+import DocumentManager from "./document_manager";
+import DocumentCollection from "./document_collection";
+
+export { MemoryManager, ZepClient, DocumentManager, DocumentCollection };
+export {
+   Document,
+   IDocument,
+   IDocumentCollectionModel,
+   DocumentCollectionModel,
+} from "./document_models";
 export {
    Memory,
    Message,
-   MessageData,
+   IMessage,
    Summary,
-   SummaryData,
-   MemoryData,
+   ISummary,
+   IMemory,
    MemorySearchPayload,
-   MemorySearchPayloadData,
+   IMemorySearchPayload,
    MemorySearchResult,
-   MemorySearchResultData,
+   IMemorySearchResult,
    Session,
-   SessionData,
-   APIError,
-} from "./models";
-export {
-   UnexpectedResponseError,
-   NotFoundError,
-   AuthenticationError,
-} from "./exceptions";
+   ISession,
+} from "./memory_models";
+export { APIError, NotFoundError, AuthenticationError } from "./errors";

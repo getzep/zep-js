@@ -1,12 +1,12 @@
 import {
+   ISession,
    Memory,
    MemorySearchPayload,
    Message,
    NotFoundError,
    Session,
-   SessionData,
    ZepClient,
-} from "../src";
+} from "../../src";
 
 import { history } from "./history";
 
@@ -14,17 +14,10 @@ import { v4 as uuidv4 } from "uuid";
 
 async function main() {
    const baseURL = "http://localhost:8000"; // Replace with Zep API URL
-   const client = new ZepClient(baseURL);
+   const client = await ZepClient.init(baseURL);
 
    // Example session ID
    let sessionID = uuidv4();
-
-   // Initialize client
-   const isInitialized = await client.init();
-   if (!isInitialized) {
-      console.debug("Unable to reach Zep server at ", baseURL);
-      return;
-   }
 
    function sleep(ms: number) {
       const date = Date.now();
@@ -36,13 +29,13 @@ async function main() {
 
    // Add session
    try {
-      const sessionData: SessionData = {
+      const sessionData: ISession = {
          session_id: sessionID,
-         metadata: {"foo": "bar"},
+         metadata: { foo: "bar" },
       };
       const session = new Session(sessionData);
 
-      await client.addSession(session);
+      await client.memory.addSession(session);
       console.debug("Adding new session ", sessionID);
    } catch (error) {
       console.debug("Got error:", error);
@@ -50,7 +43,7 @@ async function main() {
 
    // Get session
    try {
-      const session = await client.getSession(sessionID);
+      const session = await client.memory.getSession(sessionID);
       console.debug("Retrieved session ", session.toDict());
    } catch (error) {
       console.debug("Got error:", error);
@@ -63,7 +56,7 @@ async function main() {
       );
       const memory = new Memory({ messages });
 
-      await client.addMemory(sessionID, memory);
+      await client.memory.addMemory(sessionID, memory);
       console.debug("Adding new memory for session ", sessionID);
    } catch (error) {
       console.debug("Got error:", error);
@@ -79,7 +72,7 @@ async function main() {
          "Getting memory for newly added memory with sessionid ",
          sessionID
       );
-      const memory = await client.getMemory(sessionID);
+      const memory = await client.memory.getMemory(sessionID);
       if (memory) {
          memory.messages.forEach((message) => {
             console.debug(JSON.stringify(message));
@@ -115,7 +108,10 @@ async function main() {
          },
          text: searchText,
       });
-      const searchResults = await client.searchMemory(sessionID, searchPayload);
+      const searchResults = await client.memory.searchMemory(
+         sessionID,
+         searchPayload
+      );
 
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.message));
@@ -134,7 +130,7 @@ async function main() {
 
    // Delete memory
    try {
-      const deleteResult = await client.deleteMemory(sessionID);
+      const deleteResult = await client.memory.deleteMemory(sessionID);
       console.debug(deleteResult);
    } catch (error) {
       if (error instanceof NotFoundError) {

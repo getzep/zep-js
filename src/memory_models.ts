@@ -1,7 +1,7 @@
 /**
  * Interface for Session data.
  */
-export interface SessionData {
+export interface ISession {
    uuid?: string;
    created_at?: string;
    updated_at?: string;
@@ -28,9 +28,9 @@ export class Session {
 
    /**
     * Constructs a new Session instance.
-    * @param {SessionData} data - The data to create a Session instance.
+    * @param {ISession} data - The data to create a Session instance.
     */
-   constructor(data: SessionData) {
+   constructor(data: ISession) {
       this.uuid = data.uuid;
       this.created_at = data.created_at;
       this.updated_at = data.updated_at;
@@ -41,9 +41,9 @@ export class Session {
 
    /**
     * Converts the Session instance to a dictionary.
-    * @returns {SessionData} A dictionary representation of Session instance.
+    * @returns {ISession} A dictionary representation of Session instance.
     */
-   toDict(): SessionData {
+   toDict(): ISession {
       return {
          uuid: this.uuid,
          created_at: this.created_at,
@@ -58,7 +58,7 @@ export class Session {
 /**
  * MessageData interface for providing input to create a Message instance.
  */
-export interface MessageData {
+export interface IMessage {
    uuid?: string;
    created_at?: string;
    role: string;
@@ -85,9 +85,9 @@ export class Message {
 
    /**
     * Constructs a new Message instance.
-    * @param {MessageData} data - The data to create a message instance.
+    * @param {IMessage} data - The data to create a message instance.
     */
-   constructor(data: MessageData) {
+   constructor(data: IMessage) {
       this.uuid = data.uuid;
       this.created_at = data.created_at;
       this.role = data.role;
@@ -98,9 +98,9 @@ export class Message {
 
    /**
     * Converts the Message instance to a dictionary.
-    * @returns {MessageData} A dictionary representation of Message instance.
+    * @returns {IMessage} A dictionary representation of Message instance.
     */
-   toDict(): MessageData {
+   toDict(): IMessage {
       return {
          uuid: this.uuid,
          created_at: this.created_at,
@@ -115,7 +115,7 @@ export class Message {
 /**
  * SummaryData interface for providing input to create a Summary instance.
  */
-export interface SummaryData {
+export interface ISummary {
    uuid: string;
 
    created_at: string;
@@ -143,9 +143,9 @@ export class Summary {
 
    /**
     * Constructs a new Summary instance.
-    * @param {SummaryData} data - The data to create a summary instance.
+    * @param {ISummary} data - The data to create a summary instance.
     */
-   constructor(data: SummaryData) {
+   constructor(data: ISummary) {
       this.uuid = data.uuid;
       this.created_at = data.created_at;
       this.content = data.content;
@@ -155,9 +155,9 @@ export class Summary {
 
    /**
     * Converts the Summary instance to a dictionary.
-    * @returns {SummaryData} A dictionary representation of Summary instance.
+    * @returns {ISummary} A dictionary representation of Summary instance.
     */
-   toDict(): SummaryData {
+   toDict(): ISummary {
       return {
          uuid: this.uuid,
          created_at: this.created_at,
@@ -171,12 +171,12 @@ export class Summary {
 /**
  * MemoryData interface for providing input to create a Memory instance.
  */
-export interface MemoryData {
-   messages?: MessageData[];
+export interface IMemory {
+   messages?: IMessage[];
 
    metadata?: Record<string, any>;
 
-   summary?: SummaryData;
+   summary?: ISummary;
 
    uuid?: string;
 
@@ -203,9 +203,9 @@ export class Memory {
 
    /**
     * Constructs a new Memory instance.
-    * @param {MemoryData} data - The data to create a memory instance.
+    * @param {IMemory} data - The data to create a memory instance.
     */
-   constructor(data: MemoryData = {}) {
+   constructor(data: IMemory = {}) {
       this.messages = (data.messages || []).map(
          (messageData) => new Message(messageData)
       );
@@ -218,9 +218,9 @@ export class Memory {
 
    /**
     * Converts the Memory instance to a dictionary.
-    * @returns {MemoryData} A dictionary representation of the Memory instance.
+    * @returns {IMemory} A dictionary representation of the Memory instance.
     */
-   toDict(): MemoryData {
+   toDict(): IMemory {
       return {
          messages: this.messages.map((message) => message.toDict()),
          metadata: this.metadata,
@@ -235,7 +235,7 @@ export class Memory {
 /**
  * SearchPayloadData interface for providing input to create SearchPayload.
  */
-export interface MemorySearchPayloadData {
+export interface IMemorySearchPayload {
    metadata: Record<string, any>;
    text: string;
 }
@@ -250,9 +250,9 @@ export class MemorySearchPayload {
 
    /**
     * Constructs a new SearchPayload instance.
-    * @param {MemorySearchPayloadData} data - The data to create a Search Payload.
+    * @param {IMemorySearchPayload} data - The data to create a Search Payload.
     */
-   constructor(data: MemorySearchPayloadData) {
+   constructor(data: IMemorySearchPayload) {
       this.metadata = data.metadata;
       this.text = data.text;
    }
@@ -261,8 +261,8 @@ export class MemorySearchPayload {
 /**
  * SearchResultData interface for providing input to create a SearchResult.
  */
-export interface MemorySearchResultData {
-   message?: MessageData;
+export interface IMemorySearchResult {
+   message?: IMessage;
 
    metadata?: Record<string, any>;
 
@@ -285,31 +285,12 @@ export class MemorySearchResult {
 
    /**
     * Constructs a new SearchResult instance.
-    * @param {MemorySearchResultData} data - The data to create a search result instance.
+    * @param {IMemorySearchResult} data - The data to create a search result instance.
     */
-   constructor(data: MemorySearchResultData = {}) {
+   constructor(data: IMemorySearchResult = {}) {
       this.message = data.message ? new Message(data.message) : undefined;
       this.metadata = data.metadata || {};
       this.summary = data.summary;
       this.dist = data.dist;
-   }
-}
-
-/**
- * Represents an error received from the API.
- */
-export class APIError {
-   code: number;
-
-   message: string;
-
-   /**
-    * Constructs a new APIError instance.
-    * @param {number} code - The error code.
-    * @param {string} message - The error message.
-    */
-   constructor(code: number, message: string) {
-      this.code = code;
-      this.message = message;
    }
 }
