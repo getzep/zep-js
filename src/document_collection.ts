@@ -1,16 +1,12 @@
 import {
+   docsToDocsWithFloatArray,
    DocumentCollectionModel,
    IDocument,
    IDocumentCollectionModel,
    isGetIDocument,
 } from "./document_models";
 import { ISearchQuery, IUpdateDocumentParams, IZepClient } from "./interfaces";
-import {
-   API_BASEURL,
-   docsToDocsWithFloatArray,
-   handleRequest,
-   isFloat,
-} from "./utils";
+import { API_BASEURL, handleRequest, isFloat } from "./utils";
 import { APIError } from "./errors";
 
 const MIN_DOCS_TO_INDEX = 10_000;

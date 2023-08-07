@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { toDictFilterEmpty } from "./utils";
+import { isFloat, toDictFilterEmpty } from "./utils";
 
 export interface IDocument {
    uuid?: string;
@@ -163,3 +163,22 @@ export function isGetIDocument(object: any): object is IDocument {
       typeof object.uuid === "string"
    );
 }
+
+function docsToDocsWithFloatArray(documents: IDocument[]): IDocument[] {
+   return documents.map((d) => {
+      if (
+         d.embedding &&
+         Array.isArray(d.embedding) &&
+         isFloat(d.embedding[0])
+      ) {
+         const doc: IDocument = {
+            ...d,
+            embedding: new Float32Array(d.embedding),
+         };
+         return doc;
+      }
+      return d;
+   });
+}
+
+export { docsToDocsWithFloatArray };

@@ -1,6 +1,5 @@
 import semver from "semver";
 import { APIError, AuthenticationError, NotFoundError } from "./errors";
-import { IDocument } from "./document_models";
 
 const API_BASEURL = "/api/v1";
 const SERVER_ERROR_MESSAGE = `Failed to connect to Zep server. Please check that:
@@ -96,19 +95,6 @@ function isFloat(n: any) {
    return Number(n) === n && n % 1 !== 0;
 }
 
-function docsToDocsWithFloatArray(documents: IDocument[]): IDocument[] {
-   return documents.map((d) => {
-      if (
-         d.embedding &&
-         Array.isArray(d.embedding) &&
-         isFloat(d.embedding[0])
-      ) {
-         d.embedding = new Float32Array(d.embedding);
-      }
-      return d;
-   });
-}
-
 export {
    warnDeprecation,
    handleRequest,
@@ -117,6 +103,5 @@ export {
    MINIMUM_SERVER_VERSION,
    API_BASEURL,
    isVersionGreaterOrEqual,
-   docsToDocsWithFloatArray,
    isFloat,
 };

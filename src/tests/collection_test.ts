@@ -1,8 +1,11 @@
 import { FetchMock } from "jest-fetch-mock";
 import DocumentCollection from "../document_collection";
-import { IDocument, IDocumentCollectionModel } from "../document_models";
+import {
+   docsToDocsWithFloatArray,
+   IDocument,
+   IDocumentCollectionModel,
+} from "../document_models";
 import { IZepClient } from "../interfaces";
-import { docsToDocsWithFloatArray } from "../utils";
 
 const API_URL = "http://localhost:8000";
 
