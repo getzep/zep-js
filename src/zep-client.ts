@@ -6,7 +6,13 @@ import {
 } from "./memory_models";
 import DocumentManager from "./document_manager";
 
-import { API_BASEURL, SERVER_ERROR_MESSAGE, warnDeprecation } from "./utils";
+import {
+   API_BASEURL,
+   isVersionGreaterOrEqual,
+   MIN_SERVER_WARNING_MESSAGE,
+   SERVER_ERROR_MESSAGE,
+   warnDeprecation,
+} from "./utils";
 import MemoryManager from "./memory_manager";
 
 /**
@@ -164,6 +170,13 @@ export default class ZepClient {
       const healthCheckURL = `${this.baseURL}${healthCheck}`;
 
       const response = await fetch(healthCheckURL, { headers: this.headers });
+
+      const zepServerVersion = response.headers.get("X-Zep-Version");
+
+      if (!isVersionGreaterOrEqual(zepServerVersion)) {
+         console.warn(MIN_SERVER_WARNING_MESSAGE);
+      }
+
       return response.status === 200;
    }
 }

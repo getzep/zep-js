@@ -1,3 +1,4 @@
+import semver from "semver";
 import { APIError, AuthenticationError, NotFoundError } from "./errors";
 
 const API_BASEURL = "/api/v1";
@@ -6,12 +7,32 @@ const SERVER_ERROR_MESSAGE = `Failed to connect to Zep server. Please check that
 - the API URL is correct
 - No other process is using the same port`;
 
+const MINIMUM_SERVER_VERSION = "0.9.0-beta.0";
+
+const MIN_SERVER_WARNING_MESSAGE = `Zep server version less than ${MINIMUM_SERVER_VERSION} does not support the document vector store features of this client. Please update to ${MINIMUM_SERVER_VERSION} or newer.`;
+
 function warnDeprecation(functionName: string): void {
    console.warn(
       `Warning: ${functionName} is deprecated and will be removed in the next major release.`
    );
 }
 
+/*
+ * Use semver to compare the server version to the minimum version.
+ * Returns true if the server version is greater than or equal to the minimum version.
+ *
+ * If the version string is null, returns false.
+ */
+function isVersionGreaterOrEqual(version: string | null): boolean {
+   if (!version || !semver.valid(version)) {
+      return false;
+   }
+   return semver.gte(version, MINIMUM_SERVER_VERSION);
+}
+
+/*
+ * Handles a request promise, throwing an appropriate error if the request fails.
+ */
 async function handleRequest(
    requestPromise: Promise<Response>,
    notFoundMessage: string | null = null
@@ -46,6 +67,9 @@ async function handleRequest(
    }
 }
 
+/*
+ * Converts an object to a dictionary, removing any null or undefined values.
+ */
 export function toDictFilterEmpty(instance: any): any {
    const dict: { [key: string]: any } = {};
    Object.keys(instance).forEach((key) => {
@@ -56,4 +80,11 @@ export function toDictFilterEmpty(instance: any): any {
    return dict;
 }
 
-export { warnDeprecation, handleRequest, SERVER_ERROR_MESSAGE, API_BASEURL };
+export {
+   warnDeprecation,
+   handleRequest,
+   SERVER_ERROR_MESSAGE,
+   MIN_SERVER_WARNING_MESSAGE,
+   API_BASEURL,
+   isVersionGreaterOrEqual,
+};

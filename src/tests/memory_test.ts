@@ -1,11 +1,11 @@
 import {
+   APIError,
    ISession,
    Memory,
    Message,
    NotFoundError,
    Session,
    Summary,
-   UnexpectedResponseError,
    ZepClient,
 } from "../";
 import { FetchMock } from "jest-fetch-mock";
@@ -20,22 +20,6 @@ describe("ZepClient", () => {
    beforeEach(async () => {
       fetchMock.resetMocks();
       client = await ZepClient.init(BASE_URL, "test-api-key");
-   });
-
-   describe("ZepClient Auth", () => {
-      it("sets the correct Authorization header when apiKey is provided", async () => {
-         const expectedAuthorizationHeader = "Bearer test-api-key";
-
-         fetchMock.mockResponseOnce((req) => {
-            expect(req.headers.get("Authorization")).toEqual(
-               expectedAuthorizationHeader
-            );
-            return Promise.resolve({
-               status: 200,
-               body: JSON.stringify({}),
-            });
-         });
-      });
    });
 
    describe("ZepClient Session", () => {
@@ -151,12 +135,12 @@ describe("ZepClient", () => {
       );
    });
 
-   // Test for throwing UnexpectedResponseError when unexpected status code is returned
-   it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
+   // Test for throwing APIError when unexpected status code is returned
+   it("should throw APIError when unexpected status code is returned", async () => {
       fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
       await expect(client.memory.getMemory("test-session")).rejects.toThrow(
-         UnexpectedResponseError
+         APIError
       );
    });
 
@@ -237,7 +221,7 @@ describe("ZepClient", () => {
       });
 
       // Test for throwing Error if the error response
-      it("should throw UnexpectedResponseError if !200 OK", async () => {
+      it("should throw APIError if !200 OK", async () => {
          const memoryData = new Memory({
             messages: [
                new Message({ role: "system", content: "System message" }),
@@ -257,7 +241,7 @@ describe("ZepClient", () => {
 
          await expect(
             client.memory.addMemory("test-session", memoryData)
-         ).rejects.toThrow(UnexpectedResponseError);
+         ).rejects.toThrow(APIError);
       });
    });
 
@@ -283,13 +267,13 @@ describe("ZepClient", () => {
          ).rejects.toThrow(NotFoundError);
       });
 
-      // Test for throwing UnexpectedResponseError when unexpected status code is returned
-      it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
+      // Test for throwing APIError when unexpected status code is returned
+      it("should throw APIError when unexpected status code is returned", async () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
          await expect(
             client.memory.deleteMemory("test-session")
-         ).rejects.toThrow(UnexpectedResponseError);
+         ).rejects.toThrow(APIError);
       });
    });
 
@@ -345,8 +329,8 @@ describe("ZepClient", () => {
          ).rejects.toThrow(NotFoundError);
       });
 
-      // Test for throwing UnexpectedResponseError when unexpected status code is returned
-      it("should throw UnexpectedResponseError when unexpected status code is returned", async () => {
+      // Test for throwing APIError when unexpected status code is returned
+      it("should throw APIError when unexpected status code is returned", async () => {
          const searchPayload = {
             query: "system",
             metadata: { metadata_key: "metadata_value" }, // Replace with actual meta
@@ -357,7 +341,7 @@ describe("ZepClient", () => {
 
          await expect(
             client.memory.searchMemory("test-session", searchPayload)
-         ).rejects.toThrow(UnexpectedResponseError);
+         ).rejects.toThrow(APIError);
       }); // end it
    }); // end describe
 });
