@@ -3,7 +3,7 @@ import { IZepClient } from "./interfaces";
 import { handleRequest } from "./utils";
 import DocumentCollection from "./document_collection";
 
-export default class CollectionManager {
+export default class DocumentManager {
    client: IZepClient;
 
    constructor(client: IZepClient) {
