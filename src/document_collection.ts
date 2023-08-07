@@ -5,7 +5,12 @@ import {
    isGetIDocument,
 } from "./document_models";
 import { ISearchQuery, IUpdateDocumentParams, IZepClient } from "./interfaces";
-import { API_BASEURL, handleRequest } from "./utils";
+import {
+   API_BASEURL,
+   docsToDocsWithFloatArray,
+   handleRequest,
+   isFloat,
+} from "./utils";
 import { APIError } from "./errors";
 
 const MIN_DOCS_TO_INDEX = 10_000;
@@ -160,7 +165,11 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new APIError("Unexpected document response from server");
       }
 
-      return response.json();
+      // embedding object or array to Float32Array
+      if (document.embedding) {
+         document.embedding = new Float32Array(document.embedding);
+      }
+      return document;
    }
 
    /**
@@ -170,6 +179,12 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @throws {Error} If any of the documents do not match the expected format.
     */
    async getDocuments(uuids: string[]): Promise<IDocument[]> {
+      if (uuids.length === 0) {
+         throw new Error("No uuids provided");
+      }
+      if (this.name.length === 0) {
+         throw new Error("Collection name must be provided");
+      }
       if (uuids.length > LARGE_BATCH_WARNING_LIMIT) {
          console.warn(LARGE_BATCH_WARNING);
       }
@@ -194,7 +209,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new APIError("Unexpected document response from server");
       }
 
-      return documents;
+      // embedding object or array to Float32Array
+      return docsToDocsWithFloatArray(documents);
    }
 
    /**
@@ -222,6 +238,11 @@ export default class DocumentCollection extends DocumentCollectionModel {
             "Search query must have at least one of text, embedding, or metadata"
          );
       }
+
+      const q = query.embedding
+         ? { ...query, embedding: Array.from(query.embedding) }
+         : query;
+
       const limitParam = limit ? `?limit=${limit}` : "";
       const url = this.getFullUrl(
          `/collection/${this.name}/search${limitParam}`
@@ -233,7 +254,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(query),
+            body: JSON.stringify(q),
          })
       );
 
@@ -248,11 +269,14 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (!Array.isArray(queryVector)) {
          throw new APIError("Unexpected vector response from server");
       }
-      if (queryVector.map((v) => typeof v === "number").includes(false)) {
+      if (queryVector.map((v) => isFloat(v)).includes(false)) {
          throw new APIError("Unexpected vector response from server");
       }
 
-      return [documents, new Float32Array(queryVector)];
+      return [
+         docsToDocsWithFloatArray(documents),
+         new Float32Array(queryVector),
+      ];
    }
 
    /**

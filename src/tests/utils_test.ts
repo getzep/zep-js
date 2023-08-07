@@ -1,7 +1,9 @@
 import { APIError, AuthenticationError, NotFoundError } from "../errors";
 import {
    handleRequest,
+   isFloat,
    isVersionGreaterOrEqual,
+   MINIMUM_SERVER_VERSION,
    toDictFilterEmpty,
    warnDeprecation,
 } from "../utils";
@@ -25,6 +27,10 @@ describe("Utility functions", () => {
 
       test("returns true if version is greater than minimum", () => {
          expect(isVersionGreaterOrEqual("0.10.0")).toBe(true);
+      });
+
+      test("returns true if version is equal to minimum", () => {
+         expect(isVersionGreaterOrEqual(MINIMUM_SERVER_VERSION)).toBe(true);
       });
 
       test("returns false if version is less than minimum", () => {
@@ -74,6 +80,26 @@ describe("Utility functions", () => {
       expect(toDictFilterEmpty(obj)).toEqual({
          key1: "value1",
          key4: "value4",
+      });
+   });
+
+   describe("isFloat", () => {
+      it("returns true for floating-point numbers and zero", () => {
+         expect(isFloat(1.5)).toBe(true);
+         expect(isFloat(-0.1)).toBe(true);
+         expect(isFloat(0.0)).toBe(true);
+      });
+
+      it("returns false for integers", () => {
+         expect(isFloat(1)).toBe(false);
+         expect(isFloat(-1)).toBe(false);
+      });
+
+      it("returns false for non-numbers", () => {
+         expect(isFloat("1.5")).toBe(false);
+         expect(isFloat("test")).toBe(false);
+         expect(isFloat(null)).toBe(false);
+         expect(isFloat(undefined)).toBe(false);
       });
    });
 });

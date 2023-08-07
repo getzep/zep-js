@@ -9,10 +9,8 @@ export interface IDocument {
    content: string;
    metadata?: Record<string, any>;
    is_embedded?: boolean;
-   embedding?: Float32Array;
+   embedding?: Float32Array | number[];
    score?: number;
-
-   toDict(): IDocument;
 }
 
 export class Document implements IDocument {

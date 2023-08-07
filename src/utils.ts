@@ -1,5 +1,6 @@
 import semver from "semver";
 import { APIError, AuthenticationError, NotFoundError } from "./errors";
+import { IDocument } from "./document_models";
 
 const API_BASEURL = "/api/v1";
 const SERVER_ERROR_MESSAGE = `Failed to connect to Zep server. Please check that:
@@ -21,13 +22,19 @@ function warnDeprecation(functionName: string): void {
  * Use semver to compare the server version to the minimum version.
  * Returns true if the server version is greater than or equal to the minimum version.
  *
- * If the version string is null, returns false.
+ * If the version string is null or an invalid semver, returns false.
  */
 function isVersionGreaterOrEqual(version: string | null): boolean {
-   if (!version || !semver.valid(version)) {
+   if (!version) {
       return false;
    }
-   return semver.gte(version, MINIMUM_SERVER_VERSION);
+   const versionString = version.split("-")[0];
+
+   if (!semver.valid(versionString)) {
+      return false;
+   }
+
+   return semver.gte(versionString, MINIMUM_SERVER_VERSION);
 }
 
 /*
@@ -80,11 +87,36 @@ export function toDictFilterEmpty(instance: any): any {
    return dict;
 }
 
+/*
+ * Returns true if the given value is a float or zero.
+ */
+function isFloat(n: any) {
+   if (n === 0) return true;
+
+   return Number(n) === n && n % 1 !== 0;
+}
+
+function docsToDocsWithFloatArray(documents: IDocument[]): IDocument[] {
+   return documents.map((d) => {
+      if (
+         d.embedding &&
+         Array.isArray(d.embedding) &&
+         isFloat(d.embedding[0])
+      ) {
+         d.embedding = new Float32Array(d.embedding);
+      }
+      return d;
+   });
+}
+
 export {
    warnDeprecation,
    handleRequest,
    SERVER_ERROR_MESSAGE,
    MIN_SERVER_WARNING_MESSAGE,
+   MINIMUM_SERVER_VERSION,
    API_BASEURL,
    isVersionGreaterOrEqual,
+   docsToDocsWithFloatArray,
+   isFloat,
 };

@@ -1,4 +1,4 @@
-import { Document, ZepClient } from "../../src";
+import { Document, IDocument, ZepClient } from "../../src";
 import * as fs from "fs";
 import { faker } from "@faker-js/faker";
 
@@ -29,7 +29,7 @@ function readChunkFromFile(file: string, chunkSize: number): string[] {
    return chunks;
 }
 
-function printResults(results: Document[]): void {
+function printResults(results: IDocument[]): void {
    for (const result of results) {
       console.log(
          `${result.content} - ${JSON.stringify(result.metadata)} -> ${
@@ -156,9 +156,13 @@ async function main() {
    console.log(
       `Searching for documents similar to:\n${interestingDocument.content}\n`
    );
+   if (!interestingDocument.embedding) {
+      throw new Error("No embedding found for document");
+   }
+   const vectorToSearch = new Float32Array(interestingDocument.embedding);
    const embeddingSearchResults = await collection.search(
       {
-         embedding: interestingDocument.embedding,
+         embedding: vectorToSearch,
       },
       3
    );

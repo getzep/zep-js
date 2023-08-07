@@ -4,7 +4,8 @@ import ZepClient from "../zep-client";
 import { FetchMock } from "jest-fetch-mock";
 import { DocumentCollectionModel } from "../document_models";
 
-const BASE_URL = "http://localhost:8000";
+const API_URL = "http://localhost:8000";
+const BASE_URL = `${API_URL}/api/v1`;
 
 const fetchMock = global.fetch as FetchMock;
 
@@ -14,31 +15,26 @@ describe("CollectionManager", () => {
 
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.init(BASE_URL, "test-api-key");
+      client = await ZepClient.init(API_URL, "test-api-key");
       manager = new DocumentManager(client);
    });
 
    describe("addCollection", () => {
       it("throws error when embeddingDimensions is not a positive integer", async () => {
-         await expect(manager.addCollection("test", 0)).rejects.toThrow(
-            "embeddingDimensions must be a positive integer"
-         );
+         await expect(
+            manager.addCollection({ name: "test", embeddingDimensions: -1 })
+         ).rejects.toThrow("embeddingDimensions must be a positive integer");
       });
 
       it("calls the correct endpoint with the correct method and headers", async () => {
-         fetchMock.mockResponseOnce(
-            JSON.stringify({
-               name: "test",
-               embeddingDimensions: 2,
-            })
-         );
-         fetchMock.mockResponseOnce(
-            JSON.stringify({
-               name: "test",
-               embeddingDimensions: 2,
-            })
-         );
-         await manager.addCollection("test", 2);
+         const mockCollection = {
+            name: "test",
+            embeddingDimensions: 2,
+            isAutoEmbedded: true,
+         };
+         fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
+         fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
+         await manager.addCollection({ name: "test", embeddingDimensions: 2 });
          expect(fetchMock.mock.calls[1][0]).toEqual(
             `${BASE_URL}/collection/test`
          );
@@ -77,11 +73,7 @@ describe("CollectionManager", () => {
          };
          fetchMock.mockResponseOnce(JSON.stringify({}));
          fetchMock.mockResponseOnce(JSON.stringify(testData));
-         await manager.updateCollection(
-            testData.name,
-            testData.description,
-            testData.metadata
-         );
+         await manager.updateCollection(testData);
          expect(fetchMock.mock.calls[1][0]).toEqual(
             `${BASE_URL}/collection/test`
          );
