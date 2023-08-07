@@ -91,7 +91,7 @@ async function main() {
    const collection = await client.document.addCollection({
       name: collectionName,
       embeddingDimensions: 1536, // this must match the embedding dimensions of your embedding model
-      description: "Charles Babbage's Babbage's Calculating Engine", // optional
+      description: "Babbage's Calculating Engine", // optional
       metadata: { qux: faker.string.sample() }, // optional
       isAutoEmbedded: true, // optional (default: true) - whether Zep should  automatically embed documents
    });

@@ -36,6 +36,7 @@
       "typescript": "^5.1.6"
    },
    "devDependencies": {
+      "@faker-js/faker": "^8.0.2",
       "@types/jest": "^29.5.3",
       "@types/node": "^16.18.39",
       "@types/uuid": "^9.0.2",

@@ -1,6 +1,10 @@
 import { DocumentCollectionModel } from "./document_models";
-import { IZepClient } from "./interfaces";
-import { handleRequest } from "./utils";
+import {
+   IAddCollectionParams,
+   IUpdateCollectionParams,
+   IZepClient,
+} from "./interfaces";
+import { API_BASEURL, handleRequest } from "./utils";
 import DocumentCollection from "./document_collection";
 
 export default class DocumentManager {
@@ -10,31 +14,33 @@ export default class DocumentManager {
       this.client = client;
    }
 
+   /**
+    * Constructs the full URL for an API endpoint.
+    * @param {string} endpoint - The endpoint of the API.
+    * @returns {string} The full URL.
+    */
    getFullUrl(endpoint: string): string {
-      return `${this.client.baseURL}${endpoint}`;
+      return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
    }
 
-   async addCollection(
-      name: string,
-      embeddingDimensions: number,
-      description?: string,
-      metadata?: Record<string, any>,
-      isAutoEmbedded: boolean = true
-   ): Promise<DocumentCollection> {
+   async addCollection({
+      name,
+      embeddingDimensions,
+      description,
+      metadata,
+      isAutoEmbedded = true,
+   }: IAddCollectionParams): Promise<DocumentCollection> {
       if (embeddingDimensions <= 0) {
          throw new Error("embeddingDimensions must be a positive integer");
       }
 
-      const collection = new DocumentCollectionModel(
+      const collection = new DocumentCollectionModel({
          name,
-         undefined,
-         undefined,
-         undefined,
          description,
          metadata,
-         embeddingDimensions,
-         isAutoEmbedded
-      );
+         embedding_dimensions: embeddingDimensions,
+         is_auto_embedded: isAutoEmbedded,
+      });
 
       await handleRequest(
          fetch(this.getFullUrl(`/collection/${name}`), {
@@ -63,36 +69,35 @@ export default class DocumentManager {
 
       const responseData = await response.json();
 
-      return new DocumentCollection(
-         this.client,
-         responseData.name,
-         responseData.uuid,
-         responseData.created_at,
-         responseData.updated_at,
-         responseData.description,
-         responseData.metadata,
-         responseData.embeddingDimensions,
-         responseData.isAutoEmbedded,
-         responseData.is_indexed,
-         responseData.document_count,
-         responseData.document_embedded_count,
-         responseData.is_normalized
-      );
+      return new DocumentCollection(this.client, {
+         name: responseData.name,
+         uuid: responseData.uuid,
+         created_at: responseData.created_at,
+         updated_at: responseData.updated_at,
+         description: responseData.description,
+         metadata: responseData.metadata,
+         embedding_dimensions: responseData.embeddingDimensions,
+         is_auto_embedded: responseData.isAutoEmbedded,
+         is_indexed: responseData.is_indexed,
+         document_count: responseData.document_count,
+         document_embedded_count: responseData.document_embedded_count,
+         is_normalized: responseData.is_normalized,
+      });
    }
 
-   async updateCollection(
-      name: string,
-      description?: string,
-      metadata?: Record<string, any>
-   ): Promise<DocumentCollection> {
-      const collection = new DocumentCollectionModel(
+   async updateCollection({
+      name,
+      description,
+      metadata,
+   }: IUpdateCollectionParams): Promise<DocumentCollection> {
+      if (description?.length === 0 && metadata === undefined) {
+         throw new Error("Either description or metadata must be provided");
+      }
+      const collection = new DocumentCollectionModel({
          name,
-         undefined,
-         undefined,
-         undefined,
          description,
-         metadata
-      );
+         metadata,
+      });
 
       await handleRequest(
          fetch(this.getFullUrl(`/collection/${collection.name}`), {
@@ -119,21 +124,20 @@ export default class DocumentManager {
 
       return responseData.map(
          (collectionData: any) =>
-            new DocumentCollection(
-               this.client,
-               collectionData.name,
-               collectionData.uuid,
-               collectionData.created_at,
-               collectionData.updated_at,
-               collectionData.description,
-               collectionData.metadata,
-               collectionData.embedding_dimensions,
-               collectionData.is_auto_embedded,
-               collectionData.is_indexed,
-               collectionData.document_count,
-               collectionData.document_embedded_count,
-               collectionData.is_normalized
-            )
+            new DocumentCollection(this.client, {
+               name: collectionData.name,
+               uuid: collectionData.uuid,
+               created_at: collectionData.created_at,
+               updated_at: collectionData.updated_at,
+               description: collectionData.description,
+               metadata: collectionData.metadata,
+               embedding_dimensions: collectionData.embedding_dimensions,
+               is_auto_embedded: collectionData.is_auto_embedded,
+               is_indexed: collectionData.is_indexed,
+               document_count: collectionData.document_count,
+               document_embedded_count: collectionData.document_embedded_count,
+               is_normalized: collectionData.is_normalized,
+            })
       );
    }
 

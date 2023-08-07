@@ -30,7 +30,8 @@ async function handleRequest(
             default:
                throw new APIError(
                   `Got an unexpected status code: ${response.status}`,
-                  await response.json()
+                  response.status,
+                  await response.text()
                );
          }
       }

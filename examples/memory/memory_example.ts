@@ -6,7 +6,7 @@ import {
    NotFoundError,
    Session,
    ZepClient,
-} from "../src";
+} from "../../src";
 
 import { history } from "./history";
 

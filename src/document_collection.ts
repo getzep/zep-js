@@ -1,11 +1,11 @@
 import {
    DocumentCollectionModel,
    IDocument,
-   ISearchQuery,
+   IDocumentCollectionModel,
    isGetIDocument,
 } from "./document_models";
-import { IZepClient } from "./interfaces";
-import { handleRequest } from "./utils";
+import { ISearchQuery, IUpdateDocumentParams, IZepClient } from "./interfaces";
+import { API_BASEURL, handleRequest } from "./utils";
 import { APIError } from "./errors";
 
 const MIN_DOCS_TO_INDEX = 10_000;
@@ -16,8 +16,8 @@ This may result in slow performance or out-of-memory failures.`;
 export default class DocumentCollection extends DocumentCollectionModel {
    private client: IZepClient;
 
-   constructor(client: IZepClient, ...args: any) {
-      super(args);
+   constructor(client: IZepClient, params: IDocumentCollectionModel) {
+      super(params);
       this.client = client;
    }
 
@@ -53,33 +53,35 @@ export default class DocumentCollection extends DocumentCollectionModel {
          })
       );
 
-      const responseData = await response.json();
-      return responseData.map((doc: IDocument) => doc.uuid);
+      return response.json();
    }
 
-   async updateDocument(document: IDocument): Promise<string> {
+   async updateDocument({
+      uuid,
+      documentId,
+      metadata,
+   }: IUpdateDocumentParams): Promise<void> {
       if (this.name.length === 0) {
          throw new Error("Collection name must be provided");
       }
-      if (!document.uuid) {
+      if (!uuid) {
          throw new Error("Document must have a uuid");
       }
-      const url = this.getFullUrl(
-         `/collection/${this.name}/document/${document.uuid}`
-      );
-      const response = await handleRequest(
+      const url = this.getFullUrl(`/collection/${this.name}/document/${uuid}`);
+      await handleRequest(
          fetch(url, {
             method: "PATCH",
             headers: {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(document.toDict()),
+            body: JSON.stringify({
+               uuid,
+               document_id: documentId,
+               metadata,
+            }),
          })
       );
-
-      const responseData = await response.json();
-      return responseData.uuid;
    }
 
    async deleteDocument(uuid: string): Promise<void> {
@@ -155,7 +157,19 @@ export default class DocumentCollection extends DocumentCollectionModel {
       query: ISearchQuery,
       limit?: number
    ): Promise<[IDocument[], Float32Array]> {
-      const limitParam = limit ? `&limit=${limit}` : "";
+      if (this.name.length === 0) {
+         throw new Error("Collection name must be provided");
+      }
+      if (
+         query.text?.length === 0 &&
+         query.embedding?.length === 0 &&
+         query.metadata?.length === 0
+      ) {
+         throw new Error(
+            "Search query must have at least one of text, embedding, or metadata"
+         );
+      }
+      const limitParam = limit ? `?limit=${limit}` : "";
       const url = this.getFullUrl(
          `/collection/${this.name}/search${limitParam}`
       );
@@ -171,7 +185,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       );
 
       const results = await response.json();
-      const [documents, queryVector] = results;
+      const { results: documents, query_vector: queryVector } = results;
       if (!Array.isArray(documents)) {
          throw new APIError("Unexpected document response from server");
       }
@@ -188,8 +202,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
       return [documents, new Float32Array(queryVector)];
    }
 
-   async search(query: any): Promise<IDocument[]> {
-      const [results] = await this.searchReturnQueryVector(query);
+   async search(query: ISearchQuery, limit?: number): Promise<IDocument[]> {
+      const [results] = await this.searchReturnQueryVector(query, limit);
       return results;
    }
 
@@ -198,9 +212,11 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (this.name.length === 0) {
          throw new Error("Collection name must be provided");
       }
+
       if (
-         !this?.document_count ||
-         (this.document_count < MIN_DOCS_TO_INDEX && !force)
+         !force &&
+         this?.document_count &&
+         this?.document_count < MIN_DOCS_TO_INDEX
       ) {
          throw new Error(
             `Collection must have at least ${MIN_DOCS_TO_INDEX} documents to index. Use force=true to override.`
@@ -220,7 +236,12 @@ export default class DocumentCollection extends DocumentCollectionModel {
       );
    }
 
-   private getFullUrl(endpoint: string): string {
-      return `${this.client.baseURL}${endpoint}`;
+   /**
+    * Constructs the full URL for an API endpoint.
+    * @param {string} endpoint - The endpoint of the API.
+    * @returns {string} The full URL.
+    */
+   getFullUrl(endpoint: string): string {
+      return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
    }
 }

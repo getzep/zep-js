@@ -1,4 +1,4 @@
-import CollectionManager from "../collection_manager";
+import DocumentManager from "../document_manager";
 import { IZepClient } from "../interfaces";
 import ZepClient from "../zep-client";
 import { FetchMock } from "jest-fetch-mock";
@@ -10,12 +10,12 @@ const fetchMock = global.fetch as FetchMock;
 
 describe("CollectionManager", () => {
    let client: IZepClient;
-   let manager: CollectionManager;
+   let manager: DocumentManager;
 
    beforeEach(async () => {
       fetchMock.resetMocks();
       client = await ZepClient.init(BASE_URL, "test-api-key");
-      manager = new CollectionManager(client);
+      manager = new DocumentManager(client);
    });
 
    describe("addCollection", () => {

@@ -1,9 +1,9 @@
 import MemoryManager from "./memory_manager";
 import ZepClient from "./zep-client";
-import CollectionManager from "./collection_manager";
+import DocumentManager from "./document_manager";
 import DocumentCollection from "./document_collection";
 
-export { MemoryManager, ZepClient, CollectionManager, DocumentCollection };
+export { MemoryManager, ZepClient, DocumentManager, DocumentCollection };
 export {
    Document,
    IDocument,

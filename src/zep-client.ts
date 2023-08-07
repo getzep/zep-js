@@ -4,6 +4,7 @@ import {
    MemorySearchResult,
    Session,
 } from "./memory_models";
+import DocumentManager from "./document_manager";
 
 import { API_BASEURL, SERVER_ERROR_MESSAGE, warnDeprecation } from "./utils";
 import MemoryManager from "./memory_manager";
@@ -19,6 +20,8 @@ export default class ZepClient {
    headers: any;
 
    memory: MemoryManager;
+
+   document: DocumentManager;
 
    /**
     * Constructs a new ZepClient instance.
@@ -39,6 +42,7 @@ export default class ZepClient {
          : {};
 
       this.memory = new MemoryManager(this);
+      this.document = new DocumentManager(this);
    }
 
    /**
