@@ -24,4 +24,10 @@ export {
    Session,
    ISession,
 } from "./memory_models";
+export {
+   IAddCollectionParams,
+   IUpdateCollectionParams,
+   IUpdateDocumentParams,
+   ISearchQuery,
+} from "./interfaces";
 export { APIError, NotFoundError, AuthenticationError } from "./errors";
