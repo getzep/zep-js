@@ -7,9 +7,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
     "lint": "eslint --ext .js,.ts src/",
     "build": "npm run lint && tsc && tsc --module ESNext --outDir dist/esm",
