@@ -1,5 +1,6 @@
 import {
    docsToDocsWithFloatArray,
+   docsWithFloatArrayToDocs,
    DocumentCollectionModel,
    IDocument,
    IDocumentCollectionModel,
@@ -63,6 +64,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          console.warn(LARGE_BATCH_WARNING);
       }
       const url = this.getFullUrl(`/collection/${this.name}/document`);
+      const body = JSON.stringify(docsWithFloatArrayToDocs(documents));
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -70,7 +72,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(documents),
+            body,
          })
       );
 
