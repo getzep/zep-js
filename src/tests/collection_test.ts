@@ -24,6 +24,11 @@ const mockDocuments: IDocument[] = [
    },
 ];
 
+const mockDocumentsWithEmbeddings = mockDocuments.map((doc) => ({
+   ...doc,
+   embedding: new Float32Array([0.1, 0.2]),
+}));
+
 const mockCollection: IDocumentCollectionModel = {
    name: "test",
    embedding_dimensions: 2,
@@ -78,6 +83,38 @@ describe("DocumentCollection", () => {
          }
          const sentRequestBody = JSON.parse(fetchMock.mock.calls[0][1].body);
          expect(sentRequestBody).toEqual([mockDocuments[0]]);
+      });
+
+      it("correctly adds documents with Float32Array embeddings", async () => {
+         const mockResponse = ["1234", "5678"];
+         // Mock a successful fetch response
+         fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
+
+         const collection = new DocumentCollection(mockClient, {
+            ...mockCollection,
+            is_auto_embedded: false,
+         });
+         const result = await collection.addDocuments(
+            mockDocumentsWithEmbeddings
+         );
+
+         expect(result).toEqual(mockResponse);
+
+         if (
+            !fetchMock.mock.calls[0][1] ||
+            typeof fetchMock.mock.calls[0][1].body !== "string"
+         ) {
+            throw new Error("No request body sent or body is not a string");
+         }
+         const sentRequestBody = JSON.parse(fetchMock.mock.calls[0][1].body);
+
+         // Convert Float32Array to regular array for comparison
+         const expectedRequestBody = mockDocumentsWithEmbeddings.map((doc) => ({
+            ...doc,
+            embedding: Array.from(doc.embedding),
+         }));
+
+         expect(sentRequestBody).toEqual(expectedRequestBody);
       });
    });
 

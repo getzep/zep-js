@@ -181,4 +181,17 @@ function docsToDocsWithFloatArray(documents: IDocument[]): IDocument[] {
    });
 }
 
-export { docsToDocsWithFloatArray };
+function docsWithFloatArrayToDocs(documents: IDocument[]): IDocument[] {
+   return documents.map((d) => {
+      if (d.embedding && d.embedding instanceof Float32Array) {
+         const doc: IDocument = {
+            ...d,
+            embedding: Array.from(d.embedding),
+         };
+         return doc;
+      }
+      return d;
+   });
+}
+
+export { docsToDocsWithFloatArray, docsWithFloatArrayToDocs };

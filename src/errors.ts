@@ -14,6 +14,7 @@ export class ZepError extends Error {
     */
    constructor(message: string, code?: number, responseData?: any) {
       super(message);
+      this.name = this.constructor.name;
       this.code = code;
       this.responseData = responseData;
    }
