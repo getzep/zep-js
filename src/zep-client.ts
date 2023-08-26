@@ -14,6 +14,7 @@ import {
    warnDeprecation,
 } from "./utils";
 import MemoryManager from "./memory_manager";
+import UserManager from "./user_manager";
 
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
@@ -28,6 +29,8 @@ export default class ZepClient {
    memory: MemoryManager;
 
    document: DocumentManager;
+
+   user: UserManager;
 
    /**
     * Constructs a new ZepClient instance.
@@ -49,6 +52,7 @@ export default class ZepClient {
 
       this.memory = new MemoryManager(this);
       this.document = new DocumentManager(this);
+      this.user = new UserManager(this);
    }
 
    /**

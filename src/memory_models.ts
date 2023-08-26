@@ -56,7 +56,7 @@ export class Session {
 }
 
 /**
- * MessageData interface for providing input to create a Message instance.
+ * IMessage interface for providing input to create a Message instance.
  */
 export interface IMessage {
    uuid?: string;
@@ -113,7 +113,7 @@ export class Message {
 }
 
 /**
- * SummaryData interface for providing input to create a Summary instance.
+ * ISummary interface for providing input to create a Summary instance.
  */
 export interface ISummary {
    uuid: string;
@@ -169,7 +169,7 @@ export class Summary {
 }
 
 /**
- * MemoryData interface for providing input to create a Memory instance.
+ * IMemory interface for providing input to create a Memory instance.
  */
 export interface IMemory {
    messages?: IMessage[];
