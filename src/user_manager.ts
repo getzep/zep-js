@@ -14,7 +14,7 @@ export default class UserManager {
       return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
    }
 
-   async addUser(user: CreateUserRequest): Promise<User> {
+   async add(user: CreateUserRequest): Promise<User> {
       const response = await handleRequest(
          fetch(this.getFullUrl(`/user`), {
             method: "POST",
@@ -32,7 +32,7 @@ export default class UserManager {
       return new User(responseData);
    }
 
-   async getUser(userId: string): Promise<User> {
+   async get(userId: string): Promise<User> {
       const response = await handleRequest(
          fetch(this.getFullUrl(`/user/${userId}`), {
             headers: this.client.headers,
@@ -45,7 +45,7 @@ export default class UserManager {
       return new User(responseData);
    }
 
-   async updateUser(user: UpdateUserRequest): Promise<User> {
+   async update(user: UpdateUserRequest): Promise<User> {
       const response = await handleRequest(
          fetch(this.getFullUrl(`/user/${user.user_id}`), {
             method: "PATCH",
@@ -63,7 +63,7 @@ export default class UserManager {
       return new User(responseData);
    }
 
-   async deleteUser(userId: string): Promise<string> {
+   async delete(userId: string): Promise<string> {
       const response = await handleRequest(
          fetch(this.getFullUrl(`/user/${userId}`), {
             method: "DELETE",
@@ -75,7 +75,7 @@ export default class UserManager {
       return response.text();
    }
 
-   async listUsers(limit?: number, cursor?: number): Promise<User[]> {
+   async list(limit?: number, cursor?: number): Promise<User[]> {
       const params = new URLSearchParams();
       if (limit !== undefined) params.append("limit", limit.toString());
       if (cursor !== undefined) params.append("cursor", cursor.toString());
@@ -91,7 +91,7 @@ export default class UserManager {
       return data.map((user: any) => new User(user));
    }
 
-   async getUserSessions(userId: string): Promise<Session[]> {
+   async getSessions(userId: string): Promise<Session[]> {
       const response = await handleRequest(
          fetch(this.getFullUrl(`/user/${userId}/sessions`), {
             headers: this.client.headers,
@@ -104,12 +104,12 @@ export default class UserManager {
       return data.map((session: any) => new Session(session));
    }
 
-   async *listUsersChunked(chunkSize: number = 100) {
+   async *listChunked(chunkSize: number = 100) {
       let cursor: number | undefined;
 
       while (true) {
          // eslint-disable-next-line no-await-in-loop
-         const users = await this.listUsers(chunkSize, cursor);
+         const users = await this.list(chunkSize, cursor);
 
          if (users.length === 0) {
             // We've reached the last page

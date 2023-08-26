@@ -32,7 +32,7 @@ describe("client.user", () => {
 
          fetchMock.mockResponseOnce(JSON.stringify(expectedUser));
 
-         const responseUser = await client.user.addUser(user);
+         const responseUser = await client.user.add(user);
 
          expect(responseUser.toDict()).toEqual(expectedUser);
       });
@@ -48,7 +48,7 @@ describe("client.user", () => {
 
          fetchMock.mockResponseOnce(JSON.stringify(expectedUserData));
 
-         const user = await client.user.getUser(expectedUserId);
+         const user = await client.user.get(expectedUserId);
 
          expect(user.toDict()).toEqual(expectedUserData);
       });
@@ -68,7 +68,7 @@ describe("client.user", () => {
 
          fetchMock.mockResponseOnce(JSON.stringify(expectedUser));
 
-         const responseUser = await client.user.updateUser(user);
+         const responseUser = await client.user.update(user);
 
          expect(responseUser.toDict()).toEqual(expectedUser);
       });
@@ -81,7 +81,7 @@ describe("client.user", () => {
 
          fetchMock.mockResponseOnce(expectedResponseText);
 
-         const responseText = await client.user.deleteUser(expectedUserId);
+         const responseText = await client.user.delete(expectedUserId);
 
          expect(responseText).toEqual(expectedResponseText);
       });
@@ -102,7 +102,7 @@ describe("client.user", () => {
 
          fetchMock.mockResponseOnce(JSON.stringify(expectedUsersData));
 
-         const users = await client.user.listUsers();
+         const users = await client.user.list();
 
          expect(users.map((user) => user.toDict())).toEqual(expectedUsersData);
       });
@@ -140,7 +140,7 @@ describe("client.user", () => {
          );
 
          const usersChunked = [];
-         for await (const users of client.user.listUsersChunked(2)) {
+         for await (const users of client.user.listChunked(2)) {
             usersChunked.push(users.map((user) => user.toDict()));
          }
 
