@@ -2,7 +2,6 @@ import { User, CreateUserRequest, UpdateUserRequest } from "./user_models";
 import { Session } from "./memory_models";
 import { IZepClient } from "./interfaces";
 import { API_BASEURL, handleRequest } from "./utils";
-import { APIError, NotFoundError } from "./errors";
 
 /**
  * UserManager class handles all user related operations such as
