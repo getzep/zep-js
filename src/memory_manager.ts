@@ -30,7 +30,8 @@ export default class MemoryManager {
     * @param {string} sessionId - The ID of the session to retrieve.
     * @returns {Promise<Session>} A promise that resolves to the Session object.
     * @throws {Error} Will throw an error if the sessionId is not provided.
-    * @throws {Error} Will throw an error if the fetch request fails.
+    * @throws {APIError} Will throw an error if the fetch request fails.
+    * @throws {NotFoundError} Will throw an error if the session is not found.
     */
    async getSession(sessionId: string): Promise<Session> {
       if (!sessionId || sessionId.trim() === "") {
@@ -56,7 +57,7 @@ export default class MemoryManager {
     * @returns {Promise<Session>} The added session.
     * @throws {Error} Will throw an error if the session is not provided.
     * @throws {Error} Will throw an error if the session.session_id is not provided.
-    * @throws {Error} Will throw an error if the fetch request fails.
+    * @throws {APIError} Will throw an error if the fetch request fails.
     */
    async addSession(session: Session): Promise<Session> {
       if (!session) {
@@ -91,7 +92,8 @@ export default class MemoryManager {
     * @returns {Promise<Session>} The updated session.
     * @throws {Error} Will throw an error if the session is not provided.
     * @throws {Error} Will throw an error if the session.session_id is not provided.
-    * @throws {Error} Will throw an error if the fetch request fails.
+    * @throws {APIError} Will throw an error if the fetch request fails.
+    * @throws {NotFoundError} Will throw an error if the session is not found.
     */
    async updateSession(session: Session): Promise<Session> {
       if (!session) {
@@ -124,6 +126,8 @@ export default class MemoryManager {
     * @param {string} sessionID - The ID of the session to retrieve memory for.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
     * @returns {Promise<Array<Memory>>} - A promise that returns a Memory object.
+    * @throws {APIError} - If the request fails.
+    * @throws {NotFoundError} - If the session is not found.
     */
    async getMemory(sessionID: string, lastn?: number): Promise<Memory | null> {
       const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
@@ -153,6 +157,7 @@ export default class MemoryManager {
     * @param {string} sessionID - The ID of the session to add the memory to.
     * @param {Memory} memory - The memory object to add to the session.
     * @returns {Promise<Memory>} A promise that resolves to the added memory.
+    * @throws {APIError} If the request fails.
     */
    async addMemory(sessionID: string, memory: Memory): Promise<string> {
       const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
@@ -178,6 +183,8 @@ export default class MemoryManager {
     *                             should be deleted.
     * @returns {Promise<string>} - Promise message indicating the memory has
     *                              been deleted.
+    * @throws {APIError} - If the request fails.
+    * @throws {NotFoundError} - If the session is not found.
     */
    async deleteMemory(sessionID: string): Promise<string> {
       const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
@@ -201,6 +208,7 @@ export default class MemoryManager {
     * @param {number} [limit] - Optional limit on the number of search results returned.
     * @returns {Promise<Array<MemorySearchResult>>} - Promise that resolves to array of search
     * results.
+    * @throws {APIError} - If the request fails.
     */
    async searchMemory(
       sessionID: string,

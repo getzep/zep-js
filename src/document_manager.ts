@@ -6,7 +6,6 @@ import {
 } from "./interfaces";
 import { API_BASEURL, handleRequest } from "./utils";
 import DocumentCollection from "./document_collection";
-import { APIError } from "./errors";
 
 /**
  * DocumentManager provides methods to list, create, update, get, and delete
