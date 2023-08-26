@@ -6,6 +6,7 @@ import {
 } from "./interfaces";
 import { API_BASEURL, handleRequest } from "./utils";
 import DocumentCollection from "./document_collection";
+import { APIError } from "./errors";
 
 /**
  * DocumentManager provides methods to list, create, update, get, and delete
@@ -37,6 +38,7 @@ export default class DocumentManager {
     * @returns {Promise<DocumentCollection>} A promise that resolves to the new
     * DocumentCollection instance.
     * @throws {Error} If embeddingDimensions is not a positive integer.
+    * @throws {APIError} If the request fails.
     */
    async addCollection({
       name,
@@ -77,6 +79,8 @@ export default class DocumentManager {
     * @returns {Promise<DocumentCollection>} A promise that resolves to the DocumentCollection
     * instance.
     * @throws {Error} If the collection name is not provided.
+    * @throws {NotFoundError} If the collection is not found.
+    * @throws {APIError} If the request fails.
     */
    async getCollection(name: string): Promise<DocumentCollection> {
       if (!name || name.trim() === "") {
@@ -113,6 +117,8 @@ export default class DocumentManager {
     * @returns {Promise<DocumentCollection>} A promise that resolves to the updated
     * DocumentCollection instance.
     * @throws {Error} If neither description nor metadata are provided.
+    * @throws {APIError} If the request fails.
+    * @throws {NotFoundError} If the collection is not found.
     */
    async updateCollection({
       name,
@@ -146,6 +152,7 @@ export default class DocumentManager {
     * Lists all collections in the Zep client.
     * @returns {Promise<DocumentCollection[]>} A promise that resolves to an array of
     * DocumentCollection instances.
+    * @throws {APIError} If the request fails.
     */
    async listCollections(): Promise<DocumentCollection[]> {
       const response = await handleRequest(
@@ -180,6 +187,8 @@ export default class DocumentManager {
     * @param {string} collectionName - The name of the collection to delete.
     * @returns {Promise<void>} A promise that resolves when the collection is deleted.
     * @throws {Error} If the collection name is not provided.
+    * @throws {NotFoundError} If the collection is not found.
+    * @throws {APIError} If the request fails.
     */
    async deleteCollection(collectionName: string): Promise<void> {
       if (!collectionName || collectionName.trim() === "") {

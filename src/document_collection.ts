@@ -52,6 +52,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {IDocument[]} documents - The documents to add.
     * @returns {Promise<string[]>} A promise that resolves to an array of document UUIDs.
     * @throws {Error} If the collection name is not provided or no documents are provided.
+    * @throws {APIError} If the request fails.
     */
    async addDocuments(documents: IDocument[]): Promise<string[]> {
       if (this.name.length === 0) {
@@ -84,6 +85,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {IUpdateDocumentParams} params - The parameters to update the document.
     * @returns {Promise<void>} A promise that resolves when the document is updated.
     * @throws {Error} If the collection name is not provided or the document does not have a uuid.
+    * @throws {APIError} If the request fails.
+    * @throws {NotFoundError} If the request no document is found for the given uuid.
     */
    async updateDocument({
       uuid,
@@ -118,6 +121,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {string} uuid - The uuid of the document to delete.
     * @returns {Promise<void>} A promise that resolves when the document is deleted.
     * @throws {Error} If the collection name is not provided or the document does not have a uuid.
+    * @throws {APIError} If the request fails.
+    * @throws {NotFoundError} If the request no document is found for the given uuid.
     */
    async deleteDocument(uuid: string): Promise<void> {
       if (this.name.length === 0) {
@@ -142,6 +147,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {string} uuid - The uuid of the document to get.
     * @returns {Promise<IDocument>} A promise that resolves to the document.
     * @throws {Error} If the collection name is not provided or the document does not have a uuid.
+    * @throws {APIError} If the request fails.
+    * @throws {NotFoundError} If the request no document is found for the given uuid.
     */
    async getDocument(uuid: string): Promise<IDocument> {
       if (this.name.length === 0) {
@@ -175,6 +182,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {string[]} uuids - The uuids of the documents to get.
     * @returns {Promise<IDocument[]>} A promise that resolves to an array of documents.
     * @throws {Error} If any of the documents do not match the expected format.
+    * @throws {Error} If the collection name is not provided or no uuids are provided.
+    * @throws {APIError} If the request fails.
     */
    async getDocuments(uuids: string[]): Promise<IDocument[]> {
       if (uuids.length === 0) {
@@ -219,6 +228,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
     *    A promise that resolves to an array of documents and the query vector.
     * @throws {Error} If the collection name is not provided or
     *    the search query does not have at least one of text, embedding, or metadata.
+    * @throws {APIError} If the request fails.
     */
    async searchReturnQueryVector(
       query: ISearchQuery,
@@ -282,6 +292,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {ISearchQuery} query - The search query.
     * @param {number} [limit] - The maximum number of results to return.
     * @returns {Promise<IDocument[]>} A promise that resolves to an array of documents.
+    * @throws {Error} If the collection name is not provided or
+    *   the search query does not have at least one of text, embedding, or metadata.
+    * @throws {APIError} If the request fails.
     */
    async search(query: ISearchQuery, limit?: number): Promise<IDocument[]> {
       const [results] = await this.searchReturnQueryVector(query, limit);
@@ -295,6 +308,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @returns {Promise<void>} A promise that resolves when the index is created.
     * @throws {Error} If the collection name is not provided or the collection
     * has less than MIN_DOCS_TO_INDEX documents and force is not true.
+    * @throws {APIError} If the request fails.
     */
    async createIndex(force?: boolean): Promise<void> {
       const forceParam = force ? `?force=${force}` : "";
