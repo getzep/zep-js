@@ -1,15 +1,13 @@
 import { v4 as uuidv4 } from "uuid";
 import {
-   ZepClient,
-   CreateUserRequest,
-   UpdateUserRequest,
    ICreateUserRequest,
    IUpdateUserRequest,
+   ZepClient,
 } from "../../src/index";
 
 async function main() {
    const BASE_URL = "http://localhost:8000"; // TODO: Replace with Zep API URL
-   const API_KEY = "YOUR_API_KEY"; // TODO: Replace with your API key
+   // const API_KEY = "YOUR_API_KEY"; // TODO: Replace with your API key
 
    const client = await ZepClient.init(BASE_URL, API_KEY);
 
