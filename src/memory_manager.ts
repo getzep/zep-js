@@ -50,15 +50,15 @@ export default class MemoryManager {
    }
 
    /**
-    * Adds or updates a session.
+    * Adds a session.
     *
-    * @param {Session} session - The Session object to add or update.
-    * @returns {Promise<string>} A promise that resolves to the response text from the server.
+    * @param {Session} session - The session to add.
+    * @returns {Promise<Session>} The added session.
     * @throws {Error} Will throw an error if the session is not provided.
     * @throws {Error} Will throw an error if the session.session_id is not provided.
     * @throws {Error} Will throw an error if the fetch request fails.
     */
-   async addSession(session: Session): Promise<string> {
+   async addSession(session: Session): Promise<Session> {
       if (!session) {
          throw new Error("session must be provided");
       }
@@ -79,7 +79,44 @@ export default class MemoryManager {
          `Failed to add session ${session.session_id}`
       );
 
-      return response.text();
+      const responseData = await response.json();
+
+      return new Session(responseData);
+   }
+
+   /**
+    * Updates the specified session.
+    *
+    * @param {Session} session - The session data to update.
+    * @returns {Promise<Session>} The updated session.
+    * @throws {Error} Will throw an error if the session is not provided.
+    * @throws {Error} Will throw an error if the session.session_id is not provided.
+    * @throws {Error} Will throw an error if the fetch request fails.
+    */
+   async updateSession(session: Session): Promise<Session> {
+      if (!session) {
+         throw new Error("session must be provided");
+      }
+
+      if (!session.session_id || session.session_id.trim() === "") {
+         throw new Error("session.session_id must be provided");
+      }
+
+      const response = await handleRequest(
+         fetch(this.getFullUrl(`/sessions/${session.session_id}`), {
+            method: "PATCH",
+            headers: {
+               ...this.client.headers,
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify(session.toDict()),
+         }),
+         `Failed to update session ${session.session_id}`
+      );
+
+      const responseData = await response.json();
+
+      return new Session(responseData);
    }
 
    /**

@@ -107,7 +107,7 @@ export default class ZepClient {
     * @throws {Error} Will throw an error if the session.session_id is not provided.
     * @throws {Error} Will throw an error if the fetch request fails.
     */
-   async addSession(session: Session): Promise<string> {
+   async addSession(session: Session): Promise<Session> {
       warnDeprecation("Please use ZepClient.memory.addSession(). addSession()");
 
       return this.memory.addSession(session);
