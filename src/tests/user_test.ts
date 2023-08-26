@@ -6,10 +6,10 @@ const BASE_URL = "http://localhost:8000";
 const fetchMock = global.fetch as FetchMock;
 
 describe("client.user", () => {
-    let client: ZepClient;
+   let client: ZepClient;
    beforeEach(async () => {
       fetchMock.resetMocks();
-       client = await ZepClient.init(BASE_URL, "test-api-key");
+      client = await ZepClient.init(BASE_URL, "test-api-key");
    });
 
    describe("addUser", () => {
@@ -89,7 +89,7 @@ describe("client.user", () => {
 
    describe("listUsers", () => {
       it("lists users correctly", async () => {
-         const expectedUsersData  = [
+         const expectedUsersData = [
             {
                user_id: "test-user1",
                metadata: {},
@@ -104,48 +104,47 @@ describe("client.user", () => {
 
          const users = await client.user.listUsers();
 
-         expect(users.map(user => user.toDict())).toEqual(expectedUsersData);
+         expect(users.map((user) => user.toDict())).toEqual(expectedUsersData);
       });
    });
 
    describe("listUsersChunked", () => {
-    it("lists users in chunks correctly", async () => {
-       const expectedUsersData = [
-          [
-             {
-                user_id: "test-user1",
-                metadata: {},
-             },
-             {
-                user_id: "test-user2",
-                metadata: {},
-             },
-          ],
-          [
-             {
-                user_id: "test-user3",
-                metadata: {},
-             },
-             {
-                user_id: "test-user4",
-                metadata: {},
-             },
-          ],
-       ];
- 
-       fetchMock.mockResponses(
-          JSON.stringify(expectedUsersData[0]),
-          JSON.stringify(expectedUsersData[1]),
-          JSON.stringify([]) // empty response to indicate end of list
-       );
- 
-       const usersChunked = [];
-       for await (const users of client.user.listUsersChunked(2)) {
-          usersChunked.push(users.map(user => user.toDict()));
-       }
- 
-       expect(usersChunked).toEqual(expectedUsersData);
-    });
-    
- });
+      it("lists users in chunks correctly", async () => {
+         const expectedUsersData = [
+            [
+               {
+                  user_id: "test-user1",
+                  metadata: {},
+               },
+               {
+                  user_id: "test-user2",
+                  metadata: {},
+               },
+            ],
+            [
+               {
+                  user_id: "test-user3",
+                  metadata: {},
+               },
+               {
+                  user_id: "test-user4",
+                  metadata: {},
+               },
+            ],
+         ];
+
+         fetchMock.mockResponses(
+            JSON.stringify(expectedUsersData[0]),
+            JSON.stringify(expectedUsersData[1]),
+            JSON.stringify([]) // empty response to indicate end of list
+         );
+
+         const usersChunked = [];
+         for await (const users of client.user.listUsersChunked(2)) {
+            usersChunked.push(users.map((user) => user.toDict()));
+         }
+
+         expect(usersChunked).toEqual(expectedUsersData);
+      });
+   });
 });
