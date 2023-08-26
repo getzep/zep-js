@@ -69,7 +69,7 @@ export default class MemoryManager {
       }
 
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/sessions/${session.session_id}`), {
+         fetch(this.getFullUrl(`/sessions`), {
             method: "POST",
             headers: {
                ...this.client.headers,

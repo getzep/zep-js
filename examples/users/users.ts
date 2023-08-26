@@ -3,6 +3,8 @@ import {
    ZepClient,
    CreateUserRequest,
    UpdateUserRequest,
+   ICreateUserRequest,
+   IUpdateUserRequest,
 } from "../../src/index";
 
 async function main() {
@@ -14,13 +16,13 @@ async function main() {
    // Create multiple users
    for (let i = 0; i < 3; i++) {
       const userId = uuidv4();
-      const userRequest = new CreateUserRequest({
+      const userRequest: ICreateUserRequest = {
          user_id: userId,
          email: `user${i}@example.com`,
          first_name: `John${i}`,
          last_name: `Doe${i}`,
          metadata: { foo: "bar" },
-      });
+      };
 
       try {
          const user = await client.user.add(userRequest);
@@ -32,13 +34,13 @@ async function main() {
 
    // Update the first user
    const { user_id } = (await client.user.list())[0];
-   const userRequest = new UpdateUserRequest({
+   const userRequest: IUpdateUserRequest = {
       user_id,
       email: "updated_user@example.com",
       first_name: "UpdatedJohn",
       last_name: "UpdatedDoe",
       metadata: { foo: "updated_bar" },
-   });
+   };
 
    try {
       const updatedUser = await client.user.update(userRequest);

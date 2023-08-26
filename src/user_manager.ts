@@ -1,4 +1,10 @@
-import { User, CreateUserRequest, UpdateUserRequest } from "./user_models";
+import {
+   User,
+   UpdateUserRequest,
+   CreateUserRequest,
+   ICreateUserRequest,
+   IUpdateUserRequest,
+} from "./user_models";
 import { Session } from "./memory_models";
 import { IZepClient } from "./interfaces";
 import { API_BASEURL, handleRequest } from "./utils";
@@ -22,11 +28,12 @@ export default class UserManager {
    /**
     * Add a new user.
     *
-    * @param {CreateUserRequest} user - The user details to be added.
+    * @param {ICreateUserRequest} user - The user details to be added.
     * @returns {Promise<User>} A Promise that resolves to a User object.
     * @throws {APIError} If the request fails.
     */
-   async add(user: CreateUserRequest): Promise<User> {
+   async add(user: ICreateUserRequest): Promise<User> {
+      const newUserRequest = new CreateUserRequest(user);
       const response = await handleRequest(
          fetch(this.getFullUrl(`/user`), {
             method: "POST",
@@ -34,7 +41,7 @@ export default class UserManager {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(user.toDict()),
+            body: JSON.stringify(newUserRequest.toDict()),
          }),
          `Failed to add user ${user.user_id}`
       );
@@ -68,12 +75,13 @@ export default class UserManager {
    /**
     * Update a user's details.
     *
-    * @param {UpdateUserRequest} user - The updated user details.
+    * @param {IUpdateUserRequest} user - The updated user details.
     * @returns {Promise<User>} A Promise that resolves to a User object with the updated details.
     * @throws {NotFoundError} If the request no user is found for the given ID.
     * @throws {APIError} If the request fails.
     */
-   async update(user: UpdateUserRequest): Promise<User> {
+   async update(user: IUpdateUserRequest): Promise<User> {
+      const newUserUpdate = new UpdateUserRequest(user);
       const response = await handleRequest(
          fetch(this.getFullUrl(`/user/${user.user_id}`), {
             method: "PATCH",
@@ -81,7 +89,7 @@ export default class UserManager {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(user.toDict()),
+            body: JSON.stringify(newUserUpdate.toDict()),
          }),
          `Failed to update user ${user.user_id}`
       );
