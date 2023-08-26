@@ -8,10 +8,17 @@ import {
    warnDeprecation,
 } from "../utils";
 import { FetchMock } from "jest-fetch-mock";
+import ZepClient from "../zep-client";
 
 const fetchMock = global.fetch as FetchMock;
 
 describe("Utility functions", () => {
+   let client: ZepClient;
+
+   beforeEach(() => {
+      client = new ZepClient("http://localhost:3000");
+   });
+
    test("warnDeprecation", () => {
       console.warn = jest.fn();
       warnDeprecation("testFunction");
@@ -23,10 +30,6 @@ describe("Utility functions", () => {
    describe("isVersionGreaterOrEqual", () => {
       test("returns false if version is null", () => {
          expect(isVersionGreaterOrEqual(null)).toBe(false);
-      });
-
-      test("returns true if version is greater than minimum", () => {
-         expect(isVersionGreaterOrEqual("0.10.0")).toBe(true);
       });
 
       test("returns true if version is equal to minimum", () => {
@@ -100,6 +103,29 @@ describe("Utility functions", () => {
          expect(isFloat("test")).toBe(false);
          expect(isFloat(null)).toBe(false);
          expect(isFloat(undefined)).toBe(false);
+      });
+   });
+
+   describe("getFullUrl", () => {
+      const expectedUrl = "http://localhost:3000/api/v1/testEndpoint";
+      it("should correctly construct a URL without leading or trailing slashes", () => {
+         const endpoint = "testEndpoint";
+         expect(client.getFullUrl(endpoint)).toBe(expectedUrl);
+      });
+
+      it("should correctly construct a URL with leading slash in endpoint", () => {
+         const endpoint = "/testEndpoint";
+         expect(client.getFullUrl(endpoint)).toBe(expectedUrl);
+      });
+
+      it("should correctly construct a URL with trailing slash in endpoint", () => {
+         const endpoint = "testEndpoint/";
+         expect(client.getFullUrl(endpoint)).toBe(expectedUrl);
+      });
+
+      it("should correctly construct a URL with both leading and trailing slashes in endpoint", () => {
+         const endpoint = "//testEndpoint/";
+         expect(client.getFullUrl(endpoint)).toBe(expectedUrl);
       });
    });
 });

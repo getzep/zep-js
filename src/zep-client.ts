@@ -7,19 +7,21 @@ import {
 import DocumentManager from "./document_manager";
 
 import {
-   API_BASEURL,
+   API_BASEPATH,
    isVersionGreaterOrEqual,
    MIN_SERVER_WARNING_MESSAGE,
    SERVER_ERROR_MESSAGE,
    warnDeprecation,
+   joinPaths,
 } from "./utils";
 import MemoryManager from "./memory_manager";
 import UserManager from "./user_manager";
+import { IZepClient } from "./interfaces";
 
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
  */
-export default class ZepClient {
+export default class ZepClient implements IZepClient {
    private static constructing: boolean = false;
 
    baseURL: string;
@@ -40,7 +42,7 @@ export default class ZepClient {
    constructor(baseURL: string, apiKey?: string) {
       if (!ZepClient.constructing) {
          warnDeprecation(
-            "Please use ZepClient.init(). Calling the ZepClient constructor directly"
+            "Please use ZepClient.init(). Calling the ZepClient constructor directly is deprecated."
          );
       }
       this.baseURL = baseURL;
@@ -81,7 +83,9 @@ export default class ZepClient {
     * @returns {string} The full URL.
     */
    getFullUrl(endpoint: string): string {
-      return `${this.baseURL}${API_BASEURL}${endpoint}`;
+      const url = new URL(this.baseURL);
+      url.pathname = joinPaths(API_BASEPATH, endpoint);
+      return url.toString();
    }
 
    /**

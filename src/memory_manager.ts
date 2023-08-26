@@ -6,22 +6,13 @@ import {
    Session,
 } from "./memory_models";
 import { IZepClient } from "./interfaces";
-import { API_BASEURL, handleRequest } from "./utils";
+import { handleRequest } from "./utils";
 
 export default class MemoryManager {
    client: IZepClient;
 
    constructor(client: IZepClient) {
       this.client = client;
-   }
-
-   /**
-    * Constructs the full URL for an API endpoint.
-    * @param {string} endpoint - The endpoint of the API.
-    * @returns {string} The full URL.
-    */
-   getFullUrl(endpoint: string): string {
-      return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
    }
 
    /**
@@ -39,7 +30,7 @@ export default class MemoryManager {
       }
 
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/sessions/${sessionId}`), {
+         fetch(this.client.getFullUrl(`/sessions/${sessionId}`), {
             headers: this.client.headers,
          }),
          `No session found for session ${sessionId}`
@@ -69,7 +60,7 @@ export default class MemoryManager {
       }
 
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/sessions`), {
+         fetch(this.client.getFullUrl(`/sessions`), {
             method: "POST",
             headers: {
                ...this.client.headers,
@@ -105,7 +96,7 @@ export default class MemoryManager {
       }
 
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/sessions/${session.session_id}`), {
+         fetch(this.client.getFullUrl(`/sessions/${session.session_id}`), {
             method: "PATCH",
             headers: {
                ...this.client.headers,
@@ -130,7 +121,7 @@ export default class MemoryManager {
     * @throws {NotFoundError} - If the session is not found.
     */
    async getMemory(sessionID: string, lastn?: number): Promise<Memory | null> {
-      const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
+      const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
       const params = lastn !== undefined ? `?lastn=${lastn}` : "";
 
       const response: Response = await handleRequest(
@@ -160,7 +151,7 @@ export default class MemoryManager {
     * @throws {APIError} If the request fails.
     */
    async addMemory(sessionID: string, memory: Memory): Promise<string> {
-      const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
+      const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
 
       const response: Response = await handleRequest(
          fetch(url, {
@@ -187,7 +178,7 @@ export default class MemoryManager {
     * @throws {NotFoundError} - If the session is not found.
     */
    async deleteMemory(sessionID: string): Promise<string> {
-      const url = this.getFullUrl(`/sessions/${sessionID}/memory`);
+      const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
 
       const response: Response = await handleRequest(
          fetch(url, {
@@ -215,7 +206,7 @@ export default class MemoryManager {
       searchPayload: MemorySearchPayload,
       limit?: number
    ): Promise<Array<MemorySearchResult>> {
-      const url = this.getFullUrl(`/sessions/${sessionID}/search`);
+      const url = this.client.getFullUrl(`/sessions/${sessionID}/search`);
       const params = limit !== undefined ? `?limit=${limit}` : "";
 
       const response: Response = await handleRequest(

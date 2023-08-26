@@ -7,7 +7,7 @@ import {
    isGetIDocument,
 } from "./document_models";
 import { ISearchQuery, IUpdateDocumentParams, IZepClient } from "./interfaces";
-import { API_BASEURL, handleRequest, isFloat } from "./utils";
+import { handleRequest, isFloat } from "./utils";
 import { APIError } from "./errors";
 
 const MIN_DOCS_TO_INDEX = 10_000;
@@ -64,8 +64,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (documents.length > LARGE_BATCH_WARNING_LIMIT) {
          console.warn(LARGE_BATCH_WARNING);
       }
-      const url = this.getFullUrl(`/collection/${this.name}/document`);
       const body = JSON.stringify(docsWithFloatArrayToDocs(documents));
+      const url = this.client.getFullUrl(`/collection/${this.name}/document`);
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -99,7 +99,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (!uuid) {
          throw new Error("Document must have a uuid");
       }
-      const url = this.getFullUrl(`/collection/${this.name}/document/${uuid}`);
+      const url = this.client.getFullUrl(
+         `/collection/${this.name}/document/${uuid}`
+      );
       await handleRequest(
          fetch(url, {
             method: "PATCH",
@@ -131,7 +133,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (uuid.length === 0) {
          throw new Error("Document must have a uuid");
       }
-      const url = this.getFullUrl(
+      const url = this.client.getFullUrl(
          `/collection/${this.name}/document/uuid/${uuid}`
       );
       await handleRequest(
@@ -157,7 +159,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (uuid.length === 0) {
          throw new Error("Document must have a uuid");
       }
-      const url = this.getFullUrl(`/collection/${this.name}/document/${uuid}`);
+      const url = this.client.getFullUrl(
+         `/collection/${this.name}/document/${uuid}`
+      );
       const response = await handleRequest(
          fetch(url, {
             headers: this.client.headers,
@@ -196,7 +200,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
          console.warn(LARGE_BATCH_WARNING);
       }
 
-      const url = this.getFullUrl(`/collection/${this.name}/document/list/get`);
+      const url = this.client.getFullUrl(
+         `/collection/${this.name}/document/list/get`
+      );
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -252,7 +258,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          : query;
 
       const limitParam = limit ? `?limit=${limit}` : "";
-      const url = this.getFullUrl(
+      const url = this.client.getFullUrl(
          `/collection/${this.name}/search${limitParam}`
       );
       const response = await handleRequest(
@@ -325,7 +331,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
             `Collection must have at least ${MIN_DOCS_TO_INDEX} documents to index. Use force=true to override.`
          );
       }
-      const url = this.getFullUrl(
+      const url = this.client.getFullUrl(
          `/collection/${this.name}/index/create${forceParam}`
       );
       await handleRequest(
@@ -337,14 +343,5 @@ export default class DocumentCollection extends DocumentCollectionModel {
             },
          })
       );
-   }
-
-   /**
-    * Constructs the full URL for an API endpoint.
-    * @param {string} endpoint - The endpoint of the API.
-    * @returns {string} The full URL.
-    */
-   getFullUrl(endpoint: string): string {
-      return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
    }
 }

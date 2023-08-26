@@ -4,7 +4,7 @@ import {
    IUpdateCollectionParams,
    IZepClient,
 } from "./interfaces";
-import { API_BASEURL, handleRequest } from "./utils";
+import { handleRequest } from "./utils";
 import DocumentCollection from "./document_collection";
 
 /**
@@ -20,15 +20,6 @@ export default class DocumentManager {
     */
    constructor(client: IZepClient) {
       this.client = client;
-   }
-
-   /**
-    * Constructs the full URL for an API endpoint.
-    * @param {string} endpoint - The endpoint of the API.
-    * @returns {string} The full URL.
-    */
-   getFullUrl(endpoint: string): string {
-      return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
    }
 
    /**
@@ -59,7 +50,7 @@ export default class DocumentManager {
       });
 
       await handleRequest(
-         fetch(this.getFullUrl(`/collection/${name}`), {
+         fetch(this.client.getFullUrl(`/collection/${name}`), {
             method: "POST",
             headers: {
                ...this.client.headers,
@@ -87,7 +78,7 @@ export default class DocumentManager {
       }
 
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/collection/${name}`), {
+         fetch(this.client.getFullUrl(`/collection/${name}`), {
             headers: this.client.headers,
          })
       );
@@ -134,7 +125,7 @@ export default class DocumentManager {
       });
 
       await handleRequest(
-         fetch(this.getFullUrl(`/collection/${collection.name}`), {
+         fetch(this.client.getFullUrl(`/collection/${collection.name}`), {
             method: "PATCH",
             headers: {
                ...this.client.headers,
@@ -155,7 +146,7 @@ export default class DocumentManager {
     */
    async listCollections(): Promise<DocumentCollection[]> {
       const response = await handleRequest(
-         fetch(this.getFullUrl("/collection"), {
+         fetch(this.client.getFullUrl("/collection"), {
             headers: this.client.headers,
          })
       );
@@ -195,7 +186,7 @@ export default class DocumentManager {
       }
 
       await handleRequest(
-         fetch(this.getFullUrl(`/collection/${collectionName}`), {
+         fetch(this.client.getFullUrl(`/collection/${collectionName}`), {
             method: "DELETE",
             headers: this.client.headers,
          })

@@ -1,7 +1,7 @@
 import semver from "semver";
 import { APIError, AuthenticationError, NotFoundError } from "./errors";
 
-const API_BASEURL = "/api/v1";
+const API_BASEPATH = "/api/v1";
 const SERVER_ERROR_MESSAGE = `Failed to connect to Zep server. Please check that:
 - the server is running 
 - the API URL is correct
@@ -94,6 +94,15 @@ function isFloat(n: any) {
 
    return Number(n) === n && n % 1 !== 0;
 }
+/**
+ * Joins the given paths into a single path.
+ *
+ * @param {...string[]} paths - The paths to join.
+ * @returns {string} The joined path.
+ */
+function joinPaths(...paths: string[]): string {
+   return paths.map((path) => path.replace(/^\/+|\/+$/g, "")).join("/");
+}
 
 export {
    warnDeprecation,
@@ -101,7 +110,8 @@ export {
    SERVER_ERROR_MESSAGE,
    MIN_SERVER_WARNING_MESSAGE,
    MINIMUM_SERVER_VERSION,
-   API_BASEURL,
+   API_BASEPATH,
    isVersionGreaterOrEqual,
    isFloat,
+   joinPaths,
 };

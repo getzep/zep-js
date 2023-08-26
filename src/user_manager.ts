@@ -7,7 +7,7 @@ import {
 } from "./user_models";
 import { Session } from "./memory_models";
 import { IZepClient } from "./interfaces";
-import { API_BASEURL, handleRequest } from "./utils";
+import { handleRequest } from "./utils";
 
 /**
  * UserManager class handles all user related operations such as
@@ -21,10 +21,6 @@ export default class UserManager {
       this.client = client;
    }
 
-   getFullUrl(endpoint: string): string {
-      return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
-   }
-
    /**
     * Add a new user.
     *
@@ -35,7 +31,7 @@ export default class UserManager {
    async add(user: ICreateUserRequest): Promise<User> {
       const newUserRequest = new CreateUserRequest(user);
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/user`), {
+         fetch(this.client.getFullUrl(`/user`), {
             method: "POST",
             headers: {
                ...this.client.headers,
@@ -61,7 +57,7 @@ export default class UserManager {
     */
    async get(userId: string): Promise<User> {
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/user/${userId}`), {
+         fetch(this.client.getFullUrl(`/user/${userId}`), {
             headers: this.client.headers,
          }),
          `No user found for userId ${userId}`
@@ -83,7 +79,7 @@ export default class UserManager {
    async update(user: IUpdateUserRequest): Promise<User> {
       const newUserUpdate = new UpdateUserRequest(user);
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/user/${user.user_id}`), {
+         fetch(this.client.getFullUrl(`/user/${user.user_id}`), {
             method: "PATCH",
             headers: {
                ...this.client.headers,
@@ -109,7 +105,7 @@ export default class UserManager {
     */
    async delete(userId: string): Promise<string> {
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/user/${userId}`), {
+         fetch(this.client.getFullUrl(`/user/${userId}`), {
             method: "DELETE",
             headers: this.client.headers,
          }),
@@ -133,7 +129,7 @@ export default class UserManager {
       if (cursor !== undefined) params.append("cursor", cursor.toString());
 
       const response = await handleRequest(
-         fetch(`${this.getFullUrl("/user")}?${params.toString()}`, {
+         fetch(`${this.client.getFullUrl("/user")}?${params.toString()}`, {
             headers: this.client.headers,
          })
       );
@@ -153,7 +149,7 @@ export default class UserManager {
     */
    async getSessions(userId: string): Promise<Session[]> {
       const response = await handleRequest(
-         fetch(this.getFullUrl(`/user/${userId}/sessions`), {
+         fetch(this.client.getFullUrl(`/user/${userId}/sessions`), {
             headers: this.client.headers,
          }),
          `No sessions found for userId ${userId}`
