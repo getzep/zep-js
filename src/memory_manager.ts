@@ -113,6 +113,67 @@ export default class MemoryManager {
    }
 
    /**
+    * Asynchronously retrieve a list of paginated sessions.
+    *
+    * @param {number} [limit] - Limit the number of results returned.
+    * @param {number} [cursor] - Cursor for pagination.
+    * @returns {Promise<Array<Session>>} A list of all sessions paginated.
+    * @throws {APIError} If the API response format is unexpected.
+    */
+   async listSessions(
+      limit?: number,
+      cursor?: number
+   ): Promise<Array<Session>> {
+      const params = new URLSearchParams();
+      if (limit !== undefined) params.append("limit", limit.toString());
+      if (cursor !== undefined) params.append("cursor", cursor.toString());
+
+      const response = await handleRequest(
+         fetch(`${this.client.getFullUrl("/sessions")}?${params.toString()}`, {
+            headers: this.client.headers,
+         }),
+         `Failed to get sessions`
+      );
+
+      const responseData = await response.json();
+
+      return responseData.map((session: any) => new Session(session));
+   }
+
+   /**
+    * Retrieve all sessions, handling pagination automatically.
+    * Yields a generator of lists of sessions.
+    *
+    * @param {number} [chunkSize=100] - The number of sessions to retrieve at a time.
+    * @returns {AsyncGenerator<Array<Session>, void, unknown>}
+    *    The next chunk of sessions from the server.
+    * @throws {APIError} If the API response format is unexpected.
+    * @throws {ConnectionError} If the connection to the server fails.
+    */
+   async *listSessionsChunked(
+      chunkSize: number = 100
+   ): AsyncGenerator<Array<Session>, void, unknown> {
+      let cursor: number | undefined;
+
+      while (true) {
+         // eslint-disable-next-line no-await-in-loop
+         const sessions = await this.listSessions(chunkSize, cursor);
+
+         if (sessions.length === 0) {
+            // We've reached the last page
+            break;
+         }
+
+         yield sessions;
+
+         if (cursor === undefined) {
+            cursor = 0;
+         }
+         cursor += chunkSize;
+      }
+   }
+
+   /**
     * Retrieves memory for a specific session.
     * @param {string} sessionID - The ID of the session to retrieve memory for.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
