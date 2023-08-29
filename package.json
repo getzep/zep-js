@@ -16,6 +16,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/main.ts",
     "clean": "rm -rf dist/*",
+    "format": "eslint --fix 'src/**/*.{js,ts}' && prettier --write 'src/**/*.{js,ts,json}'",
     "prepublishOnly": "npm run clean && npm run build && npm run test && npm run docbuild",
     "prepare": "npm run build",
     "test": "jest",

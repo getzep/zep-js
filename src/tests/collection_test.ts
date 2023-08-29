@@ -6,6 +6,7 @@ import {
    IDocumentCollectionModel,
 } from "../document_models";
 import { IZepClient } from "../interfaces";
+import { API_BASEPATH } from "../utils";
 
 const API_URL = "http://localhost:8000";
 
@@ -38,6 +39,10 @@ const mockCollection: IDocumentCollectionModel = {
 const mockClient: IZepClient = {
    baseURL: API_URL,
    headers: {},
+
+   getFullUrl(endpoint: string): string {
+      return `${this.baseURL}${API_BASEPATH}${endpoint}`;
+   },
 };
 
 describe("DocumentCollection", () => {

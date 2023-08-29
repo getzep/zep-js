@@ -1,4 +1,6 @@
+import { v4 as uuidv4 } from "uuid";
 import {
+   ICreateUserRequest,
    ISession,
    Memory,
    MemorySearchPayload,
@@ -10,28 +12,39 @@ import {
 
 import { history } from "./history";
 
-import { v4 as uuidv4 } from "uuid";
+function sleep(ms: number) {
+   const date = Date.now();
+   let currentDate = 0;
+   do {
+      currentDate = Date.now();
+   } while (currentDate - date < ms);
+}
 
 async function main() {
    const baseURL = "http://localhost:8000"; // Replace with Zep API URL
    const client = await ZepClient.init(baseURL);
 
+   // Create a user
+   const userId = uuidv4();
+   const userRequest: ICreateUserRequest = {
+      user_id: userId,
+      metadata: { foo: "bar" },
+      email: "auser@user.com",
+      first_name: "A",
+      last_name: "User",
+   };
+   const user = await client.user.add(userRequest);
+   console.debug("Created user ", user.toDict());
+
    // Example session ID
-   let sessionID = uuidv4();
+   const sessionID = uuidv4();
 
-   function sleep(ms: number) {
-      const date = Date.now();
-      let currentDate = 0;
-      do {
-         currentDate = Date.now();
-      } while (currentDate - date < ms);
-   }
-
-   // Add session
+   // Add session associated with the above user
    try {
       const sessionData: ISession = {
          session_id: sessionID,
          metadata: { foo: "bar" },
+         user_id: user.user_id,
       };
       const session = new Session(sessionData);
 

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Interface for Session data.
  */
@@ -8,6 +9,7 @@ export interface ISession {
    deleted_at?: string;
    session_id: string;
    metadata: Record<string, any>;
+   user_id?: string;
 }
 
 /**
@@ -26,6 +28,8 @@ export class Session {
 
    metadata: Record<string, any>;
 
+   user_id?: string;
+
    /**
     * Constructs a new Session instance.
     * @param {ISession} data - The data to create a Session instance.
@@ -37,6 +41,7 @@ export class Session {
       this.deleted_at = data.deleted_at;
       this.session_id = data.session_id;
       this.metadata = data.metadata;
+      this.user_id = data.user_id;
    }
 
    /**
@@ -51,12 +56,13 @@ export class Session {
          deleted_at: this.deleted_at,
          session_id: this.session_id,
          metadata: this.metadata,
+         user_id: this.user_id,
       };
    }
 }
 
 /**
- * MessageData interface for providing input to create a Message instance.
+ * IMessage interface for providing input to create a Message instance.
  */
 export interface IMessage {
    uuid?: string;
@@ -113,7 +119,7 @@ export class Message {
 }
 
 /**
- * SummaryData interface for providing input to create a Summary instance.
+ * ISummary interface for providing input to create a Summary instance.
  */
 export interface ISummary {
    uuid: string;
@@ -169,7 +175,7 @@ export class Summary {
 }
 
 /**
- * MemoryData interface for providing input to create a Memory instance.
+ * IMemory interface for providing input to create a Memory instance.
  */
 export interface IMemory {
    messages?: IMessage[];

@@ -7,7 +7,7 @@ import {
    isGetIDocument,
 } from "./document_models";
 import { ISearchQuery, IUpdateDocumentParams, IZepClient } from "./interfaces";
-import { API_BASEURL, handleRequest, isFloat } from "./utils";
+import { handleRequest, isFloat } from "./utils";
 import { APIError } from "./errors";
 
 const MIN_DOCS_TO_INDEX = 10_000;
@@ -52,6 +52,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {IDocument[]} documents - The documents to add.
     * @returns {Promise<string[]>} A promise that resolves to an array of document UUIDs.
     * @throws {Error} If the collection name is not provided or no documents are provided.
+    * @throws {APIError} If the request fails.
     */
    async addDocuments(documents: IDocument[]): Promise<string[]> {
       if (this.name.length === 0) {
@@ -63,8 +64,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (documents.length > LARGE_BATCH_WARNING_LIMIT) {
          console.warn(LARGE_BATCH_WARNING);
       }
-      const url = this.getFullUrl(`/collection/${this.name}/document`);
       const body = JSON.stringify(docsWithFloatArrayToDocs(documents));
+      const url = this.client.getFullUrl(`/collection/${this.name}/document`);
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -84,6 +85,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {IUpdateDocumentParams} params - The parameters to update the document.
     * @returns {Promise<void>} A promise that resolves when the document is updated.
     * @throws {Error} If the collection name is not provided or the document does not have a uuid.
+    * @throws {APIError} If the request fails.
+    * @throws {NotFoundError} If the request no document is found for the given uuid.
     */
    async updateDocument({
       uuid,
@@ -96,7 +99,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (!uuid) {
          throw new Error("Document must have a uuid");
       }
-      const url = this.getFullUrl(`/collection/${this.name}/document/${uuid}`);
+      const url = this.client.getFullUrl(
+         `/collection/${this.name}/document/${uuid}`
+      );
       await handleRequest(
          fetch(url, {
             method: "PATCH",
@@ -118,6 +123,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {string} uuid - The uuid of the document to delete.
     * @returns {Promise<void>} A promise that resolves when the document is deleted.
     * @throws {Error} If the collection name is not provided or the document does not have a uuid.
+    * @throws {APIError} If the request fails.
+    * @throws {NotFoundError} If the request no document is found for the given uuid.
     */
    async deleteDocument(uuid: string): Promise<void> {
       if (this.name.length === 0) {
@@ -126,7 +133,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (uuid.length === 0) {
          throw new Error("Document must have a uuid");
       }
-      const url = this.getFullUrl(
+      const url = this.client.getFullUrl(
          `/collection/${this.name}/document/uuid/${uuid}`
       );
       await handleRequest(
@@ -142,6 +149,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {string} uuid - The uuid of the document to get.
     * @returns {Promise<IDocument>} A promise that resolves to the document.
     * @throws {Error} If the collection name is not provided or the document does not have a uuid.
+    * @throws {APIError} If the request fails.
+    * @throws {NotFoundError} If the request no document is found for the given uuid.
     */
    async getDocument(uuid: string): Promise<IDocument> {
       if (this.name.length === 0) {
@@ -150,7 +159,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (uuid.length === 0) {
          throw new Error("Document must have a uuid");
       }
-      const url = this.getFullUrl(`/collection/${this.name}/document/${uuid}`);
+      const url = this.client.getFullUrl(
+         `/collection/${this.name}/document/${uuid}`
+      );
       const response = await handleRequest(
          fetch(url, {
             headers: this.client.headers,
@@ -175,6 +186,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {string[]} uuids - The uuids of the documents to get.
     * @returns {Promise<IDocument[]>} A promise that resolves to an array of documents.
     * @throws {Error} If any of the documents do not match the expected format.
+    * @throws {Error} If the collection name is not provided or no uuids are provided.
+    * @throws {APIError} If the request fails.
     */
    async getDocuments(uuids: string[]): Promise<IDocument[]> {
       if (uuids.length === 0) {
@@ -187,7 +200,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
          console.warn(LARGE_BATCH_WARNING);
       }
 
-      const url = this.getFullUrl(`/collection/${this.name}/document/list/get`);
+      const url = this.client.getFullUrl(
+         `/collection/${this.name}/document/list/get`
+      );
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -219,6 +234,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
     *    A promise that resolves to an array of documents and the query vector.
     * @throws {Error} If the collection name is not provided or
     *    the search query does not have at least one of text, embedding, or metadata.
+    * @throws {APIError} If the request fails.
     */
    async searchReturnQueryVector(
       query: ISearchQuery,
@@ -242,7 +258,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          : query;
 
       const limitParam = limit ? `?limit=${limit}` : "";
-      const url = this.getFullUrl(
+      const url = this.client.getFullUrl(
          `/collection/${this.name}/search${limitParam}`
       );
       const response = await handleRequest(
@@ -282,6 +298,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @param {ISearchQuery} query - The search query.
     * @param {number} [limit] - The maximum number of results to return.
     * @returns {Promise<IDocument[]>} A promise that resolves to an array of documents.
+    * @throws {Error} If the collection name is not provided or
+    *   the search query does not have at least one of text, embedding, or metadata.
+    * @throws {APIError} If the request fails.
     */
    async search(query: ISearchQuery, limit?: number): Promise<IDocument[]> {
       const [results] = await this.searchReturnQueryVector(query, limit);
@@ -295,6 +314,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
     * @returns {Promise<void>} A promise that resolves when the index is created.
     * @throws {Error} If the collection name is not provided or the collection
     * has less than MIN_DOCS_TO_INDEX documents and force is not true.
+    * @throws {APIError} If the request fails.
     */
    async createIndex(force?: boolean): Promise<void> {
       const forceParam = force ? `?force=${force}` : "";
@@ -311,7 +331,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
             `Collection must have at least ${MIN_DOCS_TO_INDEX} documents to index. Use force=true to override.`
          );
       }
-      const url = this.getFullUrl(
+      const url = this.client.getFullUrl(
          `/collection/${this.name}/index/create${forceParam}`
       );
       await handleRequest(
@@ -323,14 +343,5 @@ export default class DocumentCollection extends DocumentCollectionModel {
             },
          })
       );
-   }
-
-   /**
-    * Constructs the full URL for an API endpoint.
-    * @param {string} endpoint - The endpoint of the API.
-    * @returns {string} The full URL.
-    */
-   getFullUrl(endpoint: string): string {
-      return `${this.client.baseURL}${API_BASEURL}${endpoint}`;
    }
 }

@@ -22,7 +22,7 @@ describe("ZepClient", () => {
       client = await ZepClient.init(BASE_URL, "test-api-key");
    });
 
-   describe("ZepClient Session", () => {
+   describe("getSession", () => {
       it("retrieves the correct session when sessionId is provided", async () => {
          const expectedSessionId = "test-session";
          const expectedSessionData: ISession = {
@@ -41,21 +41,53 @@ describe("ZepClient", () => {
       });
    });
 
-   describe("ZepClient Session", () => {
-      it("adds a session correctly when valid session data is provided", async () => {
+   // Test Suite for addSession()
+   describe("addSession", () => {
+      // Test for adding a session
+      it("should add a session correctly when valid session data is provided", async () => {
          const expectedSessionId = "test-session";
          const sessionData: ISession = {
             session_id: expectedSessionId,
             metadata: { foo: "bar" },
          };
          const session = new Session(sessionData);
-         const expectedResponseText = "Session added successfully";
+         const expectedResponseData: ISession = {
+            ...sessionData,
+            uuid: "uuid",
+            created_at: "2022-01-01T00:00:00Z",
+            updated_at: "2022-01-01T00:00:00Z",
+         };
 
-         fetchMock.mockResponseOnce(expectedResponseText);
+         fetchMock.mockResponseOnce(JSON.stringify(expectedResponseData));
 
-         const responseText = await client.memory.addSession(session);
+         const addedSession = await client.memory.addSession(session);
 
-         expect(responseText).toEqual(expectedResponseText);
+         expect(addedSession.toDict()).toEqual(expectedResponseData);
+      });
+   });
+
+   // Test Suite for updateSession()
+   describe("updateSession", () => {
+      // Test for updating a session
+      it("should update a session correctly when valid session data is provided", async () => {
+         const expectedSessionId = "test-session";
+         const sessionData: ISession = {
+            session_id: expectedSessionId,
+            metadata: { foo: "bar" },
+         };
+         const session = new Session(sessionData);
+         const expectedResponseData: ISession = {
+            ...sessionData,
+            uuid: "uuid",
+            created_at: "2022-01-01T00:00:00Z",
+            updated_at: "2022-01-01T00:00:00Z",
+         };
+
+         fetchMock.mockResponseOnce(JSON.stringify(expectedResponseData));
+
+         const updatedSession = await client.memory.updateSession(session);
+
+         expect(updatedSession.toDict()).toEqual(expectedResponseData);
       });
    });
 
