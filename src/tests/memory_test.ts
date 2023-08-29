@@ -91,6 +91,111 @@ describe("ZepClient", () => {
       });
    });
 
+   // Test Suite for listSessions()
+   describe("listSessions", () => {
+      // Test for retrieving sessions
+      it("should retrieve sessions", async () => {
+         const responseData = [
+            {
+               uuid: "uuid1",
+               created_at: "2022-01-01T00:00:00Z",
+               updated_at: "2022-01-01T00:00:00Z",
+               session_id: "session1",
+               metadata: {},
+            },
+            {
+               uuid: "uuid2",
+               created_at: "2022-01-01T00:00:00Z",
+               updated_at: "2022-01-01T00:00:00Z",
+               session_id: "session2",
+               metadata: {},
+            },
+         ];
+
+         fetchMock.mockResponseOnce(JSON.stringify(responseData));
+
+         const sessions = await client.memory.listSessions();
+
+         expect(sessions).toEqual(responseData.map((session) => new Session(session)));
+      });
+
+      // Test for retrieving sessions with limit
+      it("should retrieve sessions with limit", async () => {
+         const responseData = [
+            {
+               uuid: "uuid1",
+               created_at: "2022-01-01T00:00:00Z",
+               updated_at: "2022-01-01T00:00:00Z",
+               session_id: "session1",
+               metadata: {},
+            },
+         ];
+
+         fetchMock.mockResponseOnce(JSON.stringify(responseData));
+
+         const sessions = await client.memory.listSessions(1);
+
+         expect(sessions).toEqual(responseData.map((session) => new Session(session)));
+      });
+   });
+
+   // Test Suite for listSessionsChunked()
+   describe("listSessionsChunked", () => {
+      // Test for retrieving all sessions in chunks
+      it("should retrieve all sessions in chunks", async () => {
+         const expectedSessionsData = [
+            [
+               {
+                  uuid: "uuid1",
+                  created_at: "2022-01-01T00:00:00Z",
+                  updated_at: "2022-01-01T00:00:00Z",
+                  session_id: "session1",
+                  metadata: {},
+               },
+               {
+                  uuid: "uuid2",
+                  created_at: "2022-01-01T00:00:00Z",
+                  updated_at: "2022-01-01T00:00:00Z",
+                  session_id: "session2",
+                  metadata: {},
+               },
+            ],
+            [
+               {
+                  uuid: "uuid3",
+                  created_at: "2022-01-01T00:00:00Z",
+                  updated_at: "2022-01-01T00:00:00Z",
+                  session_id: "session3",
+                  metadata: {},
+               },
+               {
+                  uuid: "uuid4",
+                  created_at: "2022-01-01T00:00:00Z",
+                  updated_at: "2022-01-01T00:00:00Z",
+                  session_id: "session4",
+                  metadata: {},
+               },
+            ],
+         ];
+
+         fetchMock.mockResponses(
+            JSON.stringify(expectedSessionsData[0]),
+            JSON.stringify(expectedSessionsData[1]),
+            JSON.stringify([]) // empty response to indicate end of list
+         );
+
+         const sessionsChunked = [];
+         for await (const sessions of client.memory.listSessionsChunked(2)) {
+            sessionsChunked.push(sessions.map((session) => session.toDict()));
+         }
+
+         expect(sessionsChunked).toEqual(expectedSessionsData);
+      });
+   });
+
+   
+   
+
    // Test Suite for getMemory()
    describe("getMemory", () => {
       // Test for retrieving memory for a session
