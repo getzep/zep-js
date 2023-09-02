@@ -258,9 +258,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
          : query;
 
       const limitParam = limit ? `?limit=${limit}` : "";
-      const url = this.client.getFullUrl(
-         `/collection/${this.name}/search${limitParam}`
-      );
+      const url =
+         this.client.getFullUrl(`/collection/${this.name}/search`) + limitParam;
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -332,10 +331,10 @@ export default class DocumentCollection extends DocumentCollectionModel {
          );
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/index/create${forceParam}`
+         `/collection/${this.name}/index/create`
       );
       await handleRequest(
-         fetch(url, {
+         fetch(url + forceParam, {
             method: "POST",
             headers: {
                ...this.client.headers,
