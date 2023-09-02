@@ -9,7 +9,10 @@ async function main() {
    const BASE_URL = "http://localhost:8000"; // TODO: Replace with Zep API URL
    // const API_KEY = "YOUR_API_KEY"; // TODO: Replace with your API key
 
-   const client = await ZepClient.init(BASE_URL, API_KEY);
+   const client = await ZepClient.init(
+      BASE_URL
+      // API_KEY
+   );
 
    // Create multiple users
    for (let i = 0; i < 3; i++) {
