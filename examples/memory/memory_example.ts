@@ -21,17 +21,17 @@ function sleep(ms: number) {
 }
 
 async function main() {
-   const baseURL = "http://localhost:8000"; // Replace with Zep API URL
+   const baseURL = "http://127.0.0.1:8000"; // Replace with Zep API URL
    const client = await ZepClient.init(baseURL);
 
    // Create a user
    const userId = uuidv4();
    const userRequest: ICreateUserRequest = {
-      user_id: userId,
-      metadata: { foo: "bar" },
-      email: "auser@user.com",
-      first_name: "A",
-      last_name: "User",
+      user_id: "amy"+userId,
+      metadata: { role: "admin" },
+      email: "amy@acme.com",
+      first_name: "Amy",
+      last_name: "Wu",
    };
    const user = await client.user.add(userRequest);
    console.debug("Created user ", user.toDict());
@@ -141,17 +141,7 @@ async function main() {
       }
    }
 
-   // Delete memory
-   try {
-      const deleteResult = await client.memory.deleteMemory(sessionID);
-      console.debug(deleteResult);
-   } catch (error) {
-      if (error instanceof NotFoundError) {
-         console.error("Session not found:", error.message);
-      } else {
-         console.error("Got error:", error);
-      }
-   }
+   
 }
 
 main();

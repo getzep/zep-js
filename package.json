@@ -2,7 +2,7 @@
   "show-config": "tsc --showConfig",
   "name": "@getzep/zep-js",
   "version": "0.7.1",
-  "description": "Zep: A long-term memory store for conversational AI applications",
+  "description": "Zep: Fast, scalable building blocks for production LLM apps",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -10,6 +10,9 @@
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
+  "engines" : { 
+    "node" : ">=18.0.0"
+  },
   "scripts": {
     "lint": "eslint --ext .js,.ts src/",
     "build": "npm run lint && tsc && tsc --module ESNext --outDir dist/esm",
