@@ -281,9 +281,21 @@ export default class DocumentCollection extends DocumentCollectionModel {
          );
       }
 
-      const q = query.embedding
-         ? { ...query, embedding: Array.from(query.embedding) }
-         : query;
+      const q = {
+         ...query,
+         search_type: query.searchType,
+         mmr_lambda: query.mmrLambda,
+         embedding: query.embedding ? Array.from(query.embedding) : undefined,
+      };
+
+      const payload = JSON.stringify(
+         Object.fromEntries(
+            Object.entries(q).filter(
+               ([k, v]) =>
+                  v !== undefined && k !== "mmrLambda" && k !== "searchType"
+            )
+         )
+      );
 
       const limitParam = limit ? `?limit=${limit}` : "";
       const url =
@@ -295,7 +307,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-            body: JSON.stringify(q),
+            body: payload,
          })
       );
 

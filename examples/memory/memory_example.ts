@@ -141,6 +141,37 @@ async function main() {
       }
    }
 
+   // Search memory with MMR and lambda=0.6
+   try {
+      const searchText = "Name some books that are about dystopian futures.";
+      console.debug("Searching memory with MMR...", searchText);
+
+      const searchPayload = new MemorySearchPayload({
+         text: searchText,
+         search_type: "mmr",
+         mmr_lambda: 0.6,
+      });
+      const searchResults = await client.memory.searchMemory(
+         sessionID,
+         searchPayload,
+         3,
+      );
+
+      searchResults.forEach((searchResult) => {
+         console.debug("Search Result: ", JSON.stringify(searchResult.message));
+         console.debug(
+            "Search Result Distance: ",
+            JSON.stringify(searchResult.dist)
+         );
+      });
+   } catch (error) {
+      if (error instanceof NotFoundError) {
+         console.error("Session not found:", error.message);
+      } else {
+         console.error("Got error:", error);
+      }
+   }
+
    
 }
 

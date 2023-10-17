@@ -242,17 +242,28 @@ export class Memory {
  * SearchPayloadData interface for providing input to create SearchPayload.
  */
 export interface IMemorySearchPayload {
-   metadata: Record<string, any>;
-   text: string;
+   text?: string;
+   metadata?: Record<string, any>;
+   search_type?: "similarity" | "mmr";
+   mmr_lambda?: number;
 }
 
 /**
  * Represents the payload for a memory search.
+ *
+ * @property {string} text - The text to search for.
+ * @property {Record<string, any>} metadata - The metadata to filter the search by.
+ * @property {string} search_type - The type of search to perform. Either "similarity" or "mmr".
+ * @property {number} mmr_lambda - The lambda value to use for MMR reranking.
  */
 export class MemorySearchPayload {
-   metadata: Record<string, any>;
+   metadata?: Record<string, any>;
 
-   text: string;
+   text?: string;
+
+   search_type?: "similarity" | "mmr";
+
+   mmr_lambda?: number;
 
    /**
     * Constructs a new SearchPayload instance.
@@ -261,6 +272,8 @@ export class MemorySearchPayload {
    constructor(data: IMemorySearchPayload) {
       this.metadata = data.metadata;
       this.text = data.text;
+      this.search_type = data.search_type || "similarity";
+      this.mmr_lambda = data.mmr_lambda || 0.5;
    }
 }
 
@@ -292,6 +305,11 @@ export class MemorySearchResult {
    /**
     * Constructs a new SearchResult instance.
     * @param {IMemorySearchResult} data - The data to create a search result instance.
+    *
+    * @property {Message} message - The message that was found.
+    * @property {Record<string, any>} metadata - The metadata of the message.
+    * @property {string} summary - The summary of the message.
+    * @property {number} dist - The cosine distance of the message from the query.
     */
    constructor(data: IMemorySearchResult = {}) {
       this.message = data.message ? new Message(data.message) : undefined;

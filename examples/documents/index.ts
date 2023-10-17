@@ -1,7 +1,25 @@
-import { Document, IDocument, ZepClient } from "../../src";
+/**
+ * This file demonstrates the following features of Zep:
+ * 1. Checking the embedding status of a collection.
+ * 2. Reading a chunk of text from a file.
+ * 3. Printing the results of a search.
+ * 4. Searching for documents using both text and metadata.
+ * 5. MMR Search Re-ranking.
+ * 6. Searching for documents similar to a given document using embeddings.
+ * 7. Searching for non-existent documents.
+ */
+
+
 import * as fs from "fs";
 import { faker } from "@faker-js/faker";
+import { Document, IDocument, ISearchQuery, ZepClient } from "../../src";
 
+/**
+ * checkEmbeddingStatus checks the embedding status of a collection.
+ * It waits until all documents in the collection are embedded.
+ * @param client - The ZepClient instance.
+ * @param collectionName - The name of the collection.
+ */
 async function checkEmbeddingStatus(
    client: ZepClient,
    collectionName: string
@@ -20,6 +38,12 @@ async function checkEmbeddingStatus(
    }
 }
 
+/**
+ * readChunkFromFile reads a chunk of text from a file.
+ * @param file - The file to read from.
+ * @param chunkSize - The size of the chunk to read.
+ * @returns An array of strings, each string being a chunk of text.
+ */
 function readChunkFromFile(file: string, chunkSize: number): string[] {
    const text = fs.readFileSync(file, "utf8");
    const chunks = naiveSplitText(text, chunkSize);
@@ -29,6 +53,10 @@ function readChunkFromFile(file: string, chunkSize: number): string[] {
    return chunks;
 }
 
+/**
+ * printResults prints the results of a search.
+ * @param results - The results of the search.
+ */
 function printResults(results: IDocument[]): void {
    for (const result of results) {
       console.log(
@@ -39,11 +67,18 @@ function printResults(results: IDocument[]): void {
    }
 }
 
+/**
+ * naiveSplitText splits a text into chunks of a maximum size.
+ * It's a simple chunke that uses paragraphs and sentences as guides.
+ * @param text - The text to split.
+ * @param maxChunkSize - The maximum size of a chunk.
+ * @returns An array of strings, each string being a chunk of text.
+ */
 function naiveSplitText(text: string, maxChunkSize: number): string[] {
    // Naive text splitter chunks document into chunks of maxChunkSize,
    // using paragraphs and sentences as guides.
 
-   let chunks: string[] = [];
+   const chunks: string[] = [];
 
    // Remove extraneous whitespace
    text = text.split(/\s+/).join(" ");
@@ -54,14 +89,14 @@ function naiveSplitText(text: string, maxChunkSize: number): string[] {
    // Clean up paragraphs
    paragraphs = paragraphs.map((p) => p.trim()).filter((p) => p.length > 0);
 
-   for (let paragraph of paragraphs) {
+   for (const paragraph of paragraphs) {
       if (paragraph.length > 0 && paragraph.length <= maxChunkSize) {
          chunks.push(paragraph);
       } else {
-         let sentences = paragraph.split(". ");
+         const sentences = paragraph.split(". ");
          let currentChunk = "";
 
-         for (let sentence of sentences) {
+         for (const sentence of sentences) {
             if (currentChunk.length + sentence.length > maxChunkSize) {
                chunks.push(currentChunk);
                currentChunk = sentence;
@@ -79,6 +114,9 @@ function naiveSplitText(text: string, maxChunkSize: number): string[] {
    return chunks;
 }
 
+/**
+ * This demonstrates how to use the ZepClient to interact with a Zep API.
+ */
 async function main() {
    const file = "babbages_calculating_engine.txt";
    const zepApiUrl = "http://localhost:8000";
@@ -151,6 +189,22 @@ async function main() {
    );
    printResults(newSearchResults);
 
+   // MMR Search Re-ranking
+   const mmrSearchQuery: ISearchQuery = {
+      text: query,
+      searchType: "mmr",
+      mmrLambda: 0.6,
+   };
+
+   const mmrSearchResults = await collection.search(
+      mmrSearchQuery,
+      3
+   );
+   console.log(
+      `Found ${mmrSearchResults.length} documents matching MMR query '${query}'`
+   );
+   printResults(mmrSearchResults);
+
    // Search by embedding
    const interestingDocument = newSearchResults[0];
    console.log(
@@ -171,19 +225,16 @@ async function main() {
    );
    printResults(embeddingSearchResults);
 
-   // Search for non-existent documents will throw an error
-   try {
-      await collection.search(
-         {
-            metadata: {
-               where: { jsonpath: '$[*] ? (@.this_key_does == "not exist")' },
-            },
+   // Search for non-existent documents will result in an empty array
+   await collection.search(
+      {
+         metadata: {
+            where: { jsonpath: '$[*] ? (@.this_key_does == "not exist")' },
          },
-         3
-      );
-   } catch (e) {
-      console.log("Caught expected error: " + e);
-   }
+      },
+      3
+   );
+   console.log("Returned array length:", embeddingSearchResults.length);
 
    // Delete a document
    const documentToDelete = embeddingSearchResults[0].uuid;
@@ -200,7 +251,7 @@ async function main() {
    console.log(`Got ${retrievedDocuments.length} documents`);
    printResults(retrievedDocuments);
 
-   // Index the collection
+   // Index the collection. Only relevant if you are using IVFFLAT index type.
    console.log(`Indexing collection ${collectionName}`);
    await collection.createIndex(true); // Note: Use force option with caution!
 
