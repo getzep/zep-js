@@ -1,3 +1,4 @@
+import { PromisePool } from "@supercharge/promise-pool";
 import {
    docsToDocsWithFloatArray,
    docsWithFloatArrayToDocs,
@@ -11,6 +12,8 @@ import { handleRequest, isFloat } from "./utils";
 import { APIError } from "./errors";
 
 const MIN_DOCS_TO_INDEX = 10_000;
+const DEFAULT_BATCH_SIZE = 500;
+const MAX_CONCURRENT_BATCHES = 5;
 const LARGE_BATCH_WARNING_LIMIT = 1000;
 const LARGE_BATCH_WARNING = `Batch size is greater than ${LARGE_BATCH_WARNING_LIMIT}. 
 This may result in slow performance or out-of-memory failures.`;
@@ -64,20 +67,45 @@ export default class DocumentCollection extends DocumentCollectionModel {
       if (documents.length > LARGE_BATCH_WARNING_LIMIT) {
          console.warn(LARGE_BATCH_WARNING);
       }
-      const body = JSON.stringify(docsWithFloatArrayToDocs(documents));
-      const url = this.client.getFullUrl(`/collection/${this.name}/document`);
-      const response = await handleRequest(
-         fetch(url, {
-            method: "POST",
-            headers: {
-               ...this.client.headers,
-               "Content-Type": "application/json",
-            },
-            body,
-         })
-      );
 
-      return response.json();
+      // 1. Split the documents into batches of DEFAULT_BATCH_SIZE
+      const batches = [];
+      for (let i = 0; i < documents.length; i += DEFAULT_BATCH_SIZE) {
+         batches.push(documents.slice(i, i + DEFAULT_BATCH_SIZE));
+      }
+
+      // 2. Create a function that will take a batch of documents and
+      // return a promise that resolves when the batch is uploaded.
+      const uploadBatch = async (batch: IDocument[]) => {
+         const body = JSON.stringify(docsWithFloatArrayToDocs(batch));
+         const url = this.client.getFullUrl(
+            `/collection/${this.name}/document`
+         );
+         const response = await handleRequest(
+            fetch(url, {
+               method: "POST",
+               headers: {
+                  ...this.client.headers,
+                  "Content-Type": "application/json",
+               },
+               body,
+            })
+         );
+
+         return response.json();
+      };
+
+      // 3. Upload the batches in parallel
+      // limit the number of concurrent batches to MAX_CONCURRENT_BATCHES
+      const { results } = await PromisePool.for(batches)
+         .withConcurrency(MAX_CONCURRENT_BATCHES)
+         .process(async (batch) => {
+            const result = await uploadBatch(batch);
+            return result;
+         });
+
+      // Flatten the results array
+      return results.flat();
    }
 
    /**

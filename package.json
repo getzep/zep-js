@@ -39,6 +39,7 @@
   "author": "Daniel Chalef <daniel@getzep.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "@supercharge/promise-pool": "^3.1.0",
     "semver": "^7.5.4",
     "typescript": "^5.1.6"
   },
