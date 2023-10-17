@@ -300,7 +300,12 @@ export default class DocumentCollection extends DocumentCollectionModel {
       );
 
       const results = await response.json();
+
       const { results: documents, query_vector: queryVector } = results;
+
+      if (documents.length === 0) {
+         return [[], new Float32Array()];
+      }
       if (!Array.isArray(documents)) {
          throw new APIError("Unexpected document response from server");
       }
