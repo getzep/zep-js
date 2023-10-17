@@ -80,7 +80,7 @@ function naiveSplitText(text: string, maxChunkSize: number): string[] {
 }
 
 async function main() {
-   const file = "examples/documents/babbages_calculating_engine.txt";
+   const file = "babbages_calculating_engine.txt";
    const zepApiUrl = "http://localhost:8000";
    const maxChunkSize = 500;
    const collectionName = `babbage${faker.string.alphanumeric({ length: 8 })}`;
