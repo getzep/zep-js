@@ -9,7 +9,6 @@
  * 7. Searching for non-existent documents.
  */
 
-
 import * as fs from "fs";
 import { faker } from "@faker-js/faker";
 import { Document, IDocument, ISearchQuery, ZepClient } from "../../src";
@@ -172,23 +171,6 @@ async function main() {
    );
    printResults(searchResults);
 
-   // Search for documents using both text and metadata
-   const metadataQuery = {
-      where: { jsonpath: '$[*] ? (@.bar == "qux")' },
-   };
-
-   const newSearchResults = await collection.search(
-      {
-         text: query,
-         metadata: metadataQuery,
-      },
-      3
-   );
-   console.log(
-      `Found ${newSearchResults.length} documents matching query '${query}' ${metadataQuery}`
-   );
-   printResults(newSearchResults);
-
    // MMR Search Re-ranking
    const mmrSearchQuery: ISearchQuery = {
       text: query,
@@ -196,17 +178,14 @@ async function main() {
       mmrLambda: 0.6,
    };
 
-   const mmrSearchResults = await collection.search(
-      mmrSearchQuery,
-      3
-   );
+   const mmrSearchResults = await collection.search(mmrSearchQuery, 3);
    console.log(
       `Found ${mmrSearchResults.length} documents matching MMR query '${query}'`
    );
    printResults(mmrSearchResults);
 
    // Search by embedding
-   const interestingDocument = newSearchResults[0];
+   const interestingDocument = searchResults[0];
    console.log(
       `Searching for documents similar to:\n${interestingDocument.content}\n`
    );
@@ -224,6 +203,23 @@ async function main() {
       `Found ${embeddingSearchResults.length} documents matching embedding`
    );
    printResults(embeddingSearchResults);
+
+   // Search for documents using both text and metadata
+   const metadataQuery = {
+      where: { jsonpath: '$[*] ? (@.bar == "qux")' },
+   };
+
+   const newSearchResults = await collection.search(
+      {
+         text: query,
+         metadata: metadataQuery,
+      },
+      3
+   );
+   console.log(
+      `Found ${newSearchResults.length} documents matching query '${query}' ${metadataQuery}`
+   );
+   printResults(newSearchResults);
 
    // Search for non-existent documents will result in an empty array
    await collection.search(
@@ -250,22 +246,6 @@ async function main() {
    const retrievedDocuments = await collection.getDocuments(docsToGet);
    console.log(`Got ${retrievedDocuments.length} documents`);
    printResults(retrievedDocuments);
-
-   // Index the collection. Only relevant if you are using IVFFLAT index type.
-   console.log(`Indexing collection ${collectionName}`);
-   await collection.createIndex(true); // Note: Use force option with caution!
-
-   // Search for documents after indexing
-   const indexedSearchResults = await collection.search(
-      {
-         text: query,
-      },
-      3
-   );
-   console.log(
-      `Found ${indexedSearchResults.length} documents matching query '${query}'`
-   );
-   printResults(indexedSearchResults);
 
    // Delete the collection
    console.log(`Deleting collection ${collectionName}`);
