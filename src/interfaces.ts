@@ -30,4 +30,6 @@ export interface ISearchQuery {
    text?: string;
    metadata?: Record<string, any>;
    embedding?: Float32Array;
+   searchType?: "similarity" | "mmr";
+   mmrLambda?: number;
 }
