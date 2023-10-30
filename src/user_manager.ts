@@ -39,7 +39,7 @@ export default class UserManager {
             },
             body: JSON.stringify(newUserRequest.toDict()),
          }),
-         `Failed to add user ${user.user_id}`
+         `Failed to add user ${user.user_id}`,
       );
 
       const responseData = await response.json();
@@ -60,7 +60,7 @@ export default class UserManager {
          fetch(this.client.getFullUrl(`/user/${userId}`), {
             headers: this.client.headers,
          }),
-         `No user found for userId ${userId}`
+         `No user found for userId ${userId}`,
       );
 
       const responseData = await response.json();
@@ -87,7 +87,7 @@ export default class UserManager {
             },
             body: JSON.stringify(newUserUpdate.toDict()),
          }),
-         `Failed to update user ${user.user_id}`
+         `Failed to update user ${user.user_id}`,
       );
 
       const responseData = await response.json();
@@ -109,7 +109,7 @@ export default class UserManager {
             method: "DELETE",
             headers: this.client.headers,
          }),
-         `Failed to delete user ${userId}`
+         `Failed to delete user ${userId}`,
       );
 
       return response.text();
@@ -131,7 +131,7 @@ export default class UserManager {
       const response = await handleRequest(
          fetch(`${this.client.getFullUrl("/user")}?${params.toString()}`, {
             headers: this.client.headers,
-         })
+         }),
       );
 
       const data = await response.json();
@@ -152,7 +152,7 @@ export default class UserManager {
          fetch(this.client.getFullUrl(`/user/${userId}/sessions`), {
             headers: this.client.headers,
          }),
-         `No sessions found for userId ${userId}`
+         `No sessions found for userId ${userId}`,
       );
 
       const data = await response.json();

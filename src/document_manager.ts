@@ -57,7 +57,7 @@ export default class DocumentManager {
                "Content-Type": "application/json",
             },
             body: JSON.stringify(collection.toDict()),
-         })
+         }),
       );
 
       return this.getCollection(collection.name);
@@ -80,7 +80,7 @@ export default class DocumentManager {
       const response = await handleRequest(
          fetch(this.client.getFullUrl(`/collection/${name}`), {
             headers: this.client.headers,
-         })
+         }),
       );
 
       const responseData = await response.json();
@@ -132,7 +132,7 @@ export default class DocumentManager {
                "Content-Type": "application/json",
             },
             body: JSON.stringify(collection.toDict()),
-         })
+         }),
       );
 
       return this.getCollection(collection.name);
@@ -148,7 +148,7 @@ export default class DocumentManager {
       const response = await handleRequest(
          fetch(this.client.getFullUrl("/collection"), {
             headers: this.client.headers,
-         })
+         }),
       );
 
       const responseData = await response.json();
@@ -168,7 +168,7 @@ export default class DocumentManager {
                document_count: collectionData.document_count,
                document_embedded_count: collectionData.document_embedded_count,
                is_normalized: collectionData.is_normalized,
-            })
+            }),
       );
    }
 
@@ -189,7 +189,7 @@ export default class DocumentManager {
          fetch(this.client.getFullUrl(`/collection/${collectionName}`), {
             method: "DELETE",
             headers: this.client.headers,
-         })
+         }),
       );
    }
 }

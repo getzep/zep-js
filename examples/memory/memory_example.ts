@@ -27,7 +27,7 @@ async function main() {
    // Create a user
    const userId = uuidv4();
    const userRequest: ICreateUserRequest = {
-      user_id: "amy"+userId,
+      user_id: `amy${userId}`,
       metadata: { role: "admin" },
       email: "amy@acme.com",
       first_name: "Amy",
@@ -62,21 +62,22 @@ async function main() {
       console.debug("Got error:", error);
    }
 
-   // Add memory
+   // Add memory. We could do this in a batch, but we'll do it one by one rather to
+   // ensure that summaries and other artifacts are generated correctly.
    try {
-      const messages = history.map(
-         ({ role, content }) => new Message({ role, content })
-      );
-      const memory = new Memory({ messages });
+      for (const { role, content } of history) {
+         const message = new Message({ role, content });
+         const memory = new Memory({ messages: [message] });
 
-      await client.memory.addMemory(sessionID, memory);
-      console.debug("Adding new memory for session ", sessionID);
+         await client.memory.addMemory(sessionID, memory);
+      }
+      console.debug("Added new memory for session ", sessionID);
    } catch (error) {
       console.debug("Got error:", error);
    }
 
-   console.log("Sleeping for 3 seconds...");
-   sleep(3000); // Sleep for 3 seconds
+   console.log("Sleeping for 5 seconds to let background tasks complete...");
+   sleep(5000); // Sleep for 5 seconds
    console.log("Done sleeping!");
 
    // Get newly added memory
@@ -99,7 +100,7 @@ async function main() {
       }
    }
 
-   // Search memory
+   // Search messages in memory
    try {
       const searchText = "Name some books that are about dystopian futures.";
       console.debug("Searching memory...", searchText);
@@ -141,7 +142,7 @@ async function main() {
       }
    }
 
-   // Search memory with MMR and lambda=0.6
+   // Search messages in memory with MMR and lambda=0.6
    try {
       const searchText = "Name some books that are about dystopian futures.";
       console.debug("Searching memory with MMR...", searchText);
@@ -154,7 +155,7 @@ async function main() {
       const searchResults = await client.memory.searchMemory(
          sessionID,
          searchPayload,
-         3,
+         3
       );
 
       searchResults.forEach((searchResult) => {
@@ -172,7 +173,37 @@ async function main() {
       }
    }
 
-   
+   // Search summaries in memory with MMR and lambda=0.6
+   try {
+      const searchText = "Name some books that are about dystopian futures.";
+      console.debug("Searching summaries with MMR...", searchText);
+
+      const searchPayload = new MemorySearchPayload({
+         text: searchText,
+         search_scope: "summary",
+         search_type: "mmr",
+         mmr_lambda: 0.6,
+      });
+      const searchResults = await client.memory.searchMemory(
+         sessionID,
+         searchPayload,
+         3
+      );
+
+      searchResults.forEach((searchResult) => {
+         console.debug("Search Result: ", JSON.stringify(searchResult.summary));
+         console.debug(
+            "Search Result Distance: ",
+            JSON.stringify(searchResult.dist)
+         );
+      });
+   } catch (error) {
+      if (error instanceof NotFoundError) {
+         console.error("Session not found:", error.message);
+      } else {
+         console.error("Got error:", error);
+      }
+   }
 }
 
 main();
