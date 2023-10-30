@@ -13,7 +13,7 @@ const MIN_SERVER_WARNING_MESSAGE = `You are using an incompatible Zep server ver
 
 function warnDeprecation(functionName: string): void {
    console.warn(
-      `Warning: ${functionName} is deprecated and will be removed in the next major release.`
+      `Warning: ${functionName} is deprecated and will be removed in the next major release.`,
    );
 }
 
@@ -41,7 +41,7 @@ function isVersionGreaterOrEqual(version: string | null): boolean {
  */
 async function handleRequest(
    requestPromise: Promise<Response>,
-   notFoundMessage: string | null = null
+   notFoundMessage: string | null = null,
 ) {
    try {
       const response = await requestPromise;
@@ -50,7 +50,7 @@ async function handleRequest(
          switch (response.status) {
             case 404:
                throw new NotFoundError(
-                  notFoundMessage || `Resource not found.`
+                  notFoundMessage || `Resource not found.`,
                );
             case 401:
                throw new AuthenticationError("Authentication failed.");
@@ -58,7 +58,7 @@ async function handleRequest(
                throw new APIError(
                   `Got an unexpected status code: ${response.status}`,
                   response.status,
-                  await response.text()
+                  await response.text(),
                );
          }
       }

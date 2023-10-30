@@ -22,7 +22,7 @@ describe("CollectionManager", () => {
    describe("addCollection", () => {
       it("throws error when embeddingDimensions is not a positive integer", async () => {
          await expect(
-            manager.addCollection({ name: "test", embeddingDimensions: -1 })
+            manager.addCollection({ name: "test", embeddingDimensions: -1 }),
          ).rejects.toThrow("embeddingDimensions must be a positive integer");
       });
 
@@ -36,13 +36,13 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
          await manager.addCollection({ name: "test", embeddingDimensions: 2 });
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`
+            `${BASE_URL}/collection/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("POST");
          expect(
             (fetchMock.mock.calls[1][1]?.headers as Record<string, string>)?.[
                "Content-Type"
-            ]
+            ],
          ).toEqual("application/json");
       });
    });
@@ -50,7 +50,7 @@ describe("CollectionManager", () => {
    describe("getCollection", () => {
       it("throws error when name is not provided", async () => {
          await expect(manager.getCollection("")).rejects.toThrow(
-            "Collection name must be provided"
+            "Collection name must be provided",
          );
       });
 
@@ -59,7 +59,7 @@ describe("CollectionManager", () => {
          await manager.getCollection("test");
          // needs to be the second call because the first call is to healthz
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`
+            `${BASE_URL}/collection/test`,
          );
       });
    });
@@ -75,13 +75,13 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify(testData));
          await manager.updateCollection(testData);
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`
+            `${BASE_URL}/collection/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("PATCH");
          expect(
             (fetchMock.mock.calls[1][1]?.headers as Record<string, string>)?.[
                "Content-Type"
-            ]
+            ],
          ).toEqual("application/json");
       });
    });
@@ -112,7 +112,7 @@ describe("CollectionManager", () => {
             expect(collection).toBeInstanceOf(DocumentCollectionModel);
             expect(collection.name).toEqual(collectionsData[i].name);
             expect(collection.description).toEqual(
-               collectionsData[i].description
+               collectionsData[i].description,
             );
             expect(collection.metadata).toEqual(collectionsData[i].metadata);
          });
@@ -122,7 +122,7 @@ describe("CollectionManager", () => {
    describe("deleteCollection", () => {
       it("throws error when collectionName is not provided", async () => {
          await expect(manager.deleteCollection("")).rejects.toThrow(
-            "Collection name must be provided"
+            "Collection name must be provided",
          );
       });
 
@@ -130,7 +130,7 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}));
          await manager.deleteCollection("test");
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`
+            `${BASE_URL}/collection/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("DELETE");
       });

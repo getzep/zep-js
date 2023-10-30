@@ -74,7 +74,7 @@ describe("DocumentCollection", () => {
 
       it("sends correct data structure to server", async () => {
          fetchMock.mockResponseOnce(
-            JSON.stringify([{ uuid: "1234", ...mockDocuments[0] }])
+            JSON.stringify([{ uuid: "1234", ...mockDocuments[0] }]),
          );
 
          const collection = new DocumentCollection(mockClient, mockCollection);
@@ -100,7 +100,7 @@ describe("DocumentCollection", () => {
             is_auto_embedded: false,
          });
          const result = await collection.addDocuments(
-            mockDocumentsWithEmbeddings
+            mockDocumentsWithEmbeddings,
          );
 
          expect(result).toEqual(mockResponse);
@@ -179,7 +179,7 @@ describe("DocumentCollection", () => {
                uuid: "1234",
                documentId: "doc1",
                metadata: { author: "John" },
-            })
+            }),
          ).rejects.toThrow("Collection name must be provided");
       });
 
@@ -190,7 +190,7 @@ describe("DocumentCollection", () => {
                uuid: "",
                documentId: "doc1",
                metadata: { author: "John" },
-            })
+            }),
          ).rejects.toThrow("Document must have a uuid");
       });
    });
@@ -225,14 +225,14 @@ describe("DocumentCollection", () => {
             name: "",
          });
          await expect(collection.deleteDocument("1234")).rejects.toThrow(
-            "Collection name must be provided"
+            "Collection name must be provided",
          );
       });
 
       it("throws error when document uuid is not provided", async () => {
          const collection = new DocumentCollection(mockClient, mockCollection);
          await expect(collection.deleteDocument("")).rejects.toThrow(
-            "Document must have a uuid"
+            "Document must have a uuid",
          );
       });
    });
@@ -267,14 +267,14 @@ describe("DocumentCollection", () => {
             name: "",
          });
          await expect(collection.getDocument("1234")).rejects.toThrow(
-            "Collection name must be provided"
+            "Collection name must be provided",
          );
       });
 
       it("throws error when document uuid is not provided", async () => {
          const collection = new DocumentCollection(mockClient, mockCollection);
          await expect(collection.getDocument("")).rejects.toThrow(
-            "Document must have a uuid"
+            "Document must have a uuid",
          );
       });
    });
@@ -329,7 +329,7 @@ describe("DocumentCollection", () => {
             name: "",
          });
          await expect(
-            collection.getDocuments(["doc1", "doc2"])
+            collection.getDocuments(["doc1", "doc2"]),
          ).rejects.toThrow("Collection name must be provided");
       });
    });
@@ -357,7 +357,7 @@ describe("DocumentCollection", () => {
             JSON.stringify({
                results: expectedDocuments,
                query_vector: [0.5, 0.5],
-            })
+            }),
          );
 
          const collection = new DocumentCollection(mockClient, mockCollection);
@@ -372,7 +372,7 @@ describe("DocumentCollection", () => {
             JSON.stringify({
                results: expectedDocuments,
                query_vector: [0.5, 0.5],
-            })
+            }),
          );
 
          const collection = new DocumentCollection(mockClient, mockCollection);
@@ -387,7 +387,7 @@ describe("DocumentCollection", () => {
             name: "",
          });
          await expect(
-            collection.search({ text: "Test document" })
+            collection.search({ text: "Test document" }),
          ).rejects.toThrow("Collection name must be provided");
       });
    });

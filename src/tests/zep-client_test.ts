@@ -19,7 +19,7 @@ describe("ZepClient", () => {
 
          fetchMock.mockResponseOnce((req) => {
             expect(req.headers.get("Authorization")).toEqual(
-               expectedAuthorizationHeader
+               expectedAuthorizationHeader,
             );
             return Promise.resolve({
                status: 200,

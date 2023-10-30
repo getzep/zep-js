@@ -136,7 +136,7 @@ describe("client.user", () => {
          fetchMock.mockResponses(
             JSON.stringify(expectedUsersData[0]),
             JSON.stringify(expectedUsersData[1]),
-            JSON.stringify([]) // empty response to indicate end of list
+            JSON.stringify([]), // empty response to indicate end of list
          );
 
          const usersChunked = [];
