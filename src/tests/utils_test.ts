@@ -23,7 +23,7 @@ describe("Utility functions", () => {
       console.warn = jest.fn();
       warnDeprecation("testFunction");
       expect(console.warn).toHaveBeenCalledWith(
-         "Warning: testFunction is deprecated and will be removed in the next major release."
+         "Warning: testFunction is deprecated and will be removed in the next major release.",
       );
    });
 
@@ -54,7 +54,7 @@ describe("Utility functions", () => {
          fetchMock.mockResponseOnce("", { status: 404 });
 
          await expect(handleRequest(fetch("/not-found"))).rejects.toThrow(
-            NotFoundError
+            NotFoundError,
          );
       });
 
@@ -62,7 +62,7 @@ describe("Utility functions", () => {
          fetchMock.mockResponseOnce("", { status: 401 });
 
          await expect(handleRequest(fetch("/unauthorized"))).rejects.toThrow(
-            AuthenticationError
+            AuthenticationError,
          );
       });
 

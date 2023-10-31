@@ -116,7 +116,9 @@ describe("ZepClient", () => {
 
          const sessions = await client.memory.listSessions();
 
-         expect(sessions).toEqual(responseData.map((session) => new Session(session)));
+         expect(sessions).toEqual(
+            responseData.map((session) => new Session(session)),
+         );
       });
 
       // Test for retrieving sessions with limit
@@ -135,7 +137,9 @@ describe("ZepClient", () => {
 
          const sessions = await client.memory.listSessions(1);
 
-         expect(sessions).toEqual(responseData.map((session) => new Session(session)));
+         expect(sessions).toEqual(
+            responseData.map((session) => new Session(session)),
+         );
       });
    });
 
@@ -181,7 +185,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponses(
             JSON.stringify(expectedSessionsData[0]),
             JSON.stringify(expectedSessionsData[1]),
-            JSON.stringify([]) // empty response to indicate end of list
+            JSON.stringify([]), // empty response to indicate end of list
          );
 
          const sessionsChunked = [];
@@ -192,9 +196,6 @@ describe("ZepClient", () => {
          expect(sessionsChunked).toEqual(expectedSessionsData);
       });
    });
-
-   
-   
 
    // Test Suite for getMemory()
    describe("getMemory", () => {
@@ -226,7 +227,7 @@ describe("ZepClient", () => {
                   uuid: "",
                }),
                metadata: {},
-            })
+            }),
          );
       });
    });
@@ -236,7 +237,7 @@ describe("ZepClient", () => {
       fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
 
       await expect(client.memory.getMemory("test-session")).rejects.toThrow(
-         NotFoundError
+         NotFoundError,
       );
    });
 
@@ -268,7 +269,7 @@ describe("ZepClient", () => {
                uuid: "",
             }),
             metadata: {},
-         })
+         }),
       );
    });
 
@@ -277,7 +278,7 @@ describe("ZepClient", () => {
       fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
       await expect(client.memory.getMemory("test-session")).rejects.toThrow(
-         APIError
+         APIError,
       );
    });
 
@@ -301,9 +302,9 @@ describe("ZepClient", () => {
       fetchMock.mockIf(
          (req) =>
             req.url.startsWith(
-               `${BASE_URL}/api/v1/sessions/test-session/memory`
+               `${BASE_URL}/api/v1/sessions/test-session/memory`,
             ) && req.url.includes("lastn=2"),
-         JSON.stringify(responseData)
+         JSON.stringify(responseData),
       );
 
       const memory = await client.memory.getMemory("test-session", 2);
@@ -328,7 +329,7 @@ describe("ZepClient", () => {
                token_count: 0,
             }),
             metadata: {},
-         })
+         }),
       );
    });
 
@@ -351,7 +352,7 @@ describe("ZepClient", () => {
 
          const result = await client.memory.addMemory(
             "test-session",
-            memoryData
+            memoryData,
          );
 
          expect(result).toEqual("OK");
@@ -377,7 +378,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
          await expect(
-            client.memory.addMemory("test-session", memoryData)
+            client.memory.addMemory("test-session", memoryData),
          ).rejects.toThrow(APIError);
       });
    });
@@ -400,7 +401,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
 
          await expect(
-            client.memory.deleteMemory("test-session")
+            client.memory.deleteMemory("test-session"),
          ).rejects.toThrow(NotFoundError);
       });
 
@@ -409,7 +410,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
          await expect(
-            client.memory.deleteMemory("test-session")
+            client.memory.deleteMemory("test-session"),
          ).rejects.toThrow(APIError);
       });
    });
@@ -445,7 +446,7 @@ describe("ZepClient", () => {
 
          const searchResults = await client.memory.searchMemory(
             "test-session",
-            searchPayload
+            searchPayload,
          );
 
          expect(searchResults).toEqual(responseData);
@@ -462,7 +463,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 404 });
 
          await expect(
-            client.memory.searchMemory("test-session", searchPayload)
+            client.memory.searchMemory("test-session", searchPayload),
          ).rejects.toThrow(NotFoundError);
       });
 
@@ -477,7 +478,7 @@ describe("ZepClient", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
          await expect(
-            client.memory.searchMemory("test-session", searchPayload)
+            client.memory.searchMemory("test-session", searchPayload),
          ).rejects.toThrow(APIError);
       }); // end it
    }); // end describe

@@ -79,7 +79,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       const uploadBatch = async (batch: IDocument[]) => {
          const body = JSON.stringify(docsWithFloatArrayToDocs(batch));
          const url = this.client.getFullUrl(
-            `/collection/${this.name}/document`
+            `/collection/${this.name}/document`,
          );
          const response = await handleRequest(
             fetch(url, {
@@ -89,7 +89,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                   "Content-Type": "application/json",
                },
                body,
-            })
+            }),
          );
 
          return response.json();
@@ -128,7 +128,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/${uuid}`
+         `/collection/${this.name}/document/${uuid}`,
       );
       await handleRequest(
          fetch(url, {
@@ -142,7 +142,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                document_id: documentId,
                metadata,
             }),
-         })
+         }),
       );
    }
 
@@ -162,13 +162,13 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/uuid/${uuid}`
+         `/collection/${this.name}/document/uuid/${uuid}`,
       );
       await handleRequest(
          fetch(url, {
             method: "DELETE",
             headers: this.client.headers,
-         })
+         }),
       );
    }
 
@@ -188,12 +188,12 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/${uuid}`
+         `/collection/${this.name}/document/${uuid}`,
       );
       const response = await handleRequest(
          fetch(url, {
             headers: this.client.headers,
-         })
+         }),
       );
 
       const document = await response.json();
@@ -229,7 +229,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       }
 
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/list/get`
+         `/collection/${this.name}/document/list/get`,
       );
       const response = await handleRequest(
          fetch(url, {
@@ -239,7 +239,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                "Content-Type": "application/json",
             },
             body: JSON.stringify({ uuids }),
-         })
+         }),
       );
 
       const documents = await response.json();
@@ -266,7 +266,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
     */
    async searchReturnQueryVector(
       query: ISearchQuery,
-      limit?: number
+      limit?: number,
    ): Promise<[IDocument[], Float32Array]> {
       if (this.name.length === 0) {
          throw new Error("Collection name must be provided");
@@ -277,7 +277,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          query.metadata?.length === 0
       ) {
          throw new Error(
-            "Search query must have at least one of text, embedding, or metadata"
+            "Search query must have at least one of text, embedding, or metadata",
          );
       }
 
@@ -292,9 +292,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
          Object.fromEntries(
             Object.entries(q).filter(
                ([k, v]) =>
-                  v !== undefined && k !== "mmrLambda" && k !== "searchType"
-            )
-         )
+                  v !== undefined && k !== "mmrLambda" && k !== "searchType",
+            ),
+         ),
       );
 
       const limitParam = limit ? `?limit=${limit}` : "";
@@ -308,7 +308,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                "Content-Type": "application/json",
             },
             body: payload,
-         })
+         }),
       );
 
       const results = await response.json();
@@ -372,11 +372,11 @@ export default class DocumentCollection extends DocumentCollectionModel {
          this?.document_count < MIN_DOCS_TO_INDEX
       ) {
          throw new Error(
-            `Collection must have at least ${MIN_DOCS_TO_INDEX} documents to index. Use force=true to override.`
+            `Collection must have at least ${MIN_DOCS_TO_INDEX} documents to index. Use force=true to override.`,
          );
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/index/create`
+         `/collection/${this.name}/index/create`,
       );
       await handleRequest(
          fetch(url + forceParam, {
@@ -385,7 +385,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
                ...this.client.headers,
                "Content-Type": "application/json",
             },
-         })
+         }),
       );
    }
 }

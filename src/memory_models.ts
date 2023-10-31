@@ -128,6 +128,8 @@ export interface ISummary {
 
    content: string;
 
+   metadata?: Record<string, any>;
+
    recent_message_uuid: string;
 
    token_count: number;
@@ -143,6 +145,8 @@ export class Summary {
 
    content: string;
 
+   metadata?: Record<string, any>;
+
    recent_message_uuid: string;
 
    token_count: number;
@@ -155,6 +159,7 @@ export class Summary {
       this.uuid = data.uuid;
       this.created_at = data.created_at;
       this.content = data.content;
+      this.metadata = data.metadata;
       this.recent_message_uuid = data.recent_message_uuid;
       this.token_count = data.token_count;
    }
@@ -168,6 +173,7 @@ export class Summary {
          uuid: this.uuid,
          created_at: this.created_at,
          content: this.content,
+         metadata: this.metadata,
          recent_message_uuid: this.recent_message_uuid,
          token_count: this.token_count,
       };
@@ -213,7 +219,7 @@ export class Memory {
     */
    constructor(data: IMemory = {}) {
       this.messages = (data.messages || []).map(
-         (messageData) => new Message(messageData)
+         (messageData) => new Message(messageData),
       );
       this.metadata = data.metadata || {};
       this.summary = data.summary ? new Summary(data.summary) : undefined;
@@ -244,6 +250,7 @@ export class Memory {
 export interface IMemorySearchPayload {
    text?: string;
    metadata?: Record<string, any>;
+   search_scope?: "messages" | "summary";
    search_type?: "similarity" | "mmr";
    mmr_lambda?: number;
 }
@@ -261,6 +268,8 @@ export class MemorySearchPayload {
 
    text?: string;
 
+   search_scope?: "messages" | "summary";
+
    search_type?: "similarity" | "mmr";
 
    mmr_lambda?: number;
@@ -272,6 +281,7 @@ export class MemorySearchPayload {
    constructor(data: IMemorySearchPayload) {
       this.metadata = data.metadata;
       this.text = data.text;
+      this.search_scope = data.search_scope || "messages";
       this.search_type = data.search_type || "similarity";
       this.mmr_lambda = data.mmr_lambda || 0.5;
    }
@@ -283,9 +293,9 @@ export class MemorySearchPayload {
 export interface IMemorySearchResult {
    message?: IMessage;
 
-   metadata?: Record<string, any>;
+   summary?: Summary;
 
-   summary?: string;
+   metadata?: Record<string, any>;
 
    dist?: number;
 }
@@ -296,9 +306,9 @@ export interface IMemorySearchResult {
 export class MemorySearchResult {
    message?: Message;
 
-   metadata: Record<string, any>;
+   summary?: Summary;
 
-   summary?: string;
+   metadata: Record<string, any>;
 
    dist?: number;
 
@@ -307,14 +317,15 @@ export class MemorySearchResult {
     * @param {IMemorySearchResult} data - The data to create a search result instance.
     *
     * @property {Message} message - The message that was found.
-    * @property {Record<string, any>} metadata - The metadata of the message.
+    * @property {Summary} summary - The summary that was found.
+    * @property {Record<string, any>} metadata - The metadata of the result, if any.
     * @property {string} summary - The summary of the message.
     * @property {number} dist - The cosine distance of the message from the query.
     */
    constructor(data: IMemorySearchResult = {}) {
       this.message = data.message ? new Message(data.message) : undefined;
+      this.summary = data.summary ? new Summary(data.summary) : undefined;
       this.metadata = data.metadata || {};
-      this.summary = data.summary;
       this.dist = data.dist;
    }
 }

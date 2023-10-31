@@ -33,7 +33,7 @@ export default class MemoryManager {
          fetch(this.client.getFullUrl(`/sessions/${sessionId}`), {
             headers: this.client.headers,
          }),
-         `No session found for session ${sessionId}`
+         `No session found for session ${sessionId}`,
       );
 
       const responseData = await response.json();
@@ -68,7 +68,7 @@ export default class MemoryManager {
             },
             body: JSON.stringify(session.toDict()),
          }),
-         `Failed to add session ${session.session_id}`
+         `Failed to add session ${session.session_id}`,
       );
 
       const responseData = await response.json();
@@ -104,7 +104,7 @@ export default class MemoryManager {
             },
             body: JSON.stringify(session.toDict()),
          }),
-         `Failed to update session ${session.session_id}`
+         `Failed to update session ${session.session_id}`,
       );
 
       const responseData = await response.json();
@@ -122,7 +122,7 @@ export default class MemoryManager {
     */
    async listSessions(
       limit?: number,
-      cursor?: number
+      cursor?: number,
    ): Promise<Array<Session>> {
       const params = new URLSearchParams();
       if (limit !== undefined) params.append("limit", limit.toString());
@@ -132,7 +132,7 @@ export default class MemoryManager {
          fetch(`${this.client.getFullUrl("/sessions")}?${params.toString()}`, {
             headers: this.client.headers,
          }),
-         `Failed to get sessions`
+         `Failed to get sessions`,
       );
 
       const responseData = await response.json();
@@ -151,7 +151,7 @@ export default class MemoryManager {
     * @throws {ConnectionError} If the connection to the server fails.
     */
    async *listSessionsChunked(
-      chunkSize: number = 100
+      chunkSize: number = 100,
    ): AsyncGenerator<Array<Session>, void, unknown> {
       let cursor: number | undefined;
 
@@ -188,7 +188,7 @@ export default class MemoryManager {
       const response: Response = await handleRequest(
          fetch(`${url}${params}`, {
             headers: this.client.headers,
-         })
+         }),
       );
 
       const data = await response.json();
@@ -223,7 +223,7 @@ export default class MemoryManager {
             },
             body: JSON.stringify(memory.toDict()),
          }),
-         `Memory not found for session ${sessionID}.`
+         `Memory not found for session ${sessionID}.`,
       );
 
       return response.text();
@@ -246,7 +246,7 @@ export default class MemoryManager {
             method: "DELETE",
             headers: this.client.headers,
          }),
-         `No session found for sessionID: ${sessionID}`
+         `No session found for sessionID: ${sessionID}`,
       );
 
       return response.text();
@@ -265,7 +265,7 @@ export default class MemoryManager {
    async searchMemory(
       sessionID: string,
       searchPayload: MemorySearchPayload,
-      limit?: number
+      limit?: number,
    ): Promise<Array<MemorySearchResult>> {
       const url = this.client.getFullUrl(`/sessions/${sessionID}/search`);
       const params = limit !== undefined ? `?limit=${limit}` : "";
@@ -278,13 +278,13 @@ export default class MemoryManager {
                "Content-Type": "application/json",
             },
             body: JSON.stringify(searchPayload),
-         })
+         }),
       );
 
       const data = await response.json();
 
       return data.map(
-         (searchResult: any) => new MemorySearchResult(searchResult)
+         (searchResult: any) => new MemorySearchResult(searchResult),
       );
    }
 }

@@ -42,7 +42,7 @@ export default class ZepClient implements IZepClient {
    constructor(baseURL: string, apiKey?: string) {
       if (!ZepClient.constructing) {
          warnDeprecation(
-            "Please use ZepClient.init(). Calling the ZepClient constructor directly is deprecated."
+            "Please use ZepClient.init(). Calling the ZepClient constructor directly is deprecated.",
          );
       }
       this.baseURL = baseURL;
@@ -148,7 +148,7 @@ export default class ZepClient implements IZepClient {
     */
    async deleteMemory(sessionID: string): Promise<string> {
       warnDeprecation(
-         "Please use ZepClient.memory.deleteMemory(). deleteMemory()"
+         "Please use ZepClient.memory.deleteMemory(). deleteMemory()",
       );
       return this.memory.deleteMemory(sessionID);
    }
@@ -165,10 +165,10 @@ export default class ZepClient implements IZepClient {
    async searchMemory(
       sessionID: string,
       searchPayload: MemorySearchPayload,
-      limit?: number
+      limit?: number,
    ): Promise<Array<MemorySearchResult>> {
       warnDeprecation(
-         "Please use ZepClient.memory.searchMemory(). searchMemory()"
+         "Please use ZepClient.memory.searchMemory(). searchMemory()",
       );
       return this.memory.searchMemory(sessionID, searchPayload, limit);
    }
