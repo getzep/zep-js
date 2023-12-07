@@ -15,6 +15,7 @@ import {
    joinPaths,
 } from "./utils";
 import MemoryManager from "./memory_manager";
+import MessageManager from "./message_manager";
 import UserManager from "./user_manager";
 import { IZepClient } from "./interfaces";
 
@@ -29,6 +30,8 @@ export default class ZepClient implements IZepClient {
    headers: any;
 
    memory: MemoryManager;
+
+   message: MessageManager;
 
    document: DocumentManager;
 
@@ -53,6 +56,7 @@ export default class ZepClient implements IZepClient {
          : {};
 
       this.memory = new MemoryManager(this);
+      this.message = new MessageManager(this);
       this.document = new DocumentManager(this);
       this.user = new UserManager(this);
    }
