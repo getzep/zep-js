@@ -97,7 +97,7 @@ export default class MessageManager {
                }),
             },
          ),
-         `No session found for session ${sessionId}`,
+         `No session found for session ${sessionId}, or message ${messageId}`,
       );
 
       const responseData = await response.json();
