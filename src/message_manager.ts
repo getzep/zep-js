@@ -12,15 +12,23 @@ export default class MessageManager {
 
    async getSessionMessages(
       sessionId: string,
-      limit: number = 100,
-      offset: number = 1,
+      limit?: number,
+      cursor?: number,
    ): Promise<Message[]> {
       if (!sessionId || sessionId.trim() === "") {
          throw new Error("sessionId must be provided");
       }
 
+      let url = this.client.getFullUrl(`/sessions/${sessionId}/messages`);
+
+      const params = new URLSearchParams();
+      if (limit) params.append('limit', limit.toString());
+      if (cursor) params.append('cursor', cursor.toString());
+
+      if (params.toString()) url += `?${params.toString()}`;
+
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/sessions/${sessionId}/messages`), {
+         fetch(url, {
             method: "GET",
             headers: {
                ...this.client.headers,
