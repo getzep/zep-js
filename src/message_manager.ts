@@ -22,8 +22,8 @@ export default class MessageManager {
       let url = this.client.getFullUrl(`/sessions/${sessionId}/messages`);
 
       const params = new URLSearchParams();
-      if (limit) params.append('limit', limit.toString());
-      if (cursor) params.append('cursor', cursor.toString());
+      if (limit) params.append("limit", limit.toString());
+      if (cursor) params.append("cursor", cursor.toString());
 
       if (params.toString()) url += `?${params.toString()}`;
 
