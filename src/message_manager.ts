@@ -12,28 +12,26 @@ export default class MessageManager {
 
    async getSessionMessages(
       sessionId: string,
-      limit?: number = 100,
-      offset?: number = 1,
+      limit: number = 100,
+      offset: number = 1,
    ): Promise<Message[]> {
       if (!sessionId || sessionId.trim() === "") {
          throw new Error("sessionId must be provided");
       }
 
       const response = await handleRequest(
-         fetch(
-            this.client.getFullUrl(
-               `/sessions/${sessionId}/messages?pageSize=${limit}&pageNumber=${offset}`,
-            ),
-            {
-               headers: this.client.headers,
+         fetch(this.client.getFullUrl(`/sessions/${sessionId}/messages`), {
+            method: "GET",
+            headers: {
+               ...this.client.headers,
+               "Content-Type": "application/json",
             },
-         ),
+         }),
          `No session found for session ${sessionId}`,
       );
 
       const responseData = await response.json();
-
-      return responseData.map((message: any) => new Message(message));
+      return responseData.messages.map((message: any) => new Message(message));
    }
 
    async getSessionMessage(
