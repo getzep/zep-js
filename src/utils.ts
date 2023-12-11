@@ -7,7 +7,7 @@ const SERVER_ERROR_MESSAGE = `Failed to connect to Zep server. Please check that
 - the API URL is correct
 - No other process is using the same port`;
 
-const MINIMUM_SERVER_VERSION = "0.17.0";
+const MINIMUM_SERVER_VERSION = "0.21.0";
 
 const MIN_SERVER_WARNING_MESSAGE = `You are using an incompatible Zep server version. Please upgrade to ${MINIMUM_SERVER_VERSION} or later.`;
 
