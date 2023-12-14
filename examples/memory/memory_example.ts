@@ -100,6 +100,54 @@ async function main() {
       }
    }
 
+   // get session messages
+   let sessionMessages: any[] = [];
+   try {
+      sessionMessages = await client.message.getSessionMessages(sessionID, 10, 1);
+      console.debug("Session messages: ", JSON.stringify(sessionMessages));
+   } catch (error) {
+      if (error instanceof NotFoundError) {
+         console.error("Session not found:", error.message);
+      } else {
+         console.error("Got error:", error);
+      }
+   }
+
+   const firstSessionsMessageId = sessionMessages[0].uuid;
+
+   // Update session message metadata
+   try {
+      const metadata = { metadata: { foo: "bar" }};
+      const updatedMessage = await client.message.updateSessionMessageMetadata(
+         sessionID,
+         firstSessionsMessageId,
+         metadata
+      );
+      console.debug("Updated message: ", JSON.stringify(updatedMessage));
+   } catch (error) {
+      if (error instanceof NotFoundError) {
+         console.error("Session not found:", error.message);
+      } else {
+         console.error("Got error:", error);
+      }
+   }
+
+   // Get session message
+
+   try {
+      const message = await client.message.getSessionMessage(
+         sessionID,
+         firstSessionsMessageId
+      );
+      console.debug("Session message: ", JSON.stringify(message));
+   } catch (error) {
+      if (error instanceof NotFoundError) {
+         console.error("Session not found:", error.message);
+      } else {
+         console.error("Got error:", error);
+      }
+   }
+
    // Search messages in memory
    try {
       const searchText = "Name some books that are about dystopian futures.";

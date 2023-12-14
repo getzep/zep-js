@@ -2,9 +2,11 @@ import {
    Memory,
    MemorySearchPayload,
    MemorySearchResult,
-   Message,
    Session,
 } from "./memory_models";
+
+import { Message } from "./message_models";
+
 import { IZepClient } from "./interfaces";
 import { handleRequest } from "./utils";
 
