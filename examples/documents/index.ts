@@ -253,7 +253,7 @@ async function main() {
 
    // Delete the collection
    console.log(`Deleting collection ${collectionName}`);
-   // await client.document.deleteCollection(collectionName);
+   await client.document.deleteCollection(collectionName);
 }
 
 main();
