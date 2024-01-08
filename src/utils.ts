@@ -1,7 +1,7 @@
 import semver from "semver";
 import { APIError, AuthenticationError, NotFoundError } from "./errors";
 
-const API_BASEPATH = "/api/v1";
+const API_BASEPATH = "/api";
 const SERVER_ERROR_MESSAGE = `Failed to connect to Zep server. Please check that:
 - the server is running 
 - the API URL is correct

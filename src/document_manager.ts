@@ -50,7 +50,7 @@ export default class DocumentManager {
       });
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${name}`), {
+         fetch(this.client.getFullUrl(`/collections/${name}`), {
             method: "POST",
             headers: {
                ...this.client.headers,
@@ -78,7 +78,7 @@ export default class DocumentManager {
       }
 
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${name}`), {
+         fetch(this.client.getFullUrl(`/collections/${name}`), {
             headers: this.client.headers,
          }),
       );
@@ -125,7 +125,7 @@ export default class DocumentManager {
       });
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${collection.name}`), {
+         fetch(this.client.getFullUrl(`/collections/${collection.name}`), {
             method: "PATCH",
             headers: {
                ...this.client.headers,
@@ -186,7 +186,7 @@ export default class DocumentManager {
       }
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${collectionName}`), {
+         fetch(this.client.getFullUrl(`/collections/${collectionName}`), {
             method: "DELETE",
             headers: this.client.headers,
          }),

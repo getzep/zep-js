@@ -21,13 +21,13 @@ import { Document, IDocument, ISearchQuery, ZepClient } from "../../src";
  */
 async function checkEmbeddingStatus(
    client: ZepClient,
-   collectionName: string
+   collectionName: string,
 ): Promise<void> {
    let c = await client.document.getCollection(collectionName);
 
    while (c.status !== "ready") {
       console.log(
-         `Embedding status: ${c.document_embedded_count}/${c.document_count} documents embedded`
+         `Embedding status: ${c.document_embedded_count}/${c.document_count} documents embedded`,
       );
       // Wait for 1 second
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -47,7 +47,7 @@ function readChunkFromFile(file: string, chunkSize: number): string[] {
    const text = fs.readFileSync(file, "utf8");
    const chunks = naiveSplitText(text, chunkSize);
    console.log(
-      `Splitting text into ${chunks.length} chunks of max size ${chunkSize} characters.`
+      `Splitting text into ${chunks.length} chunks of max size ${chunkSize} characters.`,
    );
    return chunks;
 }
@@ -61,7 +61,7 @@ function printResults(results: IDocument[]): void {
       console.log(
          `${result.content} - ${JSON.stringify(result.metadata)} -> ${
             result.score
-         }\n`
+         }\n`,
       );
    }
 }
@@ -117,17 +117,21 @@ function naiveSplitText(text: string, maxChunkSize: number): string[] {
  * This demonstrates how to use the ZepClient to interact with a Zep API.
  */
 async function main() {
+   const projectApiKey = process.env.PROJECT_API_KEY;
+   if (!projectApiKey) {
+      console.error("Project API key not found in environment");
+      return;
+   }
    const file = "babbages_calculating_engine.txt";
-   const zepApiUrl = "http://localhost:8000";
    const maxChunkSize = 500;
    const collectionName = `babbage${faker.string.alphanumeric({ length: 8 })}`;
 
    console.log(`Creating collection ${collectionName}`);
 
-   const client = await ZepClient.init(zepApiUrl);
+   const client = await ZepClient.initCloud(projectApiKey);
    const collection = await client.document.addCollection({
       name: collectionName,
-      embeddingDimensions: 1536, // this must match the embedding dimensions of your embedding model
+      embeddingDimensions: 768, // this must match the embedding dimensions of your embedding model
       description: "Babbage's Calculating Engine", // optional
       metadata: { qux: faker.string.sample() }, // optional
       isAutoEmbedded: true, // optional (default: true) - whether Zep should  automatically embed documents
@@ -143,17 +147,17 @@ async function main() {
             content: chunk,
             document_id: faker.system.fileName(), // optional document ID used in your system
             metadata: { foo: faker.string.sample(), bar: "qux" }, // optional metadata
-         })
+         }),
    );
 
    console.log(
-      `Adding ${documents.length} documents to collection ${collectionName}`
+      `Adding ${documents.length} documents to collection ${collectionName}`,
    );
 
    const uuids = await collection.addDocuments(documents);
 
    console.log(
-      `Added ${uuids.length} documents to collection ${collectionName}`
+      `Added ${uuids.length} documents to collection ${collectionName}`,
    );
 
    await checkEmbeddingStatus(client, collectionName);
@@ -164,10 +168,10 @@ async function main() {
       {
          text: query,
       },
-      3
+      3,
    );
    console.log(
-      `Found ${searchResults.length} documents matching query '${query}'`
+      `Found ${searchResults.length} documents matching query '${query}'`,
    );
    printResults(searchResults);
 
@@ -180,14 +184,14 @@ async function main() {
 
    const mmrSearchResults = await collection.search(mmrSearchQuery, 3);
    console.log(
-      `Found ${mmrSearchResults.length} documents matching MMR query '${query}'`
+      `Found ${mmrSearchResults.length} documents matching MMR query '${query}'`,
    );
    printResults(mmrSearchResults);
 
    // Search by embedding
    const interestingDocument = searchResults[0];
    console.log(
-      `Searching for documents similar to:\n${interestingDocument.content}\n`
+      `Searching for documents similar to:\n${interestingDocument.content}\n`,
    );
    if (!interestingDocument.embedding) {
       throw new Error("No embedding found for document");
@@ -197,10 +201,10 @@ async function main() {
       {
          embedding: vectorToSearch,
       },
-      3
+      3,
    );
    console.log(
-      `Found ${embeddingSearchResults.length} documents matching embedding`
+      `Found ${embeddingSearchResults.length} documents matching embedding`,
    );
    printResults(embeddingSearchResults);
 
@@ -214,10 +218,10 @@ async function main() {
          text: query,
          metadata: metadataQuery,
       },
-      3
+      3,
    );
    console.log(
-      `Found ${newSearchResults.length} documents matching query '${query}' ${metadataQuery}`
+      `Found ${newSearchResults.length} documents matching query '${query}' ${metadataQuery}`,
    );
    printResults(newSearchResults);
 
@@ -228,7 +232,7 @@ async function main() {
             where: { jsonpath: '$[*] ? (@.this_key_does == "not exist")' },
          },
       },
-      3
+      3,
    );
    console.log("Returned array length:", embeddingSearchResults.length);
 
@@ -249,7 +253,7 @@ async function main() {
 
    // Delete the collection
    console.log(`Deleting collection ${collectionName}`);
-   await client.document.deleteCollection(collectionName);
+   // await client.document.deleteCollection(collectionName);
 }
 
 main();

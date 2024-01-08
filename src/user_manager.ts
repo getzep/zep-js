@@ -31,7 +31,7 @@ export default class UserManager {
    async add(user: ICreateUserRequest): Promise<User> {
       const newUserRequest = new CreateUserRequest(user);
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/user`), {
+         fetch(this.client.getFullUrl(`/users`), {
             method: "POST",
             headers: {
                ...this.client.headers,
@@ -57,7 +57,7 @@ export default class UserManager {
     */
    async get(userId: string): Promise<User> {
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/user/${userId}`), {
+         fetch(this.client.getFullUrl(`/users/${userId}`), {
             headers: this.client.headers,
          }),
          `No user found for userId ${userId}`,
@@ -79,7 +79,7 @@ export default class UserManager {
    async update(user: IUpdateUserRequest): Promise<User> {
       const newUserUpdate = new UpdateUserRequest(user);
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/user/${user.user_id}`), {
+         fetch(this.client.getFullUrl(`/users/${user.user_id}`), {
             method: "PATCH",
             headers: {
                ...this.client.headers,
@@ -105,7 +105,7 @@ export default class UserManager {
     */
    async delete(userId: string): Promise<string> {
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/user/${userId}`), {
+         fetch(this.client.getFullUrl(`/users/${userId}`), {
             method: "DELETE",
             headers: this.client.headers,
          }),
@@ -129,7 +129,7 @@ export default class UserManager {
       if (cursor !== undefined) params.append("cursor", cursor.toString());
 
       const response = await handleRequest(
-         fetch(`${this.client.getFullUrl("/user")}?${params.toString()}`, {
+         fetch(`${this.client.getFullUrl("/users")}?${params.toString()}`, {
             headers: this.client.headers,
          }),
       );
@@ -149,7 +149,7 @@ export default class UserManager {
     */
    async getSessions(userId: string): Promise<Session[]> {
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/user/${userId}/sessions`), {
+         fetch(this.client.getFullUrl(`/users/${userId}/sessions`), {
             headers: this.client.headers,
          }),
          `No sessions found for userId ${userId}`,

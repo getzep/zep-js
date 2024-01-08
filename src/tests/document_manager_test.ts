@@ -36,7 +36,7 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
          await manager.addCollection({ name: "test", embeddingDimensions: 2 });
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("POST");
          expect(
@@ -59,7 +59,7 @@ describe("CollectionManager", () => {
          await manager.getCollection("test");
          // needs to be the second call because the first call is to healthz
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
       });
    });
@@ -75,7 +75,7 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify(testData));
          await manager.updateCollection(testData);
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("PATCH");
          expect(
@@ -130,7 +130,7 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}));
          await manager.deleteCollection("test");
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("DELETE");
       });

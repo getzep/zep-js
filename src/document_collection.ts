@@ -79,7 +79,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       const uploadBatch = async (batch: IDocument[]) => {
          const body = JSON.stringify(docsWithFloatArrayToDocs(batch));
          const url = this.client.getFullUrl(
-            `/collection/${this.name}/document`,
+            `/collections/${this.name}/documents`,
          );
          const response = await handleRequest(
             fetch(url, {
@@ -128,7 +128,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/${uuid}`,
+         `/collections/${this.name}/document/${uuid}`,
       );
       await handleRequest(
          fetch(url, {
@@ -162,7 +162,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/uuid/${uuid}`,
+         `/collections/${this.name}/document/uuid/${uuid}`,
       );
       await handleRequest(
          fetch(url, {
@@ -188,7 +188,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/${uuid}`,
+         `/collections/${this.name}/document/${uuid}`,
       );
       const response = await handleRequest(
          fetch(url, {
@@ -229,7 +229,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       }
 
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/document/list/get`,
+         `/collections/${this.name}/document/list/get`,
       );
       const response = await handleRequest(
          fetch(url, {
@@ -299,7 +299,8 @@ export default class DocumentCollection extends DocumentCollectionModel {
 
       const limitParam = limit ? `?limit=${limit}` : "";
       const url =
-         this.client.getFullUrl(`/collection/${this.name}/search`) + limitParam;
+         this.client.getFullUrl(`/collections/${this.name}/search`) +
+         limitParam;
       const response = await handleRequest(
          fetch(url, {
             method: "POST",
@@ -376,7 +377,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          );
       }
       const url = this.client.getFullUrl(
-         `/collection/${this.name}/index/create`,
+         `/collections/${this.name}/index/create`,
       );
       await handleRequest(
          fetch(url + forceParam, {

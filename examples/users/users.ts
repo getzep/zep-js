@@ -6,13 +6,12 @@ import {
 } from "../../src/index";
 
 async function main() {
-   const BASE_URL = "http://localhost:8000"; // TODO: Replace with Zep API URL
-   // const API_KEY = "YOUR_API_KEY"; // TODO: Replace with your API key
-
-   const client = await ZepClient.init(
-      BASE_URL
-      // API_KEY
-   );
+   const projectApiKey = process.env.PROJECT_API_KEY;
+   if (!projectApiKey) {
+      console.error("Project API key not found in environment");
+      return;
+   }
+   const client = await ZepClient.initCloud(projectApiKey);
 
    // Create multiple users
    for (let i = 0; i < 3; i++) {

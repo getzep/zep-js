@@ -21,8 +21,12 @@ function sleep(ms: number) {
 }
 
 async function main() {
-   const baseURL = "http://127.0.0.1:8000"; // Replace with Zep API URL
-   const client = await ZepClient.init(baseURL);
+   const projectApiKey = process.env.PROJECT_API_KEY;
+   if (!projectApiKey) {
+      console.error("Project API key not found in environment");
+      return;
+   }
+   const client = await ZepClient.initCloud(projectApiKey);
 
    // Create a user
    const userId = uuidv4();
@@ -84,7 +88,7 @@ async function main() {
    try {
       console.debug(
          "Getting memory for newly added memory with sessionid ",
-         sessionID
+         sessionID,
       );
       const memory = await client.memory.getMemory(sessionID);
       if (memory) {
@@ -103,7 +107,11 @@ async function main() {
    // get session messages
    let sessionMessages: any[] = [];
    try {
-      sessionMessages = await client.message.getSessionMessages(sessionID, 10, 1);
+      sessionMessages = await client.message.getSessionMessages(
+         sessionID,
+         10,
+         1,
+      );
       console.debug("Session messages: ", JSON.stringify(sessionMessages));
    } catch (error) {
       if (error instanceof NotFoundError) {
@@ -117,11 +125,11 @@ async function main() {
 
    // Update session message metadata
    try {
-      const metadata = { metadata: { foo: "bar" }};
+      const metadata = { metadata: { foo: "bar" } };
       const updatedMessage = await client.message.updateSessionMessageMetadata(
          sessionID,
          firstSessionsMessageId,
-         metadata
+         metadata,
       );
       console.debug("Updated message: ", JSON.stringify(updatedMessage));
    } catch (error) {
@@ -137,7 +145,7 @@ async function main() {
    try {
       const message = await client.message.getSessionMessage(
          sessionID,
-         firstSessionsMessageId
+         firstSessionsMessageId,
       );
       console.debug("Session message: ", JSON.stringify(message));
    } catch (error) {
@@ -172,14 +180,14 @@ async function main() {
       });
       const searchResults = await client.memory.searchMemory(
          sessionID,
-         searchPayload
+         searchPayload,
       );
 
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.message));
          console.debug(
             "Search Result Distance: ",
-            JSON.stringify(searchResult.dist)
+            JSON.stringify(searchResult.dist),
          );
       });
    } catch (error) {
@@ -203,14 +211,14 @@ async function main() {
       const searchResults = await client.memory.searchMemory(
          sessionID,
          searchPayload,
-         3
+         3,
       );
 
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.message));
          console.debug(
             "Search Result Distance: ",
-            JSON.stringify(searchResult.dist)
+            JSON.stringify(searchResult.dist),
          );
       });
    } catch (error) {
@@ -235,14 +243,14 @@ async function main() {
       const searchResults = await client.memory.searchMemory(
          sessionID,
          searchPayload,
-         3
+         3,
       );
 
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.summary));
          console.debug(
             "Search Result Distance: ",
-            JSON.stringify(searchResult.dist)
+            JSON.stringify(searchResult.dist),
          );
       });
    } catch (error) {

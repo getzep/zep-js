@@ -37,23 +37,34 @@ export default class ZepClient implements IZepClient {
 
    user: UserManager;
 
+   projectApiKey?: string;
+
+   cloud: boolean = false;
+
    /**
     * Constructs a new ZepClient instance.
     * @param {string} baseURL - The base URL of the Zep API.
     * @param {string} [apiKey] - Optional. The API key to use for authentication.
+    * @param {string} [projectApiKey] - Optional. The project API key to use for authentication.
     */
-   constructor(baseURL: string, apiKey?: string) {
+   constructor(baseURL: string, apiKey?: string, projectApiKey?: string) {
       if (!ZepClient.constructing) {
          warnDeprecation(
             "Please use ZepClient.init(). Calling the ZepClient constructor directly is deprecated.",
          );
       }
       this.baseURL = baseURL;
+      this.projectApiKey = projectApiKey;
       this.headers = apiKey
          ? {
               Authorization: `Bearer ${apiKey}`,
            }
          : {};
+
+      if (projectApiKey) {
+         this.cloud = true;
+         this.headers.Authorization = `Api-Key ${projectApiKey}`;
+      }
 
       this.memory = new MemoryManager(this);
       this.message = new MessageManager(this);
@@ -66,12 +77,40 @@ export default class ZepClient implements IZepClient {
     *
     * @param {string} baseURL - The base URL of the Zep API.
     * @param {string} [apiKey] - Optional. The API key to use for authentication.
+    * @param {string} [projectApiKey] - Optional. The project API key to use for authentication.
     * @returns {Promise<ZepClient>} A promise that resolves to a new ZepClient instance.
     * @throws {Error} Throws an error if the server is not running.
     */
-   static async init(baseURL: string, apiKey?: string): Promise<ZepClient> {
+   static async init(
+      baseURL: string,
+      apiKey?: string,
+      projectApiKey?: string,
+   ): Promise<ZepClient> {
       ZepClient.constructing = true;
-      const client = new ZepClient(baseURL, apiKey);
+      const client = new ZepClient(baseURL, apiKey, projectApiKey);
+      ZepClient.constructing = false;
+
+      const isRunning = await client.checkServer();
+      if (!isRunning) {
+         throw new Error(SERVER_ERROR_MESSAGE);
+      }
+      return client;
+   }
+
+   /**
+    * Asynchronously initializes a new instance of the ZepClient class.
+    *
+    * @param {string} [projectApiKey] - The project API key to use for authentication.
+    * @returns {Promise<ZepClient>} A promise that resolves to a new ZepClient instance.
+    * @throws {Error} Throws an error if the server is not running.
+    */
+   static async initCloud(projectApiKey: string): Promise<ZepClient> {
+      ZepClient.constructing = true;
+      const client = new ZepClient(
+         "http://localhost:8000",
+         undefined,
+         projectApiKey,
+      );
       ZepClient.constructing = false;
 
       const isRunning = await client.checkServer();
@@ -88,7 +127,11 @@ export default class ZepClient implements IZepClient {
     */
    getFullUrl(endpoint: string): string {
       const url = new URL(this.baseURL);
-      url.pathname = joinPaths(API_BASEPATH, endpoint);
+      url.pathname = joinPaths(
+         API_BASEPATH,
+         this.cloud ? "/v2" : "/v1",
+         endpoint,
+      );
       return url.toString();
    }
 
@@ -185,7 +228,7 @@ export default class ZepClient implements IZepClient {
 
       const zepServerVersion = response.headers.get("X-Zep-Version");
 
-      if (!isVersionGreaterOrEqual(zepServerVersion)) {
+      if (!isVersionGreaterOrEqual(zepServerVersion) && !this.projectApiKey) {
          console.warn(MIN_SERVER_WARNING_MESSAGE);
       }
 
