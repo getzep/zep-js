@@ -101,13 +101,17 @@ export default class ZepClient implements IZepClient {
     * Asynchronously initializes a new instance of the ZepClient class.
     *
     * @param {string} [projectApiKey] - The project API key to use for authentication.
+    * @param {string} [baseUrl] - Optional. The base URL of the Zep API.
     * @returns {Promise<ZepClient>} A promise that resolves to a new ZepClient instance.
     * @throws {Error} Throws an error if the server is not running.
     */
-   static async initCloud(projectApiKey: string): Promise<ZepClient> {
+   static async initCloud(
+      projectApiKey: string,
+      baseUrl?: string,
+   ): Promise<ZepClient> {
       ZepClient.constructing = true;
       const client = new ZepClient(
-         "http://localhost:8000",
+         baseUrl ?? "http://localhost:8000",
          undefined,
          projectApiKey,
       );
