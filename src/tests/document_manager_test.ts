@@ -5,7 +5,7 @@ import { FetchMock } from "jest-fetch-mock";
 import { DocumentCollectionModel } from "../document_models";
 
 const API_URL = "http://localhost:8000";
-const BASE_URL = `${API_URL}/api/v1`;
+const BASE_URL = `${API_URL}/api/v2`;
 
 const fetchMock = global.fetch as FetchMock;
 
@@ -15,7 +15,7 @@ describe("CollectionManager", () => {
 
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.init(API_URL, "test-api-key");
+      client = await ZepClient.initCloud("z_test-api-key", API_URL);
       manager = new DocumentManager(client);
    });
 

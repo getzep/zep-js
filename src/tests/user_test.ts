@@ -9,7 +9,7 @@ describe("client.user", () => {
    let client: ZepClient;
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.init(BASE_URL, "test-api-key");
+      client = await ZepClient.initCloud("z_test-api-key", BASE_URL);
    });
 
    describe("addUser", () => {
