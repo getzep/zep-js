@@ -26,7 +26,7 @@ async function main() {
       console.error("Project API key not found in environment");
       return;
    }
-   const client = await ZepClient.initCloud(projectApiKey);
+   const client = await ZepClient.init(projectApiKey);
 
    // Create a user
    const userId = uuidv4();

@@ -19,7 +19,7 @@ describe("ZepClient", () => {
 
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.initCloud("z_test-api-key", BASE_URL);
+      client = await ZepClient.init("z_test-api-key");
    });
 
    describe("getSession", () => {

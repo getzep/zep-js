@@ -128,7 +128,7 @@ async function main() {
 
    console.log(`Creating collection ${collectionName}`);
 
-   const client = await ZepClient.initCloud(projectApiKey);
+   const client = await ZepClient.init(projectApiKey);
    const collection = await client.document.addCollection({
       name: collectionName,
       embeddingDimensions: 1024, // this must match the embedding dimensions of your embedding model

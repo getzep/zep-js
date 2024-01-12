@@ -15,7 +15,7 @@ describe("CollectionManager", () => {
 
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.initCloud("z_test-api-key", API_URL);
+      client = await ZepClient.init("z_test-api-key");
       manager = new DocumentManager(client);
    });
 

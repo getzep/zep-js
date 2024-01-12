@@ -8,6 +8,7 @@ import DocumentManager from "./document_manager";
 
 import {
    API_BASEPATH,
+   API_VERSION,
    isVersionGreaterOrEqual,
    MIN_SERVER_WARNING_MESSAGE,
    SERVER_ERROR_MESSAGE,
@@ -25,7 +26,7 @@ import { IZepClient } from "./interfaces";
 export default class ZepClient implements IZepClient {
    private static constructing: boolean = false;
 
-   baseURL: string;
+   baseURL: string = "http://localhost:8000";
 
    headers: any;
 
@@ -43,29 +44,23 @@ export default class ZepClient implements IZepClient {
 
    /**
     * Constructs a new ZepClient instance.
-    * @param {string} baseURL - The base URL of the Zep API.
-    * @param {string} [apiKey] - Optional. The API key to use for authentication.
-    * @param {string} [projectApiKey] - Optional. The project API key to use for authentication.
+    * @param {string} [projectApiKey] - The project API key to use for authentication.
+    * @param {string} baseURL - Optional. The base URL of the Zep API.
     */
-   constructor(baseURL: string, apiKey?: string, projectApiKey?: string) {
+   constructor(projectApiKey: string, baseURL?: string) {
       if (!ZepClient.constructing) {
          warnDeprecation(
             "Please use ZepClient.init(). Calling the ZepClient constructor directly is deprecated.",
          );
       }
-      this.baseURL = baseURL;
-      this.projectApiKey = projectApiKey;
-      this.headers = apiKey
-         ? {
-              Authorization: `Bearer ${apiKey}`,
-           }
-         : {};
-
-      if (projectApiKey) {
-         this.cloud = true;
-         this.headers.Authorization = `Api-Key ${projectApiKey}`;
+      if (baseURL) {
+         this.baseURL = baseURL;
       }
-
+      this.projectApiKey = projectApiKey;
+      this.cloud = true;
+      this.headers = {
+         Authorization: `Api-Key ${projectApiKey}`,
+      };
       this.memory = new MemoryManager(this);
       this.message = new MessageManager(this);
       this.document = new DocumentManager(this);
@@ -75,46 +70,13 @@ export default class ZepClient implements IZepClient {
    /**
     * Asynchronously initializes a new instance of the ZepClient class.
     *
-    * @param {string} baseURL - The base URL of the Zep API.
-    * @param {string} [apiKey] - Optional. The API key to use for authentication.
-    * @param {string} [projectApiKey] - Optional. The project API key to use for authentication.
+    * @param {string} [projectApiKey] The project API key to use for authentication.
     * @returns {Promise<ZepClient>} A promise that resolves to a new ZepClient instance.
     * @throws {Error} Throws an error if the server is not running.
     */
-   static async init(
-      baseURL: string,
-      apiKey?: string,
-      projectApiKey?: string,
-   ): Promise<ZepClient> {
+   static async init(projectApiKey: string): Promise<ZepClient> {
       ZepClient.constructing = true;
-      const client = new ZepClient(baseURL, apiKey, projectApiKey);
-      ZepClient.constructing = false;
-
-      const isRunning = await client.checkServer();
-      if (!isRunning) {
-         throw new Error(SERVER_ERROR_MESSAGE);
-      }
-      return client;
-   }
-
-   /**
-    * Asynchronously initializes a new instance of the ZepClient class.
-    *
-    * @param {string} [projectApiKey] - The project API key to use for authentication.
-    * @param {string} [baseUrl] - Optional. The base URL of the Zep API.
-    * @returns {Promise<ZepClient>} A promise that resolves to a new ZepClient instance.
-    * @throws {Error} Throws an error if the server is not running.
-    */
-   static async initCloud(
-      projectApiKey: string,
-      baseUrl?: string,
-   ): Promise<ZepClient> {
-      ZepClient.constructing = true;
-      const client = new ZepClient(
-         baseUrl ?? "http://localhost:8000",
-         undefined,
-         projectApiKey,
-      );
+      const client = new ZepClient(projectApiKey);
       ZepClient.constructing = false;
 
       const isRunning = await client.checkServer();
@@ -131,11 +93,7 @@ export default class ZepClient implements IZepClient {
     */
    getFullUrl(endpoint: string): string {
       const url = new URL(this.baseURL);
-      url.pathname = joinPaths(
-         API_BASEPATH,
-         this.cloud ? "/v2" : "/v1",
-         endpoint,
-      );
+      url.pathname = joinPaths(API_BASEPATH, `/${API_VERSION}`, endpoint);
       return url.toString();
    }
 
