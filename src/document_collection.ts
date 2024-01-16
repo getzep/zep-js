@@ -99,10 +99,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       // limit the number of concurrent batches to MAX_CONCURRENT_BATCHES
       const { results } = await PromisePool.for(batches)
          .withConcurrency(MAX_CONCURRENT_BATCHES)
-         .process(async (batch) => {
-            const result = await uploadBatch(batch);
-            return result;
-         });
+         .process(uploadBatch);
 
       // Flatten the results array
       return results.flat();
@@ -128,7 +125,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collections/${this.name}/document/${uuid}`,
+         `/collections/${this.name}/documents/${uuid}`,
       );
       await handleRequest(
          fetch(url, {
@@ -162,8 +159,9 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collections/${this.name}/document/uuid/${uuid}`,
+         `/collections/${this.name}/documents/uuid/${uuid}`,
       );
+
       await handleRequest(
          fetch(url, {
             method: "DELETE",
@@ -188,7 +186,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
          throw new Error("Document must have a uuid");
       }
       const url = this.client.getFullUrl(
-         `/collections/${this.name}/document/${uuid}`,
+         `/collections/${this.name}/documents/${uuid}`,
       );
       const response = await handleRequest(
          fetch(url, {
@@ -229,7 +227,7 @@ export default class DocumentCollection extends DocumentCollectionModel {
       }
 
       const url = this.client.getFullUrl(
-         `/collections/${this.name}/document/list/get`,
+         `/collections/${this.name}/documents/list/get`,
       );
       const response = await handleRequest(
          fetch(url, {

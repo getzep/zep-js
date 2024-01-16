@@ -243,7 +243,7 @@ async function main() {
    }
    console.log(`Deleting document ${documentToDelete}`);
    await collection.deleteDocument(documentToDelete);
-
+   console.log(`Deleted document ${documentToDelete}`);
    // Get a list of documents in the collection by UUID
    const docsToGet = uuids.slice(48, 50);
    console.log(`Getting documents: ${docsToGet}`);
