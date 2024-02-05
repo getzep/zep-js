@@ -465,7 +465,11 @@ describe("ZepClient", () => {
          JSON.stringify(responseData),
       );
 
-      const memory = await client.memory.getMemory("test-session", 2);
+      const memory = await client.memory.getMemory(
+         "test-session",
+         undefined,
+         2,
+      );
 
       expect(memory).toEqual(
          new Memory({

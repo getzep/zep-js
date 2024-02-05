@@ -33,3 +33,5 @@ export interface ISearchQuery {
    searchType?: "similarity" | "mmr";
    mmrLambda?: number;
 }
+
+export type MemoryType = "perpetual" | "message_window";

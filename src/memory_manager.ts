@@ -7,7 +7,7 @@ import {
 
 import { Message } from "./message_models";
 
-import { IZepClient } from "./interfaces";
+import { IZepClient, MemoryType } from "./interfaces";
 import { handleRequest } from "./utils";
 
 export default class MemoryManager {
@@ -178,15 +178,22 @@ export default class MemoryManager {
    /**
     * Retrieves memory for a specific session.
     * @param {string} sessionID - The ID of the session to retrieve memory for.
+    * @param {MemoryType} [type] - Optional. The type of memory to retrieve.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
     * @returns {Promise<Array<Memory>>} - A promise that returns a Memory object.
     * @throws {APIError} - If the request fails.
     * @throws {NotFoundError} - If the session is not found.
     */
-   async getMemory(sessionID: string, lastn?: number): Promise<Memory | null> {
+   async getMemory(
+      sessionID: string,
+      type?: MemoryType,
+      lastn?: number,
+   ): Promise<Memory | null> {
       const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
-      const params = lastn !== undefined ? `?lastn=${lastn}` : "";
-
+      let params = lastn !== undefined ? `?lastn=${lastn}` : "";
+      if (type) {
+         params += lastn !== undefined ? `&type=${type}` : `?type=${type}`;
+      }
       const response: Response = await handleRequest(
          fetch(`${url}${params}`, {
             headers: this.client.headers,
