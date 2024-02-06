@@ -117,7 +117,9 @@ function naiveSplitText(text: string, maxChunkSize: number): string[] {
  * This demonstrates how to use the ZepClient to interact with a Zep API.
  */
 async function main() {
-   const projectApiKey = process.env.PROJECT_API_KEY;
+   const projectApiKey = process.env.ZEP_API_KEY;
+   const projectApiUrl = process.env.ZEP_API_URL;
+
    if (!projectApiKey) {
       console.error("Project API key not found in environment");
       return;
@@ -128,7 +130,7 @@ async function main() {
 
    console.log(`Creating collection ${collectionName}`);
 
-   const client = await ZepClient.init(projectApiKey);
+   const client = await ZepClient.init(projectApiKey, projectApiUrl);
    const collection = await client.document.addCollection({
       name: collectionName,
       embeddingDimensions: 1024, // this must match the embedding dimensions of your embedding model

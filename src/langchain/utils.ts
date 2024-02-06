@@ -1,3 +1,5 @@
+/* eslint import/no-extraneous-dependencies: 0 */
+
 import { BasePromptTemplate } from "@langchain/core/prompts";
 import { Document } from "@langchain/core/documents";
 

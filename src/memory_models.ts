@@ -242,7 +242,7 @@ export interface IMemorySearchResult {
 
    metadata?: Record<string, any>;
 
-   dist?: number;
+   score?: number;
 }
 
 /**
@@ -255,7 +255,7 @@ export class MemorySearchResult {
 
    metadata: Record<string, any>;
 
-   dist?: number;
+   score?: number;
 
    /**
     * Constructs a new SearchResult instance.
@@ -265,13 +265,13 @@ export class MemorySearchResult {
     * @property {Summary} summary - The summary that was found.
     * @property {Record<string, any>} metadata - The metadata of the result, if any.
     * @property {string} summary - The summary of the message.
-    * @property {number} dist - The cosine distance of the message from the query.
+    * @property {number} score - The score of the result.
     */
    constructor(data: IMemorySearchResult = {}) {
       this.message = data.message ? new Message(data.message) : undefined;
       this.summary = data.summary ? new Summary(data.summary) : undefined;
       this.metadata = data.metadata || {};
-      this.dist = data.dist;
+      this.score = data.score;
    }
 }
 

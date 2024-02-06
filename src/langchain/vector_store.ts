@@ -1,3 +1,5 @@
+/* eslint import/no-extraneous-dependencies: 0 */
+
 import type { EmbeddingsInterface } from "@langchain/core/embeddings";
 import {
    MaxMarginalRelevanceSearchOptions,

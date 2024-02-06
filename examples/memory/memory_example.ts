@@ -10,6 +10,7 @@ import {
    ZepClient,
 } from "../../src";
 
+// @ts-ignore
 import { history } from "./history";
 
 function sleep(ms: number) {
@@ -21,12 +22,13 @@ function sleep(ms: number) {
 }
 
 async function main() {
-   const projectApiKey = process.env.PROJECT_API_KEY;
+   const projectApiKey = process.env.ZEP_API_KEY;
+   const projectApiUrl = process.env.ZEP_API_URL;
    if (!projectApiKey) {
       console.error("Project API key not found in environment");
       return;
    }
-   const client = await ZepClient.init(projectApiKey);
+   const client = await ZepClient.init(projectApiKey, projectApiUrl);
 
    // Create a user
    const userId = uuidv4();
@@ -92,6 +94,7 @@ async function main() {
       );
       const memory = await client.memory.getMemory(sessionID);
       if (memory) {
+         console.log("memory", memory);
          memory.messages.forEach((message) => {
             console.debug(JSON.stringify(message));
          });
@@ -186,8 +189,8 @@ async function main() {
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.message));
          console.debug(
-            "Search Result Distance: ",
-            JSON.stringify(searchResult.dist),
+            "Search Result Score: ",
+            JSON.stringify(searchResult.score),
          );
       });
    } catch (error) {
@@ -217,8 +220,8 @@ async function main() {
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.message));
          console.debug(
-            "Search Result Distance: ",
-            JSON.stringify(searchResult.dist),
+            "Search Result Score: ",
+            JSON.stringify(searchResult.score),
          );
       });
    } catch (error) {
@@ -249,8 +252,8 @@ async function main() {
       searchResults.forEach((searchResult) => {
          console.debug("Search Result: ", JSON.stringify(searchResult.summary));
          console.debug(
-            "Search Result Distance: ",
-            JSON.stringify(searchResult.dist),
+            "Search Result Score: ",
+            JSON.stringify(searchResult.score),
          );
       });
    } catch (error) {
