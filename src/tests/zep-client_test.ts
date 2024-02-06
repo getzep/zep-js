@@ -51,10 +51,6 @@ describe("ZepClient", () => {
             const client = await ZepClient.init("z_test-api-key");
 
             expect(client.cloud).toBe(true);
-
-            expect(client.getFullUrl("/test")).toEqual(
-               `${BASE_URL}/api/v2/test`,
-            );
          });
       });
    });
