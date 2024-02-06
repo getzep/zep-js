@@ -301,11 +301,7 @@ export default class MemoryManager {
       limit?: number,
    ): Promise<Array<MemorySearchResult>> {
       const url = this.client.getFullUrl(`/sessions/${sessionID}/search`);
-      // eslint-disable-next-line no-console
-      console.log("url", url);
       const params = limit !== undefined ? `?limit=${limit}&` : "";
-      // eslint-disable-next-line no-console
-      console.log("request full url", `${url}${params}`);
       const response: Response = await handleRequest(
          fetch(`${url}${params}`, {
             method: "POST",

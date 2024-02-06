@@ -94,7 +94,6 @@ async function main() {
       );
       const memory = await client.memory.getMemory(sessionID);
       if (memory) {
-         console.log("memory", memory);
          memory.messages.forEach((message) => {
             console.debug(JSON.stringify(message));
          });
