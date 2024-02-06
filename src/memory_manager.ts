@@ -54,9 +54,9 @@ export default class MemoryManager {
 
       const response = await handleRequest(
          fetch(
-            this.client.getFullUrl(
-               `/sessions/${sessionId}/synthesize_question?lastNMessages=${lastN}`,
-            ),
+            `${this.client.getFullUrl(
+               `/sessions/${sessionId}/synthesize_question`,
+            )}?lastNMessages=${lastN}`,
             {
                headers: this.client.headers,
             },

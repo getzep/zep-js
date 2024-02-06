@@ -6,8 +6,12 @@ import {
    MessagesPlaceholder,
 } from "@langchain/core/prompts";
 import { RunnableWithMessageHistory } from "@langchain/core/runnables";
+import { ConsoleCallbackHandler } from "@langchain/core/tracers/console";
 async function main() {
-   const zepClient = await ZepClient.init(process.env.ZEP_API_KEY);
+   const zepClient = await ZepClient.init(
+      process.env.ZEP_API_KEY,
+      process.env.ZEP_API_URL,
+   );
 
    const prompt = ChatPromptTemplate.fromMessages([
       ["system", "Answer the user's question below. Be polite and helpful:"],
@@ -15,12 +19,16 @@ async function main() {
       ["human", "{question}"],
    ]);
 
-   const chain = prompt.pipe(
-      new ChatOpenAI({
-         temperature: 0.8,
-         modelName: "gpt-3.5-turbo-1106",
-      }),
-   );
+   const chain = prompt
+      .pipe(
+         new ChatOpenAI({
+            temperature: 0.8,
+            modelName: "gpt-3.5-turbo-1106",
+         }),
+      )
+      .withConfig({
+         callbacks: [new ConsoleCallbackHandler()],
+      });
 
    const chainWithHistory = new RunnableWithMessageHistory({
       runnable: chain,

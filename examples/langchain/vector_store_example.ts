@@ -14,6 +14,7 @@ import {
 } from "@langchain/core/runnables";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { formatDocument } from "../../src/langchain";
+import { ConsoleCallbackHandler } from "@langchain/core/tracers/console";
 
 const DEFAULT_DOCUMENT_PROMPT = PromptTemplate.fromTemplate("{pageContent}");
 
@@ -30,7 +31,10 @@ async function combineDocuments(
    return docStrings.join(documentSeparator);
 }
 async function main() {
-   const zepClient = await ZepClient.init(process.env.ZEP_API_KEY);
+   const zepClient = await ZepClient.init(
+      process.env.ZEP_API_KEY,
+      process.env.ZEP_API_URL,
+   );
    const vectorStore = await ZepVectorStore.init({
       client: zepClient,
       collectionName: "leobernstein",
@@ -41,7 +45,6 @@ async function main() {
          "system",
          `Answer the question based only on the following context: {context}`,
       ],
-      // new MessagesPlaceholder("history"),
       ["human", "{question}"],
    ]);
 
@@ -54,13 +57,19 @@ async function main() {
    const setupAndRetrieval = RunnableMap.from({
       context: new RunnableLambda({
          func: (input: string) =>
-            retriever.invoke(input).then((response) => response[0].pageContent),
-      }).withConfig({ runName: "contextRetriever" }),
+            retriever.invoke(input).then(combineDocuments),
+      }),
       question: new RunnablePassthrough(),
    });
    const outputParser = new StringOutputParser();
 
-   const chain = setupAndRetrieval.pipe(prompt).pipe(model).pipe(outputParser);
+   const chain = setupAndRetrieval
+      .pipe(prompt)
+      .pipe(model)
+      .pipe(outputParser)
+      .withConfig({
+         callbacks: [new ConsoleCallbackHandler()],
+      });
 
    const result = await chain.invoke("who is the famous american conductor?");
 
