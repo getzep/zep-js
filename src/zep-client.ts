@@ -26,7 +26,7 @@ import { IZepClient } from "./interfaces";
 export default class ZepClient implements IZepClient {
    private static constructing: boolean = false;
 
-   baseURL: string = "http://localhost:8000";
+   baseURL: string = "https://api.getzep.com";
 
    headers: any;
 

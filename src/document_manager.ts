@@ -35,7 +35,6 @@ export default class DocumentManager {
       embeddingDimensions,
       description,
       metadata,
-      isAutoEmbedded = true,
    }: IAddCollectionParams): Promise<DocumentCollection> {
       if (embeddingDimensions <= 0) {
          throw new Error("embeddingDimensions must be a positive integer");
@@ -46,7 +45,7 @@ export default class DocumentManager {
          description,
          metadata,
          embedding_dimensions: embeddingDimensions,
-         is_auto_embedded: isAutoEmbedded,
+         is_auto_embedded: true,
       });
 
       await handleRequest(

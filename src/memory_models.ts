@@ -274,3 +274,7 @@ export class MemorySearchResult {
       this.dist = data.dist;
    }
 }
+
+export interface Question {
+   question: string;
+}

@@ -2,6 +2,7 @@ import {
    Memory,
    MemorySearchPayload,
    MemorySearchResult,
+   Question,
    Session,
 } from "./memory_models";
 
@@ -41,6 +42,29 @@ export default class MemoryManager {
       const responseData = await response.json();
 
       return new Session(responseData);
+   }
+
+   async synthesizeQuestion(
+      sessionId: string,
+      lastN: number = 3,
+   ): Promise<string> {
+      if (sessionId === null || sessionId.trim() === "") {
+         throw new Error("sessionId must be provided");
+      }
+
+      const response = await handleRequest(
+         fetch(
+            this.client.getFullUrl(
+               `/sessions/${sessionId}/synthesize_question?lastNMessages=${lastN}`,
+            ),
+            {
+               headers: this.client.headers,
+            },
+         ),
+         `No session found for session ${sessionId}`,
+      );
+      const responseData = (await response.json()) as Question;
+      return responseData.question;
    }
 
    /**

@@ -91,16 +91,8 @@ export class ZepVectorStore extends VectorStore {
 
    private readonly initPromise: Promise<void>;
 
-   private readonly autoEmbed: boolean = false;
-
    constructor(embeddings: EmbeddingsInterface, args: IZepConfig) {
       super(embeddings, args);
-
-      this.embeddings = embeddings;
-
-      if (this.embeddings instanceof FakeEmbeddings) {
-         this.autoEmbed = true;
-      }
 
       this.initPromise = this.initCollection(args).catch((err) => {
          console.error("Error initializing collection:", err);
@@ -125,7 +117,7 @@ export class ZepVectorStore extends VectorStore {
          );
 
          // If the Embedding passed in is fake, but the collection is not auto embedded, throw an error
-         if (!this.collection.is_auto_embedded && this.autoEmbed) {
+         if (!this.collection.is_auto_embedded) {
             throw new Error(`You can't pass in FakeEmbeddings when collection ${args.collectionName} 
  is not set to auto-embed.`);
          }
@@ -156,7 +148,6 @@ export class ZepVectorStore extends VectorStore {
          description: args.description,
          metadata: args.metadata,
          embeddingDimensions: args.embeddingDimensions,
-         isAutoEmbedded: this.autoEmbed,
       });
 
       // eslint-disable-next-line no-console
@@ -174,13 +165,6 @@ export class ZepVectorStore extends VectorStore {
       vectors: number[][],
       documents: Document[],
    ): Promise<string[]> {
-      if (!this.autoEmbed && vectors.length === 0) {
-         throw new Error(`Vectors must be provided if autoEmbed is false`);
-      }
-      if (!this.autoEmbed && vectors.length !== documents.length) {
-         throw new Error(`Vectors and documents must have the same length`);
-      }
-
       const docs: Array<IDocument> = [];
       for (let i = 0; i < documents.length; i += 1) {
          const doc: IDocument = {
@@ -203,11 +187,7 @@ export class ZepVectorStore extends VectorStore {
     * @returns {Promise<string[]>} - A promise that resolves with the UUIDs of the added documents.
     */
    async addDocuments(documents: Document[]): Promise<string[]> {
-      const texts = documents.map(({ pageContent }) => pageContent);
-      let vectors: number[][] = [];
-      if (!this.autoEmbed) {
-         vectors = await this.embeddings.embedDocuments(texts);
-      }
+      const vectors: number[][] = [];
       return this.addVectors(vectors, documents);
    }
 
@@ -279,15 +259,7 @@ export class ZepVectorStore extends VectorStore {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       _callbacks = undefined, // implement passing to embedQuery later
    ): Promise<[Document, number][]> {
-      if (this.autoEmbed) {
-         // eslint-disable-next-line no-underscore-dangle
-         return this._similaritySearchWithScore(query, k, filter);
-      }
-      return this.similaritySearchVectorWithScore(
-         await this.embeddings.embedQuery(query),
-         k,
-         filter,
-      );
+      return this._similaritySearchWithScore(query, k, filter);
    }
 
    /**
@@ -310,20 +282,11 @@ export class ZepVectorStore extends VectorStore {
    ): Promise<Document[]> {
       await this.initPromise;
 
-      let results: [Document, number][];
-      if (this.autoEmbed) {
-         const zepResults = await this.collection.search(
-            { text: query, metadata: assignMetadata(filter) },
-            k,
-         );
-         results = zepDocsToDocumentsAndScore(zepResults);
-      } else {
-         results = await this.similaritySearchVectorWithScore(
-            await this.embeddings.embedQuery(query),
-            k,
-            assignMetadata(filter),
-         );
-      }
+      const zepResults = await this.collection.search(
+         { text: query, metadata: assignMetadata(filter) },
+         k,
+      );
+      const results = zepDocsToDocumentsAndScore(zepResults);
 
       return results.map((result) => result[0]);
    }
@@ -349,26 +312,12 @@ export class ZepVectorStore extends VectorStore {
    ): Promise<Document[]> {
       const { k, fetchK = 20, lambda = 0.5, filter } = options;
 
-      let queryEmbedding: number[];
-      let zepResults: IDocument[];
-      if (!this.autoEmbed) {
-         queryEmbedding = await this.embeddings.embedQuery(query);
-         zepResults = await this.collection.search(
-            {
-               embedding: new Float32Array(queryEmbedding),
-               metadata: assignMetadata(filter),
-            },
+      const [zepResults, queryEmbeddingArray] =
+         await this.collection.searchReturnQueryVector(
+            { text: query, metadata: assignMetadata(filter) },
             fetchK,
          );
-      } else {
-         let queryEmbeddingArray: Float32Array;
-         [zepResults, queryEmbeddingArray] =
-            await this.collection.searchReturnQueryVector(
-               { text: query, metadata: assignMetadata(filter) },
-               fetchK,
-            );
-         queryEmbedding = Array.from(queryEmbeddingArray);
-      }
+      const queryEmbedding = Array.from(queryEmbeddingArray);
 
       const results = zepDocsToDocumentsAndScore(zepResults);
 
@@ -388,11 +337,20 @@ export class ZepVectorStore extends VectorStore {
          .map((idx) => results[idx][0]);
    }
 
+   static async init(zepConfig: IZepConfig) {
+      const instance = new this(new FakeEmbeddings(), zepConfig);
+      // Wait for collection to be initialized
+      await instance.initPromise;
+      return instance;
+   }
+
    /**
     * Creates a new ZepVectorStore instance from an array of texts. Each text is converted into a Document and added to the collection.
     *
     * @param {string[]} texts - The texts to convert into Documents.
-    * @param {object[] | object} metadatas - The metadata to associate with each Document. If an array is provided, each element is associated with the corresponding Document. If an object is provided, it is associated with all Documents.
+    * @param {object[] | object} metadatas - The metadata to associate with each Document.
+    * If an array is provided, each element is associated with the corresponding Document.
+    * If an object is provided, it is associated with all Documents.
     * @param {Embeddings} embeddings - The embeddings to use for vectorizing the texts.
     * @param {IZepConfig} zepConfig - The configuration object for the Zep API.
     * @returns {Promise<ZepVectorStore>} - A promise that resolves with the new ZepVectorStore instance.

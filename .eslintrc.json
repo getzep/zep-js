@@ -42,10 +42,12 @@
       "max-classes-per-file": 0,
       "multiline-ternary": 0,
       "no-unused-vars": "off",
+      "no-underscore-dangle": "off",
       "no-shadow": 0,
       "@typescript-eslint/no-unused-vars": "error",
       "no-useless-constructor": "off",
       "@typescript-eslint/no-useless-constructor": "error",
+      "import/prefer-default-export": "off",
       "import/extensions": [
          "error",
          "ignorePackages",
@@ -61,7 +63,7 @@
          {
             "code": 100,
             "tabWidth": 3,
-            "comments": 100,
+            "comments": 150,
             "ignoreComments": false,
             "ignoreTrailingComments": true,
             "ignoreUrls": true,
