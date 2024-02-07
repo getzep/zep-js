@@ -1,17 +1,28 @@
 {
   "show-config": "tsc --showConfig",
   "name": "@getzep/zep-js",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Zep: Fast, scalable building blocks for production LLM apps",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./langchain": "./dist/langchain/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "langchain": [
+        "./dist/langchain/index.d.ts"
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint --ext .js,.ts src/",
@@ -39,13 +50,21 @@
   "author": "Daniel Chalef <daniel@getzep.com>",
   "license": "Apache-2.0",
   "dependencies": {
-    "@langchain/core": "^0.1.23",
-    "@langchain/openai": "^0.0.14",
     "@supercharge/promise-pool": "^3.1.0",
     "semver": "^7.5.4",
     "typescript": "^5.1.6"
   },
+  "peerDependencies": {
+    "@langchain/core": "^0.1.23"
+  },
+  "peerDependenciesMeta": {
+    "@langchain/core": {
+      "optional": false
+    }
+  },
   "devDependencies": {
+    "@langchain/core": "^0.1.23",
+    "@langchain/openai": "^0.0.14",
     "@faker-js/faker": "^8.2.0",
     "@types/jest": "^29.5.7",
     "@types/node": "^20.8.9",

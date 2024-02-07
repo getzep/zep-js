@@ -621,9 +621,9 @@
     lodash "^4.17.21"
 
 "@langchain/core@^0.1.23", "@langchain/core@~0.1.13":
-  version "0.1.23"
-  resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.1.23.tgz#a895216de95e79429d06dd05b015a2ddabc20461"
-  integrity sha512-Kn2AiwEMHW9+o6bkKiEUbJ8abQMlEVoePTKw6axdnEOE9zX5Epl1iRCJo+Id5ajNYSYXjWky4puqz75OcFGD6w==
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.1.24.tgz#e029a5641147ef0d9219750704e9f2c5d9b01aa3"
+  integrity sha512-MBsBMses4/6zUetPzZaw9FyRqCebvB+jqaZE+VNDK37wzW+W4hssxat6gyfFbqegOw2VUG64yy57velLbe8fCw==
   dependencies:
     ansi-styles "^5.0.0"
     camelcase "6"
@@ -3052,9 +3052,9 @@ kleur@^3.0.3:
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
 langsmith@~0.0.48:
-  version "0.0.66"
-  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.0.66.tgz#a43e1e0a7cad4053e81fde9caceeff34e0694236"
-  integrity sha512-yextqrwQiN+2Y0WjHEjQmwS9V6886RIuUG8esibiSh6BTHrtt1WMCAPKJIy8E1+HQvVY7IzsuJ4vzpkKi0wcTQ==
+  version "0.0.67"
+  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.0.67.tgz#55016ccb22a21ce869df27fa279160fb143da1c5"
+  integrity sha512-jhf+qZzchK/8cGKzhvLIQHTvskrSJ738XYSL3IXkGteG/o0K2gZ1QrueCeevgFvQh/YGfCnCTRgTwlIyxNSOAw==
   dependencies:
     "@types/uuid" "^9.0.1"
     commander "^10.0.1"
