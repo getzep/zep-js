@@ -55,12 +55,12 @@ In order to use these classes in your application, you need to make sure that yo
 `@langchain/core` package installed:
 
 ```bash
-npm install @langchain/core
+npm install @langchain/core@^0.1.23
 ```
 
 You can import these classes in the following way:
 
 ```typescript
-import { ZepChatMessageHistory, ZepVectorStore } from "@getzep/zep-js/langchain
+import { ZepChatMessageHistory, ZepVectorStore } from "@getzep/zep-js/langchain"
 ```
 
