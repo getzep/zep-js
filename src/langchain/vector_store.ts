@@ -39,14 +39,6 @@ function assignMetadata(
 }
 
 /**
- * Interface for the arguments required to initialize a ZepVectorStore
- * instance.
- */
-export interface IZepArgs {
-   collection: DocumentCollection;
-}
-
-/**
  * Interface for the configuration options for a ZepVectorStore instance.
  */
 export interface IZepConfig {
