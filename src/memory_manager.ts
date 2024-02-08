@@ -48,7 +48,7 @@ export default class MemoryManager {
       sessionId: string,
       lastN: number = 3,
    ): Promise<string> {
-      if (sessionId === null || sessionId.trim() === "") {
+      if (!sessionId || !sessionId.trim()) {
          throw new Error("sessionId must be provided");
       }
 

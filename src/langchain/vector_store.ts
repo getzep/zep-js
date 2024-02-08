@@ -56,8 +56,6 @@ export interface IZepConfig {
    collectionName: string;
    description?: string;
    metadata?: Record<string, never>;
-   embeddingDimensions?: number;
-   isAutoEmbedded?: boolean;
 }
 
 /**
@@ -140,16 +138,10 @@ export class ZepVectorStore extends VectorStore {
     * @param {IZepConfig} args - The configuration object for the Zep API.
     */
    private async createCollection(args: IZepConfig) {
-      if (!args.embeddingDimensions) {
-         throw new Error(`Collection ${args.collectionName} not found. 
- You can create a new Collection by providing embeddingDimensions.`);
-      }
-
       this.collection = await this.client.document.addCollection({
          name: args.collectionName,
          description: args.description,
          metadata: args.metadata,
-         embeddingDimensions: args.embeddingDimensions,
       });
 
       // eslint-disable-next-line no-console

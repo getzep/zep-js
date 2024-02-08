@@ -120,10 +120,6 @@ async function main() {
    const projectApiKey = process.env.ZEP_API_KEY;
    const projectApiUrl = process.env.ZEP_API_URL;
 
-   if (!projectApiKey) {
-      console.error("Project API key not found in environment");
-      return;
-   }
    const file = "babbages_calculating_engine.txt";
    const maxChunkSize = 500;
    const collectionName = `babbage${faker.string.alphanumeric({ length: 8 })}`;
@@ -133,10 +129,8 @@ async function main() {
    const client = await ZepClient.init(projectApiKey, projectApiUrl);
    const collection = await client.document.addCollection({
       name: collectionName,
-      embeddingDimensions: 1024, // this must match the embedding dimensions of your embedding model
       description: "Babbage's Calculating Engine", // optional
       metadata: { qux: faker.string.sample() }, // optional
-      isAutoEmbedded: true, // optional (default: true) - whether Zep should  automatically embed documents
    });
 
    console.log(`Created collection ${collectionName}`);

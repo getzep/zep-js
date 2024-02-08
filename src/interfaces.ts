@@ -8,10 +8,8 @@ export interface IZepClient {
 
 export interface IAddCollectionParams {
    name: string;
-   embeddingDimensions: number;
    description?: string;
    metadata?: Record<string, any>;
-   isAutoEmbedded?: boolean;
 }
 
 export interface IUpdateCollectionParams {

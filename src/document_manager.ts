@@ -7,6 +7,8 @@ import {
 import { handleRequest } from "./utils";
 import DocumentCollection from "./document_collection";
 
+const DEFAULT_EMBEDDING_DIMENSIONS = 1024;
+
 /**
  * DocumentManager provides methods to list, create, update, get, and delete
  * Zep document collections.
@@ -27,24 +29,18 @@ export default class DocumentManager {
     * @param {IAddCollectionParams} params - The parameters for the new collection.
     * @returns {Promise<DocumentCollection>} A promise that resolves to the new
     * DocumentCollection instance.
-    * @throws {Error} If embeddingDimensions is not a positive integer.
     * @throws {APIError} If the request fails.
     */
    async addCollection({
       name,
-      embeddingDimensions,
       description,
       metadata,
    }: IAddCollectionParams): Promise<DocumentCollection> {
-      if (embeddingDimensions <= 0) {
-         throw new Error("embeddingDimensions must be a positive integer");
-      }
-
       const collection = new DocumentCollectionModel({
          name,
          description,
          metadata,
-         embedding_dimensions: embeddingDimensions,
+         embedding_dimensions: DEFAULT_EMBEDDING_DIMENSIONS,
          is_auto_embedded: true,
       });
 
