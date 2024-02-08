@@ -20,12 +20,6 @@ describe("CollectionManager", () => {
    });
 
    describe("addCollection", () => {
-      it("throws error when embeddingDimensions is not a positive integer", async () => {
-         await expect(
-            manager.addCollection({ name: "test", embeddingDimensions: -1 }),
-         ).rejects.toThrow("embeddingDimensions must be a positive integer");
-      });
-
       it("calls the correct endpoint with the correct method and headers", async () => {
          const mockCollection = {
             name: "test",
@@ -34,7 +28,7 @@ describe("CollectionManager", () => {
          };
          fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
          fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
-         await manager.addCollection({ name: "test", embeddingDimensions: 2 });
+         await manager.addCollection({ name: "test" });
          expect(fetchMock.mock.calls[1][0]).toEqual(
             `${BASE_URL}/collections/test`,
          );
