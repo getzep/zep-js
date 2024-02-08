@@ -5,7 +5,7 @@ import { FetchMock } from "jest-fetch-mock";
 import { DocumentCollectionModel } from "../document_models";
 
 const API_URL = "http://localhost:8000";
-const BASE_URL = `${API_URL}/api/v1`;
+const BASE_URL = `${API_URL}/api/v2`;
 
 const fetchMock = global.fetch as FetchMock;
 
@@ -15,17 +15,11 @@ describe("CollectionManager", () => {
 
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.init(API_URL, "test-api-key");
+      client = await ZepClient.init("z_test-api-key", API_URL);
       manager = new DocumentManager(client);
    });
 
    describe("addCollection", () => {
-      it("throws error when embeddingDimensions is not a positive integer", async () => {
-         await expect(
-            manager.addCollection({ name: "test", embeddingDimensions: -1 }),
-         ).rejects.toThrow("embeddingDimensions must be a positive integer");
-      });
-
       it("calls the correct endpoint with the correct method and headers", async () => {
          const mockCollection = {
             name: "test",
@@ -34,9 +28,9 @@ describe("CollectionManager", () => {
          };
          fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
          fetchMock.mockResponseOnce(JSON.stringify(mockCollection));
-         await manager.addCollection({ name: "test", embeddingDimensions: 2 });
+         await manager.addCollection({ name: "test" });
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("POST");
          expect(
@@ -59,7 +53,7 @@ describe("CollectionManager", () => {
          await manager.getCollection("test");
          // needs to be the second call because the first call is to healthz
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
       });
    });
@@ -75,7 +69,7 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify(testData));
          await manager.updateCollection(testData);
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("PATCH");
          expect(
@@ -130,7 +124,7 @@ describe("CollectionManager", () => {
          fetchMock.mockResponseOnce(JSON.stringify({}));
          await manager.deleteCollection("test");
          expect(fetchMock.mock.calls[1][0]).toEqual(
-            `${BASE_URL}/collection/test`,
+            `${BASE_URL}/collections/test`,
          );
          expect(fetchMock.mock.calls[1][1]?.method).toEqual("DELETE");
       });

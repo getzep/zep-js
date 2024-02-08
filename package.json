@@ -1,27 +1,38 @@
 {
   "show-config": "tsc --showConfig",
   "name": "@getzep/zep-js",
-  "version": "0.10.0",
+  "version": "2.0.0-b.0",
   "description": "Zep: Fast, scalable building blocks for production LLM apps",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
-  "types": "dist/index.d.ts",
-  "main": "dist/index.js",
-  "module": "dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
   "engines": {
     "node": ">=18.0.0"
   },
+  "exports": {
+    ".": "./dist/index.js",
+    "./langchain": "./dist/langchain/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      "langchain": [
+        "./dist/langchain/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "lint": "eslint --ext .js,.ts src/",
-    "build": "npm run lint && tsc && tsc --module ESNext --outDir dist/esm",
+    "build": "yarn lint && tsc && tsc --module ESNext --outDir dist/esm",
     "start": "node dist/index.js",
     "dev": "ts-node src/main.ts",
     "clean": "rm -rf dist/*",
     "format": "eslint --fix 'src/**/*.{js,ts}' && prettier --write 'src/**/*.{js,ts,json}'",
-    "prepublishOnly": "npm run clean && npm run build && npm run test && npm run docbuild",
-    "prepare": "npm run build",
+    "prepublishOnly": "yarn clean && yarn build && yarn test && yarn docbuild",
+    "prepare": "yarn build",
     "test": "jest",
     "test:watch": "jest --watch",
     "docbuild": "typedoc --out docs/ --excludePrivate --excludeInternal --excludeExternals src/"
@@ -43,10 +54,21 @@
     "semver": "^7.5.4",
     "typescript": "^5.1.6"
   },
+  "peerDependencies": {
+    "@langchain/core": "^0.1.23"
+  },
+  "peerDependenciesMeta": {
+    "@langchain/core": {
+      "optional": false
+    }
+  },
   "devDependencies": {
+    "@langchain/core": "^0.1.23",
+    "@langchain/openai": "^0.0.14",
     "@faker-js/faker": "^8.2.0",
     "@types/jest": "^29.5.7",
     "@types/node": "^20.8.9",
+    "@types/sax": "^1.2.7",
     "@types/uuid": "^9.0.6",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
     "@typescript-eslint/parser": "^6.9.1",
@@ -62,7 +84,7 @@
     "prettier": "^3.0.3",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.24.8",
+    "typedoc": "^0.25.7",
     "uuid": "^9.0.0"
   },
   "files": [

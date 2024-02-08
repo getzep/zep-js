@@ -8,10 +8,8 @@ export interface IZepClient {
 
 export interface IAddCollectionParams {
    name: string;
-   embeddingDimensions: number;
    description?: string;
    metadata?: Record<string, any>;
-   isAutoEmbedded?: boolean;
 }
 
 export interface IUpdateCollectionParams {
@@ -33,3 +31,5 @@ export interface ISearchQuery {
    searchType?: "similarity" | "mmr";
    mmrLambda?: number;
 }
+
+export type MemoryType = "perpetual" | "message_window";

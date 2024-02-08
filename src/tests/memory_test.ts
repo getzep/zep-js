@@ -19,7 +19,7 @@ describe("ZepClient", () => {
 
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.init(BASE_URL, "test-api-key");
+      client = await ZepClient.init("z_test-api-key", BASE_URL);
    });
 
    describe("getSession", () => {
@@ -197,19 +197,18 @@ describe("ZepClient", () => {
       });
    });
 
-
    // Test Suite for GetSessionMessage()
    describe("getSessionMessage", () => {
       it("should throw an exception when session id is not provided", async () => {
-         await expect(client.message.getSessionMessage("", "message_uuid")).rejects.toThrow(
-            Error,
-         );
-      })
+         await expect(
+            client.message.getSessionMessage("", "message_uuid"),
+         ).rejects.toThrow(Error);
+      });
       it("should throw an exception when message id is not provided", async () => {
-         await expect(client.message.getSessionMessage("test-session", "")).rejects.toThrow(
-            Error,
-         );
-      })
+         await expect(
+            client.message.getSessionMessage("test-session", ""),
+         ).rejects.toThrow(Error);
+      });
       it("should retrieve a message for a session", async () => {
          const responseData = {
             role: "human",
@@ -249,32 +248,32 @@ describe("ZepClient", () => {
 
    // Test Suite for getSessionMessages()
    describe("getSessionMessages", () => {
-
       it("should throw an exception when session id is not provided", async () => {
          await expect(client.message.getSessionMessages("")).rejects.toThrow(
             Error,
          );
-      })
+      });
 
       it("should retrieve messages for a session", async () => {
-         const responseData = {"messages": [
-            {
-               role: "human",
-               content: "Hello",
-               uuid: "message_uuid",
-               created_at: "2022-01-01T00:00:00Z",
-            },
-         ]};
+         const responseData = {
+            messages: [
+               {
+                  role: "human",
+                  content: "Hello",
+                  uuid: "message_uuid",
+                  created_at: "2022-01-01T00:00:00Z",
+               },
+            ],
+         };
 
          fetchMock.mockResponseOnce(JSON.stringify(responseData));
 
-         const messages = await client.message.getSessionMessages(
-            "test-session",
-         );
+         const messages =
+            await client.message.getSessionMessages("test-session");
 
          expect(messages).toEqual(
             responseData.messages.map((message) => new Message(message)),
-          );
+         );
       });
 
       it("should throw NotFoundError if the session is not found", async () => {
@@ -294,20 +293,23 @@ describe("ZepClient", () => {
       });
    });
 
-
    // Test Suite for UpdateSessionMessageMetadata()
    describe("updateSessionMessageMetadata", () => {
       it("should throw an exception when session id is not provided", async () => {
-         await expect(client.message.updateSessionMessageMetadata("", "message_uuid", { metadata: { foo: "bar" }})).rejects.toThrow(
-            Error,
-         );
-      })
+         await expect(
+            client.message.updateSessionMessageMetadata("", "message_uuid", {
+               metadata: { foo: "bar" },
+            }),
+         ).rejects.toThrow(Error);
+      });
 
       it("should throw an exception when message id is not provided", async () => {
-         await expect(client.message.updateSessionMessageMetadata("test-session", "", { metadata: { foo: "bar" }})).rejects.toThrow(
-            Error,
-         );
-      })
+         await expect(
+            client.message.updateSessionMessageMetadata("test-session", "", {
+               metadata: { foo: "bar" },
+            }),
+         ).rejects.toThrow(Error);
+      });
 
       it("should update metadata for a message in a session", async () => {
          const responseData = {
@@ -322,7 +324,7 @@ describe("ZepClient", () => {
          const message = await client.message.updateSessionMessageMetadata(
             "test-session",
             "message_uuid",
-            { metadata: { foo: "bar" }},
+            { metadata: { foo: "bar" } },
          );
 
          expect(message).toEqual(new Message(responseData));
@@ -335,7 +337,7 @@ describe("ZepClient", () => {
             client.message.updateSessionMessageMetadata(
                "test-session",
                "message_uuid",
-               {metadata: { foo: "bar" }},
+               { metadata: { foo: "bar" } },
             ),
          ).rejects.toThrow(NotFoundError);
       });
@@ -347,7 +349,7 @@ describe("ZepClient", () => {
             client.message.updateSessionMessageMetadata(
                "test-session",
                "message_uuid",
-               { metadata: { foo: "bar" }},
+               { metadata: { foo: "bar" } },
             ),
          ).rejects.toThrow(APIError);
       });
@@ -458,12 +460,16 @@ describe("ZepClient", () => {
       fetchMock.mockIf(
          (req) =>
             req.url.startsWith(
-               `${BASE_URL}/api/v1/sessions/test-session/memory`,
+               `${BASE_URL}/api/v2/sessions/test-session/memory`,
             ) && req.url.includes("lastn=2"),
          JSON.stringify(responseData),
       );
 
-      const memory = await client.memory.getMemory("test-session", 2);
+      const memory = await client.memory.getMemory(
+         "test-session",
+         undefined,
+         2,
+      );
 
       expect(memory).toEqual(
          new Memory({

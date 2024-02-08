@@ -41,7 +41,7 @@ const mockClient: IZepClient = {
    headers: {},
 
    getFullUrl(endpoint: string): string {
-      return `${this.baseURL}${API_BASEPATH}${endpoint}`;
+      return `${this.baseURL}${API_BASEPATH}/v2${endpoint}`;
    },
 };
 
@@ -57,7 +57,7 @@ describe("DocumentCollection", () => {
          const collection = new DocumentCollection(mockClient, mockCollection);
          await collection.addDocuments(mockDocuments);
 
-         const expectedEndpoint = `${API_URL}/api/v1/collection/${mockCollection.name}/document`;
+         const expectedEndpoint = `${API_URL}/api/v2/collections/${mockCollection.name}/documents`;
          expect(fetchMock.mock.calls[0][0]).toEqual(expectedEndpoint);
       });
 
@@ -138,7 +138,7 @@ describe("DocumentCollection", () => {
             metadata: { author: "John" },
          });
 
-         const expectedEndpoint = `${API_URL}/api/v1/collection/${mockCollection.name}/document/1234`;
+         const expectedEndpoint = `${API_URL}/api/v2/collections/${mockCollection.name}/documents/1234`;
          expect(fetchMock.mock.calls[0][0]).toEqual(expectedEndpoint);
          expect(fetchMock.mock.calls[0][1]?.method).toEqual("PATCH");
       });
@@ -206,7 +206,7 @@ describe("DocumentCollection", () => {
          const collection = new DocumentCollection(mockClient, mockCollection);
          await collection.deleteDocument("1234");
 
-         const expectedEndpoint = `${API_URL}/api/v1/collection/${mockCollection.name}/document/uuid/1234`;
+         const expectedEndpoint = `${API_URL}/api/v2/collections/${mockCollection.name}/documents/uuid/1234`;
          expect(fetchMock.mock.calls[0][0]).toEqual(expectedEndpoint);
       });
 
@@ -248,7 +248,7 @@ describe("DocumentCollection", () => {
          const collection = new DocumentCollection(mockClient, mockCollection);
          await collection.getDocument("1234");
 
-         const expectedEndpoint = `${API_URL}/api/v1/collection/${mockCollection.name}/document/1234`;
+         const expectedEndpoint = `${API_URL}/api/v2/collections/${mockCollection.name}/documents/1234`;
          expect(fetchMock.mock.calls[0][0]).toEqual(expectedEndpoint);
       });
 
@@ -294,7 +294,7 @@ describe("DocumentCollection", () => {
          const collection = new DocumentCollection(mockClient, mockCollection);
          await collection.getDocuments(["doc1", "doc2"]);
 
-         const expectedEndpoint = `${API_URL}/api/v1/collection/${mockCollection.name}/document/list/get`;
+         const expectedEndpoint = `${API_URL}/api/v2/collections/${mockCollection.name}/documents/list/get`;
          expect(fetchMock.mock.calls[0][0]).toEqual(expectedEndpoint);
       });
 
@@ -363,7 +363,7 @@ describe("DocumentCollection", () => {
          const collection = new DocumentCollection(mockClient, mockCollection);
          await collection.search({ text: "Test document" });
 
-         const expectedEndpoint = `${API_URL}/api/v1/collection/${mockCollection.name}/search`;
+         const expectedEndpoint = `${API_URL}/api/v2/collections/${mockCollection.name}/search`;
          expect(fetchMock.mock.calls[0][0]).toEqual(expectedEndpoint);
       });
 

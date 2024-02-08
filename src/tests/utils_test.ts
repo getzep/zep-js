@@ -1,5 +1,7 @@
 import { APIError, AuthenticationError, NotFoundError } from "../errors";
 import {
+   API_BASEPATH,
+   API_VERSION,
    handleRequest,
    isFloat,
    isVersionGreaterOrEqual,
@@ -12,11 +14,13 @@ import ZepClient from "../zep-client";
 
 const fetchMock = global.fetch as FetchMock;
 
+const testApiUrl = "http://localhost:3000";
+
 describe("Utility functions", () => {
    let client: ZepClient;
 
    beforeEach(() => {
-      client = new ZepClient("http://localhost:3000");
+      client = new ZepClient("z_project-key", testApiUrl);
    });
 
    test("warnDeprecation", () => {
@@ -107,7 +111,7 @@ describe("Utility functions", () => {
    });
 
    describe("getFullUrl", () => {
-      const expectedUrl = "http://localhost:3000/api/v1/testEndpoint";
+      const expectedUrl = `${testApiUrl}${API_BASEPATH}/${API_VERSION}/testEndpoint`;
       it("should correctly construct a URL without leading or trailing slashes", () => {
          const endpoint = "testEndpoint";
          expect(client.getFullUrl(endpoint)).toBe(expectedUrl);

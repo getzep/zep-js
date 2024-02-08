@@ -1,15 +1,13 @@
 import { User, ZepClient } from "../";
 import { FetchMock } from "jest-fetch-mock";
 
-const BASE_URL = "http://localhost:8000";
-
 const fetchMock = global.fetch as FetchMock;
 
 describe("client.user", () => {
    let client: ZepClient;
    beforeEach(async () => {
       fetchMock.resetMocks();
-      client = await ZepClient.init(BASE_URL, "test-api-key");
+      client = await ZepClient.init("z_test-api-key");
    });
 
    describe("addUser", () => {

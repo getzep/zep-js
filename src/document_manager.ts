@@ -7,6 +7,8 @@ import {
 import { handleRequest } from "./utils";
 import DocumentCollection from "./document_collection";
 
+const DEFAULT_EMBEDDING_DIMENSIONS = 1024;
+
 /**
  * DocumentManager provides methods to list, create, update, get, and delete
  * Zep document collections.
@@ -27,30 +29,23 @@ export default class DocumentManager {
     * @param {IAddCollectionParams} params - The parameters for the new collection.
     * @returns {Promise<DocumentCollection>} A promise that resolves to the new
     * DocumentCollection instance.
-    * @throws {Error} If embeddingDimensions is not a positive integer.
     * @throws {APIError} If the request fails.
     */
    async addCollection({
       name,
-      embeddingDimensions,
       description,
       metadata,
-      isAutoEmbedded = true,
    }: IAddCollectionParams): Promise<DocumentCollection> {
-      if (embeddingDimensions <= 0) {
-         throw new Error("embeddingDimensions must be a positive integer");
-      }
-
       const collection = new DocumentCollectionModel({
          name,
          description,
          metadata,
-         embedding_dimensions: embeddingDimensions,
-         is_auto_embedded: isAutoEmbedded,
+         embedding_dimensions: DEFAULT_EMBEDDING_DIMENSIONS,
+         is_auto_embedded: true,
       });
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${name}`), {
+         fetch(this.client.getFullUrl(`/collections/${name}`), {
             method: "POST",
             headers: {
                ...this.client.headers,
@@ -78,7 +73,7 @@ export default class DocumentManager {
       }
 
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${name}`), {
+         fetch(this.client.getFullUrl(`/collections/${name}`), {
             headers: this.client.headers,
          }),
       );
@@ -125,7 +120,7 @@ export default class DocumentManager {
       });
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${collection.name}`), {
+         fetch(this.client.getFullUrl(`/collections/${collection.name}`), {
             method: "PATCH",
             headers: {
                ...this.client.headers,
@@ -186,7 +181,7 @@ export default class DocumentManager {
       }
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collection/${collectionName}`), {
+         fetch(this.client.getFullUrl(`/collections/${collectionName}`), {
             method: "DELETE",
             headers: this.client.headers,
          }),
