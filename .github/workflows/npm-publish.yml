@@ -20,6 +20,7 @@ jobs:
       run: |
         TAG_VERSION=${GITHUB_REF#refs/tags/}
         PACKAGE_VERSION=$(cat package.json | jq -r '.version')
+        echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
         # Expects the tag to be in the format v1.0.0
         if [ "$TAG_VERSION" != "v$PACKAGE_VERSION" ]; then
           echo "Tag version $TAG_VERSION does not match the package.json version $PACKAGE_VERSION"
