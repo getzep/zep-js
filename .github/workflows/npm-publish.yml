@@ -25,22 +25,20 @@ jobs:
         if [ "$TAG_VERSION" != "v$PACKAGE_VERSION" ]; then
           echo "Tag version $TAG_VERSION does not match the package.json version $PACKAGE_VERSION"
           exit 1
-        fi
-    - name: Debug output
-      run: |
-        echo "PACKAGE_VERSION=${PACKAGE_VERSION}"
-        echo "NON_PRERELEASE_VERSION=${NON_PRERELEASE_VERSION}"
-        echo "is_next=${is_next}"
+        fi      
     - name: Check if version is a prerelease
       id: prerelease_check
       run: |
+        echo "PACKAGE_VERSION=${PACKAGE_VERSION}"
         # Explicitly tests for a non-prerelease version, assuming that we're using semver
         NON_PRERELEASE_VERSION=$(echo $PACKAGE_VERSION | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$')
+        echo "NON_PRERELEASE_VERSION=${NON_PRERELEASE_VERSION}"
         if [ ! -z "$NON_PRERELEASE_VERSION" ]; then
           echo "is_next=false" >> $GITHUB_ENV
         else
           echo "is_next=true" >> $GITHUB_ENV
         fi
+        echo "is_next=${is_next}"
     - name: Install dependencies
       run: yarn install --frozen-lockfile
     - name: Publish package
