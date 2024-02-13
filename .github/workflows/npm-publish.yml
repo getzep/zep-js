@@ -41,7 +41,7 @@ jobs:
       run: |
         if [ "$is_next" = "true" ]; then
           yarn publish --tag next
-        else
+yarn publish
           echo "should not have got here"
           # yarn publish
         fi
