@@ -27,13 +27,9 @@ jobs:
           exit 1
         fi      
     - name: Check if version is a prerelease
-      id: prerelease_check
       run: |
-        echo "PACKAGE_VERSION=${PACKAGE_VERSION}"
-        # Explicitly tests for a non-prerelease version, assuming that we're using semver
-        NON_PRERELEASE_VERSION=$(echo $PACKAGE_VERSION | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$')
-        echo "NON_PRERELEASE_VERSION=${NON_PRERELEASE_VERSION}"
-        if [ ! -z "$NON_PRERELEASE_VERSION" ]; then
+        # grep will return a non-zero exit code if the version does not match the release pattern
+        if echo "$PACKAGE_VERSION" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' > /dev/null; then
           echo "is_next=false" >> $GITHUB_ENV
         else
           echo "is_next=true" >> $GITHUB_ENV
