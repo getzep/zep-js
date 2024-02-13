@@ -11,20 +11,38 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: '18.x'
         registry-url: 'https://registry.npmjs.org'
+    - name: Compare package.json version with tag
+      run: |
+        TAG_VERSION=${GITHUB_REF#refs/tags/}
+        PACKAGE_VERSION=$(cat package.json | jq -r '.version')
+        # Expects the tag to be in the format v1.0.0
+        if [ "$TAG_VERSION" != "v$PACKAGE_VERSION" ]; then
+          echo "Tag version $TAG_VERSION does not match the package.json version $PACKAGE_VERSION"
+          exit 1
+        fi
+    - name: Check if version is a prerelease
+      id: prerelease_check
+      run: |
+        # Explicitly tests for a non-prerelease version, assuming that we're using semver
+        NON_PRERELEASE_VERSION=$(echo $PACKAGE_VERSION | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$')
+        if [ ! -z "$NON_PRERELEASE_VERSION" ]; then
+          echo "is_next=false" >> $GITHUB_ENV
+        else
+          echo "is_next=true" >> $GITHUB_ENV
+        fi
     - name: Install dependencies
       run: yarn install --frozen-lockfile
-#    - name: Publish package release
-#      if: "!github.event.release.prerelease"
-#      run: yarn publish
-#      env:
-#        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - name: Publish package pre-release
-      if: "github.event.release.prerelease"
-      run: yarn publish --tag next
+    - name: Publish package
+      run: |
+        if [ "$is_next" = "true" ]; then
+          yarn publish --tag next
+        else
+          yarn publish
+        fi
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
