@@ -26,6 +26,11 @@ jobs:
           echo "Tag version $TAG_VERSION does not match the package.json version $PACKAGE_VERSION"
           exit 1
         fi
+    - name: Debug output
+      run: |
+        echo "PACKAGE_VERSION=${PACKAGE_VERSION}"
+        echo "NON_PRERELEASE_VERSION=${NON_PRERELEASE_VERSION}"
+        echo "is_next=${is_next}"
     - name: Check if version is a prerelease
       id: prerelease_check
       run: |
