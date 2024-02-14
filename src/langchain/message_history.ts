@@ -18,7 +18,7 @@ import type { MemoryType } from "../interfaces";
  * class. It includes properties like humanPrefix, aiPrefix, memoryKey,
  * baseURL, sessionId, and apiKey.
  */
-export interface ZepMemoryInput {
+interface ZepMemoryInput {
    sessionId: string;
    client: ZepClient;
    memoryType: MemoryType;
