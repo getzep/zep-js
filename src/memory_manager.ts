@@ -216,7 +216,8 @@ export default class MemoryManager {
       const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
       let params = lastn !== undefined ? `?lastn=${lastn}` : "";
       if (type) {
-         params += lastn !== undefined ? `&type=${type}` : `?type=${type}`;
+         params +=
+            lastn !== undefined ? `&memoryType=${type}` : `?memoryType=${type}`;
       }
       const response: Response = await handleRequest(
          fetch(`${url}${params}`, {
