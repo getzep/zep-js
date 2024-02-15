@@ -4,7 +4,6 @@ import {
    InputValues,
    MemoryVariables,
    OutputValues,
-   BaseMemory,
 } from "@langchain/core/memory";
 import {
    AIMessage,
@@ -14,85 +13,35 @@ import {
    HumanMessage,
    SystemMessage,
 } from "@langchain/core/messages";
+import { BaseChatMessageHistory } from "@langchain/core/chat_history";
 import ZepClient from "../zep-client";
 import { Memory } from "../memory_models";
 import { NotFoundError } from "../errors";
 import { Message } from "../message_models";
-import { ZepChatMessageHistory } from "./message_history";
+import { BaseChatMemory } from "./base_memory";
 
 /**
  * Interface for the input parameters of the BaseChatMemory class.
  */
 export interface BaseChatMemoryInput {
-   chatHistory: ZepChatMessageHistory;
+   chatHistory?: BaseChatMessageHistory;
    returnMessages?: boolean;
    inputKey?: string;
    outputKey?: string;
-   client: ZepClient;
 }
 
-/**
- * Abstract class that provides a base for implementing different types of
- * memory systems. It is designed to maintain the state of an application,
- * specifically the history of a conversation. This class is typically
- * extended by other classes to create specific types of memory systems.
- */
-export abstract class BaseChatMemory extends BaseMemory {
-   chatHistory: ZepChatMessageHistory;
-
-   returnMessages = false;
-
-   inputKey?: string;
-
-   outputKey?: string;
-
-   protected constructor(fields: BaseChatMemoryInput) {
-      super();
-      this.chatHistory = fields.chatHistory;
-      this.returnMessages = fields?.returnMessages ?? this.returnMessages;
-      this.inputKey = fields?.inputKey ?? this.inputKey;
-      this.outputKey = fields?.outputKey ?? this.outputKey;
-   }
-
-   /**
-    * Method to add user and AI messages to the chat history in sequence.
-    * @param inputValues The input values from the user.
-    * @param outputValues The output values from the AI.
-    * @returns Promise that resolves when the context has been saved.
-    */
-   async saveContext(
-      inputValues: InputValues,
-      outputValues: OutputValues,
-   ): Promise<void> {
-      // this is purposefully done in sequence so they're saved in order
-      await this.chatHistory.addUserMessage(
-         getInputValue(inputValues, this.inputKey),
-      );
-      await this.chatHistory.addAIChatMessage(
-         getOutputValue(outputValues, this.outputKey),
-      );
-   }
-
-   /**
-    * Method to clear the chat history.
-    * @returns Promise that resolves when the chat history has been cleared.
-    */
-   async clear(): Promise<void> {
-      await this.chatHistory.clear();
-   }
-}
-
-/**
- * Interface defining the structure of the input data for the ZepMemory
- * class. It includes properties like humanPrefix, aiPrefix, memoryKey,
- * baseURL, sessionId, and apiKey.
- */
 export interface ZepMemoryInput extends BaseChatMemoryInput {
-   memoryKey?: string;
-   sessionId: string;
-   client: ZepClient;
    humanPrefix?: string;
+
    aiPrefix?: string;
+
+   memoryKey?: string;
+
+   baseURL?: string;
+
+   sessionId: string;
+
+   apiKey: string;
 }
 
 /**
@@ -142,28 +91,27 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
 
    memoryKey = "history";
 
+   apiKey: string;
+
    sessionId: string;
 
-   client: ZepClient;
+   zepClientPromise: Promise<ZepClient>;
+
+   private readonly zepInitFailMsg = "ZepClient is not initialized";
 
    constructor(fields: ZepMemoryInput) {
       super({
          returnMessages: fields?.returnMessages ?? false,
          inputKey: fields?.inputKey,
          outputKey: fields?.outputKey,
-         client: fields.client,
-         chatHistory: new ZepChatMessageHistory({
-            sessionId: fields.sessionId,
-            client: fields.client,
-            memoryType: "perpetual",
-         }),
       });
 
       this.humanPrefix = fields.humanPrefix ?? this.humanPrefix;
       this.aiPrefix = fields.aiPrefix ?? this.aiPrefix;
       this.memoryKey = fields.memoryKey ?? this.memoryKey;
+      this.apiKey = fields.apiKey;
       this.sessionId = fields.sessionId;
-      this.client = fields.client;
+      this.zepClientPromise = ZepClient.init(fields.apiKey, fields.baseURL);
    }
 
    get memoryKeys() {
@@ -181,12 +129,15 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
       // server preset.
 
       // Wait for ZepClient to be initialized
+      const zepClient = await this.zepClientPromise;
+      if (!zepClient) {
+         throw new Error(this.zepInitFailMsg);
+      }
 
-      const lastN = values.lastN ?? undefined;
-
+      const memoryType = values.memoryType ?? "perpetual";
       let memory: Memory | null = null;
       try {
-         memory = await this.client.memory.getMemory(this.sessionId, lastN);
+         memory = await zepClient.memory.getMemory(this.sessionId, memoryType);
       } catch (error) {
          if (error instanceof NotFoundError) {
             return this.returnMessages
@@ -258,10 +209,16 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
          ],
       });
 
+      // Wait for ZepClient to be initialized
+      const zepClient = await this.zepClientPromise;
+      if (!zepClient) {
+         throw new Error(this.zepInitFailMsg);
+      }
+
       // Add the new memory to the session using the ZepClient
       if (this.sessionId) {
          try {
-            await this.client.memory.addMemory(this.sessionId, memory);
+            await zepClient.memory.addMemory(this.sessionId, memory);
          } catch (error) {
             console.error("Error adding memory: ", error);
          }
@@ -276,8 +233,14 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
     * @returns Promise that resolves when the chat history has been deleted.
     */
    async clear(): Promise<void> {
+      // Wait for ZepClient to be initialized
+      const zepClient = await this.zepClientPromise;
+      if (!zepClient) {
+         throw new Error(this.zepInitFailMsg);
+      }
+
       try {
-         await this.client.memory.deleteMemory(this.sessionId);
+         await zepClient.memory.deleteMemory(this.sessionId);
       } catch (error) {
          console.error("Error deleting session: ", error);
       }
