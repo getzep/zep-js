@@ -52,12 +52,10 @@ export interface ZepMemoryInput extends BaseChatMemoryInput {
  * @example
  * ```typescript
  * const sessionId = randomUUID();
- * const zepURL = "http://your-zep-url";
  *
  * // Initialize ZepMemory with session ID, base URL, and API key
  * const memory = new ZepMemory({
  *   sessionId,
- *   baseURL: zepURL,
  *   apiKey: "change_this_key",
  * });
  *
