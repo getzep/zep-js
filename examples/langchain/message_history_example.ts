@@ -7,6 +7,7 @@ import {
 } from "@langchain/core/prompts";
 import { RunnableWithMessageHistory } from "@langchain/core/runnables";
 import { ConsoleCallbackHandler } from "@langchain/core/tracers/console";
+
 async function main() {
    const zepClient = await ZepClient.init(
       process.env.ZEP_API_KEY,

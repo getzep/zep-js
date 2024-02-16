@@ -6,11 +6,7 @@ import {
    MessagesPlaceholder,
    PromptTemplate,
 } from "@langchain/core/prompts";
-import {
-   formatDocument,
-   ZepChatMessageHistory,
-   ZepVectorStore,
-} from "../../src/langchain";
+import { ZepChatMessageHistory, ZepVectorStore } from "../../src/langchain";
 import { Document } from "@langchain/core/documents";
 import {
    RunnableLambda,
@@ -20,6 +16,7 @@ import {
 } from "@langchain/core/runnables";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { ConsoleCallbackHandler } from "@langchain/core/tracers/console";
+import { formatDocument } from "langchain/schema/prompt_template";
 
 const DEFAULT_DOCUMENT_PROMPT = PromptTemplate.fromTemplate("{pageContent}");
 interface ChainInput {

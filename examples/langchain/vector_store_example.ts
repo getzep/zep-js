@@ -13,8 +13,8 @@ import {
    RunnablePassthrough,
 } from "@langchain/core/runnables";
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { formatDocument } from "../../src/langchain";
 import { ConsoleCallbackHandler } from "@langchain/core/tracers/console";
+import { formatDocument } from "langchain/schema/prompt_template";
 
 const DEFAULT_DOCUMENT_PROMPT = PromptTemplate.fromTemplate("{pageContent}");
 

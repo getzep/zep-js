@@ -1,3 +1,5 @@
+/* eslint import/no-extraneous-dependencies: 0 */
+
 import {
    getInputValue,
    getOutputValue,
@@ -14,11 +16,11 @@ import {
    SystemMessage,
 } from "@langchain/core/messages";
 import { BaseChatMessageHistory } from "@langchain/core/chat_history";
+import { BaseChatMemory } from "langchain/memory";
 import ZepClient from "../zep-client";
 import { Memory } from "../memory_models";
 import { NotFoundError } from "../errors";
 import { Message } from "../message_models";
-import { BaseChatMemory } from "./base_memory";
 
 /**
  * Interface for the input parameters of the BaseChatMemory class.
