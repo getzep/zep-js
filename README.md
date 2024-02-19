@@ -48,19 +48,19 @@ You will also need to provide a Zep Project API key to your zep client for cloud
 You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
 
 ### Using langchain zep classes with `zep-js@next`:
-In the pre-release version `zep-js` sdk comes with `ZepChatMessageHistory` and `ZepVectorStore`
+In the pre-release version `zep-js` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
 classes that are compatible with [`Langchain's JS expression language`](https://js.langchain.com/docs/expression_language/)
 
 In order to use these classes in your application, you need to make sure that you have 
-`@langchain/core` package installed:
+`langchain` package installed:
 
 ```bash
-npm install @langchain/core@^0.1.23
+npm install langchain@^0.1.23
 ```
 
 You can import these classes in the following way:
 
 ```typescript
-import { ZepChatMessageHistory, ZepVectorStore } from "@getzep/zep-js/langchain"
+import { ZepChatMessageHistory, ZepVectorStore, ZepMemory } from "@getzep/zep-js/langchain"
 ```
 
