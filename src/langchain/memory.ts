@@ -15,22 +15,11 @@ import {
    HumanMessage,
    SystemMessage,
 } from "@langchain/core/messages";
-import { BaseChatMessageHistory } from "@langchain/core/chat_history";
-import { BaseChatMemory } from "langchain/memory";
+import { BaseChatMemory, BaseChatMemoryInput } from "langchain/memory";
 import ZepClient from "../zep-client";
 import { Memory } from "../memory_models";
 import { NotFoundError } from "../errors";
 import { Message } from "../message_models";
-
-/**
- * Interface for the input parameters of the BaseChatMemory class.
- */
-export interface BaseChatMemoryInput {
-   chatHistory?: BaseChatMessageHistory;
-   returnMessages?: boolean;
-   inputKey?: string;
-   outputKey?: string;
-}
 
 export interface ZepMemoryInput extends BaseChatMemoryInput {
    humanPrefix?: string;
