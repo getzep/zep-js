@@ -60,10 +60,10 @@
   },
   "peerDependenciesMeta": {
     "langchain": {
-      "optional": false
+      "optional": true
     },
     "@langchain/core": {
-      "optional": false
+      "optional": true
     }
   },
   "resolutions": {
