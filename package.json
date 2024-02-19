@@ -1,7 +1,7 @@
 {
   "show-config": "tsc --showConfig",
   "name": "@getzep/zep-js",
-  "version": "2.0.0-rc.3",
+  "version": "2.0.0-rc.4",
   "description": "Zep: Fast, scalable building blocks for production LLM apps",
   "private": false,
   "publishConfig": {
@@ -55,8 +55,8 @@
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
-    "langchain": "^0.1.19",
-    "@langchain/core": "^0.1.19"
+    "langchain": ">=0.0.214",
+    "@langchain/core": "~0.1.5"
   },
   "peerDependenciesMeta": {
     "langchain": {
@@ -65,9 +65,6 @@
     "@langchain/core": {
       "optional": true
     }
-  },
-  "resolutions": {
-    "@langchain/core": "^0.1.19"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.2.0",
