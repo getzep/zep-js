@@ -1,3 +1,5 @@
+import { MessageType } from "@langchain/core/messages";
+
 export type RoleType =
    | "UserRole"
    | "AssistantRole"
@@ -65,3 +67,20 @@ export class Message {
       };
    }
 }
+
+// export type MessageType = "human" | "ai" | "generic" | "system" | "function" | "tool";
+
+export const getZepMessageRoleType = (role: MessageType): RoleType => {
+   switch (role) {
+      case "human":
+         return "UserRole";
+      case "ai":
+         return "AssistantRole";
+      case "system":
+         return "SystemRole";
+      case "function":
+         return "FunctionRole";
+      default:
+         return "SystemRole";
+   }
+};

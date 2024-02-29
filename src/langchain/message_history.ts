@@ -10,7 +10,7 @@ import { BaseChatMessageHistory } from "@langchain/core/chat_history";
 import ZepClient from "../zep-client";
 import { Memory } from "../memory_models";
 import { NotFoundError } from "../errors";
-import { Message } from "../message_models";
+import { getZepMessageRoleType, Message, RoleType } from "../message_models";
 import type { MemoryType } from "../interfaces";
 
 /**
@@ -87,7 +87,7 @@ export class ZepChatMessageHistory
                   token_count: msg.token_count,
                   metadata: msg.metadata,
                };
-               if (msg.role === "ai") {
+               if (msg.roleType === ("AssistantRole" as RoleType)) {
                   return new AIMessage(msg.content, metadata);
                }
                return new HumanMessage(msg.content, metadata);
@@ -117,6 +117,7 @@ export class ZepChatMessageHistory
          content: message.content,
          // eslint-disable-next-line no-underscore-dangle
          role: message._getType(),
+         roleType: getZepMessageRoleType(message._getType()),
          metadata,
       });
 
