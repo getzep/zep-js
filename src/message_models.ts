@@ -1,5 +1,8 @@
-export type RoleType = "UserRole" | "AssistantRole" | "SystemRole" | "FunctionRole";
-
+export type RoleType =
+   | "UserRole"
+   | "AssistantRole"
+   | "SystemRole"
+   | "FunctionRole";
 
 /**
  * IMessage interface for providing input to create a Message instance.
