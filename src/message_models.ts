@@ -11,7 +11,7 @@ export interface IMessage {
    uuid?: string;
    created_at?: string;
    role: string;
-   role_type: RoleType;
+   roleType: RoleType;
    content: string;
    token_count?: number;
    metadata?: Record<string, any>;
@@ -27,7 +27,7 @@ export class Message {
 
    role: string;
 
-   role_type: RoleType;
+   roleType: RoleType;
 
    content: string;
 
@@ -43,7 +43,7 @@ export class Message {
       this.uuid = data.uuid;
       this.created_at = data.created_at;
       this.role = data.role;
-      this.role_type = data.role_type;
+      this.roleType = data.roleType;
       this.content = data.content;
       this.token_count = data.token_count;
       this.metadata = data.metadata;
@@ -58,7 +58,7 @@ export class Message {
          uuid: this.uuid,
          created_at: this.created_at,
          role: this.role,
-         role_type: this.role_type,
+         roleType: this.roleType,
          content: this.content,
          token_count: this.token_count,
          metadata: this.metadata,

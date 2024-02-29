@@ -213,7 +213,7 @@ describe("ZepClient", () => {
       it("should retrieve a message for a session", async () => {
          const responseData = {
             role: "human",
-            role_type: "UserRole" as RoleType,
+            roleType: "UserRole" as RoleType,
             content: "Hello",
             uuid: "message_uuid",
             created_at: "2022-01-01T00:00:00Z",
@@ -261,7 +261,7 @@ describe("ZepClient", () => {
             messages: [
                {
                   role: "human",
-                  role_type: "UserRole" as RoleType,
+                  roleType: "UserRole" as RoleType,
                   content: "Hello",
                   uuid: "message_uuid",
                   created_at: "2022-01-01T00:00:00Z",
@@ -317,7 +317,7 @@ describe("ZepClient", () => {
       it("should update metadata for a message in a session", async () => {
          const responseData = {
             role: "human",
-            role_type: "UserRole" as RoleType,
+            roleType: "UserRole" as RoleType,
             content: "Hello",
             uuid: "message_uuid",
             created_at: "2022-01-01T00:00:00Z",
@@ -364,7 +364,7 @@ describe("ZepClient", () => {
       // Test for retrieving memory for a session
       it("should retrieve memory for a session", async () => {
          const responseData = {
-            messages: [{ role: "human", role_type: "UserRole" as RoleType, content: "Hello" }],
+            messages: [{ role: "human", roleType: "UserRole" as RoleType, content: "Hello" }],
             summary: {
                uuid: "",
                created_at: "",
@@ -380,7 +380,7 @@ describe("ZepClient", () => {
 
          expect(memory).toEqual(
             new Memory({
-               messages: [new Message({ role: "human", role_type: "UserRole" as RoleType, content: "Hello" })],
+               messages: [new Message({ role: "human", roleType: "UserRole" as RoleType, content: "Hello" })],
                summary: new Summary({
                   content: "Memory summary",
                   created_at: "",
@@ -448,8 +448,8 @@ describe("ZepClient", () => {
    it("should retrieve last 'n' memories for a session when 'lastn' parameter is used", async () => {
       const responseData = {
          messages: [
-            { role: "system", role_type: "SystemRole" as RoleType, content: "How can I assist you?" },
-            { role: "human", role_type: "UserRole" as RoleType, content: "What's the weather like?" },
+            { role: "system", roleType: "SystemRole" as RoleType, content: "How can I assist you?" },
+            { role: "human", roleType: "UserRole" as RoleType, content: "What's the weather like?" },
          ],
          summary: {
             uuid: "",
@@ -480,12 +480,12 @@ describe("ZepClient", () => {
             messages: [
                new Message({
                   role: "system",
-                  role_type: "SystemRole" as RoleType,
+                  roleType: "SystemRole" as RoleType,
                   content: "How can I assist you?",
                }),
                new Message({
                   role: "human",
-                  role_type: "UserRole" as RoleType,
+                  roleType: "UserRole" as RoleType,
                   content: "What's the weather like?",
                }),
             ],
@@ -505,7 +505,7 @@ describe("ZepClient", () => {
    describe("addMemory", () => {
       it("should add a memory to a session", async () => {
          const memoryData = new Memory({
-            messages: [new Message({ role: "human", role_type: "UserRole" as RoleType, content: "Hello again!" })],
+            messages: [new Message({ role: "human", roleType: "UserRole" as RoleType, content: "Hello again!" })],
             summary: new Summary({
                uuid: "",
                created_at: "",
@@ -530,7 +530,7 @@ describe("ZepClient", () => {
       it("should throw APIError if !200 OK", async () => {
          const memoryData = new Memory({
             messages: [
-               new Message({ role: "system", role_type: "SystemRole" as RoleType, content: "System message" }),
+               new Message({ role: "system", roleType: "SystemRole" as RoleType, content: "System message" }),
             ],
             summary: new Summary({
                uuid: "summary_uuid",
@@ -600,7 +600,7 @@ describe("ZepClient", () => {
             {
                message: {
                   role: "system",
-                  role_type: "SystemRole",
+                  roleType: "SystemRole",
                   content: "system message",
                   uuid: "message_uuid",
                   created_at: "2023-01-01T00:00:00Z",
