@@ -25,6 +25,7 @@ async function combineDocuments(
 ) {
    const docStrings: string[] = await Promise.all(
       docs.map((doc) => {
+         // @ts-ignore
          return formatDocument(doc, documentPrompt);
       }),
    );
@@ -65,6 +66,7 @@ async function main() {
 
    const chain = setupAndRetrieval
       .pipe(prompt)
+      // @ts-ignore
       .pipe(model)
       .pipe(outputParser)
       .withConfig({
