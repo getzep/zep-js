@@ -87,7 +87,8 @@ export class ZepChatMessageHistory
                   token_count: msg.token_count,
                   metadata: msg.metadata,
                };
-               if (msg.roleType === ("AssistantRole" as RoleType)) {
+
+               if (msg.role_type === ("AssistantRole" as RoleType)) {
                   return new AIMessage(msg.content, metadata);
                }
                return new HumanMessage(msg.content, metadata);
@@ -117,7 +118,7 @@ export class ZepChatMessageHistory
          content: message.content,
          // eslint-disable-next-line no-underscore-dangle
          role: message._getType(),
-         roleType: getZepMessageRoleType(message._getType()),
+         role_type: getZepMessageRoleType(message._getType()),
          metadata,
       });
 
