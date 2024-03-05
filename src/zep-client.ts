@@ -20,6 +20,8 @@ import MessageManager from "./message_manager";
 import UserManager from "./user_manager";
 import { IZepClient } from "./interfaces";
 
+import packageJson from '../package.json';
+
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
  */
@@ -75,6 +77,7 @@ export default class ZepClient implements IZepClient {
       if (this.cloud) {
          this.headers = {
             Authorization: `Api-Key ${projectApiKey}`,
+            "X-Zep-Client-Version": `zep-js-${packageJson.version}`,
          };
       } else if (!this.cloud && projectApiKey) {
          this.headers = {

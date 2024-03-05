@@ -1,5 +1,6 @@
 {
    "compilerOptions": {
+      "resolveJsonModule": true,
       "module": "commonjs",
       "moduleResolution": "node",
       "target": "es6",
@@ -9,7 +10,9 @@
       "esModuleInterop": true,
       "declaration": true
    },
-   "include": ["src/**/*.ts"],
+   "include": [
+      "src/**/*.ts"
+   ],
    "exclude": [
       "node_modules",
    ]
