@@ -77,7 +77,7 @@ export default class ZepClient implements IZepClient {
       if (this.cloud) {
          this.headers = {
             Authorization: `Api-Key ${projectApiKey}`,
-            "X-Zep-Client-Version": `zep-js-${packageJson.version}`,
+            "X-Zep-Client-Version": `zep-js-client/${packageJson.version}`,
          };
       } else if (!this.cloud && projectApiKey) {
          this.headers = {
