@@ -1,3 +1,5 @@
+import path from "path";
+import fs from "fs";
 import {
    Memory,
    MemorySearchPayload,
@@ -20,10 +22,9 @@ import MessageManager from "./message_manager";
 import UserManager from "./user_manager";
 import { IZepClient } from "./interfaces";
 
-import fs from 'fs';
-import path from 'path';
-
-const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+const packageJson = JSON.parse(
+   fs.readFileSync(path.join(__dirname, "../package.json"), "utf8"),
+);
 
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
