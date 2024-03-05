@@ -20,7 +20,7 @@ import MessageManager from "./message_manager";
 import UserManager from "./user_manager";
 import { IZepClient } from "./interfaces";
 
-import packageJson from '../package.json';
+import packageJson from "../package.json";
 
 /**
  * ZepClient is a Typescript class for interacting with the Zep.
