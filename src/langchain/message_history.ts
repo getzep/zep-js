@@ -88,7 +88,7 @@ export class ZepChatMessageHistory
                   metadata: msg.metadata,
                };
 
-               if (msg.role_type === ("AssistantRole" as RoleType)) {
+               if (msg.role_type === ("assistant" as RoleType)) {
                   return new AIMessage(msg.content, metadata);
                }
                return new HumanMessage(msg.content, metadata);

@@ -145,10 +145,10 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
          messages = messages.concat(
             memory.messages.map((message) => {
                const { content, role_type, role } = message;
-               if (role_type === "UserRole") {
+               if (role_type === "user") {
                   return new HumanMessage(content);
                }
-               if (role_type === "AssistantRole") {
+               if (role_type === "assistant") {
                   return new AIMessage(content);
                }
                // default to generic ChatMessage
@@ -189,12 +189,12 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
          messages: [
             new Message({
                role: this.humanPrefix,
-               role_type: "UserRole",
+               role_type: "user",
                content: `${input}`,
             }),
             new Message({
                role: this.aiPrefix,
-               role_type: "AssistantRole",
+               role_type: "assistant",
                content: `${output}`,
             }),
          ],
