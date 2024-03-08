@@ -10,7 +10,7 @@ import { BaseChatMessageHistory } from "@langchain/core/chat_history";
 import ZepClient from "../zep-client";
 import { Memory } from "../memory_models";
 import { NotFoundError } from "../errors";
-import { Message } from "../message_models";
+import { getZepMessageRoleType, Message, RoleType } from "../message_models";
 import type { MemoryType } from "../interfaces";
 
 /**
@@ -22,6 +22,8 @@ interface ZepMemoryInput {
    sessionId: string;
    client: ZepClient;
    memoryType: MemoryType;
+   humanPrefix?: string;
+   aiPrefix?: string;
 }
 
 /**
@@ -43,11 +45,21 @@ export class ZepChatMessageHistory
 
    memoryType: MemoryType;
 
+   humanPrefix = "human";
+
+   aiPrefix = "ai";
+
    constructor(fields: ZepMemoryInput) {
       super();
       this.sessionId = fields.sessionId;
       this.memoryType = fields.memoryType;
       this.client = fields.client;
+      if (fields.humanPrefix) {
+         this.humanPrefix = fields.humanPrefix;
+      }
+      if (fields.aiPrefix) {
+         this.aiPrefix = fields.aiPrefix;
+      }
    }
 
    private async getMemory(): Promise<Memory | null> {
@@ -87,7 +99,8 @@ export class ZepChatMessageHistory
                   token_count: msg.token_count,
                   metadata: msg.metadata,
                };
-               if (msg.role === "ai") {
+
+               if (msg.role_type === ("assistant" as RoleType)) {
                   return new AIMessage(msg.content, metadata);
                }
                return new HumanMessage(msg.content, metadata);
@@ -98,13 +111,17 @@ export class ZepChatMessageHistory
       return messages;
    }
 
-   // @ts-ignore
    async addAIChatMessage(message: string, metadata?: any): Promise<void> {
       await this.addMessage(new AIMessage({ content: message }), metadata);
    }
 
-   // @ts-ignore
    async addMessage(message: BaseMessage, metadata?: any): Promise<void> {
+      const messageToSave = message;
+      if (message._getType() === "ai") {
+         messageToSave.name = this.aiPrefix;
+      } else if (message._getType() === "human") {
+         messageToSave.name = this.humanPrefix;
+      }
       if (message.content === null) {
          throw new Error("Message content cannot be null");
       }
@@ -115,8 +132,8 @@ export class ZepChatMessageHistory
 
       const zepMessage = new Message({
          content: message.content,
-         // eslint-disable-next-line no-underscore-dangle
-         role: message._getType(),
+         role: message.name ?? message._getType(),
+         role_type: getZepMessageRoleType(message._getType()),
          metadata,
       });
 
