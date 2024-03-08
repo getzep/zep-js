@@ -1,11 +1,6 @@
 import { MessageType } from "@langchain/core/messages";
 
-export type RoleType =
-   | "user"
-   | "assistant"
-   | "system"
-   | "function"
-   | "tool";
+export type RoleType = "user" | "assistant" | "system" | "function" | "tool";
 
 /**
  * IMessage interface for providing input to create a Message instance.
