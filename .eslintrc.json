@@ -40,6 +40,7 @@
          }
       ],
       "max-classes-per-file": 0,
+      "camelcase": "warn",
       "multiline-ternary": 0,
       "no-unused-vars": "off",
       "no-underscore-dangle": "off",

@@ -647,7 +647,24 @@
     uuid "^9.0.0"
     zod "^3.22.3"
 
-"@langchain/core@^0.1.23", "@langchain/core@~0.1.13", "@langchain/core@~0.1.29":
+"@langchain/core@^0.1.19", "@langchain/core@~0.1.13", "@langchain/core@~0.1.29":
+  version "0.1.36"
+  resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.1.36.tgz#795722a52e2d99efe5000cc5f57084b5b0ea5938"
+  integrity sha512-uZP1Y5gGysSHKT7D5IT+fNJCuWU76msiYuQuQvMQJZyu+MAHAJQrBuokdwxjyMSE1cumGhn4tBnpcFoq5JAm1w==
+  dependencies:
+    ansi-styles "^5.0.0"
+    camelcase "6"
+    decamelize "1.2.0"
+    js-tiktoken "^1.0.8"
+    langsmith "~0.1.7"
+    ml-distance "^4.0.0"
+    p-queue "^6.6.2"
+    p-retry "4"
+    uuid "^9.0.0"
+    zod "^3.22.4"
+    zod-to-json-schema "^3.22.3"
+
+"@langchain/core@^0.1.23":
   version "0.1.29"
   resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.1.29.tgz#4337a9db35ee0281af3d50d6fbb9c84c5dd6be77"
   integrity sha512-MVrrb2J1Y08Yy6JnRDy/C/yxZj2PvO6wNkMs8657Q345SHs8iCbRX7Dy7rC69isUrpMjR7PvADFxV9rGvdoMBg==
@@ -3130,6 +3147,17 @@ langsmith@~0.1.1:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.1.2.tgz#84889c4c5e6740917f881ae147404ca844fc4291"
   integrity sha512-dgz72jpbwOvwBRlWV1DvNVKhvfqOVC4YpegJprbitb10jBcFEhBkgaOaP2ThSe/c8lKq0Cb5sojQXn3wge25kA==
+  dependencies:
+    "@types/uuid" "^9.0.1"
+    commander "^10.0.1"
+    p-queue "^6.6.2"
+    p-retry "4"
+    uuid "^9.0.0"
+
+langsmith@~0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.1.7.tgz#6ae6006e051b149e713dc7d1c6acb6d422ad4612"
+  integrity sha512-yPhpsppcqV1LBDO3Eh3PdiAS5/1Z5pAvgECXQbx77aJjEYqZ4+sm4WBuSHSAdj8on0SG6xXkA+lDsQU8nM+k/w==
   dependencies:
     "@types/uuid" "^9.0.1"
     commander "^10.0.1"
