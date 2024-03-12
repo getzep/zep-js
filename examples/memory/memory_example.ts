@@ -11,7 +11,7 @@ import {
 } from "../../src";
 
 // @ts-ignore
-import { history } from "./history";
+import { history } from "./chat_shoe_store_history";
 
 function sleep(ms: number) {
    const date = Date.now();
@@ -75,6 +75,39 @@ async function main() {
          await client.memory.addMemory(sessionID, memory);
       }
       console.debug("Added new memory for session ", sessionID);
+   } catch (error) {
+      console.debug("Got error:", error);
+   }
+
+   try {
+      // Synthesize a question from most recent messages.
+      // Useful for RAG apps.
+      // This is faster than using an LLM chain.
+      console.debug("\n---Synthesize a question from most recent messages");
+      const question = await client.memory.synthesizeQuestion(sessionID, 3);
+      console.debug(`Question: ${question}`);
+   } catch (error) {
+      console.debug("Got error:", error);
+   }
+
+   try {
+      // Classify the session.
+      // Useful for semantic routing, filtering, and many other use cases.
+      console.debug("\n---Classify the session");
+      const classes = [
+         "low spender <$50",
+         "medium spender >=$50, <$100",
+         "high spender >=$100",
+         "unknown",
+      ];
+      const classification = await client.memory.classifySession(
+         sessionID,
+         "spender_category",
+         classes,
+      );
+      console.debug(
+         `${classification.class} Classification Result: ${classification.name}`,
+      );
    } catch (error) {
       console.debug("Got error:", error);
    }

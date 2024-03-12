@@ -284,3 +284,26 @@ export class MemorySearchResult {
 export interface Question {
    question: string;
 }
+
+export interface ClassifySessionRequest {
+   /** Unique identifier of the session */
+   sessionId: string;
+   /** Name of the classifier (e.g. "emotion" or "intent") */
+   name: string;
+   /** List of classes to classify the session into */
+   classes: string[];
+   /** Number of session messages to consider for classification (default is 4) */
+   lastN?: number;
+   /** Whether to persist the classification to session metadata (default is true) */
+   persist?: boolean;
+   /** Custom instruction for classification */
+   instruction?: string;
+}
+
+/** Response after classifying a session */
+export interface ClassifySessionResponse {
+   /** Name of the classification algorithm or rule set used */
+   name: string;
+   /** Class the session is classified into */
+   class: string;
+}
