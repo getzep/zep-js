@@ -136,12 +136,13 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
          throw error;
       }
 
-      let messages: BaseMessage[] =
-         memory && memory.summary?.content
-            ? [new SystemMessage(memory.summary.content)]
-            : [];
+      let messages: BaseMessage[] = [];
 
       if (memory) {
+         messages.push(new SystemMessage(memory.facts.join("\n")));
+         if (memory.summary?.content) {
+            messages.push(new SystemMessage(memory.summary.content));
+         }
          messages = messages.concat(
             memory.messages.map((message) => {
                const { content, role_type, role } = message;

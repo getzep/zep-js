@@ -135,6 +135,8 @@ export interface IMemory {
 
    summary?: ISummary;
 
+   facts?: string[];
+
    uuid?: string;
 
    created_at?: string;
@@ -151,6 +153,8 @@ export class Memory {
    metadata: Record<string, any>;
 
    summary?: Summary;
+
+   facts: string[];
 
    uuid?: string;
 
@@ -171,6 +175,7 @@ export class Memory {
       this.uuid = data.uuid;
       this.created_at = data.created_at;
       this.token_count = data.token_count;
+      this.facts = data.facts || [];
    }
 
    /**
@@ -185,6 +190,7 @@ export class Memory {
          uuid: this.uuid,
          created_at: this.created_at,
          token_count: this.token_count,
+         facts: this.facts,
       };
    }
 }

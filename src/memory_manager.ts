@@ -202,7 +202,7 @@ export default class MemoryManager {
    /**
     * Retrieves memory for a specific session.
     * @param {string} sessionID - The ID of the session to retrieve memory for.
-    * @param {MemoryType} [type] - Optional. The type of memory to retrieve.
+    * @param {MemoryType} [type] - Optional. The type of memory to retrieve. Defaults to perpetual.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
     * @returns {Promise<Array<Memory>>} - A promise that returns a Memory object.
     * @throws {APIError} - If the request fails.
@@ -233,6 +233,7 @@ export default class MemoryManager {
                return new Message(message);
             }),
             summary: data.summary,
+            facts: data.facts,
          });
       }
       return null;
