@@ -690,8 +690,6 @@ describe("ZepClient", () => {
    }); // end describe
 
    describe("classifySession", () => {
-      // ... (initialize your client and any other necessary setup)
-
       it("should throw an error when session ID is not provided", async () => {
          await expect(
             client.memory.classifySession("", "classifier-name", [
