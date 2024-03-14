@@ -1,4 +1,6 @@
 import {
+   ClassifySessionRequest,
+   ClassifySessionResponse,
    Memory,
    MemorySearchPayload,
    MemorySearchResult,
@@ -202,7 +204,7 @@ export default class MemoryManager {
    /**
     * Retrieves memory for a specific session.
     * @param {string} sessionID - The ID of the session to retrieve memory for.
-    * @param {MemoryType} [type] - Optional. The type of memory to retrieve.
+    * @param {MemoryType} [type] - Optional. The type of memory to retrieve. Defaults to perpetual.
     * @param {number} [lastn] - Optional. The number of most recent memories to retrieve.
     * @returns {Promise<Array<Memory>>} - A promise that returns a Memory object.
     * @throws {APIError} - If the request fails.
@@ -233,6 +235,7 @@ export default class MemoryManager {
                return new Message(message);
             }),
             summary: data.summary,
+            facts: data.facts,
          });
       }
       return null;
@@ -319,5 +322,63 @@ export default class MemoryManager {
       return data.map(
          (searchResult: any) => new MemorySearchResult(searchResult),
       );
+   }
+
+   /**
+    * Asynchronously classifies a session with the specified ID.
+    *
+    * @param sessionId - The ID of the session to classify.
+    * @param name - The name of the classifier. Used to store the classification in session metadata if persist is true.
+    * @param classes - The classes to use for classification.
+    * @param lastN - (Optional) The number of session messages to consider for classification. Defaults to 4.
+    * @param persist - (Optional) Whether to persist the classification to session metadata.
+    * Defaults to true.
+    * @param instruction - (Optional) Custom instruction for classification.
+    * @returns A promise that resolves to the classification response object.
+    *
+    * @throws Error if session ID, name, or classes are not provided or are invalid.
+    */
+   async classifySession(
+      sessionId: string,
+      name: string,
+      classes: string[],
+      lastN?: number,
+      persist: boolean = true,
+      instruction: string | undefined = undefined,
+   ): Promise<ClassifySessionResponse> {
+      if (!sessionId || sessionId.trim() === "") {
+         throw new Error("sessionId must be provided");
+      }
+
+      if (!name || name.trim() === "") {
+         throw new Error("name must be provided");
+      }
+
+      if (!classes || classes.length === 0) {
+         throw new Error("classes must be provided");
+      }
+
+      const request: ClassifySessionRequest = {
+         sessionId,
+         name,
+         classes,
+         lastN,
+         persist,
+         instruction,
+      };
+
+      const url = this.client.getFullUrl(`/sessions/${sessionId}/classify`);
+      const response: Response = await handleRequest(
+         fetch(url, {
+            method: "POST",
+            headers: {
+               ...this.client.headers,
+               "Content-Type": "application/json",
+            },
+            body: JSON.stringify(request),
+         }),
+      );
+      const data = await response.json();
+      return data as ClassifySessionResponse;
    }
 }

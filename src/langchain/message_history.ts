@@ -85,6 +85,9 @@ export class ZepChatMessageHistory
 
       const messages: BaseMessage[] = [];
 
+      // Extract facts
+      messages.push(new SystemMessage(memory.facts.join("\n")));
+
       // Extract summary, if present, and messages
       if (memory.summary && memory.summary.content.length > 0) {
          messages.push(new SystemMessage(memory.summary.content));

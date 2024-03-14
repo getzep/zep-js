@@ -10,6 +10,7 @@ import {
 } from "../";
 import { FetchMock } from "jest-fetch-mock";
 import { RoleType } from "../message_models";
+import { ClassifySessionResponse } from "../memory_models";
 
 const BASE_URL = "http://localhost:8000";
 
@@ -364,7 +365,13 @@ describe("ZepClient", () => {
       // Test for retrieving memory for a session
       it("should retrieve memory for a session", async () => {
          const responseData = {
-            messages: [{ role: "human", role_type: "user" as RoleType, content: "Hello" }],
+            messages: [
+               {
+                  role: "human",
+                  role_type: "user" as RoleType,
+                  content: "Hello",
+               },
+            ],
             summary: {
                uuid: "",
                created_at: "",
@@ -372,6 +379,7 @@ describe("ZepClient", () => {
                recent_message_uuid: "",
                token_count: 0,
             },
+            facts: ["Fact 1", "Fact 2"],
          };
 
          fetchMock.mockResponseOnce(JSON.stringify(responseData));
@@ -380,7 +388,13 @@ describe("ZepClient", () => {
 
          expect(memory).toEqual(
             new Memory({
-               messages: [new Message({ role: "human", role_type: "user" as RoleType, content: "Hello" })],
+               messages: [
+                  new Message({
+                     role: "human",
+                     role_type: "user" as RoleType,
+                     content: "Hello",
+                  }),
+               ],
                summary: new Summary({
                   content: "Memory summary",
                   created_at: "",
@@ -388,6 +402,7 @@ describe("ZepClient", () => {
                   token_count: 0,
                   uuid: "",
                }),
+               facts: ["Fact 1", "Fact 2"],
                metadata: {},
             }),
          );
@@ -414,6 +429,7 @@ describe("ZepClient", () => {
             recent_message_uuid: "",
             token_count: 0,
          },
+         facts: ["Fact 1", "Fact 2"],
       };
 
       fetchMock.mockResponseOnce(JSON.stringify(responseData));
@@ -430,6 +446,7 @@ describe("ZepClient", () => {
                token_count: 0,
                uuid: "",
             }),
+            facts: ["Fact 1", "Fact 2"],
             metadata: {},
          }),
       );
@@ -448,8 +465,16 @@ describe("ZepClient", () => {
    it("should retrieve last 'n' memories for a session when 'lastn' parameter is used", async () => {
       const responseData = {
          messages: [
-            { role: "system", role_type: "system" as RoleType, content: "How can I assist you?" },
-            { role: "human", role_type: "user" as RoleType, content: "What's the weather like?" },
+            {
+               role: "system",
+               role_type: "system" as RoleType,
+               content: "How can I assist you?",
+            },
+            {
+               role: "human",
+               role_type: "user" as RoleType,
+               content: "What's the weather like?",
+            },
          ],
          summary: {
             uuid: "",
@@ -458,6 +483,7 @@ describe("ZepClient", () => {
             recent_message_uuid: "",
             token_count: 0,
          },
+         facts: ["Fact 1", "Fact 2"],
       };
 
       // Mock fetch call with specific URL and parameters
@@ -496,6 +522,7 @@ describe("ZepClient", () => {
                recent_message_uuid: "",
                token_count: 0,
             }),
+            facts: ["Fact 1", "Fact 2"],
             metadata: {},
          }),
       );
@@ -505,7 +532,13 @@ describe("ZepClient", () => {
    describe("addMemory", () => {
       it("should add a memory to a session", async () => {
          const memoryData = new Memory({
-            messages: [new Message({ role: "human", role_type: "user" as RoleType, content: "Hello again!" })],
+            messages: [
+               new Message({
+                  role: "human",
+                  role_type: "user" as RoleType,
+                  content: "Hello again!",
+               }),
+            ],
             summary: new Summary({
                uuid: "",
                created_at: "",
@@ -530,7 +563,11 @@ describe("ZepClient", () => {
       it("should throw APIError if !200 OK", async () => {
          const memoryData = new Memory({
             messages: [
-               new Message({ role: "system", role_type: "system" as RoleType, content: "System message" }),
+               new Message({
+                  role: "system",
+                  role_type: "system" as RoleType,
+                  content: "System message",
+               }),
             ],
             summary: new Summary({
                uuid: "summary_uuid",
@@ -651,4 +688,54 @@ describe("ZepClient", () => {
          ).rejects.toThrow(APIError);
       }); // end it
    }); // end describe
+
+   describe("classifySession", () => {
+      it("should throw an error when session ID is not provided", async () => {
+         await expect(
+            client.memory.classifySession("", "classifier-name", [
+               "class1",
+               "class2",
+            ]),
+         ).rejects.toThrow("sessionId must be provided");
+      });
+
+      it("should throw an error when classifier name is not provided", async () => {
+         await expect(
+            client.memory.classifySession("test-session", "", [
+               "class1",
+               "class2",
+            ]),
+         ).rejects.toThrow("name must be provided");
+      });
+
+      it("should throw an error when classes array is empty", async () => {
+         await expect(
+            client.memory.classifySession(
+               "test-session",
+               "classifier-name",
+               [],
+            ),
+         ).rejects.toThrow("classes must be provided");
+      });
+
+      it("should return correct payload", async () => {
+         const mockResponseData: ClassifySessionResponse = {
+            name: "classifier-name",
+            class: "class1",
+         };
+
+         fetchMock.mockResponseOnce(JSON.stringify(mockResponseData));
+
+         const classification = await client.memory.classifySession(
+            "test-session",
+            "classifier-name",
+            ["class1", "class2"],
+            4,
+            true,
+            "custom instruction",
+         );
+
+         expect(classification).toEqual(mockResponseData);
+      });
+   });
 });

@@ -32,4 +32,4 @@ export interface ISearchQuery {
    mmrLambda?: number;
 }
 
-export type MemoryType = "perpetual" | "message_window";
+export type MemoryType = "perpetual" | "message_window" | "summary_retriever";
