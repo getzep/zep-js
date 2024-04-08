@@ -1,8 +1,0 @@
-# Ignore directories
-node_modules/
-dist/
-build/
-
-# Ignore JavaScript and TypeScript files in src/test directory
-src/tests/**/*.js
-src/tests/**/*.ts
