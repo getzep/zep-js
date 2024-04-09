@@ -217,10 +217,14 @@ export default class MemoryManager {
    ): Promise<Memory | null> {
       const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
       let params = lastn !== undefined ? `?lastn=${lastn}` : "";
-      if (type) {
-         params +=
-            lastn !== undefined ? `&memoryType=${type}` : `?memoryType=${type}`;
-      }
+
+      const memoryType = type ?? "perpetual";
+
+      params +=
+         lastn !== undefined
+            ? `&memoryType=${memoryType}`
+            : `?memoryType=${memoryType}`;
+
       const response: Response = await handleRequest(
          fetch(`${url}${params}`, {
             headers: this.client.headers,
