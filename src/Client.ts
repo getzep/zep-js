@@ -4,13 +4,10 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Document } from "./api/resources/document/client/Client";
-import { Collection } from "./api/resources/collection/client/Client";
-import { Session } from "./api/resources/session/client/Client";
-import { Memory } from "./api/resources/memory/client/Client";
-import { Messages } from "./api/resources/messages/client/Client";
-import { Search } from "./api/resources/search/client/Client";
-import { User } from "./api/resources/user/client/Client";
+import { BaseDocument } from "./api/resources/baseDocument/client/Client";
+import { BaseMemory } from "./api/resources/baseMemory/client/Client";
+import { BaseMessages } from "./api/resources/baseMessages/client/Client";
+import { BaseUser } from "./api/resources/baseUser/client/Client";
 
 export declare namespace ZepClient {
     interface Options {
@@ -28,45 +25,27 @@ export declare namespace ZepClient {
 export class ZepClient {
     constructor(protected readonly _options: ZepClient.Options = {}) {}
 
-    protected _document: Document | undefined;
+    protected _baseDocument: BaseDocument | undefined;
 
-    public get document(): Document {
-        return (this._document ??= new Document(this._options));
+    public get baseDocument(): BaseDocument {
+        return (this._baseDocument ??= new BaseDocument(this._options));
     }
 
-    protected _collection: Collection | undefined;
+    protected _baseMemory: BaseMemory | undefined;
 
-    public get collection(): Collection {
-        return (this._collection ??= new Collection(this._options));
+    public get baseMemory(): BaseMemory {
+        return (this._baseMemory ??= new BaseMemory(this._options));
     }
 
-    protected _session: Session | undefined;
+    protected _baseMessages: BaseMessages | undefined;
 
-    public get session(): Session {
-        return (this._session ??= new Session(this._options));
+    public get baseMessages(): BaseMessages {
+        return (this._baseMessages ??= new BaseMessages(this._options));
     }
 
-    protected _memory: Memory | undefined;
+    protected _baseUser: BaseUser | undefined;
 
-    public get memory(): Memory {
-        return (this._memory ??= new Memory(this._options));
-    }
-
-    protected _messages: Messages | undefined;
-
-    public get messages(): Messages {
-        return (this._messages ??= new Messages(this._options));
-    }
-
-    protected _search: Search | undefined;
-
-    public get search(): Search {
-        return (this._search ??= new Search(this._options));
-    }
-
-    protected _user: User | undefined;
-
-    public get user(): User {
-        return (this._user ??= new User(this._options));
+    public get baseUser(): BaseUser {
+        return (this._baseUser ??= new BaseUser(this._options));
     }
 }

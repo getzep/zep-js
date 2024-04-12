@@ -1,8 +1,8 @@
 
-## Document
+## BaseDocument
 
 
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">update</a>(collectionName, documentUuid, { ...params }) -> string</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">updateDocument</a>(collectionName, documentUuid, { ...params }) -> string</code> </summary>
 
 <dl>
 
@@ -19,7 +19,7 @@
 <dd>
 
 ```ts
-await zep.document.update("collectionName", "documentUUID");
+await zep.baseDocument.updateDocument("collectionName", "documentUUID");
 ```
 
 </dd>
@@ -77,7 +77,7 @@ await zep.document.update("collectionName", "documentUUID");
 <dd>
 
 
-**requestOptions: `Document.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -96,7 +96,7 @@ await zep.document.update("collectionName", "documentUUID");
 </details>
 
 
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">get</a>(collectionName, documentUuid) -> Zep.DocumentResponse</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">getDocument</a>(collectionName, documentUuid) -> Zep.DocumentResponse</code> </summary>
 
 <dl>
 
@@ -133,7 +133,7 @@ Returns specified Document from a DocumentCollection.
 <dd>
 
 ```ts
-await zep.document.get("collectionName", "documentUUID");
+await zep.baseDocument.getDocument("collectionName", "documentUUID");
 ```
 
 </dd>
@@ -179,7 +179,7 @@ await zep.document.get("collectionName", "documentUUID");
 <dd>
 
 
-**requestOptions: `Document.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -198,626 +198,7 @@ await zep.document.get("collectionName", "documentUUID");
 </details>
 
 
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">createMultiple</a>(collectionName, { ...params }) -> string[]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Creates Documents in a specified DocumentCollection and returns their UUIDs.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.document.createMultiple("collectionName", [{}]);
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**collectionName: `string`** — Name of the Document Collection
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.CreateDocumentRequest[]`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Document.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">batchDelete</a>(collectionName, { ...params }) -> string</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Deletes specified Documents from a DocumentCollection.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.document.batchDelete("collectionName", ["string"]);
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**collectionName: `string`** — Name of the Document Collection
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**request: `string[]`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Document.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">batchGet</a>(collectionName, { ...params }) -> Zep.DocumentResponse[][]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Returns Documents from a DocumentCollection specified by UUID or ID.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.document.batchGet("collectionName");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**collectionName: `string`** — Name of the Document Collection
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.GetDocumentListRequest`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Document.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">batchUpdate</a>(collectionName, { ...params }) -> string</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Updates Documents in a specified DocumentCollection.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.document.batchUpdate("collectionName", [{
-        uuid: "uuid"
-    }]);
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**collectionName: `string`** — Name of the Document Collection
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.UpdateDocumentListRequest[]`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Document.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">delete</a>(collectionName, documentUuid) -> string</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Delete specified Document from a DocumentCollection.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.document.delete("collectionName", "documentUUID");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**collectionName: `string`** — Name of the Document Collection
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**documentUuid: `string`** — UUID of the Document to be deleted
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Document.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.document.<a href="./src/api/resources/document/client/Client.ts">search</a>(collectionName, { ...params }) -> Zep.DocumentSearchResultPage</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Searches Documents in a DocumentCollection based on provided search criteria.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.document.search("collectionName");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**collectionName: `string`** — Name of the Document Collection
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.DocumentSearchPayload`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Document.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-
-
-## Collection
-
-
-<details><summary> <code>zep.collection.<a href="./src/api/resources/collection/client/Client.ts">list</a>() -> Zep.DocumentCollectionResponse[][]</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">listCollections</a>() -> Zep.DocumentCollectionResponse[][]</code> </summary>
 
 <dl>
 
@@ -854,7 +235,7 @@ Returns a list of all DocumentCollections.
 <dd>
 
 ```ts
-await zep.collection.list();
+await zep.baseDocument.listCollections();
 ```
 
 </dd>
@@ -876,7 +257,7 @@ await zep.collection.list();
 <dd>
 
 
-**requestOptions: `Collection.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -895,7 +276,7 @@ await zep.collection.list();
 </details>
 
 
-<details><summary> <code>zep.collection.<a href="./src/api/resources/collection/client/Client.ts">get</a>(collectionName) -> Zep.DocumentCollectionResponse</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">getCollection</a>(collectionName) -> Zep.DocumentCollectionResponse</code> </summary>
 
 <dl>
 
@@ -932,7 +313,7 @@ Returns a DocumentCollection if it exists.
 <dd>
 
 ```ts
-await zep.collection.get("collectionName");
+await zep.baseDocument.getCollection("collectionName");
 ```
 
 </dd>
@@ -966,7 +347,7 @@ await zep.collection.get("collectionName");
 <dd>
 
 
-**requestOptions: `Collection.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -985,7 +366,7 @@ await zep.collection.get("collectionName");
 </details>
 
 
-<details><summary> <code>zep.collection.<a href="./src/api/resources/collection/client/Client.ts">create</a>(collectionName, { ...params }) -> string</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">addCollection</a>(collectionName, { ...params }) -> string</code> </summary>
 
 <dl>
 
@@ -1022,7 +403,7 @@ If a collection with the same name already exists, an error will be returned.
 <dd>
 
 ```ts
-await zep.collection.create("collectionName", {
+await zep.baseDocument.addCollection("collectionName", {
     embeddingDimensions: 1,
     isAutoEmbedded: true,
     name: "name"
@@ -1072,7 +453,7 @@ await zep.collection.create("collectionName", {
 <dd>
 
 
-**requestOptions: `Collection.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -1091,7 +472,7 @@ await zep.collection.create("collectionName", {
 </details>
 
 
-<details><summary> <code>zep.collection.<a href="./src/api/resources/collection/client/Client.ts">delete</a>(collectionName) -> string</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">deleteCollection</a>(collectionName) -> string</code> </summary>
 
 <dl>
 
@@ -1128,7 +509,7 @@ If a collection with the same name already exists, it will be overwritten.
 <dd>
 
 ```ts
-await zep.collection.delete("collectionName");
+await zep.baseDocument.deleteCollection("collectionName");
 ```
 
 </dd>
@@ -1162,7 +543,7 @@ await zep.collection.delete("collectionName");
 <dd>
 
 
-**requestOptions: `Collection.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -1181,7 +562,7 @@ await zep.collection.delete("collectionName");
 </details>
 
 
-<details><summary> <code>zep.collection.<a href="./src/api/resources/collection/client/Client.ts">update</a>(collectionName, { ...params }) -> string</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">updateCollection</a>(collectionName, { ...params }) -> string</code> </summary>
 
 <dl>
 
@@ -1198,7 +579,7 @@ await zep.collection.delete("collectionName");
 <dd>
 
 ```ts
-await zep.collection.update("collectionName");
+await zep.baseDocument.updateCollection("collectionName");
 ```
 
 </dd>
@@ -1244,7 +625,7 @@ await zep.collection.update("collectionName");
 <dd>
 
 
-**requestOptions: `Collection.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -1263,7 +644,519 @@ await zep.collection.update("collectionName");
 </details>
 
 
-<details><summary> <code>zep.collection.<a href="./src/api/resources/collection/client/Client.ts">createIndex</a>(collectionName, { ...params }) -> string</code> </summary>
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">addDocuments</a>(collectionName, { ...params }) -> string[]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Creates Documents in a specified DocumentCollection and returns their UUIDs.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseDocument.addDocuments("collectionName", [{}]);
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**collectionName: `string`** — Name of the Document Collection
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.CreateDocumentRequest[]`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseDocument.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">batchDeleteDocuments</a>(collectionName, { ...params }) -> string</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Deletes specified Documents from a DocumentCollection.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseDocument.batchDeleteDocuments("collectionName", ["string"]);
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**collectionName: `string`** — Name of the Document Collection
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**request: `string[]`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseDocument.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">batchGetDocuments</a>(collectionName, { ...params }) -> Zep.DocumentResponse[][]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Returns Documents from a DocumentCollection specified by UUID or ID.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseDocument.batchGetDocuments("collectionName");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**collectionName: `string`** — Name of the Document Collection
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.GetDocumentListRequest`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseDocument.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">batchUpdateDocuments</a>(collectionName, { ...params }) -> string</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Updates Documents in a specified DocumentCollection.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseDocument.batchUpdateDocuments("collectionName", [{
+        uuid: "uuid"
+    }]);
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**collectionName: `string`** — Name of the Document Collection
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.UpdateDocumentListRequest[]`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseDocument.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">deleteDocument</a>(collectionName, documentUuid) -> string</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Delete specified Document from a DocumentCollection.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseDocument.deleteDocument("collectionName", "documentUUID");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**collectionName: `string`** — Name of the Document Collection
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**documentUuid: `string`** — UUID of the Document to be deleted
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseDocument.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">createCollectionIndex</a>(collectionName, { ...params }) -> string</code> </summary>
 
 <dl>
 
@@ -1300,7 +1193,7 @@ Creates an index for the specified DocumentCollection to improve query performan
 <dd>
 
 ```ts
-await zep.collection.createIndex("collectionName");
+await zep.baseDocument.createCollectionIndex("collectionName");
 ```
 
 </dd>
@@ -1334,7 +1227,7 @@ await zep.collection.createIndex("collectionName");
 <dd>
 
 
-**request: `Zep.CollectionCreateIndexRequest`** 
+**request: `Zep.BaseDocumentCreateCollectionIndexRequest`** 
 
 
 </dd>
@@ -1346,7 +1239,109 @@ await zep.collection.createIndex("collectionName");
 <dd>
 
 
-**requestOptions: `Collection.RequestOptions`** 
+**requestOptions: `BaseDocument.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseDocument.<a href="./src/api/resources/baseDocument/client/Client.ts">search</a>(collectionName, { ...params }) -> Zep.DocumentSearchResultPage</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Searches Documents in a DocumentCollection based on provided search criteria.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseDocument.search("collectionName");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**collectionName: `string`** — Name of the Document Collection
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.DocumentSearchPayload`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseDocument.RequestOptions`** 
 
 
 </dd>
@@ -1367,10 +1362,190 @@ await zep.collection.createIndex("collectionName");
 
 
 
-## Session
+## BaseMemory
 
 
-<details><summary> <code>zep.session.<a href="./src/api/resources/session/client/Client.ts">list</a>({ ...params }) -> Zep.Session[]</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">listSessions</a>({ ...params }) -> Zep.Session[][]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+get all sessions with optional limit and cursor for pagination
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseMemory.listSessions();
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.BaseMemoryListSessionsRequest`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseMemory.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">addSession</a>({ ...params }) -> Zep.Session</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+add session by id
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseMemory.addSession();
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.CreateSessionRequest`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseMemory.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">listSessionsPaginated</a>({ ...params }) -> Zep.Session[]</code> </summary>
 
 <dl>
 
@@ -1407,7 +1582,7 @@ Get all sessions with optional limit and cursor for pagination.
 <dd>
 
 ```ts
-await zep.session.list();
+await zep.baseMemory.listSessionsPaginated();
 ```
 
 </dd>
@@ -1429,7 +1604,7 @@ await zep.session.list();
 <dd>
 
 
-**request: `Zep.SessionListRequest`** 
+**request: `Zep.BaseMemoryListSessionsPaginatedRequest`** 
 
 
 </dd>
@@ -1441,7 +1616,7 @@ await zep.session.list();
 <dd>
 
 
-**requestOptions: `Session.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -1460,97 +1635,7 @@ await zep.session.list();
 </details>
 
 
-<details><summary> <code>zep.session.<a href="./src/api/resources/session/client/Client.ts">create</a>({ ...params }) -> Zep.Session</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-add session by id
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.session.create();
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.CreateSessionRequest`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Session.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.session.<a href="./src/api/resources/session/client/Client.ts">get</a>(sessionId) -> Zep.Session</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">getSession</a>(sessionId) -> Zep.Session</code> </summary>
 
 <dl>
 
@@ -1587,7 +1672,7 @@ get session by id
 <dd>
 
 ```ts
-await zep.session.get("sessionId");
+await zep.baseMemory.getSession("sessionId");
 ```
 
 </dd>
@@ -1621,7 +1706,7 @@ await zep.session.get("sessionId");
 <dd>
 
 
-**requestOptions: `Session.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -1640,7 +1725,7 @@ await zep.session.get("sessionId");
 </details>
 
 
-<details><summary> <code>zep.session.<a href="./src/api/resources/session/client/Client.ts">update</a>(sessionId, { ...params }) -> Zep.Session</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">updateSession</a>(sessionId, { ...params }) -> Zep.Session</code> </summary>
 
 <dl>
 
@@ -1677,7 +1762,7 @@ add session by id
 <dd>
 
 ```ts
-await zep.session.update("sessionId");
+await zep.baseMemory.updateSession("sessionId");
 ```
 
 </dd>
@@ -1723,7 +1808,7 @@ await zep.session.update("sessionId");
 <dd>
 
 
-**requestOptions: `Session.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -1742,7 +1827,7 @@ await zep.session.update("sessionId");
 </details>
 
 
-<details><summary> <code>zep.session.<a href="./src/api/resources/session/client/Client.ts">classify</a>(sessionId, { ...params }) -> Zep.ClassifySessionResponse</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">classifySession</a>(sessionId, { ...params }) -> Zep.ClassifySessionResponse</code> </summary>
 
 <dl>
 
@@ -1779,7 +1864,7 @@ classify a session by session id
 <dd>
 
 ```ts
-await zep.session.classify("sessionId", {
+await zep.baseMemory.classifySession("sessionId", {
     classes: ["classes"],
     name: "name"
 });
@@ -1828,7 +1913,7 @@ await zep.session.classify("sessionId", {
 <dd>
 
 
-**requestOptions: `Session.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -1847,102 +1932,7 @@ await zep.session.classify("sessionId", {
 </details>
 
 
-<details><summary> <code>zep.session.<a href="./src/api/resources/session/client/Client.ts">getSummaries</a>(sessionId) -> Zep.SummaryListResponse</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-Get session summaries by ID
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.session.getSummaries("sessionId");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**sessionId: `string`** — Session ID
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Session.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-
-
-## Memory
-
-
-<details><summary> <code>zep.memory.<a href="./src/api/resources/memory/client/Client.ts">get</a>(sessionId, { ...params }) -> Zep.Memory</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">get</a>(sessionId, { ...params }) -> Zep.Memory</code> </summary>
 
 <dl>
 
@@ -1979,7 +1969,7 @@ get memory by session id
 <dd>
 
 ```ts
-await zep.memory.get("sessionId");
+await zep.baseMemory.get("sessionId");
 ```
 
 </dd>
@@ -2013,7 +2003,7 @@ await zep.memory.get("sessionId");
 <dd>
 
 
-**request: `Zep.MemoryGetRequest`** 
+**request: `Zep.BaseMemoryGetRequest`** 
 
 
 </dd>
@@ -2025,7 +2015,7 @@ await zep.memory.get("sessionId");
 <dd>
 
 
-**requestOptions: `Memory.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -2044,7 +2034,7 @@ await zep.memory.get("sessionId");
 </details>
 
 
-<details><summary> <code>zep.memory.<a href="./src/api/resources/memory/client/Client.ts">create</a>(sessionId, { ...params }) -> void</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">create</a>(sessionId, { ...params }) -> void</code> </summary>
 
 <dl>
 
@@ -2081,7 +2071,7 @@ add memory messages by session id
 <dd>
 
 ```ts
-await zep.memory.create("sessionId", {});
+await zep.baseMemory.create("sessionId", {});
 ```
 
 </dd>
@@ -2127,7 +2117,7 @@ await zep.memory.create("sessionId", {});
 <dd>
 
 
-**requestOptions: `Memory.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -2146,7 +2136,7 @@ await zep.memory.create("sessionId", {});
 </details>
 
 
-<details><summary> <code>zep.memory.<a href="./src/api/resources/memory/client/Client.ts">delete</a>(sessionId) -> string</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">delete</a>(sessionId) -> void</code> </summary>
 
 <dl>
 
@@ -2183,7 +2173,7 @@ delete memory messages by session id
 <dd>
 
 ```ts
-await zep.memory.delete("sessionId");
+await zep.baseMemory.delete("sessionId");
 ```
 
 </dd>
@@ -2217,7 +2207,7 @@ await zep.memory.delete("sessionId");
 <dd>
 
 
-**requestOptions: `Memory.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -2236,7 +2226,199 @@ await zep.memory.delete("sessionId");
 </details>
 
 
-<details><summary> <code>zep.memory.<a href="./src/api/resources/memory/client/Client.ts">synthesizeQuestion</a>(sessionId, { ...params }) -> Zep.Question</code> </summary>
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">search</a>(sessionId, { ...params }) -> Zep.MemorySearchResult[]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+search memory messages by session id and query
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseMemory.search("sessionId");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**sessionId: `string`** — Session ID
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.MemorySearchPayload`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseMemory.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">getSummaries</a>(sessionId) -> Zep.SummaryListResponse</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+Get session summaries by ID
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseMemory.getSummaries("sessionId");
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**sessionId: `string`** — Session ID
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseMemory.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseMemory.<a href="./src/api/resources/baseMemory/client/Client.ts">synthesizeQuestion</a>(sessionId, { ...params }) -> Zep.Question</code> </summary>
 
 <dl>
 
@@ -2273,7 +2455,7 @@ synthesize a question by session id
 <dd>
 
 ```ts
-await zep.memory.synthesizeQuestion("sessionId");
+await zep.baseMemory.synthesizeQuestion("sessionId");
 ```
 
 </dd>
@@ -2307,7 +2489,7 @@ await zep.memory.synthesizeQuestion("sessionId");
 <dd>
 
 
-**request: `Zep.MemorySynthesizeQuestionRequest`** 
+**request: `Zep.BaseMemorySynthesizeQuestionRequest`** 
 
 
 </dd>
@@ -2319,7 +2501,7 @@ await zep.memory.synthesizeQuestion("sessionId");
 <dd>
 
 
-**requestOptions: `Memory.RequestOptions`** 
+**requestOptions: `BaseMemory.RequestOptions`** 
 
 
 </dd>
@@ -2340,10 +2522,10 @@ await zep.memory.synthesizeQuestion("sessionId");
 
 
 
-## Messages
+## BaseMessages
 
 
-<details><summary> <code>zep.messages.<a href="./src/api/resources/messages/client/Client.ts">list</a>(sessionId) -> Zep.Message[]</code> </summary>
+<details><summary> <code>zep.baseMessages.<a href="./src/api/resources/baseMessages/client/Client.ts">getSessionMessages</a>(sessionId) -> Zep.Message[]</code> </summary>
 
 <dl>
 
@@ -2380,7 +2562,7 @@ get messages by session id
 <dd>
 
 ```ts
-await zep.messages.list("sessionId");
+await zep.baseMessages.getSessionMessages("sessionId");
 ```
 
 </dd>
@@ -2414,7 +2596,7 @@ await zep.messages.list("sessionId");
 <dd>
 
 
-**requestOptions: `Messages.RequestOptions`** 
+**requestOptions: `BaseMessages.RequestOptions`** 
 
 
 </dd>
@@ -2433,7 +2615,7 @@ await zep.messages.list("sessionId");
 </details>
 
 
-<details><summary> <code>zep.messages.<a href="./src/api/resources/messages/client/Client.ts">get</a>(sessionId, messageId) -> Zep.Message</code> </summary>
+<details><summary> <code>zep.baseMessages.<a href="./src/api/resources/baseMessages/client/Client.ts">getSessionMessage</a>(sessionId, messageId) -> Zep.Message</code> </summary>
 
 <dl>
 
@@ -2470,7 +2652,7 @@ get message by session id and message id
 <dd>
 
 ```ts
-await zep.messages.get("sessionId", "messageId");
+await zep.baseMessages.getSessionMessage("sessionId", "messageId");
 ```
 
 </dd>
@@ -2516,7 +2698,7 @@ await zep.messages.get("sessionId", "messageId");
 <dd>
 
 
-**requestOptions: `Messages.RequestOptions`** 
+**requestOptions: `BaseMessages.RequestOptions`** 
 
 
 </dd>
@@ -2535,7 +2717,7 @@ await zep.messages.get("sessionId", "messageId");
 </details>
 
 
-<details><summary> <code>zep.messages.<a href="./src/api/resources/messages/client/Client.ts">update</a>(sessionId, messageId, { ...params }) -> Zep.Message</code> </summary>
+<details><summary> <code>zep.baseMessages.<a href="./src/api/resources/baseMessages/client/Client.ts">updateMessageMetadata</a>(sessionId, messageId, { ...params }) -> Zep.Message</code> </summary>
 
 <dl>
 
@@ -2572,7 +2754,7 @@ update message metadata by session id and message id
 <dd>
 
 ```ts
-await zep.messages.update("sessionId", "messageId", {});
+await zep.baseMessages.updateMessageMetadata("sessionId", "messageId", {});
 ```
 
 </dd>
@@ -2630,7 +2812,7 @@ await zep.messages.update("sessionId", "messageId", {});
 <dd>
 
 
-**requestOptions: `Messages.RequestOptions`** 
+**requestOptions: `BaseMessages.RequestOptions`** 
 
 
 </dd>
@@ -2651,297 +2833,10 @@ await zep.messages.update("sessionId", "messageId", {});
 
 
 
-## Search
+## BaseUser
 
 
-<details><summary> <code>zep.search.<a href="./src/api/resources/search/client/Client.ts">get</a>(sessionId, { ...params }) -> Zep.MemorySearchResult[]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-search memory messages by session id and query
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.search.get("sessionId");
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**sessionId: `string`** — Session ID
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.MemorySearchPayload`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `Search.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-
-
-## User
-
-
-<details><summary> <code>zep.user.<a href="./src/api/resources/user/client/Client.ts">list</a>({ ...params }) -> Zep.User[]</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-List all users with pagination.
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.user.list();
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.UserListRequest`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `User.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.user.<a href="./src/api/resources/user/client/Client.ts">create</a>({ ...params }) -> Zep.User</code> </summary>
-
-<dl>
-
-<dd>
-
-#### 📝 Description
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-add user by id
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-```ts
-await zep.user.create();
-```
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-
-<dd>
-
-<dl>
-
-<dd>
-
-
-**request: `Zep.CreateUserRequest`** 
-
-
-</dd>
-
-</dl>
-
-<dl>
-
-<dd>
-
-
-**requestOptions: `User.RequestOptions`** 
-
-
-</dd>
-
-</dl>
-
-</dd>
-
-</dl>
-
-
-
-</dd>
-
-</dl>
-</details>
-
-
-<details><summary> <code>zep.user.<a href="./src/api/resources/user/client/Client.ts">listOrdered</a>({ ...params }) -> Zep.User[][]</code> </summary>
+<details><summary> <code>zep.baseUser.<a href="./src/api/resources/baseUser/client/Client.ts">list</a>({ ...params }) -> Zep.User[][]</code> </summary>
 
 <dl>
 
@@ -2978,7 +2873,7 @@ list all users
 <dd>
 
 ```ts
-await zep.user.listOrdered();
+await zep.baseUser.list();
 ```
 
 </dd>
@@ -3000,7 +2895,7 @@ await zep.user.listOrdered();
 <dd>
 
 
-**request: `Zep.UserListOrderedRequest`** 
+**request: `Zep.BaseUserListRequest`** 
 
 
 </dd>
@@ -3012,7 +2907,7 @@ await zep.user.listOrdered();
 <dd>
 
 
-**requestOptions: `User.RequestOptions`** 
+**requestOptions: `BaseUser.RequestOptions`** 
 
 
 </dd>
@@ -3031,7 +2926,187 @@ await zep.user.listOrdered();
 </details>
 
 
-<details><summary> <code>zep.user.<a href="./src/api/resources/user/client/Client.ts">get</a>(userId) -> Zep.User</code> </summary>
+<details><summary> <code>zep.baseUser.<a href="./src/api/resources/baseUser/client/Client.ts">add</a>({ ...params }) -> Zep.User</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+add user by id
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseUser.add();
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.CreateUserRequest`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseUser.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseUser.<a href="./src/api/resources/baseUser/client/Client.ts">listOrdered</a>({ ...params }) -> Zep.User[]</code> </summary>
+
+<dl>
+
+<dd>
+
+#### 📝 Description
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+List all users with pagination.
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+```ts
+await zep.baseUser.listOrdered();
+```
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+
+<dd>
+
+<dl>
+
+<dd>
+
+
+**request: `Zep.BaseUserListOrderedRequest`** 
+
+
+</dd>
+
+</dl>
+
+<dl>
+
+<dd>
+
+
+**requestOptions: `BaseUser.RequestOptions`** 
+
+
+</dd>
+
+</dl>
+
+</dd>
+
+</dl>
+
+
+
+</dd>
+
+</dl>
+</details>
+
+
+<details><summary> <code>zep.baseUser.<a href="./src/api/resources/baseUser/client/Client.ts">get</a>(userId) -> Zep.User</code> </summary>
 
 <dl>
 
@@ -3068,7 +3143,7 @@ get user by id
 <dd>
 
 ```ts
-await zep.user.get("userId");
+await zep.baseUser.get("userId");
 ```
 
 </dd>
@@ -3102,7 +3177,7 @@ await zep.user.get("userId");
 <dd>
 
 
-**requestOptions: `User.RequestOptions`** 
+**requestOptions: `BaseUser.RequestOptions`** 
 
 
 </dd>
@@ -3121,7 +3196,7 @@ await zep.user.get("userId");
 </details>
 
 
-<details><summary> <code>zep.user.<a href="./src/api/resources/user/client/Client.ts">delete</a>(userId) -> string</code> </summary>
+<details><summary> <code>zep.baseUser.<a href="./src/api/resources/baseUser/client/Client.ts">delete</a>(userId) -> string</code> </summary>
 
 <dl>
 
@@ -3158,7 +3233,7 @@ delete user by id
 <dd>
 
 ```ts
-await zep.user.delete("userId");
+await zep.baseUser.delete("userId");
 ```
 
 </dd>
@@ -3192,7 +3267,7 @@ await zep.user.delete("userId");
 <dd>
 
 
-**requestOptions: `User.RequestOptions`** 
+**requestOptions: `BaseUser.RequestOptions`** 
 
 
 </dd>
@@ -3211,7 +3286,7 @@ await zep.user.delete("userId");
 </details>
 
 
-<details><summary> <code>zep.user.<a href="./src/api/resources/user/client/Client.ts">update</a>(userId, { ...params }) -> Zep.User</code> </summary>
+<details><summary> <code>zep.baseUser.<a href="./src/api/resources/baseUser/client/Client.ts">update</a>(userId, { ...params }) -> Zep.User</code> </summary>
 
 <dl>
 
@@ -3248,7 +3323,7 @@ update user by id
 <dd>
 
 ```ts
-await zep.user.update("userId");
+await zep.baseUser.update("userId");
 ```
 
 </dd>
@@ -3294,7 +3369,7 @@ await zep.user.update("userId");
 <dd>
 
 
-**requestOptions: `User.RequestOptions`** 
+**requestOptions: `BaseUser.RequestOptions`** 
 
 
 </dd>
@@ -3313,7 +3388,7 @@ await zep.user.update("userId");
 </details>
 
 
-<details><summary> <code>zep.user.<a href="./src/api/resources/user/client/Client.ts">listSessions</a>(userId) -> Zep.Session[]</code> </summary>
+<details><summary> <code>zep.baseUser.<a href="./src/api/resources/baseUser/client/Client.ts">getSessions</a>(userId) -> Zep.Session[]</code> </summary>
 
 <dl>
 
@@ -3350,7 +3425,7 @@ list all sessions for a user by user id
 <dd>
 
 ```ts
-await zep.user.listSessions("userId");
+await zep.baseUser.getSessions("userId");
 ```
 
 </dd>
@@ -3384,7 +3459,7 @@ await zep.user.listSessions("userId");
 <dd>
 
 
-**requestOptions: `User.RequestOptions`** 
+**requestOptions: `BaseUser.RequestOptions`** 
 
 
 </dd>
