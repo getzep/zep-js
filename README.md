@@ -1,15 +1,16 @@
 ![npm](https://img.shields.io/npm/dw/%40getzep/zep-js) [![node-build-test](https://github.com/getzep/zep-js/actions/workflows/node-build-test.yml/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/node-build-test.yml) [![CodeQL](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql)
 
 <p align="center">
-  <a href="https://squidfunk.github.io/mkdocs-material/">
-    <img src="https://github.com/getzep/zep/blob/main/assets/zep-bot-square-200x200.png?raw=true" width="150" alt="Zep Logo">
+  <a href="https://www.getzep.com/">
+    <img src="https://raw.githubusercontent.com/getzep/zep/main/assets/zep-logo-icon-gradient-rgb.svg" width="150" alt="Zep Logo">
   </a>
 </p>
 
 <h1 align="center">
-Zep: Fast, scalable building blocks for LLM apps
+Zep: Long-Term Memory for ‍AI Assistants.
 </h1>
-<h2 align="center">Chat history memory, embedding, vector search, data enrichment, and more.</h2>
+<h2 align="center">Recall, understand, and extract data from chat histories. Power personalized AI experiences.</h2>
+<br />
 
 <p align="center">
 <a href="https://docs.getzep.com/deployment/quickstart/">Quick Start</a> | 
