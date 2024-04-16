@@ -1,8 +1,8 @@
-export * as baseMemory from "./baseMemory";
-export * from "./baseMemory/types";
-export * as baseDocument from "./baseDocument";
-export * as baseMessages from "./baseMessages";
-export * as baseUser from "./baseUser";
-export * from "./baseDocument/client/requests";
-export * from "./baseMemory/client/requests";
-export * from "./baseUser/client/requests";
+export * as memory from "./memory";
+export * from "./memory/types";
+export * as document from "./document";
+export * as messages from "./messages";
+export * as user from "./user";
+export * from "./document/client/requests";
+export * from "./memory/client/requests";
+export * from "./user/client/requests";

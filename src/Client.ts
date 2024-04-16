@@ -4,10 +4,10 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { BaseDocument } from "./api/resources/baseDocument/client/Client";
-import { BaseMemory } from "./api/resources/baseMemory/client/Client";
-import { BaseMessages } from "./api/resources/baseMessages/client/Client";
-import { BaseUser } from "./api/resources/baseUser/client/Client";
+import { Document } from "./api/resources/document/client/Client";
+import { Memory } from "./api/resources/memory/client/Client";
+import { Messages } from "./api/resources/messages/client/Client";
+import { User } from "./api/resources/user/client/Client";
 
 export declare namespace ZepClient {
     interface Options {
@@ -25,27 +25,27 @@ export declare namespace ZepClient {
 export class ZepClient {
     constructor(protected readonly _options: ZepClient.Options = {}) {}
 
-    protected _baseDocument: BaseDocument | undefined;
+    protected _document: Document | undefined;
 
-    public get baseDocument(): BaseDocument {
-        return (this._baseDocument ??= new BaseDocument(this._options));
+    public get document(): Document {
+        return (this._document ??= new Document(this._options));
     }
 
-    protected _baseMemory: BaseMemory | undefined;
+    protected _memory: Memory | undefined;
 
-    public get baseMemory(): BaseMemory {
-        return (this._baseMemory ??= new BaseMemory(this._options));
+    public get memory(): Memory {
+        return (this._memory ??= new Memory(this._options));
     }
 
-    protected _baseMessages: BaseMessages | undefined;
+    protected _messages: Messages | undefined;
 
-    public get baseMessages(): BaseMessages {
-        return (this._baseMessages ??= new BaseMessages(this._options));
+    public get messages(): Messages {
+        return (this._messages ??= new Messages(this._options));
     }
 
-    protected _baseUser: BaseUser | undefined;
+    protected _user: User | undefined;
 
-    public get baseUser(): BaseUser {
-        return (this._baseUser ??= new BaseUser(this._options));
+    public get user(): User {
+        return (this._user ??= new User(this._options));
     }
 }
