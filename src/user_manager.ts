@@ -57,7 +57,7 @@ export default class UserManager {
     */
    async get(userId: string): Promise<User> {
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/users/${userId}`), {
+         fetch(this.client.getFullUrl(`/users/${encodeURIComponent(userId)}`), {
             headers: this.client.headers,
          }),
          `No user found for userId ${userId}`,
@@ -79,14 +79,19 @@ export default class UserManager {
    async update(user: IUpdateUserRequest): Promise<User> {
       const newUserUpdate = new UpdateUserRequest(user);
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/users/${user.user_id}`), {
-            method: "PATCH",
-            headers: {
-               ...this.client.headers,
-               "Content-Type": "application/json",
+         fetch(
+            this.client.getFullUrl(
+               `/users/${encodeURIComponent(user.user_id)}`,
+            ),
+            {
+               method: "PATCH",
+               headers: {
+                  ...this.client.headers,
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify(newUserUpdate.toDict()),
             },
-            body: JSON.stringify(newUserUpdate.toDict()),
-         }),
+         ),
          `Failed to update user ${user.user_id}`,
       );
 
@@ -105,7 +110,7 @@ export default class UserManager {
     */
    async delete(userId: string): Promise<string> {
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/users/${userId}`), {
+         fetch(this.client.getFullUrl(`/users/${encodeURIComponent(userId)}`), {
             method: "DELETE",
             headers: this.client.headers,
          }),
@@ -149,9 +154,14 @@ export default class UserManager {
     */
    async getSessions(userId: string): Promise<Session[]> {
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/users/${userId}/sessions`), {
-            headers: this.client.headers,
-         }),
+         fetch(
+            this.client.getFullUrl(
+               `/users/${encodeURIComponent(userId)}/sessions`,
+            ),
+            {
+               headers: this.client.headers,
+            },
+         ),
          `No sessions found for userId ${userId}`,
       );
 

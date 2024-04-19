@@ -45,14 +45,17 @@ export default class DocumentManager {
       });
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collections/${name}`), {
-            method: "POST",
-            headers: {
-               ...this.client.headers,
-               "Content-Type": "application/json",
+         fetch(
+            this.client.getFullUrl(`/collections/${encodeURIComponent(name)}`),
+            {
+               method: "POST",
+               headers: {
+                  ...this.client.headers,
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify(collection.toDict()),
             },
-            body: JSON.stringify(collection.toDict()),
-         }),
+         ),
       );
 
       return this.getCollection(collection.name);
@@ -73,9 +76,12 @@ export default class DocumentManager {
       }
 
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/collections/${name}`), {
-            headers: this.client.headers,
-         }),
+         fetch(
+            this.client.getFullUrl(`/collections/${encodeURIComponent(name)}`),
+            {
+               headers: this.client.headers,
+            },
+         ),
       );
 
       const responseData = await response.json();
@@ -120,14 +126,19 @@ export default class DocumentManager {
       });
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collections/${collection.name}`), {
-            method: "PATCH",
-            headers: {
-               ...this.client.headers,
-               "Content-Type": "application/json",
+         fetch(
+            this.client.getFullUrl(
+               `/collections/${encodeURIComponent(collection.name)}`,
+            ),
+            {
+               method: "PATCH",
+               headers: {
+                  ...this.client.headers,
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify(collection.toDict()),
             },
-            body: JSON.stringify(collection.toDict()),
-         }),
+         ),
       );
 
       return this.getCollection(collection.name);
@@ -181,10 +192,15 @@ export default class DocumentManager {
       }
 
       await handleRequest(
-         fetch(this.client.getFullUrl(`/collections/${collectionName}`), {
-            method: "DELETE",
-            headers: this.client.headers,
-         }),
+         fetch(
+            this.client.getFullUrl(
+               `/collections/${encodeURIComponent(collectionName)}`,
+            ),
+            {
+               method: "DELETE",
+               headers: this.client.headers,
+            },
+         ),
       );
    }
 }
