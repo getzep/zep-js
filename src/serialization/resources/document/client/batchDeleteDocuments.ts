@@ -11,10 +11,3 @@ export const Request: core.serialization.Schema<serializers.document.batchDelete
 export declare namespace Request {
     type Raw = string[];
 }
-
-export const Response: core.serialization.Schema<serializers.document.batchDeleteDocuments.Response.Raw, string> =
-    core.serialization.string();
-
-export declare namespace Response {
-    type Raw = string;
-}

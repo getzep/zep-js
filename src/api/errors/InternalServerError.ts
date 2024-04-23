@@ -6,7 +6,7 @@ import * as errors from "../../errors";
 import * as Zep from "..";
 
 export class InternalServerError extends errors.ZepError {
-    constructor(body: Zep.ApiError) {
+    constructor(body: Zep.ApihandlersApiError) {
         super({
             message: "InternalServerError",
             statusCode: 500,

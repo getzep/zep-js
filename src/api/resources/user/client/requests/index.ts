@@ -1,4 +1,4 @@
 export { UserListRequest } from "./UserListRequest";
-export { CreateUserRequest } from "./CreateUserRequest";
+export { ModelsCreateUserRequest } from "./ModelsCreateUserRequest";
 export { UserListOrderedRequest } from "./UserListOrderedRequest";
-export { UpdateUserRequest } from "./UpdateUserRequest";
+export { ModelsUpdateUserRequest } from "./ModelsUpdateUserRequest";

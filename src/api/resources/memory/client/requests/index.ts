@@ -1,8 +1,8 @@
+export { ModelsCreateSessionRequest } from "./ModelsCreateSessionRequest";
 export { MemoryListSessionsRequest } from "./MemoryListSessionsRequest";
-export { CreateSessionRequest } from "./CreateSessionRequest";
-export { MemoryListSessionsPaginatedRequest } from "./MemoryListSessionsPaginatedRequest";
-export { UpdateSessionRequest } from "./UpdateSessionRequest";
-export { ClassifySessionRequest } from "./ClassifySessionRequest";
+export { ModelsUpdateSessionRequest } from "./ModelsUpdateSessionRequest";
+export { ModelsClassifySessionRequest } from "./ModelsClassifySessionRequest";
 export { MemoryGetRequest } from "./MemoryGetRequest";
-export { MemorySearchPayload } from "./MemorySearchPayload";
+export { ModelsMessageMetadataUpdate } from "./ModelsMessageMetadataUpdate";
+export { ModelsMemorySearchPayload } from "./ModelsMemorySearchPayload";
 export { MemorySynthesizeQuestionRequest } from "./MemorySynthesizeQuestionRequest";

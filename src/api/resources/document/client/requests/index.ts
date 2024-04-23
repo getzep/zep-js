@@ -1,6 +1,5 @@
-export { UpdateDocumentRequest } from "./UpdateDocumentRequest";
-export { CreateDocumentCollectionRequest } from "./CreateDocumentCollectionRequest";
-export { UpdateDocumentCollectionRequest } from "./UpdateDocumentCollectionRequest";
-export { GetDocumentListRequest } from "./GetDocumentListRequest";
-export { DocumentCreateCollectionIndexRequest } from "./DocumentCreateCollectionIndexRequest";
-export { DocumentSearchPayload } from "./DocumentSearchPayload";
+export { ModelsUpdateDocumentRequest } from "./ModelsUpdateDocumentRequest";
+export { ModelsCreateDocumentCollectionRequest } from "./ModelsCreateDocumentCollectionRequest";
+export { ModelsUpdateDocumentCollectionRequest } from "./ModelsUpdateDocumentCollectionRequest";
+export { ModelsGetDocumentListRequest } from "./ModelsGetDocumentListRequest";
+export { ModelsDocumentSearchPayload } from "./ModelsDocumentSearchPayload";

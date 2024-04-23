@@ -33,7 +33,10 @@ export class User {
      * @example
      *     await zep.user.list()
      */
-    public async list(request: Zep.UserListRequest = {}, requestOptions?: User.RequestOptions): Promise<Zep.User[][]> {
+    public async list(
+        request: Zep.UserListRequest = {},
+        requestOptions?: User.RequestOptions
+    ): Promise<Zep.ModelsUser[][]> {
         const { limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -53,7 +56,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "2.0.0-rc.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -77,7 +80,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -87,7 +90,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -126,7 +129,10 @@ export class User {
      * @example
      *     await zep.user.add()
      */
-    public async add(request: Zep.CreateUserRequest = {}, requestOptions?: User.RequestOptions): Promise<Zep.User> {
+    public async add(
+        request: Zep.ModelsCreateUserRequest = {},
+        requestOptions?: User.RequestOptions
+    ): Promise<Zep.ModelsUser> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -136,18 +142,18 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "2.0.0-rc.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.CreateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.ModelsCreateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.User.parseOrThrow(_response.body, {
+            return await serializers.ModelsUser.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -160,7 +166,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -170,7 +176,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -212,7 +218,7 @@ export class User {
     public async listOrdered(
         request: Zep.UserListOrderedRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<Zep.User[]> {
+    ): Promise<Zep.ModelsUser[]> {
         const { pageNumber, pageSize } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -232,7 +238,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "2.0.0-rc.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -256,7 +262,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -266,7 +272,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -305,7 +311,7 @@ export class User {
      * @example
      *     await zep.user.get("userId")
      */
-    public async get(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.User> {
+    public async get(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.ModelsUser> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -315,7 +321,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "2.0.0-rc.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -325,7 +331,7 @@ export class User {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.User.parseOrThrow(_response.body, {
+            return await serializers.ModelsUser.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -338,7 +344,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -348,7 +354,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -387,7 +393,7 @@ export class User {
      * @example
      *     await zep.user.delete("userId")
      */
-    public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<string> {
+    public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -397,7 +403,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "2.0.0-rc.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -407,20 +413,14 @@ export class User {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.user.delete.Response.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
+            return;
         }
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -430,7 +430,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -472,9 +472,9 @@ export class User {
      */
     public async update(
         userId: string,
-        request: Zep.UpdateUserRequest = {},
+        request: Zep.ModelsUpdateUserRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<Zep.User> {
+    ): Promise<Zep.ModelsUser> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -484,18 +484,18 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "2.0.0-rc.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.UpdateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.ModelsUpdateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.User.parseOrThrow(_response.body, {
+            return await serializers.ModelsUser.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -508,7 +508,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -518,7 +518,7 @@ export class User {
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -528,7 +528,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -566,7 +566,7 @@ export class User {
      * @example
      *     await zep.user.getSessions("userId")
      */
-    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[]> {
+    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.ModelsSession[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -576,7 +576,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "",
-                "X-Fern-SDK-Version": "2.0.0-rc.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -599,7 +599,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -631,7 +631,7 @@ export class User {
     }
 
     protected async _getCustomAuthorizationHeaders() {
-        const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ZEP_API_KEY"];
-        return { Authorization: `Api-Key ${apiKeyValue}` };
+        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
+        return { Authorization: apiKeyValue };
     }
 }

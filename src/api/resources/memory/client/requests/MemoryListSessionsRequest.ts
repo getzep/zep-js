@@ -8,11 +8,19 @@
  */
 export interface MemoryListSessionsRequest {
     /**
-     * Limit the number of results returned
+     * Page number for pagination, starting from 1
      */
-    limit?: number;
+    pageNumber?: number;
     /**
-     * Cursor for pagination
+     * Number of sessions to retrieve per page
      */
-    cursor?: number;
+    pageSize?: number;
+    /**
+     * Field to order the results by: created_at, updated_at, user_id, session_id
+     */
+    orderBy?: string;
+    /**
+     * Order direction: true for ascending, false for descending
+     */
+    asc?: boolean;
 }
