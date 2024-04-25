@@ -7,6 +7,24 @@ import * as Zep from "../../../..";
 /**
  * @example
  *     {}
+ *
+ * @example
+ *     {
+ *         memoryType: Zep.MemoryGetRequestMemoryType.Perpetual,
+ *         lastn: 1
+ *     }
+ *
+ * @example
+ *     {
+ *         memoryType: Zep.MemoryGetRequestMemoryType.Perpetual,
+ *         lastn: 1
+ *     }
+ *
+ * @example
+ *     {
+ *         memoryType: Zep.MemoryGetRequestMemoryType.Perpetual,
+ *         lastn: 1
+ *     }
  */
 export interface MemoryGetRequest {
     /**

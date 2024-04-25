@@ -6,7 +6,7 @@ import * as errors from "../../errors";
 import * as Zep from "..";
 
 export class NotFoundError extends errors.ZepError {
-    constructor(body: Zep.ApihandlersApiError) {
+    constructor(body: Zep.ApiError) {
         super({
             message: "NotFoundError",
             statusCode: 404,

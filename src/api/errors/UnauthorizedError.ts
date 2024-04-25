@@ -6,7 +6,7 @@ import * as errors from "../../errors";
 import * as Zep from "..";
 
 export class UnauthorizedError extends errors.ZepError {
-    constructor(body: Zep.ApihandlersApiError) {
+    constructor(body: Zep.ApiError) {
         super({
             message: "UnauthorizedError",
             statusCode: 401,

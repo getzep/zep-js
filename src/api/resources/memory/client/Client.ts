@@ -36,9 +36,9 @@ export class Memory {
      *     })
      */
     public async addSession(
-        request: Zep.ModelsCreateSessionRequest,
+        request: Zep.CreateSessionRequest,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsSession> {
+    ): Promise<Zep.Session> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -54,14 +54,12 @@ export class Memory {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.ModelsCreateSessionRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            body: await serializers.CreateSessionRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsSession.parseOrThrow(_response.body, {
+            return await serializers.Session.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -74,7 +72,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -84,7 +82,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -122,11 +120,19 @@ export class Memory {
      *
      * @example
      *     await zep.memory.listSessions()
+     *
+     * @example
+     *     await zep.memory.listSessions({
+     *         pageNumber: 1,
+     *         pageSize: 1,
+     *         orderBy: "string",
+     *         asc: true
+     *     })
      */
     public async listSessions(
         request: Zep.MemoryListSessionsRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsSession[]> {
+    ): Promise<Zep.Session[]> {
         const { pageNumber, pageSize, orderBy, asc } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -178,7 +184,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -188,7 +194,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -226,8 +232,11 @@ export class Memory {
      *
      * @example
      *     await zep.memory.getSession("sessionId")
+     *
+     * @example
+     *     await zep.memory.getSession("string")
      */
-    public async getSession(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<Zep.ModelsSession> {
+    public async getSession(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<Zep.Session> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -247,7 +256,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsSession.parseOrThrow(_response.body, {
+            return await serializers.Session.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -260,7 +269,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -270,7 +279,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -311,12 +320,17 @@ export class Memory {
      *     await zep.memory.updateSession("sessionId", {
      *         metadata: {}
      *     })
+     *
+     * @example
+     *     await zep.memory.updateSession("string", {
+     *         metadata: {}
+     *     })
      */
     public async updateSession(
         sessionId: string,
-        request: Zep.ModelsUpdateSessionRequest,
+        request: Zep.UpdateSessionRequest,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsSession> {
+    ): Promise<Zep.Session> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -332,14 +346,12 @@ export class Memory {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.ModelsUpdateSessionRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            body: await serializers.UpdateSessionRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsSession.parseOrThrow(_response.body, {
+            return await serializers.Session.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -352,7 +364,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -362,7 +374,7 @@ export class Memory {
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -372,7 +384,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -413,12 +425,18 @@ export class Memory {
      *         classes: ["classes"],
      *         name: "name"
      *     })
+     *
+     * @example
+     *     await zep.memory.classifySession("string", {
+     *         classes: ["classes"],
+     *         name: "name"
+     *     })
      */
     public async classifySession(
         sessionId: string,
-        request: Zep.ModelsClassifySessionRequest,
+        request: Zep.ClassifySessionRequest,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsClassifySessionResponse> {
+    ): Promise<Zep.ClassifySessionResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -434,14 +452,12 @@ export class Memory {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.ModelsClassifySessionRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            body: await serializers.ClassifySessionRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsClassifySessionResponse.parseOrThrow(_response.body, {
+            return await serializers.ClassifySessionResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -454,7 +470,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -464,7 +480,101 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError();
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * extract data from a session by session id
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await zep.memory.extractSessionData("sessionId", {
+     *         zepDataClasses: [{}]
+     *     })
+     *
+     * @example
+     *     await zep.memory.extractSessionData("string", {
+     *         zepDataClasses: [{}]
+     *     })
+     */
+    public async extractSessionData(
+        sessionId: string,
+        request: Zep.ModelsExtractDataRequest,
+        requestOptions?: Memory.RequestOptions
+    ): Promise<Record<string, string>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                `sessions/${sessionId}/extract`
+            ),
+            method: "POST",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "",
+                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            body: await serializers.ModelsExtractDataRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+        });
+        if (_response.ok) {
+            return await serializers.memory.extractSessionData.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Zep.NotFoundError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -502,12 +612,18 @@ export class Memory {
      *
      * @example
      *     await zep.memory.get("sessionId")
+     *
+     * @example
+     *     await zep.memory.get("string", {
+     *         memoryType: Zep.MemoryGetRequestMemoryType.Perpetual,
+     *         lastn: 1
+     *     })
      */
     public async get(
         sessionId: string,
         request: Zep.MemoryGetRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsMemory> {
+    ): Promise<Zep.Memory> {
         const { memoryType, lastn } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (memoryType != null) {
@@ -538,7 +654,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsMemory.parseOrThrow(_response.body, {
+            return await serializers.Memory.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -551,7 +667,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -561,7 +677,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -598,12 +714,11 @@ export class Memory {
      *
      * @example
      *     await zep.memory.add("sessionId", {})
+     *
+     * @example
+     *     await zep.memory.add("string", {})
      */
-    public async add(
-        sessionId: string,
-        request: Zep.ModelsMemory,
-        requestOptions?: Memory.RequestOptions
-    ): Promise<void> {
+    public async add(sessionId: string, request: Zep.Memory, requestOptions?: Memory.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -619,7 +734,7 @@ export class Memory {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.ModelsMemory.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.Memory.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -631,7 +746,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -669,6 +784,9 @@ export class Memory {
      *
      * @example
      *     await zep.memory.delete("sessionId")
+     *
+     * @example
+     *     await zep.memory.delete("string")
      */
     public async delete(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -697,7 +815,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -707,7 +825,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -745,11 +863,11 @@ export class Memory {
      *
      * @example
      *     await zep.memory.getSessionMessages("sessionId")
+     *
+     * @example
+     *     await zep.memory.getSessionMessages("string")
      */
-    public async getSessionMessages(
-        sessionId: string,
-        requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsMessage[]> {
+    public async getSessionMessages(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<Zep.Message[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -782,7 +900,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -792,7 +910,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -830,12 +948,15 @@ export class Memory {
      *
      * @example
      *     await zep.memory.getSessionMessage("sessionId", "messageUUID")
+     *
+     * @example
+     *     await zep.memory.getSessionMessage("string", "string")
      */
     public async getSessionMessage(
         sessionId: string,
         messageUuid: string,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsMessage> {
+    ): Promise<Zep.Message> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -855,7 +976,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsMessage.parseOrThrow(_response.body, {
+            return await serializers.Message.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -868,7 +989,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -878,7 +999,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -918,13 +1039,18 @@ export class Memory {
      *     await zep.memory.updateMessageMetadata("sessionId", "messageUUID", {
      *         metadata: {}
      *     })
+     *
+     * @example
+     *     await zep.memory.updateMessageMetadata("string", "string", {
+     *         metadata: {}
+     *     })
      */
     public async updateMessageMetadata(
         sessionId: string,
         messageUuid: string,
         request: Zep.ModelsMessageMetadataUpdate,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsMessage> {
+    ): Promise<Zep.Message> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -947,7 +1073,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsMessage.parseOrThrow(_response.body, {
+            return await serializers.Message.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -960,7 +1086,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -970,7 +1096,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1008,12 +1134,17 @@ export class Memory {
      *
      * @example
      *     await zep.memory.search("sessionId")
+     *
+     * @example
+     *     await zep.memory.search("string", {
+     *         limit: 1
+     *     })
      */
     public async search(
         sessionId: string,
-        request: Zep.ModelsMemorySearchPayload = {},
+        request: Zep.MemorySearchPayload = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsMemorySearchResult[]> {
+    ): Promise<Zep.MemorySearchResult[]> {
         const { limit, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -1036,7 +1167,7 @@ export class Memory {
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            body: await serializers.ModelsMemorySearchPayload.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.MemorySearchPayload.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
@@ -1054,7 +1185,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1064,7 +1195,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1102,11 +1233,14 @@ export class Memory {
      *
      * @example
      *     await zep.memory.getSummaries("sessionId")
+     *
+     * @example
+     *     await zep.memory.getSummaries("string")
      */
     public async getSummaries(
         sessionId: string,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsSummaryListResponse> {
+    ): Promise<Zep.SummaryListResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -1126,7 +1260,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsSummaryListResponse.parseOrThrow(_response.body, {
+            return await serializers.SummaryListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1139,7 +1273,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1149,7 +1283,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1187,12 +1321,17 @@ export class Memory {
      *
      * @example
      *     await zep.memory.synthesizeQuestion("sessionId")
+     *
+     * @example
+     *     await zep.memory.synthesizeQuestion("string", {
+     *         lastNMessages: 1
+     *     })
      */
     public async synthesizeQuestion(
         sessionId: string,
         request: Zep.MemorySynthesizeQuestionRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsQuestion> {
+    ): Promise<Zep.Question> {
         const { lastNMessages } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (lastNMessages != null) {
@@ -1219,7 +1358,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsQuestion.parseOrThrow(_response.body, {
+            return await serializers.Question.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1232,7 +1371,7 @@ export class Memory {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1242,7 +1381,7 @@ export class Memory {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -1274,7 +1413,7 @@ export class Memory {
     }
 
     protected async _getCustomAuthorizationHeaders() {
-        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
-        return { Authorization: apiKeyValue };
+        const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ZEP_API_KEY"];
+        return { Authorization: `Api-Key ${apiKeyValue}` };
     }
 }

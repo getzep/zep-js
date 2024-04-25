@@ -5,6 +5,24 @@
 /**
  * @example
  *     {}
+ *
+ * @example
+ *     {
+ *         pageNumber: 1,
+ *         pageSize: 1
+ *     }
+ *
+ * @example
+ *     {
+ *         pageNumber: 1,
+ *         pageSize: 1
+ *     }
+ *
+ * @example
+ *     {
+ *         pageNumber: 1,
+ *         pageSize: 1
+ *     }
  */
 export interface UserListOrderedRequest {
     /**

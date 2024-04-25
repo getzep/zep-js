@@ -32,11 +32,14 @@ export class User {
      *
      * @example
      *     await zep.user.list()
+     *
+     * @example
+     *     await zep.user.list({
+     *         limit: 1,
+     *         cursor: 1
+     *     })
      */
-    public async list(
-        request: Zep.UserListRequest = {},
-        requestOptions?: User.RequestOptions
-    ): Promise<Zep.ModelsUser[][]> {
+    public async list(request: Zep.UserListRequest = {}, requestOptions?: User.RequestOptions): Promise<Zep.User[][]> {
         const { limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -80,7 +83,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -90,7 +93,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -129,10 +132,7 @@ export class User {
      * @example
      *     await zep.user.add()
      */
-    public async add(
-        request: Zep.ModelsCreateUserRequest = {},
-        requestOptions?: User.RequestOptions
-    ): Promise<Zep.ModelsUser> {
+    public async add(request: Zep.CreateUserRequest = {}, requestOptions?: User.RequestOptions): Promise<Zep.User> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -148,12 +148,12 @@ export class User {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.ModelsCreateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.CreateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsUser.parseOrThrow(_response.body, {
+            return await serializers.User.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -166,7 +166,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -176,7 +176,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -214,11 +214,17 @@ export class User {
      *
      * @example
      *     await zep.user.listOrdered()
+     *
+     * @example
+     *     await zep.user.listOrdered({
+     *         pageNumber: 1,
+     *         pageSize: 1
+     *     })
      */
     public async listOrdered(
         request: Zep.UserListOrderedRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<Zep.ModelsUser[]> {
+    ): Promise<Zep.User[]> {
         const { pageNumber, pageSize } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -262,7 +268,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -272,7 +278,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -310,8 +316,11 @@ export class User {
      *
      * @example
      *     await zep.user.get("userId")
+     *
+     * @example
+     *     await zep.user.get("string")
      */
-    public async get(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.ModelsUser> {
+    public async get(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.User> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -331,7 +340,7 @@ export class User {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsUser.parseOrThrow(_response.body, {
+            return await serializers.User.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -344,7 +353,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -354,7 +363,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -392,6 +401,9 @@ export class User {
      *
      * @example
      *     await zep.user.delete("userId")
+     *
+     * @example
+     *     await zep.user.delete("string")
      */
     public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -420,7 +432,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -430,7 +442,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -469,12 +481,15 @@ export class User {
      *
      * @example
      *     await zep.user.update("userId")
+     *
+     * @example
+     *     await zep.user.update("string")
      */
     public async update(
         userId: string,
-        request: Zep.ModelsUpdateUserRequest = {},
+        request: Zep.UpdateUserRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<Zep.ModelsUser> {
+    ): Promise<Zep.User> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -490,12 +505,12 @@ export class User {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.ModelsUpdateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.UpdateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsUser.parseOrThrow(_response.body, {
+            return await serializers.User.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -508,7 +523,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -518,7 +533,7 @@ export class User {
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -528,7 +543,7 @@ export class User {
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -565,8 +580,11 @@ export class User {
      *
      * @example
      *     await zep.user.getSessions("userId")
+     *
+     * @example
+     *     await zep.user.getSessions("string")
      */
-    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.ModelsSession[]> {
+    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -599,7 +617,7 @@ export class User {
             switch (_response.error.statusCode) {
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApihandlersApiError.parseOrThrow(_response.error.body, {
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
@@ -631,7 +649,7 @@ export class User {
     }
 
     protected async _getCustomAuthorizationHeaders() {
-        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
-        return { Authorization: apiKeyValue };
+        const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ZEP_API_KEY"];
+        return { Authorization: `Api-Key ${apiKeyValue}` };
     }
 }

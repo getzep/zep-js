@@ -5,13 +5,13 @@
 import * as serializers from "../../..";
 import * as Zep from "../../../../api";
 import * as core from "../../../../core";
-import { ModelsUpdateDocumentListRequest } from "../../../types/ModelsUpdateDocumentListRequest";
+import { UpdateDocumentListRequest } from "../../../types/UpdateDocumentListRequest";
 
 export const Request: core.serialization.Schema<
     serializers.document.batchUpdateDocuments.Request.Raw,
-    Zep.ModelsUpdateDocumentListRequest[]
-> = core.serialization.list(ModelsUpdateDocumentListRequest);
+    Zep.UpdateDocumentListRequest[]
+> = core.serialization.list(UpdateDocumentListRequest);
 
 export declare namespace Request {
-    type Raw = ModelsUpdateDocumentListRequest.Raw[];
+    type Raw = UpdateDocumentListRequest.Raw[];
 }

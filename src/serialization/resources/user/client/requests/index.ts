@@ -1,2 +1,2 @@
-export { ModelsCreateUserRequest } from "./ModelsCreateUserRequest";
-export { ModelsUpdateUserRequest } from "./ModelsUpdateUserRequest";
+export { CreateUserRequest } from "./CreateUserRequest";
+export { UpdateUserRequest } from "./UpdateUserRequest";

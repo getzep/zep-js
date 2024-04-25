@@ -6,7 +6,7 @@ import * as errors from "../../errors";
 import * as Zep from "..";
 
 export class BadRequestError extends errors.ZepError {
-    constructor(body: Zep.ApihandlersApiError) {
+    constructor(body: Zep.ApiError) {
         super({
             message: "BadRequestError",
             statusCode: 400,

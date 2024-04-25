@@ -1,5 +1,6 @@
-export { ModelsCreateSessionRequest } from "./ModelsCreateSessionRequest";
-export { ModelsUpdateSessionRequest } from "./ModelsUpdateSessionRequest";
-export { ModelsClassifySessionRequest } from "./ModelsClassifySessionRequest";
+export { CreateSessionRequest } from "./CreateSessionRequest";
+export { UpdateSessionRequest } from "./UpdateSessionRequest";
+export { ClassifySessionRequest } from "./ClassifySessionRequest";
+export { ModelsExtractDataRequest } from "./ModelsExtractDataRequest";
 export { ModelsMessageMetadataUpdate } from "./ModelsMessageMetadataUpdate";
-export { ModelsMemorySearchPayload } from "./ModelsMemorySearchPayload";
+export { MemorySearchPayload } from "./MemorySearchPayload";

@@ -5,13 +5,11 @@
 import * as serializers from "../../..";
 import * as Zep from "../../../../api";
 import * as core from "../../../../core";
-import { ModelsMessage } from "../../../types/ModelsMessage";
+import { Message } from "../../../types/Message";
 
-export const Response: core.serialization.Schema<
-    serializers.memory.getSessionMessages.Response.Raw,
-    Zep.ModelsMessage[]
-> = core.serialization.list(ModelsMessage);
+export const Response: core.serialization.Schema<serializers.memory.getSessionMessages.Response.Raw, Zep.Message[]> =
+    core.serialization.list(Message);
 
 export declare namespace Response {
-    type Raw = ModelsMessage.Raw[];
+    type Raw = Message.Raw[];
 }
