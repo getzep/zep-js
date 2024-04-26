@@ -1,6 +1,12 @@
 import { MessageType } from "@langchain/core/messages";
 
-export type RoleType = "user" | "assistant" | "system" | "function" | "tool";
+export type RoleType =
+   | "user"
+   | "assistant"
+   | "system"
+   | "function"
+   | "tool"
+   | "norole";
 
 /**
  * IMessage interface for providing input to create a Message instance.
@@ -77,6 +83,6 @@ export const getZepMessageRoleType = (role: MessageType): RoleType => {
       case "tool":
          return "tool";
       default:
-         return "system";
+         return "norole";
    }
 };
