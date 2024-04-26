@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "version": "2.0.0-rc.5",
+    "name": "zep",
+    "version": "0.0.0",
     "private": false,
     "repository": "https://github.com/getzep/zep-js",
     "main": "./index.js",
