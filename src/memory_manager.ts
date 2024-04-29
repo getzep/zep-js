@@ -35,9 +35,14 @@ export default class MemoryManager {
       }
 
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/sessions/${sessionId}`), {
-            headers: this.client.headers,
-         }),
+         fetch(
+            this.client.getFullUrl(
+               `/sessions/${encodeURIComponent(sessionId)}`,
+            ),
+            {
+               headers: this.client.headers,
+            },
+         ),
          `No session found for session ${sessionId}`,
       );
 
@@ -57,7 +62,7 @@ export default class MemoryManager {
       const response = await handleRequest(
          fetch(
             `${this.client.getFullUrl(
-               `/sessions/${sessionId}/synthesize_question`,
+               `/sessions/${encodeURIComponent(sessionId)}/synthesize_question`,
             )}?lastNMessages=${lastN}`,
             {
                headers: this.client.headers,
@@ -124,14 +129,19 @@ export default class MemoryManager {
       }
 
       const response = await handleRequest(
-         fetch(this.client.getFullUrl(`/sessions/${session.session_id}`), {
-            method: "PATCH",
-            headers: {
-               ...this.client.headers,
-               "Content-Type": "application/json",
+         fetch(
+            this.client.getFullUrl(
+               `/sessions/${encodeURIComponent(session.session_id)}`,
+            ),
+            {
+               method: "PATCH",
+               headers: {
+                  ...this.client.headers,
+                  "Content-Type": "application/json",
+               },
+               body: JSON.stringify(session.toDict()),
             },
-            body: JSON.stringify(session.toDict()),
-         }),
+         ),
          `Failed to update session ${session.session_id}`,
       );
 
@@ -215,7 +225,9 @@ export default class MemoryManager {
       type?: MemoryType,
       lastn?: number,
    ): Promise<Memory | null> {
-      const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
+      const url = this.client.getFullUrl(
+         `/sessions/${encodeURIComponent(sessionID)}/memory`,
+      );
       let params = lastn !== undefined ? `?lastn=${lastn}` : "";
 
       const memoryType = type ?? "perpetual";
@@ -253,7 +265,9 @@ export default class MemoryManager {
     * @throws {APIError} If the request fails.
     */
    async addMemory(sessionID: string, memory: Memory): Promise<string> {
-      const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
+      const url = this.client.getFullUrl(
+         `/sessions/${encodeURIComponent(sessionID)}/memory`,
+      );
 
       const response: Response = await handleRequest(
          fetch(url, {
@@ -280,7 +294,9 @@ export default class MemoryManager {
     * @throws {NotFoundError} - If the session is not found.
     */
    async deleteMemory(sessionID: string): Promise<string> {
-      const url = this.client.getFullUrl(`/sessions/${sessionID}/memory`);
+      const url = this.client.getFullUrl(
+         `/sessions/${encodeURIComponent(sessionID)}/memory`,
+      );
 
       const response: Response = await handleRequest(
          fetch(url, {
@@ -308,7 +324,9 @@ export default class MemoryManager {
       searchPayload: MemorySearchPayload,
       limit?: number,
    ): Promise<Array<MemorySearchResult>> {
-      const url = this.client.getFullUrl(`/sessions/${sessionID}/search`);
+      const url = this.client.getFullUrl(
+         `/sessions/${encodeURIComponent(sessionID)}/search`,
+      );
       const params = limit !== undefined ? `?limit=${limit}&` : "";
       const response: Response = await handleRequest(
          fetch(`${url}${params}`, {
@@ -371,7 +389,9 @@ export default class MemoryManager {
          instruction,
       };
 
-      const url = this.client.getFullUrl(`/sessions/${sessionId}/classify`);
+      const url = this.client.getFullUrl(
+         `/sessions/${encodeURIComponent(sessionId)}/classify`,
+      );
       const response: Response = await handleRequest(
          fetch(url, {
             method: "POST",

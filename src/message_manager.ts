@@ -19,7 +19,9 @@ export default class MessageManager {
          throw new Error("sessionId must be provided");
       }
 
-      let url = this.client.getFullUrl(`/sessions/${sessionId}/messages`);
+      let url = this.client.getFullUrl(
+         `/sessions/${encodeURIComponent(sessionId)}/messages`,
+      );
 
       const params = new URLSearchParams();
       if (limit) params.append("limit", limit.toString());
@@ -57,7 +59,9 @@ export default class MessageManager {
       const response = await handleRequest(
          fetch(
             this.client.getFullUrl(
-               `/sessions/${sessionId}/messages/${messageId}`,
+               `/sessions/${encodeURIComponent(
+                  sessionId,
+               )}/messages/${encodeURIComponent(messageId)}`,
             ),
             {
                headers: this.client.headers,
@@ -87,7 +91,9 @@ export default class MessageManager {
       const response = await handleRequest(
          fetch(
             this.client.getFullUrl(
-               `/sessions/${sessionId}/messages/${messageId}`,
+               `/sessions/${encodeURIComponent(
+                  sessionId,
+               )}/messages/${encodeURIComponent(messageId)}`,
             ),
             {
                method: "PATCH",
