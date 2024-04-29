@@ -210,7 +210,6 @@ async function main() {
       },
       3,
    );
-   console.log("Returned array length:", searchResults.length);
 
    // Delete a document
    const documentToDelete = searchResults[0].uuid;
