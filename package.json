@@ -1,7 +1,7 @@
 {
   "show-config": "tsc --showConfig",
   "name": "@getzep/zep-js",
-  "version": "2.0.0-rc.4",
+  "version": "2.0.0-rc.5",
   "description": "Zep: Fast, scalable building blocks for production LLM apps",
   "private": false,
   "publishConfig": {
