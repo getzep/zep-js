@@ -3,14 +3,14 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 import { Message } from "./Message";
 import { Summary } from "./Summary";
 
 export const MemorySearchResult: core.serialization.ObjectSchema<
     serializers.MemorySearchResult.Raw,
-    Zep.MemorySearchResult
+    BaseApi.MemorySearchResult
 > = core.serialization.object({
     embedding: core.serialization.list(core.serialization.number()).optional(),
     message: Message.optional(),

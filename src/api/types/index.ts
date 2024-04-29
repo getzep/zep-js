@@ -9,7 +9,7 @@ export * from "./Memory";
 export * from "./MemorySearchResult";
 export * from "./Message";
 export * from "./Question";
-export * from "./ModelsRoleType";
+export * from "./RoleType";
 export * from "./SearchScope";
 export * from "./SearchType";
 export * from "./Session";

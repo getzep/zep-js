@@ -3,12 +3,14 @@
  */
 
 import * as serializers from "../../..";
-import * as Zep from "../../../../api";
+import * as BaseApi from "../../../../api";
 import * as core from "../../../../core";
 import { Message } from "../../../types/Message";
 
-export const Response: core.serialization.Schema<serializers.memory.getSessionMessages.Response.Raw, Zep.Message[]> =
-    core.serialization.list(Message);
+export const Response: core.serialization.Schema<
+    serializers.memory.getSessionMessages.Response.Raw,
+    BaseApi.Message[]
+> = core.serialization.list(Message);
 
 export declare namespace Response {
     type Raw = Message.Raw[];

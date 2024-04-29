@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../..";
-import * as Zep from "../../../../api";
+import * as BaseApi from "../../../../api";
 import * as core from "../../../../core";
 
 export const MemoryGetRequestMemoryType: core.serialization.Schema<
     serializers.MemoryGetRequestMemoryType.Raw,
-    Zep.MemoryGetRequestMemoryType
+    BaseApi.MemoryGetRequestMemoryType
 > = core.serialization.enum_(["perpetual", "summary_retriever", "message_window"]);
 
 export declare namespace MemoryGetRequestMemoryType {

@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../..";
-import * as Zep from "../../../../../api";
+import * as BaseApi from "../../../../../api";
 import * as core from "../../../../../core";
 import { SearchType } from "../../../../types/SearchType";
 
 export const DocumentSearchPayload: core.serialization.Schema<
     serializers.DocumentSearchPayload.Raw,
-    Omit<Zep.DocumentSearchPayload, "limit">
+    Omit<BaseApi.DocumentSearchPayload, "limit">
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     minScore: core.serialization.property("min_score", core.serialization.number().optional()),

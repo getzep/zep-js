@@ -3,17 +3,18 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 import { Message } from "./Message";
 import { Summary } from "./Summary";
 
-export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Zep.Memory> = core.serialization.object({
-    facts: core.serialization.list(core.serialization.string()).optional(),
-    messages: core.serialization.list(Message).optional(),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    summary: Summary.optional(),
-});
+export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, BaseApi.Memory> =
+    core.serialization.object({
+        facts: core.serialization.list(core.serialization.string()).optional(),
+        messages: core.serialization.list(Message).optional(),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        summary: Summary.optional(),
+    });
 
 export declare namespace Memory {
     interface Raw {

@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import * as Zep from "../../../../../api";
+import * as BaseApi from "../../../../../api";
 import * as core from "../../../../../core";
 
 export const ModelsMessageMetadataUpdate: core.serialization.Schema<
     serializers.ModelsMessageMetadataUpdate.Raw,
-    Zep.ModelsMessageMetadataUpdate
+    BaseApi.ModelsMessageMetadataUpdate
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
 });

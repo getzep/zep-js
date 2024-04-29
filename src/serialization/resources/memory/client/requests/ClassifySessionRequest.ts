@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import * as Zep from "../../../../../api";
+import * as BaseApi from "../../../../../api";
 import * as core from "../../../../../core";
 
 export const ClassifySessionRequest: core.serialization.Schema<
     serializers.ClassifySessionRequest.Raw,
-    Zep.ClassifySessionRequest
+    BaseApi.ClassifySessionRequest
 > = core.serialization.object({
     classes: core.serialization.list(core.serialization.string()),
     instruction: core.serialization.string().optional(),

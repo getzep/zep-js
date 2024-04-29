@@ -3,10 +3,10 @@
  */
 
 import * as errors from "../../errors";
-import * as Zep from "..";
+import * as BaseApi from "..";
 
-export class BadRequestError extends errors.ZepError {
-    constructor(body: Zep.ApiError) {
+export class BadRequestError extends errors.BaseApiError {
+    constructor(body: BaseApi.ApiError) {
         super({
             message: "BadRequestError",
             statusCode: 400,

@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 
-export const SearchScope: core.serialization.Schema<serializers.SearchScope.Raw, Zep.SearchScope> =
+export const SearchScope: core.serialization.Schema<serializers.SearchScope.Raw, BaseApi.SearchScope> =
     core.serialization.enum_(["messages", "summary"]);
 
 export declare namespace SearchScope {

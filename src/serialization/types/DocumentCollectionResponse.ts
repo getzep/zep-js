@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 
 export const DocumentCollectionResponse: core.serialization.ObjectSchema<
     serializers.DocumentCollectionResponse.Raw,
-    Zep.DocumentCollectionResponse
+    BaseApi.DocumentCollectionResponse
 > = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     description: core.serialization.string().optional(),

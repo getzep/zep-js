@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../../..";
-import * as Zep from "../../../../../api";
+import * as BaseApi from "../../../../../api";
 import * as core from "../../../../../core";
 import { ModelsZepDataClass } from "../../../../types/ModelsZepDataClass";
 
 export const ModelsExtractDataRequest: core.serialization.Schema<
     serializers.ModelsExtractDataRequest.Raw,
-    Zep.ModelsExtractDataRequest
+    BaseApi.ModelsExtractDataRequest
 > = core.serialization.object({
     lastNMessages: core.serialization.property("last_n_messages", core.serialization.number().optional()),
     zepDataClasses: core.serialization.property("zep_data_classes", core.serialization.list(ModelsZepDataClass)),
