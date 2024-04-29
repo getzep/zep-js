@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 
-export const Question: core.serialization.ObjectSchema<serializers.Question.Raw, Zep.Question> =
+export const Question: core.serialization.ObjectSchema<serializers.Question.Raw, BaseApi.Question> =
     core.serialization.object({
         question: core.serialization.string().optional(),
     });

@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 
-export const SearchType: core.serialization.Schema<serializers.SearchType.Raw, Zep.SearchType> =
+export const SearchType: core.serialization.Schema<serializers.SearchType.Raw, BaseApi.SearchType> =
     core.serialization.enum_(["similarity", "mmr"]);
 
 export declare namespace SearchType {

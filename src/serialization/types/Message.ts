@@ -3,22 +3,21 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
-import { ModelsRoleType } from "./ModelsRoleType";
+import { RoleType } from "./RoleType";
 
-export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Zep.Message> = core.serialization.object(
-    {
+export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, BaseApi.Message> =
+    core.serialization.object({
         content: core.serialization.string().optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         role: core.serialization.string().optional(),
-        roleType: core.serialization.property("role_type", ModelsRoleType.optional()),
+        roleType: core.serialization.property("role_type", RoleType.optional()),
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
-    }
-);
+    });
 
 export declare namespace Message {
     interface Raw {
@@ -26,7 +25,7 @@ export declare namespace Message {
         created_at?: string | null;
         metadata?: Record<string, unknown> | null;
         role?: string | null;
-        role_type?: ModelsRoleType.Raw | null;
+        role_type?: RoleType.Raw | null;
         token_count?: number | null;
         updated_at?: string | null;
         uuid?: string | null;

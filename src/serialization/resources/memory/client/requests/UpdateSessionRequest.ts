@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import * as Zep from "../../../../../api";
+import * as BaseApi from "../../../../../api";
 import * as core from "../../../../../core";
 
 export const UpdateSessionRequest: core.serialization.Schema<
     serializers.UpdateSessionRequest.Raw,
-    Zep.UpdateSessionRequest
+    BaseApi.UpdateSessionRequest
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
 });

@@ -3,14 +3,14 @@
  */
 
 import * as serializers from "../../../..";
-import * as Zep from "../../../../../api";
+import * as BaseApi from "../../../../../api";
 import * as core from "../../../../../core";
 import { SearchScope } from "../../../../types/SearchScope";
 import { SearchType } from "../../../../types/SearchType";
 
 export const MemorySearchPayload: core.serialization.Schema<
     serializers.MemorySearchPayload.Raw,
-    Omit<Zep.MemorySearchPayload, "limit">
+    Omit<BaseApi.MemorySearchPayload, "limit">
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     minScore: core.serialization.property("min_score", core.serialization.number().optional()),

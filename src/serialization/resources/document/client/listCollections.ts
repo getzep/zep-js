@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../..";
-import * as Zep from "../../../../api";
+import * as BaseApi from "../../../../api";
 import * as core from "../../../../core";
 import { DocumentCollectionResponse } from "../../../types/DocumentCollectionResponse";
 
 export const Response: core.serialization.Schema<
     serializers.document.listCollections.Response.Raw,
-    Zep.DocumentCollectionResponse[][]
+    BaseApi.DocumentCollectionResponse[][]
 > = core.serialization.list(core.serialization.list(DocumentCollectionResponse));
 
 export declare namespace Response {

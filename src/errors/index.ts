@@ -1,2 +1,2 @@
-export { ZepError } from "./ZepError";
-export { ZepTimeoutError } from "./ZepTimeoutError";
+export { BaseApiError } from "./BaseApiError";
+export { BaseApiTimeoutError } from "./BaseApiTimeoutError";

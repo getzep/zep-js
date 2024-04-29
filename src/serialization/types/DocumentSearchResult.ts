@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 
 export const DocumentSearchResult: core.serialization.ObjectSchema<
     serializers.DocumentSearchResult.Raw,
-    Zep.DocumentSearchResult
+    BaseApi.DocumentSearchResult
 > = core.serialization.object({
     content: core.serialization.string().optional(),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),

@@ -3,17 +3,19 @@
  */
 
 import * as serializers from "../../../..";
-import * as Zep from "../../../../../api";
+import * as BaseApi from "../../../../../api";
 import * as core from "../../../../../core";
 
-export const CreateUserRequest: core.serialization.Schema<serializers.CreateUserRequest.Raw, Zep.CreateUserRequest> =
-    core.serialization.object({
-        email: core.serialization.string().optional(),
-        firstName: core.serialization.property("first_name", core.serialization.string().optional()),
-        lastName: core.serialization.property("last_name", core.serialization.string().optional()),
-        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        userId: core.serialization.property("user_id", core.serialization.string().optional()),
-    });
+export const CreateUserRequest: core.serialization.Schema<
+    serializers.CreateUserRequest.Raw,
+    BaseApi.CreateUserRequest
+> = core.serialization.object({
+    email: core.serialization.string().optional(),
+    firstName: core.serialization.property("first_name", core.serialization.string().optional()),
+    lastName: core.serialization.property("last_name", core.serialization.string().optional()),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    userId: core.serialization.property("user_id", core.serialization.string().optional()),
+});
 
 export declare namespace CreateUserRequest {
     interface Raw {

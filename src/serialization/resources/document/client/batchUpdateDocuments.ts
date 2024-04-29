@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "../../..";
-import * as Zep from "../../../../api";
+import * as BaseApi from "../../../../api";
 import * as core from "../../../../core";
 import { UpdateDocumentListRequest } from "../../../types/UpdateDocumentListRequest";
 
 export const Request: core.serialization.Schema<
     serializers.document.batchUpdateDocuments.Request.Raw,
-    Zep.UpdateDocumentListRequest[]
+    BaseApi.UpdateDocumentListRequest[]
 > = core.serialization.list(UpdateDocumentListRequest);
 
 export declare namespace Request {

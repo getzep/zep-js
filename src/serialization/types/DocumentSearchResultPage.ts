@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 import { DocumentSearchResult } from "./DocumentSearchResult";
 
 export const DocumentSearchResultPage: core.serialization.ObjectSchema<
     serializers.DocumentSearchResultPage.Raw,
-    Zep.DocumentSearchResultPage
+    BaseApi.DocumentSearchResultPage
 > = core.serialization.object({
     currentPage: core.serialization.property("current_page", core.serialization.number().optional()),
     queryVector: core.serialization.property(

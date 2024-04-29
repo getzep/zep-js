@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "..";
-import * as Zep from "../../api";
+import * as BaseApi from "../../api";
 import * as core from "../../core";
 
 export const UpdateDocumentListRequest: core.serialization.ObjectSchema<
     serializers.UpdateDocumentListRequest.Raw,
-    Zep.UpdateDocumentListRequest
+    BaseApi.UpdateDocumentListRequest
 > = core.serialization.object({
     documentId: core.serialization.property("document_id", core.serialization.string().optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),

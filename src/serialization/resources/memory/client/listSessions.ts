@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "../../..";
-import * as Zep from "../../../../api";
+import * as BaseApi from "../../../../api";
 import * as core from "../../../../core";
 import { Session } from "../../../types/Session";
 
-export const Response: core.serialization.Schema<serializers.memory.listSessions.Response.Raw, Zep.Session[]> =
+export const Response: core.serialization.Schema<serializers.memory.listSessions.Response.Raw, BaseApi.Session[]> =
     core.serialization.list(Session);
 
 export declare namespace Response {
