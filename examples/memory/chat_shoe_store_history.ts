@@ -1,4 +1,4 @@
-import { ModelsRoleType } from "../../src/api/";
+import { RoleType } from "../../src/api/";
 
 export const history: {
     role: string;
