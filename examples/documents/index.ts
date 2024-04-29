@@ -184,26 +184,6 @@ async function main() {
    );
    printResults(mmrSearchResults);
 
-   // Search by embedding
-   const interestingDocument = searchResults[0];
-   console.log(
-      `Searching for documents similar to:\n${interestingDocument.content}\n`,
-   );
-   if (!interestingDocument.embedding) {
-      throw new Error("No embedding found for document");
-   }
-   const vectorToSearch = new Float32Array(interestingDocument.embedding);
-   const embeddingSearchResults = await collection.search(
-      {
-         embedding: vectorToSearch,
-      },
-      3,
-   );
-   console.log(
-      `Found ${embeddingSearchResults.length} documents matching embedding`,
-   );
-   printResults(embeddingSearchResults);
-
    // Search for documents using both text and metadata
    const metadataQuery = {
       where: { jsonpath: '$[*] ? (@.bar == "qux")' },
@@ -230,10 +210,9 @@ async function main() {
       },
       3,
    );
-   console.log("Returned array length:", embeddingSearchResults.length);
 
    // Delete a document
-   const documentToDelete = embeddingSearchResults[0].uuid;
+   const documentToDelete = searchResults[0].uuid;
    if (!documentToDelete) {
       throw new Error("No document to delete");
    }
