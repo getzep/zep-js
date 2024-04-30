@@ -11,17 +11,19 @@
         "prepack": "cp -rv dist/. ."
     },
     "dependencies": {
-        "url-join": "4.0.1",
         "form-data": "4.0.0",
         "node-fetch": "2.7.0",
-        "qs": "6.11.2"
+        "qs": "6.11.2",
+        "url-join": "4.0.1"
     },
     "devDependencies": {
-        "@types/url-join": "4.0.1",
-        "@types/qs": "6.9.8",
-        "@types/node-fetch": "2.6.9",
+        "@faker-js/faker": "^8.4.1",
         "@types/node": "17.0.33",
+        "@types/node-fetch": "2.6.9",
+        "@types/qs": "6.9.8",
+        "@types/url-join": "4.0.1",
         "prettier": "2.7.1",
-        "typescript": "4.6.4"
+        "typescript": "4.6.4",
+        "langchain": "~0.1.19"
     }
 }
