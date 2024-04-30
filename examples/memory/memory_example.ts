@@ -19,6 +19,7 @@ async function main() {
 
     const client = new ZepClient({
         apiKey: projectApiKey,
+        environment: projectApiUrl,
     });
 
     // Create a user
