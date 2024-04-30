@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import { CreateUserRequest, Memory, MemorySearchPayload, Message, NotFoundError, Session } from "../../src/api";
+import { CreateUserRequest, NotFoundError } from "../../src/api";
+import { ZepClient } from "../../src";
 
 // @ts-ignore
 import { history } from "./chat_shoe_store_history";
@@ -16,33 +17,32 @@ async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
     const projectApiUrl = process.env.ZEP_API_URL;
 
-    const client = await ZepClient.init(projectApiKey, projectApiUrl);
+    const client = new ZepClient({
+        apiKey: projectApiKey,
+    });
 
     // Create a user
     const userId = uuidv4();
-    const userRequest: ICreateUserRequest = {
-        user_id: `amy${userId}`,
+    const userRequest: CreateUserRequest = {
+        userId: `amy${userId}`,
         metadata: { role: "admin" },
         email: "amy@acme.com",
-        first_name: "Amy",
-        last_name: "Wu",
+        firstName: "Amy",
+        lastName: "Wu",
     };
     const user = await client.user.add(userRequest);
-    console.debug("Created user ", user.toDict());
+    console.debug("Created user ", user);
 
     // Example session ID
     const sessionID = uuidv4();
 
     // Add session associated with the above user
     try {
-        const sessionData: ISession = {
-            session_id: sessionID,
+        await client.memory.addSession({
+            sessionId: sessionID,
             metadata: { foo: "bar" },
-            user_id: user.user_id,
-        };
-        const session = new Session(sessionData);
-
-        await client.memory.addSession(session);
+            userId: user.userId,
+        });
         console.debug("Adding new session ", sessionID);
     } catch (error) {
         console.debug("Got error:", error);
@@ -51,7 +51,7 @@ async function main() {
     // Get session
     try {
         const session = await client.memory.getSession(sessionID);
-        console.debug("Retrieved session ", session.toDict());
+        console.debug("Retrieved session ", session);
     } catch (error) {
         console.debug("Got error:", error);
     }
@@ -60,10 +60,9 @@ async function main() {
     // ensure that summaries and other artifacts are generated correctly.
     try {
         for (const { role, role_type, content } of history) {
-            const message = new Message({ role, role_type, content });
-            const memory = new Memory({ messages: [message] });
-
-            await client.memory.addMemory(sessionID, memory);
+            await client.memory.add(sessionID, {
+                messages: [{ role, roleType: role_type, content }],
+            });
         }
         console.debug("Added new memory for session ", sessionID);
     } catch (error) {
@@ -75,7 +74,7 @@ async function main() {
         // Useful for RAG apps.
         // This is faster than using an LLM chain.
         console.debug("\n---Synthesize a question from most recent messages");
-        const question = await client.memory.synthesizeQuestion(sessionID, 3);
+        const question = await client.memory.synthesizeQuestion(sessionID, { lastNMessages: 3 });
         console.debug(`Question: ${question}`);
     } catch (error) {
         console.debug("Got error:", error);
@@ -86,7 +85,10 @@ async function main() {
         // Useful for semantic routing, filtering, and many other use cases.
         console.debug("\n---Classify the session");
         const classes = ["low spender <$50", "medium spender >=$50, <$100", "high spender >=$100", "unknown"];
-        const classification = await client.memory.classifySession(sessionID, "spender_category", classes);
+        const classification = await client.memory.classifySession(sessionID, {
+            name: "spender_category",
+            classes,
+        });
         console.debug(`${classification.class} Classification Result: ${classification.name}`);
     } catch (error) {
         console.debug("Got error:", error);
@@ -99,8 +101,8 @@ async function main() {
     // Get newly added memory
     try {
         console.debug("Getting memory for newly added memory with sessionid ", sessionID);
-        const memory = await client.memory.getMemory(sessionID);
-        if (memory) {
+        const memory = await client.memory.get(sessionID);
+        if (memory?.messages) {
             memory.messages.forEach((message) => {
                 console.debug(JSON.stringify(message));
             });
@@ -116,7 +118,7 @@ async function main() {
     // get session messages
     let sessionMessages: any[] = [];
     try {
-        sessionMessages = await client.message.getSessionMessages(sessionID, 10, 1);
+        sessionMessages = await client.memory.getSessionMessages(sessionID);
         console.debug("Session messages: ", JSON.stringify(sessionMessages));
     } catch (error) {
         if (error instanceof NotFoundError) {
@@ -131,11 +133,9 @@ async function main() {
     // Update session message metadata
     try {
         const metadata = { metadata: { foo: "bar" } };
-        const updatedMessage = await client.message.updateSessionMessageMetadata(
-            sessionID,
-            firstSessionsMessageId,
-            metadata
-        );
+        const updatedMessage = await client.memory.updateMessageMetadata(sessionID, firstSessionsMessageId, {
+            metadata: metadata,
+        });
         console.debug("Updated message: ", JSON.stringify(updatedMessage));
     } catch (error) {
         if (error instanceof NotFoundError) {
@@ -148,7 +148,7 @@ async function main() {
     // Get session message
 
     try {
-        const message = await client.message.getSessionMessage(sessionID, firstSessionsMessageId);
+        const message = await client.memory.getSessionMessage(sessionID, firstSessionsMessageId);
         console.debug("Session message: ", JSON.stringify(message));
     } catch (error) {
         if (error instanceof NotFoundError) {
@@ -163,7 +163,7 @@ async function main() {
         const searchText = "Name some books that are about dystopian futures.";
         console.debug("Searching memory...", searchText);
 
-        const searchPayload = new MemorySearchPayload({
+        const searchResults = await client.memory.search(sessionID, {
             metadata: {
                 where: {
                     and: [
@@ -178,7 +178,6 @@ async function main() {
             },
             text: searchText,
         });
-        const searchResults = await client.memory.searchMemory(sessionID, searchPayload);
 
         searchResults.forEach((searchResult) => {
             console.debug("Search Result: ", JSON.stringify(searchResult.message));
@@ -197,12 +196,12 @@ async function main() {
         const searchText = "Name some books that are about dystopian futures.";
         console.debug("Searching memory with MMR...", searchText);
 
-        const searchPayload = new MemorySearchPayload({
+        const searchResults = await client.memory.search(sessionID, {
             text: searchText,
-            search_type: "mmr",
-            mmr_lambda: 0.6,
+            searchType: "mmr",
+            mmrLambda: 0.6,
+            limit: 3,
         });
-        const searchResults = await client.memory.searchMemory(sessionID, searchPayload, 3);
 
         searchResults.forEach((searchResult) => {
             console.debug("Search Result: ", JSON.stringify(searchResult.message));
@@ -221,13 +220,13 @@ async function main() {
         const searchText = "Name some books that are about dystopian futures.";
         console.debug("Searching summaries with MMR...", searchText);
 
-        const searchPayload = new MemorySearchPayload({
+        const searchResults = await client.memory.search(sessionID, {
             text: searchText,
-            search_scope: "summary",
-            search_type: "mmr",
-            mmr_lambda: 0.6,
+            searchScope: "summary",
+            searchType: "mmr",
+            mmrLambda: 0.6,
+            limit: 3,
         });
-        const searchResults = await client.memory.searchMemory(sessionID, searchPayload, 3);
 
         searchResults.forEach((searchResult) => {
             console.debug("Search Result: ", JSON.stringify(searchResult.summary));
