@@ -4,14 +4,14 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as BaseApi from "../../..";
+import * as Zep from "../../..";
 import urlJoin from "url-join";
 import * as serializers from "../../../../serialization";
 import * as errors from "../../../../errors";
 
 export declare namespace User {
     interface Options {
-        environment?: core.Supplier<environments.BaseApiEnvironment | string>;
+        environment?: core.Supplier<environments.ZepEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
@@ -27,22 +27,19 @@ export class User {
 
     /**
      * list all users
-     * @throws {@link BaseApi.BadRequestError}
-     * @throws {@link BaseApi.InternalServerError}
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await baseApi.user.list()
+     *     await zep.user.list()
      *
      * @example
-     *     await baseApi.user.list({
+     *     await zep.user.list({
      *         limit: 1,
      *         cursor: 1
      *     })
      */
-    public async list(
-        request: BaseApi.UserListRequest = {},
-        requestOptions?: User.RequestOptions
-    ): Promise<BaseApi.User[][]> {
+    public async list(request: Zep.UserListRequest = {}, requestOptions?: User.RequestOptions): Promise<Zep.User[][]> {
         const { limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -55,7 +52,7 @@ export class User {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.BaseApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 "users"
             ),
             method: "GET",
@@ -85,7 +82,7 @@ export class User {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new BaseApi.BadRequestError(
+                    throw new Zep.BadRequestError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -95,7 +92,7 @@ export class User {
                         })
                     );
                 case 500:
-                    throw new BaseApi.InternalServerError(
+                    throw new Zep.InternalServerError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -105,7 +102,7 @@ export class User {
                         })
                     );
                 default:
-                    throw new errors.BaseApiError({
+                    throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -114,14 +111,14 @@ export class User {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.BaseApiTimeoutError();
+                throw new errors.ZepTimeoutError();
             case "unknown":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -129,19 +126,16 @@ export class User {
 
     /**
      * add user by id
-     * @throws {@link BaseApi.BadRequestError}
-     * @throws {@link BaseApi.InternalServerError}
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await baseApi.user.add()
+     *     await zep.user.add()
      */
-    public async add(
-        request: BaseApi.CreateUserRequest = {},
-        requestOptions?: User.RequestOptions
-    ): Promise<BaseApi.User> {
+    public async add(request: Zep.CreateUserRequest = {}, requestOptions?: User.RequestOptions): Promise<Zep.User> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.BaseApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 "users"
             ),
             method: "POST",
@@ -171,7 +165,7 @@ export class User {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new BaseApi.BadRequestError(
+                    throw new Zep.BadRequestError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -181,7 +175,7 @@ export class User {
                         })
                     );
                 case 500:
-                    throw new BaseApi.InternalServerError(
+                    throw new Zep.InternalServerError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -191,7 +185,7 @@ export class User {
                         })
                     );
                 default:
-                    throw new errors.BaseApiError({
+                    throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -200,14 +194,14 @@ export class User {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.BaseApiTimeoutError();
+                throw new errors.ZepTimeoutError();
             case "unknown":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -215,22 +209,22 @@ export class User {
 
     /**
      * List all users with pagination.
-     * @throws {@link BaseApi.BadRequestError}
-     * @throws {@link BaseApi.InternalServerError}
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await baseApi.user.listOrdered()
+     *     await zep.user.listOrdered()
      *
      * @example
-     *     await baseApi.user.listOrdered({
+     *     await zep.user.listOrdered({
      *         pageNumber: 1,
      *         pageSize: 1
      *     })
      */
     public async listOrdered(
-        request: BaseApi.UserListOrderedRequest = {},
+        request: Zep.UserListOrderedRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<BaseApi.User[]> {
+    ): Promise<Zep.User[]> {
         const { pageNumber, pageSize } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -243,7 +237,7 @@ export class User {
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.BaseApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 "users-ordered"
             ),
             method: "GET",
@@ -273,7 +267,7 @@ export class User {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new BaseApi.BadRequestError(
+                    throw new Zep.BadRequestError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -283,7 +277,7 @@ export class User {
                         })
                     );
                 case 500:
-                    throw new BaseApi.InternalServerError(
+                    throw new Zep.InternalServerError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -293,7 +287,7 @@ export class User {
                         })
                     );
                 default:
-                    throw new errors.BaseApiError({
+                    throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -302,14 +296,14 @@ export class User {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.BaseApiTimeoutError();
+                throw new errors.ZepTimeoutError();
             case "unknown":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -317,19 +311,19 @@ export class User {
 
     /**
      * get user by id
-     * @throws {@link BaseApi.NotFoundError}
-     * @throws {@link BaseApi.InternalServerError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await baseApi.user.get("userId")
+     *     await zep.user.get("userId")
      *
      * @example
-     *     await baseApi.user.get("string")
+     *     await zep.user.get("string")
      */
-    public async get(userId: string, requestOptions?: User.RequestOptions): Promise<BaseApi.User> {
+    public async get(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.User> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.BaseApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 `users/${userId}`
             ),
             method: "GET",
@@ -358,7 +352,7 @@ export class User {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 404:
-                    throw new BaseApi.NotFoundError(
+                    throw new Zep.NotFoundError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -368,7 +362,7 @@ export class User {
                         })
                     );
                 case 500:
-                    throw new BaseApi.InternalServerError(
+                    throw new Zep.InternalServerError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -378,7 +372,7 @@ export class User {
                         })
                     );
                 default:
-                    throw new errors.BaseApiError({
+                    throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -387,14 +381,14 @@ export class User {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.BaseApiTimeoutError();
+                throw new errors.ZepTimeoutError();
             case "unknown":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -402,19 +396,19 @@ export class User {
 
     /**
      * delete user by id
-     * @throws {@link BaseApi.NotFoundError}
-     * @throws {@link BaseApi.InternalServerError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await baseApi.user.delete("userId")
+     *     await zep.user.delete("userId")
      *
      * @example
-     *     await baseApi.user.delete("string")
+     *     await zep.user.delete("string")
      */
     public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.BaseApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 `users/${userId}`
             ),
             method: "DELETE",
@@ -437,7 +431,7 @@ export class User {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 404:
-                    throw new BaseApi.NotFoundError(
+                    throw new Zep.NotFoundError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -447,7 +441,7 @@ export class User {
                         })
                     );
                 case 500:
-                    throw new BaseApi.InternalServerError(
+                    throw new Zep.InternalServerError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -457,7 +451,7 @@ export class User {
                         })
                     );
                 default:
-                    throw new errors.BaseApiError({
+                    throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -466,14 +460,14 @@ export class User {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.BaseApiTimeoutError();
+                throw new errors.ZepTimeoutError();
             case "unknown":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -481,24 +475,24 @@ export class User {
 
     /**
      * update user by id
-     * @throws {@link BaseApi.BadRequestError}
-     * @throws {@link BaseApi.NotFoundError}
-     * @throws {@link BaseApi.InternalServerError}
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await baseApi.user.update("userId")
+     *     await zep.user.update("userId")
      *
      * @example
-     *     await baseApi.user.update("string")
+     *     await zep.user.update("string")
      */
     public async update(
         userId: string,
-        request: BaseApi.UpdateUserRequest = {},
+        request: Zep.UpdateUserRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<BaseApi.User> {
+    ): Promise<Zep.User> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.BaseApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 `users/${userId}`
             ),
             method: "PATCH",
@@ -528,7 +522,7 @@ export class User {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new BaseApi.BadRequestError(
+                    throw new Zep.BadRequestError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -538,7 +532,7 @@ export class User {
                         })
                     );
                 case 404:
-                    throw new BaseApi.NotFoundError(
+                    throw new Zep.NotFoundError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -548,7 +542,7 @@ export class User {
                         })
                     );
                 case 500:
-                    throw new BaseApi.InternalServerError(
+                    throw new Zep.InternalServerError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -558,7 +552,7 @@ export class User {
                         })
                     );
                 default:
-                    throw new errors.BaseApiError({
+                    throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -567,14 +561,14 @@ export class User {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.BaseApiTimeoutError();
+                throw new errors.ZepTimeoutError();
             case "unknown":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }
@@ -582,18 +576,18 @@ export class User {
 
     /**
      * list all sessions for a user by user id
-     * @throws {@link BaseApi.InternalServerError}
+     * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await baseApi.user.getSessions("userId")
+     *     await zep.user.getSessions("userId")
      *
      * @example
-     *     await baseApi.user.getSessions("string")
+     *     await zep.user.getSessions("string")
      */
-    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<BaseApi.Session[]> {
+    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.BaseApiEnvironment.Default,
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 `users/${userId}/sessions`
             ),
             method: "GET",
@@ -622,7 +616,7 @@ export class User {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 500:
-                    throw new BaseApi.InternalServerError(
+                    throw new Zep.InternalServerError(
                         await serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -632,7 +626,7 @@ export class User {
                         })
                     );
                 default:
-                    throw new errors.BaseApiError({
+                    throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
                         body: _response.error.body,
                     });
@@ -641,14 +635,14 @@ export class User {
 
         switch (_response.error.reason) {
             case "non-json":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     statusCode: _response.error.statusCode,
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.BaseApiTimeoutError();
+                throw new errors.ZepTimeoutError();
             case "unknown":
-                throw new errors.BaseApiError({
+                throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }

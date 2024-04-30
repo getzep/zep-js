@@ -3,13 +3,13 @@
  */
 
 import * as serializers from "..";
-import * as BaseApi from "../../api";
+import * as Zep from "../../api";
 import * as core from "../../core";
 import { Summary } from "./Summary";
 
 export const SummaryListResponse: core.serialization.ObjectSchema<
     serializers.SummaryListResponse.Raw,
-    BaseApi.SummaryListResponse
+    Zep.SummaryListResponse
 > = core.serialization.object({
     rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
     summaries: core.serialization.list(Summary).optional(),

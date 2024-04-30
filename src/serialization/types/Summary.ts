@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "..";
-import * as BaseApi from "../../api";
+import * as Zep from "../../api";
 import * as core from "../../core";
 
-export const Summary: core.serialization.ObjectSchema<serializers.Summary.Raw, BaseApi.Summary> =
-    core.serialization.object({
+export const Summary: core.serialization.ObjectSchema<serializers.Summary.Raw, Zep.Summary> = core.serialization.object(
+    {
         content: core.serialization.string().optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -17,7 +17,8 @@ export const Summary: core.serialization.ObjectSchema<serializers.Summary.Raw, B
         ),
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
         uuid: core.serialization.string().optional(),
-    });
+    }
+);
 
 export declare namespace Summary {
     interface Raw {

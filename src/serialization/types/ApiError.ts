@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "..";
-import * as BaseApi from "../../api";
+import * as Zep from "../../api";
 import * as core from "../../core";
 
-export const ApiError: core.serialization.ObjectSchema<serializers.ApiError.Raw, BaseApi.ApiError> =
+export const ApiError: core.serialization.ObjectSchema<serializers.ApiError.Raw, Zep.ApiError> =
     core.serialization.object({
         message: core.serialization.string().optional(),
     });

@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "../../..";
-import * as BaseApi from "../../../../api";
+import * as Zep from "../../../../api";
 import * as core from "../../../../core";
 import { MemorySearchResult } from "../../../types/MemorySearchResult";
 
-export const Response: core.serialization.Schema<serializers.memory.search.Response.Raw, BaseApi.MemorySearchResult[]> =
+export const Response: core.serialization.Schema<serializers.memory.search.Response.Raw, Zep.MemorySearchResult[]> =
     core.serialization.list(MemorySearchResult);
 
 export declare namespace Response {

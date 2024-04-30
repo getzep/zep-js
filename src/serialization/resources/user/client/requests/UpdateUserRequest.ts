@@ -3,18 +3,16 @@
  */
 
 import * as serializers from "../../../..";
-import * as BaseApi from "../../../../../api";
+import * as Zep from "../../../../../api";
 import * as core from "../../../../../core";
 
-export const UpdateUserRequest: core.serialization.Schema<
-    serializers.UpdateUserRequest.Raw,
-    BaseApi.UpdateUserRequest
-> = core.serialization.object({
-    email: core.serialization.string().optional(),
-    firstName: core.serialization.property("first_name", core.serialization.string().optional()),
-    lastName: core.serialization.property("last_name", core.serialization.string().optional()),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-});
+export const UpdateUserRequest: core.serialization.Schema<serializers.UpdateUserRequest.Raw, Zep.UpdateUserRequest> =
+    core.serialization.object({
+        email: core.serialization.string().optional(),
+        firstName: core.serialization.property("first_name", core.serialization.string().optional()),
+        lastName: core.serialization.property("last_name", core.serialization.string().optional()),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    });
 
 export declare namespace UpdateUserRequest {
     interface Raw {

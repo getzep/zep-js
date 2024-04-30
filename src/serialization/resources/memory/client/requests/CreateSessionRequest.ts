@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import * as BaseApi from "../../../../../api";
+import * as Zep from "../../../../../api";
 import * as core from "../../../../../core";
 
 export const CreateSessionRequest: core.serialization.Schema<
     serializers.CreateSessionRequest.Raw,
-    BaseApi.CreateSessionRequest
+    Zep.CreateSessionRequest
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     sessionId: core.serialization.property("session_id", core.serialization.string()),
