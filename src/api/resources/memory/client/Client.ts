@@ -865,9 +865,26 @@ export class Memory {
      *     await zep.memory.getSessionMessages("sessionId")
      *
      * @example
-     *     await zep.memory.getSessionMessages("string")
+     *     await zep.memory.getSessionMessages("string", {
+     *         limit: 1,
+     *         cursor: 1
+     *     })
      */
-    public async getSessionMessages(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<Zep.Message[]> {
+    public async getSessionMessages(
+        sessionId: string,
+        request: Zep.MemoryGetSessionMessagesRequest = {},
+        requestOptions?: Memory.RequestOptions
+    ): Promise<Zep.Message[]> {
+        const { limit, cursor } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (cursor != null) {
+            _queryParams["cursor"] = cursor.toString();
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -883,6 +900,7 @@ export class Memory {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });

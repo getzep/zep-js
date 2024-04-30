@@ -429,6 +429,7 @@ export class Document {
     }
 
     /**
+     * Updates a DocumentCollection
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
@@ -1143,18 +1144,19 @@ export class Document {
     }
 
     /**
+     * Updates a Document in a DocumentCollection by UUID
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.updatesADocumentInADocumentCollectionByUuid("collectionName", "documentUUID")
+     *     await zep.document.updatesADocument("collectionName", "documentUUID")
      *
      * @example
-     *     await zep.document.updatesADocumentInADocumentCollectionByUuid("string", "string")
+     *     await zep.document.updatesADocument("string", "string")
      */
-    public async updatesADocumentInADocumentCollectionByUuid(
+    public async updatesADocument(
         collectionName: string,
         documentUuid: string,
         request: Zep.UpdateDocumentRequest = {},
