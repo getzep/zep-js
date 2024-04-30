@@ -3,10 +3,10 @@
  */
 
 import * as errors from "../../errors";
-import * as BaseApi from "..";
+import * as Zep from "..";
 
-export class UnauthorizedError extends errors.BaseApiError {
-    constructor(body: BaseApi.ApiError) {
+export class UnauthorizedError extends errors.ZepError {
+    constructor(body: Zep.ApiError) {
         super({
             message: "UnauthorizedError",
             statusCode: 401,

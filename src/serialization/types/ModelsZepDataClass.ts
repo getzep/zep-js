@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "..";
-import * as BaseApi from "../../api";
+import * as Zep from "../../api";
 import * as core from "../../core";
 
 export const ModelsZepDataClass: core.serialization.ObjectSchema<
     serializers.ModelsZepDataClass.Raw,
-    BaseApi.ModelsZepDataClass
+    Zep.ModelsZepDataClass
 > = core.serialization.object({
     description: core.serialization.string().optional(),
     name: core.serialization.string().optional(),

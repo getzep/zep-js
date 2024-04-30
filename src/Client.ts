@@ -8,9 +8,9 @@ import { Document } from "./api/resources/document/client/Client";
 import { Memory } from "./api/resources/memory/client/Client";
 import { User } from "./api/resources/user/client/Client";
 
-export declare namespace BaseApiClient {
+export declare namespace ZepClient {
     interface Options {
-        environment?: core.Supplier<environments.BaseApiEnvironment | string>;
+        environment?: core.Supplier<environments.ZepEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
@@ -21,8 +21,8 @@ export declare namespace BaseApiClient {
     }
 }
 
-export class BaseApiClient {
-    constructor(protected readonly _options: BaseApiClient.Options = {}) {}
+export class ZepClient {
+    constructor(protected readonly _options: ZepClient.Options = {}) {}
 
     protected _document: Document | undefined;
 

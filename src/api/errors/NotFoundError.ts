@@ -3,10 +3,10 @@
  */
 
 import * as errors from "../../errors";
-import * as BaseApi from "..";
+import * as Zep from "..";
 
-export class NotFoundError extends errors.BaseApiError {
-    constructor(body: BaseApi.ApiError) {
+export class NotFoundError extends errors.ZepError {
+    constructor(body: Zep.ApiError) {
         super({
             message: "NotFoundError",
             statusCode: 404,

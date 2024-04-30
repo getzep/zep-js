@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "..";
-import * as BaseApi from "../../api";
+import * as Zep from "../../api";
 import * as core from "../../core";
 import { RoleType } from "./RoleType";
 
-export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, BaseApi.Message> =
-    core.serialization.object({
+export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Zep.Message> = core.serialization.object(
+    {
         content: core.serialization.string().optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -17,7 +17,8 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, B
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
-    });
+    }
+);
 
 export declare namespace Message {
     interface Raw {

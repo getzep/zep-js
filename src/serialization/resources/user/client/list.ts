@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "../../..";
-import * as BaseApi from "../../../../api";
+import * as Zep from "../../../../api";
 import * as core from "../../../../core";
 import { User } from "../../../types/User";
 
-export const Response: core.serialization.Schema<serializers.user.list.Response.Raw, BaseApi.User[][]> =
+export const Response: core.serialization.Schema<serializers.user.list.Response.Raw, Zep.User[][]> =
     core.serialization.list(core.serialization.list(User));
 
 export declare namespace Response {

@@ -3,11 +3,11 @@
  */
 
 import * as serializers from "..";
-import * as BaseApi from "../../api";
+import * as Zep from "../../api";
 import * as core from "../../core";
 
-export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, BaseApi.Session> =
-    core.serialization.object({
+export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Zep.Session> = core.serialization.object(
+    {
         classifications: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
@@ -19,7 +19,8 @@ export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, B
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
-    });
+    }
+);
 
 export declare namespace Session {
     interface Raw {

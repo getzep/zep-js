@@ -3,12 +3,12 @@
  */
 
 import * as serializers from "../../../..";
-import * as BaseApi from "../../../../../api";
+import * as Zep from "../../../../../api";
 import * as core from "../../../../../core";
 
 export const GetDocumentListRequest: core.serialization.Schema<
     serializers.GetDocumentListRequest.Raw,
-    BaseApi.GetDocumentListRequest
+    Zep.GetDocumentListRequest
 > = core.serialization.object({
     documentIds: core.serialization.property(
         "document_ids",

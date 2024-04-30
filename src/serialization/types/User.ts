@@ -3,10 +3,10 @@
  */
 
 import * as serializers from "..";
-import * as BaseApi from "../../api";
+import * as Zep from "../../api";
 import * as core from "../../core";
 
-export const User: core.serialization.ObjectSchema<serializers.User.Raw, BaseApi.User> = core.serialization.object({
+export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.User> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
     email: core.serialization.string().optional(),

@@ -1,4 +1,4 @@
-export * as BaseApi from "./api";
-export { BaseApiClient } from "./Client";
-export { BaseApiEnvironment } from "./environments";
-export { BaseApiError, BaseApiTimeoutError } from "./errors";
+export * as Zep from "./api";
+export { ZepClient } from "./Client";
+export { ZepEnvironment } from "./environments";
+export { ZepError, ZepTimeoutError } from "./errors";
