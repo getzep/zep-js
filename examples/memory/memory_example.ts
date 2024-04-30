@@ -119,7 +119,7 @@ async function main() {
     // get session messages
     let sessionMessages: any[] = [];
     try {
-        sessionMessages = await client.memory.getSessionMessages(sessionID);
+        sessionMessages = await client.memory.getSessionMessages(sessionID, { limit: 10, cursor: 1 });
         console.debug("Session messages: ", JSON.stringify(sessionMessages));
     } catch (error) {
         if (error instanceof NotFoundError) {
