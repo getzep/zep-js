@@ -9,9 +9,9 @@ import { DocumentResponse } from "../../../types/DocumentResponse";
 
 export const Response: core.serialization.Schema<
     serializers.document.batchGetDocuments.Response.Raw,
-    Zep.DocumentResponse[][]
-> = core.serialization.list(core.serialization.list(DocumentResponse));
+    Zep.DocumentResponse[]
+> = core.serialization.list(DocumentResponse);
 
 export declare namespace Response {
-    type Raw = DocumentResponse.Raw[][];
+    type Raw = DocumentResponse.Raw[];
 }
