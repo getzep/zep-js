@@ -72,37 +72,56 @@ export class ZepChatMessageHistory extends BaseChatMessageHistory implements Zep
             return [];
         }
 
+        let systemPrompt = "";
+
         const messages: BaseMessage[] = [];
 
         if (memory.facts) {
-            // Extract facts
-            messages.push(new SystemMessage(memory.facts.join("\n")));
+            systemPrompt += memory.facts.join("\n");
+            // // Extract facts
+            // messages.push(new SystemMessage(memory.facts.join("\n")));
         }
 
         // Extract summary, if present, and messages
         if (memory.summary && memory.summary?.content) {
-            messages.push(new SystemMessage(memory.summary.content));
+            systemPrompt += memory.summary.content;
+            // messages.push(new SystemMessage(memory.summary.content));
         }
+
+        let concatMessages = "";
 
         if (memory.messages) {
-            messages.push(
-                ...memory.messages.map((msg) => {
-                    const metadata = {
-                        uuid: msg.uuid,
-                        created_at: msg.createdAt,
-                        token_count: msg.tokenCount,
-                        metadata: msg.metadata,
-                    };
-
-                    if (msg.roleType === "assistant") {
-                        return new AIMessage(msg.content!, metadata);
-                    }
-                    return new HumanMessage(msg.content!, metadata);
+            concatMessages = memory.messages
+                .map((msg) => {
+                    return JSON.stringify({
+                        role: msg.role,
+                        content: msg.content,
+                        createdAt: msg.createdAt,
+                    });
                 })
-            );
+                .join("\n");
+            // messages.push(
+            //     ...memory.messages.map((msg) => {
+            //         const metadata = {
+            //             uuid: msg.uuid,
+            //             created_at: msg.createdAt,
+            //             token_count: msg.tokenCount,
+            //             metadata: msg.metadata,
+            //         };
+            //
+            //         if (msg.roleType === "assistant") {
+            //             return new AIMessage(msg.content!, metadata);
+            //         }
+            //         return new HumanMessage(msg.content!, metadata);
+            //     })
+            // );
         }
 
-        return messages;
+        const message = new HumanMessage(systemPrompt + "\n" + concatMessages);
+
+        console.log("message", message);
+
+        return [message];
     }
 
     async addAIChatMessage(message: string, metadata?: any): Promise<void> {

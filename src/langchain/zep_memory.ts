@@ -9,6 +9,7 @@ import {
     HumanMessage,
     SystemMessage,
 } from "@langchain/core/messages";
+
 import { BaseChatMemory, BaseChatMemoryInput } from "langchain/memory";
 import { ZepClient } from "../wrapper";
 import { Memory, NotFoundError } from "../api";
@@ -77,8 +78,6 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
     sessionId: string;
 
     zepClient: ZepClient;
-
-    private readonly zepInitFailMsg = "ZepClient is not initialized";
 
     constructor(fields: ZepMemoryInput) {
         super({
