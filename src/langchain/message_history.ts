@@ -5,7 +5,7 @@ import { BaseChatMessageHistory } from "@langchain/core/chat_history";
 import { ZepClient } from "../wrapper";
 import { Zep } from "../";
 import { Memory, NotFoundError } from "../api";
-import { getZepMessageRoleType } from "./utils";
+import { condenseZepMemoryIntoHumanMessage, getZepMessageRoleType } from "./utils";
 
 /**
  * Interface defining the structure of the input data for the ZepMemory
@@ -72,56 +72,7 @@ export class ZepChatMessageHistory extends BaseChatMessageHistory implements Zep
             return [];
         }
 
-        let systemPrompt = "";
-
-        const messages: BaseMessage[] = [];
-
-        if (memory.facts) {
-            systemPrompt += memory.facts.join("\n");
-            // // Extract facts
-            // messages.push(new SystemMessage(memory.facts.join("\n")));
-        }
-
-        // Extract summary, if present, and messages
-        if (memory.summary && memory.summary?.content) {
-            systemPrompt += memory.summary.content;
-            // messages.push(new SystemMessage(memory.summary.content));
-        }
-
-        let concatMessages = "";
-
-        if (memory.messages) {
-            concatMessages = memory.messages
-                .map((msg) => {
-                    return JSON.stringify({
-                        role: msg.role,
-                        content: msg.content,
-                        createdAt: msg.createdAt,
-                    });
-                })
-                .join("\n");
-            // messages.push(
-            //     ...memory.messages.map((msg) => {
-            //         const metadata = {
-            //             uuid: msg.uuid,
-            //             created_at: msg.createdAt,
-            //             token_count: msg.tokenCount,
-            //             metadata: msg.metadata,
-            //         };
-            //
-            //         if (msg.roleType === "assistant") {
-            //             return new AIMessage(msg.content!, metadata);
-            //         }
-            //         return new HumanMessage(msg.content!, metadata);
-            //     })
-            // );
-        }
-
-        const message = new HumanMessage(systemPrompt + "\n" + concatMessages);
-
-        console.log("message", message);
-
-        return [message];
+        return [condenseZepMemoryIntoHumanMessage(memory)];
     }
 
     async addAIChatMessage(message: string, metadata?: any): Promise<void> {

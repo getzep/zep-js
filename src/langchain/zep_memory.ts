@@ -13,6 +13,7 @@ import {
 import { BaseChatMemory, BaseChatMemoryInput } from "langchain/memory";
 import { ZepClient } from "../wrapper";
 import { Memory, NotFoundError } from "../api";
+import { condenseZepMemoryIntoHumanMessage } from "./utils";
 
 export interface ZepMemoryInput extends BaseChatMemoryInput {
     humanPrefix?: string;
@@ -124,35 +125,13 @@ export class ZepMemory extends BaseChatMemory implements ZepMemoryInput {
             throw error;
         }
 
-        let messages: BaseMessage[] = [];
-
-        if (memory && memory.facts) {
-            messages.push(new SystemMessage(memory.facts.join("\n")));
-            if (memory.summary?.content) {
-                messages.push(new SystemMessage(memory.summary.content));
-            }
-            messages = messages.concat(
-                (memory.messages ?? []).map((message) => {
-                    const { content, roleType, role } = message;
-                    if (roleType === "user") {
-                        return new HumanMessage(content!);
-                    }
-                    if (roleType === "assistant") {
-                        return new AIMessage(content!);
-                    }
-                    // default to generic ChatMessage
-                    return new ChatMessage(content!, role!);
-                })
-            );
-        }
-
         if (this.returnMessages) {
             return {
-                [this.memoryKey]: messages,
+                [this.memoryKey]: [condenseZepMemoryIntoHumanMessage(memory)],
             };
         }
         return {
-            [this.memoryKey]: getBufferString(messages, this.humanPrefix, this.aiPrefix),
+            [this.memoryKey]: condenseZepMemoryIntoHumanMessage(memory).content,
         };
     }
 
