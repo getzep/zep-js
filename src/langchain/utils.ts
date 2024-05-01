@@ -35,11 +35,7 @@ export const condenseZepMemoryIntoHumanMessage = (memory: Memory) => {
     if (memory.messages) {
         concatMessages = memory.messages
             .map((msg) => {
-                return JSON.stringify({
-                    role: msg.role,
-                    content: msg.content,
-                    createdAt: msg.createdAt,
-                });
+                return `${msg.role ?? msg.roleType}: ${msg.content}`;
             })
             .join("\n");
     }
