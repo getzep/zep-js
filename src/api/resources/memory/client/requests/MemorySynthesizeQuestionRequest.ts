@@ -5,21 +5,6 @@
 /**
  * @example
  *     {}
- *
- * @example
- *     {
- *         lastNMessages: 1
- *     }
- *
- * @example
- *     {
- *         lastNMessages: 1
- *     }
- *
- * @example
- *     {
- *         lastNMessages: 1
- *     }
  */
 export interface MemorySynthesizeQuestionRequest {
     /**

@@ -5,21 +5,6 @@
 /**
  * @example
  *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
  */
 export interface UpdateDocumentRequest {
     documentId?: string;

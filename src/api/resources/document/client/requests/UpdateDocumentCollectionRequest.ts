@@ -5,21 +5,6 @@
 /**
  * @example
  *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
- *
- * @example
- *     {}
  */
 export interface UpdateDocumentCollectionRequest {
     description?: string;
