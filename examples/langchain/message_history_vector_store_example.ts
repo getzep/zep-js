@@ -31,13 +31,22 @@ async function combineDocuments(
     return docStrings.join(documentSeparator);
 }
 async function main() {
+    const collectionName = process.env.ZEP_COLLECTION_NAME;
+    if (!collectionName) {
+        throw new Error("ZEP_COLLECTION_NAME is required");
+    }
+    const sessionId = process.env.ZEP_SESSION_ID;
+    if (!sessionId) {
+        throw new Error("ZEP_SESSION_ID is required");
+    }
     const zepClient = new ZepClient({
         apiKey: process.env.ZEP_API_KEY,
+        environment: "https://api.development.getzep.com/api/v2",
     });
 
     const vectorStore = await ZepVectorStore.init({
         client: zepClient,
-        collectionName: "leobernstein",
+        collectionName: collectionName,
     });
 
     const prompt = ChatPromptTemplate.fromMessages([
@@ -104,8 +113,8 @@ async function main() {
     });
 
     const result = await chain.invoke({
-        question: "yes",
-        sessionId: "06d114e2-7c6e-4268-91b9-63a4b9645bbf",
+        question: "Project Gutenberg?",
+        sessionId: sessionId,
     });
 
     console.log("result", result);

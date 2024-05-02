@@ -6,8 +6,10 @@ import { RunnableWithMessageHistory } from "@langchain/core/runnables";
 import { ConsoleCallbackHandler } from "@langchain/core/tracers/console";
 
 async function main() {
+    const sessionId = process.env.ZEP_SESSION_ID;
     const zepClient = new ZepClient({
         apiKey: process.env.ZEP_API_KEY,
+        environment: "https://api.development.getzep.com/api/v2",
     });
 
     const prompt = ChatPromptTemplate.fromMessages([
@@ -45,7 +47,7 @@ async function main() {
         },
         {
             configurable: {
-                sessionId: "1993af17af7441559558ebf8f6911322",
+                sessionId: sessionId,
             },
         }
     );

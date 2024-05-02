@@ -118,6 +118,7 @@ async function main() {
 
     const client = new ZepClient({
         apiKey: projectApiKey,
+        environment: "https://api.development.getzep.com/api/v2",
     });
     const collection = await client.document.addCollection(collectionName, {
         description: "Babbage's Calculating Engine", // optional

@@ -23,13 +23,18 @@ async function combineDocuments(
     return docStrings.join(documentSeparator);
 }
 async function main() {
+    const collectionName = process.env.ZEP_COLLECTION_NAME;
+    if (!collectionName) {
+        throw new Error("ZEP_COLLECTION_NAME is required");
+    }
     const zepClient = new ZepClient({
         apiKey: process.env.ZEP_API_KEY,
+        environment: "https://api.development.getzep.com/api/v2",
     });
 
     const vectorStore = await ZepVectorStore.init({
         client: zepClient,
-        collectionName: "leobernstein",
+        collectionName: collectionName,
     });
 
     const prompt = ChatPromptTemplate.fromMessages([
@@ -59,7 +64,7 @@ async function main() {
             callbacks: [new ConsoleCallbackHandler()],
         });
 
-    const result = await chain.invoke("who is the famous american conductor?");
+    const result = await chain.invoke("Project Gutenberg?");
 
     console.log("result", result);
 }

@@ -30,8 +30,12 @@ async function main() {
     }
 
     // Update the first user
-    const users = await client.user.listOrdered();
-    const { userId } = (await client.user.listOrdered())[0];
+    const firstUser = (await client.user.listOrdered())?.users?.[0];
+    if (!firstUser) {
+        console.log("No user found");
+        return;
+    }
+    const userId = firstUser.userId;
     const userRequest: UpdateUserRequest = {
         email: "updated_user@example.com",
         firstName: "UpdatedJohn",
@@ -50,7 +54,7 @@ async function main() {
     }
 
     // Delete the second user
-    const userIdToDelete = (await client.user.listOrdered())[1].userId;
+    const userIdToDelete = (await client.user.listOrdered())?.users?.[1]?.userId;
     try {
         if (!userIdToDelete) {
             throw new Error("No user found");
@@ -64,9 +68,11 @@ async function main() {
     // List all users
     try {
         console.log("All users:");
-        const users = await client.user.listOrdered({ pageSize: 10, pageNumber: 1 });
-        for (const user of users) {
-            console.log(user.userId);
+        const usersResult = await client.user.listOrdered({ pageSize: 10, pageNumber: 1 });
+        if (usersResult && usersResult.users) {
+            for (const user of usersResult.users) {
+                console.log(user.userId);
+            }
         }
     } catch (e) {
         console.log(`Failed to list users: ${e}`);
