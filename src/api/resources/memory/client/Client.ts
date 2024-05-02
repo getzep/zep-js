@@ -713,14 +713,18 @@ export class Memory {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.memory.add("sessionId")
+     *     await zep.memory.add("sessionId", {
+     *         messages: [{}]
+     *     })
      *
      * @example
-     *     await zep.memory.add("string")
+     *     await zep.memory.add("string", {
+     *         messages: [{}]
+     *     })
      */
     public async add(
         sessionId: string,
-        request: Zep.AddMemoryRequest = {},
+        request: Zep.AddMemoryRequest,
         requestOptions?: Memory.RequestOptions
     ): Promise<void> {
         const _response = await (this._options.fetcher ?? core.fetcher)({

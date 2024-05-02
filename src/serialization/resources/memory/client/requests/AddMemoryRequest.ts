@@ -9,13 +9,13 @@ import { Message } from "../../../../types/Message";
 
 export const AddMemoryRequest: core.serialization.Schema<serializers.AddMemoryRequest.Raw, Zep.AddMemoryRequest> =
     core.serialization.object({
-        messages: core.serialization.list(Message).optional(),
+        messages: core.serialization.list(Message),
         summaryInstruction: core.serialization.property("summary_instruction", core.serialization.string().optional()),
     });
 
 export declare namespace AddMemoryRequest {
     interface Raw {
-        messages?: Message.Raw[] | null;
+        messages: Message.Raw[];
         summary_instruction?: string | null;
     }
 }

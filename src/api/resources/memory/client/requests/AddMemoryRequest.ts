@@ -6,15 +6,21 @@ import * as Zep from "../../../..";
 
 /**
  * @example
- *     {}
+ *     {
+ *         messages: [{}]
+ *     }
  *
  * @example
- *     {}
+ *     {
+ *         messages: [{}]
+ *     }
  *
  * @example
- *     {}
+ *     {
+ *         messages: [{}]
+ *     }
  */
 export interface AddMemoryRequest {
-    messages?: Zep.Message[];
+    messages: Zep.Message[];
     summaryInstruction?: string;
 }
