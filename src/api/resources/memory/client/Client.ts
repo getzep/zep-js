@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Zep from "../../..";
-import * as serializers from "../../../../serialization";
+import * as Zep from "../../../index";
+import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
-import * as errors from "../../../../errors";
+import * as errors from "../../../../errors/index";
 
 export declare namespace Memory {
     interface Options {
@@ -27,6 +27,10 @@ export class Memory {
 
     /**
      * add session by id
+     *
+     * @param {Zep.CreateSessionRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
@@ -115,19 +119,15 @@ export class Memory {
 
     /**
      * Get all sessions with optional page number, page size, order by field and order direction for pagination.
+     *
+     * @param {Zep.MemoryListSessionsRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.listSessions()
-     *
-     * @example
-     *     await zep.memory.listSessions({
-     *         pageNumber: 1,
-     *         pageSize: 1,
-     *         orderBy: "string",
-     *         asc: true
-     *     })
      */
     public async listSessions(
         request: Zep.MemoryListSessionsRequest = {},
@@ -227,20 +227,21 @@ export class Memory {
 
     /**
      * get session by id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.getSession("sessionId")
-     *
-     * @example
-     *     await zep.memory.getSession("string")
      */
     public async getSession(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<Zep.Session> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}`
+                `sessions/${encodeURIComponent(sessionId)}`
             ),
             method: "GET",
             headers: {
@@ -312,17 +313,17 @@ export class Memory {
 
     /**
      * add session by id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.UpdateSessionRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.updateSession("sessionId", {
-     *         metadata: {}
-     *     })
-     *
-     * @example
-     *     await zep.memory.updateSession("string", {
      *         metadata: {}
      *     })
      */
@@ -334,7 +335,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}`
+                `sessions/${encodeURIComponent(sessionId)}`
             ),
             method: "PATCH",
             headers: {
@@ -417,17 +418,16 @@ export class Memory {
 
     /**
      * classify a session by session id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.ClassifySessionRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.classifySession("sessionId", {
-     *         classes: ["classes"],
-     *         name: "name"
-     *     })
-     *
-     * @example
-     *     await zep.memory.classifySession("string", {
      *         classes: ["classes"],
      *         name: "name"
      *     })
@@ -440,7 +440,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/classify`
+                `sessions/${encodeURIComponent(sessionId)}/classify`
             ),
             method: "POST",
             headers: {
@@ -513,16 +513,16 @@ export class Memory {
 
     /**
      * extract data from a session by session id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.ModelsExtractDataRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.extractSessionData("sessionId", {
-     *         zepDataClasses: [{}]
-     *     })
-     *
-     * @example
-     *     await zep.memory.extractSessionData("string", {
      *         zepDataClasses: [{}]
      *     })
      */
@@ -534,7 +534,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/extract`
+                `sessions/${encodeURIComponent(sessionId)}/extract`
             ),
             method: "POST",
             headers: {
@@ -607,17 +607,16 @@ export class Memory {
 
     /**
      * get memory by session id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.MemoryGetRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.get("sessionId")
-     *
-     * @example
-     *     await zep.memory.get("string", {
-     *         memoryType: Zep.MemoryGetRequestMemoryType.Perpetual,
-     *         lastn: 1
-     *     })
      */
     public async get(
         sessionId: string,
@@ -637,7 +636,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/memory`
+                `sessions/${encodeURIComponent(sessionId)}/memory`
             ),
             method: "GET",
             headers: {
@@ -710,15 +709,15 @@ export class Memory {
 
     /**
      * add memory messages by session id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.AddMemoryRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.add("sessionId", {
-     *         messages: [{}]
-     *     })
-     *
-     * @example
-     *     await zep.memory.add("string", {
      *         messages: [{}]
      *     })
      */
@@ -730,7 +729,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/memory`
+                `sessions/${encodeURIComponent(sessionId)}/memory`
             ),
             method: "POST",
             headers: {
@@ -793,20 +792,21 @@ export class Memory {
 
     /**
      * delete memory messages by session id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.delete("sessionId")
-     *
-     * @example
-     *     await zep.memory.delete("string")
      */
     public async delete(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/memory`
+                `sessions/${encodeURIComponent(sessionId)}/memory`
             ),
             method: "DELETE",
             headers: {
@@ -878,17 +878,16 @@ export class Memory {
 
     /**
      * get messages by session id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.MemoryGetSessionMessagesRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.getSessionMessages("sessionId")
-     *
-     * @example
-     *     await zep.memory.getSessionMessages("string", {
-     *         limit: 1,
-     *         cursor: 1
-     *     })
      */
     public async getSessionMessages(
         sessionId: string,
@@ -908,7 +907,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/messages`
+                `sessions/${encodeURIComponent(sessionId)}/messages`
             ),
             method: "GET",
             headers: {
@@ -981,14 +980,16 @@ export class Memory {
 
     /**
      * get message by session id and message id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {string} messageUuid - Message UUID
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.getSessionMessage("sessionId", "messageUUID")
-     *
-     * @example
-     *     await zep.memory.getSessionMessage("string", "string")
      */
     public async getSessionMessage(
         sessionId: string,
@@ -998,7 +999,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/messages/${messageUuid}`
+                `sessions/${encodeURIComponent(sessionId)}/messages/${encodeURIComponent(messageUuid)}`
             ),
             method: "GET",
             headers: {
@@ -1070,16 +1071,17 @@ export class Memory {
 
     /**
      * update message metadata by session id and message id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {string} messageUuid - Message UUID
+     * @param {Zep.ModelsMessageMetadataUpdate} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.updateMessageMetadata("sessionId", "messageUUID", {
-     *         metadata: {}
-     *     })
-     *
-     * @example
-     *     await zep.memory.updateMessageMetadata("string", "string", {
      *         metadata: {}
      *     })
      */
@@ -1092,7 +1094,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/messages/${messageUuid}`
+                `sessions/${encodeURIComponent(sessionId)}/messages/${encodeURIComponent(messageUuid)}`
             ),
             method: "PATCH",
             headers: {
@@ -1167,16 +1169,16 @@ export class Memory {
 
     /**
      * search memory messages by session id and query
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.MemorySearchPayload} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.search("sessionId")
-     *
-     * @example
-     *     await zep.memory.search("string", {
-     *         limit: 1
-     *     })
      */
     public async search(
         sessionId: string,
@@ -1192,7 +1194,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/search`
+                `sessions/${encodeURIComponent(sessionId)}/search`
             ),
             method: "POST",
             headers: {
@@ -1266,14 +1268,15 @@ export class Memory {
 
     /**
      * Get session summaries by ID
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.getSummaries("sessionId")
-     *
-     * @example
-     *     await zep.memory.getSummaries("string")
      */
     public async getSummaries(
         sessionId: string,
@@ -1282,7 +1285,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/summary`
+                `sessions/${encodeURIComponent(sessionId)}/summary`
             ),
             method: "GET",
             headers: {
@@ -1354,16 +1357,16 @@ export class Memory {
 
     /**
      * synthesize a question by session id
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.MemorySynthesizeQuestionRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.memory.synthesizeQuestion("sessionId")
-     *
-     * @example
-     *     await zep.memory.synthesizeQuestion("string", {
-     *         lastNMessages: 1
-     *     })
      */
     public async synthesizeQuestion(
         sessionId: string,
@@ -1379,7 +1382,7 @@ export class Memory {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `sessions/${sessionId}/synthesize_question`
+                `sessions/${encodeURIComponent(sessionId)}/synthesize_question`
             ),
             method: "GET",
             headers: {

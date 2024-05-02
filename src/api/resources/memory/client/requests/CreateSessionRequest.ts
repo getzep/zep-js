@@ -7,21 +7,6 @@
  *     {
  *         sessionId: "session_id"
  *     }
- *
- * @example
- *     {
- *         sessionId: "session_id"
- *     }
- *
- * @example
- *     {
- *         sessionId: "session_id"
- *     }
- *
- * @example
- *     {
- *         sessionId: "session_id"
- *     }
  */
 export interface CreateSessionRequest {
     metadata?: Record<string, unknown>;

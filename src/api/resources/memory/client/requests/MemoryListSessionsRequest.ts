@@ -5,30 +5,6 @@
 /**
  * @example
  *     {}
- *
- * @example
- *     {
- *         pageNumber: 1,
- *         pageSize: 1,
- *         orderBy: "string",
- *         asc: true
- *     }
- *
- * @example
- *     {
- *         pageNumber: 1,
- *         pageSize: 1,
- *         orderBy: "string",
- *         asc: true
- *     }
- *
- * @example
- *     {
- *         pageNumber: 1,
- *         pageSize: 1,
- *         orderBy: "string",
- *         asc: true
- *     }
  */
 export interface MemoryListSessionsRequest {
     /**
