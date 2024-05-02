@@ -25,7 +25,6 @@ async function checkEmbeddingStatus(client: ZepClient, collectionName: string): 
     let c = await client.document.getCollection(collectionName);
 
     while (c.documentEmbeddedCount != c.documentCount) {
-        console.log("c", c);
         console.log(`Embedding status: ${c.documentEmbeddedCount}/${c.documentCount} documents embedded`);
         // Wait for 1 second
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -119,9 +118,8 @@ async function main() {
 
     const client = new ZepClient({
         apiKey: projectApiKey,
-        environment: "https://api.development.getzep.com/api/v2",
     });
-    const collection = await client.document.addCollection(collectionName, {
+    await client.document.addCollection(collectionName, {
         description: "Babbage's Calculating Engine", // optional
         metadata: { qux: faker.string.sample() }, // optional
     });

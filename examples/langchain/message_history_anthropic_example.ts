@@ -7,9 +7,12 @@ import { ChatAnthropic } from "@langchain/anthropic";
 
 async function main() {
     const sessionId = process.env.ZEP_SESSION_ID;
+    if (!sessionId) {
+        throw new Error("ZEP_SESSION_ID not set");
+    }
+
     const zepClient = new ZepClient({
         apiKey: process.env.ZEP_API_KEY,
-        environment: "https://api.development.getzep.com/api/v2",
     });
 
     const prompt = ChatPromptTemplate.fromMessages([

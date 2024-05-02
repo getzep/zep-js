@@ -41,7 +41,6 @@ async function main() {
     }
     const zepClient = new ZepClient({
         apiKey: process.env.ZEP_API_KEY,
-        environment: "https://api.development.getzep.com/api/v2",
     });
 
     const vectorStore = await ZepVectorStore.init({
