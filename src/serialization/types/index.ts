@@ -8,6 +8,7 @@ export * from "./DocumentSearchResultPage";
 export * from "./Memory";
 export * from "./MemorySearchResult";
 export * from "./Message";
+export * from "./ModelsMessageListResponse";
 export * from "./Question";
 export * from "./RoleType";
 export * from "./SearchScope";
