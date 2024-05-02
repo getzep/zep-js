@@ -1,8 +1,9 @@
 {
-    "name": "zep",
+    "name": "@getzep/zep-js",
     "version": "v2.0.1-rc.1",
     "private": false,
     "repository": "https://github.com/getzep/zep-js",
+    "description": "Zep: Fast, scalable building blocks for production LLM apps",
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {
