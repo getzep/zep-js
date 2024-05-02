@@ -45,7 +45,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -135,7 +135,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -236,7 +236,7 @@ export class Document {
         collectionName: string,
         request: Zep.CreateDocumentCollectionRequest = {},
         requestOptions?: Document.RequestOptions
-    ): Promise<void> {
+    ): Promise<Zep.ModelsSuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -246,7 +246,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -259,7 +259,13 @@ export class Document {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -340,7 +346,10 @@ export class Document {
      * @example
      *     await zep.document.deleteCollection("string")
      */
-    public async deleteCollection(collectionName: string, requestOptions?: Document.RequestOptions): Promise<void> {
+    public async deleteCollection(
+        collectionName: string,
+        requestOptions?: Document.RequestOptions
+    ): Promise<Zep.ModelsSuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -350,7 +359,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -360,7 +369,13 @@ export class Document {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -445,7 +460,7 @@ export class Document {
         collectionName: string,
         request: Zep.UpdateDocumentCollectionRequest = {},
         requestOptions?: Document.RequestOptions
-    ): Promise<void> {
+    ): Promise<Zep.ModelsSuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -455,7 +470,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -468,7 +483,13 @@ export class Document {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -562,7 +583,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -655,7 +676,7 @@ export class Document {
         collectionName: string,
         request: string[],
         requestOptions?: Document.RequestOptions
-    ): Promise<void> {
+    ): Promise<Zep.ModelsSuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -665,7 +686,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -678,7 +699,13 @@ export class Document {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -762,7 +789,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -857,7 +884,7 @@ export class Document {
         collectionName: string,
         request: Zep.UpdateDocumentListRequest[],
         requestOptions?: Document.RequestOptions
-    ): Promise<void> {
+    ): Promise<Zep.ModelsSuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -867,7 +894,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -880,7 +907,13 @@ export class Document {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -964,7 +997,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1055,7 +1088,7 @@ export class Document {
         collectionName: string,
         documentUuid: string,
         requestOptions?: Document.RequestOptions
-    ): Promise<void> {
+    ): Promise<Zep.ModelsSuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -1065,7 +1098,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1075,7 +1108,13 @@ export class Document {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1161,7 +1200,7 @@ export class Document {
         documentUuid: string,
         request: Zep.UpdateDocumentRequest = {},
         requestOptions?: Document.RequestOptions
-    ): Promise<void> {
+    ): Promise<Zep.ModelsSuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -1171,7 +1210,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1182,7 +1221,13 @@ export class Document {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -1284,7 +1329,7 @@ export class Document {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.0.0-rc.5",
+                "X-Fern-SDK-Version": "2.0.1-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -13,6 +13,7 @@ export * from "./RoleType";
 export * from "./SearchScope";
 export * from "./SearchType";
 export * from "./Session";
+export * from "./ModelsSuccessResponse";
 export * from "./Summary";
 export * from "./SummaryListResponse";
 export * from "./UpdateDocumentListRequest";
