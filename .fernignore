@@ -4,5 +4,6 @@ src/wrapper
 src/index.ts
 src/langchain
 package.json
+yarn.lock
 .github
 README.md
