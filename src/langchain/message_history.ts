@@ -1,8 +1,8 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 
-import { AIMessage, BaseMessage, HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { AIMessage, BaseMessage, HumanMessage } from "@langchain/core/messages";
 import { BaseChatMessageHistory } from "@langchain/core/chat_history";
-import { ZepClient } from "../wrapper";
+import { ZepClient } from "../";
 import { Zep } from "../";
 import { Memory, NotFoundError } from "../api";
 import { condenseZepMemoryIntoHumanMessage, getZepMessageRoleType } from "./utils";

@@ -24,7 +24,8 @@ import { CreateDocumentRequest, DocumentSearchResult } from "../../src/api";
 async function checkEmbeddingStatus(client: ZepClient, collectionName: string): Promise<void> {
     let c = await client.document.getCollection(collectionName);
 
-    while (!c.isIndexed) {
+    while (c.documentEmbeddedCount != c.documentCount) {
+        console.log("c", c);
         console.log(`Embedding status: ${c.documentEmbeddedCount}/${c.documentCount} documents embedded`);
         // Wait for 1 second
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -180,23 +181,6 @@ async function main() {
         },
         limit: 3,
     });
-
-    // Delete a document
-    const documentToDelete = searchResults![0].uuid;
-    if (!documentToDelete) {
-        throw new Error("No document to delete");
-    }
-    console.log(`Deleting document ${documentToDelete}`);
-    await client.document.deleteDocument(collectionName, documentToDelete);
-    console.log(`Deleted document ${documentToDelete}`);
-    // Get a list of documents in the collection by UUID
-    const docsToGet = uuids.slice(48, 50);
-    console.log(`Getting documents: ${docsToGet}`);
-    const retrievedDocuments = await client.document.batchGetDocuments(collectionName, {
-        documentIds: docsToGet,
-    });
-    console.log(`Got ${retrievedDocuments.length} documents`);
-    printResults(retrievedDocuments!);
 
     // Delete the collection
     console.log(`Deleting collection ${collectionName}`);

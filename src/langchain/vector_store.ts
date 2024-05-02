@@ -7,7 +7,7 @@ import { Callbacks } from "@langchain/core/callbacks/manager";
 import { maximalMarginalRelevance } from "@langchain/core/utils/math";
 import { FakeEmbeddings } from "@langchain/core/utils/testing";
 import { CreateDocumentRequest, DocumentSearchResult, NotFoundError } from "../api";
-import { ZepClient } from "../wrapper";
+import { ZepClient } from "../";
 
 function zepDocsToDocumentsAndScore(results: DocumentSearchResult[]): [Document, number][] {
     return results.map((d) => [
