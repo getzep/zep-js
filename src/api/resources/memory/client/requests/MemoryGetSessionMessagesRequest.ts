@@ -5,6 +5,24 @@
 /**
  * @example
  *     {}
+ *
+ * @example
+ *     {
+ *         limit: 1,
+ *         cursor: 1
+ *     }
+ *
+ * @example
+ *     {
+ *         limit: 1,
+ *         cursor: 1
+ *     }
+ *
+ * @example
+ *     {
+ *         limit: 1,
+ *         cursor: 1
+ *     }
  */
 export interface MemoryGetSessionMessagesRequest {
     /**

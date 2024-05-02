@@ -7,6 +7,26 @@
  *     {
  *         metadata: {}
  *     }
+ *
+ * @example
+ *     {
+ *         metadata: {}
+ *     }
+ *
+ * @example
+ *     {
+ *         metadata: {}
+ *     }
+ *
+ * @example
+ *     {
+ *         metadata: {}
+ *     }
+ *
+ * @example
+ *     {
+ *         metadata: {}
+ *     }
  */
 export interface UpdateSessionRequest {
     /** The metadata to update */

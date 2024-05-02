@@ -5,6 +5,18 @@
 /**
  * @example
  *     {}
+ *
+ * @example
+ *     {}
+ *
+ * @example
+ *     {}
+ *
+ * @example
+ *     {}
+ *
+ * @example
+ *     {}
  */
 export interface GetDocumentListRequest {
     documentIds?: string[];

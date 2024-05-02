@@ -7,6 +7,21 @@
  *     {
  *         metadata: {}
  *     }
+ *
+ * @example
+ *     {
+ *         metadata: {}
+ *     }
+ *
+ * @example
+ *     {
+ *         metadata: {}
+ *     }
+ *
+ * @example
+ *     {
+ *         metadata: {}
+ *     }
  */
 export interface ModelsMessageMetadataUpdate {
     metadata: Record<string, unknown>;

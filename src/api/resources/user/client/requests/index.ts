@@ -1,3 +1,3 @@
-export { type CreateUserRequest } from "./CreateUserRequest";
-export { type UserListOrderedRequest } from "./UserListOrderedRequest";
-export { type UpdateUserRequest } from "./UpdateUserRequest";
+export { CreateUserRequest } from "./CreateUserRequest";
+export { UserListOrderedRequest } from "./UserListOrderedRequest";
+export { UpdateUserRequest } from "./UpdateUserRequest";

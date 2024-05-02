@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Zep from "../../../index";
+import * as Zep from "../../..";
 import urlJoin from "url-join";
-import * as serializers from "../../../../serialization/index";
-import * as errors from "../../../../errors/index";
+import * as serializers from "../../../../serialization";
+import * as errors from "../../../../errors";
 
 export declare namespace Document {
     interface Options {
@@ -27,9 +27,6 @@ export class Document {
 
     /**
      * Returns a list of all DocumentCollections.
-     *
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.InternalServerError}
      *
@@ -114,10 +111,6 @@ export class Document {
 
     /**
      * Returns a DocumentCollection if it exists.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
@@ -125,6 +118,9 @@ export class Document {
      *
      * @example
      *     await zep.document.getCollection("collectionName")
+     *
+     * @example
+     *     await zep.document.getCollection("string")
      */
     public async getCollection(
         collectionName: string,
@@ -133,7 +129,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${collectionName}`
             ),
             method: "GET",
             headers: {
@@ -225,11 +221,6 @@ export class Document {
 
     /**
      * If a collection with the same name already exists, an error will be returned.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Zep.CreateDocumentCollectionRequest} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
@@ -237,6 +228,9 @@ export class Document {
      *
      * @example
      *     await zep.document.addCollection("collectionName")
+     *
+     * @example
+     *     await zep.document.addCollection("string")
      */
     public async addCollection(
         collectionName: string,
@@ -246,7 +240,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${collectionName}`
             ),
             method: "POST",
             headers: {
@@ -341,10 +335,6 @@ export class Document {
 
     /**
      * If a collection with the same name already exists, it will be overwritten.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
@@ -352,6 +342,9 @@ export class Document {
      *
      * @example
      *     await zep.document.deleteCollection("collectionName")
+     *
+     * @example
+     *     await zep.document.deleteCollection("string")
      */
     public async deleteCollection(
         collectionName: string,
@@ -360,7 +353,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${collectionName}`
             ),
             method: "DELETE",
             headers: {
@@ -452,11 +445,6 @@ export class Document {
 
     /**
      * Updates a DocumentCollection
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Zep.UpdateDocumentCollectionRequest} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
@@ -464,6 +452,9 @@ export class Document {
      *
      * @example
      *     await zep.document.updateCollection("collectionName")
+     *
+     * @example
+     *     await zep.document.updateCollection("string")
      */
     public async updateCollection(
         collectionName: string,
@@ -473,7 +464,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${collectionName}`
             ),
             method: "PATCH",
             headers: {
@@ -568,17 +559,15 @@ export class Document {
 
     /**
      * Creates Documents in a specified DocumentCollection and returns their UUIDs.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Zep.CreateDocumentRequest[]} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.document.addDocuments("collectionName", [{}])
+     *
+     * @example
+     *     await zep.document.addDocuments("string", [{}])
      */
     public async addDocuments(
         collectionName: string,
@@ -588,7 +577,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents`
+                `collections/${collectionName}/documents`
             ),
             method: "POST",
             headers: {
@@ -673,17 +662,15 @@ export class Document {
 
     /**
      * Deletes specified Documents from a DocumentCollection.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {string[]} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.document.batchDeleteDocuments("collectionName", ["string"])
+     *
+     * @example
+     *     await zep.document.batchDeleteDocuments("string", ["string"])
      */
     public async batchDeleteDocuments(
         collectionName: string,
@@ -693,7 +680,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/batchDelete`
+                `collections/${collectionName}/documents/batchDelete`
             ),
             method: "POST",
             headers: {
@@ -778,17 +765,15 @@ export class Document {
 
     /**
      * Returns Documents from a DocumentCollection specified by UUID or ID.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Zep.GetDocumentListRequest} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.document.batchGetDocuments("collectionName")
+     *
+     * @example
+     *     await zep.document.batchGetDocuments("string")
      */
     public async batchGetDocuments(
         collectionName: string,
@@ -798,7 +783,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/batchGet`
+                `collections/${collectionName}/documents/batchGet`
             ),
             method: "POST",
             headers: {
@@ -881,17 +866,17 @@ export class Document {
 
     /**
      * Updates Documents in a specified DocumentCollection.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Zep.UpdateDocumentListRequest[]} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.document.batchUpdateDocuments("collectionName", [{
+     *             uuid: "uuid"
+     *         }])
+     *
+     * @example
+     *     await zep.document.batchUpdateDocuments("string", [{
      *             uuid: "uuid"
      *         }])
      */
@@ -903,7 +888,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/batchUpdate`
+                `collections/${collectionName}/documents/batchUpdate`
             ),
             method: "PATCH",
             headers: {
@@ -988,17 +973,15 @@ export class Document {
 
     /**
      * Returns specified Document from a DocumentCollection.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {string} documentUuid - UUID of the Document to be updated
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.document.getsADocumentFromADocumentCollectionByUuid("collectionName", "documentUUID")
+     *
+     * @example
+     *     await zep.document.getsADocumentFromADocumentCollectionByUuid("string", "string")
      */
     public async getsADocumentFromADocumentCollectionByUuid(
         collectionName: string,
@@ -1008,7 +991,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`
+                `collections/${collectionName}/documents/uuid/${documentUuid}`
             ),
             method: "GET",
             headers: {
@@ -1090,11 +1073,6 @@ export class Document {
 
     /**
      * Delete specified Document from a DocumentCollection.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {string} documentUuid - UUID of the Document to be deleted
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
@@ -1102,6 +1080,9 @@ export class Document {
      *
      * @example
      *     await zep.document.deleteDocument("collectionName", "documentUUID")
+     *
+     * @example
+     *     await zep.document.deleteDocument("string", "string")
      */
     public async deleteDocument(
         collectionName: string,
@@ -1111,7 +1092,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`
+                `collections/${collectionName}/documents/uuid/${documentUuid}`
             ),
             method: "DELETE",
             headers: {
@@ -1203,12 +1184,6 @@ export class Document {
 
     /**
      * Updates a Document in a DocumentCollection by UUID
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {string} documentUuid - UUID of the Document to be updated
-     * @param {Zep.UpdateDocumentRequest} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
@@ -1216,6 +1191,9 @@ export class Document {
      *
      * @example
      *     await zep.document.updatesADocument("collectionName", "documentUUID")
+     *
+     * @example
+     *     await zep.document.updatesADocument("string", "string")
      */
     public async updatesADocument(
         collectionName: string,
@@ -1226,7 +1204,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`
+                `collections/${collectionName}/documents/uuid/${documentUuid}`
             ),
             method: "PATCH",
             headers: {
@@ -1319,17 +1297,17 @@ export class Document {
 
     /**
      * Searches Documents in a DocumentCollection based on provided search criteria.
-     *
-     * @param {string} collectionName - Name of the Document Collection
-     * @param {Zep.DocumentSearchPayload} request
-     * @param {Document.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.document.search("collectionName")
+     *
+     * @example
+     *     await zep.document.search("string", {
+     *         limit: 1
+     *     })
      */
     public async search(
         collectionName: string,
@@ -1345,7 +1323,7 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/search`
+                `collections/${collectionName}/search`
             ),
             method: "POST",
             headers: {

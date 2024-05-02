@@ -4,10 +4,10 @@
 
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
-import * as Zep from "../../../index";
-import * as serializers from "../../../../serialization/index";
+import * as Zep from "../../..";
+import * as serializers from "../../../../serialization";
 import urlJoin from "url-join";
-import * as errors from "../../../../errors/index";
+import * as errors from "../../../../errors";
 
 export declare namespace User {
     interface Options {
@@ -27,10 +27,6 @@ export class User {
 
     /**
      * add user by id
-     *
-     * @param {Zep.CreateUserRequest} request
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
@@ -114,15 +110,17 @@ export class User {
 
     /**
      * List all users with pagination.
-     *
-     * @param {Zep.UserListOrderedRequest} request
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.user.listOrdered()
+     *
+     * @example
+     *     await zep.user.listOrdered({
+     *         pageNumber: 1,
+     *         pageSize: 1
+     *     })
      */
     public async listOrdered(
         request: Zep.UserListOrderedRequest = {},
@@ -214,21 +212,20 @@ export class User {
 
     /**
      * get user by id
-     *
-     * @param {string} userId - User ID
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.user.get("userId")
+     *
+     * @example
+     *     await zep.user.get("string")
      */
     public async get(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.User> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}`
+                `users/${userId}`
             ),
             method: "GET",
             headers: {
@@ -300,21 +297,20 @@ export class User {
 
     /**
      * delete user by id
-     *
-     * @param {string} userId - User ID
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.user.delete("userId")
+     *
+     * @example
+     *     await zep.user.delete("string")
      */
     public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}`
+                `users/${userId}`
             ),
             method: "DELETE",
             headers: {
@@ -386,17 +382,15 @@ export class User {
 
     /**
      * update user by id
-     *
-     * @param {string} userId - User ID
-     * @param {Zep.UpdateUserRequest} request
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.user.update("userId")
+     *
+     * @example
+     *     await zep.user.update("string")
      */
     public async update(
         userId: string,
@@ -406,7 +400,7 @@ export class User {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}`
+                `users/${userId}`
             ),
             method: "PATCH",
             headers: {
@@ -489,20 +483,19 @@ export class User {
 
     /**
      * list all sessions for a user by user id
-     *
-     * @param {string} userId - User ID
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await zep.user.getSessions("userId")
+     *
+     * @example
+     *     await zep.user.getSessions("string")
      */
     public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}/sessions`
+                `users/${userId}/sessions`
             ),
             method: "GET",
             headers: {

@@ -8,6 +8,24 @@
  *         classes: ["classes"],
  *         name: "name"
  *     }
+ *
+ * @example
+ *     {
+ *         classes: ["classes"],
+ *         name: "name"
+ *     }
+ *
+ * @example
+ *     {
+ *         classes: ["classes"],
+ *         name: "name"
+ *     }
+ *
+ * @example
+ *     {
+ *         classes: ["classes"],
+ *         name: "name"
+ *     }
  */
 export interface ClassifySessionRequest {
     classes: string[];
