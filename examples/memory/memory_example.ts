@@ -87,6 +87,7 @@ async function main() {
         const classification = await client.memory.classifySession(sessionID, {
             name: "spender_category",
             classes,
+            persist: true,
         });
         console.debug(`${classification.class} Classification Result: ${classification.name}`);
     } catch (error) {
@@ -118,7 +119,6 @@ async function main() {
     // get session messages
     let sessionMessages: Message[] = [];
     try {
-        console.log("Before Session messages");
         const sessionMessagesResult = await client.memory.getSessionMessages(sessionID, { limit: 10, cursor: 1 });
         console.debug("Session messages: ", JSON.stringify(sessionMessagesResult));
         if (sessionMessagesResult?.messages) {
