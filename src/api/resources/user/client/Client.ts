@@ -125,7 +125,7 @@ export class User {
     public async listOrdered(
         request: Zep.UserListOrderedRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<Zep.User[]> {
+    ): Promise<Zep.UserListResponse> {
         const { pageNumber, pageSize } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -156,7 +156,7 @@ export class User {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.user.listOrdered.Response.parseOrThrow(_response.body, {
+            return await serializers.UserListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -306,7 +306,7 @@ export class User {
      * @example
      *     await zep.user.delete("string")
      */
-    public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<void> {
+    public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -326,7 +326,13 @@ export class User {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
