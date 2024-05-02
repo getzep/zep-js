@@ -109,7 +109,6 @@ function naiveSplitText(text: string, maxChunkSize: number): string[] {
  */
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
-    const projectApiUrl = process.env.ZEP_API_URL;
 
     const file = "babbages_calculating_engine.txt";
     const maxChunkSize = 500;
@@ -119,7 +118,6 @@ async function main() {
 
     const client = new ZepClient({
         apiKey: projectApiKey,
-        environment: projectApiUrl,
     });
     const collection = await client.document.addCollection(collectionName, {
         description: "Babbage's Calculating Engine", // optional

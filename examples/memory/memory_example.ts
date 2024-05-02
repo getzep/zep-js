@@ -15,11 +15,9 @@ function sleep(ms: number) {
 
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
-    const projectApiUrl = process.env.ZEP_API_URL;
 
     const client = new ZepClient({
         apiKey: projectApiKey,
-        environment: projectApiUrl,
     });
 
     // Create a user

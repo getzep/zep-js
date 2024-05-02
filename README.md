@@ -43,29 +43,18 @@ Zep allows you to be more intentional about constructing your prompt:
 - **Dialog Classification:** Instantly and accurately classify chat dialog. Understand user intent and emotion, segment users, and more. Route chains based on semantic context, and trigger events.
 - **Structured Data Extraction:** Quickly extract business data from chat conversations using a schema you define. Understand what your Assistant should ask for next in order to complete its task.
 
-
-## Zep TypeScript / JavaScript Client
-
-This is the TypeScript / JavaScript client package for the Zep service. For more information about Zep, see https://github.com/getzep/zep
-
-## Installation
-
-```bash
-npm install @getzep/zep-js
-```
-
 ## Zep cloud Installation
 In order to install zep js sdk with zep-cloud support, you will need to install
-a pre-release version tagged with `@next`.
+a pre-release version tagged with `@preview`.
 
 ```bash
-npm install @getzep/zep-js@next
+npm install @getzep/zep-js@preview
 ```
 
 You will also need to provide a Zep Project API key to your zep client for cloud support.
 You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
 
-### Using langchain zep classes with `zep-js@next`:
+### Using langchain zep classes with `zep-js@preview`:
 In the pre-release version `zep-js` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
 classes that are compatible with [`Langchain's JS expression language`](https://js.langchain.com/docs/expression_language/)
 

@@ -4,11 +4,9 @@ import { CreateUserRequest, UpdateUserRequest } from "../../src/api";
 
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
-    const projectApiUrl = process.env.ZEP_API_URL;
 
     const client = new ZepClient({
         apiKey: projectApiKey,
-        environment: projectApiUrl,
     });
 
     // Create multiple users
@@ -31,7 +29,7 @@ async function main() {
     }
 
     // Update the first user
-    const users = await client.user.list();
+    const users = await client.user.listOrdered();
     const { userId } = (await client.user.listOrdered())[0];
     const userRequest: UpdateUserRequest = {
         email: "updated_user@example.com",

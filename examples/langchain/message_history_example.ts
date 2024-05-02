@@ -8,7 +8,6 @@ import { ConsoleCallbackHandler } from "@langchain/core/tracers/console";
 async function main() {
     const zepClient = new ZepClient({
         apiKey: process.env.ZEP_API_KEY,
-        environment: process.env.ZEP_API_URL,
     });
 
     const prompt = ChatPromptTemplate.fromMessages([

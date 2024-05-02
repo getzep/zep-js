@@ -654,6 +654,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
+            console.log("_response", _response.body);
             return await serializers.Memory.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
@@ -746,6 +747,7 @@ export class Memory {
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
+        console.log("_response", _response);
         if (_response.ok) {
             return;
         }
