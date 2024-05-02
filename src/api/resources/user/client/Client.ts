@@ -306,7 +306,7 @@ export class User {
      * @example
      *     await zep.user.delete("string")
      */
-    public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.ModelsSuccessResponse> {
+    public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -326,7 +326,7 @@ export class User {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsSuccessResponse.parseOrThrow(_response.body, {
+            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
