@@ -894,7 +894,7 @@ export class Memory {
         sessionId: string,
         request: Zep.MemoryGetSessionMessagesRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsMessageListResponse> {
+    ): Promise<Zep.MessageListResponse> {
         const { limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -925,7 +925,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsMessageListResponse.parseOrThrow(_response.body, {
+            return await serializers.MessageListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

@@ -7,16 +7,16 @@ import * as Zep from "../../api";
 import * as core from "../../core";
 import { Message } from "./Message";
 
-export const ModelsMessageListResponse: core.serialization.ObjectSchema<
-    serializers.ModelsMessageListResponse.Raw,
-    Zep.ModelsMessageListResponse
+export const MessageListResponse: core.serialization.ObjectSchema<
+    serializers.MessageListResponse.Raw,
+    Zep.MessageListResponse
 > = core.serialization.object({
     messages: core.serialization.list(Message).optional(),
     rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
     totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
 
-export declare namespace ModelsMessageListResponse {
+export declare namespace MessageListResponse {
     interface Raw {
         messages?: Message.Raw[] | null;
         row_count?: number | null;

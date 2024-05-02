@@ -125,7 +125,7 @@ export class User {
     public async listOrdered(
         request: Zep.UserListOrderedRequest = {},
         requestOptions?: User.RequestOptions
-    ): Promise<Zep.User[]> {
+    ): Promise<Zep.UserListResponse> {
         const { pageNumber, pageSize } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -156,7 +156,7 @@ export class User {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.user.listOrdered.Response.parseOrThrow(_response.body, {
+            return await serializers.UserListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
