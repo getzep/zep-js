@@ -713,12 +713,20 @@ export class Memory {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.memory.add("sessionId", {})
+     *     await zep.memory.add("sessionId", {
+     *         messages: [{}]
+     *     })
      *
      * @example
-     *     await zep.memory.add("string", {})
+     *     await zep.memory.add("string", {
+     *         messages: [{}]
+     *     })
      */
-    public async add(sessionId: string, request: Zep.Memory, requestOptions?: Memory.RequestOptions): Promise<void> {
+    public async add(
+        sessionId: string,
+        request: Zep.AddMemoryRequest,
+        requestOptions?: Memory.RequestOptions
+    ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -734,12 +742,18 @@ export class Memory {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.Memory.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: await serializers.AddMemoryRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -788,7 +802,7 @@ export class Memory {
      * @example
      *     await zep.memory.delete("string")
      */
-    public async delete(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<void> {
+    public async delete(sessionId: string, requestOptions?: Memory.RequestOptions): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -808,7 +822,13 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return;
+            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
         }
 
         if (_response.error.reason === "status-code") {
@@ -874,7 +894,7 @@ export class Memory {
         sessionId: string,
         request: Zep.MemoryGetSessionMessagesRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.Message[]> {
+    ): Promise<Zep.MessageListResponse> {
         const { limit, cursor } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -905,7 +925,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.memory.getSessionMessages.Response.parseOrThrow(_response.body, {
+            return await serializers.MessageListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
