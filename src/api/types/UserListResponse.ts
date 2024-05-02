@@ -4,8 +4,8 @@
 
 import * as Zep from "..";
 
-export interface ModelsMessageListResponse {
-    messages?: Zep.Message[];
+export interface UserListResponse {
     rowCount?: number;
     totalCount?: number;
+    users?: Zep.User[];
 }
