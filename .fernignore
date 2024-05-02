@@ -4,3 +4,5 @@ src/wrapper
 src/index.ts
 src/langchain
 package.json
+.github
+README.md
