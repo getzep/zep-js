@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { CreateUserRequest, NotFoundError } from "../../src/api";
+import { CreateUserRequest, Message, NotFoundError } from "../../src/api";
 import { ZepClient } from "../../src";
 
 // @ts-ignore
@@ -18,6 +18,7 @@ async function main() {
 
     const client = new ZepClient({
         apiKey: projectApiKey,
+        environment: "https://api.development.getzep.com/api/v2",
     });
 
     // Create a user
@@ -101,6 +102,7 @@ async function main() {
     try {
         console.debug("Getting memory for newly added memory with sessionid ", sessionID);
         const memory = await client.memory.get(sessionID);
+        console.log("Memory: ", JSON.stringify(memory));
         if (memory?.messages) {
             memory.messages.forEach((message) => {
                 console.debug(JSON.stringify(message));
@@ -115,10 +117,14 @@ async function main() {
     }
 
     // get session messages
-    let sessionMessages: any[] = [];
+    let sessionMessages: Message[] = [];
     try {
-        sessionMessages = await client.memory.getSessionMessages(sessionID, { limit: 10, cursor: 1 });
-        console.debug("Session messages: ", JSON.stringify(sessionMessages));
+        console.log("Before Session messages");
+        const sessionMessagesResult = await client.memory.getSessionMessages(sessionID, { limit: 10, cursor: 1 });
+        console.debug("Session messages: ", JSON.stringify(sessionMessagesResult));
+        if (sessionMessagesResult?.messages) {
+            sessionMessages = sessionMessagesResult.messages;
+        }
     } catch (error) {
         if (error instanceof NotFoundError) {
             console.error("Session not found:", error.message);
@@ -132,10 +138,12 @@ async function main() {
     // Update session message metadata
     try {
         const metadata = { metadata: { foo: "bar" } };
-        const updatedMessage = await client.memory.updateMessageMetadata(sessionID, firstSessionsMessageId, {
-            metadata: metadata,
-        });
-        console.debug("Updated message: ", JSON.stringify(updatedMessage));
+        if (firstSessionsMessageId) {
+            const updatedMessage = await client.memory.updateMessageMetadata(sessionID, firstSessionsMessageId, {
+                metadata: metadata,
+            });
+            console.debug("Updated message: ", JSON.stringify(updatedMessage));
+        }
     } catch (error) {
         if (error instanceof NotFoundError) {
             console.error("Session not found:", error.message);
@@ -147,8 +155,10 @@ async function main() {
     // Get session message
 
     try {
-        const message = await client.memory.getSessionMessage(sessionID, firstSessionsMessageId);
-        console.debug("Session message: ", JSON.stringify(message));
+        if (firstSessionsMessageId) {
+            const message = await client.memory.getSessionMessage(sessionID, firstSessionsMessageId);
+            console.debug("Session message: ", JSON.stringify(message));
+        }
     } catch (error) {
         if (error instanceof NotFoundError) {
             console.error("Session not found:", error.message);
