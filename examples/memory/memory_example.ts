@@ -73,7 +73,7 @@ async function main() {
         // Useful for RAG apps.
         // This is faster than using an LLM chain.
         console.debug("\n---Synthesize a question from most recent messages");
-        const question = await client.memory.synthesizeQuestion(sessionID, { lastNMessages: 3 });
+        const { question } = await client.memory.synthesizeQuestion(sessionID, { lastNMessages: 3 });
         console.debug(`Question: ${question}`);
     } catch (error) {
         console.debug("Got error:", error);
