@@ -4,7 +4,6 @@ export { UpdateSessionRequest } from "./UpdateSessionRequest";
 export { ClassifySessionRequest } from "./ClassifySessionRequest";
 export { ModelsExtractDataRequest } from "./ModelsExtractDataRequest";
 export { MemoryGetRequest } from "./MemoryGetRequest";
-export { AddMemoryRequest } from "./AddMemoryRequest";
 export { MemoryGetSessionMessagesRequest } from "./MemoryGetSessionMessagesRequest";
 export { ModelsMessageMetadataUpdate } from "./ModelsMessageMetadataUpdate";
 export { MemorySearchPayload } from "./MemorySearchPayload";
