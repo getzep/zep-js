@@ -9,5 +9,6 @@
  *     }
  */
 export interface ModelsMessageMetadataUpdate {
+    /** The metadata to update */
     metadata: Record<string, unknown>;
 }

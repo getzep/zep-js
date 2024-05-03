@@ -5,7 +5,10 @@
 import * as Zep from "../index";
 
 export interface MessageListResponse {
+    /** A list of message objects. */
     messages?: Zep.Message[];
+    /** The number of messages returned. */
     rowCount?: number;
+    /** The total number of messages. */
     totalCount?: number;
 }

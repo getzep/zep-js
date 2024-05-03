@@ -26,7 +26,7 @@ export class Memory {
     constructor(protected readonly _options: Memory.Options = {}) {}
 
     /**
-     * add session by id
+     * Create New Session
      *
      * @param {Zep.CreateSessionRequest} request
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
@@ -312,7 +312,7 @@ export class Memory {
     }
 
     /**
-     * add session by id
+     * Update Session Metadata
      *
      * @param {string} sessionId - Session ID
      * @param {Zep.UpdateSessionRequest} request
@@ -708,7 +708,7 @@ export class Memory {
     }
 
     /**
-     * add memory messages by session id
+     * Add memory to the specified session.
      *
      * @param {string} sessionId - The ID of the session to which memory should be added.
      * @param {Zep.AddMemoryRequest} request
