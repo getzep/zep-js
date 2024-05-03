@@ -7,9 +7,14 @@
  *     {}
  */
 export interface CreateUserRequest {
+    /** The email address of the user. */
     email?: string;
+    /** The first name of the user. */
     firstName?: string;
+    /** The last name of the user. */
     lastName?: string;
+    /** The metadata associated with the user. */
     metadata?: Record<string, unknown>;
+    /** The unique identifier of the user. */
     userId?: string;
 }

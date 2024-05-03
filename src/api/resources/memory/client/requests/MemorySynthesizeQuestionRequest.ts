@@ -8,7 +8,7 @@
  */
 export interface MemorySynthesizeQuestionRequest {
     /**
-     * Last N messages
+     * The number of messages to use for question synthesis.
      */
     lastNMessages?: number;
 }

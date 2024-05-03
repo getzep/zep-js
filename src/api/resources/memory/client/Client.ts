@@ -52,7 +52,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -160,7 +160,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -247,7 +247,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -341,7 +341,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -446,7 +446,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -540,7 +540,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -608,7 +608,7 @@ export class Memory {
     /**
      * get memory by session id
      *
-     * @param {string} sessionId - Session ID
+     * @param {string} sessionId - The ID of the session for which to retrieve memory.
      * @param {Zep.MemoryGetRequest} request
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -642,7 +642,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -710,7 +710,7 @@ export class Memory {
     /**
      * add memory messages by session id
      *
-     * @param {string} sessionId - Session ID
+     * @param {string} sessionId - The ID of the session to which memory should be added.
      * @param {Zep.AddMemoryRequest} request
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -735,7 +735,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -793,7 +793,7 @@ export class Memory {
     /**
      * delete memory messages by session id
      *
-     * @param {string} sessionId - Session ID
+     * @param {string} sessionId - The ID of the session for which memory should be deleted.
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.NotFoundError}
@@ -812,7 +812,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -877,7 +877,7 @@ export class Memory {
     }
 
     /**
-     * get messages by session id
+     * Lists messages for a session, specified by limit and cursor.
      *
      * @param {string} sessionId - Session ID
      * @param {Zep.MemoryGetSessionMessagesRequest} request
@@ -913,7 +913,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -979,10 +979,10 @@ export class Memory {
     }
 
     /**
-     * get message by session id and message id
+     * Gets a specific message from a session
      *
-     * @param {string} sessionId - Session ID
-     * @param {string} messageUuid - Message UUID
+     * @param {string} sessionId - The ID of the session.
+     * @param {string} messageUuid - The UUID of the message.
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.NotFoundError}
@@ -1005,7 +1005,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1070,10 +1070,10 @@ export class Memory {
     }
 
     /**
-     * update message metadata by session id and message id
+     * Updates the metadata of a message.
      *
-     * @param {string} sessionId - Session ID
-     * @param {string} messageUuid - Message UUID
+     * @param {string} sessionId - The ID of the session.
+     * @param {string} messageUuid - The UUID of the message.
      * @param {Zep.ModelsMessageMetadataUpdate} request
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1100,7 +1100,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1168,9 +1168,9 @@ export class Memory {
     }
 
     /**
-     * search memory messages by session id and query
+     * Search memory for the specified session.
      *
-     * @param {string} sessionId - Session ID
+     * @param {string} sessionId - The ID of the session for which memory should be searched.
      * @param {Zep.MemorySearchPayload} request
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1200,7 +1200,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1291,7 +1291,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1356,9 +1356,9 @@ export class Memory {
     }
 
     /**
-     * synthesize a question by session id
+     * Synthesize a question from the last N messages in the chat history.
      *
-     * @param {string} sessionId - Session ID
+     * @param {string} sessionId - The ID of the session.
      * @param {Zep.MemorySynthesizeQuestionRequest} request
      * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1388,7 +1388,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

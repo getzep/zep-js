@@ -7,8 +7,12 @@
  *     {}
  */
 export interface UpdateUserRequest {
+    /** The email address of the user. */
     email?: string;
+    /** The first name of the user. */
     firstName?: string;
+    /** The last name of the user. */
     lastName?: string;
+    /** The metadata to update */
     metadata?: Record<string, unknown>;
 }

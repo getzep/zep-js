@@ -11,6 +11,8 @@ import * as Zep from "../../../../index";
  *     }
  */
 export interface AddMemoryRequest {
+    /** A list of message objects, where each message contains a role and content. */
     messages: Zep.Message[];
+    /** Additional instruction for generating the summary. */
     summaryInstruction?: string;
 }

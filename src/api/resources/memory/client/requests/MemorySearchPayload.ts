@@ -10,7 +10,7 @@ import * as Zep from "../../../../index";
  */
 export interface MemorySearchPayload {
     /**
-     * Limit the number of results returned
+     * The maximum number of search results to return. Defaults to None (no limit).
      */
     limit?: number;
     /** Metadata Filter */

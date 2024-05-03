@@ -26,7 +26,7 @@ export class User {
     constructor(protected readonly _options: User.Options = {}) {}
 
     /**
-     * add user by id
+     * Add a user.
      *
      * @param {Zep.CreateUserRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -47,7 +47,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -147,7 +147,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -213,9 +213,9 @@ export class User {
     }
 
     /**
-     * get user by id
+     * Get a user.
      *
-     * @param {string} userId - User ID
+     * @param {string} userId - The user_id of the user to get.
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.NotFoundError}
@@ -234,7 +234,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -320,7 +320,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -385,7 +385,7 @@ export class User {
     }
 
     /**
-     * update user by id
+     * Update a user.
      *
      * @param {string} userId - User ID
      * @param {Zep.UpdateUserRequest} request
@@ -412,7 +412,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -508,7 +508,7 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.1",
+                "X-Fern-SDK-Version": "2.1.0-rc.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

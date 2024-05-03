@@ -5,8 +5,12 @@
 import * as Zep from "../index";
 
 export interface Memory {
+    /** Most recent list of facts derived from the session. Included only with perpetual memory type. */
     facts?: string[];
+    /** A list of message objects, where each message contains a role and content. */
     messages?: Zep.Message[];
+    /** A dictionary containing metadata associated with the memory. */
     metadata?: Record<string, unknown>;
+    /** A Summary object. */
     summary?: Zep.Summary;
 }

@@ -13,10 +13,13 @@ export interface DocumentSearchPayload {
      * Limit the number of returned documents
      */
     limit?: number;
+    /** Document metadata to filter on. */
     metadata?: Record<string, unknown>;
-    /** TODO: implement for documents */
     minScore?: number;
+    /** The lambda parameter for the MMR Reranking Algorithm. */
     mmrLambda?: number;
+    /** The type of search to perform. Defaults to "similarity". Must be one of "similarity" or "mmr". */
     searchType?: Zep.SearchType;
+    /** The search text. */
     text?: string;
 }

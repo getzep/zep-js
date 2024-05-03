@@ -9,8 +9,10 @@
  *     }
  */
 export interface CreateSessionRequest {
+    /** The metadata associated with the session. */
     metadata?: Record<string, unknown>;
+    /** The unique identifier of the session. */
     sessionId: string;
-    /** Must be a pointer to allow for null values */
+    /** The unique identifier of the user associated with the session */
     userId?: string;
 }
