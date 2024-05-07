@@ -1,6 +1,6 @@
 {
     "name": "@getzep/zep-cloud",
-    "version": "0.0.1-rc.2",
+    "version": "1.0.0",
     "private": false,
     "repository": "https://github.com/getzep/zep-js",
     "description": "Zep: Fast, scalable building blocks for production LLM apps",
