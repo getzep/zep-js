@@ -36,26 +36,20 @@ Zep allows you to be more intentional about constructing your prompt:
 3. and/or contextually relevant summaries or messages surfaced from the entire chat session.
 4. and/or relevant Business data from Zep Document Collections.
 
-## What is Zep Cloud? ⚡️
-
-[Zep Cloud](https://www.getzep.com/) is a managed service with Zep Open Source at its core. In addition to Zep Open Source's memory management features, Zep Cloud offers:
+Zep Cloud offers:
 - **Fact Extraction:** Automatically build fact tables from conversations, without having to define a data schema upfront.
 - **Dialog Classification:** Instantly and accurately classify chat dialog. Understand user intent and emotion, segment users, and more. Route chains based on semantic context, and trigger events.
 - **Structured Data Extraction:** Quickly extract business data from chat conversations using a schema you define. Understand what your Assistant should ask for next in order to complete its task.
 
-## Zep cloud Installation
-In order to install zep js sdk with zep-cloud support, you will need to install
-a pre-release version tagged with `@preview`.
-
 ```bash
-npm install @getzep/zep-js@preview
+npm install @getzep/zep-cloud
 ```
 
 You will also need to provide a Zep Project API key to your zep client for cloud support.
 You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
 
-### Using langchain zep classes with `zep-js@preview`:
-In the pre-release version `zep-js` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
+### Using langchain zep classes with `zep-cloud`:
+`zep-cloud` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
 classes that are compatible with [`Langchain's JS expression language`](https://js.langchain.com/docs/expression_language/)
 
 In order to use these classes in your application, you need to make sure that you have
@@ -68,6 +62,6 @@ npm install langchain@^0.1.23
 You can import these classes in the following way:
 
 ```typescript
-import { ZepChatMessageHistory, ZepVectorStore, ZepMemory } from "@getzep/zep-js/langchain"
+import { ZepChatMessageHistory, ZepVectorStore, ZepMemory } from "@getzep/zep-cloud/langchain"
 ```
 
