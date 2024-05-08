@@ -14,6 +14,7 @@ export * from "./RoleType";
 export * from "./SearchScope";
 export * from "./SearchType";
 export * from "./Session";
+export * from "./SessionListResponse";
 export * from "./SuccessResponse";
 export * from "./Summary";
 export * from "./SummaryListResponse";

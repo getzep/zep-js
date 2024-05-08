@@ -132,7 +132,7 @@ export class Memory {
     public async listSessions(
         request: Zep.MemoryListSessionsRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.Session[]> {
+    ): Promise<Zep.SessionListResponse> {
         const { pageNumber, pageSize, orderBy, asc } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -171,7 +171,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.memory.listSessions.Response.parseOrThrow(_response.body, {
+            return await serializers.SessionListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
