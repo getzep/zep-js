@@ -51,8 +51,8 @@ export class Memory {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -159,8 +159,8 @@ export class Memory {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -246,8 +246,8 @@ export class Memory {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -340,8 +340,8 @@ export class Memory {
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -445,8 +445,8 @@ export class Memory {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -539,8 +539,8 @@ export class Memory {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -606,7 +606,7 @@ export class Memory {
     }
 
     /**
-     * get memory by session id
+     * Returns a memory (latest summary, list of messages and facts for models.MemoryTypePerpetual) for a given session
      *
      * @param {string} sessionId - The ID of the session for which to retrieve memory.
      * @param {Zep.MemoryGetRequest} request
@@ -641,8 +641,8 @@ export class Memory {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -734,8 +734,8 @@ export class Memory {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -811,8 +811,8 @@ export class Memory {
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -912,8 +912,8 @@ export class Memory {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1004,8 +1004,8 @@ export class Memory {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1099,8 +1099,8 @@ export class Memory {
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1199,8 +1199,8 @@ export class Memory {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1290,8 +1290,8 @@ export class Memory {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1387,8 +1387,8 @@ export class Memory {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep",
-                "X-Fern-SDK-Version": "2.1.0-rc.2",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
