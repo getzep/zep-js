@@ -30,12 +30,19 @@ jobs:
         run: |
           # grep will return a non-zero exit code if the version does not match the release pattern
           if echo "$PACKAGE_VERSION" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' > /dev/null; then
-            echo "Version must be a prerelease version"
-            exit 1
+            echo "is_next=false" >> $GITHUB_ENV
+          else
+            echo "Packaging a prerelease version $PACKAGE_VERSION"
+            echo "is_next=true" >> $GITHUB_ENV
           fi
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Publish package
-        run: yarn publish --tag preview
+        run: |
+          if [ "$is_next" = "true" ]; then
+            yarn publish --tag preview
+          else
+            yarn publish
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
