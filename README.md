@@ -24,6 +24,17 @@ Zep: Long-Term Memory for ‍AI Assistants.
 ## What is Zep? 💬
 Zep is a long-term memory service for AI Assistant apps. With Zep, you can provide AI assistants with the ability to recall past conversations, no matter how distant, while also reducing hallucinations, latency, and cost.
 
+### Installation Notes
+Main branch contains the latest version of zep-cloud sdk. You can install it by running:
+```bash
+npm install @getzep/zep-cloud
+```
+
+Open Source Compatible SDK is available in the [oss](https://github.com/getzep/zep-js/tree/oss) branch, where you can also find Open Source compatible examples. You can install it by running:
+```bash
+npm install @getzep/zep-js
+```
+
 ### How Zep works
 
 Zep persists and recalls chat histories, and automatically generates summaries and other artifacts from these chat histories. It also embeds messages and summaries, enabling you to search Zep for relevant context from past conversations. Zep does all of this asynchronously, ensuring these operations don't impact your user's chat experience. Data is persisted to database, allowing you to scale out when growth demands.
@@ -41,11 +52,7 @@ Zep Cloud offers:
 - **Dialog Classification:** Instantly and accurately classify chat dialog. Understand user intent and emotion, segment users, and more. Route chains based on semantic context, and trigger events.
 - **Structured Data Extraction:** Quickly extract business data from chat conversations using a schema you define. Understand what your Assistant should ask for next in order to complete its task.
 
-```bash
-npm install @getzep/zep-cloud
-```
-
-You will also need to provide a Zep Project API key to your zep client for cloud support.
+You will also need to provide a Zep Project API key to your zep client.
 You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
 
 ### Using langchain zep classes with `zep-cloud`:
