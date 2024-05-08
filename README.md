@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/dw/%40getzep/zep-js) [![node-build-test](https://github.com/getzep/zep-js/actions/workflows/node-build-test.yml/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/node-build-test.yml) [![CodeQL](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql)
+![npm](https://img.shields.io/npm/dw/%40getzep/zep-cloud) [![ci](https://github.com/getzep/zep-js/actions/workflows/ci.yml/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/ci.yml) [![CodeQL](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/getzep/zep-js/actions/workflows/github-code-scanning/codeql)
 
 <p align="center">
   <a href="https://www.getzep.com/">
