@@ -1,0 +1,9 @@
+# Specify files that shouldn't be modified by Fern
+examples
+src/wrapper
+src/index.ts
+src/langchain
+package.json
+yarn.lock
+.github
+README.md

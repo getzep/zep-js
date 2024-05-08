@@ -21,55 +21,45 @@ Zep: Long-Term Memory for ‍AI Assistants.
 <a href="https://www.getzep.com">www.getzep.com</a>
 </p>
 
-## What is Zep? 💬 
-Zep is a long-term memory service for AI Assistant apps. With Zep, you can provide AI assistants with the ability to recall past conversations, no matter how distant, while also reducing hallucinations, latency, and cost. 
+## What is Zep? 💬
+Zep is a long-term memory service for AI Assistant apps. With Zep, you can provide AI assistants with the ability to recall past conversations, no matter how distant, while also reducing hallucinations, latency, and cost.
+
+### Installation Notes
+Main branch contains the latest version of zep-cloud sdk. You can install it by running:
+```bash
+npm install @getzep/zep-cloud
+```
+
+Open Source Compatible SDK is available in the [oss](https://github.com/getzep/zep-js/tree/oss) branch, where you can also find Open Source compatible examples. You can install it by running:
+```bash
+npm install @getzep/zep-js
+```
 
 ### How Zep works
 
-Zep persists and recalls chat histories, and automatically generates summaries and other artifacts from these chat histories. It also embeds messages and summaries, enabling you to search Zep for relevant context from past conversations. Zep does all of this asynchronously, ensuring these operations don't impact your user's chat experience. Data is persisted to database, allowing you to scale out when growth demands. 
+Zep persists and recalls chat histories, and automatically generates summaries and other artifacts from these chat histories. It also embeds messages and summaries, enabling you to search Zep for relevant context from past conversations. Zep does all of this asynchronously, ensuring these operations don't impact your user's chat experience. Data is persisted to database, allowing you to scale out when growth demands.
 
 Zep also provides a simple, easy to use abstraction for document vector search called Document Collections. This is designed to complement Zep's core memory features, but is not designed to be a general purpose vector database.
 
-Zep allows you to be more intentional about constructing your prompt: 
+Zep allows you to be more intentional about constructing your prompt:
 1. automatically adding a few recent messages, with the number customized for your app;
 2. a summary of recent conversations prior to the messages above;
 3. and/or contextually relevant summaries or messages surfaced from the entire chat session.
 4. and/or relevant Business data from Zep Document Collections.
 
-## What is Zep Cloud? ⚡️ 
-
-[Zep Cloud](https://www.getzep.com/) is a managed service with Zep Open Source at its core. In addition to Zep Open Source's memory management features, Zep Cloud offers:
+Zep Cloud offers:
 - **Fact Extraction:** Automatically build fact tables from conversations, without having to define a data schema upfront.
-- **Dialog Classification:** Instantly and accurately classify chat dialog. Understand user intent and emotion, segment users, and more. Route chains based on semantic context, and trigger events. 
+- **Dialog Classification:** Instantly and accurately classify chat dialog. Understand user intent and emotion, segment users, and more. Route chains based on semantic context, and trigger events.
 - **Structured Data Extraction:** Quickly extract business data from chat conversations using a schema you define. Understand what your Assistant should ask for next in order to complete its task.
 
-
-## Zep TypeScript / JavaScript Client
-
-This is the TypeScript / JavaScript client package for the Zep service. For more information about Zep, see https://github.com/getzep/zep
-
-## Installation
-
-```bash
-npm install @getzep/zep-js
-```
-
-## Zep cloud Installation
-In order to install zep js sdk with zep-cloud support, you will need to install
-a pre-release version tagged with `@next`.
-
-```bash
-npm install @getzep/zep-js@next
-```
-
-You will also need to provide a Zep Project API key to your zep client for cloud support.
+You will also need to provide a Zep Project API key to your zep client.
 You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
 
-### Using langchain zep classes with `zep-js@next`:
-In the pre-release version `zep-js` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
+### Using langchain zep classes with `zep-cloud`:
+`zep-cloud` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
 classes that are compatible with [`Langchain's JS expression language`](https://js.langchain.com/docs/expression_language/)
 
-In order to use these classes in your application, you need to make sure that you have 
+In order to use these classes in your application, you need to make sure that you have
 `langchain` package installed:
 
 ```bash
@@ -79,6 +69,6 @@ npm install langchain@^0.1.23
 You can import these classes in the following way:
 
 ```typescript
-import { ZepChatMessageHistory, ZepVectorStore, ZepMemory } from "@getzep/zep-js/langchain"
+import { ZepChatMessageHistory, ZepVectorStore, ZepMemory } from "@getzep/zep-cloud/langchain"
 ```
 
