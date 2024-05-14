@@ -18,6 +18,7 @@ async function main() {
 
     const client = new ZepClient({
         apiKey: projectApiKey,
+        environment: "https://api.development.getzep.com/api/v2",
     });
 
     // Create a user
@@ -58,11 +59,16 @@ async function main() {
     // Add memory. We could do this in a batch, but we'll do it one by one rather to
     // ensure that summaries and other artifacts are generated correctly.
     try {
+        const messages = [];
         for (const { role, role_type, content } of history) {
-            await client.memory.add(sessionID, {
-                messages: [{ role, roleType: role_type, content }],
-            });
+            messages.push({ role, roleType: role_type, content });
         }
+        await client.memory.add(sessionID, {
+            messages: messages,
+            factInstruction:
+                "Extract only the brand, model, size and budget for the specific show being purchased.\n" +
+                '- Your fact answer should be in the format: "- Brand: Nike, Model: Air Zoom Pegasus 38, Size: 5, Budget: $80`',
+        });
         console.debug("Added new memory for session ", sessionID);
     } catch (error) {
         console.debug("Got error:", error);
