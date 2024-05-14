@@ -18,7 +18,6 @@ async function main() {
 
     const client = new ZepClient({
         apiKey: projectApiKey,
-        environment: "https://api.development.getzep.com/api/v2",
     });
 
     // Create a user
@@ -65,9 +64,6 @@ async function main() {
         }
         await client.memory.add(sessionID, {
             messages: messages,
-            factInstruction:
-                "Extract only the brand, model, size and budget for the specific show being purchased.\n" +
-                '- Your fact answer should be in the format: "- Brand: Nike, Model: Air Zoom Pegasus 38, Size: 5, Budget: $80`',
         });
         console.debug("Added new memory for session ", sessionID);
     } catch (error) {
