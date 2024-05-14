@@ -58,7 +58,7 @@ async function main() {
     // Add memory. We could do this in a batch, but we'll do it one by one rather to
     // ensure that summaries and other artifacts are generated correctly.
     try {
-        for await (const { role, role_type, content } of history) {
+        for (const { role, role_type, content } of history) {
             await client.memory.add(sessionID, {
                 messages: [{ role, roleType: role_type, content }],
             });
