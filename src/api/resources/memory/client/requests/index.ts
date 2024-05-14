@@ -2,6 +2,7 @@ export { type CreateSessionRequest } from "./CreateSessionRequest";
 export { type MemoryListSessionsRequest } from "./MemoryListSessionsRequest";
 export { type UpdateSessionRequest } from "./UpdateSessionRequest";
 export { type ClassifySessionRequest } from "./ClassifySessionRequest";
+export { type EndSessionRequest } from "./EndSessionRequest";
 export { type ModelsExtractDataRequest } from "./ModelsExtractDataRequest";
 export { type MemoryGetRequest } from "./MemoryGetRequest";
 export { type AddMemoryRequest } from "./AddMemoryRequest";

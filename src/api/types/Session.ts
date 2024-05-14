@@ -6,6 +6,7 @@ export interface Session {
     classifications?: Record<string, string>;
     createdAt?: string;
     deletedAt?: string;
+    endedAt?: string;
     facts?: string[];
     id?: number;
     metadata?: Record<string, unknown>;

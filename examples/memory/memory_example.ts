@@ -247,6 +247,14 @@ async function main() {
             console.error("Got error:", error);
         }
     }
+
+    // End session - this will trigger summarization and other background tasks on the completed session
+    try {
+        await client.memory.endSession(sessionID);
+        console.debug("Ended session: ", sessionID);
+    } catch (error) {
+        console.debug("Got error:", error);
+    }
 }
 
 main();

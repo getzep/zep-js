@@ -14,10 +14,8 @@ Zep: Long-Term Memory for ‍AI Assistants.
 <br />
 
 <p align="center">
-<a href="https://docs.getzep.com/deployment/quickstart/">Quick Start</a> | 
-<a href="https://docs.getzep.com/">Documentation</a> | 
-<a href="https://docs.getzep.com/sdk/langchain/">LangChain</a> and 
-<a href="https://docs.getzep.com/sdk/langchain/">LlamaIndex</a> Support | 
+<a href="https://help.getzep.com">Documentation</a> | 
+<a href="https://help.getzep.com/langchain/overview">LangChain</a> |
 <a href="https://discord.gg/W8Kw6bsgXQ">Discord</a><br />
 <a href="https://www.getzep.com">www.getzep.com</a>
 </p>
