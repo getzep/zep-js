@@ -21,4 +21,4 @@ export * from "./SummaryListResponse";
 export * from "./UpdateDocumentListRequest";
 export * from "./User";
 export * from "./UserListResponse";
-export * from "./ModelsZepDataClass";
+export * from "./ZepDataClass";

@@ -7,10 +7,11 @@ import * as Zep from "../../../../index";
 /**
  * @example
  *     {
+ *         lastNMessages: 1,
  *         zepDataClasses: [{}]
  *     }
  */
-export interface ModelsExtractDataRequest {
-    lastNMessages?: number;
-    zepDataClasses: Zep.ModelsZepDataClass[];
+export interface ExtractDataRequest {
+    lastNMessages: number;
+    zepDataClasses: Zep.ZepDataClass[];
 }
