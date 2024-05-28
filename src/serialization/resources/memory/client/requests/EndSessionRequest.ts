@@ -9,10 +9,12 @@ import * as core from "../../../../../core";
 export const EndSessionRequest: core.serialization.Schema<serializers.EndSessionRequest.Raw, Zep.EndSessionRequest> =
     core.serialization.object({
         instruction: core.serialization.string().optional(),
+        sessionId: core.serialization.property("session_id", core.serialization.string()),
     });
 
 export declare namespace EndSessionRequest {
     interface Raw {
         instruction?: string | null;
+        session_id: string;
     }
 }

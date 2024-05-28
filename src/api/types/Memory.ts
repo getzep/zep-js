@@ -11,6 +11,8 @@ export interface Memory {
     messages?: Zep.Message[];
     /** A dictionary containing metadata associated with the memory. */
     metadata?: Record<string, unknown>;
+    /** Summary list result from Summary Retriever Memory Type. */
+    relevantSummaries?: Zep.Summary[];
     /** A Summary object. */
     summary?: Zep.Summary;
 }

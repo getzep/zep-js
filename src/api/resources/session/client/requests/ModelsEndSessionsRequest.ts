@@ -5,10 +5,10 @@
 /**
  * @example
  *     {
- *         sessionId: "session_id"
+ *         sessionIds: ["session_ids"]
  *     }
  */
-export interface EndSessionRequest {
+export interface ModelsEndSessionsRequest {
     instruction?: string;
-    sessionId: string;
+    sessionIds: string[];
 }

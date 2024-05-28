@@ -6,6 +6,7 @@ import * as environments from "./environments";
 import * as core from "./core";
 import { Document } from "./api/resources/document/client/Client";
 import { Memory } from "./api/resources/memory/client/Client";
+import { Session } from "./api/resources/session/client/Client";
 import { User } from "./api/resources/user/client/Client";
 
 export declare namespace ZepClient {
@@ -34,6 +35,12 @@ export class ZepClient {
 
     public get memory(): Memory {
         return (this._memory ??= new Memory(this._options));
+    }
+
+    protected _session: Session | undefined;
+
+    public get session(): Session {
+        return (this._session ??= new Session(this._options));
     }
 
     protected _user: User | undefined;
