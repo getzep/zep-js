@@ -4,6 +4,9 @@ import { ZepClient } from "../../src";
 
 // @ts-ignore
 import { history } from "./chat_shoe_store_history";
+// import { ZepDataClass } from "../../src/serialization";
+import { ZepDataClass } from "../../src/api";
+
 
 function sleep(ms: number) {
     const date = Date.now();
@@ -15,6 +18,8 @@ function sleep(ms: number) {
 
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
+
+    console.log("API Key: ", projectApiKey);
 
     const client = new ZepClient({
         apiKey: projectApiKey,
@@ -166,95 +171,128 @@ async function main() {
         }
     }
 
-    // Search messages in memory
-    try {
-        const searchText = "Name some books that are about dystopian futures.";
-        console.debug("Searching memory...", searchText);
-
-        const searchResults = await client.memory.search(sessionID, {
-            metadata: {
-                where: {
-                    and: [
-                        {
-                            jsonpath: '$.system.entities[*] ? (@.Label == "WORK_OF_ART")',
-                        },
-                        {
-                            jsonpath: '$.system.entities[*] ? (@.Name like_regex "^parable*" flag "i")',
-                        },
-                    ],
-                },
-            },
-            text: searchText,
-        });
-
-        searchResults.forEach((searchResult) => {
-            console.debug("Search Result: ", JSON.stringify(searchResult.message));
-            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-        });
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            console.error("Session not found:", error.message);
-        } else {
-            console.error("Got error:", error);
-        }
-    }
+    // // Search messages in memory
+    // try {
+    //     const searchText = "Name some books that are about dystopian futures.";
+    //     console.debug("Searching memory...", searchText);
+    //
+    //     const searchResults = await client.memory.search(sessionID, {
+    //         metadata: {
+    //             where: {
+    //                 and: [
+    //                     {
+    //                         jsonpath: '$.system.entities[*] ? (@.Label == "WORK_OF_ART")',
+    //                     },
+    //                     {
+    //                         jsonpath: '$.system.entities[*] ? (@.Name like_regex "^parable*" flag "i")',
+    //                     },
+    //                 ],
+    //             },
+    //         },
+    //         text: searchText,
+    //     });
+    //
+    //     searchResults.forEach((searchResult) => {
+    //         console.debug("Search Result: ", JSON.stringify(searchResult.message));
+    //         console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
+    //     });
+    // } catch (error) {
+    //     if (error instanceof NotFoundError) {
+    //         console.error("Session not found:", error.message);
+    //     } else {
+    //         console.error("Got error:", error);
+    //     }
+    // }
 
     // Search messages in memory with MMR and lambda=0.6
+    // try {
+    //     const searchText = "Name some books that are about dystopian futures.";
+    //     console.debug("Searching memory with MMR...", searchText);
+    //
+    //     const searchResults = await client.memory.search(sessionID, {
+    //         text: searchText,
+    //         searchType: "mmr",
+    //         mmrLambda: 0.6,
+    //         limit: 3,
+    //     });
+    //
+    //     searchResults.forEach((searchResult) => {
+    //         console.debug("Search Result: ", JSON.stringify(searchResult.message));
+    //         console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
+    //     });
+    // } catch (error) {
+    //     if (error instanceof NotFoundError) {
+    //         console.error("Session not found:", error.message);
+    //     } else {
+    //         console.error("Got error:", error);
+    //     }
+    // }
+    //
+    // // Search summaries in memory with MMR and lambda=0.6
+    // try {
+    //     const searchText = "Name some books that are about dystopian futures.";
+    //     console.debug("Searching summaries with MMR...", searchText);
+    //
+    //     const searchResults = await client.memory.search(sessionID, {
+    //         text: searchText,
+    //         searchScope: "summary",
+    //         searchType: "mmr",
+    //         mmrLambda: 0.6,
+    //         limit: 3,
+    //     });
+    //
+    //     searchResults.forEach((searchResult) => {
+    //         console.debug("Search Result: ", JSON.stringify(searchResult.summary));
+    //         console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
+    //     });
+    // } catch (error) {
+    //     if (error instanceof NotFoundError) {
+    //         console.error("Session not found:", error.message);
+    //     } else {
+    //         console.error("Got error:", error);
+    //     }
+    // }
+
+    // // End session - this will trigger summarization and other background tasks on the completed session
+    // try {
+    //     await client.memory.endSession(sessionID);
+    //     console.debug("Ended session: ", sessionID);
+    // } catch (error) {
+    //     console.debug("Got error:", error);
+    // }
+
     try {
-        const searchText = "Name some books that are about dystopian futures.";
-        console.debug("Searching memory with MMR...", searchText);
-
-        const searchResults = await client.memory.search(sessionID, {
-            text: searchText,
-            searchType: "mmr",
-            mmrLambda: 0.6,
-            limit: 3,
+        const extractedData = await client.memory.extractSessionData(sessionID, {
+            lastNMessages: 100,
+            zepDataClasses: [
+                {
+                    description: 'The users shoe size',
+                    name: 'shoe_size',
+                    type: 'ZepNumber',
+                },
+            ],
         });
+        console.log("Extracted data: ", JSON.stringify(extractedData));
 
-        searchResults.forEach((searchResult) => {
-            console.debug("Search Result: ", JSON.stringify(searchResult.message));
-            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-        });
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            console.error("Session not found:", error.message);
-        } else {
-            console.error("Got error:", error);
-        }
-    }
-
-    // Search summaries in memory with MMR and lambda=0.6
-    try {
-        const searchText = "Name some books that are about dystopian futures.";
-        console.debug("Searching summaries with MMR...", searchText);
-
-        const searchResults = await client.memory.search(sessionID, {
-            text: searchText,
-            searchScope: "summary",
-            searchType: "mmr",
-            mmrLambda: 0.6,
-            limit: 3,
-        });
-
-        searchResults.forEach((searchResult) => {
-            console.debug("Search Result: ", JSON.stringify(searchResult.summary));
-            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-        });
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            console.error("Session not found:", error.message);
-        } else {
-            console.error("Got error:", error);
-        }
-    }
-
-    // End session - this will trigger summarization and other background tasks on the completed session
-    try {
-        await client.memory.endSession(sessionID);
-        console.debug("Ended session: ", sessionID);
+        const moo = await client.memory.extractSessionDataFromModel(sessionID, new ShoeInfoModel());
+        console.log("Extracted data from moo: ", JSON.stringify(moo));
     } catch (error) {
         console.debug("Got error:", error);
     }
+}
+
+class ShoeInfoModel  {
+    shoe_size?: ZepDataClass = {
+        type: "ZepNumber",
+        description: "The user's shoe size",
+        name: "shoe_size"
+    };
+    shoe_budget?: ZepDataClass = {
+        type: "ZepFloat",
+        description: "What is the purchasers budget?",
+        name: "shoe_budget"
+    };
+    hi?: String = "hi";
 }
 
 main();
