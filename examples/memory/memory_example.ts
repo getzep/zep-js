@@ -6,7 +6,7 @@ import { ZepClient } from "../../src";
 import { history } from "./chat_shoe_store_history";
 // import { ZepDataClass } from "../../src/serialization";
 import { ZepDataClass } from "../../src/api";
-
+import { BaseDataExtractorModel } from "../../src/wrapper";
 
 function sleep(ms: number) {
     const date = Date.now();
@@ -262,26 +262,14 @@ async function main() {
     // }
 
     try {
-        const extractedData = await client.memory.extractSessionData(sessionID, {
-            lastNMessages: 100,
-            zepDataClasses: [
-                {
-                    description: 'The users shoe size',
-                    name: 'shoe_size',
-                    type: 'ZepNumber',
-                },
-            ],
-        });
-        console.log("Extracted data: ", JSON.stringify(extractedData));
-
-        const moo = await client.memory.extractSessionDataFromModel(sessionID, new ShoeInfoModel());
-        console.log("Extracted data from moo: ", JSON.stringify(moo));
+        const extractedData = await client.memory.extractSessionDataFromModel(sessionID, 20, new ShoeInfoModel());
+        console.log("Extracted data from session: ", extractedData.getData());
     } catch (error) {
         console.debug("Got error:", error);
     }
 }
 
-class ShoeInfoModel  {
+class ShoeInfoModel extends BaseDataExtractorModel {
     shoe_size?: ZepDataClass = {
         type: "ZepNumber",
         description: "The user's shoe size",
@@ -292,7 +280,7 @@ class ShoeInfoModel  {
         description: "What is the purchasers budget?",
         name: "shoe_budget"
     };
-    hi?: String = "hi";
+    name?: String = "A name";
 }
 
 main();
