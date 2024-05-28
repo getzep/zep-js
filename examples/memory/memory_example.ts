@@ -171,87 +171,95 @@ async function main() {
         }
     }
 
-    // // Search messages in memory
-    // try {
-    //     const searchText = "Name some books that are about dystopian futures.";
-    //     console.debug("Searching memory...", searchText);
-    //
-    //     const searchResults = await client.memory.search(sessionID, {
-    //         metadata: {
-    //             where: {
-    //                 and: [
-    //                     {
-    //                         jsonpath: '$.system.entities[*] ? (@.Label == "WORK_OF_ART")',
-    //                     },
-    //                     {
-    //                         jsonpath: '$.system.entities[*] ? (@.Name like_regex "^parable*" flag "i")',
-    //                     },
-    //                 ],
-    //             },
-    //         },
-    //         text: searchText,
-    //     });
-    //
-    //     searchResults.forEach((searchResult) => {
-    //         console.debug("Search Result: ", JSON.stringify(searchResult.message));
-    //         console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-    //     });
-    // } catch (error) {
-    //     if (error instanceof NotFoundError) {
-    //         console.error("Session not found:", error.message);
-    //     } else {
-    //         console.error("Got error:", error);
-    //     }
-    // }
+    // Search messages in memory
+    try {
+        const searchText = "Name some books that are about dystopian futures.";
+        console.debug("Searching memory...", searchText);
+
+        const searchResults = await client.memory.search(sessionID, {
+            metadata: {
+                where: {
+                    and: [
+                        {
+                            jsonpath: '$.system.entities[*] ? (@.Label == "WORK_OF_ART")',
+                        },
+                        {
+                            jsonpath: '$.system.entities[*] ? (@.Name like_regex "^parable*" flag "i")',
+                        },
+                    ],
+                },
+            },
+            text: searchText,
+        });
+
+        searchResults.forEach((searchResult) => {
+            console.debug("Search Result: ", JSON.stringify(searchResult.message));
+            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
+        });
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            console.error("Session not found:", error.message);
+        } else {
+            console.error("Got error:", error);
+        }
+    }
 
     // Search messages in memory with MMR and lambda=0.6
-    // try {
-    //     const searchText = "Name some books that are about dystopian futures.";
-    //     console.debug("Searching memory with MMR...", searchText);
-    //
-    //     const searchResults = await client.memory.search(sessionID, {
-    //         text: searchText,
-    //         searchType: "mmr",
-    //         mmrLambda: 0.6,
-    //         limit: 3,
-    //     });
-    //
-    //     searchResults.forEach((searchResult) => {
-    //         console.debug("Search Result: ", JSON.stringify(searchResult.message));
-    //         console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-    //     });
-    // } catch (error) {
-    //     if (error instanceof NotFoundError) {
-    //         console.error("Session not found:", error.message);
-    //     } else {
-    //         console.error("Got error:", error);
-    //     }
-    // }
-    //
-    // // Search summaries in memory with MMR and lambda=0.6
-    // try {
-    //     const searchText = "Name some books that are about dystopian futures.";
-    //     console.debug("Searching summaries with MMR...", searchText);
-    //
-    //     const searchResults = await client.memory.search(sessionID, {
-    //         text: searchText,
-    //         searchScope: "summary",
-    //         searchType: "mmr",
-    //         mmrLambda: 0.6,
-    //         limit: 3,
-    //     });
-    //
-    //     searchResults.forEach((searchResult) => {
-    //         console.debug("Search Result: ", JSON.stringify(searchResult.summary));
-    //         console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-    //     });
-    // } catch (error) {
-    //     if (error instanceof NotFoundError) {
-    //         console.error("Session not found:", error.message);
-    //     } else {
-    //         console.error("Got error:", error);
-    //     }
-    // }
+    try {
+        const searchText = "Name some books that are about dystopian futures.";
+        console.debug("Searching memory with MMR...", searchText);
+
+        const searchResults = await client.memory.search(sessionID, {
+            text: searchText,
+            searchType: "mmr",
+            mmrLambda: 0.6,
+            limit: 3,
+        });
+
+        searchResults.forEach((searchResult) => {
+            console.debug("Search Result: ", JSON.stringify(searchResult.message));
+            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
+        });
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            console.error("Session not found:", error.message);
+        } else {
+            console.error("Got error:", error);
+        }
+    }
+
+    // Search summaries in memory with MMR and lambda=0.6
+    try {
+        const searchText = "Name some books that are about dystopian futures.";
+        console.debug("Searching summaries with MMR...", searchText);
+
+        const searchResults = await client.memory.search(sessionID, {
+            text: searchText,
+            searchScope: "summary",
+            searchType: "mmr",
+            mmrLambda: 0.6,
+            limit: 3,
+        });
+
+        searchResults.forEach((searchResult) => {
+            console.debug("Search Result: ", JSON.stringify(searchResult.summary));
+            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
+        });
+    } catch (error) {
+        if (error instanceof NotFoundError) {
+            console.error("Session not found:", error.message);
+        } else {
+            console.error("Got error:", error);
+        }
+    }
+
+    // Extract data from session
+    try {
+        const extractedData = await client.memory.extractSessionDataFromModel(sessionID, 20, new ShoeInfoModel());
+        console.log("Extracted data from session: ", extractedData.getData());
+    } catch (error) {
+        console.debug("Got error:", error);
+    }
 
     // // End session - this will trigger summarization and other background tasks on the completed session
     // try {
@@ -261,12 +269,7 @@ async function main() {
     //     console.debug("Got error:", error);
     // }
 
-    try {
-        const extractedData = await client.memory.extractSessionDataFromModel(sessionID, 20, new ShoeInfoModel());
-        console.log("Extracted data from session: ", extractedData.getData());
-    } catch (error) {
-        console.debug("Got error:", error);
-    }
+
 }
 
 class ShoeInfoModel extends BaseDataExtractorModel {
