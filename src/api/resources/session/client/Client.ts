@@ -43,7 +43,7 @@ export class Session {
     public async endMultipleSessions(
         request: Zep.ModelsEndSessionsRequest,
         requestOptions?: Session.RequestOptions
-    ): Promise<Zep.Session> {
+    ): Promise<Zep.ModelsEndSessionsResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -64,7 +64,7 @@ export class Session {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.Session.parseOrThrow(_response.body, {
+            return await serializers.ModelsEndSessionsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

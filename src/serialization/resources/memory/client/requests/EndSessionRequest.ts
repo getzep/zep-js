@@ -5,16 +5,17 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { ClassifySessionRequest } from "../../../../types/ClassifySessionRequest";
 
 export const EndSessionRequest: core.serialization.Schema<serializers.EndSessionRequest.Raw, Zep.EndSessionRequest> =
     core.serialization.object({
+        classify: ClassifySessionRequest.optional(),
         instruction: core.serialization.string().optional(),
-        sessionId: core.serialization.property("session_id", core.serialization.string()),
     });
 
 export declare namespace EndSessionRequest {
     interface Raw {
+        classify?: ClassifySessionRequest.Raw | null;
         instruction?: string | null;
-        session_id: string;
     }
 }
