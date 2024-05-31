@@ -7,7 +7,7 @@ export * from "./DocumentResponse";
 export * from "./DocumentSearchResult";
 export * from "./DocumentSearchResultPage";
 export * from "./ModelsEndSessionResponse";
-export * from "./ModelsEndSessionsResponse";
+export * from "./EndSessionsResponse";
 export * from "./Memory";
 export * from "./MemorySearchResult";
 export * from "./Message";

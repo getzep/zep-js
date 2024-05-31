@@ -8,7 +8,7 @@
  *         sessionIds: ["session_ids"]
  *     }
  */
-export interface ModelsEndSessionsRequest {
+export interface EndSessionsRequest {
     instruction?: string;
     sessionIds: string[];
 }

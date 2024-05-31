@@ -4,6 +4,6 @@
 
 import * as Zep from "../index";
 
-export interface ModelsEndSessionsResponse {
+export interface EndSessionsResponse {
     sessions?: Zep.Session[];
 }

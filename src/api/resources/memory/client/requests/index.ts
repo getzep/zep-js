@@ -1,5 +1,6 @@
 export { type CreateSessionRequest } from "./CreateSessionRequest";
 export { type MemoryListSessionsRequest } from "./MemoryListSessionsRequest";
+export { type EndSessionsRequest } from "./EndSessionsRequest";
 export { type UpdateSessionRequest } from "./UpdateSessionRequest";
 export { type EndSessionRequest } from "./EndSessionRequest";
 export { type MemoryGetRequest } from "./MemoryGetRequest";
