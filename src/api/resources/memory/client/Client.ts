@@ -643,7 +643,7 @@ export class Memory {
         sessionId: string,
         request: Zep.EndSessionRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ModelsEndSessionResponse> {
+    ): Promise<Zep.EndSessionResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -664,7 +664,7 @@ export class Memory {
             maxRetries: requestOptions?.maxRetries,
         });
         if (_response.ok) {
-            return await serializers.ModelsEndSessionResponse.parseOrThrow(_response.body, {
+            return await serializers.EndSessionResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

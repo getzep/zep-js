@@ -8,15 +8,15 @@ import * as core from "../../core";
 import { ClassifySessionResponse } from "./ClassifySessionResponse";
 import { Session } from "./Session";
 
-export const ModelsEndSessionResponse: core.serialization.ObjectSchema<
-    serializers.ModelsEndSessionResponse.Raw,
-    Zep.ModelsEndSessionResponse
+export const EndSessionResponse: core.serialization.ObjectSchema<
+    serializers.EndSessionResponse.Raw,
+    Zep.EndSessionResponse
 > = core.serialization.object({
     classification: ClassifySessionResponse.optional(),
     session: Session.optional(),
 });
 
-export declare namespace ModelsEndSessionResponse {
+export declare namespace EndSessionResponse {
     interface Raw {
         classification?: ClassifySessionResponse.Raw | null;
         session?: Session.Raw | null;
