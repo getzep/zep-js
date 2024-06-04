@@ -4,6 +4,9 @@ import { ZepClient } from "../../src";
 
 // @ts-ignore
 import { history } from "./chat_shoe_store_history";
+// import { ZepDataClass } from "../../src/serialization";
+import { ZepDataClass } from "../../src/api";
+import { BaseDataExtractorModel } from "../../src/wrapper";
 
 function sleep(ms: number) {
     const date = Date.now();
@@ -15,6 +18,8 @@ function sleep(ms: number) {
 
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
+
+    console.log("API Key: ", projectApiKey);
 
     const client = new ZepClient({
         apiKey: projectApiKey,
@@ -248,13 +253,37 @@ async function main() {
         }
     }
 
-    // End session - this will trigger summarization and other background tasks on the completed session
+    // Extract data from session
     try {
-        await client.memory.endSession(sessionID);
-        console.debug("Ended session: ", sessionID);
+        const extractedData = await client.memory.extractSessionDataFromModel(sessionID, 20, new ShoeInfoModel());
+        console.log("Extracted data from session: ", extractedData.getData());
     } catch (error) {
         console.debug("Got error:", error);
     }
+
+    // // End session - this will trigger summarization and other background tasks on the completed session
+    // try {
+    //     await client.memory.endSession(sessionID);
+    //     console.debug("Ended session: ", sessionID);
+    // } catch (error) {
+    //     console.debug("Got error:", error);
+    // }
+
+
+}
+
+class ShoeInfoModel extends BaseDataExtractorModel {
+    shoe_size?: ZepDataClass = {
+        type: "ZepNumber",
+        description: "The user's shoe size",
+        name: "shoe_size"
+    };
+    shoe_budget?: ZepDataClass = {
+        type: "ZepFloat",
+        description: "What is the purchasers budget?",
+        name: "shoe_budget"
+    };
+    name?: String = "A name";
 }
 
 main();
