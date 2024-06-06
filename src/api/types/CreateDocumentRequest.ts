@@ -3,8 +3,7 @@
  */
 
 export interface CreateDocumentRequest {
-    content?: string;
+    content: string;
     documentId?: string;
-    embedding?: number[];
     metadata?: Record<string, unknown>;
 }
