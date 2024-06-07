@@ -10,17 +10,15 @@ export const CreateDocumentRequest: core.serialization.ObjectSchema<
     serializers.CreateDocumentRequest.Raw,
     Zep.CreateDocumentRequest
 > = core.serialization.object({
-    content: core.serialization.string().optional(),
+    content: core.serialization.string(),
     documentId: core.serialization.property("document_id", core.serialization.string().optional()),
-    embedding: core.serialization.list(core.serialization.number()).optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
 });
 
 export declare namespace CreateDocumentRequest {
     interface Raw {
-        content?: string | null;
+        content: string;
         document_id?: string | null;
-        embedding?: number[] | null;
         metadata?: Record<string, unknown> | null;
     }
 }
