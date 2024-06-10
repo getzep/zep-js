@@ -7,6 +7,7 @@ export interface Session {
     createdAt?: string;
     deletedAt?: string;
     endedAt?: string;
+    factVersionUuid?: string;
     facts?: string[];
     id?: number;
     metadata?: Record<string, unknown>;
