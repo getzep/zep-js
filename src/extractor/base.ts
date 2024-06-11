@@ -15,5 +15,4 @@ export enum ZepDataType {
 export const BaseSchema = z.object({
     zep_type: z.nativeEnum(ZepDataType),
     description: z.string(),
-    default: z.unknown().optional(),
 });

@@ -11,21 +11,23 @@ const stringToDateTransformer = z.union([z.string(), z.date()]).transform((value
 export const ZepDateSchema = BaseSchema.extend({
     zep_type: z.union([z.literal(ZepDataType.ZepDate), z.literal(ZepDataType.ZepDateTime)]),
     value: stringToDateTransformer.optional(),
-    default: stringToDateTransformer.optional(),
 });
 
-export const zepDateField = (description: string, defaultValue?: Date) => {
+export interface ZepDateField {
+    zep_type: ZepDataType.ZepDate | ZepDataType.ZepDateTime;
+    description: string;
+}
+
+export const zepDateField = (description: string): ZepDateField => {
     return ZepDateSchema.parse({
         zep_type: ZepDataType.ZepDate,
         description,
-        defaultValue,
     });
 };
 
-export const zepDateTimeField = (description: string, defaultValue?: Date) => {
+export const zepDateTimeField = (description: string): ZepDateField => {
     return ZepDateSchema.parse({
         zep_type: ZepDataType.ZepDateTime,
         description,
-        defaultValue,
     });
 };

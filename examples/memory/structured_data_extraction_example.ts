@@ -1,4 +1,5 @@
 import { ZepClient, zepFields } from "../../src";
+import { ZepDataType } from "../../src/extractor/base";
 
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
@@ -25,7 +26,7 @@ async function main() {
         { lastN: 20, validate: false, currentDateTime: new Date().toISOString() }
     );
 
-    console.log("result", result);
+    console.log("Extracted Data: ", result);
 }
 
 main();

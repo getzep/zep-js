@@ -20,11 +20,16 @@ export const ZepRegexSchema = BaseSchema.extend({
     default: z.string().optional(),
 });
 
-export const zepRegexField = (description: string, pattern: RegExp, defaultValue?: string) => {
+export interface ZepRegexField {
+    zep_type: ZepDataType.ZepRegex;
+    description: string;
+    pattern: string;
+}
+
+export const zepRegexField = (description: string, pattern: RegExp): ZepRegexField => {
     return ZepRegexSchema.parse({
         zep_type: ZepDataType.ZepRegex,
         pattern: pattern.source,
         description,
-        defaultValue,
     });
 };

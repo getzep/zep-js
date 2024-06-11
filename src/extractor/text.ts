@@ -12,34 +12,35 @@ export const ZepTextSchema = BaseSchema.extend({
     default: z.string().optional(),
 });
 
-export const zepTextField = (description: string, defaultValue: string = "") => {
+export interface ZepTextField {
+    zep_type: ZepDataType.ZepText | ZepDataType.ZepZipCode | ZepDataType.ZepEmail | ZepDataType.ZepPhoneNumber;
+    description: string;
+}
+
+export const zepTextField = (description: string): ZepTextField => {
     return ZepTextSchema.parse({
         zep_type: ZepDataType.ZepText,
         description,
-        defaultValue,
     });
 };
 
-export const zepZipcodeField = (description: string, defaultValue?: string) => {
+export const zepZipcodeField = (description: string): ZepTextField => {
     return ZepTextSchema.parse({
         zep_type: ZepDataType.ZepZipCode,
         description,
-        defaultValue,
     });
 };
 
-export const zepPhoneNumberField = (description: string, defaultValue?: string) => {
+export const zepPhoneNumberField = (description: string): ZepTextField => {
     return ZepTextSchema.parse({
         zep_type: ZepDataType.ZepPhoneNumber,
         description,
-        defaultValue,
     });
 };
 
-export const zepEmailField = (description: string, defaultValue?: string) => {
+export const zepEmailField = (description: string): ZepTextField => {
     return ZepTextSchema.parse({
         zep_type: ZepDataType.ZepEmail,
         description,
-        defaultValue,
     });
 };

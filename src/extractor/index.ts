@@ -1,12 +1,12 @@
 import { z } from "zod";
-import { zepDateField, ZepDateSchema, zepDateTimeField } from "./date";
-import { zepFloatField, zepNumberField, ZepNumberSchema } from "./number";
-import { zepEmailField, zepPhoneNumberField, zepTextField, ZepTextSchema, zepZipcodeField } from "./text";
-import { zepRegexField, ZepRegexSchema } from "./regex";
+import { ZepDateField, zepDateField, ZepDateSchema, zepDateTimeField } from "./date";
+import { zepFloatField, ZepNumberField, zepNumberField, ZepNumberSchema } from "./number";
+import { zepEmailField, zepPhoneNumberField, ZepTextField, zepTextField, ZepTextSchema, zepZipcodeField } from "./text";
+import { ZepRegexField, zepRegexField, ZepRegexSchema } from "./regex";
 import { ZepDataType } from "./base";
 
 export const DataExtractorFields = z.record(z.union([ZepNumberSchema, ZepTextSchema, ZepDateSchema, ZepRegexSchema]));
-
+export type SupportedZepField = ZepNumberField | ZepDateField | ZepRegexField | ZepTextField;
 export const schemas = {
     ZepNumber: ZepNumberSchema,
     ZepText: ZepTextSchema,

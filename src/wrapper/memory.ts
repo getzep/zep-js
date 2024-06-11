@@ -1,7 +1,6 @@
 import { Memory as BaseMemory } from "../api/resources/memory/client/Client";
 import { ExtractDataRequest } from "../api";
-import { ZepDataType } from "../extractor/base";
-import { DataExtractorFields, schemas } from "../extractor";
+import { DataExtractorFields, schemas, SupportedZepField } from "../extractor";
 
 export class Memory extends BaseMemory {
     /**
@@ -31,7 +30,7 @@ export class Memory extends BaseMemory {
      *     { lastN: 20, validate: false, currentDateTime: new Date().toISOString() }
      * );
      */
-    public async extract<T extends Record<string, { zep_type: ZepDataType; description: string }>>(
+    public async extract<T extends Record<string, SupportedZepField>>(
         sessionId: string,
         schema: T,
         params: Omit<ExtractDataRequest, "modelSchema">,

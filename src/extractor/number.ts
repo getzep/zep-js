@@ -21,18 +21,21 @@ export const ZepNumberSchema = BaseSchema.extend({
     default: stringToNumberTransformer.optional(),
 });
 
-export const zepNumberField = (description: string, defaultValue: number = 0) => {
+export interface ZepNumberField {
+    zep_type: ZepDataType.ZepNumber | ZepDataType.ZepFloat;
+    description: string;
+}
+
+export const zepNumberField = (description: string): ZepNumberField => {
     return ZepNumberSchema.parse({
         zep_type: ZepDataType.ZepNumber,
         description,
-        defaultValue,
     });
 };
 
-export const zepFloatField = (description: string, defaultValue: number = 0) => {
+export const zepFloatField = (description: string): ZepNumberField => {
     return ZepNumberSchema.parse({
         zep_type: ZepDataType.ZepFloat,
         description,
-        defaultValue,
     });
 };
