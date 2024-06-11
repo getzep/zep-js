@@ -17,7 +17,8 @@ async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
 
     const client = new ZepClient({
-        apiKey: projectApiKey,
+        apiKey: "z_1dWlkIjoiZjVmNjdjMzUtYmU3MS00ZDcxLTg0MGItYjM5MzhkZDUzZmUzIn0.s3F0HIViEK24DW48Hivv5dcnlOVkXeV_bZTxGsbiOtxvNfT-E7QeuD5t18GPNv6Tkr-0xr24VJ6HlDJ9qxAX0w",
+        environment: "https://api.development.getzep.com/api/v2",
     });
 
     // Create a user

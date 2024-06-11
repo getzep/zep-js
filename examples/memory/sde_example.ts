@@ -1,10 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
-import { CreateUserRequest, Message, NotFoundError } from "../../src/api";
-import { ZepClient } from "../../src";
-
-// @ts-ignore
-import { history } from "./chat_shoe_store_history";
-import { zepNumberField } from "../../src/extractor/models";
+import { ZepClient, zepFields } from "../../src";
 
 function sleep(ms: number) {
     const date = Date.now();
@@ -23,12 +17,16 @@ async function main() {
     });
 
     const result = await client.memory.extract(
-        "b7d17bc342ff4d30afabd2c4f009e806",
+        "08d92d23-ab98-4cea-ba42-402cc2d62f47",
         {
-            shoeSize: zepNumberField("The Customer's shoe size"),
-            budget: zepNumberField("The Customer's budget for shoe purchase"),
+            shoeSize: zepFields.number("The Customer's shoe size"),
+            budget: zepFields.number("The Customer's budget for shoe purchase"),
+            favoriteBrand: zepFields.text("The Customer's favorite shoe brand. Just one brand, please!"),
+            conversationDate: zepFields.date("The date of the conversation. Use current date if not present"),
+            conversationDateTime: zepFields.dateTime("The date time of the conversation."),
+            formattedPrice: zepFields.regex("The formatted price of the shoe", /\$\d+\.\d{2}/),
         },
-        {}
+        { lastN: 20, validate: false, currentDateTime: new Date().toISOString() }
     );
 
     console.log("result", result);
