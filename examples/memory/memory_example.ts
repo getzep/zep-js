@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { CreateUserRequest, Message, NotFoundError } from "../../src/api";
-import { ZepClient } from "../../src";
+import { ZepClient, zepFields } from "../../src";
 
 // @ts-ignore
 import { history } from "./chat_shoe_store_history";
@@ -17,8 +17,7 @@ async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
 
     const client = new ZepClient({
-        apiKey: "z_1dWlkIjoiZjVmNjdjMzUtYmU3MS00ZDcxLTg0MGItYjM5MzhkZDUzZmUzIn0.s3F0HIViEK24DW48Hivv5dcnlOVkXeV_bZTxGsbiOtxvNfT-E7QeuD5t18GPNv6Tkr-0xr24VJ6HlDJ9qxAX0w",
-        environment: "https://api.development.getzep.com/api/v2",
+        apiKey: projectApiKey,
     });
 
     // Create a user
@@ -249,6 +248,22 @@ async function main() {
         } else {
             console.error("Got error:", error);
         }
+    }
+
+    try {
+        const result = await client.memory.extract(
+            sessionID,
+            {
+                shoeSize: zepFields.number("The Customer's shoe size"),
+                budget: zepFields.number("The Customer's budget for shoe purchase"),
+                favoriteBrand: zepFields.text("The Customer's favorite shoe brand. Just one brand, please!"),
+                formattedPrice: zepFields.regex("The formatted price of the shoe", /\$\d+\.\d{2}/),
+            },
+            { lastN: 20, validate: false, currentDateTime: new Date().toISOString() }
+        );
+        console.log("Data Extraction Result", result);
+    } catch (error) {
+        console.debug("Got error:", error);
     }
 
     // End session - this will trigger summarization and other background tasks on the completed session

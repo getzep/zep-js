@@ -1,4 +1,4 @@
-import { z, ZodObject } from "zod";
+import { z } from "zod";
 import { zepDateField, ZepDateSchema, zepDateTimeField } from "./date";
 import { zepFloatField, zepNumberField, ZepNumberSchema } from "./number";
 import { zepEmailField, zepPhoneNumberField, zepTextField, ZepTextSchema, zepZipcodeField } from "./text";
@@ -7,7 +7,7 @@ import { ZepDataType } from "./base";
 
 export const DataExtractorFields = z.record(z.union([ZepNumberSchema, ZepTextSchema, ZepDateSchema, ZepRegexSchema]));
 
-export const schemas: Record<ZepDataType, ZodObject<any>> = {
+export const schemas = {
     ZepNumber: ZepNumberSchema,
     ZepText: ZepTextSchema,
     ZepZipCode: ZepTextSchema,

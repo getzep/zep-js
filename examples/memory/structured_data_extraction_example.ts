@@ -1,23 +1,19 @@
 import { ZepClient, zepFields } from "../../src";
 
-function sleep(ms: number) {
-    const date = Date.now();
-    let currentDate = 0;
-    do {
-        currentDate = Date.now();
-    } while (currentDate - date < ms);
-}
-
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
+    const sessionId = process.env.ZEP_SESSION_ID;
+    if (!sessionId) {
+        console.error("Please provide a session ID using the ZEP_SESSION_ID environment variable");
+        return;
+    }
 
     const client = new ZepClient({
-        apiKey: "z_1dWlkIjoiZjVmNjdjMzUtYmU3MS00ZDcxLTg0MGItYjM5MzhkZDUzZmUzIn0.s3F0HIViEK24DW48Hivv5dcnlOVkXeV_bZTxGsbiOtxvNfT-E7QeuD5t18GPNv6Tkr-0xr24VJ6HlDJ9qxAX0w",
-        environment: "https://api.development.getzep.com/api/v2",
+        apiKey: projectApiKey,
     });
 
     const result = await client.memory.extract(
-        "08d92d23-ab98-4cea-ba42-402cc2d62f47",
+        sessionId,
         {
             shoeSize: zepFields.number("The Customer's shoe size"),
             budget: zepFields.number("The Customer's budget for shoe purchase"),

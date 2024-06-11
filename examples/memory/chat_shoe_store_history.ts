@@ -93,7 +93,7 @@ export const history: {
     {
         role: "user",
         role_type: "user",
-        content: "They're nice looking. Yes, I think I'll go with those. Todays date is June 15th 2024 at 3 pm",
+        content: "They're nice looking. Yes, I think I'll go with those.",
     },
     {
         role: "assistant",
