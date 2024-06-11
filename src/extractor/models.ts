@@ -12,43 +12,37 @@ enum ZepDataType {
     ZepRegex = "ZepRegex",
 }
 
-// Base description schema
-const descriptionSchema = z.string().optional();
+const ZepField = z.object({
+    zep_type: z.nativeEnum(ZepDataType),
+    description: z.string(),
+    default: z.unknown().optional(),
+});
 
 // Define a function to create base schemas for each type
 function createBaseSchema(type: ZepDataType, additionalSchema?: z.ZodRawShape) {
     return z.object({
-        type: z.literal(type),
-        description: descriptionSchema,
+        zep_type: z.literal(type),
+        description: z.string(),
+        default: z.unknown().optional(),
         ...additionalSchema,
     });
 }
 
-// Specific type schemas
-const ZepNumberSchema = createBaseSchema(ZepDataType.ZepNumber, {
+const ZepNumberSchema = ZepField.extend({
+    type: z.literal(ZepDataType.ZepNumber),
     value: z.number().optional(),
-    pattern: z.string().optional(),
+    default: z.number().optional(),
 });
 
-// Example of defining a complex model using the type schemas
-export const CustomerSchema = z.object({
-    shoeSize: ZepNumberSchema.extend({
-        description: z.literal("The Customer's shoe size"),
-    }).optional(),
-    budget: ZepNumberSchema.extend({
-        description: z.literal("The Customer's budget for the shoe purchase"),
-    }).optional(),
+const ZepTextField = ZepField.extend({
+    type: z.literal(ZepDataType.ZepText),
+    value: z.string().optional(),
 });
 
-// Using the schema to validate data
-const exampleCustomer = {
-    shoeSize: { value: 42, type: ZepDataType.ZepNumber, description: "The Customer's shoe size" },
-    budget: { value: 500, type: ZepDataType.ZepNumber, description: "The Customer's budget for the shoe purchase" },
+export const zepNumberField = (description: string, defaultValue: number = 0) => {
+    return ZepNumberSchema.parse({
+        zep_type: ZepDataType.ZepNumber,
+        description,
+        defaultValue,
+    });
 };
-
-const parsedCustomer = CustomerSchema.safeParse(exampleCustomer);
-if (parsedCustomer.success) {
-    console.log("Valid customer data:", parsedCustomer.data);
-} else {
-    console.error("Validation errors:", parsedCustomer.error.format());
-}
