@@ -185,6 +185,7 @@ async function main() {
                 },
             },
             text: searchText,
+            searchScope: "messages",
         });
 
         searchResults.forEach((searchResult) => {
@@ -209,6 +210,7 @@ async function main() {
             searchType: "mmr",
             mmrLambda: 0.6,
             limit: 3,
+            searchScope: "messages",
         });
 
         searchResults.forEach((searchResult) => {

@@ -4,9 +4,9 @@
 
 import * as Zep from "../index";
 
-export interface MemorySearchResult {
+export interface SessionSearchResult {
     message?: Zep.Message;
-    metadata?: Record<string, unknown>;
     score?: number;
+    sessionId?: string;
     summary?: Zep.Summary;
 }

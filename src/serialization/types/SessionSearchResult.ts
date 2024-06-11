@@ -8,21 +8,21 @@ import * as core from "../../core";
 import { Message } from "./Message";
 import { Summary } from "./Summary";
 
-export const MemorySearchResult: core.serialization.ObjectSchema<
-    serializers.MemorySearchResult.Raw,
-    Zep.MemorySearchResult
+export const SessionSearchResult: core.serialization.ObjectSchema<
+    serializers.SessionSearchResult.Raw,
+    Zep.SessionSearchResult
 > = core.serialization.object({
     message: Message.optional(),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     score: core.serialization.number().optional(),
+    sessionId: core.serialization.property("session_id", core.serialization.string().optional()),
     summary: Summary.optional(),
 });
 
-export declare namespace MemorySearchResult {
+export declare namespace SessionSearchResult {
     interface Raw {
         message?: Message.Raw | null;
-        metadata?: Record<string, unknown> | null;
         score?: number | null;
+        session_id?: string | null;
         summary?: Summary.Raw | null;
     }
 }

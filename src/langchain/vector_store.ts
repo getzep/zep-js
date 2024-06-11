@@ -141,7 +141,6 @@ export class ZepVectorStore extends VectorStore {
             const doc: CreateDocumentRequest = {
                 content: documents[i].pageContent,
                 metadata: documents[i].metadata,
-                embedding: vectors.length > 0 ? vectors[i] : undefined,
             };
             docs.push(doc);
         }

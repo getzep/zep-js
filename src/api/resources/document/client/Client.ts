@@ -19,6 +19,7 @@ export declare namespace Document {
     interface RequestOptions {
         timeoutInSeconds?: number;
         maxRetries?: number;
+        abortSignal?: AbortSignal;
     }
 }
 
@@ -56,6 +57,7 @@ export class Document {
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.document.listCollections.Response.parseOrThrow(_response.body, {
@@ -147,6 +149,7 @@ export class Document {
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.DocumentCollectionResponse.parseOrThrow(_response.body, {
@@ -263,6 +266,7 @@ export class Document {
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SuccessResponse.parseOrThrow(_response.body, {
@@ -374,6 +378,7 @@ export class Document {
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SuccessResponse.parseOrThrow(_response.body, {
@@ -490,6 +495,7 @@ export class Document {
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SuccessResponse.parseOrThrow(_response.body, {
@@ -578,7 +584,9 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.addDocuments("collectionName", [{}])
+     *     await zep.document.addDocuments("collectionName", [{
+     *             content: "content"
+     *         }])
      */
     public async addDocuments(
         collectionName: string,
@@ -605,6 +613,7 @@ export class Document {
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.document.addDocuments.Response.parseOrThrow(_response.body, {
@@ -710,6 +719,7 @@ export class Document {
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SuccessResponse.parseOrThrow(_response.body, {
@@ -813,6 +823,7 @@ export class Document {
             body: await serializers.GetDocumentListRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.document.batchGetDocuments.Response.parseOrThrow(_response.body, {
@@ -920,6 +931,7 @@ export class Document {
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SuccessResponse.parseOrThrow(_response.body, {
@@ -1022,6 +1034,7 @@ export class Document {
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.DocumentResponse.parseOrThrow(_response.body, {
@@ -1125,6 +1138,7 @@ export class Document {
             contentType: "application/json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SuccessResponse.parseOrThrow(_response.body, {
@@ -1241,6 +1255,7 @@ export class Document {
             body: await serializers.UpdateDocumentRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.SuccessResponse.parseOrThrow(_response.body, {
@@ -1361,6 +1376,7 @@ export class Document {
             body: await serializers.DocumentSearchPayload.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return await serializers.DocumentSearchResultPage.parseOrThrow(_response.body, {
