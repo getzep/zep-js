@@ -34,21 +34,22 @@ export class Memory extends BaseMemory {
         sessionId: string,
         schema: T,
         params: Omit<ExtractDataRequest, "modelSchema">,
-        requestOptions?: BaseMemory.RequestOptions | undefined
-    ) {
+        requestOptions?: BaseMemory.RequestOptions
+    ): Promise<{ [K in keyof T]: ReturnType<typeof schemas[T[K]["zep_type"]]["parse"]>["value"] }> {
         const validatedData = DataExtractorFields.parse(schema);
         const result = await this.extractData(
             sessionId,
-            {
-                ...params,
-                modelSchema: JSON.stringify({ properties: validatedData }),
-            },
+            { ...params, modelSchema: JSON.stringify({ properties: validatedData }) },
             requestOptions
         );
-        const transformedResult: { [K in keyof T]?: ReturnType<typeof schemas[T[K]["zep_type"]]["parse"]>["value"] } =
-            {};
+        const transformedResult: {
+            [K in keyof T]: ReturnType<typeof schemas[T[K]["zep_type"]]["parse"]>["value"];
+        } = {} as any;
         for (const key in schema) {
             const schemaItem = schemas[schema[key].zep_type];
+            if (!schemaItem) {
+                throw new Error(`Unsupported zep_type: ${schema[key].zep_type}`);
+            }
             transformedResult[key] = schemaItem.parse({
                 ...schema[key],
                 value: result[key],
