@@ -76,7 +76,6 @@ describe("zepFields", () => {
         });
 
         it("should correctly parse valid number inputs", () => {
-            const numberField = zepNumberField("Age");
             expect(() =>
                 ZepNumberSchema.parse({
                     zep_type: ZepDataType.ZepNumber,
@@ -94,7 +93,6 @@ describe("zepFields", () => {
         });
 
         it("should reject invalid number inputs", () => {
-            const numberField = zepNumberField("Age");
             expect(() =>
                 ZepNumberSchema.parse({
                     zep_type: ZepDataType.ZepNumber,
