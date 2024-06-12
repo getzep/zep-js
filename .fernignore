@@ -8,3 +8,4 @@ package.json
 yarn.lock
 .github
 README.md
+tests/sde.test.ts

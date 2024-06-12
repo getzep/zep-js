@@ -1,5 +1,4 @@
 import { ZepClient, zepFields } from "../../src";
-import { ZepDataType } from "../../src/extractor/base";
 
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
