@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BaseSchema, ZepDataType } from "./base";
+import { HasOptionalValue } from "./index";
 
 export const ZepTextSchema = BaseSchema.extend({
     zep_type: z.union([
@@ -12,7 +13,7 @@ export const ZepTextSchema = BaseSchema.extend({
     default: z.string().optional(),
 });
 
-export interface ZepTextField {
+export interface ZepTextField extends HasOptionalValue<string> {
     zep_type: ZepDataType.ZepText | ZepDataType.ZepZipCode | ZepDataType.ZepEmail | ZepDataType.ZepPhoneNumber;
     description: string;
 }

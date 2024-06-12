@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BaseSchema, ZepDataType } from "./base";
+import { HasOptionalValue } from "./index";
 
 const stringToDateTransformer = z.union([z.string(), z.date()]).transform((value, ctx) => {
     if (typeof value === "string") {
@@ -13,7 +14,7 @@ export const ZepDateSchema = BaseSchema.extend({
     value: stringToDateTransformer.optional(),
 });
 
-export interface ZepDateField {
+export interface ZepDateField extends HasOptionalValue<Date> {
     zep_type: ZepDataType.ZepDate | ZepDataType.ZepDateTime;
     description: string;
 }

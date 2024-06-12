@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BaseSchema, ZepDataType } from "./base";
+import { HasOptionalValue } from "./index";
 
 const stringToNumberTransformer = z.union([z.string(), z.number()]).transform((value, ctx) => {
     if (typeof value === "string") {
@@ -21,7 +22,7 @@ export const ZepNumberSchema = BaseSchema.extend({
     default: stringToNumberTransformer.optional(),
 });
 
-export interface ZepNumberField {
+export interface ZepNumberField extends HasOptionalValue<number> {
     zep_type: ZepDataType.ZepNumber | ZepDataType.ZepFloat;
     description: string;
 }

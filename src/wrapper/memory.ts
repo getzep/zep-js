@@ -42,9 +42,11 @@ export class Memory extends BaseMemory {
             { ...params, modelSchema: JSON.stringify({ properties: validatedData }) },
             requestOptions
         );
+
         const transformedResult: {
             [K in keyof T]: ReturnType<typeof schemas[T[K]["zep_type"]]["parse"]>["value"];
         } = {} as any;
+
         for (const key in schema) {
             const schemaItem = schemas[schema[key].zep_type];
             if (!schemaItem) {
@@ -55,6 +57,7 @@ export class Memory extends BaseMemory {
                 value: result[key],
             }).value;
         }
+
         return transformedResult;
     }
 }

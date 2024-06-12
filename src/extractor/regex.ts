@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BaseSchema, ZepDataType } from "./base";
+import { HasOptionalValue } from "./index";
 
 export const ZepRegexSchema = BaseSchema.extend({
     zep_type: z.literal(ZepDataType.ZepRegex),
@@ -20,7 +21,7 @@ export const ZepRegexSchema = BaseSchema.extend({
     default: z.string().optional(),
 });
 
-export interface ZepRegexField {
+export interface ZepRegexField extends HasOptionalValue<string> {
     zep_type: ZepDataType.ZepRegex;
     description: string;
     pattern: string;
