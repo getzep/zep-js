@@ -13,5 +13,9 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v3
 
-      - name: Compile
+      - name: Install dependencies
         run: yarn && yarn build
+      - name: Test
+        run: yarn test
+      - name: Build
+        run: yarn build
