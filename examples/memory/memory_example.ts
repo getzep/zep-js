@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { CreateUserRequest, Message, NotFoundError } from "../../src/api";
-import { ZepClient } from "../../src";
+import { ZepClient, zepFields } from "../../src";
 
 // @ts-ignore
 import { history } from "./chat_shoe_store_history";
@@ -248,6 +248,22 @@ async function main() {
         } else {
             console.error("Got error:", error);
         }
+    }
+
+    try {
+        const result = await client.memory.extract(
+            sessionID,
+            {
+                shoeSize: zepFields.number("The Customer's shoe size"),
+                budget: zepFields.number("The Customer's budget for shoe purchase"),
+                favoriteBrand: zepFields.text("The Customer's favorite shoe brand. Just one brand, please!"),
+                formattedPrice: zepFields.regex("The formatted price of the shoe", /\$\d+\.\d{2}/),
+            },
+            { lastN: 20, validate: false, currentDateTime: new Date().toISOString() }
+        );
+        console.log("Data Extraction Result", result);
+    } catch (error) {
+        console.debug("Got error:", error);
     }
 
     // End session - this will trigger summarization and other background tasks on the completed session

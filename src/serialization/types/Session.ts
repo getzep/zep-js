@@ -12,6 +12,7 @@ export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Z
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
         endedAt: core.serialization.property("ended_at", core.serialization.string().optional()),
+        factVersionUuid: core.serialization.property("fact_version_uuid", core.serialization.string().optional()),
         facts: core.serialization.list(core.serialization.string()).optional(),
         id: core.serialization.number().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -29,6 +30,7 @@ export declare namespace Session {
         created_at?: string | null;
         deleted_at?: string | null;
         ended_at?: string | null;
+        fact_version_uuid?: string | null;
         facts?: string[] | null;
         id?: number | null;
         metadata?: Record<string, unknown> | null;
