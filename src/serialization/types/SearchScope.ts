@@ -7,8 +7,8 @@ import * as Zep from "../../api/index";
 import * as core from "../../core";
 
 export const SearchScope: core.serialization.Schema<serializers.SearchScope.Raw, Zep.SearchScope> =
-    core.serialization.enum_(["messages", "summary"]);
+    core.serialization.enum_(["messages", "summary", "facts"]);
 
 export declare namespace SearchScope {
-    type Raw = "messages" | "summary";
+    type Raw = "messages" | "summary" | "facts";
 }
