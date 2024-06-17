@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
+import { Fact } from "./Fact";
 import { Message } from "./Message";
 import { Summary } from "./Summary";
 
@@ -12,6 +13,7 @@ export const SessionSearchResult: core.serialization.ObjectSchema<
     serializers.SessionSearchResult.Raw,
     Zep.SessionSearchResult
 > = core.serialization.object({
+    fact: Fact.optional(),
     message: Message.optional(),
     score: core.serialization.number().optional(),
     sessionId: core.serialization.property("session_id", core.serialization.string().optional()),
@@ -20,6 +22,7 @@ export const SessionSearchResult: core.serialization.ObjectSchema<
 
 export declare namespace SessionSearchResult {
     interface Raw {
+        fact?: Fact.Raw | null;
         message?: Message.Raw | null;
         score?: number | null;
         session_id?: string | null;

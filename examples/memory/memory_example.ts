@@ -171,8 +171,9 @@ async function main() {
         const searchText = "Name some books that are about dystopian futures.";
         console.debug("Searching memory...", searchText);
 
-        const searchResults = await client.memory.search(sessionID, {
-            metadata: {
+        const { results: searchResults } = await client.memory.searchSessions({
+            sessionIds: [sessionID],
+            recordFilter: {
                 where: {
                     and: [
                         {
@@ -188,7 +189,7 @@ async function main() {
             searchScope: "messages",
         });
 
-        searchResults.forEach((searchResult) => {
+        searchResults?.forEach((searchResult) => {
             console.debug("Search Result: ", JSON.stringify(searchResult.message));
             console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
         });
@@ -205,7 +206,8 @@ async function main() {
         const searchText = "Name some books that are about dystopian futures.";
         console.debug("Searching memory with MMR...", searchText);
 
-        const searchResults = await client.memory.search(sessionID, {
+        const { results: searchResults } = await client.memory.searchSessions({
+            sessionIds: [sessionID],
             text: searchText,
             searchType: "mmr",
             mmrLambda: 0.6,
@@ -213,7 +215,7 @@ async function main() {
             searchScope: "messages",
         });
 
-        searchResults.forEach((searchResult) => {
+        searchResults?.forEach((searchResult) => {
             console.debug("Search Result: ", JSON.stringify(searchResult.message));
             console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
         });
@@ -230,7 +232,8 @@ async function main() {
         const searchText = "Name some books that are about dystopian futures.";
         console.debug("Searching summaries with MMR...", searchText);
 
-        const searchResults = await client.memory.search(sessionID, {
+        const { results: searchResults } = await client.memory.searchSessions({
+            sessionIds: [sessionID],
             text: searchText,
             searchScope: "summary",
             searchType: "mmr",
@@ -238,7 +241,7 @@ async function main() {
             limit: 3,
         });
 
-        searchResults.forEach((searchResult) => {
+        searchResults?.forEach((searchResult) => {
             console.debug("Search Result: ", JSON.stringify(searchResult.summary));
             console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
         });
