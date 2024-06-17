@@ -8,6 +8,7 @@ export * from "./DocumentSearchResult";
 export * from "./DocumentSearchResultPage";
 export * from "./EndSessionResponse";
 export * from "./EndSessionsResponse";
+export * from "./Fact";
 export * from "./Memory";
 export * from "./MemorySearchResult";
 export * from "./Message";
