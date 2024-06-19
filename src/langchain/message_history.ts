@@ -15,7 +15,7 @@ import { condenseZepMemoryIntoHumanMessage, getZepMessageRoleType } from "./util
 interface ZepMemoryInput {
     sessionId: string;
     client: ZepClient;
-    memoryType: Zep.MemoryGetRequestMemoryType;
+    memoryType: Zep.MemoryType;
     humanPrefix?: string;
     aiPrefix?: string;
 }
@@ -34,7 +34,7 @@ export class ZepChatMessageHistory extends BaseChatMessageHistory implements Zep
 
     client: ZepClient;
 
-    memoryType: Zep.MemoryGetRequestMemoryType;
+    memoryType: Zep.MemoryType;
 
     humanPrefix = "human";
 
