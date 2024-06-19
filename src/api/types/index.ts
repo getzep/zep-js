@@ -27,4 +27,3 @@ export * from "./SummaryListResponse";
 export * from "./UpdateDocumentListRequest";
 export * from "./User";
 export * from "./UserListResponse";
-export * from "./MemoryType";

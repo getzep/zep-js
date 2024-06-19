@@ -12,7 +12,7 @@ export interface MemoryGetRequest {
     /**
      * The type of memory to retrieve: perpetual, summary_retriever, or message_window. Defaults to perpetual.
      */
-    memoryType?: Zep.MemoryType;
+    memoryType?: Zep.MemoryGetRequestMemoryType;
     /**
      * The number of most recent memory entries to retrieve.
      */
