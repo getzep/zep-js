@@ -1121,7 +1121,7 @@ export class Memory {
         sessionId: string,
         request: Zep.MemoryGetSessionFactsRequest = {},
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.FactsResponse[][]> {
+    ): Promise<Zep.FactsResponse> {
         const { minRating } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (minRating != null) {
@@ -1149,7 +1149,7 @@ export class Memory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.memory.getSessionFacts.Response.parseOrThrow(_response.body, {
+            return await serializers.FactsResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
