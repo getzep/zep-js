@@ -17,4 +17,8 @@ export interface MemoryGetRequest {
      * The number of most recent memory entries to retrieve.
      */
     lastn?: number;
+    /**
+     * The minimum rating by which to filter facts
+     */
+    minRating?: number;
 }
