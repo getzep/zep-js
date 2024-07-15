@@ -5,7 +5,7 @@
 import * as serializers from "../../../index";
 import * as core from "../../../../core";
 
-export const Response: core.serialization.Schema<serializers.fact.deleteAFactForTheGivenUuid.Response.Raw, string> =
+export const Response: core.serialization.Schema<serializers.memory.deleteFact.Response.Raw, string> =
     core.serialization.string();
 
 export declare namespace Response {

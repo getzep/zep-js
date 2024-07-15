@@ -7,14 +7,12 @@ import * as Zep from "../../api/index";
 import * as core from "../../core";
 import { Fact } from "./Fact";
 
-export const ModelsFactsResponse: core.serialization.ObjectSchema<
-    serializers.ModelsFactsResponse.Raw,
-    Zep.ModelsFactsResponse
-> = core.serialization.object({
-    facts: core.serialization.list(Fact).optional(),
-});
+export const FactsResponse: core.serialization.ObjectSchema<serializers.FactsResponse.Raw, Zep.FactsResponse> =
+    core.serialization.object({
+        facts: core.serialization.list(Fact).optional(),
+    });
 
-export declare namespace ModelsFactsResponse {
+export declare namespace FactsResponse {
     interface Raw {
         facts?: Fact.Raw[] | null;
     }

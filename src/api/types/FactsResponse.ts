@@ -4,6 +4,6 @@
 
 import * as Zep from "../index";
 
-export interface ModelsFactResponse {
-    fact?: Zep.Fact;
+export interface FactsResponse {
+    facts?: Zep.Fact[];
 }
