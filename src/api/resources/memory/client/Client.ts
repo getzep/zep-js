@@ -5,8 +5,8 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Zep from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Memory {
@@ -25,6 +25,180 @@ export declare namespace Memory {
 
 export class Memory {
     constructor(protected readonly _options: Memory.Options = {}) {}
+
+    /**
+     * get fact by uuid
+     *
+     * @param {string} factUuid - Fact UUID
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await zep.memory.getFact("factUUID")
+     */
+    public async getFact(factUuid: string, requestOptions?: Memory.RequestOptions): Promise<Zep.FactResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                `facts/${encodeURIComponent(factUuid)}`
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.8",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return await serializers.FactResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Zep.NotFoundError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError();
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * delete a fact
+     *
+     * @param {string} factUuid - Fact UUID
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await zep.memory.deleteFact("factUUID")
+     */
+    public async deleteFact(factUuid: string, requestOptions?: Memory.RequestOptions): Promise<string> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                `facts/${encodeURIComponent(factUuid)}`
+            ),
+            method: "DELETE",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.8",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return await serializers.memory.deleteFact.Response.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Zep.NotFoundError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError();
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
 
     /**
      * Create New Session
@@ -53,7 +227,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -162,7 +336,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -256,7 +430,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -362,7 +536,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -441,7 +615,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -537,7 +711,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -653,7 +827,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -747,7 +921,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -854,7 +1028,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -931,6 +1105,105 @@ export class Memory {
     }
 
     /**
+     * get facts for a session
+     *
+     * @param {string} sessionId - Session ID
+     * @param {Zep.MemoryGetSessionFactsRequest} request
+     * @param {Memory.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await zep.memory.getSessionFacts("sessionId")
+     */
+    public async getSessionFacts(
+        sessionId: string,
+        request: Zep.MemoryGetSessionFactsRequest = {},
+        requestOptions?: Memory.RequestOptions
+    ): Promise<Zep.FactsResponse> {
+        const { minRating } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (minRating != null) {
+            _queryParams["minRating"] = minRating.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                `sessions/${encodeURIComponent(sessionId)}/facts`
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "1.0.8",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return await serializers.FactsResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Zep.NotFoundError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        })
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError();
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
      * Returns a memory (latest summary, list of messages and facts for models.MemoryTypePerpetual) for a given session
      *
      * @param {string} sessionId - The ID of the session for which to retrieve memory.
@@ -948,7 +1221,7 @@ export class Memory {
         request: Zep.MemoryGetRequest = {},
         requestOptions?: Memory.RequestOptions
     ): Promise<Zep.Memory> {
-        const { memoryType, lastn } = request;
+        const { memoryType, lastn, minRating } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (memoryType != null) {
             _queryParams["memoryType"] = memoryType;
@@ -956,6 +1229,10 @@ export class Memory {
 
         if (lastn != null) {
             _queryParams["lastn"] = lastn.toString();
+        }
+
+        if (minRating != null) {
+            _queryParams["minRating"] = minRating.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -967,7 +1244,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1061,7 +1338,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1139,7 +1416,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1241,7 +1518,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1334,7 +1611,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1430,7 +1707,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1531,7 +1808,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1623,7 +1900,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1721,7 +1998,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.7",
+                "X-Fern-SDK-Version": "1.0.8",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

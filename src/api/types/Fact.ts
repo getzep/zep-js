@@ -5,5 +5,6 @@
 export interface Fact {
     createdAt?: string;
     fact?: string;
+    rating?: number;
     uuid?: string;
 }

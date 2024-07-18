@@ -5,11 +5,13 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { FactRatingInstruction } from "../../../../types/FactRatingInstruction";
 
 export const CreateSessionRequest: core.serialization.Schema<
     serializers.CreateSessionRequest.Raw,
     Zep.CreateSessionRequest
 > = core.serialization.object({
+    factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     sessionId: core.serialization.property("session_id", core.serialization.string()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
@@ -17,6 +19,7 @@ export const CreateSessionRequest: core.serialization.Schema<
 
 export declare namespace CreateSessionRequest {
     interface Raw {
+        fact_rating_instruction?: FactRatingInstruction.Raw | null;
         metadata?: Record<string, unknown> | null;
         session_id: string;
         user_id?: string | null;

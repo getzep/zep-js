@@ -9,6 +9,7 @@ import * as core from "../../core";
 export const Fact: core.serialization.ObjectSchema<serializers.Fact.Raw, Zep.Fact> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     fact: core.serialization.string().optional(),
+    rating: core.serialization.number().optional(),
     uuid: core.serialization.string().optional(),
 });
 
@@ -16,6 +17,7 @@ export declare namespace Fact {
     interface Raw {
         created_at?: string | null;
         fact?: string | null;
+        rating?: number | null;
         uuid?: string | null;
     }
 }

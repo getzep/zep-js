@@ -13,6 +13,7 @@ export const MemorySearchPayload: core.serialization.Schema<
     Omit<Zep.MemorySearchPayload, "limit">
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    minFactRating: core.serialization.property("min_fact_rating", core.serialization.number().optional()),
     minScore: core.serialization.property("min_score", core.serialization.number().optional()),
     mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
     searchScope: core.serialization.property("search_scope", SearchScope.optional()),
@@ -23,6 +24,7 @@ export const MemorySearchPayload: core.serialization.Schema<
 export declare namespace MemorySearchPayload {
     interface Raw {
         metadata?: Record<string, unknown> | null;
+        min_fact_rating?: number | null;
         min_score?: number | null;
         mmr_lambda?: number | null;
         search_scope?: SearchScope.Raw | null;

@@ -12,6 +12,7 @@ export const SessionSearchQuery: core.serialization.Schema<
     serializers.SessionSearchQuery.Raw,
     Omit<Zep.SessionSearchQuery, "limit">
 > = core.serialization.object({
+    minFactRating: core.serialization.property("min_fact_rating", core.serialization.number().optional()),
     minScore: core.serialization.property("min_score", core.serialization.number().optional()),
     mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
     recordFilter: core.serialization.property(
@@ -30,6 +31,7 @@ export const SessionSearchQuery: core.serialization.Schema<
 
 export declare namespace SessionSearchQuery {
     interface Raw {
+        min_fact_rating?: number | null;
         min_score?: number | null;
         mmr_lambda?: number | null;
         record_filter?: Record<string, unknown> | null;

@@ -13,6 +13,7 @@ export interface SessionSearchQuery {
      * The maximum number of search results to return. Defaults to None (no limit).
      */
     limit?: number;
+    minFactRating?: number;
     minScore?: number;
     mmrLambda?: number;
     /** filter on the metadata */
