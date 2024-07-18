@@ -15,6 +15,7 @@ export interface MemorySearchPayload {
     limit?: number;
     /** Metadata Filter */
     metadata?: Record<string, unknown>;
+    minFactRating?: number;
     minScore?: number;
     mmrLambda?: number;
     searchScope?: Zep.SearchScope;
