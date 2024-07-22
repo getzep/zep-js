@@ -4,6 +4,7 @@ export { SessionSearchQuery } from "./SessionSearchQuery";
 export { UpdateSessionRequest } from "./UpdateSessionRequest";
 export { EndSessionRequest } from "./EndSessionRequest";
 export { ExtractDataRequest } from "./ExtractDataRequest";
+export { AddFactsRequest } from "./AddFactsRequest";
 export { AddMemoryRequest } from "./AddMemoryRequest";
 export { ModelsMessageMetadataUpdate } from "./ModelsMessageMetadataUpdate";
 export { MemorySearchPayload } from "./MemorySearchPayload";
