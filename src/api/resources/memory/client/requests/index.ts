@@ -6,6 +6,7 @@ export { type UpdateSessionRequest } from "./UpdateSessionRequest";
 export { type EndSessionRequest } from "./EndSessionRequest";
 export { type ExtractDataRequest } from "./ExtractDataRequest";
 export { type MemoryGetSessionFactsRequest } from "./MemoryGetSessionFactsRequest";
+export { type AddFactsRequest } from "./AddFactsRequest";
 export { type MemoryGetRequest } from "./MemoryGetRequest";
 export { type AddMemoryRequest } from "./AddMemoryRequest";
 export { type MemoryGetSessionMessagesRequest } from "./MemoryGetSessionMessagesRequest";
