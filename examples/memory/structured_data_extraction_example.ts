@@ -17,7 +17,7 @@ async function main() {
         shoeSize: zepFields.number("The Customer's shoe size"),
         budget: zepFields.number("The Customer's budget for shoe purchase"),
         favoriteBrand: zepFields.text("The Customer's favorite shoe brand. Just one brand, please!"),
-        formattedPrice: zepFields.regex("The formatted price of the shoe", /\$\d+\.\d{2}/),
+        formattedPrice: zepFields.regex("The formatted price of the shoe", /\d+\.\d{2}/),
     };
 
     type Customer = ExtractedData<typeof customerSchema>;
