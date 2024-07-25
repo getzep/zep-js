@@ -5,14 +5,15 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { AddedFact } from "../../../../types/AddedFact";
 
 export const AddFactsRequest: core.serialization.Schema<serializers.AddFactsRequest.Raw, Zep.AddFactsRequest> =
     core.serialization.object({
-        facts: core.serialization.list(core.serialization.string()).optional(),
+        facts: core.serialization.list(AddedFact).optional(),
     });
 
 export declare namespace AddFactsRequest {
     interface Raw {
-        facts?: string[] | null;
+        facts?: AddedFact.Raw[] | null;
     }
 }
