@@ -10,11 +10,11 @@ import * as Zep from "../../../../index";
  *         messages: [{}]
  *     }
  */
-export interface AddMemoryRequest {
+export interface ApidataAddMemoryRequest {
     /** Additional instruction for generating the facts. */
     factInstruction?: string;
     /** A list of message objects, where each message contains a role and content. */
-    messages: Zep.ModelsMessage[];
+    messages: Zep.Message[];
     /** Additional instruction for generating the summary. */
     summaryInstruction?: string;
 }

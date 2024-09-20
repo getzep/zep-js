@@ -1,5 +1,5 @@
 export { CreateSessionRequest } from "./CreateSessionRequest";
 export { SessionSearchQuery } from "./SessionSearchQuery";
 export { UpdateSessionRequest } from "./UpdateSessionRequest";
-export { AddMemoryRequest } from "./AddMemoryRequest";
+export { ApidataAddMemoryRequest } from "./ApidataAddMemoryRequest";
 export { ModelsMessageMetadataUpdate } from "./ModelsMessageMetadataUpdate";

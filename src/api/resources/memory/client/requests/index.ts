@@ -3,6 +3,6 @@ export { type MemoryListSessionsRequest } from "./MemoryListSessionsRequest";
 export { type SessionSearchQuery } from "./SessionSearchQuery";
 export { type UpdateSessionRequest } from "./UpdateSessionRequest";
 export { type MemoryGetRequest } from "./MemoryGetRequest";
-export { type AddMemoryRequest } from "./AddMemoryRequest";
+export { type ApidataAddMemoryRequest } from "./ApidataAddMemoryRequest";
 export { type MemoryGetSessionMessagesRequest } from "./MemoryGetSessionMessagesRequest";
 export { type ModelsMessageMetadataUpdate } from "./ModelsMessageMetadataUpdate";

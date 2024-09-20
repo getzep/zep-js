@@ -17,8 +17,6 @@ export * from "./User";
 export * from "./UserListResponse";
 export * from "./FactRatingExamples";
 export * from "./FactRatingInstruction";
-export * from "./ModelsMessage";
-export * from "./ModelsRoleType";
 export * from "./SearchScope";
 export * from "./SearchType";
 export * from "./MemoryType";
