@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { CreateUserRequest, Message, NotFoundError } from "../../src/api";
-import { ZepClient, zepFields } from "../../src";
+import { ZepClient } from "../../src";
 
 // @ts-ignore
 import { history } from "./chat_shoe_store_history";
@@ -14,10 +14,8 @@ function sleep(ms: number) {
 }
 
 async function main() {
-    const projectApiKey = process.env.ZEP_API_KEY;
-
     const client = new ZepClient({
-        apiKey: projectApiKey,
+        environment: "http://localhost:8000/api/v2",
     });
 
     // Create a user
@@ -64,32 +62,6 @@ async function main() {
             });
         }
         console.debug("Added new memory for session ", sessionID);
-    } catch (error) {
-        console.debug("Got error:", error);
-    }
-
-    try {
-        // Synthesize a question from most recent messages.
-        // Useful for RAG apps.
-        // This is faster than using an LLM chain.
-        console.debug("\n---Synthesize a question from most recent messages");
-        const { question } = await client.memory.synthesizeQuestion(sessionID, { lastNMessages: 3 });
-        console.debug(`Question: ${question}`);
-    } catch (error) {
-        console.debug("Got error:", error);
-    }
-
-    try {
-        // Classify the session.
-        // Useful for semantic routing, filtering, and many other use cases.
-        console.debug("\n---Classify the session");
-        const classes = ["low spender <$50", "medium spender >=$50, <$100", "high spender >=$100", "unknown"];
-        const classification = await client.memory.classifySession(sessionID, {
-            name: "spender_category",
-            classes,
-            persist: true,
-        });
-        console.debug(`${classification.class} Classification Result: ${classification.name}`);
     } catch (error) {
         console.debug("Got error:", error);
     }
@@ -172,25 +144,12 @@ async function main() {
         console.debug("Searching memory...", searchText);
 
         const { results: searchResults } = await client.memory.searchSessions({
-            sessionIds: [sessionID],
-            recordFilter: {
-                where: {
-                    and: [
-                        {
-                            jsonpath: '$.system.entities[*] ? (@.Label == "WORK_OF_ART")',
-                        },
-                        {
-                            jsonpath: '$.system.entities[*] ? (@.Name like_regex "^parable*" flag "i")',
-                        },
-                    ],
-                },
-            },
+            userId: user.userId,
             text: searchText,
-            searchScope: "messages",
         });
 
         searchResults?.forEach((searchResult) => {
-            console.debug("Search Result: ", JSON.stringify(searchResult.message));
+            console.debug("Search Result: ", JSON.stringify(searchResult.fact));
             console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
         });
     } catch (error) {
@@ -199,81 +158,6 @@ async function main() {
         } else {
             console.error("Got error:", error);
         }
-    }
-
-    // Search messages in memory with MMR and lambda=0.6
-    try {
-        const searchText = "Name some books that are about dystopian futures.";
-        console.debug("Searching memory with MMR...", searchText);
-
-        const { results: searchResults } = await client.memory.searchSessions({
-            sessionIds: [sessionID],
-            text: searchText,
-            searchType: "mmr",
-            mmrLambda: 0.6,
-            limit: 3,
-            searchScope: "messages",
-        });
-
-        searchResults?.forEach((searchResult) => {
-            console.debug("Search Result: ", JSON.stringify(searchResult.message));
-            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-        });
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            console.error("Session not found:", error.message);
-        } else {
-            console.error("Got error:", error);
-        }
-    }
-
-    // Search summaries in memory with MMR and lambda=0.6
-    try {
-        const searchText = "Name some books that are about dystopian futures.";
-        console.debug("Searching summaries with MMR...", searchText);
-
-        const { results: searchResults } = await client.memory.searchSessions({
-            sessionIds: [sessionID],
-            text: searchText,
-            searchScope: "summary",
-            searchType: "mmr",
-            mmrLambda: 0.6,
-            limit: 3,
-        });
-
-        searchResults?.forEach((searchResult) => {
-            console.debug("Search Result: ", JSON.stringify(searchResult.summary));
-            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
-        });
-    } catch (error) {
-        if (error instanceof NotFoundError) {
-            console.error("Session not found:", error.message);
-        } else {
-            console.error("Got error:", error);
-        }
-    }
-
-    try {
-        const result = await client.memory.extract(
-            sessionID,
-            {
-                shoeSize: zepFields.number("The Customer's shoe size"),
-                budget: zepFields.number("The Customer's budget for shoe purchase"),
-                favoriteBrand: zepFields.text("The Customer's favorite shoe brand. Just one brand, please!"),
-            },
-            { lastN: 20, validate: false, currentDateTime: new Date().toISOString() }
-        );
-        console.log("Data Extraction Result", result);
-    } catch (error) {
-        console.debug("Got error:", error);
-    }
-
-    // End session - this will trigger summarization and other background tasks on the completed session
-    try {
-        await client.memory.endSession(sessionID);
-        console.debug("Ended session: ", sessionID);
-    } catch (error) {
-        console.debug("Got error:", error);
     }
 }
 
