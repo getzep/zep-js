@@ -5,12 +5,19 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
+import { SessionFactRatingInstruction } from "./SessionFactRatingInstruction";
 
 export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Zep.Session> = core.serialization.object(
     {
+        classifications: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
         endedAt: core.serialization.property("ended_at", core.serialization.string().optional()),
+        factRatingInstruction: core.serialization.property(
+            "fact_rating_instruction",
+            SessionFactRatingInstruction.optional()
+        ),
+        facts: core.serialization.list(core.serialization.string()).optional(),
         id: core.serialization.number().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
@@ -23,9 +30,12 @@ export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Z
 
 export declare namespace Session {
     interface Raw {
+        classifications?: Record<string, string> | null;
         created_at?: string | null;
         deleted_at?: string | null;
         ended_at?: string | null;
+        fact_rating_instruction?: SessionFactRatingInstruction.Raw | null;
+        facts?: string[] | null;
         id?: number | null;
         metadata?: Record<string, unknown> | null;
         project_uuid?: string | null;
