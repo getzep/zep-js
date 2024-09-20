@@ -6,8 +6,4 @@ import * as Zep from "../index";
 
 export interface SessionSearchResult {
     fact?: Zep.Fact;
-    message?: Zep.Message;
-    score?: number;
-    sessionId?: string;
-    summary?: Zep.Summary;
 }

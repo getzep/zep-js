@@ -6,8 +6,6 @@ export * from "./Message";
 export * from "./MessageListResponse";
 export * from "./RoleType";
 export * from "./Session";
-export * from "./SessionFactRatingExamples";
-export * from "./SessionFactRatingInstruction";
 export * from "./SessionListResponse";
 export * from "./SessionSearchResponse";
 export * from "./SessionSearchResult";
