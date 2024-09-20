@@ -1,4 +1,5 @@
 export * from "./ApiError";
+export * from "./AddedFact";
 export * from "./ClassifySessionRequest";
 export * from "./ClassifySessionResponse";
 export * from "./CreateDocumentRequest";
