@@ -5,19 +5,12 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
-import { FactRatingExamples } from "./FactRatingExamples";
 
-export const FactRatingInstruction: core.serialization.ObjectSchema<
+export const FactRatingInstruction: core.serialization.Schema<
     serializers.FactRatingInstruction.Raw,
     Zep.FactRatingInstruction
-> = core.serialization.object({
-    examples: FactRatingExamples.optional(),
-    instruction: core.serialization.string().optional(),
-});
+> = core.serialization.unknown();
 
 export declare namespace FactRatingInstruction {
-    interface Raw {
-        examples?: FactRatingExamples.Raw | null;
-        instruction?: string | null;
-    }
+    type Raw = unknown;
 }

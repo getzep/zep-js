@@ -37,9 +37,7 @@ export class Document {
      * @example
      *     await zep.document.listCollections()
      */
-    public async listCollections(
-        requestOptions?: Document.RequestOptions
-    ): Promise<Zep.DocumentCollectionResponse[][]> {
+    public async listCollections(requestOptions?: Document.RequestOptions): Promise<Zep.ApidataDocumentCollection[][]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -48,8 +46,8 @@ export class Document {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -131,7 +129,7 @@ export class Document {
     public async getCollection(
         collectionName: string,
         requestOptions?: Document.RequestOptions
-    ): Promise<Zep.DocumentCollectionResponse> {
+    ): Promise<Zep.ApidataDocumentCollection> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -140,8 +138,8 @@ export class Document {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -152,7 +150,7 @@ export class Document {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.DocumentCollectionResponse.parseOrThrow(_response.body, {
+            return await serializers.ApidataDocumentCollection.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -254,8 +252,8 @@ export class Document {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -369,8 +367,8 @@ export class Document {
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -483,8 +481,8 @@ export class Document {
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -592,7 +590,7 @@ export class Document {
         collectionName: string,
         request: Zep.CreateDocumentRequest[],
         requestOptions?: Document.RequestOptions
-    ): Promise<string[]> {
+    ): Promise<string[][]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -601,8 +599,8 @@ export class Document {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -707,8 +705,8 @@ export class Document {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -804,7 +802,7 @@ export class Document {
         collectionName: string,
         request: Zep.GetDocumentListRequest = {},
         requestOptions?: Document.RequestOptions
-    ): Promise<Zep.DocumentResponse[]> {
+    ): Promise<Zep.ApidataDocument[][]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -813,8 +811,8 @@ export class Document {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -919,8 +917,8 @@ export class Document {
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1010,13 +1008,13 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.getsADocumentFromADocumentCollectionByUuid("collectionName", "documentUUID")
+     *     await zep.document.getsADocumentFromADocumentCollectionByUuidCloudOnly("collectionName", "documentUUID")
      */
-    public async getsADocumentFromADocumentCollectionByUuid(
+    public async getsADocumentFromADocumentCollectionByUuidCloudOnly(
         collectionName: string,
         documentUuid: string,
         requestOptions?: Document.RequestOptions
-    ): Promise<Zep.DocumentResponse> {
+    ): Promise<Zep.ApidataDocument> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -1025,8 +1023,8 @@ export class Document {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1037,7 +1035,7 @@ export class Document {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.DocumentResponse.parseOrThrow(_response.body, {
+            return await serializers.ApidataDocument.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1129,8 +1127,8 @@ export class Document {
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1229,9 +1227,9 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.updatesADocument("collectionName", "documentUUID")
+     *     await zep.document.updatesADocumentCloudOnly("collectionName", "documentUUID")
      */
-    public async updatesADocument(
+    public async updatesADocumentCloudOnly(
         collectionName: string,
         documentUuid: string,
         request: Zep.UpdateDocumentRequest = {},
@@ -1245,8 +1243,8 @@ export class Document {
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1350,7 +1348,7 @@ export class Document {
         collectionName: string,
         request: Zep.DocumentSearchPayload = {},
         requestOptions?: Document.RequestOptions
-    ): Promise<Zep.DocumentSearchResultPage> {
+    ): Promise<Zep.ApidataDocumentSearchResponse> {
         const { limit, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (limit != null) {
@@ -1365,8 +1363,8 @@ export class Document {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1379,7 +1377,7 @@ export class Document {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.DocumentSearchResultPage.parseOrThrow(_response.body, {
+            return await serializers.ApidataDocumentSearchResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

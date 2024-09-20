@@ -14,7 +14,7 @@ export interface AddMemoryRequest {
     /** Additional instruction for generating the facts. */
     factInstruction?: string;
     /** A list of message objects, where each message contains a role and content. */
-    messages: Zep.Message[];
+    messages: Zep.ModelsMessage[];
     /** Additional instruction for generating the summary. */
     summaryInstruction?: string;
 }

@@ -10,13 +10,9 @@ import * as Zep from "../../../../index";
  */
 export interface MemoryGetRequest {
     /**
-     * The type of memory to retrieve: perpetual, summary_retriever, or message_window. Defaults to perpetual.
-     */
-    memoryType?: Zep.MemoryType;
-    /**
      * The number of most recent memory entries to retrieve.
      */
-    lastn?: number;
+    lastn?: Zep.MemoryType;
     /**
      * The minimum rating by which to filter facts
      */

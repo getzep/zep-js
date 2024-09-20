@@ -6,17 +6,11 @@ import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
 
-export const ClassifySessionResponse: core.serialization.ObjectSchema<
+export const ClassifySessionResponse: core.serialization.Schema<
     serializers.ClassifySessionResponse.Raw,
     Zep.ClassifySessionResponse
-> = core.serialization.object({
-    class: core.serialization.string().optional(),
-    name: core.serialization.string().optional(),
-});
+> = core.serialization.unknown();
 
 export declare namespace ClassifySessionResponse {
-    interface Raw {
-        class?: string | null;
-        name?: string | null;
-    }
+    type Raw = unknown;
 }

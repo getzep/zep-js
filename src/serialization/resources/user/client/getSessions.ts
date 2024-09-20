@@ -7,9 +7,9 @@ import * as Zep from "../../../../api/index";
 import * as core from "../../../../core";
 import { Session } from "../../../types/Session";
 
-export const Response: core.serialization.Schema<serializers.user.getSessions.Response.Raw, Zep.Session[]> =
-    core.serialization.list(Session);
+export const Response: core.serialization.Schema<serializers.user.getSessions.Response.Raw, Zep.Session[][]> =
+    core.serialization.list(core.serialization.list(Session));
 
 export declare namespace Response {
-    type Raw = Session.Raw[];
+    type Raw = Session.Raw[][];
 }

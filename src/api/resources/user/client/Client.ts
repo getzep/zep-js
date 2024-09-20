@@ -47,8 +47,8 @@ export class User {
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -148,8 +148,8 @@ export class User {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -236,8 +236,8 @@ export class User {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -323,8 +323,8 @@ export class User {
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -416,8 +416,8 @@ export class User {
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -504,7 +504,7 @@ export class User {
      * @example
      *     await zep.user.getSessions("userId")
      */
-    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[]> {
+    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[][]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -513,8 +513,8 @@ export class User {
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.11",
+                "X-Fern-SDK-Name": "zep-js",
+                "X-Fern-SDK-Version": "0.0.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

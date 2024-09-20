@@ -16,9 +16,9 @@ export declare namespace Request {
     type Raw = CreateDocumentRequest.Raw[];
 }
 
-export const Response: core.serialization.Schema<serializers.document.addDocuments.Response.Raw, string[]> =
-    core.serialization.list(core.serialization.string());
+export const Response: core.serialization.Schema<serializers.document.addDocuments.Response.Raw, string[][]> =
+    core.serialization.list(core.serialization.list(core.serialization.string()));
 
 export declare namespace Response {
-    type Raw = string[];
+    type Raw = string[][];
 }

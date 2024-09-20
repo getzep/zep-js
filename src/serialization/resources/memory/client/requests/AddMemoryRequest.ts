@@ -5,19 +5,19 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { Message } from "../../../../types/Message";
+import { ModelsMessage } from "../../../../types/ModelsMessage";
 
 export const AddMemoryRequest: core.serialization.Schema<serializers.AddMemoryRequest.Raw, Zep.AddMemoryRequest> =
     core.serialization.object({
         factInstruction: core.serialization.property("fact_instruction", core.serialization.string().optional()),
-        messages: core.serialization.list(Message),
+        messages: core.serialization.list(ModelsMessage),
         summaryInstruction: core.serialization.property("summary_instruction", core.serialization.string().optional()),
     });
 
 export declare namespace AddMemoryRequest {
     interface Raw {
         fact_instruction?: string | null;
-        messages: Message.Raw[];
+        messages: ModelsMessage.Raw[];
         summary_instruction?: string | null;
     }
 }

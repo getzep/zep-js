@@ -6,13 +6,9 @@ import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
 
-export const AddedFact: core.serialization.ObjectSchema<serializers.AddedFact.Raw, Zep.AddedFact> =
-    core.serialization.object({
-        fact: core.serialization.string().optional(),
-    });
+export const AddedFact: core.serialization.Schema<serializers.AddedFact.Raw, Zep.AddedFact> =
+    core.serialization.unknown();
 
 export declare namespace AddedFact {
-    interface Raw {
-        fact?: string | null;
-    }
+    type Raw = unknown;
 }

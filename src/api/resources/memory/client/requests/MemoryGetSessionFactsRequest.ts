@@ -8,7 +8,7 @@
  */
 export interface MemoryGetSessionFactsRequest {
     /**
-     * Minimum rating by which to filter facts
+     * Minimum rating by which to filter facts (Zep Cloud only)
      */
     minRating?: number;
 }
