@@ -4,7 +4,6 @@
 
 import * as environments from "./environments";
 import * as core from "./core";
-import { Document } from "./api/resources/document/client/Client";
 import { Memory } from "./api/resources/memory/client/Client";
 import { User } from "./api/resources/user/client/Client";
 
@@ -24,12 +23,6 @@ export declare namespace ZepClient {
 
 export class ZepClient {
     constructor(protected readonly _options: ZepClient.Options = {}) {}
-
-    protected _document: Document | undefined;
-
-    public get document(): Document {
-        return (this._document ??= new Document(this._options));
-    }
 
     protected _memory: Memory | undefined;
 
