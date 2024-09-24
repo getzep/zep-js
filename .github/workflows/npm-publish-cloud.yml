@@ -1,0 +1,49 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: publish-cloud-to-npm
+
+on:
+  push:
+    tags: ["v*.*.*"]
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Compare package.json version with tag
+        run: |
+          TAG_VERSION=${GITHUB_REF#refs/tags/}
+          PACKAGE_VERSION=$(cat package.json | jq -r '.version')
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+          # Expects the tag to be in the format v1.0.0
+          if [ "$TAG_VERSION" != "v$PACKAGE_VERSION" ]; then
+            echo "Tag version $TAG_VERSION does not match the package.json version $PACKAGE_VERSION"
+            exit 1
+          fi
+      - name: Check if version is a prerelease
+        run: |
+          # grep will return a non-zero exit code if the version does not match the release pattern
+          if echo "$PACKAGE_VERSION" | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' > /dev/null; then
+            echo "is_next=false" >> $GITHUB_ENV
+          else
+            echo "Packaging a prerelease version $PACKAGE_VERSION"
+            echo "is_next=true" >> $GITHUB_ENV
+          fi
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+#      - name: Publish package
+#        run: |
+#          if [ "$is_next" = "true" ]; then
+#            yarn publish --tag preview
+#          else
+#            yarn publish
+#          fi
+#        env:
+#          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
