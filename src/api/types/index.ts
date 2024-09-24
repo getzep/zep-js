@@ -19,4 +19,3 @@ export * from "./FactRatingExamples";
 export * from "./FactRatingInstruction";
 export * from "./SearchScope";
 export * from "./SearchType";
-export * from "./MemoryType";

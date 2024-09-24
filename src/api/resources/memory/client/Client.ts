@@ -716,7 +716,7 @@ export class Memory {
         const { lastn, minRating } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (lastn != null) {
-            _queryParams["lastn"] = lastn;
+            _queryParams["lastn"] = lastn.toString();
         }
 
         if (minRating != null) {
