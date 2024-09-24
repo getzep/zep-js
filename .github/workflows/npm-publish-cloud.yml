@@ -8,7 +8,7 @@ on:
     types: [published]
 jobs:
   build:
-    if: github.ref == 'refs/heads/cloud'
+    if: github.event.release.target_commitish == 'main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
