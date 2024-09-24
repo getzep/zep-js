@@ -4,12 +4,11 @@
 name: publish-ce-to-npm
 
 on:
-  push:
-    tags: ["v*.*.*"]
-    branches:
-      - community
+  release:
+    types: [published]
 jobs:
   build:
+    if: github.ref == 'refs/heads/community'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
