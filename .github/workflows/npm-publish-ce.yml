@@ -37,12 +37,12 @@ jobs:
           fi
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-#      - name: Publish package
-#        run: |
-#          if [ "$is_next" = "true" ]; then
-#            yarn publish --tag preview
-#          else
-#            yarn publish
-#          fi
-#        env:
-#          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish package
+        run: |
+          if [ "$is_next" = "true" ]; then
+            yarn publish --tag preview
+          else
+            yarn publish
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
