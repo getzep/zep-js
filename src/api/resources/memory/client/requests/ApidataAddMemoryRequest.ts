@@ -11,10 +11,10 @@ import * as Zep from "../../../../index";
  *     }
  */
 export interface ApidataAddMemoryRequest {
-    /** Additional instruction for generating the facts. */
+    /** Additional instruction for generating the facts. Zep Cloud Only, will be ignored on Community Edition. */
     factInstruction?: string;
     /** A list of message objects, where each message contains a role and content. */
     messages: Zep.Message[];
-    /** Additional instruction for generating the summary. */
+    /** Additional instruction for generating the summary. Zep Cloud Only, will be ignored on Community Edition. */
     summaryInstruction?: string;
 }
