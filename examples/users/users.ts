@@ -4,9 +4,11 @@ import { CreateUserRequest, UpdateUserRequest } from "../../src/api";
 
 async function main() {
     const projectApiKey = process.env.ZEP_API_KEY;
+    const apiUrl = process.env.ZEP_API_URL;
 
     const client = new ZepClient({
         apiKey: projectApiKey,
+        environment: apiUrl,
     });
 
     // Create multiple users
@@ -55,6 +57,7 @@ async function main() {
     // Delete the second user
     const userIdToDelete = (await client.user.listOrdered())?.users?.[1]?.userId;
     try {
+        console.log("userIdToDelete", userIdToDelete);
         if (!userIdToDelete) {
             throw new Error("No user found");
         }

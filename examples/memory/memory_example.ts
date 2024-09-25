@@ -12,10 +12,12 @@ function sleep(ms: number) {
         currentDate = Date.now();
     } while (currentDate - date < ms);
 }
-
+const projectApiKey = process.env.ZEP_API_KEY;
+const apiUrl = process.env.ZEP_API_URL;
 async function main() {
     const client = new ZepClient({
-        environment: "http://localhost:8000/api/v2",
+        apiKey: projectApiKey,
+        environment: apiUrl,
     });
 
     // Create a user
@@ -66,8 +68,8 @@ async function main() {
         console.debug("Got error:", error);
     }
 
-    console.log("Sleeping for 5 seconds to let background tasks complete...");
-    sleep(5000); // Sleep for 5 seconds
+    console.log("Sleeping for 30 seconds to let background tasks complete...");
+    sleep(30000); // Sleep for 30 seconds
     console.log("Done sleeping!");
 
     // Get newly added memory
@@ -150,7 +152,6 @@ async function main() {
 
         searchResults?.forEach((searchResult) => {
             console.debug("Search Result: ", JSON.stringify(searchResult.fact));
-            console.debug("Search Result Score: ", JSON.stringify(searchResult.score));
         });
     } catch (error) {
         if (error instanceof NotFoundError) {
