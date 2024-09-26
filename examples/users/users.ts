@@ -3,12 +3,12 @@ import { ZepClient } from "../../src";
 import { CreateUserRequest, UpdateUserRequest } from "../../src/api";
 
 async function main() {
-    const projectApiKey = process.env.ZEP_API_KEY;
+    const apiKey = process.env.ZEP_API_KEY;
     const apiUrl = process.env.ZEP_API_URL;
 
     const client = new ZepClient({
-        apiKey: projectApiKey,
-        environment: apiUrl,
+        apiKey: apiKey!,
+        baseUrl: apiUrl!,
     });
 
     // Create multiple users

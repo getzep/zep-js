@@ -12,12 +12,12 @@ function sleep(ms: number) {
         currentDate = Date.now();
     } while (currentDate - date < ms);
 }
-const projectApiKey = process.env.ZEP_API_KEY;
+const apiKey = process.env.ZEP_API_KEY;
 const apiUrl = process.env.ZEP_API_URL;
 async function main() {
     const client = new ZepClient({
-        apiKey: projectApiKey,
-        environment: apiUrl,
+        apiKey: apiKey!,
+        baseUrl: apiUrl!,
     });
 
     // Create a user
