@@ -4,8 +4,8 @@ src/wrapper
 src/extractor
 src/index.ts
 src/langchain
-package.json
-yarn.lock
 .github
 README.md
 tests/sde.test.ts
+package.json
+yarn.lock
