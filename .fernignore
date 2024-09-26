@@ -7,3 +7,5 @@ src/langchain
 .github
 README.md
 tests/sde.test.ts
+package.json
+yarn.lock
