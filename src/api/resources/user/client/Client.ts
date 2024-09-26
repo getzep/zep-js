@@ -24,7 +24,7 @@ export declare namespace User {
 }
 
 export class User {
-    constructor(protected readonly _options: User.Options = {}) {}
+    constructor(protected readonly _options: User.Options = {}) { }
 
     /**
      * Add a user.
