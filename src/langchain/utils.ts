@@ -21,8 +21,9 @@ export const getZepMessageRoleType = (role: MessageType): RoleType => {
 export const condenseZepMemoryIntoHumanMessage = (memory: Memory) => {
     let systemPrompt = "";
 
-    if (memory.facts) {
-        systemPrompt += memory.facts.join("\n");
+    if (memory.relevantFacts) {
+        const relevantFactStrings: string[] = memory.relevantFacts.map(({fact}) => fact).filter(x => !!x) as string[];
+        systemPrompt += relevantFactStrings.join("\n");
     }
 
     // Extract summary, if present, and messages
