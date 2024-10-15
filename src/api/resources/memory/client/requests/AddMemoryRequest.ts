@@ -7,10 +7,13 @@ import * as Zep from "../../../../index";
 /**
  * @example
  *     {
- *         messages: [{}]
+ *         messages: [{
+ *                 content: "content",
+ *                 roleType: Zep.RoleType.NoRole
+ *             }]
  *     }
  */
-export interface ApidataAddMemoryRequest {
+export interface AddMemoryRequest {
     /** Additional instruction for generating the facts. Zep Cloud Only, will be ignored on Community Edition. */
     factInstruction?: string;
     /** A list of message objects, where each message contains a role and content. */

@@ -11,6 +11,6 @@ import * as Zep from "../../../../index";
 export interface AddDataRequest {
     data?: string;
     groupId?: string;
-    type?: Zep.ModelsGraphDataType;
+    type?: Zep.GraphDataType;
     userId?: string;
 }

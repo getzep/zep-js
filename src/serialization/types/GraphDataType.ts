@@ -6,11 +6,9 @@ import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
 
-export const ModelsGraphDataType: core.serialization.Schema<
-    serializers.ModelsGraphDataType.Raw,
-    Zep.ModelsGraphDataType
-> = core.serialization.enum_(["text", "json", "message"]);
+export const GraphDataType: core.serialization.Schema<serializers.GraphDataType.Raw, Zep.GraphDataType> =
+    core.serialization.enum_(["text", "json", "message"]);
 
-export declare namespace ModelsGraphDataType {
+export declare namespace GraphDataType {
     type Raw = "text" | "json" | "message";
 }

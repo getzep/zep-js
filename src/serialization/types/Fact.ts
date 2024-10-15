@@ -8,22 +8,28 @@ import * as core from "../../core";
 
 export const Fact: core.serialization.ObjectSchema<serializers.Fact.Raw, Zep.Fact> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+    expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
     fact: core.serialization.string().optional(),
+    invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
     name: core.serialization.string().optional(),
     rating: core.serialization.number().optional(),
     sourceNodeName: core.serialization.property("source_node_name", core.serialization.string().optional()),
     targetNodeName: core.serialization.property("target_node_name", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
+    validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
 });
 
 export declare namespace Fact {
     interface Raw {
         created_at?: string | null;
+        expired_at?: string | null;
         fact?: string | null;
+        invalid_at?: string | null;
         name?: string | null;
         rating?: number | null;
         source_node_name?: string | null;
         target_node_name?: string | null;
         uuid?: string | null;
+        valid_at?: string | null;
     }
 }

@@ -5,13 +5,13 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { ModelsGraphDataType } from "../../../../types/ModelsGraphDataType";
+import { GraphDataType } from "../../../../types/GraphDataType";
 
 export const AddDataRequest: core.serialization.Schema<serializers.AddDataRequest.Raw, Zep.AddDataRequest> =
     core.serialization.object({
         data: core.serialization.string().optional(),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
-        type: ModelsGraphDataType.optional(),
+        type: GraphDataType.optional(),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
     });
 
@@ -19,7 +19,7 @@ export declare namespace AddDataRequest {
     interface Raw {
         data?: string | null;
         group_id?: string | null;
-        type?: ModelsGraphDataType.Raw | null;
+        type?: GraphDataType.Raw | null;
         user_id?: string | null;
     }
 }

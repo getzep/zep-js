@@ -8,7 +8,7 @@ export { type ExtractDataRequest } from "./ExtractDataRequest";
 export { type MemoryGetSessionFactsRequest } from "./MemoryGetSessionFactsRequest";
 export { type AddFactsRequest } from "./AddFactsRequest";
 export { type MemoryGetRequest } from "./MemoryGetRequest";
-export { type ApidataAddMemoryRequest } from "./ApidataAddMemoryRequest";
+export { type AddMemoryRequest } from "./AddMemoryRequest";
 export { type MemoryGetSessionMessagesRequest } from "./MemoryGetSessionMessagesRequest";
 export { type ModelsMessageMetadataUpdate } from "./ModelsMessageMetadataUpdate";
 export { type MemorySearchPayload } from "./MemorySearchPayload";

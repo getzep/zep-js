@@ -40,7 +40,7 @@ export * from "./ClassifySessionRequest";
 export * from "./CreateDocumentRequest";
 export * from "./FactRatingExamples";
 export * from "./FactRatingInstruction";
-export * from "./ModelsGraphDataType";
+export * from "./GraphDataType";
 export * from "./SearchScope";
 export * from "./SearchType";
 export * from "./UpdateDocumentListRequest";

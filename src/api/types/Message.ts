@@ -6,7 +6,7 @@ import * as Zep from "../index";
 
 export interface Message {
     /** The content of the message. */
-    content?: string;
+    content: string;
     /** The timestamp of when the message was created. */
     createdAt?: string;
     /** The metadata associated with the message. */
@@ -14,7 +14,7 @@ export interface Message {
     /** The role of the sender of the message (e.g., "user", "assistant"). */
     role?: string;
     /** The type of the role (e.g., "user", "system"). */
-    roleType?: Zep.RoleType;
+    roleType: Zep.RoleType;
     /** The number of tokens in the message. */
     tokenCount?: number;
     /** The timestamp of when the message was last updated. */

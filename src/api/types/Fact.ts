@@ -4,10 +4,13 @@
 
 export interface Fact {
     createdAt?: string;
+    expiredAt?: string;
     fact?: string;
+    invalidAt?: string;
     name?: string;
     rating?: number;
     sourceNodeName?: string;
     targetNodeName?: string;
     uuid?: string;
+    validAt?: string;
 }
