@@ -7,7 +7,9 @@ import * as Zep from "../../../../index";
 /**
  * @example
  *     {
- *         metadata: {}
+ *         metadata: {
+ *             "key": "value"
+ *         }
  *     }
  */
 export interface UpdateSessionRequest {

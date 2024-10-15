@@ -5,6 +5,9 @@
 export interface Fact {
     createdAt?: string;
     fact?: string;
+    name?: string;
     rating?: number;
+    sourceNodeName?: string;
+    targetNodeName?: string;
     uuid?: string;
 }
