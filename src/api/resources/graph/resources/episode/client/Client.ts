@@ -236,7 +236,7 @@ export class Episode {
      * @example
      *     await zep.graph.episode.get("uuid")
      */
-    public async get(uuid: string, requestOptions?: Episode.RequestOptions): Promise<Zep.EpisodeResponse> {
+    public async get(uuid: string, requestOptions?: Episode.RequestOptions): Promise<Zep.Episode> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -257,7 +257,7 @@ export class Episode {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.EpisodeResponse.parseOrThrow(_response.body, {
+            return await serializers.Episode.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

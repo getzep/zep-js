@@ -6,7 +6,7 @@ export interface EntityEdge {
     /** Creation time of the edge */
     createdAt: string;
     /** List of episode ids that reference these entity edges */
-    episodes: string[];
+    episodes?: string[];
     /** Datetime of when the node was invalidated */
     expiredAt?: string;
     /** Fact representing the edge and nodes that it connects */

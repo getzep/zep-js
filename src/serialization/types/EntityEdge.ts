@@ -9,7 +9,7 @@ import * as core from "../../core";
 export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.Raw, Zep.EntityEdge> =
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string()),
-        episodes: core.serialization.list(core.serialization.string()),
+        episodes: core.serialization.list(core.serialization.string()).optional(),
         expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
         fact: core.serialization.string(),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
@@ -23,7 +23,7 @@ export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.
 export declare namespace EntityEdge {
     interface Raw {
         created_at: string;
-        episodes: string[];
+        episodes?: string[] | null;
         expired_at?: string | null;
         fact: string;
         invalid_at?: string | null;
