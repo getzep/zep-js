@@ -130,10 +130,12 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.graph.search()
+     *     await zep.graph.search({
+     *         query: "query"
+     *     })
      */
     public async search(
-        request: Zep.GraphSearchQuery = {},
+        request: Zep.GraphSearchQuery,
         requestOptions?: Graph.RequestOptions
     ): Promise<Zep.GraphSearchResults> {
         const _response = await (this._options.fetcher ?? core.fetcher)({

@@ -8,29 +8,29 @@ import * as core from "../../core";
 
 export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.Raw, Zep.EntityEdge> =
     core.serialization.object({
-        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-        episodes: core.serialization.list(core.serialization.string()).optional(),
+        createdAt: core.serialization.property("created_at", core.serialization.string()),
+        episodes: core.serialization.list(core.serialization.string()),
         expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
-        fact: core.serialization.string().optional(),
+        fact: core.serialization.string(),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
-        name: core.serialization.string().optional(),
-        sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string().optional()),
-        targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string().optional()),
-        uuid: core.serialization.string().optional(),
+        name: core.serialization.string(),
+        sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string()),
+        targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string()),
+        uuid: core.serialization.string(),
         validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
     });
 
 export declare namespace EntityEdge {
     interface Raw {
-        created_at?: string | null;
-        episodes?: string[] | null;
+        created_at: string;
+        episodes: string[];
         expired_at?: string | null;
-        fact?: string | null;
+        fact: string;
         invalid_at?: string | null;
-        name?: string | null;
-        source_node_uuid?: string | null;
-        target_node_uuid?: string | null;
-        uuid?: string | null;
+        name: string;
+        source_node_uuid: string;
+        target_node_uuid: string;
+        uuid: string;
         valid_at?: string | null;
     }
 }

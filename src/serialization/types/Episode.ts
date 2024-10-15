@@ -9,22 +9,22 @@ import { EpisodeType } from "./EpisodeType";
 
 export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Zep.Episode> = core.serialization.object(
     {
-        content: core.serialization.string().optional(),
-        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-        name: core.serialization.string().optional(),
-        source: EpisodeType.optional(),
-        sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
-        uuid: core.serialization.string().optional(),
+        content: core.serialization.string(),
+        createdAt: core.serialization.property("created_at", core.serialization.string()),
+        name: core.serialization.string(),
+        source: EpisodeType,
+        sourceDescription: core.serialization.property("source_description", core.serialization.string()),
+        uuid: core.serialization.string(),
     }
 );
 
 export declare namespace Episode {
     interface Raw {
-        content?: string | null;
-        created_at?: string | null;
-        name?: string | null;
-        source?: EpisodeType.Raw | null;
-        source_description?: string | null;
-        uuid?: string | null;
+        content: string;
+        created_at: string;
+        name: string;
+        source: EpisodeType.Raw;
+        source_description: string;
+        uuid: string;
     }
 }

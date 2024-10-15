@@ -9,11 +9,11 @@ import { Episode } from "./Episode";
 
 export const EpisodeResponse: core.serialization.ObjectSchema<serializers.EpisodeResponse.Raw, Zep.EpisodeResponse> =
     core.serialization.object({
-        episodes: core.serialization.list(Episode).optional(),
+        episodes: core.serialization.list(Episode),
     });
 
 export declare namespace EpisodeResponse {
     interface Raw {
-        episodes?: Episode.Raw[] | null;
+        episodes: Episode.Raw[];
     }
 }

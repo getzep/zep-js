@@ -15,7 +15,7 @@ export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearch
         limit: core.serialization.number().optional(),
         minScore: core.serialization.property("min_score", core.serialization.number().optional()),
         mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
-        query: core.serialization.string().optional(),
+        query: core.serialization.string(),
         reranker: Reranker.optional(),
         scope: GraphSearchScope.optional(),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
@@ -28,7 +28,7 @@ export declare namespace GraphSearchQuery {
         limit?: number | null;
         min_score?: number | null;
         mmr_lambda?: number | null;
-        query?: string | null;
+        query: string;
         reranker?: Reranker.Raw | null;
         scope?: GraphSearchScope.Raw | null;
         user_id?: string | null;

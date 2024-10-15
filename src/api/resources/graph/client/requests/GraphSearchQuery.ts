@@ -6,7 +6,9 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         query: "query"
+ *     }
  */
 export interface GraphSearchQuery {
     /** Node to rerank around for node distance reranking */
@@ -20,7 +22,7 @@ export interface GraphSearchQuery {
     /** weighting for maximal marginal relevance */
     mmrLambda?: number;
     /** The string to search for (required) */
-    query?: string;
+    query: string;
     /** Defaults to RRF */
     reranker?: Zep.Reranker;
     /** Defaults to Edges. Nodes and Communities will be added in the future. */

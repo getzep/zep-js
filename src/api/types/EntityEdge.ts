@@ -4,23 +4,23 @@
 
 export interface EntityEdge {
     /** Creation time of the edge */
-    createdAt?: string;
+    createdAt: string;
     /** List of episode ids that reference these entity edges */
-    episodes?: string[];
+    episodes: string[];
     /** Datetime of when the node was invalidated */
     expiredAt?: string;
     /** Fact representing the edge and nodes that it connects */
-    fact?: string;
+    fact: string;
     /** Datetime of when the fact stopped being true */
     invalidAt?: string;
     /** Name of the edge, relation name */
-    name?: string;
+    name: string;
     /** UUID of the source node */
-    sourceNodeUuid?: string;
+    sourceNodeUuid: string;
     /** UUID of the target node */
-    targetNodeUuid?: string;
+    targetNodeUuid: string;
     /** UUID of the edge */
-    uuid?: string;
+    uuid: string;
     /** Datetime of when the fact became true */
     validAt?: string;
 }
