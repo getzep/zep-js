@@ -6,7 +6,6 @@ const API_KEY = process.env.ZEP_API_KEY;
 async function main() {
     const client = new ZepClient({
         apiKey: API_KEY,
-        environment: "https://api.development.getzep.com/api/v2"
     });
 
     const groupId = uuidv4();
@@ -17,12 +16,6 @@ async function main() {
         description: "This is my group",
     });
     console.log(`Group ${groupId} created`, group);
-
-    console.log(`Updating group ${groupId}...`);
-    await client.group.update(groupId, {
-        name: "My Group 2",
-        description: "This is my group 2",
-    });
 
     console.log(`Adding episode to group ${groupId}...`);
     await client.graph.add({

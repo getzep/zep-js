@@ -9,7 +9,6 @@ const API_KEY = process.env.ZEP_API_KEY
 async function main() {
     const client = new ZepClient({
         apiKey: API_KEY,
-        environment: "https://api.development.getzep.com/api/v2"
     });
 
     const userId = uuidv4();
@@ -65,7 +64,7 @@ async function main() {
     console.log(episodes);
 
     if (episodes && episodes.length > 0) {
-        const episode = await client.graph.episode.get(episodes[0].uuid);
+        const episode = await client.graph.episode.get(episodes[0].uuid!);
         console.log(episode);
     }
 
