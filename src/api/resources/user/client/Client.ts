@@ -591,7 +591,7 @@ export class User {
      * @example
      *     await zep.user.getSessions("userId")
      */
-    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[][]> {
+    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
