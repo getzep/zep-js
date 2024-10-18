@@ -5,13 +5,13 @@
 import * as serializers from "../../../index";
 import * as Zep from "../../../../api/index";
 import * as core from "../../../../core";
-import { DocumentResponse } from "../../../types/DocumentResponse";
+import { ApidataDocument } from "../../../types/ApidataDocument";
 
 export const Response: core.serialization.Schema<
     serializers.document.batchGetDocuments.Response.Raw,
-    Zep.DocumentResponse[]
-> = core.serialization.list(DocumentResponse);
+    Zep.ApidataDocument[][]
+> = core.serialization.list(core.serialization.list(ApidataDocument));
 
 export declare namespace Response {
-    type Raw = DocumentResponse.Raw[];
+    type Raw = ApidataDocument.Raw[][];
 }

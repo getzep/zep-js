@@ -6,22 +6,31 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         text: "text"
+ *     }
  */
 export interface SessionSearchQuery {
     /**
      * The maximum number of search results to return. Defaults to None (no limit).
      */
     limit?: number;
+    /** The minimum fact rating to filter on. Only supported on cloud. Will be ignored on Community Edition. */
     minFactRating?: number;
+    /** The minimum score for search results. Only supported on cloud. Will be ignored on Community Edition. */
     minScore?: number;
+    /** The lambda parameter for the MMR Reranking Algorithm. Only supported on cloud. Will be ignored on Community Edition. */
     mmrLambda?: number;
-    /** filter on the metadata */
+    /** Record filter on the metadata. Only supported on cloud. Will be ignored on Community Edition. */
     recordFilter?: Record<string, unknown>;
+    /** Search scope. Only supported on cloud. On Community Edition the search scope is always "facts". */
     searchScope?: Zep.SearchScope;
+    /** Search type. Only supported on cloud. Will be ignored on Community Edition. */
     searchType?: Zep.SearchType;
     /** the session ids to search */
     sessionIds?: string[];
-    text?: string;
+    /** The search text. */
+    text: string;
+    /** User ID used to determine which sessions to search. Required on Community Edition. */
     userId?: string;
 }

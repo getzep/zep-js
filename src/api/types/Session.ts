@@ -9,8 +9,7 @@ export interface Session {
     createdAt?: string;
     deletedAt?: string;
     endedAt?: string;
-    factRatingInstruction?: Zep.FactRatingInstruction;
-    factVersionUuid?: string;
+    factRatingInstruction?: Zep.SessionFactRatingInstruction;
     facts?: string[];
     id?: number;
     metadata?: Record<string, unknown>;

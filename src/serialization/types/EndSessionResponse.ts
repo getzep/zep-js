@@ -5,20 +5,20 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
-import { ClassifySessionResponse } from "./ClassifySessionResponse";
+import { SessionClassification } from "./SessionClassification";
 import { Session } from "./Session";
 
 export const EndSessionResponse: core.serialization.ObjectSchema<
     serializers.EndSessionResponse.Raw,
     Zep.EndSessionResponse
 > = core.serialization.object({
-    classification: ClassifySessionResponse.optional(),
+    classification: SessionClassification.optional(),
     session: Session.optional(),
 });
 
 export declare namespace EndSessionResponse {
     interface Raw {
-        classification?: ClassifySessionResponse.Raw | null;
+        classification?: SessionClassification.Raw | null;
         session?: Session.Raw | null;
     }
 }

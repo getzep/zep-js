@@ -591,9 +591,9 @@
     zod-to-json-schema "^3.22.5"
 
 "@langchain/core@>0.1.56 <0.3.0":
-  version "0.2.34"
-  resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.2.34.tgz#9a6c11e55f88d259c43d08a0add953ff4cb94556"
-  integrity sha512-Hkveq1UcOjUj1DVn5erbqElyRj1t04NORSuSIZAJCtPO7EDkIqomjAarJ5+I5NUpQeIONgbOdnY9TkJ6cKUSVA==
+  version "0.2.36"
+  resolved "https://registry.yarnpkg.com/@langchain/core/-/core-0.2.36.tgz#75754c33aa5b9310dcf117047374a1ae011005a4"
+  integrity sha512-qHLvScqERDeH7y2cLuJaSAlMwg3f/3Oc9nayRSXRU2UuaK/SOhI42cxiPLj1FnuHJSmN0rBQFkrLx02gI4mcVg==
   dependencies:
     ansi-styles "^5.0.0"
     camelcase "6"
@@ -782,9 +782,9 @@
   integrity sha512-miWq2m2FiQZmaHfdZNcbpp9PuXg34W5JZ5CrJ/BaS70VuhoJENBEQybeiYSaPBRNq6KQGnjfEnc/F3PN++D+XQ==
 
 "@types/node@^18.11.18":
-  version "18.19.54"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.54.tgz#f1048dc083f81b242640f04f18fb3e4ccf13fcdb"
-  integrity sha512-+BRgt0G5gYjTvdLac9sIeE0iZcJxi4Jc4PV5EUzqi+88jmQLr+fRZdv2tCTV7IHKSGxM6SaLoOXQWWUiLUItMw==
+  version "18.19.56"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.56.tgz#e46d3e6e5417d3b89e89ee6207d3c2cba7ad1ef2"
+  integrity sha512-4EMJlWwwGnVPflJAtM14p9eVSa6BOv5b92mCsh5zcM1UagNtEtrbbtaE6WE1tw2TabavatnwqXjlIpcAEuJJNg==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2114,9 +2114,9 @@ langchainhub@~0.0.8:
   integrity sha512-WnKI4g9kU2bHQP136orXr2bcRdgz9iiTBpTN0jWt9IlScUKnJBoD0aa2HOzHURQKeQDnt2JwqVmQ6Depf5uDLQ==
 
 langsmith@^0.1.56-rc.1, langsmith@~0.1.1, langsmith@~0.1.7:
-  version "0.1.61"
-  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.1.61.tgz#4c3d2677fe79d9f936198918c3af6c48e54f79d7"
-  integrity sha512-XQE4KPScwPmdaT0mWDzhNxj9gvqXUR+C7urLA0QFi27XeoQdm17eYpudenn4wxC0gIyUJutQCyuYJpfwlT5JnQ==
+  version "0.1.66"
+  resolved "https://registry.yarnpkg.com/langsmith/-/langsmith-0.1.66.tgz#f5a4424c65b8d028b42e90a2e375c862748b78c7"
+  integrity sha512-ZhZ9g8t/qjj0oUWpvKLtUe3qxDL/N0wG0m+Ctkxf0keopYJkcMJg4/71jl6ZYyiSU8xlC27aixXOT0uvLhqcFA==
   dependencies:
     "@types/uuid" "^10.0.0"
     commander "^10.0.1"
@@ -2188,9 +2188,9 @@ merge-stream@^2.0.0:
   integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
 
 micromatch@^4.0.4:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.7.tgz#33e8190d9fe474a9895525f5618eee136d46c2e5"
-  integrity sha512-LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.8.tgz#d66fa18f3a47076789320b9b1af32bd86d9fa202"
+  integrity sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==
   dependencies:
     braces "^3.0.3"
     picomatch "^2.3.1"
@@ -2343,9 +2343,9 @@ onetime@^5.1.2:
     mimic-fn "^2.1.0"
 
 openai@^4.32.1, openai@^4.41.1:
-  version "4.67.1"
-  resolved "https://registry.yarnpkg.com/openai/-/openai-4.67.1.tgz#ed07c40bf24c5f4108dfb662de1471f0c75e890d"
-  integrity sha512-2YbRFy6qaYRJabK2zLMn4txrB2xBy0KP5g/eoqeSPTT31mIJMnkT75toagvfE555IKa2RdrzJrZwdDsUipsAMw==
+  version "4.68.0"
+  resolved "https://registry.yarnpkg.com/openai/-/openai-4.68.0.tgz#6390d35fbcb2b8dc15f93b1a8c87a65ebeac8636"
+  integrity sha512-cVH0WMKd4cColyorwqo+Gn08lN8LQ8uKLMfWXFfvnedrLq3lCH6lRd0Rd0XJRunyfgNve/L9E7uZLAii39NBkw==
   dependencies:
     "@types/node" "^18.11.18"
     "@types/node-fetch" "^2.6.4"
@@ -2891,9 +2891,9 @@ yallist@^3.0.2:
   integrity sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
 
 yaml@^2.2.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.5.1.tgz#c9772aacf62cb7494a95b0c4f1fb065b563db130"
-  integrity sha512-bLQOjaX/ADgQ20isPJRvF0iRUHIxVhYvr53Of7wGcWlO2jvtUlH5m87DsmulFVxRpNLOnI4tB6p/oh8D7kpn9Q==
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.6.0.tgz#14059ad9d0b1680d0f04d3a60fe00f3a857303c3"
+  integrity sha512-a6ae//JvKDEra2kdi1qzCyrJW/WZCgFi8ydDV+eXExl95t+5R+ijnqHJbz9tmMh8FUjx3iv2fCQ4dclAQlO2UQ==
 
 yargs-parser@^21.0.1, yargs-parser@^21.1.1:
   version "21.1.1"

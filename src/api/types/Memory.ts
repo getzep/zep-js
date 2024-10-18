@@ -6,17 +6,16 @@ import * as Zep from "../index";
 
 export interface Memory {
     /**
-     * Most recent list of facts derived from the session. Included only with perpetual memory type.
+     * Most recent list of facts derived from the session. (cloud only)
      * Deprecated: Facts will be deprecated in future releases and relevant_facts should be used instead.
      */
     facts?: string[];
-    /** A list of message objects, where each message contains a role and content. */
+    /** A list of message objects, where each message contains a role and content. Only last_n messages will be returned */
     messages?: Zep.Message[];
     /** A dictionary containing metadata associated with the memory. */
     metadata?: Record<string, unknown>;
+    /** Most relevant facts to the recent messages in the session. */
     relevantFacts?: Zep.Fact[];
-    /** Summary list result from Summary Retriever Memory Type. */
-    relevantSummaries?: Zep.Summary[];
-    /** A Summary object. */
+    /** The most recent summary before last nth message. (cloud only) */
     summary?: Zep.Summary;
 }
