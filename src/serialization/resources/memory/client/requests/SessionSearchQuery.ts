@@ -25,7 +25,7 @@ export const SessionSearchQuery: core.serialization.Schema<
         "session_ids",
         core.serialization.list(core.serialization.string()).optional()
     ),
-    text: core.serialization.string().optional(),
+    text: core.serialization.string(),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
 });
 
@@ -38,7 +38,7 @@ export declare namespace SessionSearchQuery {
         search_scope?: SearchScope.Raw | null;
         search_type?: SearchType.Raw | null;
         session_ids?: string[] | null;
-        text?: string | null;
+        text: string;
         user_id?: string | null;
     }
 }

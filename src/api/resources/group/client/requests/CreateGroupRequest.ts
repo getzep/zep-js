@@ -10,5 +10,4 @@ export interface CreateGroupRequest {
     description?: string;
     groupId?: string;
     name?: string;
-    userIds?: string[];
 }

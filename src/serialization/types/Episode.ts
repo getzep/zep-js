@@ -5,26 +5,26 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
-import { EpisodeType } from "./EpisodeType";
+import { GraphDataType } from "./GraphDataType";
 
 export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Zep.Episode> = core.serialization.object(
     {
-        content: core.serialization.string(),
-        createdAt: core.serialization.property("created_at", core.serialization.string()),
-        name: core.serialization.string(),
-        source: EpisodeType,
-        sourceDescription: core.serialization.property("source_description", core.serialization.string()),
-        uuid: core.serialization.string(),
+        content: core.serialization.string().optional(),
+        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        name: core.serialization.string().optional(),
+        source: GraphDataType.optional(),
+        sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
+        uuid: core.serialization.string().optional(),
     }
 );
 
 export declare namespace Episode {
     interface Raw {
-        content: string;
-        created_at: string;
-        name: string;
-        source: EpisodeType.Raw;
-        source_description: string;
-        uuid: string;
+        content?: string | null;
+        created_at?: string | null;
+        name?: string | null;
+        source?: GraphDataType.Raw | null;
+        source_description?: string | null;
+        uuid?: string | null;
     }
 }

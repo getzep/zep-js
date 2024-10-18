@@ -11,10 +11,6 @@ export const CreateGroupRequest: core.serialization.Schema<serializers.CreateGro
         description: core.serialization.string().optional(),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
         name: core.serialization.string().optional(),
-        userIds: core.serialization.property(
-            "user_ids",
-            core.serialization.list(core.serialization.string()).optional()
-        ),
     });
 
 export declare namespace CreateGroupRequest {
@@ -22,6 +18,5 @@ export declare namespace CreateGroupRequest {
         description?: string | null;
         group_id?: string | null;
         name?: string | null;
-        user_ids?: string[] | null;
     }
 }

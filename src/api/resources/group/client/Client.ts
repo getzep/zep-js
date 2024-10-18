@@ -48,7 +48,7 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -115,10 +115,9 @@ export class Group {
     }
 
     /**
-     * Update group information
+     * Delete group
      *
      * @param {string} groupId - Group ID
-     * @param {Zep.UpdateGroupRequest} request
      * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -126,35 +125,30 @@ export class Group {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.group.update("groupId")
+     *     await zep.group.delete("groupId")
      */
-    public async update(
-        groupId: string,
-        request: Zep.UpdateGroupRequest = {},
-        requestOptions?: Group.RequestOptions
-    ): Promise<Zep.Group> {
+    public async delete(groupId: string, requestOptions?: Group.RequestOptions): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 `groups/${encodeURIComponent(groupId)}`
             ),
-            method: "PATCH",
+            method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "1.0.10",
+                "X-Fern-SDK-Version": "2.0.0-rc.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
-            body: await serializers.UpdateGroupRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.Group.parseOrThrow(_response.body, {
+            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

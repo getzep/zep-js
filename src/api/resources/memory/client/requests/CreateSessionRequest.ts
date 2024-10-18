@@ -7,7 +7,8 @@ import * as Zep from "../../../../index";
 /**
  * @example
  *     {
- *         sessionId: "session_id"
+ *         sessionId: "session_id",
+ *         userId: "user_id"
  *     }
  */
 export interface CreateSessionRequest {
@@ -18,5 +19,5 @@ export interface CreateSessionRequest {
     /** The unique identifier of the session. */
     sessionId: string;
     /** The unique identifier of the user associated with the session */
-    userId?: string;
+    userId: string;
 }

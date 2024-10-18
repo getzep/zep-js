@@ -6,7 +6,9 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         text: "text"
+ *     }
  */
 export interface SessionSearchQuery {
     /**
@@ -28,7 +30,7 @@ export interface SessionSearchQuery {
     /** the session ids to search */
     sessionIds?: string[];
     /** The search text. */
-    text?: string;
+    text: string;
     /** User ID used to determine which sessions to search. Required on Community Edition. */
     userId?: string;
 }

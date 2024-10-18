@@ -5,10 +5,10 @@
 import * as Zep from "../index";
 
 export interface Episode {
-    content: string;
-    createdAt: string;
-    name: string;
-    source: Zep.EpisodeType;
-    sourceDescription: string;
-    uuid: string;
+    content?: string;
+    createdAt?: string;
+    name?: string;
+    source?: Zep.GraphDataType;
+    sourceDescription?: string;
+    uuid?: string;
 }
