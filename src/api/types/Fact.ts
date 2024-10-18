@@ -3,8 +3,14 @@
  */
 
 export interface Fact {
-    createdAt?: string;
-    fact?: string;
+    createdAt: string;
+    expiredAt?: string;
+    fact: string;
+    invalidAt?: string;
+    name?: string;
     rating?: number;
-    uuid?: string;
+    sourceNodeName?: string;
+    targetNodeName?: string;
+    uuid: string;
+    validAt?: string;
 }

@@ -14,7 +14,7 @@ export const CreateSessionRequest: core.serialization.Schema<
     factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     sessionId: core.serialization.property("session_id", core.serialization.string()),
-    userId: core.serialization.property("user_id", core.serialization.string().optional()),
+    userId: core.serialization.property("user_id", core.serialization.string()),
 });
 
 export declare namespace CreateSessionRequest {
@@ -22,6 +22,6 @@ export declare namespace CreateSessionRequest {
         fact_rating_instruction?: FactRatingInstruction.Raw | null;
         metadata?: Record<string, unknown> | null;
         session_id: string;
-        user_id?: string | null;
+        user_id: string;
     }
 }

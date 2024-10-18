@@ -9,5 +9,5 @@ import * as Zep from "../../../../index";
  *     {}
  */
 export interface AddFactsRequest {
-    facts?: Zep.AddedFact[];
+    facts?: Zep.NewFact[];
 }

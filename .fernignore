@@ -9,4 +9,4 @@ yarn.lock
 .github
 README.md
 tests/sde.test.ts
-LICENSE
+.gitignore

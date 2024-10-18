@@ -5,7 +5,9 @@
 /**
  * @example
  *     {
- *         metadata: {}
+ *         metadata: {
+ *             "key": "value"
+ *         }
  *     }
  */
 export interface ModelsMessageMetadataUpdate {
