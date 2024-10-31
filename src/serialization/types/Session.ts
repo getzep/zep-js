@@ -5,7 +5,7 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
-import { SessionFactRatingInstruction } from "./SessionFactRatingInstruction";
+import { ApidataFactRatingInstruction } from "./ApidataFactRatingInstruction";
 
 export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Zep.Session> = core.serialization.object(
     {
@@ -15,7 +15,7 @@ export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Z
         endedAt: core.serialization.property("ended_at", core.serialization.string().optional()),
         factRatingInstruction: core.serialization.property(
             "fact_rating_instruction",
-            SessionFactRatingInstruction.optional()
+            ApidataFactRatingInstruction.optional()
         ),
         facts: core.serialization.list(core.serialization.string()).optional(),
         id: core.serialization.number().optional(),
@@ -34,7 +34,7 @@ export declare namespace Session {
         created_at?: string | null;
         deleted_at?: string | null;
         ended_at?: string | null;
-        fact_rating_instruction?: SessionFactRatingInstruction.Raw | null;
+        fact_rating_instruction?: ApidataFactRatingInstruction.Raw | null;
         facts?: string[] | null;
         id?: number | null;
         metadata?: Record<string, unknown> | null;

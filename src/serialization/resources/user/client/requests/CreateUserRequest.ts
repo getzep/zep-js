@@ -5,10 +5,12 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { FactRatingInstruction } from "../../../../types/FactRatingInstruction";
 
 export const CreateUserRequest: core.serialization.Schema<serializers.CreateUserRequest.Raw, Zep.CreateUserRequest> =
     core.serialization.object({
         email: core.serialization.string().optional(),
+        factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
         firstName: core.serialization.property("first_name", core.serialization.string().optional()),
         lastName: core.serialization.property("last_name", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -18,6 +20,7 @@ export const CreateUserRequest: core.serialization.Schema<serializers.CreateUser
 export declare namespace CreateUserRequest {
     interface Raw {
         email?: string | null;
+        fact_rating_instruction?: FactRatingInstruction.Raw | null;
         first_name?: string | null;
         last_name?: string | null;
         metadata?: Record<string, unknown> | null;

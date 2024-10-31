@@ -6,6 +6,7 @@ export interface Group {
     createdAt?: string;
     description?: string;
     externalId?: string;
+    /** TODO deprecate */
     id?: number;
     name?: string;
     projectUuid?: string;

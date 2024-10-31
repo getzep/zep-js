@@ -7,6 +7,7 @@ import * as Zep from "../../api/index";
 import * as core from "../../core";
 
 export const Fact: core.serialization.ObjectSchema<serializers.Fact.Raw, Zep.Fact> = core.serialization.object({
+    content: core.serialization.string(),
     createdAt: core.serialization.property("created_at", core.serialization.string()),
     expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
     fact: core.serialization.string(),
@@ -21,6 +22,7 @@ export const Fact: core.serialization.ObjectSchema<serializers.Fact.Raw, Zep.Fac
 
 export declare namespace Fact {
     interface Raw {
+        content: string;
         created_at: string;
         expired_at?: string | null;
         fact: string;
