@@ -9,8 +9,9 @@ export interface Session {
     createdAt?: string;
     deletedAt?: string;
     endedAt?: string;
-    factRatingInstruction?: Zep.SessionFactRatingInstruction;
+    factRatingInstruction?: Zep.ApidataFactRatingInstruction;
     facts?: string[];
+    /** TODO deprecate */
     id?: number;
     metadata?: Record<string, unknown>;
     projectUuid?: string;

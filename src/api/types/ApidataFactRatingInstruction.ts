@@ -4,7 +4,7 @@
 
 import * as Zep from "../index";
 
-export interface SessionFactRatingInstruction {
+export interface ApidataFactRatingInstruction {
     /**
      * Examples is a list of examples that demonstrate how facts might be rated based on your instruction. You should provide
      * an example of a highly rated example, a low rated example, and a medium (or in between example). For example, if you are rating
@@ -13,7 +13,7 @@ export interface SessionFactRatingInstruction {
      * Medium: "Joe has a fear of flying",
      * Low: "Joe's favorite food is Japanese",
      */
-    examples?: Zep.SessionFactRatingExamples;
+    examples?: Zep.ApidataFactRatingExamples;
     /**
      * A string describing how to rate facts as they apply to your application. A trip planning application may
      * use something like "relevancy to planning a trip, the user's preferences when traveling,
