@@ -10,6 +10,7 @@ import { Fact } from "./Fact";
 import { Summary } from "./Summary";
 
 export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Zep.Memory> = core.serialization.object({
+    context: core.serialization.string().optional(),
     facts: core.serialization.list(core.serialization.string()).optional(),
     messages: core.serialization.list(Message).optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -19,6 +20,7 @@ export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Zep
 
 export declare namespace Memory {
     interface Raw {
+        context?: string | null;
         facts?: string[] | null;
         messages?: Message.Raw[] | null;
         metadata?: Record<string, unknown> | null;

@@ -40,7 +40,7 @@ async function main() {
         await client.memory.addSession({
             sessionId: sessionID,
             metadata: { foo: "bar" },
-            userId: user.userId,
+            userId: user.userId!,
         });
         console.debug("Adding new session ", sessionID);
     } catch (error) {
@@ -89,7 +89,7 @@ async function main() {
             classes,
             persist: true,
         });
-        console.debug(`${classification.class} Classification Result: ${classification.name}`);
+        console.debug(`${classification.class} Classification Result: ${classification.label}`);
     } catch (error) {
         console.debug("Got error:", error);
     }
@@ -107,6 +107,10 @@ async function main() {
             memory.messages.forEach((message) => {
                 console.debug(JSON.stringify(message));
             });
+        }
+
+        if (memory.context) {
+            console.debug("Memory Context: ", memory.context);
         }
     } catch (error) {
         if (error instanceof NotFoundError) {

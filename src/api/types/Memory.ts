@@ -5,6 +5,8 @@
 import * as Zep from "../index";
 
 export interface Memory {
+    /** Memory context containing relevant facts and entities for the session. Can be put into the prompt directly. */
+    context?: string;
     /**
      * Most recent list of facts derived from the session. (cloud only)
      * Deprecated: Facts will be deprecated in future releases and relevant_facts should be used instead.
