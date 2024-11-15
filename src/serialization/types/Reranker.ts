@@ -11,8 +11,9 @@ export const Reranker: core.serialization.Schema<serializers.Reranker.Raw, Zep.R
     "mmr",
     "node_distance",
     "episode_mentions",
+    "cross_encoder",
 ]);
 
 export declare namespace Reranker {
-    type Raw = "rrf" | "mmr" | "node_distance" | "episode_mentions";
+    type Raw = "rrf" | "mmr" | "node_distance" | "episode_mentions" | "cross_encoder";
 }
