@@ -1,5 +1,5 @@
 export * from "./ApiError";
-export * from "./ApidataAddMemoryResponse";
+export * from "./AddMemoryResponse";
 export * from "./ApidataDocument";
 export * from "./ApidataDocumentCollection";
 export * from "./ApidataDocumentSearchResponse";

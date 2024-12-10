@@ -1425,7 +1425,7 @@ export class Memory {
         sessionId: string,
         request: Zep.AddMemoryRequest,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.ApidataAddMemoryResponse> {
+    ): Promise<Zep.AddMemoryResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -1447,7 +1447,7 @@ export class Memory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.ApidataAddMemoryResponse.parseOrThrow(_response.body, {
+            return await serializers.AddMemoryResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
