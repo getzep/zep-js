@@ -48,7 +48,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -135,7 +135,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -228,7 +228,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -337,7 +337,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -431,7 +431,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -539,7 +539,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -618,7 +618,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -716,7 +716,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -832,7 +832,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -926,7 +926,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1033,7 +1033,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1142,7 +1142,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1235,7 +1235,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1338,7 +1338,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1425,7 +1425,7 @@ export class Memory {
         sessionId: string,
         request: Zep.AddMemoryRequest,
         requestOptions?: Memory.RequestOptions
-    ): Promise<Zep.SuccessResponse> {
+    ): Promise<Zep.ApidataAddMemoryResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -1435,7 +1435,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1447,7 +1447,7 @@ export class Memory {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return await serializers.ApidataAddMemoryResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1513,7 +1513,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1615,7 +1615,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1708,7 +1708,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1806,7 +1806,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1907,7 +1907,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -1999,7 +1999,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -2097,7 +2097,7 @@ export class Memory {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

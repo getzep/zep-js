@@ -36,9 +36,11 @@ export class Group {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.group.add()
+     *     await zep.group.add({
+     *         groupId: "group_id"
+     *     })
      */
-    public async add(request: Zep.CreateGroupRequest = {}, requestOptions?: Group.RequestOptions): Promise<Zep.Group> {
+    public async add(request: Zep.CreateGroupRequest, requestOptions?: Group.RequestOptions): Promise<Zep.Group> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -48,7 +50,7 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -137,7 +139,7 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.1.1",
+                "X-Fern-SDK-Version": "2.2.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
