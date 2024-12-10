@@ -15,7 +15,7 @@ export interface GraphSearchQuery {
     centerNodeUuid?: string;
     /** one of user_id or group_id must be provided */
     groupId?: string;
-    /** The maximum number of facts to retrieve */
+    /** The maximum number of facts to retrieve. Defaults to 10. Limited to 50. */
     limit?: number;
     /** minimum similarity score for a result to be returned */
     minScore?: number;
@@ -25,7 +25,7 @@ export interface GraphSearchQuery {
     query: string;
     /** Defaults to RRF */
     reranker?: Zep.Reranker;
-    /** Defaults to Edges. Nodes and Communities will be added in the future. */
+    /** Defaults to Edges. Communities will be added in the future. */
     scope?: Zep.GraphSearchScope;
     /** one of user_id or group_id must be provided */
     userId?: string;

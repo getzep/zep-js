@@ -11,6 +11,7 @@ export const AddMemoryRequest: core.serialization.Schema<serializers.AddMemoryRe
     core.serialization.object({
         factInstruction: core.serialization.property("fact_instruction", core.serialization.string().optional()),
         messages: core.serialization.list(Message),
+        returnContext: core.serialization.property("return_context", core.serialization.boolean().optional()),
         summaryInstruction: core.serialization.property("summary_instruction", core.serialization.string().optional()),
     });
 
@@ -18,6 +19,7 @@ export declare namespace AddMemoryRequest {
     interface Raw {
         fact_instruction?: string | null;
         messages: Message.Raw[];
+        return_context?: boolean | null;
         summary_instruction?: string | null;
     }
 }

@@ -6,12 +6,14 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         groupId: "group_id"
+ *     }
  */
 export interface CreateGroupRequest {
     description?: string;
     /** UserIDs     []string `json:"user_ids"` */
     factRatingInstruction?: Zep.ApidataFactRatingInstruction;
-    groupId?: string;
+    groupId: string;
     name?: string;
 }

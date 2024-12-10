@@ -14,7 +14,7 @@ export const CreateGroupRequest: core.serialization.Schema<serializers.CreateGro
             "fact_rating_instruction",
             ApidataFactRatingInstruction.optional()
         ),
-        groupId: core.serialization.property("group_id", core.serialization.string().optional()),
+        groupId: core.serialization.property("group_id", core.serialization.string()),
         name: core.serialization.string().optional(),
     });
 
@@ -22,7 +22,7 @@ export declare namespace CreateGroupRequest {
     interface Raw {
         description?: string | null;
         fact_rating_instruction?: ApidataFactRatingInstruction.Raw | null;
-        group_id?: string | null;
+        group_id: string;
         name?: string | null;
     }
 }
