@@ -10,5 +10,5 @@ export const GraphDataType: core.serialization.Schema<serializers.GraphDataType.
     core.serialization.enum_(["text", "json", "message"]);
 
 export declare namespace GraphDataType {
-    type Raw = "text" | "json" | "message";
+    export type Raw = "text" | "json" | "message";
 }

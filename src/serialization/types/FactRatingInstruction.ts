@@ -16,7 +16,7 @@ export const FactRatingInstruction: core.serialization.ObjectSchema<
 });
 
 export declare namespace FactRatingInstruction {
-    interface Raw {
+    export interface Raw {
         examples?: FactRatingExamples.Raw | null;
         instruction?: string | null;
     }

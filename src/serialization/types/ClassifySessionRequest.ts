@@ -18,7 +18,7 @@ export const ClassifySessionRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace ClassifySessionRequest {
-    interface Raw {
+    export interface Raw {
         classes: string[];
         instruction?: string | null;
         last_n?: number | null;

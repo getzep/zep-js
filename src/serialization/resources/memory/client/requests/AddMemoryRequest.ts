@@ -16,7 +16,7 @@ export const AddMemoryRequest: core.serialization.Schema<serializers.AddMemoryRe
     });
 
 export declare namespace AddMemoryRequest {
-    interface Raw {
+    export interface Raw {
         fact_instruction?: string | null;
         messages: Message.Raw[];
         return_context?: boolean | null;

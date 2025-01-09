@@ -15,7 +15,7 @@ export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Z
         endedAt: core.serialization.property("ended_at", core.serialization.string().optional()),
         factRatingInstruction: core.serialization.property(
             "fact_rating_instruction",
-            ApidataFactRatingInstruction.optional()
+            ApidataFactRatingInstruction.optional(),
         ),
         facts: core.serialization.list(core.serialization.string()).optional(),
         id: core.serialization.number().optional(),
@@ -25,11 +25,11 @@ export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Z
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
-    }
+    },
 );
 
 export declare namespace Session {
-    interface Raw {
+    export interface Raw {
         classifications?: Record<string, string> | null;
         created_at?: string | null;
         deleted_at?: string | null;

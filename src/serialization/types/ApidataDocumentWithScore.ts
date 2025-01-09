@@ -22,7 +22,7 @@ export const ApidataDocumentWithScore: core.serialization.ObjectSchema<
 });
 
 export declare namespace ApidataDocumentWithScore {
-    interface Raw {
+    export interface Raw {
         content?: string | null;
         created_at?: string | null;
         document_id?: string | null;

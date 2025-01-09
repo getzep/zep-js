@@ -9,7 +9,7 @@ import * as Zep from "../../../../index";
  *     {
  *         messages: [{
  *                 content: "content",
- *                 roleType: Zep.RoleType.NoRole
+ *                 roleType: "norole"
  *             }]
  *     }
  */

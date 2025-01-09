@@ -14,7 +14,7 @@ export const EndSessionRequest: core.serialization.Schema<serializers.EndSession
     });
 
 export declare namespace EndSessionRequest {
-    interface Raw {
+    export interface Raw {
         classify?: ClassifySessionRequest.Raw | null;
         instruction?: string | null;
     }

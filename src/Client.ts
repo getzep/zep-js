@@ -11,47 +11,48 @@ import { Group } from "./api/resources/group/client/Client";
 import { User } from "./api/resources/user/client/Client";
 
 export declare namespace ZepClient {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ZepEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
 export class ZepClient {
-    constructor(protected readonly _options: ZepClient.Options = {}) {}
-
     protected _document: Document | undefined;
+    protected _memory: Memory | undefined;
+    protected _graph: Graph | undefined;
+    protected _group: Group | undefined;
+    protected _user: User | undefined;
+
+    constructor(protected readonly _options: ZepClient.Options = {}) {}
 
     public get document(): Document {
         return (this._document ??= new Document(this._options));
     }
 
-    protected _memory: Memory | undefined;
-
     public get memory(): Memory {
         return (this._memory ??= new Memory(this._options));
     }
-
-    protected _graph: Graph | undefined;
 
     public get graph(): Graph {
         return (this._graph ??= new Graph(this._options));
     }
 
-    protected _group: Group | undefined;
-
     public get group(): Group {
         return (this._group ??= new Group(this._options));
     }
-
-    protected _user: User | undefined;
 
     public get user(): User {
         return (this._user ??= new User(this._options));

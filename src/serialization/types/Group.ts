@@ -17,7 +17,7 @@ export const Group: core.serialization.ObjectSchema<serializers.Group.Raw, Zep.G
 });
 
 export declare namespace Group {
-    interface Raw {
+    export interface Raw {
         created_at?: string | null;
         description?: string | null;
         external_id?: string | null;

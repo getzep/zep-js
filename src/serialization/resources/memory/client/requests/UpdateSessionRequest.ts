@@ -16,7 +16,7 @@ export const UpdateSessionRequest: core.serialization.Schema<
 });
 
 export declare namespace UpdateSessionRequest {
-    interface Raw {
+    export interface Raw {
         fact_rating_instruction?: FactRatingInstruction.Raw | null;
         metadata: Record<string, unknown>;
     }

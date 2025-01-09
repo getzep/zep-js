@@ -15,7 +15,7 @@ export const CreateDocumentCollectionRequest: core.serialization.Schema<
 });
 
 export declare namespace CreateDocumentCollectionRequest {
-    interface Raw {
+    export interface Raw {
         description?: string | null;
         metadata?: Record<string, unknown> | null;
     }

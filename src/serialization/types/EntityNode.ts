@@ -16,7 +16,7 @@ export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.
     });
 
 export declare namespace EntityNode {
-    interface Raw {
+    export interface Raw {
         created_at: string;
         labels?: string[] | null;
         name: string;

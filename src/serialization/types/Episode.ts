@@ -15,11 +15,11 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         source: GraphDataType.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         uuid: core.serialization.string(),
-    }
+    },
 );
 
 export declare namespace Episode {
-    interface Raw {
+    export interface Raw {
         content: string;
         created_at: string;
         name?: string | null;

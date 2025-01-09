@@ -10,5 +10,5 @@ export const SearchScope: core.serialization.Schema<serializers.SearchScope.Raw,
     core.serialization.enum_(["messages", "summary", "facts"]);
 
 export declare namespace SearchScope {
-    type Raw = "messages" | "summary" | "facts";
+    export type Raw = "messages" | "summary" | "facts";
 }

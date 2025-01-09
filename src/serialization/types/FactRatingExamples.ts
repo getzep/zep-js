@@ -16,7 +16,7 @@ export const FactRatingExamples: core.serialization.ObjectSchema<
 });
 
 export declare namespace FactRatingExamples {
-    interface Raw {
+    export interface Raw {
         high?: string | null;
         low?: string | null;
         medium?: string | null;

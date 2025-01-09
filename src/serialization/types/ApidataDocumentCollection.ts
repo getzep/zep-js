@@ -15,7 +15,7 @@ export const ApidataDocumentCollection: core.serialization.ObjectSchema<
     documentCount: core.serialization.property("document_count", core.serialization.number().optional()),
     documentEmbeddedCount: core.serialization.property(
         "document_embedded_count",
-        core.serialization.number().optional()
+        core.serialization.number().optional(),
     ),
     embeddingDimensions: core.serialization.property("embedding_dimensions", core.serialization.number().optional()),
     embeddingModelName: core.serialization.property("embedding_model_name", core.serialization.string().optional()),
@@ -29,7 +29,7 @@ export const ApidataDocumentCollection: core.serialization.ObjectSchema<
 });
 
 export declare namespace ApidataDocumentCollection {
-    interface Raw {
+    export interface Raw {
         created_at?: string | null;
         description?: string | null;
         document_count?: number | null;

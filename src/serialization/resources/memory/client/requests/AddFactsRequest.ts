@@ -13,7 +13,7 @@ export const AddFactsRequest: core.serialization.Schema<serializers.AddFactsRequ
     });
 
 export declare namespace AddFactsRequest {
-    interface Raw {
+    export interface Raw {
         facts?: NewFact.Raw[] | null;
     }
 }

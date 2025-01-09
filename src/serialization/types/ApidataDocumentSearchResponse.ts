@@ -14,7 +14,7 @@ export const ApidataDocumentSearchResponse: core.serialization.ObjectSchema<
     currentPage: core.serialization.property("current_page", core.serialization.number().optional()),
     queryVector: core.serialization.property(
         "query_vector",
-        core.serialization.list(core.serialization.number()).optional()
+        core.serialization.list(core.serialization.number()).optional(),
     ),
     resultCount: core.serialization.property("result_count", core.serialization.number().optional()),
     results: core.serialization.list(ApidataDocumentWithScore).optional(),
@@ -22,7 +22,7 @@ export const ApidataDocumentSearchResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace ApidataDocumentSearchResponse {
-    interface Raw {
+    export interface Raw {
         current_page?: number | null;
         query_vector?: number[] | null;
         result_count?: number | null;

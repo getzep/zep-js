@@ -14,7 +14,7 @@ export const AddMemoryResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace AddMemoryResponse {
-    interface Raw {
+    export interface Raw {
         context?: string | null;
     }
 }

@@ -10,16 +10,21 @@ import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
 export declare namespace Document {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ZepEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
@@ -35,30 +40,33 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.listCollections()
+     *     await client.document.listCollections()
      */
     public async listCollections(requestOptions?: Document.RequestOptions): Promise<Zep.ApidataDocumentCollection[][]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                "collections"
+                "collections",
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.document.listCollections.Response.parseOrThrow(_response.body, {
+            return serializers.document.listCollections.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -71,23 +79,23 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -104,7 +112,7 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /collections.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -124,33 +132,36 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.getCollection("collectionName")
+     *     await client.document.getCollection("collectionName")
      */
     public async getCollection(
         collectionName: string,
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.ApidataDocumentCollection> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${encodeURIComponent(collectionName)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.ApidataDocumentCollection.parseOrThrow(_response.body, {
+            return serializers.ApidataDocumentCollection.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -163,43 +174,43 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -216,7 +227,7 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /collections/{collectionName}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -237,37 +248,38 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.addCollection("collectionName")
+     *     await client.document.addCollection("collectionName")
      */
     public async addCollection(
         collectionName: string,
         request: Zep.CreateDocumentCollectionRequest = {},
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${encodeURIComponent(collectionName)}`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.CreateDocumentCollectionRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            requestType: "json",
+            body: serializers.CreateDocumentCollectionRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -280,43 +292,43 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -333,7 +345,7 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /collections/{collectionName}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -353,33 +365,36 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.deleteCollection("collectionName")
+     *     await client.document.deleteCollection("collectionName")
      */
     public async deleteCollection(
         collectionName: string,
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${encodeURIComponent(collectionName)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -392,43 +407,43 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -445,7 +460,7 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling DELETE /collections/{collectionName}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -466,37 +481,38 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.updateCollection("collectionName")
+     *     await client.document.updateCollection("collectionName")
      */
     public async updateCollection(
         collectionName: string,
         request: Zep.UpdateDocumentCollectionRequest = {},
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}`
+                `collections/${encodeURIComponent(collectionName)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.UpdateDocumentCollectionRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            requestType: "json",
+            body: serializers.UpdateDocumentCollectionRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -509,43 +525,43 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -562,7 +578,7 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling PATCH /collections/{collectionName}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -582,39 +598,40 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.addDocuments("collectionName", [{
+     *     await client.document.addDocuments("collectionName", [{
      *             content: "content"
      *         }])
      */
     public async addDocuments(
         collectionName: string,
         request: Zep.CreateDocumentRequest[],
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<string[][]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents`
+                `collections/${encodeURIComponent(collectionName)}/documents`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.document.addDocuments.Request.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-            }),
+            requestType: "json",
+            body: serializers.document.addDocuments.Request.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.document.addDocuments.Response.parseOrThrow(_response.body, {
+            return serializers.document.addDocuments.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -627,33 +644,33 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -670,7 +687,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /collections/{collectionName}/documents.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -690,29 +709,32 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.batchDeleteDocuments("collectionName", ["string"])
+     *     await client.document.batchDeleteDocuments("collectionName", ["string"])
      */
     public async batchDeleteDocuments(
         collectionName: string,
         request: string[],
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/batchDelete`
+                `collections/${encodeURIComponent(collectionName)}/documents/batchDelete`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.document.batchDeleteDocuments.Request.jsonOrThrow(request, {
+            requestType: "json",
+            body: serializers.document.batchDeleteDocuments.Request.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -720,7 +742,7 @@ export class Document {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -733,33 +755,33 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -776,7 +798,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /collections/{collectionName}/documents/batchDelete.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -796,35 +820,38 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.batchGetDocuments("collectionName")
+     *     await client.document.batchGetDocuments("collectionName")
      */
     public async batchGetDocuments(
         collectionName: string,
         request: Zep.GetDocumentListRequest = {},
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.ApidataDocument[][]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/batchGet`
+                `collections/${encodeURIComponent(collectionName)}/documents/batchGet`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.GetDocumentListRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.GetDocumentListRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.document.batchGetDocuments.Response.parseOrThrow(_response.body, {
+            return serializers.document.batchGetDocuments.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -837,33 +864,33 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -880,7 +907,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /collections/{collectionName}/documents/batchGet.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -900,31 +929,34 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.batchUpdateDocuments("collectionName", [{
+     *     await client.document.batchUpdateDocuments("collectionName", [{
      *             uuid: "uuid"
      *         }])
      */
     public async batchUpdateDocuments(
         collectionName: string,
         request: Zep.UpdateDocumentListRequest[],
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/batchUpdate`
+                `collections/${encodeURIComponent(collectionName)}/documents/batchUpdate`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.document.batchUpdateDocuments.Request.jsonOrThrow(request, {
+            requestType: "json",
+            body: serializers.document.batchUpdateDocuments.Request.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
             }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
@@ -932,7 +964,7 @@ export class Document {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -945,33 +977,33 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -988,7 +1020,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling PATCH /collections/{collectionName}/documents/batchUpdate.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -1008,34 +1042,37 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.getsADocumentFromADocumentCollectionByUuidCloudOnly("collectionName", "documentUUID")
+     *     await client.document.getsADocumentFromADocumentCollectionByUuidCloudOnly("collectionName", "documentUUID")
      */
     public async getsADocumentFromADocumentCollectionByUuidCloudOnly(
         collectionName: string,
         documentUuid: string,
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.ApidataDocument> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`
+                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`,
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.ApidataDocument.parseOrThrow(_response.body, {
+            return serializers.ApidataDocument.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1048,33 +1085,33 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -1091,7 +1128,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling GET /collections/{collectionName}/documents/uuid/{documentUUID}.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -1112,34 +1151,37 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.deleteDocument("collectionName", "documentUUID")
+     *     await client.document.deleteDocument("collectionName", "documentUUID")
      */
     public async deleteDocument(
         collectionName: string,
         documentUuid: string,
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`
+                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`,
             ),
             method: "DELETE",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
+            requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1152,43 +1194,43 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -1205,7 +1247,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling DELETE /collections/{collectionName}/documents/uuid/{documentUUID}.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -1227,36 +1271,39 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.updatesADocumentCloudOnly("collectionName", "documentUUID")
+     *     await client.document.updatesADocumentCloudOnly("collectionName", "documentUUID")
      */
     public async updatesADocumentCloudOnly(
         collectionName: string,
         documentUuid: string,
         request: Zep.UpdateDocumentRequest = {},
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`
+                `collections/${encodeURIComponent(collectionName)}/documents/uuid/${encodeURIComponent(documentUuid)}`,
             ),
             method: "PATCH",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.UpdateDocumentRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.UpdateDocumentRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1269,43 +1316,43 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 404:
                     throw new Zep.NotFoundError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -1322,7 +1369,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling PATCH /collections/{collectionName}/documents/uuid/{documentUUID}.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -1342,12 +1391,12 @@ export class Document {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.document.search("collectionName")
+     *     await client.document.search("collectionName")
      */
     public async search(
         collectionName: string,
         request: Zep.DocumentSearchPayload = {},
-        requestOptions?: Document.RequestOptions
+        requestOptions?: Document.RequestOptions,
     ): Promise<Zep.ApidataDocumentSearchResponse> {
         const { limit, ..._body } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
@@ -1358,26 +1407,29 @@ export class Document {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `collections/${encodeURIComponent(collectionName)}/search`
+                `collections/${encodeURIComponent(collectionName)}/search`,
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.2.1",
+                "User-Agent": "zep-cloud/2.2.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
             queryParameters: _queryParams,
-            body: await serializers.DocumentSearchPayload.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.DocumentSearchPayload.jsonOrThrow(_body, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.ApidataDocumentSearchResponse.parseOrThrow(_response.body, {
+            return serializers.ApidataDocumentSearchResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -1390,33 +1442,33 @@ export class Document {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -1433,7 +1485,9 @@ export class Document {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /collections/{collectionName}/search.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,

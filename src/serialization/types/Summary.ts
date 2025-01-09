@@ -13,15 +13,15 @@ export const Summary: core.serialization.ObjectSchema<serializers.Summary.Raw, Z
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         relatedMessageUuids: core.serialization.property(
             "related_message_uuids",
-            core.serialization.list(core.serialization.string()).optional()
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
         uuid: core.serialization.string().optional(),
-    }
+    },
 );
 
 export declare namespace Summary {
-    interface Raw {
+    export interface Raw {
         content?: string | null;
         created_at?: string | null;
         metadata?: Record<string, unknown> | null;

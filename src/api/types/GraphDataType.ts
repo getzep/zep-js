@@ -3,7 +3,6 @@
  */
 
 export type GraphDataType = "text" | "json" | "message";
-
 export const GraphDataType = {
     Text: "text",
     Json: "json",

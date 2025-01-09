@@ -15,7 +15,7 @@ export const UserListResponse: core.serialization.ObjectSchema<serializers.UserL
     });
 
 export declare namespace UserListResponse {
-    interface Raw {
+    export interface Raw {
         row_count?: number | null;
         total_count?: number | null;
         users?: User.Raw[] | null;

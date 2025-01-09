@@ -19,7 +19,7 @@ export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Zep
 });
 
 export declare namespace Memory {
-    interface Raw {
+    export interface Raw {
         context?: string | null;
         facts?: string[] | null;
         messages?: Message.Raw[] | null;

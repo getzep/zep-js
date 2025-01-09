@@ -21,7 +21,7 @@ export const SessionSearchResult: core.serialization.ObjectSchema<
 });
 
 export declare namespace SessionSearchResult {
-    interface Raw {
+    export interface Raw {
         fact?: Fact.Raw | null;
         message?: Message.Raw | null;
         score?: number | null;

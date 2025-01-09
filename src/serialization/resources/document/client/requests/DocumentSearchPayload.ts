@@ -19,7 +19,7 @@ export const DocumentSearchPayload: core.serialization.Schema<
 });
 
 export declare namespace DocumentSearchPayload {
-    interface Raw {
+    export interface Raw {
         metadata?: Record<string, unknown> | null;
         min_score?: number | null;
         mmr_lambda?: number | null;

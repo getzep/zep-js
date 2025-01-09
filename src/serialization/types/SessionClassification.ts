@@ -15,7 +15,7 @@ export const SessionClassification: core.serialization.ObjectSchema<
 });
 
 export declare namespace SessionClassification {
-    interface Raw {
+    export interface Raw {
         class?: string | null;
         label?: string | null;
     }

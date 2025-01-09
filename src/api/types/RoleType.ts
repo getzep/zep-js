@@ -3,7 +3,6 @@
  */
 
 export type RoleType = "norole" | "system" | "assistant" | "user" | "function" | "tool";
-
 export const RoleType = {
     NoRole: "norole",
     SystemRole: "system",

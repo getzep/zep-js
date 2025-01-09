@@ -17,7 +17,7 @@ export const MessageListResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace MessageListResponse {
-    interface Raw {
+    export interface Raw {
         messages?: Message.Raw[] | null;
         row_count?: number | null;
         total_count?: number | null;

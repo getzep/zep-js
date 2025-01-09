@@ -9,11 +9,11 @@ import * as core from "../../core";
 export const NewFact: core.serialization.ObjectSchema<serializers.NewFact.Raw, Zep.NewFact> = core.serialization.object(
     {
         fact: core.serialization.string().optional(),
-    }
+    },
 );
 
 export declare namespace NewFact {
-    interface Raw {
+    export interface Raw {
         fact?: string | null;
     }
 }

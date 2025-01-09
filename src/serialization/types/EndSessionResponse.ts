@@ -17,7 +17,7 @@ export const EndSessionResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace EndSessionResponse {
-    interface Raw {
+    export interface Raw {
         classification?: SessionClassification.Raw | null;
         session?: Session.Raw | null;
     }

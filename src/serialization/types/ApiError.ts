@@ -12,7 +12,7 @@ export const ApiError: core.serialization.ObjectSchema<serializers.ApiError.Raw,
     });
 
 export declare namespace ApiError {
-    interface Raw {
+    export interface Raw {
         message?: string | null;
     }
 }

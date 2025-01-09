@@ -17,7 +17,7 @@ export const SummaryListResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace SummaryListResponse {
-    interface Raw {
+    export interface Raw {
         row_count?: number | null;
         summaries?: Summary.Raw[] | null;
         total_count?: number | null;

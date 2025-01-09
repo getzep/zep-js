@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.memory.search.Respo
     core.serialization.list(MemorySearchResult);
 
 export declare namespace Response {
-    type Raw = MemorySearchResult.Raw[];
+    export type Raw = MemorySearchResult.Raw[];
 }

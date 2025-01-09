@@ -16,5 +16,5 @@ export const RoleType: core.serialization.Schema<serializers.RoleType.Raw, Zep.R
 ]);
 
 export declare namespace RoleType {
-    type Raw = "norole" | "system" | "assistant" | "user" | "function" | "tool";
+    export type Raw = "norole" | "system" | "assistant" | "user" | "function" | "tool";
 }

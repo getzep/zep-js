@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.user.getSessions.Re
     core.serialization.list(Session);
 
 export declare namespace Response {
-    type Raw = Session.Raw[];
+    export type Raw = Session.Raw[];
 }

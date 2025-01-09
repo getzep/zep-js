@@ -21,7 +21,7 @@ export const Fact: core.serialization.ObjectSchema<serializers.Fact.Raw, Zep.Fac
 });
 
 export declare namespace Fact {
-    interface Raw {
+    export interface Raw {
         content: string;
         created_at: string;
         expired_at?: string | null;

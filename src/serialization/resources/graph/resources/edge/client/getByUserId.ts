@@ -11,5 +11,5 @@ export const Response: core.serialization.Schema<serializers.graph.edge.getByUse
     core.serialization.list(EntityEdge);
 
 export declare namespace Response {
-    type Raw = EntityEdge.Raw[];
+    export type Raw = EntityEdge.Raw[];
 }

@@ -19,7 +19,7 @@ export const ApidataDocument: core.serialization.ObjectSchema<serializers.Apidat
     });
 
 export declare namespace ApidataDocument {
-    interface Raw {
+    export interface Raw {
         content?: string | null;
         created_at?: string | null;
         document_id?: string | null;

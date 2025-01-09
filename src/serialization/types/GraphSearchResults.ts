@@ -17,7 +17,7 @@ export const GraphSearchResults: core.serialization.ObjectSchema<
 });
 
 export declare namespace GraphSearchResults {
-    interface Raw {
+    export interface Raw {
         edges?: EntityEdge.Raw[] | null;
         nodes?: EntityNode.Raw[] | null;
     }

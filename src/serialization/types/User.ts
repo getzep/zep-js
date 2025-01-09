@@ -24,7 +24,7 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.Use
 });
 
 export declare namespace User {
-    interface Raw {
+    export interface Raw {
         created_at?: string | null;
         deleted_at?: string | null;
         email?: string | null;

@@ -15,7 +15,7 @@ export const SessionSearchResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace SessionSearchResponse {
-    interface Raw {
+    export interface Raw {
         results?: SessionSearchResult.Raw[] | null;
     }
 }
