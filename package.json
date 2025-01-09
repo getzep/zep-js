@@ -1,8 +1,9 @@
 {
-    "name": "zep-cloud",
-    "version": "2.2.1",
+    "name": "@getzep/zep-cloud",
+    "version": "2.2.0",
     "private": false,
     "repository": "https://github.com/getzep/zep-js",
+    "description": "Zep: Fast, scalable building blocks for production LLM apps",
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {
@@ -17,7 +18,8 @@
         "formdata-node": "^6.0.3",
         "node-fetch": "^2.7.0",
         "qs": "^6.13.1",
-        "readable-stream": "^4.5.2"
+        "readable-stream": "^4.5.2",
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@types/url-join": "4.0.1",
@@ -32,7 +34,9 @@
         "jest-environment-jsdom": "^29.7.0",
         "@types/node": "^17.0.41",
         "prettier": "^3.4.2",
-        "typescript": "~5.7.2"
+        "typescript": "~5.7.2",
+        "uuid": "^10.0.0",
+        "@faker-js/faker": "^8.4.1"
     },
     "browser": {
         "fs": false,

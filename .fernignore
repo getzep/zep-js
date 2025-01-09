@@ -8,5 +8,6 @@ src/langchain
 README.md
 tests/sde.test.ts
 .gitignore
-
+package.json
+yarn.lock
 LICENSE
