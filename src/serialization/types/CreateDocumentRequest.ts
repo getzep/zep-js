@@ -16,7 +16,7 @@ export const CreateDocumentRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace CreateDocumentRequest {
-    interface Raw {
+    export interface Raw {
         content: string;
         document_id?: string | null;
         metadata?: Record<string, unknown> | null;

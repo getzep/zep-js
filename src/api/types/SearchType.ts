@@ -3,7 +3,6 @@
  */
 
 export type SearchType = "similarity" | "mmr";
-
 export const SearchType = {
     Similarity: "similarity",
     Mmr: "mmr",

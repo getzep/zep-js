@@ -21,7 +21,7 @@ export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.
     });
 
 export declare namespace EntityEdge {
-    interface Raw {
+    export interface Raw {
         created_at: string;
         episodes?: string[] | null;
         expired_at?: string | null;

@@ -16,7 +16,7 @@ export const ApidataFactRatingExamples: core.serialization.ObjectSchema<
 });
 
 export declare namespace ApidataFactRatingExamples {
-    interface Raw {
+    export interface Raw {
         high?: string | null;
         low?: string | null;
         medium?: string | null;

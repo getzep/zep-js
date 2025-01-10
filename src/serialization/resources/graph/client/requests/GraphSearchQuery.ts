@@ -22,7 +22,7 @@ export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearch
     });
 
 export declare namespace GraphSearchQuery {
-    interface Raw {
+    export interface Raw {
         center_node_uuid?: string | null;
         group_id?: string | null;
         limit?: number | null;

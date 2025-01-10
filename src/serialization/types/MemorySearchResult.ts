@@ -19,7 +19,7 @@ export const MemorySearchResult: core.serialization.ObjectSchema<
 });
 
 export declare namespace MemorySearchResult {
-    interface Raw {
+    export interface Raw {
         message?: Message.Raw | null;
         metadata?: Record<string, unknown> | null;
         score?: number | null;

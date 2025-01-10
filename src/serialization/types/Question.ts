@@ -12,7 +12,7 @@ export const Question: core.serialization.ObjectSchema<serializers.Question.Raw,
     });
 
 export declare namespace Question {
-    interface Raw {
+    export interface Raw {
         question?: string | null;
     }
 }

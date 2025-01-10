@@ -16,7 +16,7 @@ export const ApidataFactRatingInstruction: core.serialization.ObjectSchema<
 });
 
 export declare namespace ApidataFactRatingInstruction {
-    interface Raw {
+    export interface Raw {
         examples?: ApidataFactRatingExamples.Raw | null;
         instruction?: string | null;
     }

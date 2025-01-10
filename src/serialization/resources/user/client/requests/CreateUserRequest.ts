@@ -18,7 +18,7 @@ export const CreateUserRequest: core.serialization.Schema<serializers.CreateUser
     });
 
 export declare namespace CreateUserRequest {
-    interface Raw {
+    export interface Raw {
         email?: string | null;
         fact_rating_instruction?: FactRatingInstruction.Raw | null;
         first_name?: string | null;

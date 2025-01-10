@@ -10,5 +10,5 @@ export const SearchType: core.serialization.Schema<serializers.SearchType.Raw, Z
     core.serialization.enum_(["similarity", "mmr"]);
 
 export declare namespace SearchType {
-    type Raw = "similarity" | "mmr";
+    export type Raw = "similarity" | "mmr";
 }

@@ -16,7 +16,7 @@ export const AddDataRequest: core.serialization.Schema<serializers.AddDataReques
     });
 
 export declare namespace AddDataRequest {
-    interface Raw {
+    export interface Raw {
         data?: string | null;
         group_id?: string | null;
         type?: GraphDataType.Raw | null;

@@ -13,7 +13,7 @@ export const EpisodeResponse: core.serialization.ObjectSchema<serializers.Episod
     });
 
 export declare namespace EpisodeResponse {
-    interface Raw {
+    export interface Raw {
         episodes?: Episode.Raw[] | null;
     }
 }

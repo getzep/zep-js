@@ -3,7 +3,6 @@
  */
 
 export type SearchScope = "messages" | "summary" | "facts";
-
 export const SearchScope = {
     Messages: "messages",
     Summary: "summary",

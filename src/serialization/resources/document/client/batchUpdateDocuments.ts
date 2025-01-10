@@ -13,5 +13,5 @@ export const Request: core.serialization.Schema<
 > = core.serialization.list(UpdateDocumentListRequest);
 
 export declare namespace Request {
-    type Raw = UpdateDocumentListRequest.Raw[];
+    export type Raw = UpdateDocumentListRequest.Raw[];
 }

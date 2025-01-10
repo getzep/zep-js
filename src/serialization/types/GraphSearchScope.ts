@@ -10,5 +10,5 @@ export const GraphSearchScope: core.serialization.Schema<serializers.GraphSearch
     core.serialization.enum_(["edges", "nodes"]);
 
 export declare namespace GraphSearchScope {
-    type Raw = "edges" | "nodes";
+    export type Raw = "edges" | "nodes";
 }

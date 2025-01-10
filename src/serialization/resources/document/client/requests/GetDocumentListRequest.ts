@@ -12,13 +12,13 @@ export const GetDocumentListRequest: core.serialization.Schema<
 > = core.serialization.object({
     documentIds: core.serialization.property(
         "document_ids",
-        core.serialization.list(core.serialization.string()).optional()
+        core.serialization.list(core.serialization.string()).optional(),
     ),
     uuids: core.serialization.list(core.serialization.string()).optional(),
 });
 
 export declare namespace GetDocumentListRequest {
-    interface Raw {
+    export interface Raw {
         document_ids?: string[] | null;
         uuids?: string[] | null;
     }

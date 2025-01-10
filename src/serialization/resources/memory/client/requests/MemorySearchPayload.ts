@@ -22,7 +22,7 @@ export const MemorySearchPayload: core.serialization.Schema<
 });
 
 export declare namespace MemorySearchPayload {
-    interface Raw {
+    export interface Raw {
         metadata?: Record<string, unknown> | null;
         min_fact_rating?: number | null;
         min_score?: number | null;

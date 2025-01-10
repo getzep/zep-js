@@ -13,21 +13,42 @@ import { Episode } from "../resources/episode/client/Client";
 import { Node } from "../resources/node/client/Client";
 
 export declare namespace Graph {
-    interface Options {
+    export interface Options {
         environment?: core.Supplier<environments.ZepEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
         fetcher?: core.FetchFunction;
     }
 
-    interface RequestOptions {
+    export interface RequestOptions {
+        /** The maximum time to wait for a response in seconds. */
         timeoutInSeconds?: number;
+        /** The number of times to retry the request. Defaults to 2. */
         maxRetries?: number;
+        /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional headers to include in the request. */
+        headers?: Record<string, string>;
     }
 }
 
 export class Graph {
+    protected _edge: Edge | undefined;
+    protected _episode: Episode | undefined;
+    protected _node: Node | undefined;
+
     constructor(protected readonly _options: Graph.Options = {}) {}
+
+    public get edge(): Edge {
+        return (this._edge ??= new Edge(this._options));
+    }
+
+    public get episode(): Episode {
+        return (this._episode ??= new Episode(this._options));
+    }
+
+    public get node(): Node {
+        return (this._node ??= new Node(this._options));
+    }
 
     /**
      * Add data to the graph
@@ -39,34 +60,37 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.graph.add()
+     *     await client.graph.add()
      */
     public async add(
         request: Zep.AddDataRequest = {},
-        requestOptions?: Graph.RequestOptions
+        requestOptions?: Graph.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                "graph"
+                "graph",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.3.0",
+                "User-Agent": "zep-cloud/2.3.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.AddDataRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.AddDataRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.SuccessResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -79,23 +103,23 @@ export class Graph {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -112,7 +136,7 @@ export class Graph {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -130,36 +154,39 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await zep.graph.search({
+     *     await client.graph.search({
      *         query: "query"
      *     })
      */
     public async search(
         request: Zep.GraphSearchQuery,
-        requestOptions?: Graph.RequestOptions
+        requestOptions?: Graph.RequestOptions,
     ): Promise<Zep.GraphSearchResults> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                "graph/search"
+                "graph/search",
             ),
             method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.0",
+                "X-Fern-SDK-Version": "2.3.0",
+                "User-Agent": "zep-cloud/2.3.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
             },
             contentType: "application/json",
-            body: await serializers.GraphSearchQuery.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            requestType: "json",
+            body: serializers.GraphSearchQuery.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return await serializers.GraphSearchResults.parseOrThrow(_response.body, {
+            return serializers.GraphSearchResults.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -172,23 +199,23 @@ export class Graph {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 case 500:
                     throw new Zep.InternalServerError(
-                        await serializers.ApiError.parseOrThrow(_response.error.body, {
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
                             allowUnrecognizedEnumValues: true,
                             skipValidation: true,
                             breadcrumbsPrefix: ["response"],
-                        })
+                        }),
                     );
                 default:
                     throw new errors.ZepError({
@@ -205,30 +232,12 @@ export class Graph {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError();
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/search.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
                 });
         }
-    }
-
-    protected _edge: Edge | undefined;
-
-    public get edge(): Edge {
-        return (this._edge ??= new Edge(this._options));
-    }
-
-    protected _episode: Episode | undefined;
-
-    public get episode(): Episode {
-        return (this._episode ??= new Episode(this._options));
-    }
-
-    protected _node: Node | undefined;
-
-    public get node(): Node {
-        return (this._node ??= new Node(this._options));
     }
 
     protected async _getCustomAuthorizationHeaders() {

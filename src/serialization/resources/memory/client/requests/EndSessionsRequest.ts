@@ -13,7 +13,7 @@ export const EndSessionsRequest: core.serialization.Schema<serializers.EndSessio
     });
 
 export declare namespace EndSessionsRequest {
-    interface Raw {
+    export interface Raw {
         instruction?: string | null;
         session_ids: string[];
     }

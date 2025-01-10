@@ -13,5 +13,5 @@ export const Response: core.serialization.Schema<
 > = core.serialization.list(core.serialization.list(ApidataDocumentCollection));
 
 export declare namespace Response {
-    type Raw = ApidataDocumentCollection.Raw[][];
+    export type Raw = ApidataDocumentCollection.Raw[][];
 }

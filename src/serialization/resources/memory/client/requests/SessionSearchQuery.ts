@@ -17,20 +17,20 @@ export const SessionSearchQuery: core.serialization.Schema<
     mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
     recordFilter: core.serialization.property(
         "record_filter",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional()
+        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     ),
     searchScope: core.serialization.property("search_scope", SearchScope.optional()),
     searchType: core.serialization.property("search_type", SearchType.optional()),
     sessionIds: core.serialization.property(
         "session_ids",
-        core.serialization.list(core.serialization.string()).optional()
+        core.serialization.list(core.serialization.string()).optional(),
     ),
     text: core.serialization.string(),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
 });
 
 export declare namespace SessionSearchQuery {
-    interface Raw {
+    export interface Raw {
         min_fact_rating?: number | null;
         min_score?: number | null;
         mmr_lambda?: number | null;

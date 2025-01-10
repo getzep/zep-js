@@ -17,7 +17,7 @@ export const SessionListResponse: core.serialization.ObjectSchema<
 });
 
 export declare namespace SessionListResponse {
-    interface Raw {
+    export interface Raw {
         response_count?: number | null;
         sessions?: Session.Raw[] | null;
         total_count?: number | null;

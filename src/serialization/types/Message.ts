@@ -17,11 +17,11 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Z
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
-    }
+    },
 );
 
 export declare namespace Message {
-    interface Raw {
+    export interface Raw {
         content: string;
         created_at?: string | null;
         metadata?: Record<string, unknown> | null;

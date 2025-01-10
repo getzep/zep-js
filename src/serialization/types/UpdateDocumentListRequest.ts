@@ -16,7 +16,7 @@ export const UpdateDocumentListRequest: core.serialization.ObjectSchema<
 });
 
 export declare namespace UpdateDocumentListRequest {
-    interface Raw {
+    export interface Raw {
         document_id?: string | null;
         metadata?: Record<string, unknown> | null;
         uuid: string;

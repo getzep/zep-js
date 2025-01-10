@@ -12,7 +12,7 @@ export const SuccessResponse: core.serialization.ObjectSchema<serializers.Succes
     });
 
 export declare namespace SuccessResponse {
-    interface Raw {
+    export interface Raw {
         message?: string | null;
     }
 }

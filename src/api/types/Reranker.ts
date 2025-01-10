@@ -3,7 +3,6 @@
  */
 
 export type Reranker = "rrf" | "mmr" | "node_distance" | "episode_mentions" | "cross_encoder";
-
 export const Reranker = {
     Rrf: "rrf",
     Mmr: "mmr",

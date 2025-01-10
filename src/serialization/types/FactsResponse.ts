@@ -13,7 +13,7 @@ export const FactsResponse: core.serialization.ObjectSchema<serializers.FactsRes
     });
 
 export declare namespace FactsResponse {
-    interface Raw {
+    export interface Raw {
         facts?: Fact.Raw[] | null;
     }
 }

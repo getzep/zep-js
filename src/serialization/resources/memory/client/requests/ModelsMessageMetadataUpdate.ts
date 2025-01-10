@@ -14,7 +14,7 @@ export const ModelsMessageMetadataUpdate: core.serialization.Schema<
 });
 
 export declare namespace ModelsMessageMetadataUpdate {
-    interface Raw {
+    export interface Raw {
         metadata: Record<string, unknown>;
     }
 }

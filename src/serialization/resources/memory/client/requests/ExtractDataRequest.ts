@@ -15,7 +15,7 @@ export const ExtractDataRequest: core.serialization.Schema<serializers.ExtractDa
     });
 
 export declare namespace ExtractDataRequest {
-    interface Raw {
+    export interface Raw {
         current_date_time?: string | null;
         last_n: number;
         model_schema: string;

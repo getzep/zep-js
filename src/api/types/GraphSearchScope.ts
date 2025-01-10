@@ -3,7 +3,6 @@
  */
 
 export type GraphSearchScope = "edges" | "nodes";
-
 export const GraphSearchScope = {
     Edges: "edges",
     Nodes: "nodes",
