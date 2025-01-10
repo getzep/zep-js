@@ -1,9 +1,8 @@
 {
-    "name": "@getzep/zep-cloud",
-    "version": "2.2.0",
+    "name": "zep-cloud",
+    "version": "2.3.0",
     "private": false,
     "repository": "https://github.com/getzep/zep-js",
-    "description": "Zep: Fast, scalable building blocks for production LLM apps",
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {
@@ -36,6 +35,7 @@
         "prettier": "^3.4.2",
         "typescript": "~5.7.2",
         "uuid": "^10.0.0",
+        "@types/uuid": "^10.0.0",
         "@faker-js/faker": "^8.4.1"
     },
     "browser": {

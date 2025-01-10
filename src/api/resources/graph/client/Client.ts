@@ -75,8 +75,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.1",
-                "User-Agent": "zep-cloud/2.2.1",
+                "X-Fern-SDK-Version": "2.3.0",
+                "User-Agent": "zep-cloud/2.3.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -171,8 +171,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.2.1",
-                "User-Agent": "zep-cloud/2.2.1",
+                "X-Fern-SDK-Version": "2.3.0",
+                "User-Agent": "zep-cloud/2.3.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
