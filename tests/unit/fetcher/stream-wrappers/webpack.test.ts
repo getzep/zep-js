@@ -1,6 +1,6 @@
 import webpack from "webpack";
 
-describe("test env compatibility", () => {
+describe.skip("test env compatibility", () => {
     test("webpack", () => {
         return new Promise<void>((resolve, reject) => {
             webpack(

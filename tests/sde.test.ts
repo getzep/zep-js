@@ -1,5 +1,5 @@
 import { ZepClient, zepFields } from "../src";
-import nock from "nock";
+import fetchMock from 'jest-fetch-mock';
 import { zepFloatField, zepNumberField, ZepNumberSchema } from "../src/extractor/number";
 import { ZepDataType } from "../src/extractor/base";
 import { zepRegexField, ZepRegexSchema } from "../src/extractor/regex";
@@ -12,25 +12,23 @@ import {
     zepZipcodeField,
 } from "../src/extractor/text";
 
+fetchMock.enableMocks();
+
 describe("Memory.extract", () => {
     const testBaseUrl = "http://api.test.com/api/v2";
     const sessionId = "test-session-id";
     const apiKey = "Z_token123";
 
-    const reqOptions = {
-        reqheaders: {
-            Authorization: `Api-Key ${apiKey}`,
-        },
-    };
+    beforeEach(() => {
+        fetchMock.resetMocks();
+    });
 
     it("should correctly parse request and response schema", async () => {
-        nock(testBaseUrl, reqOptions)
-            .post(`/sessions/${encodeURIComponent(sessionId)}/extract`)
+        fetchMock.mockResponseOnce(JSON.stringify({
+            shoeSize: "42",
+            budget: "100",
+        }));
 
-            .reply(200, {
-                shoeSize: "42",
-                budget: "100",
-            });
         const client = new ZepClient({
             apiKey: apiKey,
             environment: testBaseUrl,
@@ -43,16 +41,26 @@ describe("Memory.extract", () => {
 
         const result = await client.memory.extract(sessionId, schema, params);
 
+        // Verify the request
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+            `${testBaseUrl}/sessions/${encodeURIComponent(sessionId)}/extract`,
+            expect.objectContaining({
+                method: 'POST',
+                headers: expect.objectContaining({
+                    'Authorization': `Api-Key ${apiKey}`,
+                }),
+            })
+        );
+
         expect(result).toEqual({
-            shoeSize: 42, // Verify that strings are converted to numbers
+            shoeSize: 42,
             budget: 100,
         });
     });
 
     it("should handle an empty schema correctly", async () => {
-        nock(testBaseUrl, reqOptions)
-            .post(`/sessions/${encodeURIComponent(sessionId)}/extract`)
-            .reply(200, {}); // Empty response for empty input
+        fetchMock.mockResponseOnce(JSON.stringify({}));
 
         const client = new ZepClient({
             apiKey: apiKey,
@@ -62,6 +70,8 @@ describe("Memory.extract", () => {
         const params = { lastN: 20, validate: false };
 
         const result = await client.memory.extract(sessionId, schema, params);
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
         expect(result).toEqual({});
     });
 });
