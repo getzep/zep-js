@@ -9,7 +9,7 @@
     "scripts": {
         "format": "prettier . --write --ignore-unknown",
         "build": "tsc",
-        "prepack": "yarn build && cp -rv dist/. .",
+        "prepack": "cp -rv dist/. .",
         "test": "jest"
     },
     "dependencies": {
