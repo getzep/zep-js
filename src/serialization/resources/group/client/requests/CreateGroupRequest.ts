@@ -5,15 +5,12 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
-import { ApidataFactRatingInstruction } from "../../../../types/ApidataFactRatingInstruction";
+import { FactRatingInstruction } from "../../../../types/FactRatingInstruction";
 
 export const CreateGroupRequest: core.serialization.Schema<serializers.CreateGroupRequest.Raw, Zep.CreateGroupRequest> =
     core.serialization.object({
         description: core.serialization.string().optional(),
-        factRatingInstruction: core.serialization.property(
-            "fact_rating_instruction",
-            ApidataFactRatingInstruction.optional(),
-        ),
+        factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
         groupId: core.serialization.property("group_id", core.serialization.string()),
         name: core.serialization.string().optional(),
     });
@@ -21,7 +18,7 @@ export const CreateGroupRequest: core.serialization.Schema<serializers.CreateGro
 export declare namespace CreateGroupRequest {
     export interface Raw {
         description?: string | null;
-        fact_rating_instruction?: ApidataFactRatingInstruction.Raw | null;
+        fact_rating_instruction?: FactRatingInstruction.Raw | null;
         group_id: string;
         name?: string | null;
     }

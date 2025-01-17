@@ -1,6 +1,6 @@
 import webpack from "webpack";
 
-describe.skip("test env compatibility", () => {
+describe("test env compatibility", () => {
     test("webpack", () => {
         return new Promise<void>((resolve, reject) => {
             webpack(
@@ -17,7 +17,11 @@ describe.skip("test env compatibility", () => {
                         ],
                     },
                     resolve: {
-                        extensions: [".tsx", ".ts", ".js"],
+                        extensions: [".tsx", ".ts", ".jsx", ".js"],
+                        extensionAlias: {
+                            ".js": [".ts", ".js"],
+                            ".jsx": [".tsx", ".jsx"],
+                        },
                     },
                 },
                 (err, stats) => {
