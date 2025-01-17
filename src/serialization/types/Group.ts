@@ -5,16 +5,13 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
-import { ApidataFactRatingInstruction } from "./ApidataFactRatingInstruction";
+import { FactRatingInstruction } from "./FactRatingInstruction";
 
 export const Group: core.serialization.ObjectSchema<serializers.Group.Raw, Zep.Group> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     description: core.serialization.string().optional(),
     externalId: core.serialization.property("external_id", core.serialization.string().optional()),
-    factRatingInstruction: core.serialization.property(
-        "fact_rating_instruction",
-        ApidataFactRatingInstruction.optional(),
-    ),
+    factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
     groupId: core.serialization.property("group_id", core.serialization.string().optional()),
     id: core.serialization.number().optional(),
     name: core.serialization.string().optional(),
@@ -27,7 +24,7 @@ export declare namespace Group {
         created_at?: string | null;
         description?: string | null;
         external_id?: string | null;
-        fact_rating_instruction?: ApidataFactRatingInstruction.Raw | null;
+        fact_rating_instruction?: FactRatingInstruction.Raw | null;
         group_id?: string | null;
         id?: number | null;
         name?: string | null;

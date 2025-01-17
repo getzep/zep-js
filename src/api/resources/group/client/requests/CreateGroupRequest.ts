@@ -13,7 +13,7 @@ import * as Zep from "../../../../index";
 export interface CreateGroupRequest {
     description?: string;
     /** UserIDs     []string `json:"user_ids"` */
-    factRatingInstruction?: Zep.ApidataFactRatingInstruction;
+    factRatingInstruction?: Zep.FactRatingInstruction;
     groupId: string;
     name?: string;
 }

@@ -139,7 +139,7 @@ export class Group {
     public async listAllGroups(
         request: Zep.GetGroupsOrderedRequest = {},
         requestOptions?: Group.RequestOptions,
-    ): Promise<Zep.ApidataGroupListResponse> {
+    ): Promise<Zep.GroupListResponse> {
         const { pageNumber, pageSize } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
@@ -174,7 +174,7 @@ export class Group {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.ApidataGroupListResponse.parseOrThrow(_response.body, {
+            return serializers.GroupListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

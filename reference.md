@@ -2634,7 +2634,7 @@ await client.group.add({
 </dl>
 </details>
 
-<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">listAllGroups</a>({ ...params }) -> Zep.ApidataGroupListResponse</code></summary>
+<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">listAllGroups</a>({ ...params }) -> Zep.GroupListResponse</code></summary>
 <dl>
 <dd>
 

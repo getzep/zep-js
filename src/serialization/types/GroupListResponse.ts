@@ -7,16 +7,16 @@ import * as Zep from "../../api/index";
 import * as core from "../../core";
 import { Group } from "./Group";
 
-export const ApidataGroupListResponse: core.serialization.ObjectSchema<
-    serializers.ApidataGroupListResponse.Raw,
-    Zep.ApidataGroupListResponse
+export const GroupListResponse: core.serialization.ObjectSchema<
+    serializers.GroupListResponse.Raw,
+    Zep.GroupListResponse
 > = core.serialization.object({
     groups: core.serialization.list(Group).optional(),
     rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
     totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
 
-export declare namespace ApidataGroupListResponse {
+export declare namespace GroupListResponse {
     export interface Raw {
         groups?: Group.Raw[] | null;
         row_count?: number | null;

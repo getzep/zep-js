@@ -8,7 +8,7 @@ export interface Group {
     createdAt?: string;
     description?: string;
     externalId?: string;
-    factRatingInstruction?: Zep.ApidataFactRatingInstruction;
+    factRatingInstruction?: Zep.FactRatingInstruction;
     groupId?: string;
     /** TODO deprecate */
     id?: number;

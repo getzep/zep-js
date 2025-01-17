@@ -4,7 +4,7 @@
 
 import * as Zep from "../index";
 
-export interface ApidataGroupListResponse {
+export interface GroupListResponse {
     groups?: Zep.Group[];
     rowCount?: number;
     totalCount?: number;
