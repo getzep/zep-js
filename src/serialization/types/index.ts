@@ -14,6 +14,7 @@ export * from "./FactsResponse";
 export * from "./Episode";
 export * from "./EpisodeResponse";
 export * from "./Group";
+export * from "./ApidataGroupListResponse";
 export * from "./Memory";
 export * from "./MemorySearchResult";
 export * from "./Message";

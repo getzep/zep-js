@@ -18,6 +18,9 @@ export interface Memory {
     metadata?: Record<string, unknown>;
     /** Most relevant facts to the recent messages in the session. */
     relevantFacts?: Zep.Fact[];
-    /** The most recent summary before last nth message. (cloud only) */
+    /**
+     * The most relevant summaries to the recent conversation. (cloud only)
+     * Deprecated: Please use context string instead.
+     */
     summary?: Zep.Summary;
 }
