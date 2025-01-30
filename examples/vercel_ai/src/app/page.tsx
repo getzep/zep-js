@@ -13,11 +13,9 @@ export default function Chat() {
     }, []);
 
     const { messages, input, handleInputChange, handleSubmit } = useChat({
-        maxSteps: 5,
-        api: "/api/zep-chat",
         body: {
             sessionId,
-            userId: "vercel-ai-user",
+            userId: "<user_id>",
         },
     });
     if (!sessionId) return null;

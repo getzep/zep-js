@@ -9,10 +9,10 @@ export async function POST(req: Request) {
 
     const tools = {
         searchFacts: tool({
-            description: `Search for specific facts from previous conversations with the user. 
-        Use this when you need to recall specific details, preferences, or statements the user has made.
-        For example: search for facts about the user's work history, family details, or stated preferences.
-        Returns individual facts extracted from conversations.`,
+            description: `Search for specific facts about the customer's account, support history, and past interactions.
+        Use this when you need to recall specific details about billing, reported issues, or customer preferences.
+        For example: search for payment history, reported bugs, or previous support interactions.
+        Returns individual facts extracted from support conversations and account data.`,
             parameters: z.object({
                 query: z.string().describe("The search query"),
                 limit: z.number().optional().default(5).describe("Maximum number of results to return"),
@@ -29,10 +29,10 @@ export async function POST(req: Request) {
         }),
 
         searchNodes: tool({
-            description: `Search for conversation summaries and topic overviews from previous chats.
-        Use this when you need broader context about topics or themes discussed with the user.
-        For example: search for all discussions about a particular project, health issue, or ongoing situation.
-        Returns summarized overviews of conversation topics and entities.`,
+            description: `Search for support case summaries and conversation overviews from previous interactions.
+        Use this when you need broader context about ongoing issues or past support cases.
+        For example: search for all discussions about a specific bug report, feature issue, or account status.
+        Returns summarized overviews of support cases and conversation topics.`,
             parameters: z.object({
                 query: z.string().describe("The search query"),
                 limit: z.number().optional().default(5).describe("Maximum number of results to return"),
@@ -48,6 +48,8 @@ export async function POST(req: Request) {
             },
         }),
     };
+
+    // Check if the session exists, if not, create it
     try {
         await zep.memory.getSession(sessionId);
     } catch (error) {
@@ -58,6 +60,7 @@ export async function POST(req: Request) {
             });
         }
     }
+
     const lastMessage = messages[messages.length - 1];
     const { context } = await zep.memory.add(sessionId, {
         messages: [
@@ -75,9 +78,14 @@ export async function POST(req: Request) {
         messages: [
             {
                 role: "system",
-                content: `You are a compassionate mental health bot and caregiver.
-                         Use this context from previous conversations: ${context}
-                         Keep responses empathetic and supportive.`,
+                content: `You are a helpful and empathetic customer support agent for PaintWiz, an AI-powered digital art application.
+                     Use this context from previous conversations: ${context}
+                     Your goals are to:
+                     - Help resolve technical issues and bugs with the application
+                     - Address account and billing related concerns
+                     - Provide clear explanations and workarounds when possible
+                     - Maintain a professional and supportive tone
+                     Keep responses focused on resolving the customer's immediate concerns.`,
             },
             ...messages,
         ],
