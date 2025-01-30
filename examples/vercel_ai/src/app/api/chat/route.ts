@@ -3,6 +3,9 @@ import { streamText, tool } from "ai";
 import { z } from "zod";
 import { ZepClient, Zep } from "@getzep/zep-cloud";
 
+// Allow streaming responses up to 30 seconds
+export const maxDuration = 30;
+
 export async function POST(req: Request) {
     const { messages, sessionId, userId } = await req.json();
     const zep = new ZepClient({ apiKey: process.env.ZEP_API_KEY });
@@ -95,7 +98,7 @@ export async function POST(req: Request) {
             await zep.memory.add(sessionId, {
                 messages: [
                     {
-                        role: "assistant",
+                        role: "SupportBot",
                         roleType: "assistant",
                         content: result.text,
                     },

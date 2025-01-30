@@ -151,7 +151,7 @@ async function seedZepData() {
     };
 
     try {
-        console.log("🌱 Seeding Zep with initial data...");
+        console.log("🤖 Seeding Zep with initial data...");
 
         // Users in Zep may have one or more chat sessions. These are threads of messages between the user and an agent.
         // TIP: Include the user's full name and email address when creating a user.
