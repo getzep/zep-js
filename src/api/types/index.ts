@@ -31,6 +31,8 @@ export * from "./Summary";
 export * from "./SummaryListResponse";
 export * from "./User";
 export * from "./UserListResponse";
+export * from "./UserNodeResponse";
+export * from "./AddTripleResponse";
 export * from "./EntityEdge";
 export * from "./EntityNode";
 export * from "./GraphSearchResults";
