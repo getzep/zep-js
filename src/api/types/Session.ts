@@ -9,7 +9,7 @@ export interface Session {
     createdAt?: string;
     deletedAt?: string;
     endedAt?: string;
-    factRatingInstruction?: Zep.ApidataFactRatingInstruction;
+    factRatingInstruction?: Zep.FactRatingInstruction;
     facts?: string[];
     /** TODO deprecate */
     id?: number;

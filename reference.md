@@ -2634,6 +2634,132 @@ await client.group.add({
 </dl>
 </details>
 
+<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">listAllGroups</a>({ ...params }) -> Zep.GroupListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all groups with pagination.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.group.listAllGroups();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.GetGroupsOrderedRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Group.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">getAGroup</a>(groupId) -> Zep.Group</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a group.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.group.getAGroup("groupId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string` — The group_id of the group to get.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Group.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">delete</a>(groupId) -> Zep.SuccessResponse</code></summary>
 <dl>
 <dd>
@@ -2679,6 +2805,69 @@ await client.group.delete("groupId");
 <dd>
 
 **groupId:** `string` — Group ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Group.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">getFacts</a>(groupId) -> Zep.FactsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get group facts.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.group.getFacts("groupId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string` — The group_id of the group to get.
 
 </dd>
 </dl>

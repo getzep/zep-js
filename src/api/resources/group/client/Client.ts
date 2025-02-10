@@ -55,8 +55,8 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.3.0",
-                "User-Agent": "zep-cloud/2.3.0",
+                "X-Fern-SDK-Version": "2.3.1",
+                "User-Agent": "zep-cloud/2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -125,6 +125,200 @@ export class Group {
     }
 
     /**
+     * List all groups with pagination.
+     *
+     * @param {Zep.GetGroupsOrderedRequest} request
+     * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.group.listAllGroups()
+     */
+    public async listAllGroups(
+        request: Zep.GetGroupsOrderedRequest = {},
+        requestOptions?: Group.RequestOptions,
+    ): Promise<Zep.GroupListResponse> {
+        const { pageNumber, pageSize } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (pageNumber != null) {
+            _queryParams["pageNumber"] = pageNumber.toString();
+        }
+
+        if (pageSize != null) {
+            _queryParams["pageSize"] = pageSize.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                "groups-ordered",
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "2.3.1",
+                "User-Agent": "zep-cloud/2.3.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            queryParameters: _queryParams,
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.GroupListResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /groups-ordered.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get a group.
+     *
+     * @param {string} groupId - The group_id of the group to get.
+     * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.group.getAGroup("groupId")
+     */
+    public async getAGroup(groupId: string, requestOptions?: Group.RequestOptions): Promise<Zep.Group> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                `groups/${encodeURIComponent(groupId)}`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "2.3.1",
+                "User-Agent": "zep-cloud/2.3.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Group.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /groups/{groupId}.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
      * Delete group
      *
      * @param {string} groupId - Group ID
@@ -147,8 +341,8 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.3.0",
-                "User-Agent": "zep-cloud/2.3.0",
+                "X-Fern-SDK-Version": "2.3.1",
+                "User-Agent": "zep-cloud/2.3.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -218,6 +412,96 @@ export class Group {
                 });
             case "timeout":
                 throw new errors.ZepTimeoutError("Timeout exceeded when calling DELETE /groups/{groupId}.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Get group facts.
+     *
+     * @param {string} groupId - The group_id of the group to get.
+     * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.group.getFacts("groupId")
+     */
+    public async getFacts(groupId: string, requestOptions?: Group.RequestOptions): Promise<Zep.FactsResponse> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                `groups/${encodeURIComponent(groupId)}/facts`,
+            ),
+            method: "GET",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "2.3.1",
+                "User-Agent": "zep-cloud/2.3.1",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.FactsResponse.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /groups/{groupId}/facts.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
