@@ -153,6 +153,19 @@ async function main() {
     console.log("Getting all user facts");
     const userFacts = await client.user.getFacts(userId);
     console.log(userFacts.facts);
+
+    const {node: userNode} = await client.user.getNode(userId)
+    if (userNode) {
+        console.log("User node: ", userNode)
+        const userCenteredSearch = await client.graph.search({
+            userId,
+            query: "User preferences",
+            centerNodeUuid: userNode.uuid,
+            reranker: "node_distance",
+        })
+        console.log("User centered search results", userCenteredSearch.edges)
+    }
+
 }
 
 main().catch(console.error);
