@@ -32,7 +32,7 @@ export class Group {
     constructor(protected readonly _options: Group.Options = {}) {}
 
     /**
-     * Create a new user group
+     * Creates a new group.
      *
      * @param {Zep.CreateGroupRequest} request
      * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
@@ -55,8 +55,8 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -125,7 +125,7 @@ export class Group {
     }
 
     /**
-     * List all groups with pagination.
+     * Returns all groups.
      *
      * @param {Zep.GetGroupsOrderedRequest} request
      * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
@@ -134,9 +134,9 @@ export class Group {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.group.listAllGroups()
+     *     await client.group.getAllGroups()
      */
-    public async listAllGroups(
+    public async getAllGroups(
         request: Zep.GetGroupsOrderedRequest = {},
         requestOptions?: Group.RequestOptions,
     ): Promise<Zep.GroupListResponse> {
@@ -159,8 +159,8 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -229,7 +229,7 @@ export class Group {
     }
 
     /**
-     * Get a group.
+     * Returns a group.
      *
      * @param {string} groupId - The group_id of the group to get.
      * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
@@ -238,9 +238,9 @@ export class Group {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.group.getAGroup("groupId")
+     *     await client.group.getGroup("groupId")
      */
-    public async getAGroup(groupId: string, requestOptions?: Group.RequestOptions): Promise<Zep.Group> {
+    public async getGroup(groupId: string, requestOptions?: Group.RequestOptions): Promise<Zep.Group> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -250,8 +250,8 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -319,7 +319,7 @@ export class Group {
     }
 
     /**
-     * Delete group
+     * Deletes a group.
      *
      * @param {string} groupId - Group ID
      * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
@@ -341,8 +341,8 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -420,7 +420,114 @@ export class Group {
     }
 
     /**
-     * Get group facts.
+     * Updates information about a group.
+     *
+     * @param {string} groupId - Group ID
+     * @param {Zep.UpdateGroupRequest} request
+     * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.group.update("groupId")
+     */
+    public async update(
+        groupId: string,
+        request: Zep.UpdateGroupRequest = {},
+        requestOptions?: Group.RequestOptions,
+    ): Promise<Zep.Group> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
+                `groups/${encodeURIComponent(groupId)}`,
+            ),
+            method: "PATCH",
+            headers: {
+                "X-Fern-Language": "JavaScript",
+                "X-Fern-SDK-Name": "zep-cloud",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
+                "X-Fern-Runtime": core.RUNTIME.type,
+                "X-Fern-Runtime-Version": core.RUNTIME.version,
+                ...(await this._getCustomAuthorizationHeaders()),
+                ...requestOptions?.headers,
+            },
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.UpdateGroupRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return serializers.Group.parseOrThrow(_response.body, {
+                unrecognizedObjectKeys: "passthrough",
+                allowUnrecognizedUnionMembers: true,
+                allowUnrecognizedEnumValues: true,
+                skipValidation: true,
+                breadcrumbsPrefix: ["response"],
+            });
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling PATCH /groups/{groupId}.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                });
+        }
+    }
+
+    /**
+     * Deprecated: Use Get Group Edges instead.
      *
      * @param {string} groupId - The group_id of the group to get.
      * @param {Group.RequestOptions} requestOptions - Request-specific configuration.
@@ -441,8 +548,8 @@ export class Group {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

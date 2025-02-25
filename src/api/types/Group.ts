@@ -7,10 +7,10 @@ import * as Zep from "../index";
 export interface Group {
     createdAt?: string;
     description?: string;
+    /** Deprecated */
     externalId?: string;
     factRatingInstruction?: Zep.FactRatingInstruction;
     groupId?: string;
-    /** TODO deprecate */
     id?: number;
     name?: string;
     projectUuid?: string;

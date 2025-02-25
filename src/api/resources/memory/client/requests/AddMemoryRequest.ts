@@ -14,12 +14,12 @@ import * as Zep from "../../../../index";
  *     }
  */
 export interface AddMemoryRequest {
-    /** Additional instruction for generating the facts. Zep Cloud Only, will be ignored on Community Edition. */
+    /** Deprecated */
     factInstruction?: string;
     /** A list of message objects, where each message contains a role and content. */
     messages: Zep.Message[];
     /** Optionally return memory context relevant to the most recent messages. */
     returnContext?: boolean;
-    /** Additional instruction for generating the summary. Zep Cloud Only, will be ignored on Community Edition. */
+    /** Deprecated */
     summaryInstruction?: string;
 }

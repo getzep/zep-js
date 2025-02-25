@@ -617,7 +617,7 @@ await client.document.batchUpdateDocuments("collectionName", [
 </dl>
 </details>
 
-<details><summary><code>client.document.<a href="/src/api/resources/document/client/Client.ts">getsADocumentFromADocumentCollectionByUuidCloudOnly</a>(collectionName, documentUuid) -> Zep.ApidataDocument</code></summary>
+<details><summary><code>client.document.<a href="/src/api/resources/document/client/Client.ts">getsADocumentFromADocumentCollectionByUuid</a>(collectionName, documentUuid) -> Zep.ApidataDocument</code></summary>
 <dl>
 <dd>
 
@@ -645,7 +645,7 @@ Returns specified Document from a DocumentCollection.
 <dd>
 
 ```typescript
-await client.document.getsADocumentFromADocumentCollectionByUuidCloudOnly("collectionName", "documentUUID");
+await client.document.getsADocumentFromADocumentCollectionByUuid("collectionName", "documentUUID");
 ```
 
 </dd>
@@ -759,7 +759,7 @@ await client.document.deleteDocument("collectionName", "documentUUID");
 </dl>
 </details>
 
-<details><summary><code>client.document.<a href="/src/api/resources/document/client/Client.ts">updatesADocumentCloudOnly</a>(collectionName, documentUuid, { ...params }) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.document.<a href="/src/api/resources/document/client/Client.ts">updatesADocument</a>(collectionName, documentUuid, { ...params }) -> Zep.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -787,7 +787,7 @@ Updates a Document in a DocumentCollection by UUID
 <dd>
 
 ```typescript
-await client.document.updatesADocumentCloudOnly("collectionName", "documentUUID");
+await client.document.updatesADocument("collectionName", "documentUUID");
 ```
 
 </dd>
@@ -923,7 +923,7 @@ await client.document.search("collectionName");
 <dl>
 <dd>
 
-get fact by uuid
+Deprecated API: get fact by uuid
 
 </dd>
 </dl>
@@ -986,7 +986,7 @@ await client.memory.getFact("factUUID");
 <dl>
 <dd>
 
-delete a fact
+Deprecated API: delete a fact
 
 </dd>
 </dl>
@@ -1049,7 +1049,7 @@ await client.memory.deleteFact("factUUID");
 <dl>
 <dd>
 
-Create New Session
+Creates a new session.
 
 </dd>
 </dl>
@@ -1115,7 +1115,7 @@ await client.memory.addSession({
 <dl>
 <dd>
 
-Get all sessions with optional page number, page size, order by field and order direction for pagination.
+Returns all sessions.
 
 </dd>
 </dl>
@@ -1178,7 +1178,7 @@ await client.memory.listSessions();
 <dl>
 <dd>
 
-End multiple sessions by their IDs.
+Deprecated API: End multiple sessions by their IDs.
 
 </dd>
 </dl>
@@ -1243,7 +1243,7 @@ await client.memory.endSessions({
 <dl>
 <dd>
 
-Search sessions for the specified query.
+Deprecated API: Search sessions for the specified query.
 
 </dd>
 </dl>
@@ -1308,7 +1308,7 @@ await client.memory.searchSessions({
 <dl>
 <dd>
 
-get session by id
+Returns a session.
 
 </dd>
 </dl>
@@ -1340,7 +1340,7 @@ await client.memory.getSession("sessionId");
 <dl>
 <dd>
 
-**sessionId:** `string` — Session ID
+**sessionId:** `string` — The unique identifier of the session.
 
 </dd>
 </dl>
@@ -1407,7 +1407,7 @@ await client.memory.updateSession("sessionId", {
 <dl>
 <dd>
 
-**sessionId:** `string` — Session ID
+**sessionId:** `string` — The unique identifier of the session.
 
 </dd>
 </dl>
@@ -1446,7 +1446,7 @@ await client.memory.updateSession("sessionId", {
 <dl>
 <dd>
 
-classify a session by session id.
+Classifies a session.
 
 </dd>
 </dl>
@@ -1520,7 +1520,7 @@ await client.memory.classifySession("sessionId", {
 <dl>
 <dd>
 
-End a session by ID.
+Deprecated API: End a session by ID.
 
 </dd>
 </dl>
@@ -1665,7 +1665,7 @@ await client.memory.extractData("sessionId", {
 <dl>
 <dd>
 
-get facts for a session
+Deprecated API: get facts for a session
 
 </dd>
 </dl>
@@ -1736,7 +1736,7 @@ await client.memory.getSessionFacts("sessionId");
 <dl>
 <dd>
 
-Adds facts to a session
+Deprecated API: Adds facts to a session
 
 </dd>
 </dl>
@@ -1807,7 +1807,7 @@ await client.memory.addSessionFacts("sessionId");
 <dl>
 <dd>
 
-Returns a memory (latest summary, list of messages and facts) for a given session
+Returns a memory for a given session.
 
 </dd>
 </dl>
@@ -1956,7 +1956,7 @@ await client.memory.add("sessionId", {
 <dl>
 <dd>
 
-delete memory messages by session id
+Deletes a session.
 
 </dd>
 </dl>
@@ -2019,7 +2019,7 @@ await client.memory.delete("sessionId");
 <dl>
 <dd>
 
-Lists messages for a session, specified by limit and cursor.
+Returns messages for a session.
 
 </dd>
 </dl>
@@ -2090,7 +2090,7 @@ await client.memory.getSessionMessages("sessionId");
 <dl>
 <dd>
 
-Gets a specific message from a session
+Returns a specific message from a session.
 
 </dd>
 </dl>
@@ -2122,7 +2122,7 @@ await client.memory.getSessionMessage("sessionId", "messageUUID");
 <dl>
 <dd>
 
-**sessionId:** `string` — The ID of the session.
+**sessionId:** `string` — Soon to be deprecated as this is not needed.
 
 </dd>
 </dl>
@@ -2236,21 +2236,6 @@ await client.memory.updateMessageMetadata("sessionId", "messageUUID", {
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Search memory for the specified session. Deprecated, please use search_sessions method instead
-
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -2315,7 +2300,7 @@ await client.memory.search("sessionId");
 <dl>
 <dd>
 
-Get session summaries by ID
+Deprecated API: Get session summaries by ID
 
 </dd>
 </dl>
@@ -2378,7 +2363,7 @@ await client.memory.getSummaries("sessionId");
 <dl>
 <dd>
 
-Synthesize a question from the last N messages in the chat history.
+Deprecated API: Synthesize a question from the last N messages in the chat history.
 
 </dd>
 </dl>
@@ -2451,7 +2436,7 @@ await client.memory.synthesizeQuestion("sessionId");
 <dl>
 <dd>
 
-Add data to the graph
+Add data to the graph. Note: each subscription tier has different limits on the amount of data that can be added to the graph please refer to the pricing page for more information.
 
 </dd>
 </dl>
@@ -2484,6 +2469,73 @@ await client.graph.add();
 <dd>
 
 **request:** `Zep.AddDataRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">addFactTriple</a>({ ...params }) -> Zep.AddTripleResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a fact triple for a user or group
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.addFactTriple({
+    fact: "fact",
+    factName: "fact_name",
+    targetNodeName: "target_node_name",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.AddTripleRequest`
 
 </dd>
 </dl>
@@ -2581,7 +2633,7 @@ await client.graph.search({
 <dl>
 <dd>
 
-Create a new user group
+Creates a new group.
 
 </dd>
 </dl>
@@ -2634,7 +2686,7 @@ await client.group.add({
 </dl>
 </details>
 
-<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">listAllGroups</a>({ ...params }) -> Zep.GroupListResponse</code></summary>
+<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">getAllGroups</a>({ ...params }) -> Zep.GroupListResponse</code></summary>
 <dl>
 <dd>
 
@@ -2646,7 +2698,7 @@ await client.group.add({
 <dl>
 <dd>
 
-List all groups with pagination.
+Returns all groups.
 
 </dd>
 </dl>
@@ -2662,7 +2714,7 @@ List all groups with pagination.
 <dd>
 
 ```typescript
-await client.group.listAllGroups();
+await client.group.getAllGroups();
 ```
 
 </dd>
@@ -2697,7 +2749,7 @@ await client.group.listAllGroups();
 </dl>
 </details>
 
-<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">getAGroup</a>(groupId) -> Zep.Group</code></summary>
+<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">getGroup</a>(groupId) -> Zep.Group</code></summary>
 <dl>
 <dd>
 
@@ -2709,7 +2761,7 @@ await client.group.listAllGroups();
 <dl>
 <dd>
 
-Get a group.
+Returns a group.
 
 </dd>
 </dl>
@@ -2725,7 +2777,7 @@ Get a group.
 <dd>
 
 ```typescript
-await client.group.getAGroup("groupId");
+await client.group.getGroup("groupId");
 ```
 
 </dd>
@@ -2772,7 +2824,7 @@ await client.group.getAGroup("groupId");
 <dl>
 <dd>
 
-Delete group
+Deletes a group.
 
 </dd>
 </dl>
@@ -2823,6 +2875,77 @@ await client.group.delete("groupId");
 </dl>
 </details>
 
+<details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">update</a>(groupId, { ...params }) -> Zep.Group</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates information about a group.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.group.update("groupId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupId:** `string` — Group ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UpdateGroupRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Group.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.group.<a href="/src/api/resources/group/client/Client.ts">getFacts</a>(groupId) -> Zep.FactsResponse</code></summary>
 <dl>
 <dd>
@@ -2835,7 +2958,7 @@ await client.group.delete("groupId");
 <dl>
 <dd>
 
-Get group facts.
+Deprecated: Use Get Group Edges instead.
 
 </dd>
 </dl>
@@ -2900,7 +3023,7 @@ await client.group.getFacts("groupId");
 <dl>
 <dd>
 
-Add a user.
+Adds a user.
 
 </dd>
 </dl>
@@ -2963,7 +3086,7 @@ await client.user.add();
 <dl>
 <dd>
 
-List all users with pagination.
+Returns all users.
 
 </dd>
 </dl>
@@ -3026,7 +3149,7 @@ await client.user.listOrdered();
 <dl>
 <dd>
 
-Get a user.
+Returns a user.
 
 </dd>
 </dl>
@@ -3089,7 +3212,7 @@ await client.user.get("userId");
 <dl>
 <dd>
 
-delete user by id
+Deletes a user.
 
 </dd>
 </dl>
@@ -3152,7 +3275,7 @@ await client.user.delete("userId");
 <dl>
 <dd>
 
-Update a user.
+Updates a user.
 
 </dd>
 </dl>
@@ -3223,7 +3346,7 @@ await client.user.update("userId");
 <dl>
 <dd>
 
-Get user facts.
+Deprecated: Use Get User Edges instead.
 
 </dd>
 </dl>
@@ -3286,7 +3409,7 @@ await client.user.getFacts("userId");
 <dl>
 <dd>
 
-Get user node.
+Returns a user's node.
 
 </dd>
 </dl>
@@ -3349,7 +3472,7 @@ await client.user.getNode("userId");
 <dl>
 <dd>
 
-list all sessions for a user by user id
+Returns all sessions for a user.
 
 </dd>
 </dl>
@@ -3414,7 +3537,7 @@ await client.user.getSessions("userId");
 <dl>
 <dd>
 
-Get all edges for a group
+Returns all edges for a group.
 
 </dd>
 </dl>
@@ -3477,7 +3600,7 @@ await client.graph.edge.getByGroupId("group_id");
 <dl>
 <dd>
 
-Get all edges for a user
+Returns all edges for a user.
 
 </dd>
 </dl>
@@ -3540,7 +3663,7 @@ await client.graph.edge.getByUserId("user_id");
 <dl>
 <dd>
 
-Get a specific edge by its UUID
+Returns a specific edge by its UUID.
 
 </dd>
 </dl>
@@ -3603,7 +3726,7 @@ await client.graph.edge.get("uuid");
 <dl>
 <dd>
 
-Delete an edge by UUID
+Deletes an edge by UUID.
 
 </dd>
 </dl>
@@ -3668,7 +3791,7 @@ await client.graph.edge.delete("uuid");
 <dl>
 <dd>
 
-Get episodes by Group ID
+Returns episodes by group id.
 
 </dd>
 </dl>
@@ -3739,7 +3862,7 @@ await client.graph.episode.getByGroupId("group_id");
 <dl>
 <dd>
 
-Get episodes by User ID
+Returns episodes by user id.
 
 </dd>
 </dl>
@@ -3810,7 +3933,7 @@ await client.graph.episode.getByUserId("user_id");
 <dl>
 <dd>
 
-Get episode by UUID
+Returns episodes by UUID
 
 </dd>
 </dl>
@@ -3873,7 +3996,7 @@ await client.graph.episode.get("uuid");
 <dl>
 <dd>
 
-Delete an episode by its UUID
+Deletes an episode by its UUID.
 
 </dd>
 </dl>
@@ -3938,7 +4061,7 @@ await client.graph.episode.delete("uuid");
 <dl>
 <dd>
 
-Get all nodes for a group
+Returns all nodes for a group.
 
 </dd>
 </dl>
@@ -4001,7 +4124,7 @@ await client.graph.node.getByGroupId("group_id");
 <dl>
 <dd>
 
-Get all nodes for a user
+Returns all nodes for a user
 
 </dd>
 </dl>
@@ -4064,7 +4187,7 @@ await client.graph.node.getByUserId("user_id");
 <dl>
 <dd>
 
-Get a specific node by its UUID
+Returns a specific node by its UUID.
 
 </dd>
 </dl>

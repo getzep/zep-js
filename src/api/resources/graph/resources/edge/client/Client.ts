@@ -32,7 +32,7 @@ export class Edge {
     constructor(protected readonly _options: Edge.Options = {}) {}
 
     /**
-     * Get all edges for a group
+     * Returns all edges for a group.
      *
      * @param {string} groupId - Group ID
      * @param {Edge.RequestOptions} requestOptions - Request-specific configuration.
@@ -53,8 +53,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -122,7 +122,7 @@ export class Edge {
     }
 
     /**
-     * Get all edges for a user
+     * Returns all edges for a user.
      *
      * @param {string} userId - User ID
      * @param {Edge.RequestOptions} requestOptions - Request-specific configuration.
@@ -143,8 +143,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -212,7 +212,7 @@ export class Edge {
     }
 
     /**
-     * Get a specific edge by its UUID
+     * Returns a specific edge by its UUID.
      *
      * @param {string} uuid - Edge UUID
      * @param {Edge.RequestOptions} requestOptions - Request-specific configuration.
@@ -234,8 +234,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -313,7 +313,7 @@ export class Edge {
     }
 
     /**
-     * Delete an edge by UUID
+     * Deletes an edge by UUID.
      *
      * @param {string} uuid - Edge UUID
      * @param {Edge.RequestOptions} requestOptions - Request-specific configuration.
@@ -334,8 +334,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

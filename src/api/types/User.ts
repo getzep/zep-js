@@ -12,9 +12,12 @@ export interface User {
     firstName?: string;
     id?: number;
     lastName?: string;
+    /** Deprecated */
     metadata?: Record<string, unknown>;
     projectUuid?: string;
+    /** Deprecated */
     sessionCount?: number;
+    /** Deprecated */
     updatedAt?: string;
     userId?: string;
     uuid?: string;

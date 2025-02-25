@@ -32,7 +32,7 @@ export class Episode {
     constructor(protected readonly _options: Episode.Options = {}) {}
 
     /**
-     * Get episodes by Group ID
+     * Returns episodes by group id.
      *
      * @param {string} groupId - Group ID
      * @param {Zep.graph.EpisodeGetByGroupIdRequest} request
@@ -64,8 +64,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -134,7 +134,7 @@ export class Episode {
     }
 
     /**
-     * Get episodes by User ID
+     * Returns episodes by user id.
      *
      * @param {string} userId - User ID
      * @param {Zep.graph.EpisodeGetByUserIdRequest} request
@@ -166,8 +166,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -236,7 +236,7 @@ export class Episode {
     }
 
     /**
-     * Get episode by UUID
+     * Returns episodes by UUID
      *
      * @param {string} uuid - Episode UUID
      * @param {Episode.RequestOptions} requestOptions - Request-specific configuration.
@@ -257,8 +257,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -326,7 +326,7 @@ export class Episode {
     }
 
     /**
-     * Delete an episode by its UUID
+     * Deletes an episode by its UUID.
      *
      * @param {string} uuid - Episode UUID
      * @param {Episode.RequestOptions} requestOptions - Request-specific configuration.
@@ -348,8 +348,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

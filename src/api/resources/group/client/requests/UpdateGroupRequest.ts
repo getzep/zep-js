@@ -6,13 +6,10 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {
- *         groupId: "group_id"
- *     }
+ *     {}
  */
-export interface CreateGroupRequest {
+export interface UpdateGroupRequest {
     description?: string;
     factRatingInstruction?: Zep.FactRatingInstruction;
-    groupId: string;
     name?: string;
 }

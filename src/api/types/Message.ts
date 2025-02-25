@@ -11,13 +11,13 @@ export interface Message {
     createdAt?: string;
     /** The metadata associated with the message. */
     metadata?: Record<string, unknown>;
-    /** The role of the sender of the message (e.g., "user", "assistant"). */
+    /** Customizable role of the sender of the message (e.g., "john", "sales_agent"). */
     role?: string;
     /** The type of the role (e.g., "user", "system"). */
     roleType: Zep.RoleType;
-    /** The number of tokens in the message. */
+    /** Deprecated */
     tokenCount?: number;
-    /** The timestamp of when the message was last updated. */
+    /** Deprecated */
     updatedAt?: string;
     /** The unique identifier of the message. */
     uuid?: string;

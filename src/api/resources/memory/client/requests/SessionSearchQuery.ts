@@ -15,22 +15,22 @@ export interface SessionSearchQuery {
      * The maximum number of search results to return. Defaults to None (no limit).
      */
     limit?: number;
-    /** The minimum fact rating to filter on. Only supported on cloud. Will be ignored on Community Edition. */
+    /** The minimum fact rating to filter on. */
     minFactRating?: number;
-    /** The minimum score for search results. Only supported on cloud. Will be ignored on Community Edition. */
+    /** The minimum score for search results. */
     minScore?: number;
-    /** The lambda parameter for the MMR Reranking Algorithm. Only supported on cloud. Will be ignored on Community Edition. */
+    /** The lambda parameter for the MMR Reranking Algorithm. */
     mmrLambda?: number;
-    /** Record filter on the metadata. Only supported on cloud. Will be ignored on Community Edition. */
+    /** Record filter on the metadata. */
     recordFilter?: Record<string, unknown>;
-    /** Search scope. Only supported on cloud. On Community Edition the search scope is always "facts". */
+    /** Search scope. */
     searchScope?: Zep.SearchScope;
-    /** Search type. Only supported on cloud. Will be ignored on Community Edition. */
+    /** Search type. */
     searchType?: Zep.SearchType;
     /** the session ids to search */
     sessionIds?: string[];
     /** The search text. */
     text: string;
-    /** User ID used to determine which sessions to search. Required on Community Edition. */
+    /** User ID used to determine which sessions to search. */
     userId?: string;
 }

@@ -11,6 +11,6 @@
  *     }
  */
 export interface ModelsMessageMetadataUpdate {
-    /** The metadata to update */
+    /** Deprecated */
     metadata: Record<string, unknown>;
 }

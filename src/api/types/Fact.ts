@@ -6,7 +6,7 @@ export interface Fact {
     content: string;
     createdAt: string;
     expiredAt?: string;
-    /** Deprecated. This field will be removed in the future, please use `content` instead. */
+    /** Deprecated */
     fact: string;
     invalidAt?: string;
     name?: string;

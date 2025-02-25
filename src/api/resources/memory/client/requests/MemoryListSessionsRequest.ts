@@ -12,15 +12,15 @@ export interface MemoryListSessionsRequest {
      */
     pageNumber?: number;
     /**
-     * Number of sessions to retrieve per page
+     * Number of sessions to retrieve per page.
      */
     pageSize?: number;
     /**
-     * Field to order the results by: created_at, updated_at, user_id, session_id
+     * Field to order the results by: created_at, updated_at, user_id, session_id.
      */
     orderBy?: string;
     /**
-     * Order direction: true for ascending, false for descending
+     * Order direction: true for ascending, false for descending.
      */
     asc?: boolean;
 }

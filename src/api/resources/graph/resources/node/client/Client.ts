@@ -32,7 +32,7 @@ export class Node {
     constructor(protected readonly _options: Node.Options = {}) {}
 
     /**
-     * Get all nodes for a group
+     * Returns all nodes for a group.
      *
      * @param {string} groupId - Group ID
      * @param {Node.RequestOptions} requestOptions - Request-specific configuration.
@@ -53,8 +53,8 @@ export class Node {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -122,7 +122,7 @@ export class Node {
     }
 
     /**
-     * Get all nodes for a user
+     * Returns all nodes for a user
      *
      * @param {string} userId - User ID
      * @param {Node.RequestOptions} requestOptions - Request-specific configuration.
@@ -143,8 +143,8 @@ export class Node {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -212,7 +212,7 @@ export class Node {
     }
 
     /**
-     * Get a specific node by its UUID
+     * Returns a specific node by its UUID.
      *
      * @param {string} uuid - Node UUID
      * @param {Node.RequestOptions} requestOptions - Request-specific configuration.
@@ -234,8 +234,8 @@ export class Node {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
