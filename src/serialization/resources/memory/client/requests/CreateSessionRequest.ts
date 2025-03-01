@@ -12,7 +12,7 @@ export const CreateSessionRequest: core.serialization.Schema<
     Zep.CreateSessionRequest
 > = core.serialization.object({
     factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
     sessionId: core.serialization.property("session_id", core.serialization.string()),
     userId: core.serialization.property("user_id", core.serialization.string()),
 });
@@ -20,7 +20,7 @@ export const CreateSessionRequest: core.serialization.Schema<
 export declare namespace CreateSessionRequest {
     export interface Raw {
         fact_rating_instruction?: FactRatingInstruction.Raw | null;
-        metadata?: Record<string, unknown> | null;
+        metadata: Record<string, unknown>;
         session_id: string;
         user_id: string;
     }

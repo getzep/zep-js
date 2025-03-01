@@ -5,14 +5,14 @@
 import * as Zep from "../index";
 
 export interface Group {
+    groupId?: string;
     createdAt?: string;
+    name?: string;
     description?: string;
+    factRatingInstruction?: Zep.FactRatingInstruction;
+    projectUuid?: string;
+    id?: number;
+    uuid?: string;
     /** Deprecated */
     externalId?: string;
-    factRatingInstruction?: Zep.FactRatingInstruction;
-    groupId?: string;
-    id?: number;
-    name?: string;
-    projectUuid?: string;
-    uuid?: string;
 }

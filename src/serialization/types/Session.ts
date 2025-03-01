@@ -9,36 +9,36 @@ import { FactRatingInstruction } from "./FactRatingInstruction";
 
 export const Session: core.serialization.ObjectSchema<serializers.Session.Raw, Zep.Session> = core.serialization.object(
     {
-        classifications: core.serialization.record(core.serialization.string(), core.serialization.string()).optional(),
-        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-        deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
-        endedAt: core.serialization.property("ended_at", core.serialization.string().optional()),
+        classifications: core.serialization.record(core.serialization.string(), core.serialization.string()),
+        createdAt: core.serialization.property("created_at", core.serialization.string()),
+        deletedAt: core.serialization.property("deleted_at", core.serialization.string()),
+        endedAt: core.serialization.property("ended_at", core.serialization.string()),
         factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
-        facts: core.serialization.list(core.serialization.string()).optional(),
-        id: core.serialization.number().optional(),
-        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
-        sessionId: core.serialization.property("session_id", core.serialization.string().optional()),
-        updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
-        userId: core.serialization.property("user_id", core.serialization.string().optional()),
-        uuid: core.serialization.string().optional(),
+        facts: core.serialization.list(core.serialization.string()),
+        id: core.serialization.number(),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
+        projectUuid: core.serialization.property("project_uuid", core.serialization.string()),
+        sessionId: core.serialization.property("session_id", core.serialization.string()),
+        updatedAt: core.serialization.property("updated_at", core.serialization.string()),
+        userId: core.serialization.property("user_id", core.serialization.string()),
+        uuid: core.serialization.string(),
     },
 );
 
 export declare namespace Session {
     export interface Raw {
-        classifications?: Record<string, string> | null;
-        created_at?: string | null;
-        deleted_at?: string | null;
-        ended_at?: string | null;
+        classifications: Record<string, string>;
+        created_at: string;
+        deleted_at: string;
+        ended_at: string;
         fact_rating_instruction?: FactRatingInstruction.Raw | null;
-        facts?: string[] | null;
-        id?: number | null;
-        metadata?: Record<string, unknown> | null;
-        project_uuid?: string | null;
-        session_id?: string | null;
-        updated_at?: string | null;
-        user_id?: string | null;
-        uuid?: string | null;
+        facts: string[];
+        id: number;
+        metadata: Record<string, unknown>;
+        project_uuid: string;
+        session_id: string;
+        updated_at: string;
+        user_id: string;
+        uuid: string;
     }
 }

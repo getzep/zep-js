@@ -11,6 +11,6 @@ export interface ClassifySessionRequest {
     lastN?: number;
     /** The name of the classifier. */
     name: string;
-    /** Deprecated */
+    /** Whether to persist the classification as part of the session object. Defaults to True. */
     persist?: boolean;
 }

@@ -4,8 +4,7 @@
 
 import * as Zep from "../index";
 
-export interface UserListResponse {
-    users: Zep.User[];
-    totalCount: number;
-    rowCount: number;
+export interface EntityType {
+    name: string;
+    properties?: Zep.EntityProperty[];
 }

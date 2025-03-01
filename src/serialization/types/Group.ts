@@ -8,27 +8,27 @@ import * as core from "../../core";
 import { FactRatingInstruction } from "./FactRatingInstruction";
 
 export const Group: core.serialization.ObjectSchema<serializers.Group.Raw, Zep.Group> = core.serialization.object({
-    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-    description: core.serialization.string().optional(),
-    externalId: core.serialization.property("external_id", core.serialization.string().optional()),
-    factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
     groupId: core.serialization.property("group_id", core.serialization.string().optional()),
-    id: core.serialization.number().optional(),
+    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     name: core.serialization.string().optional(),
+    description: core.serialization.string().optional(),
+    factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
     projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
+    id: core.serialization.number().optional(),
     uuid: core.serialization.string().optional(),
+    externalId: core.serialization.property("external_id", core.serialization.string().optional()),
 });
 
 export declare namespace Group {
     export interface Raw {
-        created_at?: string | null;
-        description?: string | null;
-        external_id?: string | null;
-        fact_rating_instruction?: FactRatingInstruction.Raw | null;
         group_id?: string | null;
-        id?: number | null;
+        created_at?: string | null;
         name?: string | null;
+        description?: string | null;
+        fact_rating_instruction?: FactRatingInstruction.Raw | null;
         project_uuid?: string | null;
+        id?: number | null;
         uuid?: string | null;
+        external_id?: string | null;
     }
 }

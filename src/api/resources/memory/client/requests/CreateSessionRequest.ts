@@ -7,6 +7,9 @@ import * as Zep from "../../../../index";
 /**
  * @example
  *     {
+ *         metadata: {
+ *             "key": "value"
+ *         },
  *         sessionId: "session_id",
  *         userId: "user_id"
  *     }
@@ -15,7 +18,7 @@ export interface CreateSessionRequest {
     /** Deprecated */
     factRatingInstruction?: Zep.FactRatingInstruction;
     /** Deprecated */
-    metadata?: Record<string, unknown>;
+    metadata: Record<string, unknown>;
     /** The unique identifier of the session. */
     sessionId: string;
     /** The unique identifier of the user associated with the session */

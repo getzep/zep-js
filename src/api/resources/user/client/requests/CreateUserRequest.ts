@@ -6,19 +6,28 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         email: "email",
+ *         factRatingInstruction: {},
+ *         firstName: "first_name",
+ *         lastName: "last_name",
+ *         metadata: {
+ *             "key": "value"
+ *         },
+ *         userId: "user_id"
+ *     }
  */
 export interface CreateUserRequest {
     /** The email address of the user. */
-    email?: string;
+    email: string;
     /** Optional instruction to use for fact rating. */
-    factRatingInstruction?: Zep.FactRatingInstruction;
+    factRatingInstruction: Zep.FactRatingInstruction;
     /** The first name of the user. */
-    firstName?: string;
+    firstName: string;
     /** The last name of the user. */
-    lastName?: string;
+    lastName: string;
     /** The metadata associated with the user. */
-    metadata?: Record<string, unknown>;
+    metadata: Record<string, unknown>;
     /** The unique identifier of the user. */
-    userId?: string;
+    userId: string;
 }

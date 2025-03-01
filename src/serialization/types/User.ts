@@ -8,35 +8,35 @@ import * as core from "../../core";
 import { FactRatingInstruction } from "./FactRatingInstruction";
 
 export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.User> = core.serialization.object({
-    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-    deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
-    email: core.serialization.string().optional(),
-    factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
-    firstName: core.serialization.property("first_name", core.serialization.string().optional()),
-    id: core.serialization.number().optional(),
-    lastName: core.serialization.property("last_name", core.serialization.string().optional()),
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
-    sessionCount: core.serialization.property("session_count", core.serialization.number().optional()),
-    updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
+    id: core.serialization.number().optional(),
+    updatedAt: core.serialization.property("updated_at", core.serialization.string()),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    sessionCount: core.serialization.property("session_count", core.serialization.number().optional()),
+    createdAt: core.serialization.property("created_at", core.serialization.string()),
+    deletedAt: core.serialization.property("deleted_at", core.serialization.string()),
+    email: core.serialization.string(),
+    firstName: core.serialization.property("first_name", core.serialization.string()),
+    lastName: core.serialization.property("last_name", core.serialization.string()),
+    factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
     uuid: core.serialization.string().optional(),
+    projectUuid: core.serialization.property("project_uuid", core.serialization.string()),
 });
 
 export declare namespace User {
     export interface Raw {
-        created_at?: string | null;
-        deleted_at?: string | null;
-        email?: string | null;
-        fact_rating_instruction?: FactRatingInstruction.Raw | null;
-        first_name?: string | null;
-        id?: number | null;
-        last_name?: string | null;
-        metadata?: Record<string, unknown> | null;
-        project_uuid?: string | null;
-        session_count?: number | null;
-        updated_at?: string | null;
         user_id?: string | null;
+        id?: number | null;
+        updated_at: string;
+        metadata?: Record<string, unknown> | null;
+        session_count?: number | null;
+        created_at: string;
+        deleted_at: string;
+        email: string;
+        first_name: string;
+        last_name: string;
+        fact_rating_instruction?: FactRatingInstruction.Raw | null;
         uuid?: string | null;
+        project_uuid: string;
     }
 }

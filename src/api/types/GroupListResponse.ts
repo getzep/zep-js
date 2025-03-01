@@ -6,6 +6,6 @@ import * as Zep from "../index";
 
 export interface GroupListResponse {
     groups?: Zep.Group[];
-    rowCount?: number;
     totalCount?: number;
+    rowCount?: number;
 }

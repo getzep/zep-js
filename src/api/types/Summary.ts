@@ -4,13 +4,13 @@
 
 export interface Summary {
     /** The content of the summary. */
-    content?: string;
+    content: string;
     /** The timestamp of when the summary was created. */
-    createdAt?: string;
+    createdAt: string;
     metadata?: Record<string, unknown>;
-    relatedMessageUuids?: string[];
+    relatedMessageUuids: string[];
     /** The number of tokens in the summary. */
-    tokenCount?: number;
+    tokenCount: number;
     /** The unique identifier of the summary. */
-    uuid?: string;
+    uuid: string;
 }

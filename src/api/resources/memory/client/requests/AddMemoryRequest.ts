@@ -8,8 +8,13 @@ import * as Zep from "../../../../index";
  * @example
  *     {
  *         messages: [{
+ *                 uuid: "uuid",
+ *                 createdAt: "created_at",
+ *                 role: "role",
+ *                 roleType: "norole",
  *                 content: "content",
- *                 roleType: "norole"
+ *                 updatedAt: "updated_at",
+ *                 tokenCount: 1
  *             }]
  *     }
  */
