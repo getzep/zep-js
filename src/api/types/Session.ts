@@ -5,22 +5,21 @@
 import * as Zep from "../index";
 
 export interface Session {
-    /** The classes associated with the session */
-    classifications: Record<string, string>;
-    createdAt: string;
-    deletedAt: string;
-    endedAt: string;
+    classifications?: Record<string, string>;
+    createdAt?: string;
+    deletedAt?: string;
+    endedAt?: string;
     /** Deprecated */
     factRatingInstruction?: Zep.FactRatingInstruction;
     /** Deprecated */
-    facts: string[];
-    id: number;
+    facts?: string[];
+    id?: number;
     /** Deprecated */
-    metadata: Record<string, unknown>;
-    projectUuid: string;
-    sessionId: string;
+    metadata?: Record<string, unknown>;
+    projectUuid?: string;
+    sessionId?: string;
     /** Deprecated */
-    updatedAt: string;
-    userId: string;
-    uuid: string;
+    updatedAt?: string;
+    userId?: string;
+    uuid?: string;
 }

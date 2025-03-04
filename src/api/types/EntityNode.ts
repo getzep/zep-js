@@ -3,16 +3,16 @@
  */
 
 export interface EntityNode {
-    /** UUID of the node */
-    uuid: string;
-    /** Name of the node */
-    name: string;
-    /** Labels associated with the node */
-    labels: string[];
-    /** Creation time of the node */
-    createdAt: string;
     /** Additional attributes of the node. Dependent on node labels */
     attributes?: Record<string, unknown>;
+    /** Creation time of the node */
+    createdAt: string;
+    /** Labels associated with the node */
+    labels?: string[];
+    /** Name of the node */
+    name: string;
     /** Regional summary of surrounding edges */
     summary: string;
+    /** UUID of the node */
+    uuid: string;
 }

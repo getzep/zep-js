@@ -8,25 +8,25 @@ import * as core from "../../core";
 
 export const Summary: core.serialization.ObjectSchema<serializers.Summary.Raw, Zep.Summary> = core.serialization.object(
     {
-        content: core.serialization.string(),
-        createdAt: core.serialization.property("created_at", core.serialization.string()),
+        content: core.serialization.string().optional(),
+        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         relatedMessageUuids: core.serialization.property(
             "related_message_uuids",
-            core.serialization.list(core.serialization.string()),
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
-        uuid: core.serialization.string(),
+        uuid: core.serialization.string().optional(),
     },
 );
 
 export declare namespace Summary {
     export interface Raw {
-        content: string;
-        created_at: string;
+        content?: string | null;
+        created_at?: string | null;
         metadata?: Record<string, unknown> | null;
-        related_message_uuids: string[];
+        related_message_uuids?: string[] | null;
         token_count?: number | null;
-        uuid: string;
+        uuid?: string | null;
     }
 }

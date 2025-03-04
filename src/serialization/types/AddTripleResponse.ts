@@ -12,15 +12,15 @@ export const AddTripleResponse: core.serialization.ObjectSchema<
     serializers.AddTripleResponse.Raw,
     Zep.AddTripleResponse
 > = core.serialization.object({
-    edge: EntityEdge,
-    sourceNode: core.serialization.property("source_node", EntityNode),
-    targetNode: core.serialization.property("target_node", EntityNode),
+    edge: EntityEdge.optional(),
+    sourceNode: core.serialization.property("source_node", EntityNode.optional()),
+    targetNode: core.serialization.property("target_node", EntityNode.optional()),
 });
 
 export declare namespace AddTripleResponse {
     export interface Raw {
-        edge: EntityEdge.Raw;
-        source_node: EntityNode.Raw;
-        target_node: EntityNode.Raw;
+        edge?: EntityEdge.Raw | null;
+        source_node?: EntityNode.Raw | null;
+        target_node?: EntityNode.Raw | null;
     }
 }

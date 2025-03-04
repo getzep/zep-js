@@ -3,6 +3,6 @@
  */
 
 export interface SessionClassification {
-    class: string;
-    label: string;
+    class?: string;
+    label?: string;
 }

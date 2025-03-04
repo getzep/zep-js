@@ -5,18 +5,20 @@
 import * as Zep from "../index";
 
 export interface User {
-    userId: string;
-    id: number;
-    /** Deprecated */
-    metadata?: Record<string, unknown>;
-    /** Deprecated */
-    sessionCount?: number;
-    createdAt: string;
+    createdAt?: string;
     deletedAt?: string;
     email?: string;
-    firstName?: string;
-    lastName?: string;
     factRatingInstruction?: Zep.FactRatingInstruction;
-    uuid: string;
-    projectUuid: string;
+    firstName?: string;
+    id?: number;
+    lastName?: string;
+    /** Deprecated */
+    metadata?: Record<string, unknown>;
+    projectUuid?: string;
+    /** Deprecated */
+    sessionCount?: number;
+    /** Deprecated */
+    updatedAt?: string;
+    userId?: string;
+    uuid?: string;
 }

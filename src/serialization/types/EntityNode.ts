@@ -8,21 +8,21 @@ import * as core from "../../core";
 
 export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.Raw, Zep.EntityNode> =
     core.serialization.object({
-        uuid: core.serialization.string(),
-        name: core.serialization.string(),
-        labels: core.serialization.list(core.serialization.string()),
-        createdAt: core.serialization.property("created_at", core.serialization.string()),
         attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        createdAt: core.serialization.property("created_at", core.serialization.string()),
+        labels: core.serialization.list(core.serialization.string()).optional(),
+        name: core.serialization.string(),
         summary: core.serialization.string(),
+        uuid: core.serialization.string(),
     });
 
 export declare namespace EntityNode {
     export interface Raw {
-        uuid: string;
-        name: string;
-        labels: string[];
-        created_at: string;
         attributes?: Record<string, unknown> | null;
+        created_at: string;
+        labels?: string[] | null;
+        name: string;
         summary: string;
+        uuid: string;
     }
 }

@@ -13,12 +13,12 @@ export const EndSessionResponse: core.serialization.ObjectSchema<
     Zep.EndSessionResponse
 > = core.serialization.object({
     classification: SessionClassification.optional(),
-    session: Session,
+    session: Session.optional(),
 });
 
 export declare namespace EndSessionResponse {
     export interface Raw {
         classification?: SessionClassification.Raw | null;
-        session: Session.Raw;
+        session?: Session.Raw | null;
     }
 }

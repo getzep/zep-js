@@ -11,15 +11,15 @@ export const MessageListResponse: core.serialization.ObjectSchema<
     serializers.MessageListResponse.Raw,
     Zep.MessageListResponse
 > = core.serialization.object({
-    messages: core.serialization.list(Message),
-    totalCount: core.serialization.property("total_count", core.serialization.number()),
-    rowCount: core.serialization.property("row_count", core.serialization.number()),
+    messages: core.serialization.list(Message).optional(),
+    rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
+    totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
 
 export declare namespace MessageListResponse {
     export interface Raw {
-        messages: Message.Raw[];
-        total_count: number;
-        row_count: number;
+        messages?: Message.Raw[] | null;
+        row_count?: number | null;
+        total_count?: number | null;
     }
 }

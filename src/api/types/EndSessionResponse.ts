@@ -6,5 +6,5 @@ import * as Zep from "../index";
 
 export interface EndSessionResponse {
     classification?: Zep.SessionClassification;
-    session: Zep.Session;
+    session?: Zep.Session;
 }

@@ -9,26 +9,26 @@ import { RoleType } from "./RoleType";
 
 export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Zep.Message> = core.serialization.object(
     {
-        uuid: core.serialization.string().optional(),
+        content: core.serialization.string(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         role: core.serialization.string().optional(),
         roleType: core.serialization.property("role_type", RoleType),
-        content: core.serialization.string(),
-        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
+        updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
+        uuid: core.serialization.string().optional(),
     },
 );
 
 export declare namespace Message {
     export interface Raw {
-        uuid?: string | null;
+        content: string;
         created_at?: string | null;
+        metadata?: Record<string, unknown> | null;
         role?: string | null;
         role_type: RoleType.Raw;
-        content: string;
-        metadata?: Record<string, unknown> | null;
-        updated_at?: string | null;
         token_count?: number | null;
+        updated_at?: string | null;
+        uuid?: string | null;
     }
 }

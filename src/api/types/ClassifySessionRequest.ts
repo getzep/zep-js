@@ -3,14 +3,14 @@
  */
 
 export interface ClassifySessionRequest {
-    /** The classes to use for classification */
+    /** The classes to use for classification. */
     classes: string[];
-    /** Custom instruction to use for classification */
+    /** Custom instruction to use for classification. */
     instruction?: string;
-    /** The number of session messages to consider for classification. Defaults to 4 */
+    /** The number of session messages to consider for classification. Defaults to 4. */
     lastN?: number;
-    /** The name of the classifier */
+    /** The name of the classifier. */
     name: string;
-    /** Whether to persist the classification as part of the session object. Defaults to True */
+    /** Deprecated */
     persist?: boolean;
 }

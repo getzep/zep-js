@@ -11,20 +11,20 @@ import { Summary } from "./Summary";
 
 export const Memory: core.serialization.ObjectSchema<serializers.Memory.Raw, Zep.Memory> = core.serialization.object({
     context: core.serialization.string().optional(),
-    facts: core.serialization.list(core.serialization.string()),
-    messages: core.serialization.list(Message),
+    facts: core.serialization.list(core.serialization.string()).optional(),
+    messages: core.serialization.list(Message).optional(),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    relevantFacts: core.serialization.property("relevant_facts", core.serialization.list(Fact)),
+    relevantFacts: core.serialization.property("relevant_facts", core.serialization.list(Fact).optional()),
     summary: Summary.optional(),
 });
 
 export declare namespace Memory {
     export interface Raw {
         context?: string | null;
-        facts: string[];
-        messages: Message.Raw[];
+        facts?: string[] | null;
+        messages?: Message.Raw[] | null;
         metadata?: Record<string, unknown> | null;
-        relevant_facts: Fact.Raw[];
+        relevant_facts?: Fact.Raw[] | null;
         summary?: Summary.Raw | null;
     }
 }

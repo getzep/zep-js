@@ -5,5 +5,5 @@
 import * as Zep from "../index";
 
 export interface UserNodeResponse {
-    node: Zep.EntityNode;
+    node?: Zep.EntityNode;
 }

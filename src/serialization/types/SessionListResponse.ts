@@ -11,15 +11,15 @@ export const SessionListResponse: core.serialization.ObjectSchema<
     serializers.SessionListResponse.Raw,
     Zep.SessionListResponse
 > = core.serialization.object({
-    responseCount: core.serialization.property("response_count", core.serialization.number()),
-    sessions: core.serialization.list(Session),
-    totalCount: core.serialization.property("total_count", core.serialization.number()),
+    responseCount: core.serialization.property("response_count", core.serialization.number().optional()),
+    sessions: core.serialization.list(Session).optional(),
+    totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
 
 export declare namespace SessionListResponse {
     export interface Raw {
-        response_count: number;
-        sessions: Session.Raw[];
-        total_count: number;
+        response_count?: number | null;
+        sessions?: Session.Raw[] | null;
+        total_count?: number | null;
     }
 }

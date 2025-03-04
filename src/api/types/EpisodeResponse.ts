@@ -5,5 +5,5 @@
 import * as Zep from "../index";
 
 export interface EpisodeResponse {
-    episodes: Zep.Episode[];
+    episodes?: Zep.Episode[];
 }

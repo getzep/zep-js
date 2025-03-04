@@ -17,7 +17,7 @@ export interface CreateUserRequest {
     firstName?: string;
     /** The last name of the user. */
     lastName?: string;
-    /** Deprecated */
+    /** The metadata associated with the user. */
     metadata?: Record<string, unknown>;
     /** The unique identifier of the user. */
     userId?: string;

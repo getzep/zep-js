@@ -5,20 +5,20 @@
 import * as Zep from "../index";
 
 export interface Message {
-    /** The unique identifier of the message. */
-    uuid?: string;
+    /** The content of the message. */
+    content: string;
     /** The timestamp of when the message was created. */
     createdAt?: string;
+    /** The metadata associated with the message. */
+    metadata?: Record<string, unknown>;
     /** Customizable role of the sender of the message (e.g., "john", "sales_agent"). */
     role?: string;
     /** The type of the role (e.g., "user", "system"). */
     roleType: Zep.RoleType;
-    /** The content of the message. */
-    content: string;
-    /** Deprecated */
-    metadata?: Record<string, unknown>;
-    /** Deprecated */
-    updatedAt?: string;
     /** Deprecated */
     tokenCount?: number;
+    /** Deprecated */
+    updatedAt?: string;
+    /** The unique identifier of the message. */
+    uuid?: string;
 }

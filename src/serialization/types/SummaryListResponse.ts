@@ -11,15 +11,15 @@ export const SummaryListResponse: core.serialization.ObjectSchema<
     serializers.SummaryListResponse.Raw,
     Zep.SummaryListResponse
 > = core.serialization.object({
-    rowCount: core.serialization.property("row_count", core.serialization.number()),
-    summaries: core.serialization.list(Summary),
-    totalCount: core.serialization.property("total_count", core.serialization.number()),
+    rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
+    summaries: core.serialization.list(Summary).optional(),
+    totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
 
 export declare namespace SummaryListResponse {
     export interface Raw {
-        row_count: number;
-        summaries: Summary.Raw[];
-        total_count: number;
+        row_count?: number | null;
+        summaries?: Summary.Raw[] | null;
+        total_count?: number | null;
     }
 }

@@ -11,15 +11,15 @@ export const GroupListResponse: core.serialization.ObjectSchema<
     serializers.GroupListResponse.Raw,
     Zep.GroupListResponse
 > = core.serialization.object({
-    groups: core.serialization.list(Group),
-    totalCount: core.serialization.property("total_count", core.serialization.number()),
-    rowCount: core.serialization.property("row_count", core.serialization.number()),
+    groups: core.serialization.list(Group).optional(),
+    rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
+    totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
 
 export declare namespace GroupListResponse {
     export interface Raw {
-        groups: Group.Raw[];
-        total_count: number;
-        row_count: number;
+        groups?: Group.Raw[] | null;
+        row_count?: number | null;
+        total_count?: number | null;
     }
 }
