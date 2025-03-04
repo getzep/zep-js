@@ -1897,8 +1897,8 @@ Add memory to the specified session.
 await client.memory.add("sessionId", {
     messages: [
         {
-            content: "content",
             roleType: "norole",
+            content: "content",
         },
     ],
 });
@@ -2436,7 +2436,7 @@ await client.memory.synthesizeQuestion("sessionId");
 <dl>
 <dd>
 
-Add data to the graph. Note: each subscription tier has different limits on the amount of data that can be added to the graph please refer to the pricing page for more information.
+Adds data to the graph. One of user_id or group_id must be provided. Note: each subscription tier has different limits on the amount of data that can be added to the graph please refer to the pricing page for more information.
 
 </dd>
 </dl>

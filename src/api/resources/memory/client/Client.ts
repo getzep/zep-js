@@ -1463,8 +1463,8 @@ export class Memory {
      * @example
      *     await client.memory.add("sessionId", {
      *         messages: [{
-     *                 content: "content",
-     *                 roleType: "norole"
+     *                 roleType: "norole",
+     *                 content: "content"
      *             }]
      *     })
      */

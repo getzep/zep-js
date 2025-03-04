@@ -17,6 +17,6 @@ export interface UpdateUserRequest {
     firstName?: string;
     /** The last name of the user. */
     lastName?: string;
-    /** The metadata to update */
+    /** Deprecated */
     metadata?: Record<string, unknown>;
 }

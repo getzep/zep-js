@@ -9,15 +9,15 @@ import { User } from "./User";
 
 export const UserListResponse: core.serialization.ObjectSchema<serializers.UserListResponse.Raw, Zep.UserListResponse> =
     core.serialization.object({
-        rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
-        totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
-        users: core.serialization.list(User).optional(),
+        users: core.serialization.list(User),
+        totalCount: core.serialization.property("total_count", core.serialization.number()),
+        rowCount: core.serialization.property("row_count", core.serialization.number()),
     });
 
 export declare namespace UserListResponse {
     export interface Raw {
-        row_count?: number | null;
-        total_count?: number | null;
-        users?: User.Raw[] | null;
+        users: User.Raw[];
+        total_count: number;
+        row_count: number;
     }
 }

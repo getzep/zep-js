@@ -13,13 +13,13 @@ import * as Zep from "../../../../index";
 export interface GraphSearchQuery {
     /** Node to rerank around for node distance reranking */
     centerNodeUuid?: string;
-    /** one of user_id or group_id must be provided */
+    /** One of user_id or group_id must be provided. */
     groupId?: string;
     /** The maximum number of facts to retrieve. Defaults to 10. Limited to 50. */
     limit?: number;
     /** Deprecated */
     minScore?: number;
-    /** weighting for maximal marginal relevance */
+    /** Weighting for maximal marginal relevance. */
     mmrLambda?: number;
     /** The string to search for (required) */
     query: string;
@@ -27,6 +27,8 @@ export interface GraphSearchQuery {
     reranker?: Zep.Reranker;
     /** Defaults to Edges. Communities will be added in the future. */
     scope?: Zep.GraphSearchScope;
-    /** one of user_id or group_id must be provided */
+    /** Search filters to apply to the search */
+    searchFilters?: Zep.SearchFilters;
+    /** One of user_id or group_id must be provided. */
     userId?: string;
 }

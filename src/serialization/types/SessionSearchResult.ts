@@ -13,19 +13,19 @@ export const SessionSearchResult: core.serialization.ObjectSchema<
     serializers.SessionSearchResult.Raw,
     Zep.SessionSearchResult
 > = core.serialization.object({
-    fact: Fact.optional(),
-    message: Message.optional(),
-    score: core.serialization.number().optional(),
-    sessionId: core.serialization.property("session_id", core.serialization.string().optional()),
-    summary: Summary.optional(),
+    fact: Fact,
+    message: Message,
+    score: core.serialization.number(),
+    sessionId: core.serialization.property("session_id", core.serialization.string()),
+    summary: Summary,
 });
 
 export declare namespace SessionSearchResult {
     export interface Raw {
-        fact?: Fact.Raw | null;
-        message?: Message.Raw | null;
-        score?: number | null;
-        session_id?: string | null;
-        summary?: Summary.Raw | null;
+        fact: Fact.Raw;
+        message: Message.Raw;
+        score: number;
+        session_id: string;
+        summary: Summary.Raw;
     }
 }

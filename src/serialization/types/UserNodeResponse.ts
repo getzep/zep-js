@@ -9,11 +9,11 @@ import { EntityNode } from "./EntityNode";
 
 export const UserNodeResponse: core.serialization.ObjectSchema<serializers.UserNodeResponse.Raw, Zep.UserNodeResponse> =
     core.serialization.object({
-        node: EntityNode.optional(),
+        node: EntityNode,
     });
 
 export declare namespace UserNodeResponse {
     export interface Raw {
-        node?: EntityNode.Raw | null;
+        node: EntityNode.Raw;
     }
 }

@@ -10,13 +10,13 @@ export const SessionClassification: core.serialization.ObjectSchema<
     serializers.SessionClassification.Raw,
     Zep.SessionClassification
 > = core.serialization.object({
-    class: core.serialization.string().optional(),
-    label: core.serialization.string().optional(),
+    class: core.serialization.string(),
+    label: core.serialization.string(),
 });
 
 export declare namespace SessionClassification {
     export interface Raw {
-        class?: string | null;
-        label?: string | null;
+        class: string;
+        label: string;
     }
 }

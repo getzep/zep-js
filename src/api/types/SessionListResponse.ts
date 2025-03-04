@@ -5,7 +5,7 @@
 import * as Zep from "../index";
 
 export interface SessionListResponse {
-    responseCount?: number;
-    sessions?: Zep.Session[];
-    totalCount?: number;
+    responseCount: number;
+    sessions: Zep.Session[];
+    totalCount: number;
 }

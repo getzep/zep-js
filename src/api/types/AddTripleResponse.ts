@@ -5,7 +5,7 @@
 import * as Zep from "../index";
 
 export interface AddTripleResponse {
-    edge?: Zep.EntityEdge;
-    sourceNode?: Zep.EntityNode;
-    targetNode?: Zep.EntityNode;
+    edge: Zep.EntityEdge;
+    sourceNode: Zep.EntityNode;
+    targetNode: Zep.EntityNode;
 }

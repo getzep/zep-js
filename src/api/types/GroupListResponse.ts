@@ -5,7 +5,7 @@
 import * as Zep from "../index";
 
 export interface GroupListResponse {
-    groups?: Zep.Group[];
-    rowCount?: number;
-    totalCount?: number;
+    groups: Zep.Group[];
+    totalCount: number;
+    rowCount: number;
 }

@@ -5,5 +5,5 @@
 import * as Zep from "../index";
 
 export interface EndSessionsResponse {
-    sessions?: Zep.Session[];
+    sessions: Zep.Session[];
 }

@@ -11,11 +11,11 @@ export const EndSessionsResponse: core.serialization.ObjectSchema<
     serializers.EndSessionsResponse.Raw,
     Zep.EndSessionsResponse
 > = core.serialization.object({
-    sessions: core.serialization.list(Session).optional(),
+    sessions: core.serialization.list(Session),
 });
 
 export declare namespace EndSessionsResponse {
     export interface Raw {
-        sessions?: Session.Raw[] | null;
+        sessions: Session.Raw[];
     }
 }

@@ -5,7 +5,7 @@
 import * as Zep from "../index";
 
 export interface UserListResponse {
-    rowCount?: number;
-    totalCount?: number;
-    users?: Zep.User[];
+    users: Zep.User[];
+    totalCount: number;
+    rowCount: number;
 }

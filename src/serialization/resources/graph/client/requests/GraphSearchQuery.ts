@@ -7,6 +7,7 @@ import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { Reranker } from "../../../../types/Reranker";
 import { GraphSearchScope } from "../../../../types/GraphSearchScope";
+import { SearchFilters } from "../../../../types/SearchFilters";
 
 export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearchQuery.Raw, Zep.GraphSearchQuery> =
     core.serialization.object({
@@ -18,6 +19,7 @@ export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearch
         query: core.serialization.string(),
         reranker: Reranker.optional(),
         scope: GraphSearchScope.optional(),
+        searchFilters: core.serialization.property("search_filters", SearchFilters.optional()),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
     });
 
@@ -31,6 +33,7 @@ export declare namespace GraphSearchQuery {
         query: string;
         reranker?: Reranker.Raw | null;
         scope?: GraphSearchScope.Raw | null;
+        search_filters?: SearchFilters.Raw | null;
         user_id?: string | null;
     }
 }

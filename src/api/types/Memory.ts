@@ -7,14 +7,14 @@ import * as Zep from "../index";
 export interface Memory {
     /** Memory context containing relevant facts and entities for the session. Can be put into the prompt directly. */
     context?: string;
-    /** Deprecated: Use relevant_facts instead. */
-    facts?: string[];
+    /** Deprecated */
+    facts: string[];
     /** A list of message objects, where each message contains a role and content. Only last_n messages will be returned */
-    messages?: Zep.Message[];
+    messages: Zep.Message[];
     /** Deprecated */
     metadata?: Record<string, unknown>;
     /** Most relevant facts to the recent messages in the session. */
-    relevantFacts?: Zep.Fact[];
-    /** Deprecated: Use context string instead. */
+    relevantFacts: Zep.Fact[];
+    /** Deprecated */
     summary?: Zep.Summary;
 }

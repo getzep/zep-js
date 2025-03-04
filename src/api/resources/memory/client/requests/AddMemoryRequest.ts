@@ -8,15 +8,15 @@ import * as Zep from "../../../../index";
  * @example
  *     {
  *         messages: [{
- *                 content: "content",
- *                 roleType: "norole"
+ *                 roleType: "norole",
+ *                 content: "content"
  *             }]
  *     }
  */
 export interface AddMemoryRequest {
     /** Deprecated */
     factInstruction?: string;
-    /** A list of message objects, where each message contains a role and content. */
+    /** A list of message objects, where each message contains a role and content */
     messages: Zep.Message[];
     /** Optionally return memory context relevant to the most recent messages. */
     returnContext?: boolean;

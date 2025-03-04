@@ -5,7 +5,7 @@
 import * as Zep from "../index";
 
 export interface SummaryListResponse {
-    rowCount?: number;
-    summaries?: Zep.Summary[];
-    totalCount?: number;
+    rowCount: number;
+    summaries: Zep.Summary[];
+    totalCount: number;
 }

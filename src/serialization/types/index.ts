@@ -38,6 +38,7 @@ export * from "./EntityNode";
 export * from "./GraphSearchResults";
 export * from "./GraphSearchScope";
 export * from "./Reranker";
+export * from "./SearchFilters";
 export * from "./ClassifySessionRequest";
 export * from "./CreateDocumentRequest";
 export * from "./FactRatingExamples";
