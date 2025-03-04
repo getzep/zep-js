@@ -8,13 +8,11 @@ export interface User {
     userId: string;
     id: number;
     /** Deprecated */
-    updatedAt: string;
-    /** Deprecated */
     metadata?: Record<string, unknown>;
     /** Deprecated */
     sessionCount?: number;
     createdAt: string;
-    deletedAt: string;
+    deletedAt?: string;
     email?: string;
     firstName?: string;
     lastName?: string;

@@ -10,11 +10,10 @@ import { FactRatingInstruction } from "./FactRatingInstruction";
 export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.User> = core.serialization.object({
     userId: core.serialization.property("user_id", core.serialization.string()),
     id: core.serialization.number(),
-    updatedAt: core.serialization.property("updated_at", core.serialization.string()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     sessionCount: core.serialization.property("session_count", core.serialization.number().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.string()),
-    deletedAt: core.serialization.property("deleted_at", core.serialization.string()),
+    deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
     email: core.serialization.string().optional(),
     firstName: core.serialization.property("first_name", core.serialization.string().optional()),
     lastName: core.serialization.property("last_name", core.serialization.string().optional()),
@@ -27,11 +26,10 @@ export declare namespace User {
     export interface Raw {
         user_id: string;
         id: number;
-        updated_at: string;
         metadata?: Record<string, unknown> | null;
         session_count?: number | null;
         created_at: string;
-        deleted_at: string;
+        deleted_at?: string | null;
         email?: string | null;
         first_name?: string | null;
         last_name?: string | null;
