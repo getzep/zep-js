@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+// TODO: use api native enums
 // Define the entity property types
 export enum EntityPropertyType {
     Text = "Text",
@@ -75,7 +75,7 @@ export type SupportedEntityField = EntityTextField | EntityNumberField | EntityF
 export const EntityFields = z.record(EntityFieldSchema);
 
 // Helper type to extract data types from entity fields
-export type ExtractedEntityData<T> = {
+export type EntityData<T> = {
     [P in keyof T]: T[P] extends EntityField<infer V> ? V | undefined : never;
 };
 
@@ -111,7 +111,7 @@ export const entityFields = {
 };
 
 // Function to convert entity schema to Go-compatible JSON
-export function entitySchemaToGoJson(schema: Record<string, SupportedEntityField>, name: string): string {
+export function entitySchemaToGoJson(schema: Record<string, SupportedEntityField>, name: string) {
     const entityType = {
         name,
         properties: Object.entries(schema).map(([fieldName, fieldDef]) => ({
@@ -121,7 +121,7 @@ export function entitySchemaToGoJson(schema: Record<string, SupportedEntityField
         })),
     };
 
-    return JSON.stringify(entityType);
+    return entityType;
 }
 
 // Function to create entity schema from Go-compatible JSON
@@ -151,33 +151,33 @@ export function goJsonToEntitySchema(jsonStr: string): Record<string, SupportedE
     return schema;
 }
 
-// Define an entity schema
-const personSchema = {
-    firstName: entityFields.text("The person's first name"),
-    lastName: entityFields.text("The person's last name"),
-    age: entityFields.number("The person's age"),
-    height: entityFields.float("The person's height in meters"),
-    isActive: entityFields.boolean("Whether the person is active"),
-};
+// // Define an entity schema
+// const personSchema = {
+//     firstName: entityFields.text("The person's first name"),
+//     lastName: entityFields.text("The person's last name"),
+//     age: entityFields.number("The person's age"),
+//     height: entityFields.float("The person's height in meters"),
+//     isActive: entityFields.boolean("Whether the person is active"),
+// };
 
-// Extract the data type
-type Person = ExtractedEntityData<typeof personSchema>;
+// // Extract the data type
+// type Person = ExtractedEntityData<typeof personSchema>;
 
-// Convert to Go-compatible JSON
-const goJson = entitySchemaToGoJson(personSchema, "Person");
-console.log(goJson);
+// // Convert to Go-compatible JSON
+// const goJson = entitySchemaToGoJson(personSchema, "Person");
+// console.log(goJson);
 
-// Convert back from Go-compatible JSON
-const recreatedSchema = goJsonToEntitySchema(goJson);
-console.log(recreatedSchema);
+// // Convert back from Go-compatible JSON
+// const recreatedSchema = goJsonToEntitySchema(goJson);
+// console.log(recreatedSchema);
 
-// Create an instance
-const person: Person = {
-    firstName: "John",
-    lastName: "Doe",
-    age: 30,
-    height: 1.75,
-    isActive: true,
-};
+// // Create an instance
+// const person: Person = {
+//     firstName: "John",
+//     lastName: "Doe",
+//     age: 30,
+//     height: 1.75,
+//     isActive: true,
+// };
 
-console.log(person);
+// console.log(person);
