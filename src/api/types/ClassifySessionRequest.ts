@@ -9,8 +9,8 @@ export interface ClassifySessionRequest {
     instruction?: string;
     /** The number of session messages to consider for classification. Defaults to 4. */
     lastN?: number;
-    /** The name of the classifier. Will be used to store the classification in session metadata if persist is True. */
+    /** The name of the classifier. */
     name: string;
-    /** Whether to persist the classification to session metadata. Defaults to True. */
+    /** Deprecated */
     persist?: boolean;
 }

@@ -12,7 +12,7 @@ export interface MemoryGetRequest {
      */
     lastn?: number;
     /**
-     * The minimum rating by which to filter facts
+     * The minimum rating by which to filter relevant facts.
      */
     minRating?: number;
 }

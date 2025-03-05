@@ -12,9 +12,9 @@ import * as Zep from "../../../../index";
  *     }
  */
 export interface CreateSessionRequest {
-    /** Optional instruction to use for fact rating. */
+    /** Deprecated */
     factRatingInstruction?: Zep.FactRatingInstruction;
-    /** The metadata associated with the session. */
+    /** Deprecated */
     metadata?: Record<string, unknown>;
     /** The unique identifier of the session. */
     sessionId: string;

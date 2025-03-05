@@ -3,6 +3,8 @@
  */
 
 export interface EntityNode {
+    /** Additional attributes of the node. Dependent on node labels */
+    attributes?: Record<string, unknown>;
     /** Creation time of the node */
     createdAt: string;
     /** Labels associated with the node */

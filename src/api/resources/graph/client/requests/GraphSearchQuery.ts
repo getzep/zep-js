@@ -17,7 +17,7 @@ export interface GraphSearchQuery {
     groupId?: string;
     /** The maximum number of facts to retrieve. Defaults to 10. Limited to 50. */
     limit?: number;
-    /** minimum similarity score for a result to be returned */
+    /** Deprecated */
     minScore?: number;
     /** weighting for maximal marginal relevance */
     mmrLambda?: number;
@@ -27,6 +27,8 @@ export interface GraphSearchQuery {
     reranker?: Zep.Reranker;
     /** Defaults to Edges. Communities will be added in the future. */
     scope?: Zep.GraphSearchScope;
+    /** Search filters to apply to the search */
+    searchFilters?: Zep.SearchFilters;
     /** one of user_id or group_id must be provided */
     userId?: string;
 }

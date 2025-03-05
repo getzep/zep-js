@@ -8,6 +8,7 @@ import * as core from "../../core";
 
 export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.Raw, Zep.EntityNode> =
     core.serialization.object({
+        attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         labels: core.serialization.list(core.serialization.string()).optional(),
         name: core.serialization.string(),
@@ -17,6 +18,7 @@ export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.
 
 export declare namespace EntityNode {
     export interface Raw {
+        attributes?: Record<string, unknown> | null;
         created_at: string;
         labels?: string[] | null;
         name: string;

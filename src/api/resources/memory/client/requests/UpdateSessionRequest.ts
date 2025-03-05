@@ -18,6 +18,6 @@ export interface UpdateSessionRequest {
      * Fact rating instructions can not be unset.
      */
     factRatingInstruction?: Zep.FactRatingInstruction;
-    /** The metadata to update */
+    /** Deprecated */
     metadata: Record<string, unknown>;
 }

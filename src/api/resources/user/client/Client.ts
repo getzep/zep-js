@@ -32,7 +32,7 @@ export class User {
     constructor(protected readonly _options: User.Options = {}) {}
 
     /**
-     * Add a user.
+     * Adds a user.
      *
      * @param {Zep.CreateUserRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -53,8 +53,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -123,7 +123,7 @@ export class User {
     }
 
     /**
-     * List all users with pagination.
+     * Returns all users.
      *
      * @param {Zep.UserListOrderedRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -157,8 +157,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -227,7 +227,7 @@ export class User {
     }
 
     /**
-     * Get a user.
+     * Returns a user.
      *
      * @param {string} userId - The user_id of the user to get.
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -248,8 +248,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -317,7 +317,7 @@ export class User {
     }
 
     /**
-     * delete user by id
+     * Deletes a user.
      *
      * @param {string} userId - User ID
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -338,8 +338,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -407,7 +407,7 @@ export class User {
     }
 
     /**
-     * Update a user.
+     * Updates a user.
      *
      * @param {string} userId - User ID
      * @param {Zep.UpdateUserRequest} request
@@ -434,8 +434,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -514,7 +514,7 @@ export class User {
     }
 
     /**
-     * Get user facts.
+     * Deprecated: Use Get User Edges instead.
      *
      * @param {string} userId - The user_id of the user to get.
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -535,8 +535,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -604,7 +604,7 @@ export class User {
     }
 
     /**
-     * Get user node.
+     * Returns a user's node.
      *
      * @param {string} userId - The user_id of the user to get the node for.
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -625,8 +625,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -694,7 +694,7 @@ export class User {
     }
 
     /**
-     * list all sessions for a user by user id
+     * Returns all sessions for a user.
      *
      * @param {string} userId - User ID
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -714,8 +714,8 @@ export class User {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.4.0",
-                "User-Agent": "zep-cloud/2.4.0",
+                "X-Fern-SDK-Version": "2.5.0",
+                "User-Agent": "zep-cloud/2.5.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

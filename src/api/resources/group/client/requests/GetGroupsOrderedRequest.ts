@@ -8,11 +8,11 @@
  */
 export interface GetGroupsOrderedRequest {
     /**
-     * Page number for pagination, starting from 1
+     * Page number for pagination, starting from 1.
      */
     pageNumber?: number;
     /**
-     * Number of groups to retrieve per page
+     * Number of groups to retrieve per page.
      */
     pageSize?: number;
 }

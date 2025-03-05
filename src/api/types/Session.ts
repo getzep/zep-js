@@ -9,15 +9,17 @@ export interface Session {
     createdAt?: string;
     deletedAt?: string;
     endedAt?: string;
+    /** Deprecated */
     factRatingInstruction?: Zep.FactRatingInstruction;
+    /** Deprecated */
     facts?: string[];
-    /** TODO deprecate */
     id?: number;
+    /** Deprecated */
     metadata?: Record<string, unknown>;
     projectUuid?: string;
     sessionId?: string;
+    /** Deprecated */
     updatedAt?: string;
-    /** Must be a pointer to allow for null values */
     userId?: string;
     uuid?: string;
 }
