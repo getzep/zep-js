@@ -74,8 +74,8 @@ function parseCommandLineArgs() {
   
   // Handle alternative formats and naming
   return {
-    userId: options.userId || options.userId,
-    sessionId: options.sessionId || options.sessionId,
+    userId: options.userId,
+    sessionId: options.sessionId,
     systemMessage: options.systemMessage || "You are a helpful assistant. Answer the user's questions to the best of your ability.",
     debug: !!options.debug
   };
@@ -101,10 +101,17 @@ const isMainModule = () => {
   return false;
 };
 
+// Parse command line arguments once and store the result
+const args = isMainModule() ? parseCommandLineArgs() : {
+  userId: undefined,
+  sessionId: undefined,
+  systemMessage: "You are a helpful assistant. Answer the user's questions to the best of your ability.",
+  debug: false
+};
+
 // Initialize Zep memory if API key is available
 let zepMemory: ZepMemory | undefined;
 if (process.env.ZEP_API_KEY) {
-  const args = parseCommandLineArgs();
   zepMemory = new ZepMemory(process.env.ZEP_API_KEY, args.sessionId, args.userId);
   
   if (args.debug) {
@@ -119,7 +126,6 @@ if (process.env.ZEP_API_KEY) {
 if (isMainModule()) {
   // This will run when the script is executed directly
   const runCLI = async () => {
-    const args = parseCommandLineArgs();
     const systemMessage = args.systemMessage;
     
     console.log("🦜🔗 LangGraph Agent CLI");
