@@ -16,6 +16,12 @@ import * as Zep from "../../../../index";
 export interface AddMemoryRequest {
     /** Deprecated */
     factInstruction?: string;
+    /**
+     * Optional list of role types to ignore when adding messages to graph memory.
+     * The message itself will still be added retained and used as context for messages
+     * that are added to a user's graph.
+     */
+    ignoreRoles?: Zep.RoleType[];
     /** A list of message objects, where each message contains a role and content. */
     messages: Zep.Message[];
     /** Optionally return memory context relevant to the most recent messages. */
