@@ -2424,7 +2424,7 @@ await client.memory.synthesizeQuestion("sessionId");
 
 ## Graph
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">add</a>({ ...params }) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">add</a>({ ...params }) -> Zep.Episode</code></summary>
 <dl>
 <dd>
 

@@ -62,10 +62,7 @@ export class Graph {
      * @example
      *     await client.graph.add()
      */
-    public async add(
-        request: Zep.AddDataRequest = {},
-        requestOptions?: Graph.RequestOptions,
-    ): Promise<Zep.SuccessResponse> {
+    public async add(request: Zep.AddDataRequest = {}, requestOptions?: Graph.RequestOptions): Promise<Zep.Episode> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -75,8 +72,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.6.0",
-                "User-Agent": "zep-cloud/2.6.0",
+                "X-Fern-SDK-Version": "2.6.1",
+                "User-Agent": "zep-cloud/2.6.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -90,7 +87,7 @@ export class Graph {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SuccessResponse.parseOrThrow(_response.body, {
+            return serializers.Episode.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -173,8 +170,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.6.0",
-                "User-Agent": "zep-cloud/2.6.0",
+                "X-Fern-SDK-Version": "2.6.1",
+                "User-Agent": "zep-cloud/2.6.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -269,8 +266,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.6.0",
-                "User-Agent": "zep-cloud/2.6.0",
+                "X-Fern-SDK-Version": "2.6.1",
+                "User-Agent": "zep-cloud/2.6.1",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
