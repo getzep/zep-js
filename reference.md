@@ -4047,6 +4047,69 @@ await client.graph.episode.delete("uuid");
 </dl>
 </details>
 
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getNodesAndEdges</a>(uuid) -> Zep.GraphSearchResults</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns nodes and edges mentioned in an episode
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.episode.getNodesAndEdges("uuid");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Episode uuid
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Episode.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Graph Node
 
 <details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getByGroupId</a>(groupId) -> Zep.EntityNode[]</code></summary>
