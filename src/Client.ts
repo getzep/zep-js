@@ -5,8 +5,8 @@
 import * as environments from "./environments";
 import * as core from "./core";
 import { Document } from "./api/resources/document/client/Client";
-import { Memory } from "./api/resources/memory/client/Client";
 import { Graph } from "./api/resources/graph/client/Client";
+import { Memory } from "./api/resources/memory/client/Client";
 import { Group } from "./api/resources/group/client/Client";
 import { User } from "./api/resources/user/client/Client";
 
@@ -31,8 +31,8 @@ export declare namespace ZepClient {
 
 export class ZepClient {
     protected _document: Document | undefined;
-    protected _memory: Memory | undefined;
     protected _graph: Graph | undefined;
+    protected _memory: Memory | undefined;
     protected _group: Group | undefined;
     protected _user: User | undefined;
 
@@ -42,12 +42,12 @@ export class ZepClient {
         return (this._document ??= new Document(this._options));
     }
 
-    public get memory(): Memory {
-        return (this._memory ??= new Memory(this._options));
-    }
-
     public get graph(): Graph {
         return (this._graph ??= new Graph(this._options));
+    }
+
+    public get memory(): Memory {
+        return (this._memory ??= new Memory(this._options));
     }
 
     public get group(): Group {
