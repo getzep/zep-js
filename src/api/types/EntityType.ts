@@ -5,6 +5,7 @@
 import * as Zep from "../index";
 
 export interface EntityType {
+    description: string;
     name: string;
     properties?: Zep.EntityProperty[];
 }

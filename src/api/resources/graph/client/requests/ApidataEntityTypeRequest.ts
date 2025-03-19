@@ -8,6 +8,7 @@ import * as Zep from "../../../../index";
  * @example
  *     {
  *         entityTypes: [{
+ *                 description: "description",
  *                 name: "name"
  *             }]
  *     }

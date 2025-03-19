@@ -7,8 +7,8 @@ import * as Zep from "../../api/index";
 import * as core from "../../core";
 
 export const EntityPropertyType: core.serialization.Schema<serializers.EntityPropertyType.Raw, Zep.EntityPropertyType> =
-    core.serialization.enum_(["Text", "Number", "Float", "Boolean"]);
+    core.serialization.enum_(["Text", "Int", "Float", "Boolean"]);
 
 export declare namespace EntityPropertyType {
-    export type Raw = "Text" | "Number" | "Float" | "Boolean";
+    export type Raw = "Text" | "Int" | "Float" | "Boolean";
 }

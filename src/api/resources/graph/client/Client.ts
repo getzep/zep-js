@@ -151,6 +151,7 @@ export class Graph {
      * @example
      *     await client.graph.setEntityTypesInternal({
      *         entityTypes: [{
+     *                 description: "description",
      *                 name: "name"
      *             }]
      *     })
