@@ -17,6 +17,8 @@ export interface GraphSearchQuery {
     groupId?: string;
     /** The maximum number of facts to retrieve. Defaults to 10. Limited to 50. */
     limit?: number;
+    /** The minimum rating by which to filter relevant facts */
+    minFactRating?: number;
     /** Deprecated */
     minScore?: number;
     /** weighting for maximal marginal relevance */

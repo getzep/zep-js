@@ -14,6 +14,7 @@ export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearch
         centerNodeUuid: core.serialization.property("center_node_uuid", core.serialization.string().optional()),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
         limit: core.serialization.number().optional(),
+        minFactRating: core.serialization.property("min_fact_rating", core.serialization.number().optional()),
         minScore: core.serialization.property("min_score", core.serialization.number().optional()),
         mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
         query: core.serialization.string(),
@@ -28,6 +29,7 @@ export declare namespace GraphSearchQuery {
         center_node_uuid?: string | null;
         group_id?: string | null;
         limit?: number | null;
+        min_fact_rating?: number | null;
         min_score?: number | null;
         mmr_lambda?: number | null;
         query: string;
