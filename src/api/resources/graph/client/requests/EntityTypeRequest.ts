@@ -13,6 +13,6 @@ import * as Zep from "../../../../index";
  *             }]
  *     }
  */
-export interface ApidataEntityTypeRequest {
+export interface EntityTypeRequest {
     entityTypes: Zep.EntityType[];
 }

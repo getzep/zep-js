@@ -7,14 +7,12 @@ import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { EntityType } from "../../../../types/EntityType";
 
-export const ApidataEntityTypeRequest: core.serialization.Schema<
-    serializers.ApidataEntityTypeRequest.Raw,
-    Zep.ApidataEntityTypeRequest
-> = core.serialization.object({
-    entityTypes: core.serialization.property("entity_types", core.serialization.list(EntityType)),
-});
+export const EntityTypeRequest: core.serialization.Schema<serializers.EntityTypeRequest.Raw, Zep.EntityTypeRequest> =
+    core.serialization.object({
+        entityTypes: core.serialization.property("entity_types", core.serialization.list(EntityType)),
+    });
 
-export declare namespace ApidataEntityTypeRequest {
+export declare namespace EntityTypeRequest {
     export interface Raw {
         entity_types: EntityType.Raw[];
     }

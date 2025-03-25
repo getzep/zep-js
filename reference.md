@@ -1017,7 +1017,7 @@ await client.graph.setEntityTypesInternal({
 <dl>
 <dd>
 
-**request:** `Zep.ApidataEntityTypeRequest`
+**request:** `Zep.EntityTypeRequest`
 
 </dd>
 </dl>

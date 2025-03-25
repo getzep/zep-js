@@ -142,7 +142,7 @@ export class Graph {
     /**
      * Sets the entity types for a project, replacing any existing ones.
      *
-     * @param {Zep.ApidataEntityTypeRequest} request
+     * @param {Zep.EntityTypeRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -157,7 +157,7 @@ export class Graph {
      *     })
      */
     public async setEntityTypesInternal(
-        request: Zep.ApidataEntityTypeRequest,
+        request: Zep.EntityTypeRequest,
         requestOptions?: Graph.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -178,7 +178,7 @@ export class Graph {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ApidataEntityTypeRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.EntityTypeRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
