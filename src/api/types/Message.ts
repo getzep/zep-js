@@ -11,6 +11,8 @@ export interface Message {
     createdAt?: string;
     /** The metadata associated with the message. */
     metadata?: Record<string, unknown>;
+    /** Whether the message has been processed. */
+    processed?: boolean;
     /** Customizable role of the sender of the message (e.g., "john", "sales_agent"). */
     role?: string;
     /** The type of the role (e.g., "user", "system"). */
