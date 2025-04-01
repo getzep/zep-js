@@ -12,7 +12,6 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Z
         content: core.serialization.string(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        processed: core.serialization.boolean().optional(),
         role: core.serialization.string().optional(),
         roleType: core.serialization.property("role_type", RoleType),
         tokenCount: core.serialization.property("token_count", core.serialization.number().optional()),
@@ -26,7 +25,6 @@ export declare namespace Message {
         content: string;
         created_at?: string | null;
         metadata?: Record<string, unknown> | null;
-        processed?: boolean | null;
         role?: string | null;
         role_type: RoleType.Raw;
         token_count?: number | null;
