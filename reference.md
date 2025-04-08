@@ -3650,7 +3650,7 @@ await client.user.getSessions("userId");
 
 ## Graph Edge
 
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByGroupId</a>(groupId) -> Zep.EntityEdge[]</code></summary>
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByGroupId</a>(groupId, { ...params }) -> Zep.EntityEdge[]</code></summary>
 <dl>
 <dd>
 
@@ -3678,7 +3678,7 @@ Returns all edges for a group.
 <dd>
 
 ```typescript
-await client.graph.edge.getByGroupId("group_id");
+await client.graph.edge.getByGroupId("group_id", {});
 ```
 
 </dd>
@@ -3702,6 +3702,14 @@ await client.graph.edge.getByGroupId("group_id");
 <dl>
 <dd>
 
+**request:** `Zep.GraphEdgesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Edge.RequestOptions`
 
 </dd>
@@ -3713,7 +3721,7 @@ await client.graph.edge.getByGroupId("group_id");
 </dl>
 </details>
 
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByUserId</a>(userId) -> Zep.EntityEdge[]</code></summary>
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.EntityEdge[]</code></summary>
 <dl>
 <dd>
 
@@ -3741,7 +3749,7 @@ Returns all edges for a user.
 <dd>
 
 ```typescript
-await client.graph.edge.getByUserId("user_id");
+await client.graph.edge.getByUserId("user_id", {});
 ```
 
 </dd>
@@ -3758,6 +3766,14 @@ await client.graph.edge.getByUserId("user_id");
 <dd>
 
 **userId:** `string` — User ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphEdgesRequest`
 
 </dd>
 </dl>
@@ -4237,7 +4253,7 @@ await client.graph.episode.getNodesAndEdges("uuid");
 
 ## Graph Node
 
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getByGroupId</a>(groupId) -> Zep.EntityNode[]</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getByGroupId</a>(groupId, { ...params }) -> Zep.EntityNode[]</code></summary>
 <dl>
 <dd>
 
@@ -4265,7 +4281,7 @@ Returns all nodes for a group.
 <dd>
 
 ```typescript
-await client.graph.node.getByGroupId("group_id");
+await client.graph.node.getByGroupId("group_id", {});
 ```
 
 </dd>
@@ -4289,6 +4305,14 @@ await client.graph.node.getByGroupId("group_id");
 <dl>
 <dd>
 
+**request:** `Zep.GraphNodesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Node.RequestOptions`
 
 </dd>
@@ -4300,7 +4324,7 @@ await client.graph.node.getByGroupId("group_id");
 </dl>
 </details>
 
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getByUserId</a>(userId) -> Zep.EntityNode[]</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.EntityNode[]</code></summary>
 <dl>
 <dd>
 
@@ -4328,7 +4352,7 @@ Returns all nodes for a user
 <dd>
 
 ```typescript
-await client.graph.node.getByUserId("user_id");
+await client.graph.node.getByUserId("user_id", {});
 ```
 
 </dd>
@@ -4345,6 +4369,14 @@ await client.graph.node.getByUserId("user_id");
 <dd>
 
 **userId:** `string` — User ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphNodesRequest`
 
 </dd>
 </dl>
