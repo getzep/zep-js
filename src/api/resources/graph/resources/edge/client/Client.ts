@@ -5,8 +5,8 @@
 import * as environments from "../../../../../../environments";
 import * as core from "../../../../../../core";
 import * as Zep from "../../../../../index";
-import urlJoin from "url-join";
 import * as serializers from "../../../../../../serialization/index";
+import urlJoin from "url-join";
 import * as errors from "../../../../../../errors/index";
 
 export declare namespace Edge {
@@ -35,26 +35,31 @@ export class Edge {
      * Returns all edges for a group.
      *
      * @param {string} groupId - Group ID
+     * @param {Zep.GraphEdgesRequest} request
      * @param {Edge.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.edge.getByGroupId("group_id")
+     *     await client.graph.edge.getByGroupId("group_id", {})
      */
-    public async getByGroupId(groupId: string, requestOptions?: Edge.RequestOptions): Promise<Zep.EntityEdge[]> {
+    public async getByGroupId(
+        groupId: string,
+        request: Zep.GraphEdgesRequest,
+        requestOptions?: Edge.RequestOptions,
+    ): Promise<Zep.EntityEdge[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 `graph/edge/group/${encodeURIComponent(groupId)}`,
             ),
-            method: "GET",
+            method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.9.0",
-                "User-Agent": "zep-cloud/2.9.0",
+                "X-Fern-SDK-Version": "2.10.0",
+                "User-Agent": "zep-cloud/2.10.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -62,6 +67,7 @@ export class Edge {
             },
             contentType: "application/json",
             requestType: "json",
+            body: serializers.GraphEdgesRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -113,7 +119,7 @@ export class Edge {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /graph/edge/group/{group_id}.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/edge/group/{group_id}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -125,26 +131,31 @@ export class Edge {
      * Returns all edges for a user.
      *
      * @param {string} userId - User ID
+     * @param {Zep.GraphEdgesRequest} request
      * @param {Edge.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.edge.getByUserId("user_id")
+     *     await client.graph.edge.getByUserId("user_id", {})
      */
-    public async getByUserId(userId: string, requestOptions?: Edge.RequestOptions): Promise<Zep.EntityEdge[]> {
+    public async getByUserId(
+        userId: string,
+        request: Zep.GraphEdgesRequest,
+        requestOptions?: Edge.RequestOptions,
+    ): Promise<Zep.EntityEdge[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
                 `graph/edge/user/${encodeURIComponent(userId)}`,
             ),
-            method: "GET",
+            method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.9.0",
-                "User-Agent": "zep-cloud/2.9.0",
+                "X-Fern-SDK-Version": "2.10.0",
+                "User-Agent": "zep-cloud/2.10.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -152,6 +163,7 @@ export class Edge {
             },
             contentType: "application/json",
             requestType: "json",
+            body: serializers.GraphEdgesRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -203,7 +215,7 @@ export class Edge {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /graph/edge/user/{user_id}.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/edge/user/{user_id}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -234,8 +246,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.9.0",
-                "User-Agent": "zep-cloud/2.9.0",
+                "X-Fern-SDK-Version": "2.10.0",
+                "User-Agent": "zep-cloud/2.10.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -334,8 +346,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.9.0",
-                "User-Agent": "zep-cloud/2.9.0",
+                "X-Fern-SDK-Version": "2.10.0",
+                "User-Agent": "zep-cloud/2.10.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
