@@ -7,7 +7,6 @@ import * as Zep from "../index";
 export interface Episode {
     content: string;
     createdAt: string;
-    name?: string;
     processed?: boolean;
     source?: Zep.GraphDataType;
     sourceDescription?: string;
