@@ -9,17 +9,19 @@ import { GraphDataType } from "../../../../types/GraphDataType";
 
 export const AddDataRequest: core.serialization.Schema<serializers.AddDataRequest.Raw, Zep.AddDataRequest> =
     core.serialization.object({
-        data: core.serialization.string().optional(),
+        data: core.serialization.string(),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
-        type: GraphDataType.optional(),
+        sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
+        type: GraphDataType,
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
     });
 
 export declare namespace AddDataRequest {
     export interface Raw {
-        data?: string | null;
+        data: string;
         group_id?: string | null;
-        type?: GraphDataType.Raw | null;
+        source_description?: string | null;
+        type: GraphDataType.Raw;
         user_id?: string | null;
     }
 }

@@ -1064,7 +1064,10 @@ Add data to the graph. Note: each subscription tier has different limits on the 
 <dd>
 
 ```typescript
-await client.graph.add();
+await client.graph.add({
+    data: "data",
+    type: "text",
+});
 ```
 
 </dd>

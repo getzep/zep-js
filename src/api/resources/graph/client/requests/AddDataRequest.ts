@@ -6,11 +6,15 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         data: "data",
+ *         type: "text"
+ *     }
  */
 export interface AddDataRequest {
-    data?: string;
+    data: string;
     groupId?: string;
-    type?: Zep.GraphDataType;
+    sourceDescription?: string;
+    type: Zep.GraphDataType;
     userId?: string;
 }
