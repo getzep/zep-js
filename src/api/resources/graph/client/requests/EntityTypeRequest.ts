@@ -6,13 +6,8 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {
- *         entityTypes: [{
- *                 description: "description",
- *                 name: "name"
- *             }]
- *     }
+ *     {}
  */
 export interface EntityTypeRequest {
-    entityTypes: Zep.EntityType[];
+    entityTypes?: Zep.EntityType[];
 }

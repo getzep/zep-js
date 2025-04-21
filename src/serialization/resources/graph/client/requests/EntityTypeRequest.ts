@@ -9,11 +9,11 @@ import { EntityType } from "../../../../types/EntityType";
 
 export const EntityTypeRequest: core.serialization.Schema<serializers.EntityTypeRequest.Raw, Zep.EntityTypeRequest> =
     core.serialization.object({
-        entityTypes: core.serialization.property("entity_types", core.serialization.list(EntityType)),
+        entityTypes: core.serialization.property("entity_types", core.serialization.list(EntityType).optional()),
     });
 
 export declare namespace EntityTypeRequest {
     export interface Raw {
-        entity_types: EntityType.Raw[];
+        entity_types?: EntityType.Raw[] | null;
     }
 }

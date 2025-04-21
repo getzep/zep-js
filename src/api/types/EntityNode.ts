@@ -7,6 +7,8 @@ export interface EntityNode {
     attributes?: Record<string, unknown>;
     /** Creation time of the node */
     createdAt: string;
+    /** List of episode uuids that mention this node */
+    episodes?: string[];
     /** Labels associated with the node */
     labels?: string[];
     /** Name of the node */
