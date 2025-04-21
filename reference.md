@@ -994,14 +994,7 @@ Sets the entity types for a project, replacing any existing ones.
 <dd>
 
 ```typescript
-await client.graph.setEntityTypesInternal({
-    entityTypes: [
-        {
-            description: "description",
-            name: "name",
-        },
-    ],
-});
+await client.graph.setEntityTypesInternal();
 ```
 
 </dd>

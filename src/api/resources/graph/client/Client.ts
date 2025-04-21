@@ -71,8 +71,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.10.1",
-                "User-Agent": "zep-cloud/2.10.1",
+                "X-Fern-SDK-Version": "2.10.2",
+                "User-Agent": "zep-cloud/2.10.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -149,15 +149,10 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.setEntityTypesInternal({
-     *         entityTypes: [{
-     *                 description: "description",
-     *                 name: "name"
-     *             }]
-     *     })
+     *     await client.graph.setEntityTypesInternal()
      */
     public async setEntityTypesInternal(
-        request: Zep.EntityTypeRequest,
+        request: Zep.EntityTypeRequest = {},
         requestOptions?: Graph.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -169,8 +164,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.10.1",
-                "User-Agent": "zep-cloud/2.10.1",
+                "X-Fern-SDK-Version": "2.10.2",
+                "User-Agent": "zep-cloud/2.10.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -263,8 +258,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.10.1",
-                "User-Agent": "zep-cloud/2.10.1",
+                "X-Fern-SDK-Version": "2.10.2",
+                "User-Agent": "zep-cloud/2.10.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -361,8 +356,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.10.1",
-                "User-Agent": "zep-cloud/2.10.1",
+                "X-Fern-SDK-Version": "2.10.2",
+                "User-Agent": "zep-cloud/2.10.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -457,8 +452,8 @@ export class Graph {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.10.1",
-                "User-Agent": "zep-cloud/2.10.1",
+                "X-Fern-SDK-Version": "2.10.2",
+                "User-Agent": "zep-cloud/2.10.2",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
