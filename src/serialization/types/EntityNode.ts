@@ -10,7 +10,6 @@ export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.
     core.serialization.object({
         attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
-        episodes: core.serialization.list(core.serialization.string()).optional(),
         labels: core.serialization.list(core.serialization.string()).optional(),
         name: core.serialization.string(),
         summary: core.serialization.string(),
@@ -21,7 +20,6 @@ export declare namespace EntityNode {
     export interface Raw {
         attributes?: Record<string, unknown> | null;
         created_at: string;
-        episodes?: string[] | null;
         labels?: string[] | null;
         name: string;
         summary: string;
