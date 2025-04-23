@@ -9,6 +9,7 @@ export * from "./EndSessionsResponse";
 export * from "./EntityProperty";
 export * from "./EntityType";
 export * from "./EntityTypeResponse";
+export * from "./EpisodeData";
 export * from "./Fact";
 export * from "./FactRatingInstruction";
 export * from "./FactResponse";

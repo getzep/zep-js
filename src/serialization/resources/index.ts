@@ -1,7 +1,7 @@
 export * as document from "./document";
+export * as graph from "./graph";
 export * as memory from "./memory";
 export * as user from "./user";
-export * as graph from "./graph";
 export * from "./document/client/requests";
 export * from "./graph/client/requests";
 export * from "./memory/client/requests";
