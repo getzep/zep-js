@@ -1,5 +1,4 @@
 export * from "./ApiError";
-export * from "./AddDataRequest";
 export * from "./AddMemoryResponse";
 export * from "./ApidataDocument";
 export * from "./ApidataDocumentCollection";
@@ -10,6 +9,7 @@ export * from "./EndSessionsResponse";
 export * from "./EntityProperty";
 export * from "./EntityType";
 export * from "./EntityTypeResponse";
+export * from "./EpisodeData";
 export * from "./Fact";
 export * from "./FactRatingInstruction";
 export * from "./FactResponse";

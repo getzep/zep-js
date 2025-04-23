@@ -330,7 +330,7 @@ export class Graph {
     /**
      * Add data to the graph in batch mode (each episode processed concurrently). Note: each subscription tier has different limits on the amount of data that can be added to the graph please refer to the pricing page for more information.
      *
-     * @param {Zep.AddDataRequest} request
+     * @param {Zep.AddDataBatchRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -338,11 +338,16 @@ export class Graph {
      *
      * @example
      *     await client.graph.addBatch({
-     *         data: "data",
-     *         type: "text"
+     *         episodes: [{
+     *                 data: "data",
+     *                 type: "text"
+     *             }]
      *     })
      */
-    public async addBatch(request: Zep.AddDataRequest, requestOptions?: Graph.RequestOptions): Promise<Zep.Episode> {
+    public async addBatch(
+        request: Zep.AddDataBatchRequest,
+        requestOptions?: Graph.RequestOptions,
+    ): Promise<Zep.Episode[]> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -361,13 +366,13 @@ export class Graph {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.AddDataRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.AddDataBatchRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.Episode.parseOrThrow(_response.body, {
+            return serializers.graph.addBatch.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

@@ -1095,7 +1095,7 @@ await client.graph.add({
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">addBatch</a>({ ...params }) -> Zep.Episode</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">addBatch</a>({ ...params }) -> Zep.Episode[]</code></summary>
 <dl>
 <dd>
 
@@ -1124,8 +1124,12 @@ Add data to the graph in batch mode (each episode processed concurrently). Note:
 
 ```typescript
 await client.graph.addBatch({
-    data: "data",
-    type: "text",
+    episodes: [
+        {
+            data: "data",
+            type: "text",
+        },
+    ],
 });
 ```
 
@@ -1142,7 +1146,7 @@ await client.graph.addBatch({
 <dl>
 <dd>
 
-**request:** `Zep.AddDataRequest`
+**request:** `Zep.AddDataBatchRequest`
 
 </dd>
 </dl>

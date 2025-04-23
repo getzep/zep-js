@@ -4,10 +4,8 @@
 
 import * as Zep from "../index";
 
-export interface AddDataRequest {
+export interface EpisodeData {
     data: string;
-    groupId?: string;
     sourceDescription?: string;
     type: Zep.GraphDataType;
-    userId?: string;
 }
