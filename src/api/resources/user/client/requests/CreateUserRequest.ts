@@ -6,7 +6,9 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         userId: "user_id"
+ *     }
  */
 export interface CreateUserRequest {
     /** The email address of the user. */
@@ -20,5 +22,5 @@ export interface CreateUserRequest {
     /** The metadata associated with the user. */
     metadata?: Record<string, unknown>;
     /** The unique identifier of the user. */
-    userId?: string;
+    userId: string;
 }

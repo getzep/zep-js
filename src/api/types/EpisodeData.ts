@@ -5,6 +5,7 @@
 import * as Zep from "../index";
 
 export interface EpisodeData {
+    createdAt?: string;
     data: string;
     sourceDescription?: string;
     type: Zep.GraphDataType;

@@ -14,7 +14,7 @@ export const CreateUserRequest: core.serialization.Schema<serializers.CreateUser
         firstName: core.serialization.property("first_name", core.serialization.string().optional()),
         lastName: core.serialization.property("last_name", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        userId: core.serialization.property("user_id", core.serialization.string().optional()),
+        userId: core.serialization.property("user_id", core.serialization.string()),
     });
 
 export declare namespace CreateUserRequest {
@@ -24,6 +24,6 @@ export declare namespace CreateUserRequest {
         first_name?: string | null;
         last_name?: string | null;
         metadata?: Record<string, unknown> | null;
-        user_id?: string | null;
+        user_id: string;
     }
 }
