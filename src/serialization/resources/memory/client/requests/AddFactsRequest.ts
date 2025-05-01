@@ -9,11 +9,11 @@ import { NewFact } from "../../../../types/NewFact";
 
 export const AddFactsRequest: core.serialization.Schema<serializers.AddFactsRequest.Raw, Zep.AddFactsRequest> =
     core.serialization.object({
-        facts: core.serialization.list(NewFact).optional(),
+        facts: core.serialization.list(NewFact),
     });
 
 export declare namespace AddFactsRequest {
     export interface Raw {
-        facts?: NewFact.Raw[] | null;
+        facts: NewFact.Raw[];
     }
 }

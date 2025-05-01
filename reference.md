@@ -2140,7 +2140,13 @@ Deprecated API: Adds facts to a session
 <dd>
 
 ```typescript
-await client.memory.addSessionFacts("sessionId");
+await client.memory.addSessionFacts("sessionId", {
+    facts: [
+        {
+            fact: "fact",
+        },
+    ],
+});
 ```
 
 </dd>
@@ -3230,7 +3236,9 @@ Adds a user.
 <dd>
 
 ```typescript
-await client.user.add();
+await client.user.add({
+    userId: "user_id",
+});
 ```
 
 </dd>

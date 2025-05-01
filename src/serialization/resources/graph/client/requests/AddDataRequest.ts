@@ -9,6 +9,7 @@ import { GraphDataType } from "../../../../types/GraphDataType";
 
 export const AddDataRequest: core.serialization.Schema<serializers.AddDataRequest.Raw, Zep.AddDataRequest> =
     core.serialization.object({
+        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         data: core.serialization.string(),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
@@ -18,6 +19,7 @@ export const AddDataRequest: core.serialization.Schema<serializers.AddDataReques
 
 export declare namespace AddDataRequest {
     export interface Raw {
+        created_at?: string | null;
         data: string;
         group_id?: string | null;
         source_description?: string | null;

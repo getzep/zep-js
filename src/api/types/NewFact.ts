@@ -3,5 +3,5 @@
  */
 
 export interface NewFact {
-    fact?: string;
+    fact: string;
 }

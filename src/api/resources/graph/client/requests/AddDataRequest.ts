@@ -12,6 +12,7 @@ import * as Zep from "../../../../index";
  *     }
  */
 export interface AddDataRequest {
+    createdAt?: string;
     data: string;
     groupId?: string;
     sourceDescription?: string;

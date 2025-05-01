@@ -6,8 +6,12 @@ import * as Zep from "../../../../index";
 
 /**
  * @example
- *     {}
+ *     {
+ *         facts: [{
+ *                 fact: "fact"
+ *             }]
+ *     }
  */
 export interface AddFactsRequest {
-    facts?: Zep.NewFact[];
+    facts: Zep.NewFact[];
 }
