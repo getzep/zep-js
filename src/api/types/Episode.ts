@@ -8,6 +8,8 @@ export interface Episode {
     content: string;
     createdAt: string;
     processed?: boolean;
+    /** Optional session ID. Will be present only if the episode corresponds to the messages added using memory.add API */
+    sessionId?: string;
     source?: Zep.GraphDataType;
     sourceDescription?: string;
     uuid: string;

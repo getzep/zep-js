@@ -12,6 +12,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         content: core.serialization.string(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         processed: core.serialization.boolean().optional(),
+        sessionId: core.serialization.property("session_id", core.serialization.string().optional()),
         source: GraphDataType.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         uuid: core.serialization.string(),
@@ -23,6 +24,7 @@ export declare namespace Episode {
         content: string;
         created_at: string;
         processed?: boolean | null;
+        session_id?: string | null;
         source?: GraphDataType.Raw | null;
         source_description?: string | null;
         uuid: string;
