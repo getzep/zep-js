@@ -58,8 +58,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.12.2",
-                "User-Agent": "zep-cloud/2.12.2",
+                "X-Fern-SDK-Version": "2.12.3",
+                "User-Agent": "zep-cloud/2.12.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -154,8 +154,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.12.2",
-                "User-Agent": "zep-cloud/2.12.2",
+                "X-Fern-SDK-Version": "2.12.3",
+                "User-Agent": "zep-cloud/2.12.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -246,8 +246,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.12.2",
-                "User-Agent": "zep-cloud/2.12.2",
+                "X-Fern-SDK-Version": "2.12.3",
+                "User-Agent": "zep-cloud/2.12.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -346,8 +346,8 @@ export class Edge {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.12.2",
-                "User-Agent": "zep-cloud/2.12.2",
+                "X-Fern-SDK-Version": "2.12.3",
+                "User-Agent": "zep-cloud/2.12.3",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

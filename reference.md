@@ -1041,7 +1041,7 @@ await client.graph.setEntityTypesInternal();
 <dl>
 <dd>
 
-Add data to the graph. Note: each subscription tier has different limits on the amount of data that can be added to the graph please refer to the pricing page for more information.
+Add data to the graph.
 
 </dd>
 </dl>
@@ -1107,7 +1107,7 @@ await client.graph.add({
 <dl>
 <dd>
 
-Add data to the graph in batch mode (each episode processed concurrently). Note: each subscription tier has different limits on the amount of data that can be added to the graph please refer to the pricing page for more information.
+Add data to the graph in batch mode, processing episodes concurrently. Use only for data that is insensitive to processing order.
 
 </dd>
 </dl>
