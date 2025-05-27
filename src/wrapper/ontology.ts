@@ -62,11 +62,25 @@ export const EntityTypeSchema = z.object({
     fields: z.record(EntityTypeFieldSchema),
 });
 
+const EdgeSourceTarget = z.object({
+    source: z.string().optional(),
+    target: z.string().optional(),
+})
+
+export const EdgeTypeSchema = EntityTypeSchema.extend({
+    sourceTargets: z.array(EdgeSourceTarget).optional(),
+})
+
 export type EntityType = z.infer<typeof EntityTypeSchema>;
+export type EdgeType = z.infer<typeof EdgeTypeSchema>;
 
 export type EntityData<T extends EntityType> = {
     [P in keyof T["fields"]]: T["fields"][P] extends { value?: infer V } ? V : never;
 };
+
+export type EdgeData<T extends EdgeType> = {
+    [P in keyof T["fields"]]: T["fields"][P] extends { value?: infer V } ? V : never;
+}
 
 export const entityFields = {
     text: (description: string): EntityTextField => {
@@ -102,6 +116,19 @@ export function entityModelToAPISchema(entityType: EntityType, name: string): Ze
     return {
         name,
         description: entityType.description,
+        properties: Object.entries(entityType.fields).map(([fieldName, fieldDef]) => ({
+            name: fieldName,
+            type: fieldDef.type,
+            description: fieldDef.description,
+        })),
+    };
+}
+
+export function edgeModelToAPISchema(entityType: EdgeType, name: string): Zep.EdgeType {
+    return {
+        name,
+        description: entityType.description,
+        sourceTargets: entityType.sourceTargets,
         properties: Object.entries(entityType.fields).map(([fieldName, fieldDef]) => ({
             name: fieldName,
             type: fieldDef.type,

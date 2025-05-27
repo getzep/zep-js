@@ -1,5 +1,5 @@
 import { ZepClient } from "../../src";
-import { EntityData, entityFields, EntityType } from "../../src/wrapper/ontology";
+import { EntityData, entityFields, EntityType, EdgeType } from "../../src/wrapper/ontology";
 
 const API_KEY = process.env.ZEP_API_KEY;
 
@@ -8,33 +8,37 @@ async function main() {
         apiKey: API_KEY,
     });
 
-    const purchaseSchema: EntityType = {
-        description: "A purchase",
+    const travelDestinationSchema: EntityType = {
+        description: "A travel destination entity",
         fields: {
-            product: entityFields.text("The product purchased"),
-            quantity: entityFields.integer("The quantity purchased"),
-            price: entityFields.float("The price of the product"),
+            destination_name: entityFields.text("The name of travel destination"),
         },
     };
 
-    type Purchase = EntityData<typeof purchaseSchema>;
+    type TravelDestination = EntityData<typeof travelDestinationSchema>;
+
+    const isTravelingTo: EdgeType = {
+        description: "An edge representing a traveler going to a destination.",
+        fields: {
+            travel_date: entityFields.text("The date of the travel"),
+            purpose: entityFields.text("The purpose of the travel"),
+        },
+        sourceTargets: [
+            {
+                source: "User",
+                target: "TravelDestination",
+            }
+        ]
+    }
 
     await client.graph.setEntityTypes({
-        Purchase: purchaseSchema,
+        TravelDestination: travelDestinationSchema,
+    }, {
+        IS_TRAVELING_TO: isTravelingTo,
     });
 
-    const { nodes } = await client.graph.search({
-        userId: "<user_id>",
-        scope: "nodes",
-        query: "ticket purchases",
-        searchFilters: {
-            nodeLabels: ["Purchase"],
-        },
-    });
-
-    const purchases: Purchase[] = nodes?.map((node) => node.attributes as Purchase) ?? [];
-
-    console.log(purchases);
+    const customTypes = await client.graph.listEntityTypes();
+    console.log(JSON.stringify(customTypes, null, 2));
 }
 
 main().catch(console.error);
