@@ -3,6 +3,8 @@
  */
 
 export interface SearchFilters {
+    /** List of edge types to filter on */
+    edgeTypes?: string[];
     /** List of node labels to filter on */
     nodeLabels?: string[];
 }
