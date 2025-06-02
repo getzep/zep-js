@@ -5,15 +5,18 @@
 import * as serializers from "../../../../index";
 import * as Zep from "../../../../../api/index";
 import * as core from "../../../../../core";
+import { EdgeType } from "../../../../types/EdgeType";
 import { EntityType } from "../../../../types/EntityType";
 
 export const EntityTypeRequest: core.serialization.Schema<serializers.EntityTypeRequest.Raw, Zep.EntityTypeRequest> =
     core.serialization.object({
+        edgeTypes: core.serialization.property("edge_types", core.serialization.list(EdgeType).optional()),
         entityTypes: core.serialization.property("entity_types", core.serialization.list(EntityType).optional()),
     });
 
 export declare namespace EntityTypeRequest {
     export interface Raw {
+        edge_types?: EdgeType.Raw[] | null;
         entity_types?: EntityType.Raw[] | null;
     }
 }

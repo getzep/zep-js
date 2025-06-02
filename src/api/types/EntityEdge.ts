@@ -3,6 +3,8 @@
  */
 
 export interface EntityEdge {
+    /** Additional attributes of the edge. Dependent on edge types */
+    attributes?: Record<string, unknown>;
     /** Creation time of the edge */
     createdAt: string;
     /** List of episode ids that reference these entity edges */

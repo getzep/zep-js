@@ -9,5 +9,6 @@ import * as Zep from "../../../../index";
  *     {}
  */
 export interface EntityTypeRequest {
+    edgeTypes?: Zep.EdgeType[];
     entityTypes?: Zep.EntityType[];
 }

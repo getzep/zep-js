@@ -8,6 +8,10 @@ import * as core from "../../core";
 
 export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFilters.Raw, Zep.SearchFilters> =
     core.serialization.object({
+        edgeTypes: core.serialization.property(
+            "edge_types",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         nodeLabels: core.serialization.property(
             "node_labels",
             core.serialization.list(core.serialization.string()).optional(),
@@ -16,6 +20,7 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
 
 export declare namespace SearchFilters {
     export interface Raw {
+        edge_types?: string[] | null;
         node_labels?: string[] | null;
     }
 }
