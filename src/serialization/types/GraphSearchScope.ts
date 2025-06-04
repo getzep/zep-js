@@ -7,8 +7,8 @@ import * as Zep from "../../api/index";
 import * as core from "../../core";
 
 export const GraphSearchScope: core.serialization.Schema<serializers.GraphSearchScope.Raw, Zep.GraphSearchScope> =
-    core.serialization.enum_(["edges", "nodes"]);
+    core.serialization.enum_(["edges", "nodes", "episodes"]);
 
 export declare namespace GraphSearchScope {
-    export type Raw = "edges" | "nodes";
+    export type Raw = "edges" | "nodes" | "episodes";
 }

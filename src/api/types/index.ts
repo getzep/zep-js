@@ -43,6 +43,8 @@ export * from "./UserNodeResponse";
 export * from "./AddTripleResponse";
 export * from "./EntityEdge";
 export * from "./EntityNode";
+export * from "./GraphitiEpisode";
+export * from "./EpisodeType";
 export * from "./GraphSearchResults";
 export * from "./GraphSearchScope";
 export * from "./Reranker";
