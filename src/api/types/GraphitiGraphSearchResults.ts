@@ -4,8 +4,8 @@
 
 import * as Zep from "../index";
 
-export interface GraphSearchResults {
+export interface GraphitiGraphSearchResults {
     edges?: Zep.EntityEdge[];
-    episodes?: Zep.Episode[];
+    episodes?: Zep.GraphitiEpisode[];
     nodes?: Zep.EntityNode[];
 }
