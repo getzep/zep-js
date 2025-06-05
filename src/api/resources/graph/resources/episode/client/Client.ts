@@ -438,10 +438,7 @@ export class Episode {
      * @example
      *     await client.graph.episode.getNodesAndEdges("uuid")
      */
-    public async getNodesAndEdges(
-        uuid: string,
-        requestOptions?: Episode.RequestOptions,
-    ): Promise<Zep.GraphitiGraphSearchResults> {
+    public async getNodesAndEdges(uuid: string, requestOptions?: Episode.RequestOptions): Promise<Zep.EpisodeMentions> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -465,7 +462,7 @@ export class Episode {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.GraphitiGraphSearchResults.parseOrThrow(_response.body, {
+            return serializers.EpisodeMentions.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

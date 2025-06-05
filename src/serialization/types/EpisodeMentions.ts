@@ -8,15 +8,13 @@ import * as core from "../../core";
 import { EntityEdge } from "./EntityEdge";
 import { EntityNode } from "./EntityNode";
 
-export const GraphitiGraphSearchResults: core.serialization.ObjectSchema<
-    serializers.GraphitiGraphSearchResults.Raw,
-    Zep.GraphitiGraphSearchResults
-> = core.serialization.object({
-    edges: core.serialization.list(EntityEdge).optional(),
-    nodes: core.serialization.list(EntityNode).optional(),
-});
+export const EpisodeMentions: core.serialization.ObjectSchema<serializers.EpisodeMentions.Raw, Zep.EpisodeMentions> =
+    core.serialization.object({
+        edges: core.serialization.list(EntityEdge).optional(),
+        nodes: core.serialization.list(EntityNode).optional(),
+    });
 
-export declare namespace GraphitiGraphSearchResults {
+export declare namespace EpisodeMentions {
     export interface Raw {
         edges?: EntityEdge.Raw[] | null;
         nodes?: EntityNode.Raw[] | null;
