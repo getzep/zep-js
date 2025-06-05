@@ -5,7 +5,7 @@
 import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
-import { ModelsRoleType } from "./ModelsRoleType";
+import { RoleType } from "./RoleType";
 import { GraphDataType } from "./GraphDataType";
 
 export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Zep.Episode> = core.serialization.object(
@@ -14,7 +14,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         processed: core.serialization.boolean().optional(),
         role: core.serialization.string().optional(),
-        roleType: core.serialization.property("role_type", ModelsRoleType.optional()),
+        roleType: core.serialization.property("role_type", RoleType.optional()),
         sessionId: core.serialization.property("session_id", core.serialization.string().optional()),
         source: GraphDataType.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
@@ -28,7 +28,7 @@ export declare namespace Episode {
         created_at: string;
         processed?: boolean | null;
         role?: string | null;
-        role_type?: ModelsRoleType.Raw | null;
+        role_type?: RoleType.Raw | null;
         session_id?: string | null;
         source?: GraphDataType.Raw | null;
         source_description?: string | null;

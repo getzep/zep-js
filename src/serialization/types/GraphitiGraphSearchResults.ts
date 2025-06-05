@@ -6,7 +6,6 @@ import * as serializers from "../index";
 import * as Zep from "../../api/index";
 import * as core from "../../core";
 import { EntityEdge } from "./EntityEdge";
-import { GraphitiEpisode } from "./GraphitiEpisode";
 import { EntityNode } from "./EntityNode";
 
 export const GraphitiGraphSearchResults: core.serialization.ObjectSchema<
@@ -14,14 +13,12 @@ export const GraphitiGraphSearchResults: core.serialization.ObjectSchema<
     Zep.GraphitiGraphSearchResults
 > = core.serialization.object({
     edges: core.serialization.list(EntityEdge).optional(),
-    episodes: core.serialization.list(GraphitiEpisode).optional(),
     nodes: core.serialization.list(EntityNode).optional(),
 });
 
 export declare namespace GraphitiGraphSearchResults {
     export interface Raw {
         edges?: EntityEdge.Raw[] | null;
-        episodes?: GraphitiEpisode.Raw[] | null;
         nodes?: EntityNode.Raw[] | null;
     }
 }

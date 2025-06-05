@@ -6,6 +6,5 @@ import * as Zep from "../index";
 
 export interface GraphitiGraphSearchResults {
     edges?: Zep.EntityEdge[];
-    episodes?: Zep.GraphitiEpisode[];
     nodes?: Zep.EntityNode[];
 }
