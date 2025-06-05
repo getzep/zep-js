@@ -8,6 +8,10 @@ export interface Episode {
     content: string;
     createdAt: string;
     processed?: boolean;
+    /** Optional role, will only be present if the episode was created using memory.add API */
+    role?: string;
+    /** Optional role_type, will only be present if the episode was created using memory.add API */
+    roleType?: Zep.ModelsRoleType;
     /** Optional session ID. Will be present only if the episode corresponds to the messages added using memory.add API */
     sessionId?: string;
     source?: Zep.GraphDataType;

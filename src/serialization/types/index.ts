@@ -55,6 +55,7 @@ export * from "./CreateDocumentRequest";
 export * from "./EntityPropertyType";
 export * from "./FactRatingExamples";
 export * from "./GraphDataType";
+export * from "./ModelsRoleType";
 export * from "./SearchScope";
 export * from "./SearchType";
 export * from "./UpdateDocumentListRequest";
