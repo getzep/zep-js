@@ -64,8 +64,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.13.0",
-                "User-Agent": "zep-cloud/2.13.0",
+                "X-Fern-SDK-Version": "2.14.0",
+                "User-Agent": "zep-cloud/2.14.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -166,8 +166,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.13.0",
-                "User-Agent": "zep-cloud/2.13.0",
+                "X-Fern-SDK-Version": "2.14.0",
+                "User-Agent": "zep-cloud/2.14.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -257,8 +257,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.13.0",
-                "User-Agent": "zep-cloud/2.13.0",
+                "X-Fern-SDK-Version": "2.14.0",
+                "User-Agent": "zep-cloud/2.14.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -348,8 +348,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.13.0",
-                "User-Agent": "zep-cloud/2.13.0",
+                "X-Fern-SDK-Version": "2.14.0",
+                "User-Agent": "zep-cloud/2.14.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -438,10 +438,7 @@ export class Episode {
      * @example
      *     await client.graph.episode.getNodesAndEdges("uuid")
      */
-    public async getNodesAndEdges(
-        uuid: string,
-        requestOptions?: Episode.RequestOptions,
-    ): Promise<Zep.GraphSearchResults> {
+    public async getNodesAndEdges(uuid: string, requestOptions?: Episode.RequestOptions): Promise<Zep.EpisodeMentions> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
@@ -451,8 +448,8 @@ export class Episode {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.13.0",
-                "User-Agent": "zep-cloud/2.13.0",
+                "X-Fern-SDK-Version": "2.14.0",
+                "User-Agent": "zep-cloud/2.14.0",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -465,7 +462,7 @@ export class Episode {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.GraphSearchResults.parseOrThrow(_response.body, {
+            return serializers.EpisodeMentions.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

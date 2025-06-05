@@ -4262,7 +4262,7 @@ await client.graph.episode.delete("uuid");
 </dl>
 </details>
 
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getNodesAndEdges</a>(uuid) -> Zep.GraphSearchResults</code></summary>
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getNodesAndEdges</a>(uuid) -> Zep.EpisodeMentions</code></summary>
 <dl>
 <dd>
 

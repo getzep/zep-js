@@ -4,8 +4,7 @@
 
 import * as Zep from "../index";
 
-export interface GraphSearchResults {
+export interface EpisodeMentions {
     edges?: Zep.EntityEdge[];
-    episodes?: Zep.Episode[];
     nodes?: Zep.EntityNode[];
 }
