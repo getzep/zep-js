@@ -64,4 +64,50 @@ export class Graph extends BaseGraph {
             requestOptions,
         );
     }
+
+    /**
+     * Sets the entity and edge types for a project, replacing any existing ones.
+     *
+     * @param {Record<string, EntityType>} entityTypes
+     * @param {Record<string, EdgeType>} edgeTypes
+     * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     const travelDestinationSchema: EntityType = {
+     *         description: "A travel destination entity",
+     *         fields: {
+     *             destination_name: entityFields.text("The name of travel destination"),
+     *         },
+     *     };
+     *
+     *     const isTravelingTo: EdgeType = {
+     *         description: "An edge representing a traveler going to a destination.",
+     *         fields: {
+     *             travel_date: entityFields.text("The date of the travel"),
+     *             purpose: entityFields.text("The purpose of the travel"),
+     *         },
+     *         sourceTargets: [
+     *             {
+     *                 source: "User",
+     *                 target: "TravelDestination",
+     *             }
+     *         ]
+     *     }
+     *
+     *     await client.graph.setOntology({
+     *         TravelDestination: travelDestinationSchema,
+     *     }, {
+     *         IS_TRAVELING_TO: isTravelingTo,
+     *     });
+     */
+    public async setOntology(
+        entityTypes: Record<string, EntityType>,
+        edgeTypes: Record<string, EdgeType>,
+        requestOptions?: BaseGraph.RequestOptions,
+    ): Promise<Zep.SuccessResponse> {
+        return this.setEntityTypes(entityTypes, edgeTypes, requestOptions);
+    }
 }
