@@ -11,6 +11,10 @@ import { SearchFilters } from "../../../../types/SearchFilters";
 
 export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearchQuery.Raw, Zep.GraphSearchQuery> =
     core.serialization.object({
+        bfsOriginNodeUuids: core.serialization.property(
+            "bfs_origin_node_uuids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         centerNodeUuid: core.serialization.property("center_node_uuid", core.serialization.string().optional()),
         groupId: core.serialization.property("group_id", core.serialization.string().optional()),
         limit: core.serialization.number().optional(),
@@ -26,6 +30,7 @@ export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearch
 
 export declare namespace GraphSearchQuery {
     export interface Raw {
+        bfs_origin_node_uuids?: string[] | null;
         center_node_uuid?: string | null;
         group_id?: string | null;
         limit?: number | null;
