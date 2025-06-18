@@ -11,6 +11,8 @@ import * as Zep from "../../../../index";
  *     }
  */
 export interface GraphSearchQuery {
+    /** Nodes that are the origins of the BFS searches */
+    bfsOriginNodeUuids?: string[];
     /** Node to rerank around for node distance reranking */
     centerNodeUuid?: string;
     /** one of user_id or group_id must be provided */
