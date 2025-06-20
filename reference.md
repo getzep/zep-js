@@ -1232,6 +1232,69 @@ await client.graph.addFactTriple({
 </dl>
 </details>
 
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">clone</a>({ ...params }) -> Zep.CloneGraphResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Clone a user or group graph.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.clone();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.CloneGraphRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">search</a>({ ...params }) -> Zep.GraphSearchResults</code></summary>
 <dl>
 <dd>
@@ -1834,7 +1897,7 @@ await client.memory.updateSession("sessionId", {
 <dl>
 <dd>
 
-Classifies a session.
+Deprecated: Classifies a session.
 
 </dd>
 </dl>
@@ -1979,7 +2042,7 @@ await client.memory.endSession("sessionId");
 <dl>
 <dd>
 
-extract data from a session by session id
+Deprecated: extract data from a session by session id
 
 </dd>
 </dl>
