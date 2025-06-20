@@ -4,6 +4,8 @@ import { DataExtractorFields, schemas, SupportedZepField } from "../extractor";
 
 export class Memory extends BaseMemory {
     /**
+     * Deprecated
+     *
      * Extracts data based on a given schema and session details, transforms it according to the defined Zod schemas, and returns the transformed results.
      *
      * This method parses the provided schema against defined Zod validation rules, sends a request to extract data, and then transforms

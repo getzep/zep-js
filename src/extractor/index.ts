@@ -12,6 +12,8 @@ export interface HasOptionalValue<V = any> {
 }
 
 /**
+ * Deprecated
+ *
  * Extracts the data types from the fields defined in the schema T. Each field in T
  * is expected to conform to the HasOptionalValue interface, which optionally includes
  * a 'value' of type V. This type definition maps each field in T to its corresponding
