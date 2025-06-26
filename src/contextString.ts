@@ -1,4 +1,4 @@
-import { EntityEdge, EntityNode } from "./api/types";
+import { EntityEdge, EntityNode } from "./api";
 
 const TEMPLATE_STRING = `
 FACTS and ENTITIES represent relevant context to the current conversation.
@@ -6,13 +6,13 @@ FACTS and ENTITIES represent relevant context to the current conversation.
 # These are the most relevant facts and their valid date ranges
 # format: FACT (Date range: from - to)
 <FACTS>
-%s
+%facts%
 </FACTS>
 
 # These are the most relevant entities
 # ENTITY_NAME: entity summary
 <ENTITIES>
-%s
+%entities%
 </ENTITIES>
 `;
 
@@ -77,5 +77,5 @@ export function composeContextString(edges: EntityEdge[], nodes: EntityNode[]): 
     const factsStr = facts.join("\n");
     const entitiesStr = entities.join("\n");
 
-    return TEMPLATE_STRING.replace("%s", factsStr).replace("%s", entitiesStr);
+    return TEMPLATE_STRING.replace("%facts%", factsStr).replace("%entities%", entitiesStr);
 }
