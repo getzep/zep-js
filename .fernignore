@@ -3,6 +3,7 @@ examples
 src/wrapper
 src/extractor
 src/index.ts
+src/contextString.ts
 src/langchain
 package.json
 yarn.lock
