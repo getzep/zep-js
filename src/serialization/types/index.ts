@@ -44,6 +44,8 @@ export * from "./User";
 export * from "./UserListResponse";
 export * from "./UserNodeResponse";
 export * from "./AddTripleResponse";
+export * from "./ComparisonOperator";
+export * from "./DateFilter";
 export * from "./EntityEdge";
 export * from "./EntityNode";
 export * from "./GraphSearchScope";
