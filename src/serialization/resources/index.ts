@@ -7,4 +7,6 @@ export * from "./graph/client/requests";
 export * from "./memory/client/requests";
 export * as group from "./group";
 export * from "./group/client/requests";
+export * as thread from "./thread";
+export * from "./thread/client/requests";
 export * from "./user/client/requests";
