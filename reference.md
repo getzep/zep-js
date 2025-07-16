@@ -1822,7 +1822,7 @@ await client.memory.getSession("sessionId");
 <dl>
 <dd>
 
-Update Session Metadata
+Update Session Metadata. Deprecated: This endpoint is no longer supported and will be removed in a future release.
 
 </dd>
 </dl>

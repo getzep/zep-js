@@ -710,7 +710,7 @@ export class Memory {
     }
 
     /**
-     * Update Session Metadata
+     * Update Session Metadata. Deprecated: This endpoint is no longer supported and will be removed in a future release.
      *
      * @param {string} sessionId - The unique identifier of the session.
      * @param {Zep.UpdateSessionRequest} request
