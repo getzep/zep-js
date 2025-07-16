@@ -13,7 +13,7 @@ import * as Zep from "../../../../index";
  *             }]
  *     }
  */
-export interface ApidataAddThreadMessagesRequest {
+export interface AddThreadMessagesRequest {
     /**
      * Optional list of role types to ignore when adding messages to graph memory.
      * The message itself will still be added, retained and used as context for messages

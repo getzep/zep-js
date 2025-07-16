@@ -1,2 +1,2 @@
 export { CreateThreadRequest } from "./CreateThreadRequest";
-export { ApidataAddThreadMessagesRequest } from "./ApidataAddThreadMessagesRequest";
+export { AddThreadMessagesRequest } from "./AddThreadMessagesRequest";

@@ -8,16 +8,16 @@ import * as core from "../../../../../core";
 import { RoleType } from "../../../../types/RoleType";
 import { Message } from "../../../../types/Message";
 
-export const ApidataAddThreadMessagesRequest: core.serialization.Schema<
-    serializers.ApidataAddThreadMessagesRequest.Raw,
-    Zep.ApidataAddThreadMessagesRequest
+export const AddThreadMessagesRequest: core.serialization.Schema<
+    serializers.AddThreadMessagesRequest.Raw,
+    Zep.AddThreadMessagesRequest
 > = core.serialization.object({
     ignoreRoles: core.serialization.property("ignore_roles", core.serialization.list(RoleType).optional()),
     messages: core.serialization.list(Message),
     returnContext: core.serialization.property("return_context", core.serialization.boolean().optional()),
 });
 
-export declare namespace ApidataAddThreadMessagesRequest {
+export declare namespace AddThreadMessagesRequest {
     export interface Raw {
         ignore_roles?: RoleType.Raw[] | null;
         messages: Message.Raw[];

@@ -543,7 +543,7 @@ export class Thread {
      * Add messages to a thread.
      *
      * @param {string} threadId - The ID of the thread to which messages should be added.
-     * @param {Zep.ApidataAddThreadMessagesRequest} request
+     * @param {Zep.AddThreadMessagesRequest} request
      * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.InternalServerError}
@@ -558,7 +558,7 @@ export class Thread {
      */
     public async addMessages(
         threadId: string,
-        request: Zep.ApidataAddThreadMessagesRequest,
+        request: Zep.AddThreadMessagesRequest,
         requestOptions?: Thread.RequestOptions,
     ): Promise<Zep.AddThreadMessagesResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -579,7 +579,7 @@ export class Thread {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ApidataAddThreadMessagesRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.AddThreadMessagesRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

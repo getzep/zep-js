@@ -3664,7 +3664,7 @@ await client.thread.addMessages("threadId", {
 <dl>
 <dd>
 
-**request:** `Zep.ApidataAddThreadMessagesRequest`
+**request:** `Zep.AddThreadMessagesRequest`
 
 </dd>
 </dl>
