@@ -12,9 +12,11 @@ export interface Episode {
     role?: string;
     /** Optional role_type, will only be present if the episode was created using memory.add API */
     roleType?: Zep.RoleType;
-    /** Optional session ID. Will be present only if the episode corresponds to the messages added using memory.add API */
+    /** Deprecated - use thread_id instead. Optional session ID. Will be present only if the episode corresponds to the messages added using memory.add API */
     sessionId?: string;
     source?: Zep.GraphDataType;
     sourceDescription?: string;
+    /** Optional thread ID, will be present if the episode is part of a thread */
+    threadId?: string;
     uuid: string;
 }

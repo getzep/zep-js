@@ -13,9 +13,7 @@ import * as Zep from "../../../../index";
  *             }]
  *     }
  */
-export interface AddMemoryRequest {
-    /** Deprecated */
-    factInstruction?: string;
+export interface AddThreadMessagesRequest {
     /**
      * Optional list of role types to ignore when adding messages to graph memory.
      * The message itself will still be added, retained and used as context for messages
@@ -26,6 +24,4 @@ export interface AddMemoryRequest {
     messages: Zep.Message[];
     /** Optionally return memory context relevant to the most recent messages. */
     returnContext?: boolean;
-    /** Deprecated */
-    summaryInstruction?: string;
 }

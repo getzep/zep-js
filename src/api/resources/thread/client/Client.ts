@@ -5,11 +5,11 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Zep from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
-export declare namespace User {
+export declare namespace Thread {
     export interface Options {
         environment?: core.Supplier<environments.ZepEnvironment | string>;
         apiKey?: core.Supplier<string | undefined>;
@@ -28,132 +28,47 @@ export declare namespace User {
     }
 }
 
-export class User {
-    constructor(protected readonly _options: User.Options = {}) {}
+export class Thread {
+    constructor(protected readonly _options: Thread.Options = {}) {}
 
     /**
-     * Adds a user.
+     * Returns all threads.
      *
-     * @param {Zep.CreateUserRequest} request
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Zep.ThreadListAllRequest} request
+     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.add({
-     *         userId: "user_id"
-     *     })
+     *     await client.thread.listAll()
      */
-    public async add(request: Zep.CreateUserRequest, requestOptions?: User.RequestOptions): Promise<Zep.User> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                "users",
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.19.0",
-                "User-Agent": "zep-cloud/2.19.0",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.CreateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.User.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Zep.BadRequestError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                case 500:
-                    throw new Zep.InternalServerError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.ZepError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.ZepError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /users.");
-            case "unknown":
-                throw new errors.ZepError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Returns all users.
-     *
-     * @param {Zep.UserListOrderedRequest} request
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Zep.BadRequestError}
-     * @throws {@link Zep.InternalServerError}
-     *
-     * @example
-     *     await client.user.listOrdered()
-     */
-    public async listOrdered(
-        request: Zep.UserListOrderedRequest = {},
-        requestOptions?: User.RequestOptions,
-    ): Promise<Zep.UserListResponse> {
-        const { pageNumber, pageSize } = request;
+    public async listAll(
+        request: Zep.ThreadListAllRequest = {},
+        requestOptions?: Thread.RequestOptions,
+    ): Promise<Zep.ThreadListResponse> {
+        const { pageNumber, pageSize, orderBy, asc } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         if (pageNumber != null) {
-            _queryParams["pageNumber"] = pageNumber.toString();
+            _queryParams["page_number"] = pageNumber.toString();
         }
 
         if (pageSize != null) {
-            _queryParams["pageSize"] = pageSize.toString();
+            _queryParams["page_size"] = pageSize.toString();
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
+        if (asc != null) {
+            _queryParams["asc"] = asc.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                "users-ordered",
+                "threads",
             ),
             method: "GET",
             headers: {
@@ -174,7 +89,7 @@ export class User {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.UserListResponse.parseOrThrow(_response.body, {
+            return serializers.ThreadListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -220,7 +135,7 @@ export class User {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /users-ordered.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /threads.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -229,24 +144,27 @@ export class User {
     }
 
     /**
-     * Returns a user.
+     * Start a new thread.
      *
-     * @param {string} userId - The user_id of the user to get.
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Zep.CreateThreadRequest} request
+     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.get("userId")
+     *     await client.thread.create({
+     *         threadId: "thread_id",
+     *         userId: "user_id"
+     *     })
      */
-    public async get(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.User> {
+    public async create(request: Zep.CreateThreadRequest, requestOptions?: Thread.RequestOptions): Promise<Zep.Thread> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}`,
+                "threads",
             ),
-            method: "GET",
+            method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
@@ -259,12 +177,13 @@ export class User {
             },
             contentType: "application/json",
             requestType: "json",
+            body: serializers.CreateThreadRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.User.parseOrThrow(_response.body, {
+            return serializers.Thread.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -275,8 +194,8 @@ export class User {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
-                case 404:
-                    throw new Zep.NotFoundError(
+                case 400:
+                    throw new Zep.BadRequestError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -310,7 +229,7 @@ export class User {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /users/{userId}.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /threads.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -319,22 +238,22 @@ export class User {
     }
 
     /**
-     * Deletes a user.
+     * Deletes a thread.
      *
-     * @param {string} userId - User ID
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} threadId - The ID of the thread for which memory should be deleted.
+     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.delete("userId")
+     *     await client.thread.delete("threadId")
      */
-    public async delete(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.SuccessResponse> {
+    public async delete(threadId: string, requestOptions?: Thread.RequestOptions): Promise<Zep.SuccessResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}`,
+                `threads/${encodeURIComponent(threadId)}`,
             ),
             method: "DELETE",
             headers: {
@@ -400,7 +319,7 @@ export class User {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling DELETE /users/{userId}.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling DELETE /threads/{threadId}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -409,129 +328,37 @@ export class User {
     }
 
     /**
-     * Updates a user.
+     * Returns most relevant context for a given thread.
      *
-     * @param {string} userId - User ID
-     * @param {Zep.UpdateUserRequest} request
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Zep.BadRequestError}
-     * @throws {@link Zep.NotFoundError}
-     * @throws {@link Zep.InternalServerError}
-     *
-     * @example
-     *     await client.user.update("userId")
-     */
-    public async update(
-        userId: string,
-        request: Zep.UpdateUserRequest = {},
-        requestOptions?: User.RequestOptions,
-    ): Promise<Zep.User> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}`,
-            ),
-            method: "PATCH",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "zep-cloud",
-                "X-Fern-SDK-Version": "2.19.0",
-                "User-Agent": "zep-cloud/2.19.0",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-                ...requestOptions?.headers,
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.UpdateUserRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.User.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                skipValidation: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Zep.BadRequestError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                case 404:
-                    throw new Zep.NotFoundError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                case 500:
-                    throw new Zep.InternalServerError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                    );
-                default:
-                    throw new errors.ZepError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.ZepError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling PATCH /users/{userId}.");
-            case "unknown":
-                throw new errors.ZepError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Deprecated: Use Get User Edges instead.
-     *
-     * @param {string} userId - The user_id of the user to get.
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} threadId - The ID of the thread for which to retrieve context.
+     * @param {Zep.ThreadGetUserContextRequest} request
+     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.getFacts("userId")
+     *     await client.thread.getUserContext("threadId")
      */
-    public async getFacts(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.FactsResponse> {
+    public async getUserContext(
+        threadId: string,
+        request: Zep.ThreadGetUserContextRequest = {},
+        requestOptions?: Thread.RequestOptions,
+    ): Promise<Zep.ThreadContextResponse> {
+        const { lastn, minRating } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (lastn != null) {
+            _queryParams["lastn"] = lastn.toString();
+        }
+
+        if (minRating != null) {
+            _queryParams["minRating"] = minRating.toString();
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}/facts`,
+                `threads/${encodeURIComponent(threadId)}/context`,
             ),
             method: "GET",
             headers: {
@@ -545,13 +372,14 @@ export class User {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.FactsResponse.parseOrThrow(_response.body, {
+            return serializers.ThreadContextResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -597,7 +425,7 @@ export class User {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /users/{userId}/facts.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /threads/{threadId}/context.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -606,22 +434,37 @@ export class User {
     }
 
     /**
-     * Returns a user's node.
+     * Returns messages for a thread.
      *
-     * @param {string} userId - The user_id of the user to get the node for.
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} threadId - Thread ID
+     * @param {Zep.ThreadGetRequest} request
+     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.getNode("userId")
+     *     await client.thread.get("threadId")
      */
-    public async getNode(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.UserNodeResponse> {
+    public async get(
+        threadId: string,
+        request: Zep.ThreadGetRequest = {},
+        requestOptions?: Thread.RequestOptions,
+    ): Promise<Zep.MessageListResponse> {
+        const { limit, cursor } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (limit != null) {
+            _queryParams["limit"] = limit.toString();
+        }
+
+        if (cursor != null) {
+            _queryParams["cursor"] = cursor.toString();
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}/node`,
+                `threads/${encodeURIComponent(threadId)}/messages`,
             ),
             method: "GET",
             headers: {
@@ -635,13 +478,14 @@ export class User {
                 ...requestOptions?.headers,
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.UserNodeResponse.parseOrThrow(_response.body, {
+            return serializers.MessageListResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -687,7 +531,7 @@ export class User {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /users/{userId}/node.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /threads/{threadId}/messages.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -696,23 +540,33 @@ export class User {
     }
 
     /**
-     * Returns all sessions for a user.
+     * Add messages to a thread.
      *
-     * @param {string} userId - User ID
-     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} threadId - The ID of the thread to which messages should be added.
+     * @param {Zep.AddThreadMessagesRequest} request
+     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.getSessions("userId")
+     *     await client.thread.addMessages("threadId", {
+     *         messages: [{
+     *                 content: "content",
+     *                 roleType: "norole"
+     *             }]
+     *     })
      */
-    public async getSessions(userId: string, requestOptions?: User.RequestOptions): Promise<Zep.Session[]> {
+    public async addMessages(
+        threadId: string,
+        request: Zep.AddThreadMessagesRequest,
+        requestOptions?: Thread.RequestOptions,
+    ): Promise<Zep.AddThreadMessagesResponse> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.ZepEnvironment.Default,
-                `users/${encodeURIComponent(userId)}/sessions`,
+                `threads/${encodeURIComponent(threadId)}/messages`,
             ),
-            method: "GET",
+            method: "POST",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "zep-cloud",
@@ -725,12 +579,13 @@ export class User {
             },
             contentType: "application/json",
             requestType: "json",
+            body: serializers.AddThreadMessagesRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.user.getSessions.Response.parseOrThrow(_response.body, {
+            return serializers.AddThreadMessagesResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -766,7 +621,7 @@ export class User {
                     body: _response.error.rawBody,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /users/{userId}/sessions.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /threads/{threadId}/messages.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,

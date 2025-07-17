@@ -1500,7 +1500,7 @@ await client.memory.deleteFact("factUUID");
 <dl>
 <dd>
 
-Creates a new session.
+Deprecated: Creates a new session. Use thread.create instead.
 
 </dd>
 </dl>
@@ -1566,7 +1566,7 @@ await client.memory.addSession({
 <dl>
 <dd>
 
-Returns all sessions.
+Deprecated: Returns all sessions. Use GET /threads instead.
 
 </dd>
 </dl>
@@ -1822,7 +1822,7 @@ await client.memory.getSession("sessionId");
 <dl>
 <dd>
 
-Update Session Metadata
+Update Session Metadata. Deprecated: This endpoint is no longer supported and will be removed in a future release.
 
 </dd>
 </dl>
@@ -2264,7 +2264,7 @@ await client.memory.addSessionFacts("sessionId", {
 <dl>
 <dd>
 
-Returns a memory for a given session.
+Deprecated: Returns a memory for a given session. Use thread.get_user_context instead.
 
 </dd>
 </dl>
@@ -2335,7 +2335,7 @@ await client.memory.get("sessionId");
 <dl>
 <dd>
 
-Add memory to the specified session.
+Deprecated: Add memory to the specified session. Use thread.add_messages instead.
 
 </dd>
 </dl>
@@ -2413,7 +2413,7 @@ await client.memory.add("sessionId", {
 <dl>
 <dd>
 
-Deletes a session.
+Deprecated: Deletes a session. Use thread.delete instead.
 
 </dd>
 </dl>
@@ -2476,7 +2476,7 @@ await client.memory.delete("sessionId");
 <dl>
 <dd>
 
-Returns messages for a session.
+Deprecated: Returns messages for a session. Use thread.get instead.
 
 </dd>
 </dl>
@@ -3259,6 +3259,420 @@ await client.group.getFacts("groupId");
 <dd>
 
 **requestOptions:** `Group.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Thread
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">listAll</a>({ ...params }) -> Zep.ThreadListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns all threads.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.listAll();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.ThreadListAllRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">create</a>({ ...params }) -> Zep.Thread</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start a new thread.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.create({
+    threadId: "thread_id",
+    userId: "user_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.CreateThreadRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">delete</a>(threadId) -> Zep.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a thread.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.delete("threadId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**threadId:** `string` — The ID of the thread for which memory should be deleted.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">getUserContext</a>(threadId, { ...params }) -> Zep.ThreadContextResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns most relevant context for a given thread.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.getUserContext("threadId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**threadId:** `string` — The ID of the thread for which to retrieve context.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.ThreadGetUserContextRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">get</a>(threadId, { ...params }) -> Zep.MessageListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns messages for a thread.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.get("threadId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**threadId:** `string` — Thread ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.ThreadGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">addMessages</a>(threadId, { ...params }) -> Zep.AddThreadMessagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add messages to a thread.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.addMessages("threadId", {
+    messages: [
+        {
+            content: "content",
+            roleType: "norole",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**threadId:** `string` — The ID of the thread to which messages should be added.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.AddThreadMessagesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
 
 </dd>
 </dl>
