@@ -8,7 +8,6 @@ import { Document } from "./api/resources/document/client/Client";
 import { Graph } from "./api/resources/graph/client/Client";
 import { Memory } from "./api/resources/memory/client/Client";
 import { Group } from "./api/resources/group/client/Client";
-import { Thread } from "./api/resources/thread/client/Client";
 import { User } from "./api/resources/user/client/Client";
 
 export declare namespace ZepClient {
@@ -35,7 +34,6 @@ export class ZepClient {
     protected _graph: Graph | undefined;
     protected _memory: Memory | undefined;
     protected _group: Group | undefined;
-    protected _thread: Thread | undefined;
     protected _user: User | undefined;
 
     constructor(protected readonly _options: ZepClient.Options = {}) {}
@@ -54,10 +52,6 @@ export class ZepClient {
 
     public get group(): Group {
         return (this._group ??= new Group(this._options));
-    }
-
-    public get thread(): Thread {
-        return (this._thread ??= new Thread(this._options));
     }
 
     public get user(): User {
