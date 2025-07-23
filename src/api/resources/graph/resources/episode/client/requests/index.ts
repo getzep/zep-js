@@ -1,2 +1,2 @@
-export { type EpisodeGetByGroupIdRequest } from "./EpisodeGetByGroupIdRequest";
-export { type EpisodeGetByUserIdRequest } from "./EpisodeGetByUserIdRequest";
+export { type EpisodeGetByGraphIdRequest } from "./EpisodeGetByGraphIdRequest.js";
+export { type EpisodeGetByUserIdRequest } from "./EpisodeGetByUserIdRequest.js";

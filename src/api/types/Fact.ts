@@ -4,15 +4,15 @@
 
 export interface Fact {
     content: string;
-    createdAt: string;
-    expiredAt?: string;
+    created_at: string;
+    expired_at?: string;
     /** Deprecated */
     fact: string;
-    invalidAt?: string;
+    invalid_at?: string;
     name?: string;
     rating?: number;
-    sourceNodeName?: string;
-    targetNodeName?: string;
+    source_node_name?: string;
+    target_node_name?: string;
     uuid: string;
-    validAt?: string;
+    valid_at?: string;
 }
