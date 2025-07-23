@@ -17,6 +17,8 @@ export interface EntityEdge {
     invalidAt?: string;
     /** Name of the edge, relation name */
     name: string;
+    /** Reranker score */
+    score?: number;
     /** UUID of the source node */
     sourceNodeUuid: string;
     /** UUID of the target node */

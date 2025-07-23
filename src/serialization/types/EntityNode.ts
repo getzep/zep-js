@@ -12,6 +12,7 @@ export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         labels: core.serialization.list(core.serialization.string()).optional(),
         name: core.serialization.string(),
+        score: core.serialization.number().optional(),
         summary: core.serialization.string(),
         uuid: core.serialization.string(),
     });
@@ -22,6 +23,7 @@ export declare namespace EntityNode {
         created_at: string;
         labels?: string[] | null;
         name: string;
+        score?: number | null;
         summary: string;
         uuid: string;
     }

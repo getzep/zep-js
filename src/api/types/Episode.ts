@@ -12,6 +12,8 @@ export interface Episode {
     role?: string;
     /** Optional role_type, will only be present if the episode was created using memory.add API */
     roleType?: Zep.RoleType;
+    /** Reranker score */
+    score?: number;
     sessionId?: string;
     source?: Zep.GraphDataType;
     sourceDescription?: string;
