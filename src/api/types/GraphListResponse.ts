@@ -4,8 +4,8 @@
 
 import * as Zep from "../index.js";
 
-export interface ThreadListResponse {
-    responseCount?: number;
-    threads?: Zep.Thread[];
+export interface GraphListResponse {
+    graphs?: Zep.Graph[];
+    rowCount?: number;
     totalCount?: number;
 }

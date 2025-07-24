@@ -12,7 +12,7 @@ describe("Thread", () => {
 
         const rawResponseBody = {
             response_count: 1,
-            thread: [
+            threads: [
                 {
                     created_at: "created_at",
                     project_uuid: "project_uuid",
@@ -28,7 +28,7 @@ describe("Thread", () => {
         const response = await client.thread.listAll();
         expect(response).toEqual({
             responseCount: 1,
-            thread: [
+            threads: [
                 {
                     createdAt: "created_at",
                     projectUuid: "project_uuid",

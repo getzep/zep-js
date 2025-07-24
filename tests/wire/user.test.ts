@@ -271,4 +271,37 @@ describe("User", () => {
             },
         });
     });
+
+    test("get_threads", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = [
+            {
+                created_at: "created_at",
+                project_uuid: "project_uuid",
+                thread_id: "thread_id",
+                user_id: "user_id",
+                uuid: "uuid",
+            },
+        ];
+        server
+            .mockEndpoint()
+            .get("/users/userId/threads")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.getThreads("userId");
+        expect(response).toEqual([
+            {
+                createdAt: "created_at",
+                projectUuid: "project_uuid",
+                threadId: "thread_id",
+                userId: "user_id",
+                uuid: "uuid",
+            },
+        ]);
+    });
 });

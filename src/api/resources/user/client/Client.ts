@@ -688,6 +688,94 @@ export class User {
         }
     }
 
+    /**
+     * Returns all threads for a user.
+     *
+     * @param {string} userId - User ID
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.user.getThreads("userId")
+     */
+    public getThreads(userId: string, requestOptions?: User.RequestOptions): core.HttpResponsePromise<Zep.Thread[]> {
+        return core.HttpResponsePromise.fromPromise(this.__getThreads(userId, requestOptions));
+    }
+
+    private async __getThreads(
+        userId: string,
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.Thread[]>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `users/${encodeURIComponent(userId)}/threads`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.user.getThreads.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /users/{userId}/threads.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getCustomAuthorizationHeaders() {
         const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ZEP_API_KEY"];
         return { Authorization: `Api-Key ${apiKeyValue}` };

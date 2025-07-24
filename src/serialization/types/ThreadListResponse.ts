@@ -12,14 +12,14 @@ export const ThreadListResponse: core.serialization.ObjectSchema<
     Zep.ThreadListResponse
 > = core.serialization.object({
     responseCount: core.serialization.property("response_count", core.serialization.number().optional()),
-    thread: core.serialization.list(Thread).optional(),
+    threads: core.serialization.list(Thread).optional(),
     totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
 
 export declare namespace ThreadListResponse {
     export interface Raw {
         response_count?: number | null;
-        thread?: Thread.Raw[] | null;
+        threads?: Thread.Raw[] | null;
         total_count?: number | null;
     }
 }

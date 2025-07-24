@@ -14,6 +14,7 @@ export * from "./Graph.js";
 export * from "./GraphEdgesRequest.js";
 export * from "./Episode.js";
 export * from "./EpisodeResponse.js";
+export * from "./GraphListResponse.js";
 export * from "./GraphNodesRequest.js";
 export * from "./GraphSearchResults.js";
 export * from "./RoleType.js";

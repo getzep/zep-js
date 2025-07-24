@@ -516,6 +516,69 @@ await client.graph.create({
 </dl>
 </details>
 
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listAll</a>({ ...params }) -> Zep.GraphListResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns all graphs.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.listAll();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphListAllRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">get</a>(graphId) -> Zep.Graph</code></summary>
 <dl>
 <dd>
@@ -624,6 +687,77 @@ await client.graph.delete("graphId");
 <dd>
 
 **graphId:** `string` — Graph ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">update</a>(graphId, { ...params }) -> Zep.Graph</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates information about a graph.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.update("graphId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graphId:** `string` — Graph ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UpdateGraphRequest`
 
 </dd>
 </dl>
@@ -1428,6 +1562,69 @@ await client.user.getNode("userId");
 <dd>
 
 **userId:** `string` — The user_id of the user to get the node for.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getThreads</a>(userId) -> Zep.Thread[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns all threads for a user.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.getThreads("userId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — User ID
 
 </dd>
 </dl>
