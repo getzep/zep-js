@@ -7,20 +7,20 @@ import * as Zep from "../../../../index.js";
 /**
  * @example
  *     {
- *         user_id: "user_id"
+ *         userId: "user_id"
  *     }
  */
 export interface CreateUserRequest {
     /** The email address of the user. */
     email?: string;
     /** Optional instruction to use for fact rating. */
-    fact_rating_instruction?: Zep.FactRatingInstruction;
+    factRatingInstruction?: Zep.FactRatingInstruction;
     /** The first name of the user. */
-    first_name?: string;
+    firstName?: string;
     /** The last name of the user. */
-    last_name?: string;
+    lastName?: string;
     /** The metadata associated with the user. */
     metadata?: Record<string, unknown>;
     /** The unique identifier of the user. */
-    user_id: string;
+    userId: string;
 }

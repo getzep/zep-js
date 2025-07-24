@@ -31,7 +31,7 @@ describe("Graph", () => {
 
         const response = await client.graph.listEntityTypes();
         expect(response).toEqual({
-            edge_types: [
+            edgeTypes: [
                 {
                     description: "description",
                     name: "name",
@@ -42,10 +42,10 @@ describe("Graph", () => {
                             type: "Text",
                         },
                     ],
-                    source_targets: [{}],
+                    sourceTargets: [{}],
                 },
             ],
-            entity_types: [
+            entityTypes: [
                 {
                     description: "description",
                     name: "name",
@@ -91,6 +91,7 @@ describe("Graph", () => {
             processed: true,
             role: "role",
             role_type: "norole",
+            score: 1.1,
             session_id: "session_id",
             source: "text",
             source_description: "source_description",
@@ -111,13 +112,14 @@ describe("Graph", () => {
         });
         expect(response).toEqual({
             content: "content",
-            created_at: "created_at",
+            createdAt: "created_at",
             processed: true,
             role: "role",
-            role_type: "norole",
-            session_id: "session_id",
+            roleType: "norole",
+            score: 1.1,
+            sessionId: "session_id",
             source: "text",
-            source_description: "source_description",
+            sourceDescription: "source_description",
             uuid: "uuid",
         });
     });
@@ -133,6 +135,7 @@ describe("Graph", () => {
                 processed: true,
                 role: "role",
                 role_type: "norole",
+                score: 1.1,
                 session_id: "session_id",
                 source: "text",
                 source_description: "source_description",
@@ -159,13 +162,14 @@ describe("Graph", () => {
         expect(response).toEqual([
             {
                 content: "content",
-                created_at: "created_at",
+                createdAt: "created_at",
                 processed: true,
                 role: "role",
-                role_type: "norole",
-                session_id: "session_id",
+                roleType: "norole",
+                score: 1.1,
+                sessionId: "session_id",
                 source: "text",
-                source_description: "source_description",
+                sourceDescription: "source_description",
                 uuid: "uuid",
             },
         ]);
@@ -184,6 +188,7 @@ describe("Graph", () => {
                 fact: "fact",
                 invalid_at: "invalid_at",
                 name: "name",
+                score: 1.1,
                 source_node_uuid: "source_node_uuid",
                 target_node_uuid: "target_node_uuid",
                 uuid: "uuid",
@@ -194,6 +199,7 @@ describe("Graph", () => {
                 created_at: "created_at",
                 labels: ["labels"],
                 name: "name",
+                score: 1.1,
                 summary: "summary",
                 uuid: "uuid",
             },
@@ -202,6 +208,7 @@ describe("Graph", () => {
                 created_at: "created_at",
                 labels: ["labels"],
                 name: "name",
+                score: 1.1,
                 summary: "summary",
                 uuid: "uuid",
             },
@@ -217,42 +224,45 @@ describe("Graph", () => {
 
         const response = await client.graph.addFactTriple({
             fact: "fact",
-            fact_name: "fact_name",
-            target_node_name: "target_node_name",
+            factName: "fact_name",
+            targetNodeName: "target_node_name",
         });
         expect(response).toEqual({
             edge: {
                 attributes: {
                     key: "value",
                 },
-                created_at: "created_at",
+                createdAt: "created_at",
                 episodes: ["episodes"],
-                expired_at: "expired_at",
+                expiredAt: "expired_at",
                 fact: "fact",
-                invalid_at: "invalid_at",
+                invalidAt: "invalid_at",
                 name: "name",
-                source_node_uuid: "source_node_uuid",
-                target_node_uuid: "target_node_uuid",
+                score: 1.1,
+                sourceNodeUuid: "source_node_uuid",
+                targetNodeUuid: "target_node_uuid",
                 uuid: "uuid",
-                valid_at: "valid_at",
+                validAt: "valid_at",
             },
-            source_node: {
+            sourceNode: {
                 attributes: {
                     key: "value",
                 },
-                created_at: "created_at",
+                createdAt: "created_at",
                 labels: ["labels"],
                 name: "name",
+                score: 1.1,
                 summary: "summary",
                 uuid: "uuid",
             },
-            target_node: {
+            targetNode: {
                 attributes: {
                     key: "value",
                 },
-                created_at: "created_at",
+                createdAt: "created_at",
                 labels: ["labels"],
                 name: "name",
+                score: 1.1,
                 summary: "summary",
                 uuid: "uuid",
             },
@@ -275,8 +285,8 @@ describe("Graph", () => {
 
         const response = await client.graph.clone();
         expect(response).toEqual({
-            graph_id: "graph_id",
-            user_id: "user_id",
+            graphId: "graph_id",
+            userId: "user_id",
         });
     });
 
@@ -294,6 +304,7 @@ describe("Graph", () => {
                     fact: "fact",
                     invalid_at: "invalid_at",
                     name: "name",
+                    score: 1.1,
                     source_node_uuid: "source_node_uuid",
                     target_node_uuid: "target_node_uuid",
                     uuid: "uuid",
@@ -307,6 +318,7 @@ describe("Graph", () => {
                     processed: true,
                     role: "role",
                     role_type: "norole",
+                    score: 1.1,
                     session_id: "session_id",
                     source: "text",
                     source_description: "source_description",
@@ -319,6 +331,7 @@ describe("Graph", () => {
                     created_at: "created_at",
                     labels: ["labels"],
                     name: "name",
+                    score: 1.1,
                     summary: "summary",
                     uuid: "uuid",
                 },
@@ -342,28 +355,30 @@ describe("Graph", () => {
                     attributes: {
                         key: "value",
                     },
-                    created_at: "created_at",
+                    createdAt: "created_at",
                     episodes: ["episodes"],
-                    expired_at: "expired_at",
+                    expiredAt: "expired_at",
                     fact: "fact",
-                    invalid_at: "invalid_at",
+                    invalidAt: "invalid_at",
                     name: "name",
-                    source_node_uuid: "source_node_uuid",
-                    target_node_uuid: "target_node_uuid",
+                    score: 1.1,
+                    sourceNodeUuid: "source_node_uuid",
+                    targetNodeUuid: "target_node_uuid",
                     uuid: "uuid",
-                    valid_at: "valid_at",
+                    validAt: "valid_at",
                 },
             ],
             episodes: [
                 {
                     content: "content",
-                    created_at: "created_at",
+                    createdAt: "created_at",
                     processed: true,
                     role: "role",
-                    role_type: "norole",
-                    session_id: "session_id",
+                    roleType: "norole",
+                    score: 1.1,
+                    sessionId: "session_id",
                     source: "text",
-                    source_description: "source_description",
+                    sourceDescription: "source_description",
                     uuid: "uuid",
                 },
             ],
@@ -372,9 +387,10 @@ describe("Graph", () => {
                     attributes: {
                         key: "value",
                     },
-                    created_at: "created_at",
+                    createdAt: "created_at",
                     labels: ["labels"],
                     name: "name",
+                    score: 1.1,
                     summary: "summary",
                     uuid: "uuid",
                 },
@@ -409,12 +425,12 @@ describe("Graph", () => {
             .build();
 
         const response = await client.graph.create({
-            graph_id: "graph_id",
+            graphId: "graph_id",
         });
         expect(response).toEqual({
-            created_at: "created_at",
+            createdAt: "created_at",
             description: "description",
-            fact_rating_instruction: {
+            factRatingInstruction: {
                 examples: {
                     high: "high",
                     low: "low",
@@ -422,10 +438,10 @@ describe("Graph", () => {
                 },
                 instruction: "instruction",
             },
-            graph_id: "graph_id",
+            graphId: "graph_id",
             id: 1,
             name: "name",
-            project_uuid: "project_uuid",
+            projectUuid: "project_uuid",
             uuid: "uuid",
         });
     });
@@ -451,9 +467,9 @@ describe("Graph", () => {
 
         const response = await client.graph.get("graphId");
         expect(response).toEqual({
-            created_at: "created_at",
+            createdAt: "created_at",
             description: "description",
-            fact_rating_instruction: {
+            factRatingInstruction: {
                 examples: {
                     high: "high",
                     low: "low",
@@ -461,10 +477,10 @@ describe("Graph", () => {
                 },
                 instruction: "instruction",
             },
-            graph_id: "graph_id",
+            graphId: "graph_id",
             id: 1,
             name: "name",
-            project_uuid: "project_uuid",
+            projectUuid: "project_uuid",
             uuid: "uuid",
         });
     });

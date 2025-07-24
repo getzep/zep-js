@@ -6,11 +6,12 @@ export interface EntityNode {
     /** Additional attributes of the node. Dependent on node labels */
     attributes?: Record<string, unknown>;
     /** Creation time of the node */
-    created_at: string;
+    createdAt: string;
     /** Labels associated with the node */
     labels?: string[];
     /** Name of the node */
     name: string;
+    score?: number;
     /** Regional summary of surrounding edges */
     summary: string;
     /** UUID of the node */

@@ -12,11 +12,11 @@ export interface UpdateUserRequest {
     /** The email address of the user. */
     email?: string;
     /** Optional instruction to use for fact rating. */
-    fact_rating_instruction?: Zep.FactRatingInstruction;
+    factRatingInstruction?: Zep.FactRatingInstruction;
     /** The first name of the user. */
-    first_name?: string;
+    firstName?: string;
     /** The last name of the user. */
-    last_name?: string;
+    lastName?: string;
     /** The metadata to update */
     metadata?: Record<string, unknown>;
 }

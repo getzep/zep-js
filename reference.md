@@ -286,8 +286,8 @@ Add a fact triple for a user or group
 ```typescript
 await client.graph.addFactTriple({
     fact: "fact",
-    fact_name: "fact_name",
-    target_node_name: "target_node_name",
+    factName: "fact_name",
+    targetNodeName: "target_node_name",
 });
 ```
 
@@ -480,7 +480,7 @@ Creates a new graph.
 
 ```typescript
 await client.graph.create({
-    graph_id: "graph_id",
+    graphId: "graph_id",
 });
 ```
 
@@ -736,8 +736,8 @@ Start a new thread.
 
 ```typescript
 await client.thread.create({
-    thread_id: "thread_id",
-    user_id: "user_id",
+    threadId: "thread_id",
+    userId: "user_id",
 });
 ```
 
@@ -754,7 +754,7 @@ await client.thread.create({
 <dl>
 <dd>
 
-**request:** `Zep.ModelsCreateThreadRequest`
+**request:** `Zep.CreateThreadRequest`
 
 </dd>
 </dl>
@@ -1087,7 +1087,7 @@ Adds a user.
 
 ```typescript
 await client.user.add({
-    user_id: "user_id",
+    userId: "user_id",
 });
 ```
 
@@ -1365,69 +1365,6 @@ await client.user.update("userId");
 <dd>
 
 **request:** `Zep.UpdateUserRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `User.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getFacts</a>(userId) -> Zep.FactsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deprecated: Use Get User Edges instead.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.user.getFacts("userId");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `string` — The user_id of the user to get.
 
 </dd>
 </dl>

@@ -10,15 +10,15 @@ export interface ThreadListAllRequest {
     /**
      * Page number for pagination, starting from 1
      */
-    page_number?: number;
+    pageNumber?: number;
     /**
      * Number of threads to retrieve per page.
      */
-    page_size?: number;
+    pageSize?: number;
     /**
      * Field to order the results by: created_at, updated_at, user_id, thread_id.
      */
-    order_by?: string;
+    orderBy?: string;
     /**
      * Order direction: true for ascending, false for descending.
      */

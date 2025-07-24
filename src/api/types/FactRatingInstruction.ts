@@ -13,7 +13,7 @@ export interface FactRatingInstruction {
      * Medium: "Joe has a fear of flying",
      * Low: "Joe's favorite food is Japanese",
      */
-    examples?: Zep.ModelsFactRatingExamples;
+    examples?: Zep.FactRatingExamples;
     /**
      * A string describing how to rate facts as they apply to your application. A trip planning application may
      * use something like "relevancy to planning a trip, the user's preferences when traveling,

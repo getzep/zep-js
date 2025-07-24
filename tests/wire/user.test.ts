@@ -38,13 +38,13 @@ describe("User", () => {
             .build();
 
         const response = await client.user.add({
-            user_id: "user_id",
+            userId: "user_id",
         });
         expect(response).toEqual({
-            created_at: "created_at",
-            deleted_at: "deleted_at",
+            createdAt: "created_at",
+            deletedAt: "deleted_at",
             email: "email",
-            fact_rating_instruction: {
+            factRatingInstruction: {
                 examples: {
                     high: "high",
                     low: "low",
@@ -52,16 +52,16 @@ describe("User", () => {
                 },
                 instruction: "instruction",
             },
-            first_name: "first_name",
+            firstName: "first_name",
             id: 1,
-            last_name: "last_name",
+            lastName: "last_name",
             metadata: {
                 key: "value",
             },
-            project_uuid: "project_uuid",
-            session_count: 1,
-            updated_at: "updated_at",
-            user_id: "user_id",
+            projectUuid: "project_uuid",
+            sessionCount: 1,
+            updatedAt: "updated_at",
+            userId: "user_id",
             uuid: "uuid",
         });
     });
@@ -94,23 +94,23 @@ describe("User", () => {
 
         const response = await client.user.listOrdered();
         expect(response).toEqual({
-            row_count: 1,
-            total_count: 1,
+            rowCount: 1,
+            totalCount: 1,
             users: [
                 {
-                    created_at: "created_at",
-                    deleted_at: "deleted_at",
+                    createdAt: "created_at",
+                    deletedAt: "deleted_at",
                     email: "email",
-                    first_name: "first_name",
+                    firstName: "first_name",
                     id: 1,
-                    last_name: "last_name",
+                    lastName: "last_name",
                     metadata: {
                         key: "value",
                     },
-                    project_uuid: "project_uuid",
-                    session_count: 1,
-                    updated_at: "updated_at",
-                    user_id: "user_id",
+                    projectUuid: "project_uuid",
+                    sessionCount: 1,
+                    updatedAt: "updated_at",
+                    userId: "user_id",
                     uuid: "uuid",
                 },
             ],
@@ -143,10 +143,10 @@ describe("User", () => {
 
         const response = await client.user.get("userId");
         expect(response).toEqual({
-            created_at: "created_at",
-            deleted_at: "deleted_at",
+            createdAt: "created_at",
+            deletedAt: "deleted_at",
             email: "email",
-            fact_rating_instruction: {
+            factRatingInstruction: {
                 examples: {
                     high: "high",
                     low: "low",
@@ -154,16 +154,16 @@ describe("User", () => {
                 },
                 instruction: "instruction",
             },
-            first_name: "first_name",
+            firstName: "first_name",
             id: 1,
-            last_name: "last_name",
+            lastName: "last_name",
             metadata: {
                 key: "value",
             },
-            project_uuid: "project_uuid",
-            session_count: 1,
-            updated_at: "updated_at",
-            user_id: "user_id",
+            projectUuid: "project_uuid",
+            sessionCount: 1,
+            updatedAt: "updated_at",
+            userId: "user_id",
             uuid: "uuid",
         });
     });
@@ -214,10 +214,10 @@ describe("User", () => {
 
         const response = await client.user.update("userId");
         expect(response).toEqual({
-            created_at: "created_at",
-            deleted_at: "deleted_at",
+            createdAt: "created_at",
+            deletedAt: "deleted_at",
             email: "email",
-            fact_rating_instruction: {
+            factRatingInstruction: {
                 examples: {
                     high: "high",
                     low: "low",
@@ -225,66 +225,17 @@ describe("User", () => {
                 },
                 instruction: "instruction",
             },
-            first_name: "first_name",
+            firstName: "first_name",
             id: 1,
-            last_name: "last_name",
+            lastName: "last_name",
             metadata: {
                 key: "value",
             },
-            project_uuid: "project_uuid",
-            session_count: 1,
-            updated_at: "updated_at",
-            user_id: "user_id",
+            projectUuid: "project_uuid",
+            sessionCount: 1,
+            updatedAt: "updated_at",
+            userId: "user_id",
             uuid: "uuid",
-        });
-    });
-
-    test("get_facts", async () => {
-        const server = mockServerPool.createServer();
-        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = {
-            facts: [
-                {
-                    content: "content",
-                    created_at: "created_at",
-                    expired_at: "expired_at",
-                    fact: "fact",
-                    invalid_at: "invalid_at",
-                    name: "name",
-                    rating: 1.1,
-                    source_node_name: "source_node_name",
-                    target_node_name: "target_node_name",
-                    uuid: "uuid",
-                    valid_at: "valid_at",
-                },
-            ],
-        };
-        server
-            .mockEndpoint()
-            .get("/users/userId/facts")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.user.getFacts("userId");
-        expect(response).toEqual({
-            facts: [
-                {
-                    content: "content",
-                    created_at: "created_at",
-                    expired_at: "expired_at",
-                    fact: "fact",
-                    invalid_at: "invalid_at",
-                    name: "name",
-                    rating: 1.1,
-                    source_node_name: "source_node_name",
-                    target_node_name: "target_node_name",
-                    uuid: "uuid",
-                    valid_at: "valid_at",
-                },
-            ],
         });
     });
 
@@ -298,6 +249,7 @@ describe("User", () => {
                 created_at: "created_at",
                 labels: ["labels"],
                 name: "name",
+                score: 1.1,
                 summary: "summary",
                 uuid: "uuid",
             },
@@ -310,9 +262,10 @@ describe("User", () => {
                 attributes: {
                     key: "value",
                 },
-                created_at: "created_at",
+                createdAt: "created_at",
                 labels: ["labels"],
                 name: "name",
+                score: 1.1,
                 summary: "summary",
                 uuid: "uuid",
             },

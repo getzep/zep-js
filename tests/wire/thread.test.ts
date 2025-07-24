@@ -27,17 +27,17 @@ describe("Thread", () => {
 
         const response = await client.thread.listAll();
         expect(response).toEqual({
-            response_count: 1,
+            responseCount: 1,
             thread: [
                 {
-                    created_at: "created_at",
-                    project_uuid: "project_uuid",
-                    thread_id: "thread_id",
-                    user_id: "user_id",
+                    createdAt: "created_at",
+                    projectUuid: "project_uuid",
+                    threadId: "thread_id",
+                    userId: "user_id",
                     uuid: "uuid",
                 },
             ],
-            total_count: 1,
+            totalCount: 1,
         });
     });
 
@@ -62,14 +62,14 @@ describe("Thread", () => {
             .build();
 
         const response = await client.thread.create({
-            thread_id: "thread_id",
-            user_id: "user_id",
+            threadId: "thread_id",
+            userId: "user_id",
         });
         expect(response).toEqual({
-            created_at: "created_at",
-            project_uuid: "project_uuid",
-            thread_id: "thread_id",
-            user_id: "user_id",
+            createdAt: "created_at",
+            projectUuid: "project_uuid",
+            threadId: "thread_id",
+            userId: "user_id",
             uuid: "uuid",
         });
     });
@@ -124,7 +124,7 @@ describe("Thread", () => {
             messages: [
                 {
                     content: "content",
-                    created_at: "created_at",
+                    createdAt: "created_at",
                     name: "name",
                     processed: true,
                     role: "norole",
@@ -165,15 +165,15 @@ describe("Thread", () => {
             messages: [
                 {
                     content: "content",
-                    created_at: "created_at",
+                    createdAt: "created_at",
                     name: "name",
                     processed: true,
                     role: "norole",
                     uuid: "uuid",
                 },
             ],
-            row_count: 1,
-            total_count: 1,
+            rowCount: 1,
+            totalCount: 1,
         });
     });
 

@@ -8,7 +8,7 @@ export interface MessageListResponse {
     /** A list of message objects. */
     messages?: Zep.Message[];
     /** The number of messages returned. */
-    row_count?: number;
+    rowCount?: number;
     /** The total number of messages. */
-    total_count?: number;
+    totalCount?: number;
 }

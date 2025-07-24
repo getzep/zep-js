@@ -8,7 +8,7 @@ export interface Message {
     /** The content of the message. */
     content: string;
     /** The timestamp of when the message was created. */
-    created_at?: string;
+    createdAt?: string;
     /** Customizable name of the sender of the message (e.g., "john", "sales_agent"). */
     name?: string;
     /** Whether the message has been processed. */

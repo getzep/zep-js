@@ -4,6 +4,6 @@
 
 export interface CloneGraphResponse {
     /** graph_id is the ID of the cloned graph */
-    graph_id?: string;
-    user_id?: string;
+    graphId?: string;
+    userId?: string;
 }

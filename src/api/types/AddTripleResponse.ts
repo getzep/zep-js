@@ -6,6 +6,6 @@ import * as Zep from "../index.js";
 
 export interface AddTripleResponse {
     edge?: Zep.EntityEdge;
-    source_node?: Zep.EntityNode;
-    target_node?: Zep.EntityNode;
+    sourceNode?: Zep.EntityNode;
+    targetNode?: Zep.EntityNode;
 }

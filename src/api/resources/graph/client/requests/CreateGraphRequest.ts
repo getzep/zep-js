@@ -7,12 +7,12 @@ import * as Zep from "../../../../index.js";
 /**
  * @example
  *     {
- *         graph_id: "graph_id"
+ *         graphId: "graph_id"
  *     }
  */
 export interface CreateGraphRequest {
     description?: string;
-    fact_rating_instruction?: Zep.FactRatingInstruction;
-    graph_id: string;
+    factRatingInstruction?: Zep.FactRatingInstruction;
+    graphId: string;
     name?: string;
 }

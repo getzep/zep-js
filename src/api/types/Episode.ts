@@ -6,14 +6,15 @@ import * as Zep from "../index.js";
 
 export interface Episode {
     content: string;
-    created_at: string;
+    createdAt: string;
     processed?: boolean;
     /** Optional role, will only be present if the episode was created using memory.add API */
     role?: string;
     /** Optional role_type, will only be present if the episode was created using memory.add API */
-    role_type?: Zep.RoleType;
-    session_id?: string;
+    roleType?: Zep.RoleType;
+    score?: number;
+    sessionId?: string;
     source?: Zep.GraphDataType;
-    source_description?: string;
+    sourceDescription?: string;
     uuid: string;
 }

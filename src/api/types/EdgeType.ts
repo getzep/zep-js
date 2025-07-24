@@ -8,5 +8,5 @@ export interface EdgeType {
     description: string;
     name: string;
     properties?: Zep.EntityProperty[];
-    source_targets?: Zep.EntityEdgeSourceTarget[];
+    sourceTargets?: Zep.EntityEdgeSourceTarget[];
 }

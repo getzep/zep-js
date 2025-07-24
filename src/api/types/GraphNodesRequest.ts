@@ -6,5 +6,5 @@ export interface GraphNodesRequest {
     /** Maximum number of items to return */
     limit?: number;
     /** UUID based cursor, used for pagination. Should be the UUID of the last item in the previous page */
-    uuid_cursor?: string;
+    uuidCursor?: string;
 }

@@ -3,9 +3,9 @@
  */
 
 export interface Thread {
-    created_at?: string;
-    project_uuid?: string;
-    thread_id?: string;
-    user_id?: string;
+    createdAt?: string;
+    projectUuid?: string;
+    threadId?: string;
+    userId?: string;
     uuid?: string;
 }

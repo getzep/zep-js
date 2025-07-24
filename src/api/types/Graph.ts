@@ -5,12 +5,12 @@
 import * as Zep from "../index.js";
 
 export interface Graph {
-    created_at?: string;
+    createdAt?: string;
     description?: string;
-    fact_rating_instruction?: Zep.FactRatingInstruction;
-    graph_id?: string;
+    factRatingInstruction?: Zep.FactRatingInstruction;
+    graphId?: string;
     id?: number;
     name?: string;
-    project_uuid?: string;
+    projectUuid?: string;
     uuid?: string;
 }

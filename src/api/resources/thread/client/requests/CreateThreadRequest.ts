@@ -5,13 +5,13 @@
 /**
  * @example
  *     {
- *         thread_id: "thread_id",
- *         user_id: "user_id"
+ *         threadId: "thread_id",
+ *         userId: "user_id"
  *     }
  */
-export interface ModelsCreateThreadRequest {
+export interface CreateThreadRequest {
     /** The unique identifier of the thread. */
-    thread_id: string;
+    threadId: string;
     /** The unique identifier of the user associated with the thread */
-    user_id: string;
+    userId: string;
 }

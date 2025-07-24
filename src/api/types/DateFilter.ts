@@ -6,7 +6,7 @@ import * as Zep from "../index.js";
 
 export interface DateFilter {
     /** Comparison operator for date filter */
-    comparison_operator: Zep.ComparisonOperator;
+    comparisonOperator: Zep.ComparisonOperator;
     /** Date to filter on */
     date: string;
 }

@@ -5,7 +5,7 @@
 import * as Zep from "../index.js";
 
 export interface ThreadListResponse {
-    response_count?: number;
+    responseCount?: number;
     thread?: Zep.Thread[];
-    total_count?: number;
+    totalCount?: number;
 }

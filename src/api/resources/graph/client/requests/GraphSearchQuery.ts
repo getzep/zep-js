@@ -12,19 +12,19 @@ import * as Zep from "../../../../index.js";
  */
 export interface GraphSearchQuery {
     /** Nodes that are the origins of the BFS searches */
-    bfs_origin_node_uuids?: string[];
+    bfsOriginNodeUuids?: string[];
     /** Node to rerank around for node distance reranking */
-    center_node_uuid?: string;
+    centerNodeUuid?: string;
     /** The graph_id to search in. When searching user graph, please use user_id instead. */
-    graph_id?: string;
+    graphId?: string;
     /** The maximum number of facts to retrieve. Defaults to 10. Limited to 50. */
     limit?: number;
     /** The minimum rating by which to filter relevant facts */
-    min_fact_rating?: number;
+    minFactRating?: number;
     /** Deprecated */
-    min_score?: number;
+    minScore?: number;
     /** weighting for maximal marginal relevance */
-    mmr_lambda?: number;
+    mmrLambda?: number;
     /** The string to search for (required) */
     query: string;
     /** Defaults to RRF */
@@ -32,7 +32,7 @@ export interface GraphSearchQuery {
     /** Defaults to Edges. Communities will be added in the future. */
     scope?: Zep.GraphSearchScope;
     /** Search filters to apply to the search */
-    search_filters?: Zep.SearchFilters;
+    searchFilters?: Zep.SearchFilters;
     /** The user_id when searching user graph. If not searching user graph, please use graph_id instead. */
-    user_id?: string;
+    userId?: string;
 }

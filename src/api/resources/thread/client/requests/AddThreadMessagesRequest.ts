@@ -19,9 +19,9 @@ export interface AddThreadMessagesRequest {
      * The message itself will still be added, retained and used as context for messages
      * that are added to a user's graph.
      */
-    ignore_roles?: Zep.RoleType[];
+    ignoreRoles?: Zep.RoleType[];
     /** A list of message objects, where each message contains a role and content. */
     messages: Zep.Message[];
     /** Optionally return memory context relevant to the most recent messages. */
-    return_context?: boolean;
+    returnContext?: boolean;
 }

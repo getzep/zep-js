@@ -8,11 +8,11 @@
  */
 export interface CloneGraphRequest {
     /** source_graph_id is the ID of the graph to be cloned. Required if source_user_id is not provided */
-    source_graph_id?: string;
+    sourceGraphId?: string;
     /** user_id of the user whose graph is being cloned. Required if source_graph_id is not provided */
-    source_user_id?: string;
+    sourceUserId?: string;
     /** target_graph_id is the ID to be set on the cloned graph. Must not point to an existing graph. Required if target_user_id is not provided. */
-    target_graph_id?: string;
+    targetGraphId?: string;
     /** user_id to be set on the cloned user. Must not point to an existing user. Required if target_graph_id is not provided. */
-    target_user_id?: string;
+    targetUserId?: string;
 }

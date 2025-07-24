@@ -12,9 +12,9 @@ export interface SearchFilters {
      * Example: [[{">", date1}, {"<", date2}], [{"=", date3}]]
      * This translates to: (created_at > date1 AND created_at < date2) OR (created_at = date3)
      */
-    created_at?: Zep.DateFilter[][];
+    createdAt?: Zep.DateFilter[][];
     /** List of edge types to filter on */
-    edge_types?: string[];
+    edgeTypes?: string[];
     /**
      * 2D array of date filters for the expired_at field.
      * The outer array elements are combined with OR logic.
@@ -22,7 +22,7 @@ export interface SearchFilters {
      * Example: [[{">", date1}, {"<", date2}], [{"=", date3}]]
      * This translates to: (expired_at > date1 AND expired_at < date2) OR (expired_at = date3)
      */
-    expired_at?: Zep.DateFilter[][];
+    expiredAt?: Zep.DateFilter[][];
     /**
      * 2D array of date filters for the invalid_at field.
      * The outer array elements are combined with OR logic.
@@ -30,9 +30,9 @@ export interface SearchFilters {
      * Example: [[{">", date1}, {"<", date2}], [{"=", date3}]]
      * This translates to: (invalid_at > date1 AND invalid_at < date2) OR (invalid_at = date3)
      */
-    invalid_at?: Zep.DateFilter[][];
+    invalidAt?: Zep.DateFilter[][];
     /** List of node labels to filter on */
-    node_labels?: string[];
+    nodeLabels?: string[];
     /**
      * 2D array of date filters for the valid_at field.
      * The outer array elements are combined with OR logic.
@@ -40,5 +40,5 @@ export interface SearchFilters {
      * Example: [[{">", date1}, {"<", date2}], [{"=", date3}]]
      * This translates to: (valid_at > date1 AND valid_at < date2) OR (valid_at = date3)
      */
-    valid_at?: Zep.DateFilter[][];
+    validAt?: Zep.DateFilter[][];
 }

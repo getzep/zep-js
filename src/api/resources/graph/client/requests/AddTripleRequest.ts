@@ -6,37 +6,37 @@
  * @example
  *     {
  *         fact: "fact",
- *         fact_name: "fact_name",
- *         target_node_name: "target_node_name"
+ *         factName: "fact_name",
+ *         targetNodeName: "target_node_name"
  *     }
  */
 export interface AddTripleRequest {
     /** The timestamp of the message */
-    created_at?: string;
+    createdAt?: string;
     /** The time (if any) at which the edge expires */
-    expired_at?: string;
+    expiredAt?: string;
     /** The fact relating the two nodes that this edge represents */
     fact: string;
     /** The name of the edge to add. Should be all caps using snake case (eg RELATES_TO) */
-    fact_name: string;
+    factName: string;
     /** The uuid of the edge to add */
-    fact_uuid?: string;
-    graph_id?: string;
+    factUuid?: string;
+    graphId?: string;
     /** The time (if any) at which the fact stops being true */
-    invalid_at?: string;
+    invalidAt?: string;
     /** The name of the source node to add */
-    source_node_name?: string;
+    sourceNodeName?: string;
     /** The summary of the source node to add */
-    source_node_summary?: string;
+    sourceNodeSummary?: string;
     /** The source node uuid */
-    source_node_uuid?: string;
+    sourceNodeUuid?: string;
     /** The name of the target node to add */
-    target_node_name: string;
+    targetNodeName: string;
     /** The summary of the target node to add */
-    target_node_summary?: string;
+    targetNodeSummary?: string;
     /** The target node uuid */
-    target_node_uuid?: string;
-    user_id?: string;
+    targetNodeUuid?: string;
+    userId?: string;
     /** The time at which the fact becomes true */
-    valid_at?: string;
+    validAt?: string;
 }
