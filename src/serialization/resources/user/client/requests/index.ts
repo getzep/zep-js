@@ -1,2 +1,2 @@
-export { CreateUserRequest } from "./CreateUserRequest";
-export { UpdateUserRequest } from "./UpdateUserRequest";
+export { CreateUserRequest } from "./CreateUserRequest.js";
+export { UpdateUserRequest } from "./UpdateUserRequest.js";

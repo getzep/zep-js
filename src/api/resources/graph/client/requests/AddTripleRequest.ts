@@ -21,7 +21,7 @@ export interface AddTripleRequest {
     factName: string;
     /** The uuid of the edge to add */
     factUuid?: string;
-    groupId?: string;
+    graphId?: string;
     /** The time (if any) at which the fact stops being true */
     invalidAt?: string;
     /** The name of the source node to add */

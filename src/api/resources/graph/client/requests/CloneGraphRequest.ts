@@ -7,12 +7,12 @@
  *     {}
  */
 export interface CloneGraphRequest {
-    /** group_id of the group whose graph is being cloned. Required if user_id is not provided */
-    sourceGroupId?: string;
-    /** user_id of the user whose graph is being cloned. Required if group_id is not provided */
+    /** source_graph_id is the ID of the graph to be cloned. Required if source_user_id is not provided */
+    sourceGraphId?: string;
+    /** user_id of the user whose graph is being cloned. Required if source_graph_id is not provided */
     sourceUserId?: string;
-    /** group_id to be set on the cloned group. Must not point to an existing group. Required if target_user_id is not provided. */
-    targetGroupId?: string;
-    /** user_id to be set on the cloned user. Must not point to an existing user. Required if target_group_id is not provided. */
+    /** target_graph_id is the ID to be set on the cloned graph. Must not point to an existing graph. Required if target_user_id is not provided. */
+    targetGraphId?: string;
+    /** user_id to be set on the cloned user. Must not point to an existing user. Required if target_graph_id is not provided. */
     targetUserId?: string;
 }
