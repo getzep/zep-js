@@ -1,3 +1,4 @@
+import { RUNTIME } from "../../../src/core/runtime";
 import { makeRequest } from "../../../src/core/fetcher/makeRequest";
 
 describe("Test makeRequest", () => {

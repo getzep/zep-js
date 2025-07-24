@@ -1,3 +1,3 @@
-export * as getByGraphId from "./getByGraphId.js";
-export * as getByUserId from "./getByUserId.js";
-export * as getEdges from "./getEdges.js";
+export * as getByGroupId from "./getByGroupId";
+export * as getByUserId from "./getByUserId";
+export * as getEdges from "./getEdges";

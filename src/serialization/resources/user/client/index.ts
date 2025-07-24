@@ -1,1 +1,2 @@
-export * from "./requests/index.js";
+export * as getSessions from "./getSessions";
+export * from "./requests";

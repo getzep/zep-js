@@ -1,6 +1,10 @@
-export * as graph from "./graph/index.js";
-export * as thread from "./thread/index.js";
-export * as user from "./user/index.js";
-export * from "./graph/client/requests/index.js";
-export * from "./thread/client/requests/index.js";
-export * from "./user/client/requests/index.js";
+export * as document from "./document";
+export * as graph from "./graph";
+export * as memory from "./memory";
+export * as group from "./group";
+export * as user from "./user";
+export * from "./document/client/requests";
+export * from "./graph/client/requests";
+export * from "./memory/client/requests";
+export * from "./group/client/requests";
+export * from "./user/client/requests";

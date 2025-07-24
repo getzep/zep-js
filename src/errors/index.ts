@@ -1,2 +1,2 @@
-export { ZepError } from "./ZepError.js";
-export { ZepTimeoutError } from "./ZepTimeoutError.js";
+export { ZepError } from "./ZepError";
+export { ZepTimeoutError } from "./ZepTimeoutError";

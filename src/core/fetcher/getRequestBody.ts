@@ -1,5 +1,3 @@
-import { toJson } from "../json.js";
-
 export declare namespace GetRequestBody {
     interface Args {
         body: unknown;
@@ -9,7 +7,7 @@ export declare namespace GetRequestBody {
 
 export async function getRequestBody({ body, type }: GetRequestBody.Args): Promise<BodyInit | undefined> {
     if (type.includes("json")) {
-        return toJson(body);
+        return JSON.stringify(body);
     } else {
         return body as BodyInit;
     }

@@ -1,35 +1,34 @@
-import { BaseSchema, Schema, SchemaType } from "../../Schema.js";
-import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType.js";
-import { maybeSkipValidation } from "../../utils/maybeSkipValidation.js";
-import { getSchemaUtils } from "../schema-utils/index.js";
+import { BaseSchema, Schema, SchemaType } from "../../Schema";
+import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType";
+import { maybeSkipValidation } from "../../utils/maybeSkipValidation";
+import { getSchemaUtils } from "../schema-utils";
 
-export function bigint(): Schema<bigint | number, bigint> {
-    const baseSchema: BaseSchema<bigint | number, bigint> = {
+export function bigint(): Schema<string, bigint> {
+    const baseSchema: BaseSchema<string, bigint> = {
         parse: (raw, { breadcrumbsPrefix = [] } = {}) => {
-            if (typeof raw === "bigint") {
+            if (typeof raw !== "string") {
                 return {
-                    ok: true,
-                    value: raw,
-                };
-            }
-            if (typeof raw === "number") {
-                return {
-                    ok: true,
-                    value: BigInt(raw),
+                    ok: false,
+                    errors: [
+                        {
+                            path: breadcrumbsPrefix,
+                            message: getErrorMessageForIncorrectType(raw, "string"),
+                        },
+                    ],
                 };
             }
             return {
-                ok: false,
-                errors: [
-                    {
-                        path: breadcrumbsPrefix,
-                        message: getErrorMessageForIncorrectType(raw, "bigint | number"),
-                    },
-                ],
+                ok: true,
+                value: BigInt(raw),
             };
         },
         json: (bigint, { breadcrumbsPrefix = [] } = {}) => {
-            if (typeof bigint !== "bigint") {
+            if (typeof bigint === "bigint") {
+                return {
+                    ok: true,
+                    value: bigint.toString(),
+                };
+            } else {
                 return {
                     ok: false,
                     errors: [
@@ -40,10 +39,6 @@ export function bigint(): Schema<bigint | number, bigint> {
                     ],
                 };
             }
-            return {
-                ok: true,
-                value: bigint,
-            };
         },
         getType: () => SchemaType.BIGINT,
     };

@@ -3,7 +3,6 @@
  */
 
 export interface CloneGraphResponse {
-    /** graph_id is the ID of the cloned graph */
-    graphId?: string;
+    groupId?: string;
     userId?: string;
 }
