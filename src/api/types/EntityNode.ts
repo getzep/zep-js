@@ -11,7 +11,6 @@ export interface EntityNode {
     labels?: string[];
     /** Name of the node */
     name: string;
-    /** Reranker score */
     score?: number;
     /** Regional summary of surrounding edges */
     summary: string;

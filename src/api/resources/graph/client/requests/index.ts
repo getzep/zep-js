@@ -1,6 +1,9 @@
-export { type EntityTypeRequest } from "./EntityTypeRequest";
-export { type AddDataRequest } from "./AddDataRequest";
-export { type AddDataBatchRequest } from "./AddDataBatchRequest";
-export { type AddTripleRequest } from "./AddTripleRequest";
-export { type CloneGraphRequest } from "./CloneGraphRequest";
-export { type GraphSearchQuery } from "./GraphSearchQuery";
+export { type EntityTypeRequest } from "./EntityTypeRequest.js";
+export { type AddDataRequest } from "./AddDataRequest.js";
+export { type AddDataBatchRequest } from "./AddDataBatchRequest.js";
+export { type AddTripleRequest } from "./AddTripleRequest.js";
+export { type CloneGraphRequest } from "./CloneGraphRequest.js";
+export { type GraphSearchQuery } from "./GraphSearchQuery.js";
+export { type CreateGraphRequest } from "./CreateGraphRequest.js";
+export { type GraphListAllRequest } from "./GraphListAllRequest.js";
+export { type UpdateGraphRequest } from "./UpdateGraphRequest.js";

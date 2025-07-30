@@ -1,4 +1,3 @@
-import { RUNTIME } from "../../../src/core/runtime";
 import { requestWithRetries } from "../../../src/core/fetcher/requestWithRetries";
 
 describe("requestWithRetries", () => {
@@ -28,7 +27,7 @@ describe("requestWithRetries", () => {
             return null as any;
         });
 
-        const retryableStatuses = [408, 409, 429, 500, 502];
+        const retryableStatuses = [408, 429, 500, 502];
         let callCount = 0;
 
         mockFetch.mockImplementation(async () => {

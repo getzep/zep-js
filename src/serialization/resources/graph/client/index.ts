@@ -1,2 +1,2 @@
-export * as addBatch from "./addBatch";
-export * from "./requests";
+export * as addBatch from "./addBatch.js";
+export * from "./requests/index.js";

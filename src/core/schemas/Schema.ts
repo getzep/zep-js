@@ -1,4 +1,4 @@
-import { SchemaUtils } from "./builders";
+import { SchemaUtils } from "./builders/index.js";
 
 export type Schema<Raw = unknown, Parsed = unknown> = BaseSchema<Raw, Parsed> & SchemaUtils<Raw, Parsed>;
 
@@ -28,7 +28,9 @@ export const SchemaType = {
     SET: "set",
     UNION: "union",
     UNDISCRIMINATED_UNION: "undiscriminatedUnion",
+    NULLABLE: "nullable",
     OPTIONAL: "optional",
+    OPTIONAL_NULLABLE: "optionalNullable",
 } as const;
 export type SchemaType = (typeof SchemaType)[keyof typeof SchemaType];
 

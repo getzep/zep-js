@@ -1,2 +1,2 @@
-export * as getByGroupId from "./getByGroupId";
-export * as getByUserId from "./getByUserId";
+export * as getByGraphId from "./getByGraphId.js";
+export * as getByUserId from "./getByUserId.js";
