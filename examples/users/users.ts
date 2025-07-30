@@ -17,7 +17,6 @@ async function main() {
             email: `user${i}@example.com`,
             firstName: `John${i}`,
             lastName: `Doe${i}`,
-            metadata: { foo: "bar" },
         };
 
         try {
@@ -39,7 +38,6 @@ async function main() {
         email: "updated_user@example.com",
         firstName: "UpdatedJohn",
         lastName: "UpdatedDoe",
-        metadata: { foo: "updated_bar" },
     };
 
     try {
