@@ -5,10 +5,7 @@ src/extractor
 src/index.ts
 src/contextString.ts
 src/langchain
-package.json
-yarn.lock
 .github
 README.md
-tests/sde.test.ts
 .gitignore
 LICENSE
