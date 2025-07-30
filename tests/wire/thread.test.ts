@@ -97,19 +97,7 @@ describe("Thread", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {
-            context: "context",
-            messages: [
-                {
-                    content: "content",
-                    created_at: "created_at",
-                    name: "name",
-                    processed: true,
-                    role: "norole",
-                    uuid: "uuid",
-                },
-            ],
-        };
+        const rawResponseBody = { context: "context" };
         server
             .mockEndpoint()
             .get("/threads/threadId/context")
@@ -121,16 +109,6 @@ describe("Thread", () => {
         const response = await client.thread.getUserContext("threadId");
         expect(response).toEqual({
             context: "context",
-            messages: [
-                {
-                    content: "content",
-                    createdAt: "created_at",
-                    name: "name",
-                    processed: true,
-                    role: "norole",
-                    uuid: "uuid",
-                },
-            ],
         });
     });
 

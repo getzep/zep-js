@@ -402,18 +402,17 @@ export class Thread {
         request: Zep.ThreadGetUserContextRequest = {},
         requestOptions?: Thread.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.ThreadContextResponse>> {
-        const { lastn, minRating, fast } = request;
+        const { minRating, mode } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (lastn != null) {
-            _queryParams["lastn"] = lastn.toString();
-        }
-
         if (minRating != null) {
             _queryParams["minRating"] = minRating.toString();
         }
 
-        if (fast != null) {
-            _queryParams["fast"] = fast.toString();
+        if (mode != null) {
+            _queryParams["mode"] = serializers.ThreadGetUserContextRequestMode.jsonOrThrow(mode, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            });
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
