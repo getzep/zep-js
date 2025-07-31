@@ -1,5 +1,5 @@
-import { ZepClient as BaseClient } from "../Client";
-import { Graph } from "./graph";
+import { ZepClient as BaseClient } from "../Client.js";
+import { Graph } from "./graph.js";
 
 export class ZepClient extends BaseClient {
     public get graph(): Graph {

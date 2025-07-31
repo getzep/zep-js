@@ -1,4 +1,4 @@
-import { EntityEdge, EntityNode } from "./api";
+import { EntityEdge, EntityNode } from "./api/index.js";
 
 const TEMPLATE_STRING = `
 FACTS and ENTITIES represent relevant context to the current conversation.

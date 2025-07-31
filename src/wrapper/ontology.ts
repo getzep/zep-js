@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Zep } from "../index";
+import { Zep } from "../index.js";
 
 export enum EntityPropertyType {
     Text = "Text",
