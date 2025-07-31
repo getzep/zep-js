@@ -1,22 +1,56 @@
 {
     "name": "@getzep/zep-cloud",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "private": false,
     "repository": "https://github.com/getzep/zep-js",
     "description": "Zep: Fast, scalable building blocks for production LLM apps",
     "type": "commonjs",
-    "main": "./index.js", 
-    "types": "./index.d.ts",
+    "main": "./dist/cjs/index.js",
+    "module": "./dist/esm/index.mjs",
+    "types": "./dist/cjs/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/cjs/index.d.ts",
+            "import": {
+                "types": "./dist/esm/index.d.mts",
+                "default": "./dist/esm/index.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/index.d.ts",
+                "default": "./dist/cjs/index.js"
+            },
+            "default": "./dist/cjs/index.js"
+        },
+        "./serialization": {
+            "types": "./dist/cjs/serialization/index.d.ts",
+            "import": {
+                "types": "./dist/esm/serialization/index.d.mts",
+                "default": "./dist/esm/serialization/index.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/serialization/index.d.ts",
+                "default": "./dist/cjs/serialization/index.js"
+            },
+            "default": "./dist/cjs/serialization/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "files": [
+        "dist",
+        "reference.md",
+        "README.md",
+        "LICENSE"
+    ],
     "scripts": {
         "format": "prettier . --write --ignore-unknown",
-        "build": "tsc",
+        "build": "yarn build:cjs && yarn build:esm",
         "build:cjs": "tsc --project ./tsconfig.cjs.json",
         "build:esm": "tsc --project ./tsconfig.esm.json && node scripts/rename-to-esm-files.js dist/esm",
         "test": "jest --config jest.config.mjs",
         "test:unit": "jest --selectProjects unit",
         "test:browser": "jest --selectProjects browser",
         "test:wire": "jest --selectProjects wire",
-        "prepack": "yarn build && cp -rv dist/. ."
+        "prepack": "yarn build"
     },
     "dependencies": {
         "zod": "^3.23.8"
