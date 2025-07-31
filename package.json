@@ -1,6 +1,6 @@
 {
     "name": "@getzep/zep-cloud",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "private": false,
     "repository": "https://github.com/getzep/zep-js",
     "description": "Zep: Fast, scalable building blocks for production LLM apps",
@@ -49,7 +49,8 @@
         "test": "jest --config jest.config.mjs",
         "test:unit": "jest --selectProjects unit",
         "test:browser": "jest --selectProjects browser",
-        "test:wire": "jest --selectProjects wire"
+        "test:wire": "jest --selectProjects wire",
+        "prepack": "yarn build"
     },
     "dependencies": {
         "zod": "^3.23.8"
