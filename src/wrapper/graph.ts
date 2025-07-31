@@ -1,6 +1,6 @@
-import { Graph as BaseGraph } from "../api/resources/graph/client/Client";
-import { Zep } from "../index";
-import { EdgeType, entityModelToAPISchema, edgeModelToAPISchema, EntityType } from "./ontology";
+import { Graph as BaseGraph } from "../api/resources/graph/client/Client.js";
+import { Zep } from "../index.js";
+import { EdgeType, entityModelToAPISchema, edgeModelToAPISchema, EntityType } from "./ontology.js";
 
 export class Graph extends BaseGraph {
     /**

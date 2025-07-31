@@ -1,7 +1,7 @@
 # Specify files that shouldn't be modified by Fern
 examples
 src/wrapper
-src/extractor
+src/index.ts
 src/contextString.ts
 package.json
 yarn.lock
