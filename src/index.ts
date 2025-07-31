@@ -1,5 +1,5 @@
-export * as Zep from "./api";
-export { ZepClient } from "./wrapper";
-export { ZepEnvironment } from "./environments";
-export { ZepError, ZepTimeoutError } from "./errors";
-export { composeContextString } from "./contextString";
+export * as Zep from "./api/index.js";
+export { ZepError, ZepTimeoutError } from "./errors/index.js";
+export * as serialization from "./serialization/index.js";
+export { ZepClient } from "./Client.js";
+export { ZepEnvironment } from "./environments.js";
