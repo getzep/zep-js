@@ -45,8 +45,8 @@ export class ZepClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "zep-cloud",
-                    "X-Fern-SDK-Version": "3.0.4",
-                    "User-Agent": "zep-cloud/3.0.4",
+                    "X-Fern-SDK-Version": "3.0.5",
+                    "User-Agent": "zep-cloud/3.0.5",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

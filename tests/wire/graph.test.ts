@@ -290,6 +290,93 @@ describe("Graph", () => {
         });
     });
 
+    test("create", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_id: "graph_id" };
+        const rawResponseBody = {
+            created_at: "created_at",
+            description: "description",
+            fact_rating_instruction: {
+                examples: { high: "high", low: "low", medium: "medium" },
+                instruction: "instruction",
+            },
+            graph_id: "graph_id",
+            id: 1,
+            name: "name",
+            project_uuid: "project_uuid",
+            uuid: "uuid",
+        };
+        server
+            .mockEndpoint()
+            .post("/graph/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.create({
+            graphId: "graph_id",
+        });
+        expect(response).toEqual({
+            createdAt: "created_at",
+            description: "description",
+            factRatingInstruction: {
+                examples: {
+                    high: "high",
+                    low: "low",
+                    medium: "medium",
+                },
+                instruction: "instruction",
+            },
+            graphId: "graph_id",
+            id: 1,
+            name: "name",
+            projectUuid: "project_uuid",
+            uuid: "uuid",
+        });
+    });
+
+    test("list_all", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            graphs: [
+                {
+                    created_at: "created_at",
+                    description: "description",
+                    graph_id: "graph_id",
+                    id: 1,
+                    name: "name",
+                    project_uuid: "project_uuid",
+                    uuid: "uuid",
+                },
+            ],
+            row_count: 1,
+            total_count: 1,
+        };
+        server.mockEndpoint().get("/graph/list-all").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.graph.listAll();
+        expect(response).toEqual({
+            graphs: [
+                {
+                    createdAt: "created_at",
+                    description: "description",
+                    graphId: "graph_id",
+                    id: 1,
+                    name: "name",
+                    projectUuid: "project_uuid",
+                    uuid: "uuid",
+                },
+            ],
+            rowCount: 1,
+            totalCount: 1,
+        });
+    });
+
     test("search", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
@@ -398,93 +485,6 @@ describe("Graph", () => {
         });
     });
 
-    test("create", async () => {
-        const server = mockServerPool.createServer();
-        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { graph_id: "graph_id" };
-        const rawResponseBody = {
-            created_at: "created_at",
-            description: "description",
-            fact_rating_instruction: {
-                examples: { high: "high", low: "low", medium: "medium" },
-                instruction: "instruction",
-            },
-            graph_id: "graph_id",
-            id: 1,
-            name: "name",
-            project_uuid: "project_uuid",
-            uuid: "uuid",
-        };
-        server
-            .mockEndpoint()
-            .post("/graphs")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.graph.create({
-            graphId: "graph_id",
-        });
-        expect(response).toEqual({
-            createdAt: "created_at",
-            description: "description",
-            factRatingInstruction: {
-                examples: {
-                    high: "high",
-                    low: "low",
-                    medium: "medium",
-                },
-                instruction: "instruction",
-            },
-            graphId: "graph_id",
-            id: 1,
-            name: "name",
-            projectUuid: "project_uuid",
-            uuid: "uuid",
-        });
-    });
-
-    test("list_all", async () => {
-        const server = mockServerPool.createServer();
-        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = {
-            graphs: [
-                {
-                    created_at: "created_at",
-                    description: "description",
-                    graph_id: "graph_id",
-                    id: 1,
-                    name: "name",
-                    project_uuid: "project_uuid",
-                    uuid: "uuid",
-                },
-            ],
-            row_count: 1,
-            total_count: 1,
-        };
-        server.mockEndpoint().get("/graphs/list-all").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
-
-        const response = await client.graph.listAll();
-        expect(response).toEqual({
-            graphs: [
-                {
-                    createdAt: "created_at",
-                    description: "description",
-                    graphId: "graph_id",
-                    id: 1,
-                    name: "name",
-                    projectUuid: "project_uuid",
-                    uuid: "uuid",
-                },
-            ],
-            rowCount: 1,
-            totalCount: 1,
-        });
-    });
-
     test("get", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
@@ -502,7 +502,7 @@ describe("Graph", () => {
             project_uuid: "project_uuid",
             uuid: "uuid",
         };
-        server.mockEndpoint().get("/graphs/graphId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/graph/graphId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.graph.get("graphId");
         expect(response).toEqual({
@@ -529,7 +529,7 @@ describe("Graph", () => {
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { message: "message" };
-        server.mockEndpoint().delete("/graphs/graphId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().delete("/graph/graphId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.graph.delete("graphId");
         expect(response).toEqual({
@@ -556,7 +556,7 @@ describe("Graph", () => {
         };
         server
             .mockEndpoint()
-            .patch("/graphs/graphId")
+            .patch("/graph/graphId")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
