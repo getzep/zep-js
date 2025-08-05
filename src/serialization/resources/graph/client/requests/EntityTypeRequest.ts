@@ -12,11 +12,15 @@ export const EntityTypeRequest: core.serialization.Schema<serializers.EntityType
     core.serialization.object({
         edgeTypes: core.serialization.property("edge_types", core.serialization.list(EdgeType).optional()),
         entityTypes: core.serialization.property("entity_types", core.serialization.list(EntityType).optional()),
+        graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
+        userId: core.serialization.property("user_id", core.serialization.string().optional()),
     });
 
 export declare namespace EntityTypeRequest {
     export interface Raw {
         edge_types?: EdgeType.Raw[] | null;
         entity_types?: EntityType.Raw[] | null;
+        graph_id?: string | null;
+        user_id?: string | null;
     }
 }

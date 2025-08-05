@@ -11,4 +11,6 @@ import * as Zep from "../../../../index.js";
 export interface EntityTypeRequest {
     edgeTypes?: Zep.EdgeType[];
     entityTypes?: Zep.EntityType[];
+    graphId?: string;
+    userId?: string;
 }
