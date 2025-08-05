@@ -93,10 +93,7 @@ Sets the entity types for multiple users and graphs, replacing any existing ones
 <dd>
 
 ```typescript
-await client.graph.setEntityTypesInternal({
-    graphIds: ["graph_ids"],
-    userIds: ["user_ids"],
-});
+await client.graph.setEntityTypesInternal();
 ```
 
 </dd>

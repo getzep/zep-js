@@ -64,7 +64,7 @@ describe("Graph", () => {
     test("set_entity_types_internal", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { graph_ids: ["graph_ids"], user_ids: ["user_ids"] };
+        const rawRequestBody = {};
         const rawResponseBody = { message: "message" };
         server
             .mockEndpoint()
@@ -75,10 +75,7 @@ describe("Graph", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.graph.setEntityTypesInternal({
-            graphIds: ["graph_ids"],
-            userIds: ["user_ids"],
-        });
+        const response = await client.graph.setEntityTypesInternal();
         expect(response).toEqual({
             message: "message",
         });

@@ -193,20 +193,17 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.setEntityTypesInternal({
-     *         graphIds: ["graph_ids"],
-     *         userIds: ["user_ids"]
-     *     })
+     *     await client.graph.setEntityTypesInternal()
      */
     public setEntityTypesInternal(
-        request: Zep.EntityTypeRequest,
+        request: Zep.EntityTypeRequest = {},
         requestOptions?: Graph.RequestOptions,
     ): core.HttpResponsePromise<Zep.SuccessResponse> {
         return core.HttpResponsePromise.fromPromise(this.__setEntityTypesInternal(request, requestOptions));
     }
 
     private async __setEntityTypesInternal(
-        request: Zep.EntityTypeRequest,
+        request: Zep.EntityTypeRequest = {},
         requestOptions?: Graph.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
