@@ -69,8 +69,8 @@ export class Graph extends BaseGraph {
             {
                 entityTypes: validatedEntityTypes,
                 edgeTypes: validatedEdgeTypes,
-                userIds: ontologyTargets?.userIds || [],
-                graphIds: ontologyTargets?.graphIds || [],
+                userIds: ontologyTargets?.userIds,
+                graphIds: ontologyTargets?.graphIds,
             },
             requestOptions,
         );
