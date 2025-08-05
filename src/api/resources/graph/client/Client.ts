@@ -184,7 +184,7 @@ export class Graph {
     }
 
     /**
-     * Sets the entity types for a project, user, or graph, replacing any existing ones.
+     * Sets the entity types for multiple users and graphs, replacing any existing ones.
      *
      * @param {Zep.EntityTypeRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
@@ -193,17 +193,20 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.setEntityTypesInternal()
+     *     await client.graph.setEntityTypesInternal({
+     *         graphIds: ["graph_ids"],
+     *         userIds: ["user_ids"]
+     *     })
      */
     public setEntityTypesInternal(
-        request: Zep.EntityTypeRequest = {},
+        request: Zep.EntityTypeRequest,
         requestOptions?: Graph.RequestOptions,
     ): core.HttpResponsePromise<Zep.SuccessResponse> {
         return core.HttpResponsePromise.fromPromise(this.__setEntityTypesInternal(request, requestOptions));
     }
 
     private async __setEntityTypesInternal(
-        request: Zep.EntityTypeRequest = {},
+        request: Zep.EntityTypeRequest,
         requestOptions?: Graph.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({

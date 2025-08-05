@@ -6,11 +6,14 @@ import * as Zep from "../../../../index.js";
 
 /**
  * @example
- *     {}
+ *     {
+ *         graphIds: ["graph_ids"],
+ *         userIds: ["user_ids"]
+ *     }
  */
 export interface EntityTypeRequest {
     edgeTypes?: Zep.EdgeType[];
     entityTypes?: Zep.EntityType[];
-    graphId?: string;
-    userId?: string;
+    graphIds: string[];
+    userIds: string[];
 }

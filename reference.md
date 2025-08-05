@@ -77,7 +77,7 @@ await client.graph.listEntityTypes();
 <dl>
 <dd>
 
-Sets the entity types for a project, user, or graph, replacing any existing ones.
+Sets the entity types for multiple users and graphs, replacing any existing ones.
 
 </dd>
 </dl>
@@ -93,7 +93,10 @@ Sets the entity types for a project, user, or graph, replacing any existing ones
 <dd>
 
 ```typescript
-await client.graph.setEntityTypesInternal();
+await client.graph.setEntityTypesInternal({
+    graphIds: ["graph_ids"],
+    userIds: ["user_ids"],
+});
 ```
 
 </dd>

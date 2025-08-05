@@ -12,7 +12,7 @@ export interface GraphListEntityTypesRequest {
      */
     userId?: string;
     /**
-     * Graph ID to get group-specific entity types
+     * Graph ID to get graph-specific entity types
      */
     graphId?: string;
 }
