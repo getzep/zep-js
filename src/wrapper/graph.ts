@@ -62,6 +62,8 @@ export class Graph extends BaseGraph {
             {
                 entityTypes: validatedEntityTypes,
                 edgeTypes: validatedEdgeTypes,
+                userId,
+                graphId,
             },
             requestOptions,
         );
