@@ -2,12 +2,20 @@ import { Graph as BaseGraph } from "../api/resources/graph/client/Client.js";
 import { Zep } from "../index.js";
 import { EdgeType, entityModelToAPISchema, edgeModelToAPISchema, EntityType } from "./ontology.js";
 
+interface OntologyTarget {
+    // The user ID for which to set the ontology.
+    userId?: string;
+    // The graph ID for which to set the ontology.
+    graphId?: string;
+}
+
 export class Graph extends BaseGraph {
     /**
      * Sets the entity and edge types for a project, replacing any existing ones.
      *
      * @param {Record<string, EntityType>} entityTypes
      * @param {Record<string, EdgeType>} edgeTypes
+     * @param {OntologyTarget} [ontologyTarget] - The target for which to set the ontology. Can include userId or graphId. If none specified, sets for the entire project.
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -44,8 +52,7 @@ export class Graph extends BaseGraph {
     public async setEntityTypes(
         entityTypes: Record<string, EntityType>,
         edgeTypes: Record<string, EdgeType>,
-        userId?: string,
-        graphId?: string,
+        ontologyTarget?: OntologyTarget,
         requestOptions?: BaseGraph.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
         const validatedEntityTypes: Zep.EntityType[] = Object.keys(entityTypes).map((key) => {
@@ -62,8 +69,8 @@ export class Graph extends BaseGraph {
             {
                 entityTypes: validatedEntityTypes,
                 edgeTypes: validatedEdgeTypes,
-                userId,
-                graphId,
+                userId: ontologyTarget?.userId,
+                graphId: ontologyTarget?.graphId,
             },
             requestOptions,
         );
@@ -74,8 +81,7 @@ export class Graph extends BaseGraph {
      *
      * @param {Record<string, EntityType>} entityTypes
      * @param {Record<string, EdgeType>} edgeTypes
-     * @param {string} [userId] - The user ID for which to set the ontology. If None, sets for the entire project.
-     * @param {string} [graphId] - The graph ID for which to set the ontology. If None, sets for the entire project.
+     * @param {OntologyTarget} [ontologyTarget] - The target for which to set the ontology. Can include userId or graphId. If none specified, sets for the entire project.
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -112,10 +118,9 @@ export class Graph extends BaseGraph {
     public async setOntology(
         entityTypes: Record<string, EntityType>,
         edgeTypes: Record<string, EdgeType>,
-        userId?: string,
-        graphId?: string,
+        ontologyTarget?: OntologyTarget,
         requestOptions?: BaseGraph.RequestOptions,
     ): Promise<Zep.SuccessResponse> {
-        return this.setEntityTypes(entityTypes, edgeTypes, userId, graphId, requestOptions);
+        return this.setEntityTypes(entityTypes, edgeTypes, ontologyTarget, requestOptions);
     }
 }
