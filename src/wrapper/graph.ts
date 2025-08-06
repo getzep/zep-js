@@ -47,7 +47,7 @@ export class Graph extends BaseGraph {
      *         TravelDestination: travelDestinationSchema,
      *     }, {
      *         IS_TRAVELING_TO: isTravelingTo,
-     *     }, {userIds: ["user_1234]});
+     *     }, {userIds: ['user_1234']});
      */
     public async setEntityTypes(
         entityTypes: Record<string, EntityType>,
@@ -113,7 +113,7 @@ export class Graph extends BaseGraph {
      *         TravelDestination: travelDestinationSchema,
      *     }, {
      *         IS_TRAVELING_TO: isTravelingTo,
-     *     }, {userIds: ["user_1234]});
+     *     }, {userIds: ['user_1234']});
      */
     public async setOntology(
         entityTypes: Record<string, EntityType>,
