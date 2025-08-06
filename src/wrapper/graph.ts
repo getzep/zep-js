@@ -11,11 +11,11 @@ interface OntologyTargets {
 
 export class Graph extends BaseGraph {
     /**
-     * Sets the entity and edge types for a project, replacing any existing ones.
+     * Sets the entity and edge types for the specified targets, replacing any existing ones in those targets. If no targets are specified, it sets the ontology for the entire project.
      *
      * @param {Record<string, EntityType>} entityTypes
      * @param {Record<string, EdgeType>} edgeTypes
-     * @param {OntologyTargets} [ontologyTargets] - The targets for which to set the ontology. Can include userIds and graphIds. If none specified, sets for the entire project.
+     * @param {OntologyTargets} [ontologyTargets] - The targets for which to set the ontology. Can include userIds or graphIds. If none specified, sets for the entire project.
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -77,11 +77,11 @@ export class Graph extends BaseGraph {
     }
 
     /**
-     * Sets the entity and edge types for a project, replacing any existing ones.
+     * Sets the entity and edge types for the specified targets, replacing any existing ones in those targets. If no targets are specified, it sets the ontology for the entire project.
      *
      * @param {Record<string, EntityType>} entityTypes
      * @param {Record<string, EdgeType>} edgeTypes
-     * @param {OntologyTargets} [ontologyTargets] - The target for which to set the ontology. Can include userId or graphId. If none specified, sets for the entire project.
+     * @param {OntologyTargets} [ontologyTargets] - The targets for which to set the ontology. Can include userIds or graphIds. If none specified, sets for the entire project.
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
