@@ -58,23 +58,39 @@ export class Graph {
     }
 
     /**
-     * Returns all entity types for a project.
+     * Returns all entity types for a project, user, or graph.
      *
+     * @param {Zep.GraphListEntityTypesRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
      *     await client.graph.listEntityTypes()
      */
-    public listEntityTypes(requestOptions?: Graph.RequestOptions): core.HttpResponsePromise<Zep.EntityTypeResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listEntityTypes(requestOptions));
+    public listEntityTypes(
+        request: Zep.GraphListEntityTypesRequest = {},
+        requestOptions?: Graph.RequestOptions,
+    ): core.HttpResponsePromise<Zep.EntityTypeResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listEntityTypes(request, requestOptions));
     }
 
     private async __listEntityTypes(
+        request: Zep.GraphListEntityTypesRequest = {},
         requestOptions?: Graph.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.EntityTypeResponse>> {
+        const { userId, graphId } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (userId != null) {
+            _queryParams["user_id"] = userId;
+        }
+
+        if (graphId != null) {
+            _queryParams["graph_id"] = graphId;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -88,6 +104,7 @@ export class Graph {
                 mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                 requestOptions?.headers,
             ),
+            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -107,6 +124,17 @@ export class Graph {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -156,7 +184,7 @@ export class Graph {
     }
 
     /**
-     * Sets the entity types for a project, replacing any existing ones.
+     * Sets the entity types for multiple users and graphs, replacing any existing ones.
      *
      * @param {Zep.EntityTypeRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.

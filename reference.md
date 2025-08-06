@@ -2,7 +2,7 @@
 
 ## Graph
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listEntityTypes</a>() -> Zep.EntityTypeResponse</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listEntityTypes</a>({ ...params }) -> Zep.EntityTypeResponse</code></summary>
 <dl>
 <dd>
 
@@ -14,7 +14,7 @@
 <dl>
 <dd>
 
-Returns all entity types for a project.
+Returns all entity types for a project, user, or graph.
 
 </dd>
 </dl>
@@ -46,6 +46,14 @@ await client.graph.listEntityTypes();
 <dl>
 <dd>
 
+**request:** `Zep.GraphListEntityTypesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Graph.RequestOptions`
 
 </dd>
@@ -69,7 +77,7 @@ await client.graph.listEntityTypes();
 <dl>
 <dd>
 
-Sets the entity types for a project, replacing any existing ones.
+Sets the entity types for multiple users and graphs, replacing any existing ones.
 
 </dd>
 </dl>

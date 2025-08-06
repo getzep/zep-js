@@ -1,3 +1,4 @@
+export { type GraphListEntityTypesRequest } from "./GraphListEntityTypesRequest.js";
 export { type EntityTypeRequest } from "./EntityTypeRequest.js";
 export { type AddDataRequest } from "./AddDataRequest.js";
 export { type AddDataBatchRequest } from "./AddDataBatchRequest.js";
