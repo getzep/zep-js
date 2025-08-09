@@ -471,7 +471,7 @@ await client.graph.create({
 <dl>
 <dd>
 
-Returns all graphs.
+List all graphs. In order to list users, use user.list_ordered instead
 
 </dd>
 </dl>
