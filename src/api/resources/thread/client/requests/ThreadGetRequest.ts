@@ -15,4 +15,8 @@ export interface ThreadGetRequest {
      * Cursor for pagination
      */
     cursor?: number;
+    /**
+     * Number of most recent messages to return (overrides limit and cursor)
+     */
+    lastn?: number;
 }

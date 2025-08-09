@@ -852,7 +852,7 @@ export class Graph {
     }
 
     /**
-     * Returns all graphs.
+     * List all graphs. In order to list users, use user.list_ordered instead
      *
      * @param {Zep.GraphListAllRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.

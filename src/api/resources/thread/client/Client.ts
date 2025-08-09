@@ -522,7 +522,7 @@ export class Thread {
         request: Zep.ThreadGetRequest = {},
         requestOptions?: Thread.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.MessageListResponse>> {
-        const { limit, cursor } = request;
+        const { limit, cursor, lastn } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (limit != null) {
             _queryParams["limit"] = limit.toString();
@@ -530,6 +530,10 @@ export class Thread {
 
         if (cursor != null) {
             _queryParams["cursor"] = cursor.toString();
+        }
+
+        if (lastn != null) {
+            _queryParams["lastn"] = lastn.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
