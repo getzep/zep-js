@@ -181,4 +181,31 @@ describe("Thread", () => {
             context: "context",
         });
     });
+
+    test("add_messages_batch", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messages: [{ content: "content", role: "norole" }] };
+        const rawResponseBody = { context: "context" };
+        server
+            .mockEndpoint()
+            .post("/threads/threadId/messages-batch")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.thread.addMessagesBatch("threadId", {
+            messages: [
+                {
+                    content: "content",
+                    role: "norole",
+                },
+            ],
+        });
+        expect(response).toEqual({
+            context: "context",
+        });
+    });
 });

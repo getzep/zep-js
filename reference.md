@@ -471,7 +471,7 @@ await client.graph.create({
 <dl>
 <dd>
 
-List all graphs. In order to list users, use user.list_ordered instead
+Returns all graphs. In order to list users, use user.list_ordered instead
 
 </dd>
 </dl>
@@ -1149,6 +1149,84 @@ Add messages to a thread.
 
 ```typescript
 await client.thread.addMessages("threadId", {
+    messages: [
+        {
+            content: "content",
+            role: "norole",
+        },
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**threadId:** `string` — The ID of the thread to which messages should be added.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.AddThreadMessagesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">addMessagesBatch</a>(threadId, { ...params }) -> Zep.AddThreadMessagesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add messages to a thread in batch mode. This will process messages concurrently, which is useful for data migrations.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.addMessagesBatch("threadId", {
     messages: [
         {
             content: "content",

@@ -722,6 +722,113 @@ export class Thread {
         }
     }
 
+    /**
+     * Add messages to a thread in batch mode. This will process messages concurrently, which is useful for data migrations.
+     *
+     * @param {string} threadId - The ID of the thread to which messages should be added.
+     * @param {Zep.AddThreadMessagesRequest} request
+     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.thread.addMessagesBatch("threadId", {
+     *         messages: [{
+     *                 content: "content",
+     *                 role: "norole"
+     *             }]
+     *     })
+     */
+    public addMessagesBatch(
+        threadId: string,
+        request: Zep.AddThreadMessagesRequest,
+        requestOptions?: Thread.RequestOptions,
+    ): core.HttpResponsePromise<Zep.AddThreadMessagesResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__addMessagesBatch(threadId, request, requestOptions));
+    }
+
+    private async __addMessagesBatch(
+        threadId: string,
+        request: Zep.AddThreadMessagesRequest,
+        requestOptions?: Thread.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.AddThreadMessagesResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `threads/${encodeURIComponent(threadId)}/messages-batch`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.AddThreadMessagesRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.AddThreadMessagesResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /threads/{threadId}/messages-batch.",
+                );
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getCustomAuthorizationHeaders() {
         const apiKeyValue = (await core.Supplier.get(this._options.apiKey)) ?? process?.env["ZEP_API_KEY"];
         return { Authorization: `Api-Key ${apiKeyValue}` };
