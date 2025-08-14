@@ -11,10 +11,15 @@ export const AddThreadMessagesResponse: core.serialization.ObjectSchema<
     Zep.AddThreadMessagesResponse
 > = core.serialization.object({
     context: core.serialization.string().optional(),
+    messageUuids: core.serialization.property(
+        "message_uuids",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
 });
 
 export declare namespace AddThreadMessagesResponse {
     export interface Raw {
         context?: string | null;
+        message_uuids?: string[] | null;
     }
 }
