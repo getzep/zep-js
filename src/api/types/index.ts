@@ -1,4 +1,5 @@
 export * from "./ApiError.js";
+export * from "./AddThreadMessagesRequest.js";
 export * from "./AddThreadMessagesResponse.js";
 export * from "./CloneGraphResponse.js";
 export * from "./EdgeType.js";

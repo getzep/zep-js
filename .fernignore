@@ -3,6 +3,7 @@ examples
 src/wrapper
 src/index.ts
 src/contextString.ts
+tests/unit/contextString.test.ts
 package.json
 yarn.lock
 .github
