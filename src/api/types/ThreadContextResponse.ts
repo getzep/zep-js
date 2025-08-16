@@ -3,6 +3,6 @@
  */
 
 export interface ThreadContextResponse {
-    /** Memory context containing relevant facts and entities for the session. Can be put into the prompt directly. */
+    /** Context block containing relevant facts, entities, and messages/episodes from the user graph. Meant to be replaced in the system prompt on every chat turn. */
     context?: string;
 }

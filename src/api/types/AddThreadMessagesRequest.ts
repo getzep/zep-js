@@ -13,6 +13,6 @@ export interface AddThreadMessagesRequest {
     ignoreRoles?: Zep.RoleType[];
     /** A list of message objects, where each message contains a role and content. */
     messages: Zep.Message[];
-    /** Optionally return memory context relevant to the most recent messages. */
+    /** Optionally return context block relevant to the most recent messages. */
     returnContext?: boolean;
 }

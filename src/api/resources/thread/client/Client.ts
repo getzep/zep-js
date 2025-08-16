@@ -377,9 +377,9 @@ export class Thread {
     }
 
     /**
-     * Returns most relevant context for a given thread.
+     * Returns most relevant context from the user graph (including memory from any/all past threads) based on the content of the past few messages of the given thread.
      *
-     * @param {string} threadId - The ID of the thread for which to retrieve context.
+     * @param {string} threadId - The ID of the current thread (for which context is being retrieved).
      * @param {Zep.ThreadGetUserContextRequest} request
      * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
      *
