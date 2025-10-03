@@ -1729,6 +1729,69 @@ await client.user.getThreads("userId");
 </dl>
 </details>
 
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">warmUserCache</a>(userId) -> Zep.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Hints TurboPuffer to warm cache for this user's graph namespaces for low-latency search
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.warmUserCache("userId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — User ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Graph Edge
 
 <details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.EntityEdge[]</code></summary>
