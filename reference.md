@@ -990,7 +990,7 @@ await client.thread.delete("threadId");
 <dl>
 <dd>
 
-Returns most relevant context for a given thread.
+Returns most relevant context from the user graph (including memory from any/all past threads) based on the content of the past few messages of the given thread.
 
 </dd>
 </dl>
@@ -1022,7 +1022,7 @@ await client.thread.getUserContext("threadId");
 <dl>
 <dd>
 
-**threadId:** `string` — The ID of the thread for which to retrieve context.
+**threadId:** `string` — The ID of the current thread (for which context is being retrieved).
 
 </dd>
 </dl>
