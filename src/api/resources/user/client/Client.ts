@@ -777,7 +777,7 @@ export class User {
     }
 
     /**
-     * Hints TurboPuffer to warm cache for this user's graph namespaces for low-latency search
+     * Hints Zep to warm a user's graph for low-latency search
      *
      * @param {string} userId - User ID
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -786,16 +786,13 @@ export class User {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.warmUserCache("userId")
+     *     await client.user.warm("userId")
      */
-    public warmUserCache(
-        userId: string,
-        requestOptions?: User.RequestOptions,
-    ): core.HttpResponsePromise<Zep.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__warmUserCache(userId, requestOptions));
+    public warm(userId: string, requestOptions?: User.RequestOptions): core.HttpResponsePromise<Zep.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__warm(userId, requestOptions));
     }
 
-    private async __warmUserCache(
+    private async __warm(
         userId: string,
         requestOptions?: User.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {

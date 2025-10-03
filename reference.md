@@ -1729,7 +1729,7 @@ await client.user.getThreads("userId");
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">warmUserCache</a>(userId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">warm</a>(userId) -> Zep.SuccessResponse</code></summary>
 <dl>
 <dd>
 
@@ -1741,7 +1741,7 @@ await client.user.getThreads("userId");
 <dl>
 <dd>
 
-Hints TurboPuffer to warm cache for this user's graph namespaces for low-latency search
+Hints Zep to warm a user's graph for low-latency search
 
 </dd>
 </dl>
@@ -1757,7 +1757,7 @@ Hints TurboPuffer to warm cache for this user's graph namespaces for low-latency
 <dd>
 
 ```typescript
-await client.user.warmUserCache("userId");
+await client.user.warm("userId");
 ```
 
 </dd>
