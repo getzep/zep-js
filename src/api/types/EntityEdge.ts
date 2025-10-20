@@ -17,6 +17,12 @@ export interface EntityEdge {
     invalidAt?: string;
     /** Name of the edge, relation name */
     name: string;
+    /**
+     * Relevance is an experimental rank-aligned score in [0,1] derived from Score via logit transformation.
+     * Only populated when using cross_encoder reranker; omitted for other reranker types (e.g., RRF).
+     */
+    relevance?: number;
+    /** Score is the reranker output: sigmoid-distributed logits [0,1] when using cross_encoder reranker, or RRF ordinal rank when using rrf reranker */
     score?: number;
     /** UUID of the source node */
     sourceNodeUuid: string;
