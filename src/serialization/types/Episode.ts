@@ -13,6 +13,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         content: core.serialization.string(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         processed: core.serialization.boolean().optional(),
+        relevance: core.serialization.number().optional(),
         role: core.serialization.string().optional(),
         roleType: core.serialization.property("role_type", RoleType.optional()),
         score: core.serialization.number().optional(),
@@ -28,6 +29,7 @@ export declare namespace Episode {
         content: string;
         created_at: string;
         processed?: boolean | null;
+        relevance?: number | null;
         role?: string | null;
         role_type?: RoleType.Raw | null;
         score?: number | null;

@@ -8,10 +8,16 @@ export interface Episode {
     content: string;
     createdAt: string;
     processed?: boolean;
+    /**
+     * Relevance is an experimental rank-aligned score in [0,1] derived from Score via logit transformation.
+     * Only populated when using cross_encoder reranker; omitted for other reranker types (e.g., RRF).
+     */
+    relevance?: number;
     /** Optional role, will only be present if the episode was created using memory.add API */
     role?: string;
     /** Optional role_type, will only be present if the episode was created using memory.add API */
     roleType?: Zep.RoleType;
+    /** Score is the reranker output: sigmoid-distributed logits [0,1] when using cross_encoder reranker, or RRF ordinal rank when using rrf reranker */
     score?: number;
     sessionId?: string;
     source?: Zep.GraphDataType;
