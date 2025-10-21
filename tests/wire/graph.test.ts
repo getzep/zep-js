@@ -6,81 +6,6 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 import { ZepClient } from "../../src/Client";
 
 describe("Graph", () => {
-    test("list_entity_types", async () => {
-        const server = mockServerPool.createServer();
-        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = {
-            edge_types: [
-                {
-                    description: "description",
-                    name: "name",
-                    properties: [{ description: "description", name: "name", type: "Text" }],
-                    source_targets: [{}],
-                },
-            ],
-            entity_types: [
-                {
-                    description: "description",
-                    name: "name",
-                    properties: [{ description: "description", name: "name", type: "Text" }],
-                },
-            ],
-        };
-        server.mockEndpoint().get("/entity-types").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
-
-        const response = await client.graph.listEntityTypes();
-        expect(response).toEqual({
-            edgeTypes: [
-                {
-                    description: "description",
-                    name: "name",
-                    properties: [
-                        {
-                            description: "description",
-                            name: "name",
-                            type: "Text",
-                        },
-                    ],
-                    sourceTargets: [{}],
-                },
-            ],
-            entityTypes: [
-                {
-                    description: "description",
-                    name: "name",
-                    properties: [
-                        {
-                            description: "description",
-                            name: "name",
-                            type: "Text",
-                        },
-                    ],
-                },
-            ],
-        });
-    });
-
-    test("set_entity_types_internal", async () => {
-        const server = mockServerPool.createServer();
-        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = { message: "message" };
-        server
-            .mockEndpoint()
-            .put("/entity-types")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.graph.setEntityTypesInternal();
-        expect(response).toEqual({
-            message: "message",
-        });
-    });
-
     test("add", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
@@ -608,6 +533,87 @@ describe("Graph", () => {
             name: "name",
             projectUuid: "project_uuid",
             uuid: "uuid",
+        });
+    });
+
+    test("set_ontology", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .put("/graph/set-ontology")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.setOntology();
+        expect(response).toEqual({
+            message: "message",
+        });
+    });
+
+    test("list_ontology", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            edge_types: [
+                {
+                    description: "description",
+                    name: "name",
+                    properties: [{ description: "description", name: "name", type: "Text" }],
+                    source_targets: [{}],
+                },
+            ],
+            entity_types: [
+                {
+                    description: "description",
+                    name: "name",
+                    properties: [{ description: "description", name: "name", type: "Text" }],
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .get("/graph/list-ontology")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.listOntology();
+        expect(response).toEqual({
+            edgeTypes: [
+                {
+                    description: "description",
+                    name: "name",
+                    properties: [
+                        {
+                            description: "description",
+                            name: "name",
+                            type: "Text",
+                        },
+                    ],
+                    sourceTargets: [{}],
+                },
+            ],
+            entityTypes: [
+                {
+                    description: "description",
+                    name: "name",
+                    properties: [
+                        {
+                            description: "description",
+                            name: "name",
+                            type: "Text",
+                        },
+                    ],
+                },
+            ],
         });
     });
 });

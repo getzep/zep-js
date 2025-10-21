@@ -6,6 +6,7 @@ import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Graph } from "./api/resources/graph/client/Client.js";
+import { Project } from "./api/resources/project/client/Client.js";
 import { Thread } from "./api/resources/thread/client/Client.js";
 import { User } from "./api/resources/user/client/Client.js";
 
@@ -35,6 +36,7 @@ export declare namespace ZepClient {
 export class ZepClient {
     protected readonly _options: ZepClient.Options;
     protected _graph: Graph | undefined;
+    protected _project: Project | undefined;
     protected _thread: Thread | undefined;
     protected _user: User | undefined;
 
@@ -45,8 +47,8 @@ export class ZepClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "zep-cloud",
-                    "X-Fern-SDK-Version": "3.7.0",
-                    "User-Agent": "zep-cloud/3.7.0",
+                    "X-Fern-SDK-Version": "3.8.0",
+                    "User-Agent": "zep-cloud/3.8.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -57,6 +59,10 @@ export class ZepClient {
 
     public get graph(): Graph {
         return (this._graph ??= new Graph(this._options));
+    }
+
+    public get project(): Project {
+        return (this._project ??= new Project(this._options));
     }
 
     public get thread(): Thread {
