@@ -2727,3 +2727,80 @@ await client.graph.node.get("uuid");
 </dd>
 </dl>
 </details>
+
+## Thread Message
+
+<details><summary><code>client.thread.message.<a href="/src/api/resources/thread/resources/message/client/Client.ts">update</a>(messageUuid, { ...params }) -> Zep.Message</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates a message.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.message.update("messageUUID", {
+    metadata: {
+        key: "value",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**messageUuid:** `string` — The UUID of the message.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.thread.ModelsThreadMessageUpdate`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Message.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>

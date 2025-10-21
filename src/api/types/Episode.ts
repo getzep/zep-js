@@ -7,6 +7,7 @@ import * as Zep from "../index.js";
 export interface Episode {
     content: string;
     createdAt: string;
+    metadata?: Record<string, unknown>;
     processed?: boolean;
     /**
      * Relevance is an experimental rank-aligned score in [0,1] derived from Score via logit transformation.
@@ -19,8 +20,9 @@ export interface Episode {
     roleType?: Zep.RoleType;
     /** Score is the reranker output: sigmoid-distributed logits [0,1] when using cross_encoder reranker, or RRF ordinal rank when using rrf reranker */
     score?: number;
-    sessionId?: string;
     source?: Zep.GraphDataType;
     sourceDescription?: string;
+    /** Optional thread ID, will be present if the episode is part of a thread */
+    threadId?: string;
     uuid: string;
 }

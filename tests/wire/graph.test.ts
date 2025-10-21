@@ -88,14 +88,15 @@ describe("Graph", () => {
         const rawResponseBody = {
             content: "content",
             created_at: "created_at",
+            metadata: { key: "value" },
             processed: true,
             relevance: 1.1,
             role: "role",
             role_type: "norole",
             score: 1.1,
-            session_id: "session_id",
             source: "text",
             source_description: "source_description",
+            thread_id: "thread_id",
             uuid: "uuid",
         };
         server
@@ -114,14 +115,17 @@ describe("Graph", () => {
         expect(response).toEqual({
             content: "content",
             createdAt: "created_at",
+            metadata: {
+                key: "value",
+            },
             processed: true,
             relevance: 1.1,
             role: "role",
             roleType: "norole",
             score: 1.1,
-            sessionId: "session_id",
             source: "text",
             sourceDescription: "source_description",
+            threadId: "thread_id",
             uuid: "uuid",
         });
     });
@@ -134,14 +138,15 @@ describe("Graph", () => {
             {
                 content: "content",
                 created_at: "created_at",
+                metadata: { key: "value" },
                 processed: true,
                 relevance: 1.1,
                 role: "role",
                 role_type: "norole",
                 score: 1.1,
-                session_id: "session_id",
                 source: "text",
                 source_description: "source_description",
+                thread_id: "thread_id",
                 uuid: "uuid",
             },
         ];
@@ -166,14 +171,17 @@ describe("Graph", () => {
             {
                 content: "content",
                 createdAt: "created_at",
+                metadata: {
+                    key: "value",
+                },
                 processed: true,
                 relevance: 1.1,
                 role: "role",
                 roleType: "norole",
                 score: 1.1,
-                sessionId: "session_id",
                 source: "text",
                 sourceDescription: "source_description",
+                threadId: "thread_id",
                 uuid: "uuid",
             },
         ]);
@@ -413,14 +421,15 @@ describe("Graph", () => {
                 {
                     content: "content",
                     created_at: "created_at",
+                    metadata: { key: "value" },
                     processed: true,
                     relevance: 1.1,
                     role: "role",
                     role_type: "norole",
                     score: 1.1,
-                    session_id: "session_id",
                     source: "text",
                     source_description: "source_description",
+                    thread_id: "thread_id",
                     uuid: "uuid",
                 },
             ],
@@ -473,14 +482,17 @@ describe("Graph", () => {
                 {
                     content: "content",
                     createdAt: "created_at",
+                    metadata: {
+                        key: "value",
+                    },
                     processed: true,
                     relevance: 1.1,
                     role: "role",
                     roleType: "norole",
                     score: 1.1,
-                    sessionId: "session_id",
                     source: "text",
                     sourceDescription: "source_description",
+                    threadId: "thread_id",
                     uuid: "uuid",
                 },
             ],

@@ -121,6 +121,7 @@ describe("Thread", () => {
                 {
                     content: "content",
                     created_at: "created_at",
+                    metadata: { key: "value" },
                     name: "name",
                     processed: true,
                     role: "norole",
@@ -144,6 +145,9 @@ describe("Thread", () => {
                 {
                     content: "content",
                     createdAt: "created_at",
+                    metadata: {
+                        key: "value",
+                    },
                     name: "name",
                     processed: true,
                     role: "norole",

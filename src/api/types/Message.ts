@@ -9,6 +9,8 @@ export interface Message {
     content: string;
     /** The timestamp of when the message was created. */
     createdAt?: string;
+    /** The metadata associated with the message. */
+    metadata?: Record<string, unknown>;
     /** Customizable name of the sender of the message (e.g., "john", "sales_agent"). */
     name?: string;
     /** Whether the message has been processed. */
