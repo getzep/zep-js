@@ -8,6 +8,7 @@ import * as Zep from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
+import { Message } from "../resources/message/client/Client.js";
 
 export declare namespace Thread {
     export interface Options {
@@ -34,9 +35,14 @@ export declare namespace Thread {
 
 export class Thread {
     protected readonly _options: Thread.Options;
+    protected _message: Message | undefined;
 
     constructor(_options: Thread.Options = {}) {
         this._options = _options;
+    }
+
+    public get message(): Message {
+        return (this._message ??= new Message(this._options));
     }
 
     /**

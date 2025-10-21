@@ -11,6 +11,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Z
     {
         content: core.serialization.string(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string().optional(),
         processed: core.serialization.boolean().optional(),
         role: RoleType,
@@ -22,6 +23,7 @@ export declare namespace Message {
     export interface Raw {
         content: string;
         created_at?: string | null;
+        metadata?: Record<string, unknown> | null;
         name?: string | null;
         processed?: boolean | null;
         role: RoleType.Raw;
