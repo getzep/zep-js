@@ -786,7 +786,7 @@ await client.graph.update("graphId");
 
 ## Project
 
-<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">get</a>() -> Zep.ApidataProjectInfoResponse</code></summary>
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">get</a>() -> Zep.ProjectInfoResponse</code></summary>
 <dl>
 <dd>
 

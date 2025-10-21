@@ -19,7 +19,7 @@ export * from "./GraphListResponse.js";
 export * from "./GraphNodesRequest.js";
 export * from "./GraphSearchResults.js";
 export * from "./ProjectInfo.js";
-export * from "./ApidataProjectInfoResponse.js";
+export * from "./ProjectInfoResponse.js";
 export * from "./RoleType.js";
 export * from "./SuccessResponse.js";
 export * from "./Thread.js";

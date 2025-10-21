@@ -7,14 +7,14 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { ProjectInfo } from "./ProjectInfo.js";
 
-export const ApidataProjectInfoResponse: core.serialization.ObjectSchema<
-    serializers.ApidataProjectInfoResponse.Raw,
-    Zep.ApidataProjectInfoResponse
+export const ProjectInfoResponse: core.serialization.ObjectSchema<
+    serializers.ProjectInfoResponse.Raw,
+    Zep.ProjectInfoResponse
 > = core.serialization.object({
     project: ProjectInfo.optional(),
 });
 
-export declare namespace ApidataProjectInfoResponse {
+export declare namespace ProjectInfoResponse {
     export interface Raw {
         project?: ProjectInfo.Raw | null;
     }

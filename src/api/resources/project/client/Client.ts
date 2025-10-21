@@ -51,13 +51,13 @@ export class Project {
      * @example
      *     await client.project.get()
      */
-    public get(requestOptions?: Project.RequestOptions): core.HttpResponsePromise<Zep.ApidataProjectInfoResponse> {
+    public get(requestOptions?: Project.RequestOptions): core.HttpResponsePromise<Zep.ProjectInfoResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(requestOptions));
     }
 
     private async __get(
         requestOptions?: Project.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.ApidataProjectInfoResponse>> {
+    ): Promise<core.WithRawResponse<Zep.ProjectInfoResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -77,7 +77,7 @@ export class Project {
         });
         if (_response.ok) {
             return {
-                data: serializers.ApidataProjectInfoResponse.parseOrThrow(_response.body, {
+                data: serializers.ProjectInfoResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

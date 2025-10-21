@@ -4,6 +4,6 @@
 
 import * as Zep from "../index.js";
 
-export interface ApidataProjectInfoResponse {
+export interface ProjectInfoResponse {
     project?: Zep.ProjectInfo;
 }
