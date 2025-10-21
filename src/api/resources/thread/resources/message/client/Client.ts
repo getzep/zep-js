@@ -43,7 +43,7 @@ export class Message {
      * Updates a message.
      *
      * @param {string} messageUuid - The UUID of the message.
-     * @param {Zep.thread.ModelsThreadMessageUpdate} request
+     * @param {Zep.thread.ThreadMessageUpdate} request
      * @param {Message.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.NotFoundError}
@@ -58,7 +58,7 @@ export class Message {
      */
     public update(
         messageUuid: string,
-        request: Zep.thread.ModelsThreadMessageUpdate,
+        request: Zep.thread.ThreadMessageUpdate,
         requestOptions?: Message.RequestOptions,
     ): core.HttpResponsePromise<Zep.Message> {
         return core.HttpResponsePromise.fromPromise(this.__update(messageUuid, request, requestOptions));
@@ -66,7 +66,7 @@ export class Message {
 
     private async __update(
         messageUuid: string,
-        request: Zep.thread.ModelsThreadMessageUpdate,
+        request: Zep.thread.ThreadMessageUpdate,
         requestOptions?: Message.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.Message>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -84,7 +84,7 @@ export class Message {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.thread.ModelsThreadMessageUpdate.jsonOrThrow(request, {
+            body: serializers.thread.ThreadMessageUpdate.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

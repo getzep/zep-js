@@ -1,1 +1,1 @@
-export { type ModelsThreadMessageUpdate } from "./ModelsThreadMessageUpdate.js";
+export { type ThreadMessageUpdate } from "./ThreadMessageUpdate.js";

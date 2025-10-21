@@ -6,14 +6,14 @@ import * as serializers from "../../../../../../index.js";
 import * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 
-export const ModelsThreadMessageUpdate: core.serialization.Schema<
-    serializers.thread.ModelsThreadMessageUpdate.Raw,
-    Zep.thread.ModelsThreadMessageUpdate
+export const ThreadMessageUpdate: core.serialization.Schema<
+    serializers.thread.ThreadMessageUpdate.Raw,
+    Zep.thread.ThreadMessageUpdate
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()),
 });
 
-export declare namespace ModelsThreadMessageUpdate {
+export declare namespace ThreadMessageUpdate {
     export interface Raw {
         metadata: Record<string, unknown>;
     }

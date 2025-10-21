@@ -1,1 +1,1 @@
-export { ModelsThreadMessageUpdate } from "./ModelsThreadMessageUpdate.js";
+export { ThreadMessageUpdate } from "./ThreadMessageUpdate.js";

@@ -10,6 +10,6 @@
  *         }
  *     }
  */
-export interface ModelsThreadMessageUpdate {
+export interface ThreadMessageUpdate {
     metadata: Record<string, unknown>;
 }

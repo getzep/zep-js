@@ -2786,7 +2786,7 @@ await client.thread.message.update("messageUUID", {
 <dl>
 <dd>
 
-**request:** `Zep.thread.ModelsThreadMessageUpdate`
+**request:** `Zep.thread.ThreadMessageUpdate`
 
 </dd>
 </dl>
