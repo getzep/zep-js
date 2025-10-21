@@ -12,14 +12,15 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
     {
         content: core.serialization.string(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         processed: core.serialization.boolean().optional(),
         relevance: core.serialization.number().optional(),
         role: core.serialization.string().optional(),
         roleType: core.serialization.property("role_type", RoleType.optional()),
         score: core.serialization.number().optional(),
-        sessionId: core.serialization.property("session_id", core.serialization.string().optional()),
         source: GraphDataType.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
+        threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
         uuid: core.serialization.string(),
     },
 );
@@ -28,14 +29,15 @@ export declare namespace Episode {
     export interface Raw {
         content: string;
         created_at: string;
+        metadata?: Record<string, unknown> | null;
         processed?: boolean | null;
         relevance?: number | null;
         role?: string | null;
         role_type?: RoleType.Raw | null;
         score?: number | null;
-        session_id?: string | null;
         source?: GraphDataType.Raw | null;
         source_description?: string | null;
+        thread_id?: string | null;
         uuid: string;
     }
 }
