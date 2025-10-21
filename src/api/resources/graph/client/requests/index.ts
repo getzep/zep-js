@@ -6,4 +6,3 @@ export { type CreateGraphRequest } from "./CreateGraphRequest.js";
 export { type GraphListAllRequest } from "./GraphListAllRequest.js";
 export { type GraphSearchQuery } from "./GraphSearchQuery.js";
 export { type UpdateGraphRequest } from "./UpdateGraphRequest.js";
-export { type GraphSetOntologyRequest } from "./GraphSetOntologyRequest.js";
