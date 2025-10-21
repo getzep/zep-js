@@ -1,3 +1,4 @@
+export { EntityTypeRequest } from "./EntityTypeRequest.js";
 export { AddDataRequest } from "./AddDataRequest.js";
 export { AddDataBatchRequest } from "./AddDataBatchRequest.js";
 export { AddTripleRequest } from "./AddTripleRequest.js";
