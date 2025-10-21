@@ -6,4 +6,3 @@ export { CloneGraphRequest } from "./CloneGraphRequest.js";
 export { CreateGraphRequest } from "./CreateGraphRequest.js";
 export { GraphSearchQuery } from "./GraphSearchQuery.js";
 export { UpdateGraphRequest } from "./UpdateGraphRequest.js";
-export { GraphSetOntologyRequest } from "./GraphSetOntologyRequest.js";
