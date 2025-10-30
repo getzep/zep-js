@@ -13,6 +13,7 @@ describe("User", () => {
         const rawResponseBody = {
             created_at: "created_at",
             deleted_at: "deleted_at",
+            disable_default_ontology: true,
             email: "email",
             fact_rating_instruction: {
                 examples: { high: "high", low: "low", medium: "medium" },
@@ -43,6 +44,7 @@ describe("User", () => {
         expect(response).toEqual({
             createdAt: "created_at",
             deletedAt: "deleted_at",
+            disableDefaultOntology: true,
             email: "email",
             factRatingInstruction: {
                 examples: {
@@ -77,6 +79,7 @@ describe("User", () => {
                 {
                     created_at: "created_at",
                     deleted_at: "deleted_at",
+                    disable_default_ontology: true,
                     email: "email",
                     first_name: "first_name",
                     id: 1,
@@ -92,7 +95,10 @@ describe("User", () => {
         };
         server.mockEndpoint().get("/users-ordered").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.user.listOrdered();
+        const response = await client.user.listOrdered({
+            pageNumber: 1,
+            pageSize: 1,
+        });
         expect(response).toEqual({
             rowCount: 1,
             totalCount: 1,
@@ -100,6 +106,7 @@ describe("User", () => {
                 {
                     createdAt: "created_at",
                     deletedAt: "deleted_at",
+                    disableDefaultOntology: true,
                     email: "email",
                     firstName: "first_name",
                     id: 1,
@@ -124,6 +131,7 @@ describe("User", () => {
         const rawResponseBody = {
             created_at: "created_at",
             deleted_at: "deleted_at",
+            disable_default_ontology: true,
             email: "email",
             fact_rating_instruction: {
                 examples: { high: "high", low: "low", medium: "medium" },
@@ -145,6 +153,7 @@ describe("User", () => {
         expect(response).toEqual({
             createdAt: "created_at",
             deletedAt: "deleted_at",
+            disableDefaultOntology: true,
             email: "email",
             factRatingInstruction: {
                 examples: {
@@ -188,6 +197,7 @@ describe("User", () => {
         const rawResponseBody = {
             created_at: "created_at",
             deleted_at: "deleted_at",
+            disable_default_ontology: true,
             email: "email",
             fact_rating_instruction: {
                 examples: { high: "high", low: "low", medium: "medium" },
@@ -216,6 +226,7 @@ describe("User", () => {
         expect(response).toEqual({
             createdAt: "created_at",
             deletedAt: "deleted_at",
+            disableDefaultOntology: true,
             email: "email",
             factRatingInstruction: {
                 examples: {

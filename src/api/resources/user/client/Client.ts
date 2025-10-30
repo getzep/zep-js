@@ -160,7 +160,10 @@ export class User {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.listOrdered()
+     *     await client.user.listOrdered({
+     *         pageNumber: 1,
+     *         pageSize: 1
+     *     })
      */
     public listOrdered(
         request: Zep.UserListOrderedRequest = {},

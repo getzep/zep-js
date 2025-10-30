@@ -7,6 +7,7 @@ import * as Zep from "../index.js";
 export interface User {
     createdAt?: string;
     deletedAt?: string;
+    disableDefaultOntology?: boolean;
     email?: string;
     factRatingInstruction?: Zep.ModelsFactRatingInstruction;
     firstName?: string;

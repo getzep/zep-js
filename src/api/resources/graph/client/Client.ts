@@ -68,7 +68,10 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.listEntityTypes()
+     *     await client.graph.listEntityTypes({
+     *         userId: "user_id",
+     *         graphId: "graph_id"
+     *     })
      */
     public listEntityTypes(
         request: Zep.GraphListEntityTypesRequest = {},
@@ -861,7 +864,10 @@ export class Graph {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.listAll()
+     *     await client.graph.listAll({
+     *         pageNumber: 1,
+     *         pageSize: 1
+     *     })
      */
     public listAll(
         request: Zep.GraphListAllRequest = {},

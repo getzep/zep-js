@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         userId: "user_id",
+ *         graphId: "graph_id"
+ *     }
  */
 export interface GraphListEntityTypesRequest {
     /**

@@ -30,7 +30,10 @@ Returns all entity types for a project, user, or graph.
 <dd>
 
 ```typescript
-await client.graph.listEntityTypes();
+await client.graph.listEntityTypes({
+    userId: "user_id",
+    graphId: "graph_id",
+});
 ```
 
 </dd>
@@ -487,7 +490,10 @@ Returns all graphs. In order to list users, use user.list_ordered instead
 <dd>
 
 ```typescript
-await client.graph.listAll();
+await client.graph.listAll({
+    pageNumber: 1,
+    pageSize: 1,
+});
 ```
 
 </dd>
@@ -871,7 +877,12 @@ Returns all threads.
 <dd>
 
 ```typescript
-await client.thread.listAll();
+await client.thread.listAll({
+    pageNumber: 1,
+    pageSize: 1,
+    orderBy: "order_by",
+    asc: true,
+});
 ```
 
 </dd>
@@ -1063,7 +1074,10 @@ Returns most relevant context from the user graph (including memory from any/all
 <dd>
 
 ```typescript
-await client.thread.getUserContext("threadId");
+await client.thread.getUserContext("threadId", {
+    minRating: 1.1,
+    mode: "basic",
+});
 ```
 
 </dd>
@@ -1134,7 +1148,11 @@ Returns messages for a thread.
 <dd>
 
 ```typescript
-await client.thread.get("threadId");
+await client.thread.get("threadId", {
+    limit: 1,
+    cursor: 1,
+    lastn: 1,
+});
 ```
 
 </dd>
@@ -1428,7 +1446,10 @@ Returns all users.
 <dd>
 
 ```typescript
-await client.user.listOrdered();
+await client.user.listOrdered({
+    pageNumber: 1,
+    pageSize: 1,
+});
 ```
 
 </dd>
@@ -2149,7 +2170,9 @@ Returns episodes by graph id.
 <dd>
 
 ```typescript
-await client.graph.episode.getByGraphId("graph_id");
+await client.graph.episode.getByGraphId("graph_id", {
+    lastn: 1,
+});
 ```
 
 </dd>
@@ -2220,7 +2243,9 @@ Returns episodes by user id.
 <dd>
 
 ```typescript
-await client.graph.episode.getByUserId("user_id");
+await client.graph.episode.getByUserId("user_id", {
+    lastn: 1,
+});
 ```
 
 </dd>

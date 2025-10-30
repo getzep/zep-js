@@ -9,6 +9,8 @@ import * as Zep from "../../../../index.js";
  *     {}
  */
 export interface UpdateUserRequest {
+    /** When true, disables the use of default/fallback ontology for the user's graph. */
+    disableDefaultOntology?: boolean;
     /** The email address of the user. */
     email?: string;
     /** Optional instruction to use for fact rating. */

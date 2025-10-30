@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         pageNumber: 1,
+ *         pageSize: 1
+ *     }
  */
 export interface GraphListAllRequest {
     /**

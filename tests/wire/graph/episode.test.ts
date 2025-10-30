@@ -36,7 +36,9 @@ describe("Episode", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.graph.episode.getByGraphId("graph_id");
+        const response = await client.graph.episode.getByGraphId("graph_id", {
+            lastn: 1,
+        });
         expect(response).toEqual({
             episodes: [
                 {
@@ -89,7 +91,9 @@ describe("Episode", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.graph.episode.getByUserId("user_id");
+        const response = await client.graph.episode.getByUserId("user_id", {
+            lastn: 1,
+        });
         expect(response).toEqual({
             episodes: [
                 {
