@@ -6,10 +6,7 @@ import * as Zep from "../../../../index.js";
 
 /**
  * @example
- *     {
- *         minRating: 1.1,
- *         mode: "basic"
- *     }
+ *     {}
  */
 export interface ThreadGetUserContextRequest {
     /**

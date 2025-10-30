@@ -95,10 +95,7 @@ describe("User", () => {
         };
         server.mockEndpoint().get("/users-ordered").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.user.listOrdered({
-            pageNumber: 1,
-            pageSize: 1,
-        });
+        const response = await client.user.listOrdered();
         expect(response).toEqual({
             rowCount: 1,
             totalCount: 1,

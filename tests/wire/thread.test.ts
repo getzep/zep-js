@@ -25,12 +25,7 @@ describe("Thread", () => {
         };
         server.mockEndpoint().get("/threads").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.thread.listAll({
-            pageNumber: 1,
-            pageSize: 1,
-            orderBy: "order_by",
-            asc: true,
-        });
+        const response = await client.thread.listAll();
         expect(response).toEqual({
             responseCount: 1,
             threads: [
@@ -111,10 +106,7 @@ describe("Thread", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.thread.getUserContext("threadId", {
-            minRating: 1.1,
-            mode: "basic",
-        });
+        const response = await client.thread.getUserContext("threadId");
         expect(response).toEqual({
             context: "context",
         });
@@ -147,11 +139,7 @@ describe("Thread", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.thread.get("threadId", {
-            limit: 1,
-            cursor: 1,
-            lastn: 1,
-        });
+        const response = await client.thread.get("threadId");
         expect(response).toEqual({
             messages: [
                 {

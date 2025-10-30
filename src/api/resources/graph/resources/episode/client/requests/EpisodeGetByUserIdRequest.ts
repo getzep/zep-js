@@ -4,9 +4,7 @@
 
 /**
  * @example
- *     {
- *         lastn: 1
- *     }
+ *     {}
  */
 export interface EpisodeGetByUserIdRequest {
     /**

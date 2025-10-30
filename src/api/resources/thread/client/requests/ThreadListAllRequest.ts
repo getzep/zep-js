@@ -4,12 +4,7 @@
 
 /**
  * @example
- *     {
- *         pageNumber: 1,
- *         pageSize: 1,
- *         orderBy: "order_by",
- *         asc: true
- *     }
+ *     {}
  */
 export interface ThreadListAllRequest {
     /**

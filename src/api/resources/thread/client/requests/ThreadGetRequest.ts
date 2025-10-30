@@ -4,11 +4,7 @@
 
 /**
  * @example
- *     {
- *         limit: 1,
- *         cursor: 1,
- *         lastn: 1
- *     }
+ *     {}
  */
 export interface ThreadGetRequest {
     /**
