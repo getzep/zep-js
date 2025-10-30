@@ -15,6 +15,10 @@ export interface SearchFilters {
     createdAt?: Zep.DateFilter[][];
     /** List of edge types to filter on */
     edgeTypes?: string[];
+    /** List of edge types to exclude from results */
+    excludeEdgeTypes?: string[];
+    /** List of node labels to exclude from results */
+    excludeNodeLabels?: string[];
     /**
      * 2D array of date filters for the expired_at field.
      * The outer array elements are combined with OR logic.

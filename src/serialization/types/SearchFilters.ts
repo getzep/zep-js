@@ -17,6 +17,14 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "edge_types",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        excludeEdgeTypes: core.serialization.property(
+            "exclude_edge_types",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        excludeNodeLabels: core.serialization.property(
+            "exclude_node_labels",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         expiredAt: core.serialization.property(
             "expired_at",
             core.serialization.list(core.serialization.list(DateFilter)).optional(),
@@ -39,6 +47,8 @@ export declare namespace SearchFilters {
     export interface Raw {
         created_at?: DateFilter.Raw[][] | null;
         edge_types?: string[] | null;
+        exclude_edge_types?: string[] | null;
+        exclude_node_labels?: string[] | null;
         expired_at?: DateFilter.Raw[][] | null;
         invalid_at?: DateFilter.Raw[][] | null;
         node_labels?: string[] | null;

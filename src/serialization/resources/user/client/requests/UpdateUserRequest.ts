@@ -9,6 +9,10 @@ import { FactRatingInstruction } from "../../../../types/FactRatingInstruction.j
 
 export const UpdateUserRequest: core.serialization.Schema<serializers.UpdateUserRequest.Raw, Zep.UpdateUserRequest> =
     core.serialization.object({
+        disableDefaultOntology: core.serialization.property(
+            "disable_default_ontology",
+            core.serialization.boolean().optional(),
+        ),
         email: core.serialization.string().optional(),
         factRatingInstruction: core.serialization.property("fact_rating_instruction", FactRatingInstruction.optional()),
         firstName: core.serialization.property("first_name", core.serialization.string().optional()),
@@ -18,6 +22,7 @@ export const UpdateUserRequest: core.serialization.Schema<serializers.UpdateUser
 
 export declare namespace UpdateUserRequest {
     export interface Raw {
+        disable_default_ontology?: boolean | null;
         email?: string | null;
         fact_rating_instruction?: FactRatingInstruction.Raw | null;
         first_name?: string | null;

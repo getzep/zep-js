@@ -10,6 +10,10 @@ import { ModelsFactRatingInstruction } from "./ModelsFactRatingInstruction.js";
 export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.User> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     deletedAt: core.serialization.property("deleted_at", core.serialization.string().optional()),
+    disableDefaultOntology: core.serialization.property(
+        "disable_default_ontology",
+        core.serialization.boolean().optional(),
+    ),
     email: core.serialization.string().optional(),
     factRatingInstruction: core.serialization.property(
         "fact_rating_instruction",
@@ -30,6 +34,7 @@ export declare namespace User {
     export interface Raw {
         created_at?: string | null;
         deleted_at?: string | null;
+        disable_default_ontology?: boolean | null;
         email?: string | null;
         fact_rating_instruction?: ModelsFactRatingInstruction.Raw | null;
         first_name?: string | null;
