@@ -6,6 +6,77 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 import { ZepClient } from "../../src/Client";
 
 describe("User", () => {
+    test("list_user_summary_instructions", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { instructions: [{ name: "name", text: "text" }] };
+        server
+            .mockEndpoint()
+            .get("/user-summary-instructions")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.listUserSummaryInstructions();
+        expect(response).toEqual({
+            instructions: [
+                {
+                    name: "name",
+                    text: "text",
+                },
+            ],
+        });
+    });
+
+    test("add_user_summary_instructions", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { instructions: [{ name: "name", text: "text" }] };
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .post("/user-summary-instructions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.addUserSummaryInstructions({
+            instructions: [
+                {
+                    name: "name",
+                    text: "text",
+                },
+            ],
+        });
+        expect(response).toEqual({
+            message: "message",
+        });
+    });
+
+    test("delete_user_summary_instructions", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .delete("/user-summary-instructions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.deleteUserSummaryInstructions();
+        expect(response).toEqual({
+            message: "message",
+        });
+    });
+
     test("add", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
