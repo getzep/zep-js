@@ -40,7 +40,7 @@ export class User {
     }
 
     /**
-     * Lists all user summary/instructions for a project, user, or graph.
+     * Lists all user summary instructions for a project, user.
      *
      * @param {Zep.UserListUserSummaryInstructionsRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -62,14 +62,10 @@ export class User {
         request: Zep.UserListUserSummaryInstructionsRequest = {},
         requestOptions?: User.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.ListUserInstructionsResponse>> {
-        const { userId, graphId } = request;
+        const { userId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (userId != null) {
             _queryParams["user_id"] = userId;
-        }
-
-        if (graphId != null) {
-            _queryParams["graph_id"] = graphId;
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -154,7 +150,7 @@ export class User {
     }
 
     /**
-     * Adds new summary/instructions for users and/or graphs without removing existing ones.
+     * Adds new summary instructions for users graphs without removing existing ones. If user_ids is empty, adds to project-wide default instructions.
      *
      * @param {Zep.ApidataAddUserInstructionsRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
@@ -268,7 +264,7 @@ export class User {
     }
 
     /**
-     * Deletes user summary/instructions for users and/or graphs.
+     * Deletes user summary/instructions for users or project wide defaults.
      *
      * @param {Zep.ApidataDeleteUserInstructionsRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.

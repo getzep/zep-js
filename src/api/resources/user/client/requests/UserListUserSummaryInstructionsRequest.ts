@@ -11,8 +11,4 @@ export interface UserListUserSummaryInstructionsRequest {
      * User ID to get user-specific instructions
      */
     userId?: string;
-    /**
-     * Graph ID to get graph-specific instructions
-     */
-    graphId?: string;
 }

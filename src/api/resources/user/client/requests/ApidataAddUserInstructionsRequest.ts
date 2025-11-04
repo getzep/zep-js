@@ -14,6 +14,8 @@ import * as Zep from "../../../../index.js";
  *     }
  */
 export interface ApidataAddUserInstructionsRequest {
+    /** Instructions to add to the user summary generation. */
     instructions: Zep.UserInstruction[];
+    /** User IDs to add the instructions to. If empty, the instructions are added to the project-wide default. */
     userIds?: string[];
 }

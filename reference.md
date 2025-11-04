@@ -1347,7 +1347,7 @@ await client.thread.addMessagesBatch("threadId", {
 <dl>
 <dd>
 
-Lists all user summary/instructions for a project, user, or graph.
+Lists all user summary instructions for a project, user.
 
 </dd>
 </dl>
@@ -1410,7 +1410,7 @@ await client.user.listUserSummaryInstructions();
 <dl>
 <dd>
 
-Adds new summary/instructions for users and/or graphs without removing existing ones.
+Adds new summary instructions for users graphs without removing existing ones. If user_ids is empty, adds to project-wide default instructions.
 
 </dd>
 </dl>
@@ -1480,7 +1480,7 @@ await client.user.addUserSummaryInstructions({
 <dl>
 <dd>
 
-Deletes user summary/instructions for users and/or graphs.
+Deletes user summary/instructions for users or project wide defaults.
 
 </dd>
 </dl>
