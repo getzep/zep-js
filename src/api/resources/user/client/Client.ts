@@ -40,6 +40,339 @@ export class User {
     }
 
     /**
+     * Lists all user summary instructions for a project, user.
+     *
+     * @param {Zep.UserListUserSummaryInstructionsRequest} request
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.user.listUserSummaryInstructions()
+     */
+    public listUserSummaryInstructions(
+        request: Zep.UserListUserSummaryInstructionsRequest = {},
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Zep.ListUserInstructionsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listUserSummaryInstructions(request, requestOptions));
+    }
+
+    private async __listUserSummaryInstructions(
+        request: Zep.UserListUserSummaryInstructionsRequest = {},
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.ListUserInstructionsResponse>> {
+        const { userId } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (userId != null) {
+            _queryParams["user_id"] = userId;
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "user-summary-instructions",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.ListUserInstructionsResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /user-summary-instructions.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Adds new summary instructions for users graphs without removing existing ones. If user_ids is empty, adds to project-wide default instructions.
+     *
+     * @param {Zep.AddUserInstructionsRequest} request
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.user.addUserSummaryInstructions({
+     *         instructions: [{
+     *                 name: "name",
+     *                 text: "text"
+     *             }]
+     *     })
+     */
+    public addUserSummaryInstructions(
+        request: Zep.AddUserInstructionsRequest,
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Zep.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__addUserSummaryInstructions(request, requestOptions));
+    }
+
+    private async __addUserSummaryInstructions(
+        request: Zep.AddUserInstructionsRequest,
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "user-summary-instructions",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.AddUserInstructionsRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.SuccessResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /user-summary-instructions.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes user summary/instructions for users or project wide defaults.
+     *
+     * @param {Zep.DeleteUserInstructionsRequest} request
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.user.deleteUserSummaryInstructions()
+     */
+    public deleteUserSummaryInstructions(
+        request: Zep.DeleteUserInstructionsRequest = {},
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Zep.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteUserSummaryInstructions(request, requestOptions));
+    }
+
+    private async __deleteUserSummaryInstructions(
+        request: Zep.DeleteUserInstructionsRequest = {},
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "user-summary-instructions",
+            ),
+            method: "DELETE",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.DeleteUserInstructionsRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.SuccessResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling DELETE /user-summary-instructions.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Adds a user.
      *
      * @param {Zep.CreateUserRequest} request

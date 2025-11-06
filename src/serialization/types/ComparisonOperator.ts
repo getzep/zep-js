@@ -7,8 +7,8 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
 export const ComparisonOperator: core.serialization.Schema<serializers.ComparisonOperator.Raw, Zep.ComparisonOperator> =
-    core.serialization.enum_(["=", "<>", ">", "<", ">=", "<="]);
+    core.serialization.enum_(["=", "<>", ">", "<", ">=", "<=", "IS NULL", "IS NOT NULL"]);
 
 export declare namespace ComparisonOperator {
-    export type Raw = "=" | "<>" | ">" | "<" | ">=" | "<=";
+    export type Raw = "=" | "<>" | ">" | "<" | ">=" | "<=" | "IS NULL" | "IS NOT NULL";
 }
