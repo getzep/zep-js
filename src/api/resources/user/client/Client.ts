@@ -152,7 +152,7 @@ export class User {
     /**
      * Adds new summary instructions for users graphs without removing existing ones. If user_ids is empty, adds to project-wide default instructions.
      *
-     * @param {Zep.ApidataAddUserInstructionsRequest} request
+     * @param {Zep.AddUserInstructionsRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -167,14 +167,14 @@ export class User {
      *     })
      */
     public addUserSummaryInstructions(
-        request: Zep.ApidataAddUserInstructionsRequest,
+        request: Zep.AddUserInstructionsRequest,
         requestOptions?: User.RequestOptions,
     ): core.HttpResponsePromise<Zep.SuccessResponse> {
         return core.HttpResponsePromise.fromPromise(this.__addUserSummaryInstructions(request, requestOptions));
     }
 
     private async __addUserSummaryInstructions(
-        request: Zep.ApidataAddUserInstructionsRequest,
+        request: Zep.AddUserInstructionsRequest,
         requestOptions?: User.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -192,7 +192,7 @@ export class User {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ApidataAddUserInstructionsRequest.jsonOrThrow(request, {
+            body: serializers.AddUserInstructionsRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -266,7 +266,7 @@ export class User {
     /**
      * Deletes user summary/instructions for users or project wide defaults.
      *
-     * @param {Zep.ApidataDeleteUserInstructionsRequest} request
+     * @param {Zep.DeleteUserInstructionsRequest} request
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -276,14 +276,14 @@ export class User {
      *     await client.user.deleteUserSummaryInstructions()
      */
     public deleteUserSummaryInstructions(
-        request: Zep.ApidataDeleteUserInstructionsRequest = {},
+        request: Zep.DeleteUserInstructionsRequest = {},
         requestOptions?: User.RequestOptions,
     ): core.HttpResponsePromise<Zep.SuccessResponse> {
         return core.HttpResponsePromise.fromPromise(this.__deleteUserSummaryInstructions(request, requestOptions));
     }
 
     private async __deleteUserSummaryInstructions(
-        request: Zep.ApidataDeleteUserInstructionsRequest = {},
+        request: Zep.DeleteUserInstructionsRequest = {},
         requestOptions?: User.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -301,7 +301,7 @@ export class User {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ApidataDeleteUserInstructionsRequest.jsonOrThrow(request, {
+            body: serializers.DeleteUserInstructionsRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

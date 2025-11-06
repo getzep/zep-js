@@ -5,21 +5,19 @@
 import * as serializers from "../../../../index.js";
 import * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
+import { UserInstruction } from "../../../../types/UserInstruction.js";
 
-export const ApidataDeleteUserInstructionsRequest: core.serialization.Schema<
-    serializers.ApidataDeleteUserInstructionsRequest.Raw,
-    Zep.ApidataDeleteUserInstructionsRequest
+export const AddUserInstructionsRequest: core.serialization.Schema<
+    serializers.AddUserInstructionsRequest.Raw,
+    Zep.AddUserInstructionsRequest
 > = core.serialization.object({
-    instructionNames: core.serialization.property(
-        "instruction_names",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
+    instructions: core.serialization.list(UserInstruction),
     userIds: core.serialization.property("user_ids", core.serialization.list(core.serialization.string()).optional()),
 });
 
-export declare namespace ApidataDeleteUserInstructionsRequest {
+export declare namespace AddUserInstructionsRequest {
     export interface Raw {
-        instruction_names?: string[] | null;
+        instructions: UserInstruction.Raw[];
         user_ids?: string[] | null;
     }
 }

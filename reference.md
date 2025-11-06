@@ -1449,7 +1449,7 @@ await client.user.addUserSummaryInstructions({
 <dl>
 <dd>
 
-**request:** `Zep.ApidataAddUserInstructionsRequest`
+**request:** `Zep.AddUserInstructionsRequest`
 
 </dd>
 </dl>
@@ -1512,7 +1512,7 @@ await client.user.deleteUserSummaryInstructions();
 <dl>
 <dd>
 
-**request:** `Zep.ApidataDeleteUserInstructionsRequest`
+**request:** `Zep.DeleteUserInstructionsRequest`
 
 </dd>
 </dl>

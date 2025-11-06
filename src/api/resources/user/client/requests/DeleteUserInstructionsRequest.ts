@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface ApidataDeleteUserInstructionsRequest {
+export interface DeleteUserInstructionsRequest {
     /** Unique identifier for the instructions to be deleted. If empty deletes all instructions. */
     instructionNames?: string[];
     /** Determines which users will have their custom instructions deleted. If no users are provided, the project-wide custom instructions will be effected. */
