@@ -17,7 +17,7 @@ export interface ThreadGetUserContextRequest {
      */
     minRating?: number;
     /**
-     * Deprecated, this field will be removed in a future release. Defaults to summary mode. Use basic for lower latency
+     * Defaults to summary mode. Use basic for lower latency
      */
     mode?: Zep.ThreadGetUserContextRequestMode;
 }

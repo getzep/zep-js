@@ -149,7 +149,7 @@ describe("Thread", () => {
 
         const response = await client.thread.get("threadId", {
             limit: 1,
-            cursor: 1000000,
+            cursor: 1,
             lastn: 1,
         });
         expect(response).toEqual({
