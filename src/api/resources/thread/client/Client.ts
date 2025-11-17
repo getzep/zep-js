@@ -55,7 +55,12 @@ export class Thread {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.thread.listAll()
+     *     await client.thread.listAll({
+     *         pageNumber: 1,
+     *         pageSize: 1,
+     *         orderBy: "order_by",
+     *         asc: true
+     *     })
      */
     public listAll(
         request: Zep.ThreadListAllRequest = {},
@@ -393,7 +398,10 @@ export class Thread {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.thread.getUserContext("threadId")
+     *     await client.thread.getUserContext("threadId", {
+     *         minRating: 1.1,
+     *         mode: "basic"
+     *     })
      */
     public getUserContext(
         threadId: string,
@@ -513,7 +521,11 @@ export class Thread {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.thread.get("threadId")
+     *     await client.thread.get("threadId", {
+     *         limit: 1,
+     *         cursor: 1000000,
+     *         lastn: 1
+     *     })
      */
     public get(
         threadId: string,

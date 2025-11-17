@@ -49,7 +49,9 @@ export class User {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.listUserSummaryInstructions()
+     *     await client.user.listUserSummaryInstructions({
+     *         userId: "user_id"
+     *     })
      */
     public listUserSummaryInstructions(
         request: Zep.UserListUserSummaryInstructionsRequest = {},
@@ -493,7 +495,10 @@ export class User {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.user.listOrdered()
+     *     await client.user.listOrdered({
+     *         pageNumber: 1,
+     *         pageSize: 1
+     *     })
      */
     public listOrdered(
         request: Zep.UserListOrderedRequest = {},

@@ -6,7 +6,10 @@ import * as Zep from "../../../../index.js";
 
 /**
  * @example
- *     {}
+ *     {
+ *         minRating: 1.1,
+ *         mode: "basic"
+ *     }
  */
 export interface ThreadGetUserContextRequest {
     /**
@@ -14,7 +17,7 @@ export interface ThreadGetUserContextRequest {
      */
     minRating?: number;
     /**
-     * Defaults to summary mode. Use basic for lower latency
+     * Deprecated, this field will be removed in a future release. Defaults to summary mode. Use basic for lower latency
      */
     mode?: Zep.ThreadGetUserContextRequestMode;
 }

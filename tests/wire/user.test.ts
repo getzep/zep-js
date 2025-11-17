@@ -19,7 +19,9 @@ describe("User", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.user.listUserSummaryInstructions();
+        const response = await client.user.listUserSummaryInstructions({
+            userId: "user_id",
+        });
         expect(response).toEqual({
             instructions: [
                 {
@@ -166,7 +168,10 @@ describe("User", () => {
         };
         server.mockEndpoint().get("/users-ordered").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.user.listOrdered();
+        const response = await client.user.listOrdered({
+            pageNumber: 1,
+            pageSize: 1,
+        });
         expect(response).toEqual({
             rowCount: 1,
             totalCount: 1,

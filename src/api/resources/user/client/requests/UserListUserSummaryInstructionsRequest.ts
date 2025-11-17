@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         userId: "user_id"
+ *     }
  */
 export interface UserListUserSummaryInstructionsRequest {
     /**

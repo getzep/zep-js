@@ -29,7 +29,10 @@ describe("Graph", () => {
         };
         server.mockEndpoint().get("/entity-types").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.graph.listEntityTypes();
+        const response = await client.graph.listEntityTypes({
+            userId: "user_id",
+            graphId: "graph_id",
+        });
         expect(response).toEqual({
             edgeTypes: [
                 {
@@ -377,7 +380,10 @@ describe("Graph", () => {
         };
         server.mockEndpoint().get("/graph/list-all").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.graph.listAll();
+        const response = await client.graph.listAll({
+            pageNumber: 1,
+            pageSize: 1,
+        });
         expect(response).toEqual({
             graphs: [
                 {
