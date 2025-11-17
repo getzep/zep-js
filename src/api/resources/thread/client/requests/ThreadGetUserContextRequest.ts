@@ -8,6 +8,7 @@ import * as Zep from "../../../../index.js";
  * @example
  *     {
  *         minRating: 1.1,
+ *         templateId: "template_id",
  *         mode: "basic"
  *     }
  */
@@ -17,7 +18,11 @@ export interface ThreadGetUserContextRequest {
      */
     minRating?: number;
     /**
-     * Defaults to summary mode. Use basic for lower latency
+     * Optional template ID to use for custom context rendering.
+     */
+    templateId?: string;
+    /**
+     * Deprecated, this field will be removed in a future release. Defaults to summary mode. Use basic for lower latency
      */
     mode?: Zep.ThreadGetUserContextRequestMode;
 }

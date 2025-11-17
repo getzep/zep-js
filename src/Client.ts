@@ -5,6 +5,7 @@
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { mergeHeaders } from "./core/headers.js";
+import { Context } from "./api/resources/context/client/Client.js";
 import { Graph } from "./api/resources/graph/client/Client.js";
 import { Project } from "./api/resources/project/client/Client.js";
 import { Thread } from "./api/resources/thread/client/Client.js";
@@ -35,6 +36,7 @@ export declare namespace ZepClient {
 
 export class ZepClient {
     protected readonly _options: ZepClient.Options;
+    protected _context: Context | undefined;
     protected _graph: Graph | undefined;
     protected _project: Project | undefined;
     protected _thread: Thread | undefined;
@@ -55,6 +57,10 @@ export class ZepClient {
                 _options?.headers,
             ),
         };
+    }
+
+    public get context(): Context {
+        return (this._context ??= new Context(this._options));
     }
 
     public get graph(): Graph {

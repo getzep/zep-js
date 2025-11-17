@@ -113,6 +113,7 @@ describe("Thread", () => {
 
         const response = await client.thread.getUserContext("threadId", {
             minRating: 1.1,
+            templateId: "template_id",
             mode: "basic",
         });
         expect(response).toEqual({
