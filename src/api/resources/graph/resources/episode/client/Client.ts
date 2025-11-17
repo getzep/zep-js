@@ -50,7 +50,9 @@ export class Episode {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.episode.getByGraphId("graph_id")
+     *     await client.graph.episode.getByGraphId("graph_id", {
+     *         lastn: 1
+     *     })
      */
     public getByGraphId(
         graphId: string,
@@ -163,7 +165,9 @@ export class Episode {
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.episode.getByUserId("user_id")
+     *     await client.graph.episode.getByUserId("user_id", {
+     *         lastn: 1
+     *     })
      */
     public getByUserId(
         userId: string,
