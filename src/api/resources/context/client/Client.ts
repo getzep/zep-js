@@ -8,9 +8,8 @@ import * as Zep from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
-import { Message } from "../resources/message/client/Client.js";
 
-export declare namespace Thread {
+export declare namespace Context {
     export interface Options {
         environment?: core.Supplier<environments.ZepEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -33,70 +32,39 @@ export declare namespace Thread {
     }
 }
 
-export class Thread {
-    protected readonly _options: Thread.Options;
-    protected _message: Message | undefined;
+export class Context {
+    protected readonly _options: Context.Options;
 
-    constructor(_options: Thread.Options = {}) {
+    constructor(_options: Context.Options = {}) {
         this._options = _options;
     }
 
-    public get message(): Message {
-        return (this._message ??= new Message(this._options));
-    }
-
     /**
-     * Returns all threads.
+     * Lists all context templates.
      *
-     * @param {Zep.ThreadListAllRequest} request
-     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Context.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.thread.listAll({
-     *         pageNumber: 1,
-     *         pageSize: 1,
-     *         orderBy: "order_by",
-     *         asc: true
-     *     })
+     *     await client.context.listContextTemplates()
      */
-    public listAll(
-        request: Zep.ThreadListAllRequest = {},
-        requestOptions?: Thread.RequestOptions,
-    ): core.HttpResponsePromise<Zep.ThreadListResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__listAll(request, requestOptions));
+    public listContextTemplates(
+        requestOptions?: Context.RequestOptions,
+    ): core.HttpResponsePromise<Zep.ListContextTemplatesResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listContextTemplates(requestOptions));
     }
 
-    private async __listAll(
-        request: Zep.ThreadListAllRequest = {},
-        requestOptions?: Thread.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.ThreadListResponse>> {
-        const { pageNumber, pageSize, orderBy, asc } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (pageNumber != null) {
-            _queryParams["page_number"] = pageNumber.toString();
-        }
-
-        if (pageSize != null) {
-            _queryParams["page_size"] = pageSize.toString();
-        }
-
-        if (orderBy != null) {
-            _queryParams["order_by"] = orderBy;
-        }
-
-        if (asc != null) {
-            _queryParams["asc"] = asc.toString();
-        }
-
+    private async __listContextTemplates(
+        requestOptions?: Context.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.ListContextTemplatesResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                "threads",
+                "context-templates",
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -104,14 +72,13 @@ export class Thread {
                 mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
                 requestOptions?.headers,
             ),
-            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
             return {
-                data: serializers.ThreadListResponse.parseOrThrow(_response.body, {
+                data: serializers.ListContextTemplatesResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -163,7 +130,7 @@ export class Thread {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /threads.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /context-templates.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -173,37 +140,37 @@ export class Thread {
     }
 
     /**
-     * Start a new thread.
+     * Creates a new context template.
      *
-     * @param {Zep.CreateThreadRequest} request
-     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Zep.CreateContextTemplateRequest} request
+     * @param {Context.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.thread.create({
-     *         threadId: "thread_id",
-     *         userId: "user_id"
+     *     await client.context.createContextTemplate({
+     *         template: "template",
+     *         templateId: "template_id"
      *     })
      */
-    public create(
-        request: Zep.CreateThreadRequest,
-        requestOptions?: Thread.RequestOptions,
-    ): core.HttpResponsePromise<Zep.Thread> {
-        return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
+    public createContextTemplate(
+        request: Zep.CreateContextTemplateRequest,
+        requestOptions?: Context.RequestOptions,
+    ): core.HttpResponsePromise<Zep.ContextTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createContextTemplate(request, requestOptions));
     }
 
-    private async __create(
-        request: Zep.CreateThreadRequest,
-        requestOptions?: Thread.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.Thread>> {
+    private async __createContextTemplate(
+        request: Zep.CreateContextTemplateRequest,
+        requestOptions?: Context.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.ContextTemplateResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                "threads",
+                "context-templates",
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -213,7 +180,7 @@ export class Thread {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.CreateThreadRequest.jsonOrThrow(request, {
+            body: serializers.CreateContextTemplateRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -223,7 +190,7 @@ export class Thread {
         });
         if (_response.ok) {
             return {
-                data: serializers.Thread.parseOrThrow(_response.body, {
+                data: serializers.ContextTemplateResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -275,7 +242,7 @@ export class Thread {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /threads.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /context-templates.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -285,34 +252,276 @@ export class Thread {
     }
 
     /**
-     * Deletes a thread.
+     * Retrieves a context template by template_id.
      *
-     * @param {string} threadId - The ID of the thread for which memory should be deleted.
-     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} templateId - Template ID
+     * @param {Context.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.thread.delete("threadId")
+     *     await client.context.getContextTemplate("template_id")
      */
-    public delete(
-        threadId: string,
-        requestOptions?: Thread.RequestOptions,
-    ): core.HttpResponsePromise<Zep.SuccessResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__delete(threadId, requestOptions));
+    public getContextTemplate(
+        templateId: string,
+        requestOptions?: Context.RequestOptions,
+    ): core.HttpResponsePromise<Zep.ContextTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getContextTemplate(templateId, requestOptions));
     }
 
-    private async __delete(
-        threadId: string,
-        requestOptions?: Thread.RequestOptions,
+    private async __getContextTemplate(
+        templateId: string,
+        requestOptions?: Context.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.ContextTemplateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `context-templates/${encodeURIComponent(templateId)}`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.ContextTemplateResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /context-templates/{template_id}.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Updates an existing context template by template_id.
+     *
+     * @param {string} templateId - Template ID
+     * @param {Zep.UpdateContextTemplateRequest} request
+     * @param {Context.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.context.updateContextTemplate("template_id", {
+     *         template: "template"
+     *     })
+     */
+    public updateContextTemplate(
+        templateId: string,
+        request: Zep.UpdateContextTemplateRequest,
+        requestOptions?: Context.RequestOptions,
+    ): core.HttpResponsePromise<Zep.ContextTemplateResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateContextTemplate(templateId, request, requestOptions));
+    }
+
+    private async __updateContextTemplate(
+        templateId: string,
+        request: Zep.UpdateContextTemplateRequest,
+        requestOptions?: Context.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.ContextTemplateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `context-templates/${encodeURIComponent(templateId)}`,
+            ),
+            method: "PUT",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.UpdateContextTemplateRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.ContextTemplateResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling PUT /context-templates/{template_id}.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes a context template by template_id.
+     *
+     * @param {string} templateId - Template ID
+     * @param {Context.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.context.deleteContextTemplate("template_id")
+     */
+    public deleteContextTemplate(
+        templateId: string,
+        requestOptions?: Context.RequestOptions,
+    ): core.HttpResponsePromise<Zep.SuccessResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteContextTemplate(templateId, requestOptions));
+    }
+
+    private async __deleteContextTemplate(
+        templateId: string,
+        requestOptions?: Context.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.SuccessResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                `threads/${encodeURIComponent(threadId)}`,
+                `context-templates/${encodeURIComponent(templateId)}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -339,6 +548,17 @@ export class Thread {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -350,469 +570,6 @@ export class Thread {
                         }),
                         _response.rawResponse,
                     );
-                case 500:
-                    throw new Zep.InternalServerError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.ZepError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.ZepError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling DELETE /threads/{threadId}.");
-            case "unknown":
-                throw new errors.ZepError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Returns most relevant context from the user graph (including memory from any/all past threads) based on the content of the past few messages of the given thread.
-     *
-     * @param {string} threadId - The ID of the current thread (for which context is being retrieved).
-     * @param {Zep.ThreadGetUserContextRequest} request
-     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Zep.NotFoundError}
-     * @throws {@link Zep.InternalServerError}
-     *
-     * @example
-     *     await client.thread.getUserContext("threadId", {
-     *         minRating: 1.1,
-     *         templateId: "template_id",
-     *         mode: "basic"
-     *     })
-     */
-    public getUserContext(
-        threadId: string,
-        request: Zep.ThreadGetUserContextRequest = {},
-        requestOptions?: Thread.RequestOptions,
-    ): core.HttpResponsePromise<Zep.ThreadContextResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getUserContext(threadId, request, requestOptions));
-    }
-
-    private async __getUserContext(
-        threadId: string,
-        request: Zep.ThreadGetUserContextRequest = {},
-        requestOptions?: Thread.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.ThreadContextResponse>> {
-        const { minRating, templateId, mode } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (minRating != null) {
-            _queryParams["minRating"] = minRating.toString();
-        }
-
-        if (templateId != null) {
-            _queryParams["template_id"] = templateId;
-        }
-
-        if (mode != null) {
-            _queryParams["mode"] = serializers.ThreadGetUserContextRequestMode.jsonOrThrow(mode, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            });
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.ZepEnvironment.Default,
-                `threads/${encodeURIComponent(threadId)}/context`,
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.ThreadContextResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 404:
-                    throw new Zep.NotFoundError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new Zep.InternalServerError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.ZepError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.ZepError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /threads/{threadId}/context.");
-            case "unknown":
-                throw new errors.ZepError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Returns messages for a thread.
-     *
-     * @param {string} threadId - Thread ID
-     * @param {Zep.ThreadGetRequest} request
-     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Zep.NotFoundError}
-     * @throws {@link Zep.InternalServerError}
-     *
-     * @example
-     *     await client.thread.get("threadId", {
-     *         limit: 1,
-     *         cursor: 1,
-     *         lastn: 1
-     *     })
-     */
-    public get(
-        threadId: string,
-        request: Zep.ThreadGetRequest = {},
-        requestOptions?: Thread.RequestOptions,
-    ): core.HttpResponsePromise<Zep.MessageListResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__get(threadId, request, requestOptions));
-    }
-
-    private async __get(
-        threadId: string,
-        request: Zep.ThreadGetRequest = {},
-        requestOptions?: Thread.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.MessageListResponse>> {
-        const { limit, cursor, lastn } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (limit != null) {
-            _queryParams["limit"] = limit.toString();
-        }
-
-        if (cursor != null) {
-            _queryParams["cursor"] = cursor.toString();
-        }
-
-        if (lastn != null) {
-            _queryParams["lastn"] = lastn.toString();
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.ZepEnvironment.Default,
-                `threads/${encodeURIComponent(threadId)}/messages`,
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.MessageListResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 404:
-                    throw new Zep.NotFoundError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                case 500:
-                    throw new Zep.InternalServerError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.ZepError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.ZepError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /threads/{threadId}/messages.");
-            case "unknown":
-                throw new errors.ZepError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Add messages to a thread.
-     *
-     * @param {string} threadId - The ID of the thread to which messages should be added.
-     * @param {Zep.AddThreadMessagesRequest} request
-     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Zep.InternalServerError}
-     *
-     * @example
-     *     await client.thread.addMessages("threadId", {
-     *         messages: [{
-     *                 content: "content",
-     *                 role: "norole"
-     *             }]
-     *     })
-     */
-    public addMessages(
-        threadId: string,
-        request: Zep.AddThreadMessagesRequest,
-        requestOptions?: Thread.RequestOptions,
-    ): core.HttpResponsePromise<Zep.AddThreadMessagesResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__addMessages(threadId, request, requestOptions));
-    }
-
-    private async __addMessages(
-        threadId: string,
-        request: Zep.AddThreadMessagesRequest,
-        requestOptions?: Thread.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.AddThreadMessagesResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.ZepEnvironment.Default,
-                `threads/${encodeURIComponent(threadId)}/messages`,
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.AddThreadMessagesRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.AddThreadMessagesResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 500:
-                    throw new Zep.InternalServerError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.ZepError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.ZepError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /threads/{threadId}/messages.");
-            case "unknown":
-                throw new errors.ZepError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Add messages to a thread in batch mode. This will process messages concurrently, which is useful for data migrations.
-     *
-     * @param {string} threadId - The ID of the thread to which messages should be added.
-     * @param {Zep.AddThreadMessagesRequest} request
-     * @param {Thread.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Zep.InternalServerError}
-     *
-     * @example
-     *     await client.thread.addMessagesBatch("threadId", {
-     *         messages: [{
-     *                 content: "content",
-     *                 role: "norole"
-     *             }]
-     *     })
-     */
-    public addMessagesBatch(
-        threadId: string,
-        request: Zep.AddThreadMessagesRequest,
-        requestOptions?: Thread.RequestOptions,
-    ): core.HttpResponsePromise<Zep.AddThreadMessagesResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__addMessagesBatch(threadId, request, requestOptions));
-    }
-
-    private async __addMessagesBatch(
-        threadId: string,
-        request: Zep.AddThreadMessagesRequest,
-        requestOptions?: Thread.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.AddThreadMessagesResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.ZepEnvironment.Default,
-                `threads/${encodeURIComponent(threadId)}/messages-batch`,
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.AddThreadMessagesRequest.jsonOrThrow(request, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return {
-                data: serializers.AddThreadMessagesResponse.parseOrThrow(_response.body, {
-                    unrecognizedObjectKeys: "passthrough",
-                    allowUnrecognizedUnionMembers: true,
-                    allowUnrecognizedEnumValues: true,
-                    skipValidation: true,
-                    breadcrumbsPrefix: ["response"],
-                }),
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
                 case 500:
                     throw new Zep.InternalServerError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -842,7 +599,7 @@ export class Thread {
                 });
             case "timeout":
                 throw new errors.ZepTimeoutError(
-                    "Timeout exceeded when calling POST /threads/{threadId}/messages-batch.",
+                    "Timeout exceeded when calling DELETE /context-templates/{template_id}.",
                 );
             case "unknown":
                 throw new errors.ZepError({
