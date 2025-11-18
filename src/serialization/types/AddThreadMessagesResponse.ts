@@ -15,11 +15,13 @@ export const AddThreadMessagesResponse: core.serialization.ObjectSchema<
         "message_uuids",
         core.serialization.list(core.serialization.string()).optional(),
     ),
+    taskId: core.serialization.property("task_id", core.serialization.string().optional()),
 });
 
 export declare namespace AddThreadMessagesResponse {
     export interface Raw {
         context?: string | null;
         message_uuids?: string[] | null;
+        task_id?: string | null;
     }
 }

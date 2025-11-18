@@ -1169,6 +1169,71 @@ await client.project.get();
 </dl>
 </details>
 
+## Task
+
+<details><summary><code>client.task.<a href="/src/api/resources/task/client/Client.ts">get</a>(taskId) -> Zep.ApidataGetTaskResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets a task by its ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.task.get("task_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**taskId:** `string` — Task ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Task.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Thread
 
 <details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">listAll</a>({ ...params }) -> Zep.ThreadListResponse</code></summary>

@@ -5,4 +5,5 @@
 export interface AddThreadMessagesResponse {
     context?: string;
     messageUuids?: string[];
+    taskId?: string;
 }

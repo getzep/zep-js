@@ -22,6 +22,8 @@ export interface Episode {
     score?: number;
     source?: Zep.GraphDataType;
     sourceDescription?: string;
+    /** Optional task ID to poll episode processing status. Currently only available for batch ingestion. */
+    taskId?: string;
     /** Optional thread ID, will be present if the episode is part of a thread */
     threadId?: string;
     uuid: string;

@@ -176,7 +176,7 @@ describe("Thread", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messages: [{ content: "content", role: "norole" }] };
-        const rawResponseBody = { context: "context", message_uuids: ["message_uuids"] };
+        const rawResponseBody = { context: "context", message_uuids: ["message_uuids"], task_id: "task_id" };
         server
             .mockEndpoint()
             .post("/threads/threadId/messages")
@@ -197,6 +197,7 @@ describe("Thread", () => {
         expect(response).toEqual({
             context: "context",
             messageUuids: ["message_uuids"],
+            taskId: "task_id",
         });
     });
 
@@ -204,7 +205,7 @@ describe("Thread", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messages: [{ content: "content", role: "norole" }] };
-        const rawResponseBody = { context: "context", message_uuids: ["message_uuids"] };
+        const rawResponseBody = { context: "context", message_uuids: ["message_uuids"], task_id: "task_id" };
         server
             .mockEndpoint()
             .post("/threads/threadId/messages-batch")
@@ -225,6 +226,7 @@ describe("Thread", () => {
         expect(response).toEqual({
             context: "context",
             messageUuids: ["message_uuids"],
+            taskId: "task_id",
         });
     });
 });

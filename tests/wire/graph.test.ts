@@ -99,6 +99,7 @@ describe("Graph", () => {
             score: 1.1,
             source: "text",
             source_description: "source_description",
+            task_id: "task_id",
             thread_id: "thread_id",
             uuid: "uuid",
         };
@@ -128,6 +129,7 @@ describe("Graph", () => {
             score: 1.1,
             source: "text",
             sourceDescription: "source_description",
+            taskId: "task_id",
             threadId: "thread_id",
             uuid: "uuid",
         });
@@ -149,6 +151,7 @@ describe("Graph", () => {
                 score: 1.1,
                 source: "text",
                 source_description: "source_description",
+                task_id: "task_id",
                 thread_id: "thread_id",
                 uuid: "uuid",
             },
@@ -184,6 +187,7 @@ describe("Graph", () => {
                 score: 1.1,
                 source: "text",
                 sourceDescription: "source_description",
+                taskId: "task_id",
                 threadId: "thread_id",
                 uuid: "uuid",
             },
@@ -230,6 +234,7 @@ describe("Graph", () => {
                 summary: "summary",
                 uuid: "uuid",
             },
+            task_id: "task_id",
         };
         server
             .mockEndpoint()
@@ -287,6 +292,7 @@ describe("Graph", () => {
                 summary: "summary",
                 uuid: "uuid",
             },
+            taskId: "task_id",
         });
     });
 
@@ -294,7 +300,7 @@ describe("Graph", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
-        const rawResponseBody = { graph_id: "graph_id", user_id: "user_id" };
+        const rawResponseBody = { graph_id: "graph_id", task_id: "task_id", user_id: "user_id" };
         server
             .mockEndpoint()
             .post("/graph/clone")
@@ -307,6 +313,7 @@ describe("Graph", () => {
         const response = await client.graph.clone();
         expect(response).toEqual({
             graphId: "graph_id",
+            taskId: "task_id",
             userId: "user_id",
         });
     });
@@ -435,6 +442,7 @@ describe("Graph", () => {
                     score: 1.1,
                     source: "text",
                     source_description: "source_description",
+                    task_id: "task_id",
                     thread_id: "thread_id",
                     uuid: "uuid",
                 },
@@ -498,6 +506,7 @@ describe("Graph", () => {
                     score: 1.1,
                     source: "text",
                     sourceDescription: "source_description",
+                    taskId: "task_id",
                     threadId: "thread_id",
                     uuid: "uuid",
                 },
