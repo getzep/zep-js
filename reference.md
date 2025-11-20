@@ -1172,7 +1172,7 @@ await client.project.get();
 
 ## Task
 
-<details><summary><code>client.task.<a href="/src/api/resources/task/client/Client.ts">get</a>(taskId) -> Zep.ApidataGetTaskResponse</code></summary>
+<details><summary><code>client.task.<a href="/src/api/resources/task/client/Client.ts">get</a>(taskId) -> Zep.GetTaskResponse</code></summary>
 <dl>
 <dd>
 

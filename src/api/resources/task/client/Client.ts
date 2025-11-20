@@ -51,17 +51,14 @@ export class Task {
      * @example
      *     await client.task.get("task_id")
      */
-    public get(
-        taskId: string,
-        requestOptions?: Task.RequestOptions,
-    ): core.HttpResponsePromise<Zep.ApidataGetTaskResponse> {
+    public get(taskId: string, requestOptions?: Task.RequestOptions): core.HttpResponsePromise<Zep.GetTaskResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(taskId, requestOptions));
     }
 
     private async __get(
         taskId: string,
         requestOptions?: Task.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.ApidataGetTaskResponse>> {
+    ): Promise<core.WithRawResponse<Zep.GetTaskResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -81,7 +78,7 @@ export class Task {
         });
         if (_response.ok) {
             return {
-                data: serializers.ApidataGetTaskResponse.parseOrThrow(_response.body, {
+                data: serializers.GetTaskResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

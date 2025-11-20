@@ -6,16 +6,16 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const ApidataTaskErrorResponse: core.serialization.ObjectSchema<
-    serializers.ApidataTaskErrorResponse.Raw,
-    Zep.ApidataTaskErrorResponse
+export const TaskErrorResponse: core.serialization.ObjectSchema<
+    serializers.TaskErrorResponse.Raw,
+    Zep.TaskErrorResponse
 > = core.serialization.object({
     code: core.serialization.string().optional(),
     details: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     message: core.serialization.string().optional(),
 });
 
-export declare namespace ApidataTaskErrorResponse {
+export declare namespace TaskErrorResponse {
     export interface Raw {
         code?: string | null;
         details?: Record<string, unknown> | null;

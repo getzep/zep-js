@@ -4,11 +4,11 @@
 
 import * as Zep from "../index.js";
 
-export interface ApidataGetTaskResponse {
+export interface GetTaskResponse {
     completedAt?: string;
     createdAt?: string;
-    error?: Zep.ApidataTaskErrorResponse;
-    progress?: Zep.ApidataTaskProgress;
+    error?: Zep.TaskErrorResponse;
+    progress?: Zep.TaskProgress;
     startedAt?: string;
     status?: string;
     taskId?: string;
