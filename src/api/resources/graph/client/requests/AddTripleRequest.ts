@@ -7,6 +7,7 @@
  *     {
  *         fact: "fact",
  *         factName: "fact_name",
+ *         sourceNodeName: "source_node_name",
  *         targetNodeName: "target_node_name"
  *     }
  */
@@ -25,7 +26,7 @@ export interface AddTripleRequest {
     /** The time (if any) at which the fact stops being true */
     invalidAt?: string;
     /** The name of the source node to add */
-    sourceNodeName?: string;
+    sourceNodeName: string;
     /** The summary of the source node to add */
     sourceNodeSummary?: string;
     /** The source node uuid */

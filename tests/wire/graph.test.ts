@@ -197,7 +197,12 @@ describe("Graph", () => {
     test("add_fact_triple", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { fact: "fact", fact_name: "fact_name", target_node_name: "target_node_name" };
+        const rawRequestBody = {
+            fact: "fact",
+            fact_name: "fact_name",
+            source_node_name: "source_node_name",
+            target_node_name: "target_node_name",
+        };
         const rawResponseBody = {
             edge: {
                 attributes: { key: "value" },
@@ -248,6 +253,7 @@ describe("Graph", () => {
         const response = await client.graph.addFactTriple({
             fact: "fact",
             factName: "fact_name",
+            sourceNodeName: "source_node_name",
             targetNodeName: "target_node_name",
         });
         expect(response).toEqual({
