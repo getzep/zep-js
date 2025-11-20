@@ -620,6 +620,7 @@ Add a fact triple for a user or group
 await client.graph.addFactTriple({
     fact: "fact",
     factName: "fact_name",
+    sourceNodeName: "source_node_name",
     targetNodeName: "target_node_name",
 });
 ```
@@ -1159,6 +1160,71 @@ await client.project.get();
 <dd>
 
 **requestOptions:** `Project.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Task
+
+<details><summary><code>client.task.<a href="/src/api/resources/task/client/Client.ts">get</a>(taskId) -> Zep.GetTaskResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Gets a task by its ID
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.task.get("task_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**taskId:** `string` — Task ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Task.RequestOptions`
 
 </dd>
 </dl>

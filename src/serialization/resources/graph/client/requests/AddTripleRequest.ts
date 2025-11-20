@@ -15,7 +15,7 @@ export const AddTripleRequest: core.serialization.Schema<serializers.AddTripleRe
         factUuid: core.serialization.property("fact_uuid", core.serialization.string().optional()),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
-        sourceNodeName: core.serialization.property("source_node_name", core.serialization.string().optional()),
+        sourceNodeName: core.serialization.property("source_node_name", core.serialization.string()),
         sourceNodeSummary: core.serialization.property("source_node_summary", core.serialization.string().optional()),
         sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string().optional()),
         targetNodeName: core.serialization.property("target_node_name", core.serialization.string()),
@@ -34,7 +34,7 @@ export declare namespace AddTripleRequest {
         fact_uuid?: string | null;
         graph_id?: string | null;
         invalid_at?: string | null;
-        source_node_name?: string | null;
+        source_node_name: string;
         source_node_summary?: string | null;
         source_node_uuid?: string | null;
         target_node_name: string;

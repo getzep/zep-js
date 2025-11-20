@@ -15,6 +15,7 @@ export const AddTripleResponse: core.serialization.ObjectSchema<
     edge: EntityEdge.optional(),
     sourceNode: core.serialization.property("source_node", EntityNode.optional()),
     targetNode: core.serialization.property("target_node", EntityNode.optional()),
+    taskId: core.serialization.property("task_id", core.serialization.string().optional()),
 });
 
 export declare namespace AddTripleResponse {
@@ -22,5 +23,6 @@ export declare namespace AddTripleResponse {
         edge?: EntityEdge.Raw | null;
         source_node?: EntityNode.Raw | null;
         target_node?: EntityNode.Raw | null;
+        task_id?: string | null;
     }
 }

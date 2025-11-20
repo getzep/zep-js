@@ -11,12 +11,14 @@ export const CloneGraphResponse: core.serialization.ObjectSchema<
     Zep.CloneGraphResponse
 > = core.serialization.object({
     graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
+    taskId: core.serialization.property("task_id", core.serialization.string().optional()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
 });
 
 export declare namespace CloneGraphResponse {
     export interface Raw {
         graph_id?: string | null;
+        task_id?: string | null;
         user_id?: string | null;
     }
 }

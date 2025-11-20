@@ -8,4 +8,6 @@ export interface AddTripleResponse {
     edge?: Zep.EntityEdge;
     sourceNode?: Zep.EntityNode;
     targetNode?: Zep.EntityNode;
+    /** Task ID of the add triple task */
+    taskId?: string;
 }
