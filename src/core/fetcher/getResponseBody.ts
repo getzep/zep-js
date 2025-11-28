@@ -3,9 +3,9 @@ import { isResponseWithBody } from "./ResponseWithBody.js";
 import { fromJson } from "../json.js";
 
 export async function getResponseBody(response: Response, responseType?: string): Promise<unknown> {
-    if (!isResponseWithBody(response)) {
-        return undefined;
-    }
+    // In React Native, response.body might not be available even for responses with bodies
+    // So we try to read the body regardless of the isResponseWithBody check
+    // Only skip if we explicitly need the body stream (sse/streaming) and it's not available
     switch (responseType) {
         case "binary-response":
             return getBinaryResponse(response);
@@ -22,13 +22,42 @@ export async function getResponseBody(response: Response, responseType?: string)
             return await response.text();
     }
 
-    // if responseType is "json" or not specified, use response.json() directly
-    // This is more reliable across platforms (Node.js, browsers, React Native)
+    // if responseType is "json" or not specified, parse as JSON
+    // Use text() first for better React Native compatibility
     try {
-        return await response.json();
+        const text = await response.text();
+        if (text.length === 0) {
+            // Empty response body - return a structured object instead of undefined
+            return {
+                _error: true,
+                reason: "empty-response",
+                message: "Response body is empty",
+                statusCode: response.status,
+                success: false,
+            };
+        }
+        try {
+            const parsed = fromJson(text);
+            return parsed;
+        } catch (err) {
+            // Invalid JSON - return structured error object
+            return {
+                _error: true,
+                reason: "invalid-json",
+                message: `Failed to parse JSON response: ${err instanceof Error ? err.message : String(err)}`,
+                statusCode: response.status,
+                rawBody: text,
+                success: false,
+            };
+        }
     } catch (err) {
-        // If json() fails, the body might be empty or invalid JSON
-        // Return undefined to let the caller handle it
-        return undefined;
+        // response.text() failed - return structured error object
+        return {
+            _error: true,
+            reason: "read-error",
+            message: `Failed to read response body: ${err instanceof Error ? err.message : String(err)}`,
+            statusCode: response.status,
+            success: false,
+        };
     }
 }
