@@ -22,22 +22,13 @@ export async function getResponseBody(response: Response, responseType?: string)
             return await response.text();
     }
 
-    // if responseType is "json" or not specified, try to parse as JSON
-    const text = await response.text();
-    if (text.length > 0) {
-        try {
-            let responseBody = fromJson(text);
-            return responseBody;
-        } catch (err) {
-            return {
-                ok: false,
-                error: {
-                    reason: "non-json",
-                    statusCode: response.status,
-                    rawBody: text,
-                },
-            };
-        }
+    // if responseType is "json" or not specified, use response.json() directly
+    // This is more reliable across platforms (Node.js, browsers, React Native)
+    try {
+        return await response.json();
+    } catch (err) {
+        // If json() fails, the body might be empty or invalid JSON
+        // Return undefined to let the caller handle it
+        return undefined;
     }
-    return undefined;
 }
