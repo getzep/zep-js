@@ -14,7 +14,7 @@ export const makeRequest = async (
     const signals: AbortSignal[] = [];
 
     // Add timeout signal
-    let timeoutAbortId: NodeJS.Timeout | undefined = undefined;
+    let timeoutAbortId: ReturnType<typeof setTimeout> | undefined = undefined;
     if (timeoutMs != null) {
         const { signal, abortId } = getTimeoutSignal(timeoutMs);
         timeoutAbortId = abortId;
