@@ -5,18 +5,22 @@ import { fromJson } from "../json.js";
 export async function getResponseBody(response: Response, responseType?: string): Promise<unknown> {
     // In React Native, response.body might not be available even for responses with bodies
     // So we try to read the body regardless of the isResponseWithBody check
-    // Only skip if we explicitly need the body stream (sse/streaming) and it's not available
+    // Only skip if we explicitly need the body stream (sse/streaming/binary-response) and it's not available
     switch (responseType) {
         case "binary-response":
-            return getBinaryResponse(response);
+            if (isResponseWithBody(response)) {
+                return getBinaryResponse(response);
+            }
+            // Fallback: try to get as blob if body stream is not available
+            return await response.blob();
         case "blob":
             return await response.blob();
         case "arrayBuffer":
             return await response.arrayBuffer();
         case "sse":
-            return response.body;
+            return response.body ?? null;
         case "streaming":
-            return response.body;
+            return response.body ?? null;
 
         case "text":
             return await response.text();
