@@ -3397,6 +3397,69 @@ await client.graph.node.get("uuid");
 </dl>
 </details>
 
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">delete</a>(uuid) -> Zep.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes a node by UUID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.node.delete("uuid");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Node UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Node.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Thread Message
 
 <details><summary><code>client.thread.message.<a href="/src/api/resources/thread/resources/message/client/Client.ts">update</a>(messageUuid, { ...params }) -> Zep.Message</code></summary>

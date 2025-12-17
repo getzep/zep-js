@@ -15,7 +15,7 @@ export interface CreateUserRequest {
     disableDefaultOntology?: boolean;
     /** The email address of the user. */
     email?: string;
-    /** Optional instruction to use for fact rating. */
+    /** Deprecated: this field will be removed in a future release. Optional instruction to use for fact rating. */
     factRatingInstruction?: Zep.FactRatingInstruction;
     /** The first name of the user. */
     firstName?: string;

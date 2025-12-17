@@ -43,6 +43,7 @@ export * from "./DateFilter.js";
 export * from "./EntityEdge.js";
 export * from "./EntityNode.js";
 export * from "./GraphSearchScope.js";
+export * from "./PropertyFilter.js";
 export * from "./Reranker.js";
 export * from "./SearchFilters.js";
 export * from "./EntityPropertyType.js";

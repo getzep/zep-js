@@ -9,15 +9,27 @@ import * as core from "../../../../../core/index.js";
 export const AddTripleRequest: core.serialization.Schema<serializers.AddTripleRequest.Raw, Zep.AddTripleRequest> =
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        edgeAttributes: core.serialization.property(
+            "edge_attributes",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
         expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
         fact: core.serialization.string(),
         factName: core.serialization.property("fact_name", core.serialization.string()),
         factUuid: core.serialization.property("fact_uuid", core.serialization.string().optional()),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
+        sourceNodeAttributes: core.serialization.property(
+            "source_node_attributes",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
         sourceNodeName: core.serialization.property("source_node_name", core.serialization.string()),
         sourceNodeSummary: core.serialization.property("source_node_summary", core.serialization.string().optional()),
         sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string().optional()),
+        targetNodeAttributes: core.serialization.property(
+            "target_node_attributes",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
         targetNodeName: core.serialization.property("target_node_name", core.serialization.string()),
         targetNodeSummary: core.serialization.property("target_node_summary", core.serialization.string().optional()),
         targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string().optional()),
@@ -28,15 +40,18 @@ export const AddTripleRequest: core.serialization.Schema<serializers.AddTripleRe
 export declare namespace AddTripleRequest {
     export interface Raw {
         created_at?: string | null;
+        edge_attributes?: Record<string, unknown> | null;
         expired_at?: string | null;
         fact: string;
         fact_name: string;
         fact_uuid?: string | null;
         graph_id?: string | null;
         invalid_at?: string | null;
+        source_node_attributes?: Record<string, unknown> | null;
         source_node_name: string;
         source_node_summary?: string | null;
         source_node_uuid?: string | null;
+        target_node_attributes?: Record<string, unknown> | null;
         target_node_name: string;
         target_node_summary?: string | null;
         target_node_uuid?: string | null;

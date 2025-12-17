@@ -14,6 +14,11 @@
 export interface AddTripleRequest {
     /** The timestamp of the message */
     createdAt?: string;
+    /**
+     * Additional attributes of the edge. Values must be scalar types (string, number, boolean, or null).
+     * Nested objects and arrays are not allowed.
+     */
+    edgeAttributes?: Record<string, unknown>;
     /** The time (if any) at which the edge expires */
     expiredAt?: string;
     /** The fact relating the two nodes that this edge represents */
@@ -25,12 +30,22 @@ export interface AddTripleRequest {
     graphId?: string;
     /** The time (if any) at which the fact stops being true */
     invalidAt?: string;
+    /**
+     * Additional attributes of the source node. Values must be scalar types (string, number, boolean, or null).
+     * Nested objects and arrays are not allowed.
+     */
+    sourceNodeAttributes?: Record<string, unknown>;
     /** The name of the source node to add */
     sourceNodeName: string;
     /** The summary of the source node to add */
     sourceNodeSummary?: string;
     /** The source node uuid */
     sourceNodeUuid?: string;
+    /**
+     * Additional attributes of the target node. Values must be scalar types (string, number, boolean, or null).
+     * Nested objects and arrays are not allowed.
+     */
+    targetNodeAttributes?: Record<string, unknown>;
     /** The name of the target node to add */
     targetNodeName: string;
     /** The summary of the target node to add */

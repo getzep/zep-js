@@ -6,6 +6,7 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { DateFilter } from "./DateFilter.js";
+import { PropertyFilter } from "./PropertyFilter.js";
 
 export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFilters.Raw, Zep.SearchFilters> =
     core.serialization.object({
@@ -15,6 +16,10 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
         ),
         edgeTypes: core.serialization.property(
             "edge_types",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        edgeUuids: core.serialization.property(
+            "edge_uuids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
         excludeEdgeTypes: core.serialization.property(
@@ -37,6 +42,10 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "node_labels",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        propertyFilters: core.serialization.property(
+            "property_filters",
+            core.serialization.list(PropertyFilter).optional(),
+        ),
         validAt: core.serialization.property(
             "valid_at",
             core.serialization.list(core.serialization.list(DateFilter)).optional(),
@@ -47,11 +56,13 @@ export declare namespace SearchFilters {
     export interface Raw {
         created_at?: DateFilter.Raw[][] | null;
         edge_types?: string[] | null;
+        edge_uuids?: string[] | null;
         exclude_edge_types?: string[] | null;
         exclude_node_labels?: string[] | null;
         expired_at?: DateFilter.Raw[][] | null;
         invalid_at?: DateFilter.Raw[][] | null;
         node_labels?: string[] | null;
+        property_filters?: PropertyFilter.Raw[] | null;
         valid_at?: DateFilter.Raw[][] | null;
     }
 }
