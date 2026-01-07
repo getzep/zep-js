@@ -533,9 +533,7 @@ export class Graph {
      * @example
      *     await client.graph.addFactTriple({
      *         fact: "fact",
-     *         factName: "fact_name",
-     *         sourceNodeName: "source_node_name",
-     *         targetNodeName: "target_node_name"
+     *         factName: "fact_name"
      *     })
      */
     public addFactTriple(

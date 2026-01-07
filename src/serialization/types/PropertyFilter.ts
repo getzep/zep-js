@@ -7,15 +7,17 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { ComparisonOperator } from "./ComparisonOperator.js";
 
-export const DateFilter: core.serialization.ObjectSchema<serializers.DateFilter.Raw, Zep.DateFilter> =
+export const PropertyFilter: core.serialization.ObjectSchema<serializers.PropertyFilter.Raw, Zep.PropertyFilter> =
     core.serialization.object({
         comparisonOperator: core.serialization.property("comparison_operator", ComparisonOperator),
-        date: core.serialization.string().optional(),
+        propertyName: core.serialization.property("property_name", core.serialization.string()),
+        propertyValue: core.serialization.property("property_value", core.serialization.unknown().optional()),
     });
 
-export declare namespace DateFilter {
+export declare namespace PropertyFilter {
     export interface Raw {
         comparison_operator: ComparisonOperator.Raw;
-        date?: string | null;
+        property_name: string;
+        property_value?: unknown | null;
     }
 }

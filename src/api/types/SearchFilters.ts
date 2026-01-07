@@ -15,6 +15,8 @@ export interface SearchFilters {
     createdAt?: Zep.DateFilter[][];
     /** List of edge types to filter on */
     edgeTypes?: string[];
+    /** List of edge UUIDs to filter on */
+    edgeUuids?: string[];
     /** List of edge types to exclude from results */
     excludeEdgeTypes?: string[];
     /** List of node labels to exclude from results */
@@ -37,6 +39,8 @@ export interface SearchFilters {
     invalidAt?: Zep.DateFilter[][];
     /** List of node labels to filter on */
     nodeLabels?: string[];
+    /** List of property filters to apply to nodes and edges */
+    propertyFilters?: Zep.PropertyFilter[];
     /**
      * 2D array of date filters for the valid_at field.
      * The outer array elements are combined with OR logic.
