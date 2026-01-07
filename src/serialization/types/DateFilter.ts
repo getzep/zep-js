@@ -10,12 +10,12 @@ import { ComparisonOperator } from "./ComparisonOperator.js";
 export const DateFilter: core.serialization.ObjectSchema<serializers.DateFilter.Raw, Zep.DateFilter> =
     core.serialization.object({
         comparisonOperator: core.serialization.property("comparison_operator", ComparisonOperator),
-        date: core.serialization.string(),
+        date: core.serialization.string().optional(),
     });
 
 export declare namespace DateFilter {
     export interface Raw {
         comparison_operator: ComparisonOperator.Raw;
-        date: string;
+        date?: string | null;
     }
 }

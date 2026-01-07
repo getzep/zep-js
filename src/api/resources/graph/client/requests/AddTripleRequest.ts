@@ -6,9 +6,7 @@
  * @example
  *     {
  *         fact: "fact",
- *         factName: "fact_name",
- *         sourceNodeName: "source_node_name",
- *         targetNodeName: "target_node_name"
+ *         factName: "fact_name"
  *     }
  */
 export interface AddTripleRequest {
@@ -36,7 +34,7 @@ export interface AddTripleRequest {
      */
     sourceNodeAttributes?: Record<string, unknown>;
     /** The name of the source node to add */
-    sourceNodeName: string;
+    sourceNodeName?: string;
     /** The summary of the source node to add */
     sourceNodeSummary?: string;
     /** The source node uuid */
@@ -47,7 +45,7 @@ export interface AddTripleRequest {
      */
     targetNodeAttributes?: Record<string, unknown>;
     /** The name of the target node to add */
-    targetNodeName: string;
+    targetNodeName?: string;
     /** The summary of the target node to add */
     targetNodeSummary?: string;
     /** The target node uuid */

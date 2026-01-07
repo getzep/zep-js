@@ -620,8 +620,6 @@ Add a fact triple for a user or group
 await client.graph.addFactTriple({
     fact: "fact",
     factName: "fact_name",
-    sourceNodeName: "source_node_name",
-    targetNodeName: "target_node_name",
 });
 ```
 
