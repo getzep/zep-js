@@ -1,3 +1,5 @@
+export { AddCustomInstructionsRequest } from "./AddCustomInstructionsRequest.js";
+export { DeleteCustomInstructionsRequest } from "./DeleteCustomInstructionsRequest.js";
 export { EntityTypeRequest } from "./EntityTypeRequest.js";
 export { AddDataRequest } from "./AddDataRequest.js";
 export { AddDataBatchRequest } from "./AddDataBatchRequest.js";
