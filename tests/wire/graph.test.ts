@@ -6,6 +6,80 @@ import { mockServerPool } from "../mock-server/MockServerPool";
 import { ZepClient } from "../../src/Client";
 
 describe("Graph", () => {
+    test("list_custom_instructions", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { instructions: [{ name: "name", text: "text" }] };
+        server
+            .mockEndpoint()
+            .get("/custom-instructions")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.listCustomInstructions({
+            userId: "user_id",
+            graphId: "graph_id",
+        });
+        expect(response).toEqual({
+            instructions: [
+                {
+                    name: "name",
+                    text: "text",
+                },
+            ],
+        });
+    });
+
+    test("add_custom_instructions", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { instructions: [{ name: "name", text: "text" }] };
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .post("/custom-instructions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.addCustomInstructions({
+            instructions: [
+                {
+                    name: "name",
+                    text: "text",
+                },
+            ],
+        });
+        expect(response).toEqual({
+            message: "message",
+        });
+    });
+
+    test("delete_custom_instructions", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { message: "message" };
+        server
+            .mockEndpoint()
+            .delete("/custom-instructions")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.deleteCustomInstructions();
+        expect(response).toEqual({
+            message: "message",
+        });
+    });
+
     test("list_entity_types", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });

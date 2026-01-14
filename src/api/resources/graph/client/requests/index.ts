@@ -1,3 +1,6 @@
+export { type GraphListCustomInstructionsRequest } from "./GraphListCustomInstructionsRequest.js";
+export { type AddCustomInstructionsRequest } from "./AddCustomInstructionsRequest.js";
+export { type DeleteCustomInstructionsRequest } from "./DeleteCustomInstructionsRequest.js";
 export { type GraphListEntityTypesRequest } from "./GraphListEntityTypesRequest.js";
 export { type EntityTypeRequest } from "./EntityTypeRequest.js";
 export { type AddDataRequest } from "./AddDataRequest.js";
