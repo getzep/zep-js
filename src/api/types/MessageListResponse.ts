@@ -11,4 +11,6 @@ export interface MessageListResponse {
     rowCount?: number;
     /** The total number of messages. */
     totalCount?: number;
+    /** The user ID associated with this thread. */
+    userId?: string;
 }

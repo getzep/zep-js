@@ -14,6 +14,7 @@ describe("Task", () => {
             completed_at: "completed_at",
             created_at: "created_at",
             error: { code: "code", details: { key: "value" }, message: "message" },
+            params: { key: "value" },
             progress: { message: "message", stage: "stage" },
             started_at: "started_at",
             status: "status",
@@ -33,6 +34,9 @@ describe("Task", () => {
                     key: "value",
                 },
                 message: "message",
+            },
+            params: {
+                key: "value",
             },
             progress: {
                 message: "message",

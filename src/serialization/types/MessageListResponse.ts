@@ -14,6 +14,7 @@ export const MessageListResponse: core.serialization.ObjectSchema<
     messages: core.serialization.list(Message).optional(),
     rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
     totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
+    userId: core.serialization.property("user_id", core.serialization.string().optional()),
 });
 
 export declare namespace MessageListResponse {
@@ -21,5 +22,6 @@ export declare namespace MessageListResponse {
         messages?: Message.Raw[] | null;
         row_count?: number | null;
         total_count?: number | null;
+        user_id?: string | null;
     }
 }

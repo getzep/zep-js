@@ -8,6 +8,7 @@ export interface GetTaskResponse {
     completedAt?: string;
     createdAt?: string;
     error?: Zep.TaskErrorResponse;
+    params?: Record<string, unknown>;
     progress?: Zep.TaskProgress;
     startedAt?: string;
     status?: string;

@@ -139,6 +139,7 @@ describe("Thread", () => {
             ],
             row_count: 1,
             total_count: 1,
+            user_id: "user_id",
         };
         server
             .mockEndpoint()
@@ -169,6 +170,7 @@ describe("Thread", () => {
             ],
             rowCount: 1,
             totalCount: 1,
+            userId: "user_id",
         });
     });
 
