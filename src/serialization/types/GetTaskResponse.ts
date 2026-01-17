@@ -13,6 +13,7 @@ export const GetTaskResponse: core.serialization.ObjectSchema<serializers.GetTas
         completedAt: core.serialization.property("completed_at", core.serialization.string().optional()),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         error: TaskErrorResponse.optional(),
+        params: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         progress: TaskProgress.optional(),
         startedAt: core.serialization.property("started_at", core.serialization.string().optional()),
         status: core.serialization.string().optional(),
@@ -26,6 +27,7 @@ export declare namespace GetTaskResponse {
         completed_at?: string | null;
         created_at?: string | null;
         error?: TaskErrorResponse.Raw | null;
+        params?: Record<string, unknown> | null;
         progress?: TaskProgress.Raw | null;
         started_at?: string | null;
         status?: string | null;
