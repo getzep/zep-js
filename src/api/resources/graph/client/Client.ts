@@ -1338,14 +1338,14 @@ export class Graph {
     public detectPatterns(
         request: Zep.DetectPatternsRequest = {},
         requestOptions?: Graph.RequestOptions,
-    ): core.HttpResponsePromise<Zep.ApidataDetectPatternsResponse> {
+    ): core.HttpResponsePromise<Zep.DetectPatternsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__detectPatterns(request, requestOptions));
     }
 
     private async __detectPatterns(
         request: Zep.DetectPatternsRequest = {},
         requestOptions?: Graph.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.ApidataDetectPatternsResponse>> {
+    ): Promise<core.WithRawResponse<Zep.DetectPatternsResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -1371,7 +1371,7 @@ export class Graph {
         });
         if (_response.ok) {
             return {
-                data: serializers.ApidataDetectPatternsResponse.parseOrThrow(_response.body, {
+                data: serializers.DetectPatternsResponse.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

@@ -1050,7 +1050,7 @@ await client.graph.listAll({
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">detectPatterns</a>({ ...params }) -> Zep.ApidataDetectPatternsResponse</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">detectPatterns</a>({ ...params }) -> Zep.DetectPatternsResponse</code></summary>
 <dl>
 <dd>
 

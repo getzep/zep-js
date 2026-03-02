@@ -8,15 +8,15 @@ import * as core from "../../core/index.js";
 import { PatternMetadata } from "./PatternMetadata.js";
 import { PatternResult } from "./PatternResult.js";
 
-export const ApidataDetectPatternsResponse: core.serialization.ObjectSchema<
-    serializers.ApidataDetectPatternsResponse.Raw,
-    Zep.ApidataDetectPatternsResponse
+export const DetectPatternsResponse: core.serialization.ObjectSchema<
+    serializers.DetectPatternsResponse.Raw,
+    Zep.DetectPatternsResponse
 > = core.serialization.object({
     metadata: PatternMetadata.optional(),
     patterns: core.serialization.list(PatternResult).optional(),
 });
 
-export declare namespace ApidataDetectPatternsResponse {
+export declare namespace DetectPatternsResponse {
     export interface Raw {
         metadata?: PatternMetadata.Raw | null;
         patterns?: PatternResult.Raw[] | null;

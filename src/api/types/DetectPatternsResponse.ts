@@ -4,7 +4,7 @@
 
 import * as Zep from "../index.js";
 
-export interface ApidataDetectPatternsResponse {
+export interface DetectPatternsResponse {
     /** Statistics about the detection run */
     metadata?: Zep.PatternMetadata;
     /** Detected patterns, sorted by weighted_score descending */

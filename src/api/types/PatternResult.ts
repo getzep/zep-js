@@ -10,7 +10,7 @@ export interface PatternResult {
     /** Edge types in the pattern structure */
     edgeTypes?: string[];
     /** Example instances (only populated when include_examples is true) */
-    examples?: Zep.ApidataPatternExample[];
+    examples?: Zep.PatternExample[];
     /** Node labels in the pattern structure */
     nodeLabels?: string[];
     /** Raw occurrence count (always unweighted) */
