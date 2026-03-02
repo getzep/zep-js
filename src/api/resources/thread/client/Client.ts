@@ -399,9 +399,7 @@ export class Thread {
      *
      * @example
      *     await client.thread.getUserContext("threadId", {
-     *         minRating: 1.1,
-     *         templateId: "template_id",
-     *         mode: "basic"
+     *         templateId: "template_id"
      *     })
      */
     public getUserContext(
@@ -417,21 +415,10 @@ export class Thread {
         request: Zep.ThreadGetUserContextRequest = {},
         requestOptions?: Thread.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.ThreadContextResponse>> {
-        const { minRating, templateId, mode } = request;
+        const { templateId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (minRating != null) {
-            _queryParams["minRating"] = minRating.toString();
-        }
-
         if (templateId != null) {
             _queryParams["template_id"] = templateId;
-        }
-
-        if (mode != null) {
-            _queryParams["mode"] = serializers.ThreadGetUserContextRequestMode.jsonOrThrow(mode, {
-                unrecognizedObjectKeys: "strip",
-                omitUndefined: true,
-            });
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({

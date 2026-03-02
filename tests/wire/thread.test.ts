@@ -112,9 +112,7 @@ describe("Thread", () => {
             .build();
 
         const response = await client.thread.getUserContext("threadId", {
-            minRating: 1.1,
             templateId: "template_id",
-            mode: "basic",
         });
         expect(response).toEqual({
             context: "context",
@@ -138,6 +136,7 @@ describe("Thread", () => {
                 },
             ],
             row_count: 1,
+            thread_created_at: "thread_created_at",
             total_count: 1,
             user_id: "user_id",
         };
@@ -169,6 +168,7 @@ describe("Thread", () => {
                 },
             ],
             rowCount: 1,
+            threadCreatedAt: "thread_created_at",
             totalCount: 1,
             userId: "user_id",
         });

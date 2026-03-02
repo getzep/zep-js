@@ -6,7 +6,10 @@
  * @example
  *     {
  *         pageNumber: 1,
- *         pageSize: 1
+ *         pageSize: 1,
+ *         search: "search",
+ *         orderBy: "order_by",
+ *         asc: true
  *     }
  */
 export interface UserListOrderedRequest {
@@ -18,4 +21,16 @@ export interface UserListOrderedRequest {
      * Number of users to retrieve per page
      */
     pageSize?: number;
+    /**
+     * Search term for filtering users by user_id, name, or email
+     */
+    search?: string;
+    /**
+     * Column to sort by (created_at, user_id, email)
+     */
+    orderBy?: string;
+    /**
+     * Sort in ascending order
+     */
+    asc?: boolean;
 }

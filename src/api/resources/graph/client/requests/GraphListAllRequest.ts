@@ -6,7 +6,9 @@
  * @example
  *     {
  *         pageNumber: 1,
- *         pageSize: 1
+ *         pageSize: 1,
+ *         orderBy: "order_by",
+ *         asc: true
  *     }
  */
 export interface GraphListAllRequest {
@@ -18,4 +20,12 @@ export interface GraphListAllRequest {
      * Number of graphs to retrieve per page.
      */
     pageSize?: number;
+    /**
+     * Column to sort by (created_at, group_id, name).
+     */
+    orderBy?: string;
+    /**
+     * Sort in ascending order.
+     */
+    asc?: boolean;
 }

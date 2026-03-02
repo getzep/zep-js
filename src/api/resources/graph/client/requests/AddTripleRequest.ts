@@ -33,6 +33,8 @@ export interface AddTripleRequest {
      * Nested objects and arrays are not allowed.
      */
     sourceNodeAttributes?: Record<string, unknown>;
+    /** The labels for the source node */
+    sourceNodeLabels?: string[];
     /** The name of the source node to add */
     sourceNodeName?: string;
     /** The summary of the source node to add */
@@ -44,6 +46,8 @@ export interface AddTripleRequest {
      * Nested objects and arrays are not allowed.
      */
     targetNodeAttributes?: Record<string, unknown>;
+    /** The labels for the target node */
+    targetNodeLabels?: string[];
     /** The name of the target node to add */
     targetNodeName?: string;
     /** The summary of the target node to add */

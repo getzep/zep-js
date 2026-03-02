@@ -170,4 +170,52 @@ describe("Edge", () => {
             message: "message",
         });
     });
+
+    test("update", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            attributes: { key: "value" },
+            created_at: "created_at",
+            episodes: ["episodes"],
+            expired_at: "expired_at",
+            fact: "fact",
+            invalid_at: "invalid_at",
+            name: "name",
+            relevance: 1.1,
+            score: 1.1,
+            source_node_uuid: "source_node_uuid",
+            target_node_uuid: "target_node_uuid",
+            uuid: "uuid",
+            valid_at: "valid_at",
+        };
+        server
+            .mockEndpoint()
+            .patch("/graph/edge/uuid")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.edge.update("uuid");
+        expect(response).toEqual({
+            attributes: {
+                key: "value",
+            },
+            createdAt: "created_at",
+            episodes: ["episodes"],
+            expiredAt: "expired_at",
+            fact: "fact",
+            invalidAt: "invalid_at",
+            name: "name",
+            relevance: 1.1,
+            score: 1.1,
+            sourceNodeUuid: "source_node_uuid",
+            targetNodeUuid: "target_node_uuid",
+            uuid: "uuid",
+            validAt: "valid_at",
+        });
+    });
 });

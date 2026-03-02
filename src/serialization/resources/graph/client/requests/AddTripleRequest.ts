@@ -23,12 +23,20 @@ export const AddTripleRequest: core.serialization.Schema<serializers.AddTripleRe
             "source_node_attributes",
             core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         ),
+        sourceNodeLabels: core.serialization.property(
+            "source_node_labels",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         sourceNodeName: core.serialization.property("source_node_name", core.serialization.string().optional()),
         sourceNodeSummary: core.serialization.property("source_node_summary", core.serialization.string().optional()),
         sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string().optional()),
         targetNodeAttributes: core.serialization.property(
             "target_node_attributes",
             core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
+        targetNodeLabels: core.serialization.property(
+            "target_node_labels",
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         targetNodeName: core.serialization.property("target_node_name", core.serialization.string().optional()),
         targetNodeSummary: core.serialization.property("target_node_summary", core.serialization.string().optional()),
@@ -48,10 +56,12 @@ export declare namespace AddTripleRequest {
         graph_id?: string | null;
         invalid_at?: string | null;
         source_node_attributes?: Record<string, unknown> | null;
+        source_node_labels?: string[] | null;
         source_node_name?: string | null;
         source_node_summary?: string | null;
         source_node_uuid?: string | null;
         target_node_attributes?: Record<string, unknown> | null;
+        target_node_labels?: string[] | null;
         target_node_name?: string | null;
         target_node_summary?: string | null;
         target_node_uuid?: string | null;
