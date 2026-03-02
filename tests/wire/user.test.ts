@@ -88,10 +88,6 @@ describe("User", () => {
             deleted_at: "deleted_at",
             disable_default_ontology: true,
             email: "email",
-            fact_rating_instruction: {
-                examples: { high: "high", low: "low", medium: "medium" },
-                instruction: "instruction",
-            },
             first_name: "first_name",
             id: 1,
             last_name: "last_name",
@@ -119,14 +115,6 @@ describe("User", () => {
             deletedAt: "deleted_at",
             disableDefaultOntology: true,
             email: "email",
-            factRatingInstruction: {
-                examples: {
-                    high: "high",
-                    low: "low",
-                    medium: "medium",
-                },
-                instruction: "instruction",
-            },
             firstName: "first_name",
             id: 1,
             lastName: "last_name",
@@ -171,6 +159,9 @@ describe("User", () => {
         const response = await client.user.listOrdered({
             pageNumber: 1,
             pageSize: 1,
+            search: "search",
+            orderBy: "order_by",
+            asc: true,
         });
         expect(response).toEqual({
             rowCount: 1,
@@ -206,10 +197,6 @@ describe("User", () => {
             deleted_at: "deleted_at",
             disable_default_ontology: true,
             email: "email",
-            fact_rating_instruction: {
-                examples: { high: "high", low: "low", medium: "medium" },
-                instruction: "instruction",
-            },
             first_name: "first_name",
             id: 1,
             last_name: "last_name",
@@ -228,14 +215,6 @@ describe("User", () => {
             deletedAt: "deleted_at",
             disableDefaultOntology: true,
             email: "email",
-            factRatingInstruction: {
-                examples: {
-                    high: "high",
-                    low: "low",
-                    medium: "medium",
-                },
-                instruction: "instruction",
-            },
             firstName: "first_name",
             id: 1,
             lastName: "last_name",
@@ -272,10 +251,6 @@ describe("User", () => {
             deleted_at: "deleted_at",
             disable_default_ontology: true,
             email: "email",
-            fact_rating_instruction: {
-                examples: { high: "high", low: "low", medium: "medium" },
-                instruction: "instruction",
-            },
             first_name: "first_name",
             id: 1,
             last_name: "last_name",
@@ -301,14 +276,6 @@ describe("User", () => {
             deletedAt: "deleted_at",
             disableDefaultOntology: true,
             email: "email",
-            factRatingInstruction: {
-                examples: {
-                    high: "high",
-                    low: "low",
-                    medium: "medium",
-                },
-                instruction: "instruction",
-            },
             firstName: "first_name",
             id: 1,
             lastName: "last_name",

@@ -5,7 +5,6 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { ModelsFactRatingInstruction } from "./ModelsFactRatingInstruction.js";
 
 export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.User> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
@@ -15,10 +14,6 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.Use
         core.serialization.boolean().optional(),
     ),
     email: core.serialization.string().optional(),
-    factRatingInstruction: core.serialization.property(
-        "fact_rating_instruction",
-        ModelsFactRatingInstruction.optional(),
-    ),
     firstName: core.serialization.property("first_name", core.serialization.string().optional()),
     id: core.serialization.number().optional(),
     lastName: core.serialization.property("last_name", core.serialization.string().optional()),
@@ -36,7 +31,6 @@ export declare namespace User {
         deleted_at?: string | null;
         disable_default_ontology?: boolean | null;
         email?: string | null;
-        fact_rating_instruction?: ModelsFactRatingInstruction.Raw | null;
         first_name?: string | null;
         id?: number | null;
         last_name?: string | null;

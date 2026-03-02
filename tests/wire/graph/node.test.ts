@@ -246,4 +246,42 @@ describe("Node", () => {
             message: "message",
         });
     });
+
+    test("update", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            attributes: { key: "value" },
+            created_at: "created_at",
+            labels: ["labels"],
+            name: "name",
+            relevance: 1.1,
+            score: 1.1,
+            summary: "summary",
+            uuid: "uuid",
+        };
+        server
+            .mockEndpoint()
+            .patch("/graph/node/uuid")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.node.update("uuid");
+        expect(response).toEqual({
+            attributes: {
+                key: "value",
+            },
+            createdAt: "created_at",
+            labels: ["labels"],
+            name: "name",
+            relevance: 1.1,
+            score: 1.1,
+            summary: "summary",
+            uuid: "uuid",
+        });
+    });
 });

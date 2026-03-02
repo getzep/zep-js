@@ -730,7 +730,7 @@ await client.graph.add({
 <dl>
 <dd>
 
-Add data to the graph in batch mode, processing episodes concurrently. Use only for data that is insensitive to processing order.
+Add data to the graph in batch mode. Episodes are processed sequentially in the order provided.
 
 </dd>
 </dl>
@@ -1013,6 +1013,8 @@ Returns all graphs. In order to list users, use user.list_ordered instead
 await client.graph.listAll({
     pageNumber: 1,
     pageSize: 1,
+    orderBy: "order_by",
+    asc: true,
 });
 ```
 
@@ -1030,6 +1032,70 @@ await client.graph.listAll({
 <dd>
 
 **request:** `Zep.GraphListAllRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">detectPatterns</a>({ ...params }) -> Zep.ApidataDetectPatternsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Detects structural patterns in a knowledge graph including relationship frequencies,
+multi-hop paths, co-occurrences, hubs, and clusters.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.detectPatterns();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.DetectPatternsRequest`
 
 </dd>
 </dl>
@@ -1660,9 +1726,7 @@ Returns most relevant context from the user graph (including memory from any/all
 
 ```typescript
 await client.thread.getUserContext("threadId", {
-    minRating: 1.1,
     templateId: "template_id",
-    mode: "basic",
 });
 ```
 
@@ -2233,6 +2297,9 @@ Returns all users.
 await client.user.listOrdered({
     pageNumber: 1,
     pageSize: 1,
+    search: "search",
+    orderBy: "order_by",
+    asc: true,
 });
 ```
 
@@ -2906,6 +2973,77 @@ await client.graph.edge.delete("uuid");
 <dd>
 
 **uuid:** `string` — Edge UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Edge.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">update</a>(uuid, { ...params }) -> Zep.EntityEdge</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an entity edge by UUID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.update("uuid");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Edge UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.UpdateEdgeRequest`
 
 </dd>
 </dl>
@@ -3639,6 +3777,77 @@ await client.graph.node.delete("uuid");
 <dd>
 
 **uuid:** `string` — Node UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Node.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">update</a>(uuid, { ...params }) -> Zep.EntityNode</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates an entity node by UUID.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.node.update("uuid");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Node UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.UpdateNodeRequest`
 
 </dd>
 </dl>

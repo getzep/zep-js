@@ -497,7 +497,10 @@ export class User {
      * @example
      *     await client.user.listOrdered({
      *         pageNumber: 1,
-     *         pageSize: 1
+     *         pageSize: 1,
+     *         search: "search",
+     *         orderBy: "order_by",
+     *         asc: true
      *     })
      */
     public listOrdered(
@@ -511,7 +514,7 @@ export class User {
         request: Zep.UserListOrderedRequest = {},
         requestOptions?: User.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.UserListResponse>> {
-        const { pageNumber, pageSize } = request;
+        const { pageNumber, pageSize, search, orderBy, asc } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
             _queryParams["pageNumber"] = pageNumber.toString();
@@ -519,6 +522,18 @@ export class User {
 
         if (pageSize != null) {
             _queryParams["pageSize"] = pageSize.toString();
+        }
+
+        if (search != null) {
+            _queryParams["search"] = search;
+        }
+
+        if (orderBy != null) {
+            _queryParams["order_by"] = orderBy;
+        }
+
+        if (asc != null) {
+            _queryParams["asc"] = asc.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({

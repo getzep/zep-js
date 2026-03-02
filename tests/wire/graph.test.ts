@@ -398,10 +398,6 @@ describe("Graph", () => {
         const rawResponseBody = {
             created_at: "created_at",
             description: "description",
-            fact_rating_instruction: {
-                examples: { high: "high", low: "low", medium: "medium" },
-                instruction: "instruction",
-            },
             graph_id: "graph_id",
             id: 1,
             name: "name",
@@ -423,14 +419,6 @@ describe("Graph", () => {
         expect(response).toEqual({
             createdAt: "created_at",
             description: "description",
-            factRatingInstruction: {
-                examples: {
-                    high: "high",
-                    low: "low",
-                    medium: "medium",
-                },
-                instruction: "instruction",
-            },
             graphId: "graph_id",
             id: 1,
             name: "name",
@@ -463,6 +451,8 @@ describe("Graph", () => {
         const response = await client.graph.listAll({
             pageNumber: 1,
             pageSize: 1,
+            orderBy: "order_by",
+            asc: true,
         });
         expect(response).toEqual({
             graphs: [
@@ -478,6 +468,54 @@ describe("Graph", () => {
             ],
             rowCount: 1,
             totalCount: 1,
+        });
+    });
+
+    test("detect_patterns", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            metadata: { edges_analyzed: 1, elapsed_ms: 1, nodes_analyzed: 1 },
+            patterns: [
+                {
+                    description: "description",
+                    edge_types: ["edge_types"],
+                    examples: [{}],
+                    node_labels: ["node_labels"],
+                    occurrences: 1,
+                    type: "type",
+                    weighted_score: 1.1,
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .post("/graph/patterns")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.detectPatterns();
+        expect(response).toEqual({
+            metadata: {
+                edgesAnalyzed: 1,
+                elapsedMs: 1,
+                nodesAnalyzed: 1,
+            },
+            patterns: [
+                {
+                    description: "description",
+                    edgeTypes: ["edge_types"],
+                    examples: [{}],
+                    nodeLabels: ["node_labels"],
+                    occurrences: 1,
+                    type: "type",
+                    weightedScore: 1.1,
+                },
+            ],
         });
     });
 
@@ -608,10 +646,6 @@ describe("Graph", () => {
         const rawResponseBody = {
             created_at: "created_at",
             description: "description",
-            fact_rating_instruction: {
-                examples: { high: "high", low: "low", medium: "medium" },
-                instruction: "instruction",
-            },
             graph_id: "graph_id",
             id: 1,
             name: "name",
@@ -624,14 +658,6 @@ describe("Graph", () => {
         expect(response).toEqual({
             createdAt: "created_at",
             description: "description",
-            factRatingInstruction: {
-                examples: {
-                    high: "high",
-                    low: "low",
-                    medium: "medium",
-                },
-                instruction: "instruction",
-            },
             graphId: "graph_id",
             id: 1,
             name: "name",
@@ -660,10 +686,6 @@ describe("Graph", () => {
         const rawResponseBody = {
             created_at: "created_at",
             description: "description",
-            fact_rating_instruction: {
-                examples: { high: "high", low: "low", medium: "medium" },
-                instruction: "instruction",
-            },
             graph_id: "graph_id",
             id: 1,
             name: "name",
@@ -683,14 +705,6 @@ describe("Graph", () => {
         expect(response).toEqual({
             createdAt: "created_at",
             description: "description",
-            factRatingInstruction: {
-                examples: {
-                    high: "high",
-                    low: "low",
-                    medium: "medium",
-                },
-                instruction: "instruction",
-            },
             graphId: "graph_id",
             id: 1,
             name: "name",

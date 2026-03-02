@@ -6,5 +6,6 @@ export { AddDataBatchRequest } from "./AddDataBatchRequest.js";
 export { AddTripleRequest } from "./AddTripleRequest.js";
 export { CloneGraphRequest } from "./CloneGraphRequest.js";
 export { CreateGraphRequest } from "./CreateGraphRequest.js";
+export { DetectPatternsRequest } from "./DetectPatternsRequest.js";
 export { GraphSearchQuery } from "./GraphSearchQuery.js";
 export { UpdateGraphRequest } from "./UpdateGraphRequest.js";
