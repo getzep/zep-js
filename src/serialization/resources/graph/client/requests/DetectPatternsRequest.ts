@@ -15,10 +15,12 @@ export const DetectPatternsRequest: core.serialization.Schema<
     Zep.DetectPatternsRequest
 > = core.serialization.object({
     detect: DetectConfig.optional(),
+    edgeLimit: core.serialization.property("edge_limit", core.serialization.number().optional()),
     graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
-    includeExamples: core.serialization.property("include_examples", core.serialization.boolean().optional()),
     limit: core.serialization.number().optional(),
     minOccurrences: core.serialization.property("min_occurrences", core.serialization.number().optional()),
+    query: core.serialization.string().optional(),
+    queryLimit: core.serialization.property("query_limit", core.serialization.number().optional()),
     recencyWeight: core.serialization.property("recency_weight", RecencyWeight.optional()),
     searchFilters: core.serialization.property("search_filters", SearchFilters.optional()),
     seeds: PatternSeeds.optional(),
@@ -28,10 +30,12 @@ export const DetectPatternsRequest: core.serialization.Schema<
 export declare namespace DetectPatternsRequest {
     export interface Raw {
         detect?: DetectConfig.Raw | null;
+        edge_limit?: number | null;
         graph_id?: string | null;
-        include_examples?: boolean | null;
         limit?: number | null;
         min_occurrences?: number | null;
+        query?: string | null;
+        query_limit?: number | null;
         recency_weight?: RecencyWeight.Raw | null;
         search_filters?: SearchFilters.Raw | null;
         seeds?: PatternSeeds.Raw | null;

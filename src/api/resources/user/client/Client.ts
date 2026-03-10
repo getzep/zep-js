@@ -46,6 +46,7 @@ export class User {
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
@@ -114,6 +115,17 @@ export class User {
                         }),
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new Zep.InternalServerError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -158,6 +170,7 @@ export class User {
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
@@ -228,6 +241,17 @@ export class User {
                         }),
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new Zep.InternalServerError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -272,6 +296,7 @@ export class User {
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
@@ -328,6 +353,17 @@ export class User {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

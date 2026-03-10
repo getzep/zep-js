@@ -11,17 +11,25 @@ import * as Zep from "../../../../index.js";
 export interface DetectPatternsRequest {
     /**
      * Which pattern types to detect with type-specific configuration.
-     * Omit to detect all types with defaults.
+     * Omit to detect all types with defaults. Ignored when query is set.
      */
     detect?: Zep.DetectConfig;
+    /** Max resolved edges per pattern. Default: 10, Max: 100. Only used with query. */
+    edgeLimit?: number;
     /** Graph ID when detecting patterns on a named graph */
     graphId?: string;
-    /** Include example node/edge UUIDs per pattern. Default: false */
-    includeExamples?: boolean;
     /** Max patterns to return. Default: 50, Max: 200 */
     limit?: number;
     /** Minimum occurrence count to report a pattern. Default: 2 */
     minOccurrences?: number;
+    /**
+     * Search query for discovering seed nodes via hybrid search.
+     * When set, forces triple-frequency detection only and enables edge resolution
+     * with cross-encoder reranking. Mutually exclusive with seeds.
+     */
+    query?: string;
+    /** Max seed nodes from search. Default: 10, Max: 50. Only used with query. */
+    queryLimit?: number;
     /**
      * Exponential half-life decay applied to edge created_at timestamps.
      * Valid values: none, 7_days, 30_days, 90_days. Default: none
@@ -32,7 +40,7 @@ export interface DetectPatternsRequest {
      * Reuses the same filter format as /graph/search.
      */
     searchFilters?: Zep.SearchFilters;
-    /** Seed selection. If omitted, analyzes the entire graph. */
+    /** Seed selection. If omitted, analyzes the entire graph. Mutually exclusive with query. */
     seeds?: Zep.PatternSeeds;
     /** User ID when detecting patterns on a user graph */
     userId?: string;

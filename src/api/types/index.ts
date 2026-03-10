@@ -28,7 +28,6 @@ export * from "./ListContextTemplatesResponse.js";
 export * from "./ListCustomInstructionsResponse.js";
 export * from "./ListUserInstructionsResponse.js";
 export * from "./PathDetectConfig.js";
-export * from "./PatternExample.js";
 export * from "./PatternMetadata.js";
 export * from "./PatternResult.js";
 export * from "./PatternSeeds.js";

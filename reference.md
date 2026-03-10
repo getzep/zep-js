@@ -1064,6 +1064,8 @@ await client.graph.listAll({
 
 Detects structural patterns in a knowledge graph including relationship frequencies,
 multi-hop paths, co-occurrences, hubs, and clusters.
+When a query is provided, uses hybrid search to discover seed nodes,
+detects triple-frequency patterns, and returns resolved edges ranked by relevance.
 
 </dd>
 </dl>

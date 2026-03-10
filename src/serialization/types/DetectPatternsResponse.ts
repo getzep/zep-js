@@ -6,6 +6,7 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { PatternMetadata } from "./PatternMetadata.js";
+import { EntityNode } from "./EntityNode.js";
 import { PatternResult } from "./PatternResult.js";
 
 export const DetectPatternsResponse: core.serialization.ObjectSchema<
@@ -13,12 +14,14 @@ export const DetectPatternsResponse: core.serialization.ObjectSchema<
     Zep.DetectPatternsResponse
 > = core.serialization.object({
     metadata: PatternMetadata.optional(),
+    nodes: core.serialization.list(EntityNode).optional(),
     patterns: core.serialization.list(PatternResult).optional(),
 });
 
 export declare namespace DetectPatternsResponse {
     export interface Raw {
         metadata?: PatternMetadata.Raw | null;
+        nodes?: EntityNode.Raw[] | null;
         patterns?: PatternResult.Raw[] | null;
     }
 }

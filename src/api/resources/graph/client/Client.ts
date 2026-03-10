@@ -64,6 +64,7 @@ export class Graph {
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
@@ -137,6 +138,17 @@ export class Graph {
                         }),
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new Zep.InternalServerError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -181,6 +193,7 @@ export class Graph {
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
@@ -251,6 +264,17 @@ export class Graph {
                         }),
                         _response.rawResponse,
                     );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 500:
                     throw new Zep.InternalServerError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -295,6 +319,7 @@ export class Graph {
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
@@ -351,6 +376,17 @@ export class Graph {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -533,6 +569,7 @@ export class Graph {
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
@@ -589,6 +626,17 @@ export class Graph {
             switch (_response.error.statusCode) {
                 case 400:
                     throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -1323,6 +1371,8 @@ export class Graph {
     /**
      * Detects structural patterns in a knowledge graph including relationship frequencies,
      * multi-hop paths, co-occurrences, hubs, and clusters.
+     * When a query is provided, uses hybrid search to discover seed nodes,
+     * detects triple-frequency patterns, and returns resolved edges ranked by relevance.
      *
      * @param {Zep.DetectPatternsRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.

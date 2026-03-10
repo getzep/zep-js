@@ -477,11 +477,32 @@ describe("Graph", () => {
         const rawRequestBody = {};
         const rawResponseBody = {
             metadata: { edges_analyzed: 1, elapsed_ms: 1, nodes_analyzed: 1 },
+            nodes: [
+                {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
             patterns: [
                 {
                     description: "description",
                     edge_types: ["edge_types"],
-                    examples: [{}],
+                    edges: [
+                        {
+                            created_at: "created_at",
+                            fact: "fact",
+                            name: "name",
+                            source_node_uuid: "source_node_uuid",
+                            target_node_uuid: "target_node_uuid",
+                            uuid: "uuid",
+                        },
+                    ],
                     node_labels: ["node_labels"],
                     occurrences: 1,
                     type: "type",
@@ -505,11 +526,34 @@ describe("Graph", () => {
                 elapsedMs: 1,
                 nodesAnalyzed: 1,
             },
+            nodes: [
+                {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
             patterns: [
                 {
                     description: "description",
                     edgeTypes: ["edge_types"],
-                    examples: [{}],
+                    edges: [
+                        {
+                            createdAt: "created_at",
+                            fact: "fact",
+                            name: "name",
+                            sourceNodeUuid: "source_node_uuid",
+                            targetNodeUuid: "target_node_uuid",
+                            uuid: "uuid",
+                        },
+                    ],
                     nodeLabels: ["node_labels"],
                     occurrences: 1,
                     type: "type",
