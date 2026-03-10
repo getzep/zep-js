@@ -9,8 +9,11 @@ export interface PatternResult {
     description?: string;
     /** Edge types in the pattern structure */
     edgeTypes?: string[];
-    /** Example instances (only populated when include_examples is true) */
-    examples?: Zep.PatternExample[];
+    /**
+     * Resolved edges for this pattern, sorted by cross-encoder relevance.
+     * Only populated when query is set.
+     */
+    edges?: Zep.EntityEdge[];
     /** Node labels in the pattern structure */
     nodeLabels?: string[];
     /** Raw occurrence count (always unweighted) */

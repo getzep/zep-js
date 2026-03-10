@@ -8,7 +8,7 @@ export interface DateFilter {
     /** Comparison operator for date filter */
     comparisonOperator: Zep.ComparisonOperator;
     /**
-     * Date to filter on. Required for non-null operators (=, <>, >, <, >=, <=).
+     * Date to filter on. Required for non-null operators (=, \<\>, \>, \<, \>=, \<=).
      * Should be omitted for IS NULL and IS NOT NULL operators.
      */
     date?: string;

@@ -5,7 +5,7 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { PatternExample } from "./PatternExample.js";
+import { EntityEdge } from "./EntityEdge.js";
 
 export const PatternResult: core.serialization.ObjectSchema<serializers.PatternResult.Raw, Zep.PatternResult> =
     core.serialization.object({
@@ -14,7 +14,7 @@ export const PatternResult: core.serialization.ObjectSchema<serializers.PatternR
             "edge_types",
             core.serialization.list(core.serialization.string()).optional(),
         ),
-        examples: core.serialization.list(PatternExample).optional(),
+        edges: core.serialization.list(EntityEdge).optional(),
         nodeLabels: core.serialization.property(
             "node_labels",
             core.serialization.list(core.serialization.string()).optional(),
@@ -28,7 +28,7 @@ export declare namespace PatternResult {
     export interface Raw {
         description?: string | null;
         edge_types?: string[] | null;
-        examples?: PatternExample.Raw[] | null;
+        edges?: EntityEdge.Raw[] | null;
         node_labels?: string[] | null;
         occurrences?: number | null;
         type?: string | null;

@@ -7,6 +7,8 @@ import * as Zep from "../index.js";
 export interface DetectPatternsResponse {
     /** Statistics about the detection run */
     metadata?: Zep.PatternMetadata;
+    /** Resolved nodes referenced by pattern edges (deduplicated). Only populated when query is set. */
+    nodes?: Zep.EntityNode[];
     /** Detected patterns, sorted by weighted_score descending */
     patterns?: Zep.PatternResult[];
 }
