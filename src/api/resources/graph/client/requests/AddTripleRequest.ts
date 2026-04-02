@@ -29,6 +29,11 @@ export interface AddTripleRequest {
     /** The time (if any) at which the fact stops being true */
     invalidAt?: string;
     /**
+     * Optional metadata key-value pairs for the shadow episode created for this fact triple.
+     * Max 10 keys. Values must be strings, numbers, or booleans.
+     */
+    metadata?: Record<string, unknown>;
+    /**
      * Additional attributes of the source node. Values must be scalar types (string, number, boolean, or null).
      * Nested objects and arrays are not allowed.
      */

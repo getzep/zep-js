@@ -25,7 +25,7 @@ export interface GraphSearchQuery {
     query: string;
     /** Defaults to RRF */
     reranker?: Zep.Reranker;
-    /** Defaults to Edges. Communities will be added in the future. */
+    /** Defaults to Edges. */
     scope?: Zep.GraphSearchScope;
     /** Search filters to apply to the search */
     searchFilters?: Zep.SearchFilters;

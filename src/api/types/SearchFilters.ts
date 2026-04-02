@@ -15,8 +15,13 @@ export interface SearchFilters {
     createdAt?: Zep.DateFilter[][];
     /** List of edge types to filter on */
     edgeTypes?: string[];
-    /** List of edge UUIDs to filter on */
+    /** List of edge UUIDs to filter on. Max 256 to align with graph-service filter limits. */
     edgeUuids?: string[];
+    /**
+     * Episode metadata filter. Restricts results to edges/nodes derived from episodes
+     * matching the metadata predicates. Uses explicit AND/OR groups.
+     */
+    episodeMetadataFilters?: Zep.MetadataFilterGroup;
     /** List of edge types to exclude from results */
     excludeEdgeTypes?: string[];
     /** List of node labels to exclude from results */

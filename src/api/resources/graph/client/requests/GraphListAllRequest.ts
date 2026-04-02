@@ -7,6 +7,7 @@
  *     {
  *         pageNumber: 1,
  *         pageSize: 1,
+ *         search: "search",
  *         orderBy: "order_by",
  *         asc: true
  *     }
@@ -20,6 +21,10 @@ export interface GraphListAllRequest {
      * Number of graphs to retrieve per page.
      */
     pageSize?: number;
+    /**
+     * Search term for filtering graphs by graph_id.
+     */
+    search?: string;
     /**
      * Column to sort by (created_at, group_id, name).
      */

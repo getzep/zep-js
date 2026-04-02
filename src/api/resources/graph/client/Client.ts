@@ -8,9 +8,11 @@ import * as Zep from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
+import { Community } from "../resources/community/client/Client.js";
 import { Edge } from "../resources/edge/client/Client.js";
 import { Episode } from "../resources/episode/client/Client.js";
 import { Node } from "../resources/node/client/Client.js";
+import { Theme } from "../resources/theme/client/Client.js";
 
 export declare namespace Graph {
     export interface Options {
@@ -37,12 +39,18 @@ export declare namespace Graph {
 
 export class Graph {
     protected readonly _options: Graph.Options;
+    protected _community: Community | undefined;
     protected _edge: Edge | undefined;
     protected _episode: Episode | undefined;
     protected _node: Node | undefined;
+    protected _theme: Theme | undefined;
 
     constructor(_options: Graph.Options = {}) {
         this._options = _options;
+    }
+
+    public get community(): Community {
+        return (this._community ??= new Community(this._options));
     }
 
     public get edge(): Edge {
@@ -55,6 +63,10 @@ export class Graph {
 
     public get node(): Node {
         return (this._node ??= new Node(this._options));
+    }
+
+    public get theme(): Theme {
+        return (this._theme ??= new Theme(this._options));
     }
 
     /**
@@ -1254,6 +1266,7 @@ export class Graph {
      *     await client.graph.listAll({
      *         pageNumber: 1,
      *         pageSize: 1,
+     *         search: "search",
      *         orderBy: "order_by",
      *         asc: true
      *     })
@@ -1269,7 +1282,7 @@ export class Graph {
         request: Zep.GraphListAllRequest = {},
         requestOptions?: Graph.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.GraphListResponse>> {
-        const { pageNumber, pageSize, orderBy, asc } = request;
+        const { pageNumber, pageSize, search, orderBy, asc } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageNumber != null) {
             _queryParams["pageNumber"] = pageNumber.toString();
@@ -1277,6 +1290,10 @@ export class Graph {
 
         if (pageSize != null) {
             _queryParams["pageSize"] = pageSize.toString();
+        }
+
+        if (search != null) {
+            _queryParams["search"] = search;
         }
 
         if (orderBy != null) {

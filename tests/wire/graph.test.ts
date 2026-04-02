@@ -282,6 +282,7 @@ describe("Graph", () => {
                 invalid_at: "invalid_at",
                 name: "name",
                 relevance: 1.1,
+                scope: "scope",
                 score: 1.1,
                 source_node_uuid: "source_node_uuid",
                 target_node_uuid: "target_node_uuid",
@@ -335,6 +336,7 @@ describe("Graph", () => {
                 invalidAt: "invalid_at",
                 name: "name",
                 relevance: 1.1,
+                scope: "scope",
                 score: 1.1,
                 sourceNodeUuid: "source_node_uuid",
                 targetNodeUuid: "target_node_uuid",
@@ -451,6 +453,7 @@ describe("Graph", () => {
         const response = await client.graph.listAll({
             pageNumber: 1,
             pageSize: 1,
+            search: "search",
             orderBy: "order_by",
             asc: true,
         });
@@ -505,6 +508,7 @@ describe("Graph", () => {
                     ],
                     node_labels: ["node_labels"],
                     occurrences: 1,
+                    summary: "summary",
                     type: "type",
                     weighted_score: 1.1,
                 },
@@ -556,6 +560,7 @@ describe("Graph", () => {
                     ],
                     nodeLabels: ["node_labels"],
                     occurrences: 1,
+                    summary: "summary",
                     type: "type",
                     weightedScore: 1.1,
                 },
@@ -568,6 +573,18 @@ describe("Graph", () => {
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { query: "query" };
         const rawResponseBody = {
+            communities: [
+                {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
             edges: [
                 {
                     attributes: { key: "value" },
@@ -578,6 +595,7 @@ describe("Graph", () => {
                     invalid_at: "invalid_at",
                     name: "name",
                     relevance: 1.1,
+                    scope: "scope",
                     score: 1.1,
                     source_node_uuid: "source_node_uuid",
                     target_node_uuid: "target_node_uuid",
@@ -614,6 +632,18 @@ describe("Graph", () => {
                     uuid: "uuid",
                 },
             ],
+            themes: [
+                {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
         };
         server
             .mockEndpoint()
@@ -628,6 +658,20 @@ describe("Graph", () => {
             query: "query",
         });
         expect(response).toEqual({
+            communities: [
+                {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
             edges: [
                 {
                     attributes: {
@@ -640,6 +684,7 @@ describe("Graph", () => {
                     invalidAt: "invalid_at",
                     name: "name",
                     relevance: 1.1,
+                    scope: "scope",
                     score: 1.1,
                     sourceNodeUuid: "source_node_uuid",
                     targetNodeUuid: "target_node_uuid",
@@ -667,6 +712,20 @@ describe("Graph", () => {
                 },
             ],
             nodes: [
+                {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
+            themes: [
                 {
                     attributes: {
                         key: "value",

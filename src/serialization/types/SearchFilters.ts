@@ -22,6 +22,10 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "edge_uuids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        episodeMetadataFilters: core.serialization.property(
+            "episode_metadata_filters",
+            core.serialization.lazyObject(() => serializers.MetadataFilterGroup).optional(),
+        ),
         excludeEdgeTypes: core.serialization.property(
             "exclude_edge_types",
             core.serialization.list(core.serialization.string()).optional(),
@@ -57,6 +61,7 @@ export declare namespace SearchFilters {
         created_at?: DateFilter.Raw[][] | null;
         edge_types?: string[] | null;
         edge_uuids?: string[] | null;
+        episode_metadata_filters?: serializers.MetadataFilterGroup.Raw | null;
         exclude_edge_types?: string[] | null;
         exclude_node_labels?: string[] | null;
         expired_at?: DateFilter.Raw[][] | null;
