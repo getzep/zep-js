@@ -7,6 +7,6 @@ export interface PatternSeeds {
     edgeTypes?: string[];
     /** All nodes with these labels become seeds */
     nodeLabels?: string[];
-    /** Specific node UUIDs to analyze around. Max 10000 to align with pattern detection seed limits. */
+    /** Specific node UUIDs to analyze around */
     nodeUuids?: string[];
 }

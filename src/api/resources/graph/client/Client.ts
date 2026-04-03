@@ -12,7 +12,6 @@ import { Community } from "../resources/community/client/Client.js";
 import { Edge } from "../resources/edge/client/Client.js";
 import { Episode } from "../resources/episode/client/Client.js";
 import { Node } from "../resources/node/client/Client.js";
-import { Theme } from "../resources/theme/client/Client.js";
 
 export declare namespace Graph {
     export interface Options {
@@ -43,7 +42,6 @@ export class Graph {
     protected _edge: Edge | undefined;
     protected _episode: Episode | undefined;
     protected _node: Node | undefined;
-    protected _theme: Theme | undefined;
 
     constructor(_options: Graph.Options = {}) {
         this._options = _options;
@@ -63,10 +61,6 @@ export class Graph {
 
     public get node(): Node {
         return (this._node ??= new Node(this._options));
-    }
-
-    public get theme(): Theme {
-        return (this._theme ??= new Theme(this._options));
     }
 
     /**

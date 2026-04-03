@@ -7,8 +7,8 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
 export const GraphDataType: core.serialization.Schema<serializers.GraphDataType.Raw, Zep.GraphDataType> =
-    core.serialization.enum_(["text", "json", "message", "fact_triple"]);
+    core.serialization.enum_(["text", "json", "message"]);
 
 export declare namespace GraphDataType {
-    export type Raw = "text" | "json" | "message" | "fact_triple";
+    export type Raw = "text" | "json" | "message";
 }

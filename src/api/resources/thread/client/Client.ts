@@ -515,7 +515,7 @@ export class Thread {
      * @example
      *     await client.thread.get("threadId", {
      *         limit: 1,
-     *         cursor: 1000000,
+     *         cursor: 1,
      *         lastn: 1
      *     })
      */

@@ -1803,7 +1803,7 @@ Returns messages for a thread.
 ```typescript
 await client.thread.get("threadId", {
     limit: 1,
-    cursor: 1000000,
+    cursor: 1,
     lastn: 1,
 });
 ```
@@ -3546,6 +3546,81 @@ await client.graph.episode.delete("uuid");
 </dl>
 </details>
 
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">update</a>(uuid, { ...params }) -> Zep.Episode</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update episode metadata with merge semantics. Supplied keys overwrite or add to existing metadata; keys set to null are removed.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.episode.update("uuid", {
+    metadata: {
+        key: "value",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Episode UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.UpdateEpisodeRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Episode.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getNodesAndEdges</a>(uuid) -> Zep.EpisodeMentions</code></summary>
 <dl>
 <dd>
@@ -4066,213 +4141,6 @@ await client.graph.node.update("uuid");
 <dd>
 
 **requestOptions:** `Node.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Graph Theme
-
-<details><summary><code>client.graph.theme.<a href="/src/api/resources/graph/resources/theme/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.CommunityNode[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns read-only theme nodes for a graph.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.theme.getByGraphId("graph_id", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graphId:** `string` — Graph ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphThemesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Theme.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.theme.<a href="/src/api/resources/graph/resources/theme/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.CommunityNode[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns read-only theme nodes for a user's graph.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.theme.getByUserId("user_id", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `string` — User ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphThemesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Theme.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.theme.<a href="/src/api/resources/graph/resources/theme/client/Client.ts">get</a>(uuid) -> Zep.CommunityNode</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a specific theme node by UUID. Theme nodes are read-only.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.theme.get("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Theme UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Theme.RequestOptions`
 
 </dd>
 </dl>

@@ -186,6 +186,58 @@ describe("Episode", () => {
         });
     });
 
+    test("update", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { metadata: { key: "value" } };
+        const rawResponseBody = {
+            content: "content",
+            created_at: "created_at",
+            metadata: { key: "value" },
+            processed: true,
+            relevance: 1.1,
+            role: "role",
+            role_type: "norole",
+            score: 1.1,
+            source: "text",
+            source_description: "source_description",
+            task_id: "task_id",
+            thread_id: "thread_id",
+            uuid: "uuid",
+        };
+        server
+            .mockEndpoint()
+            .patch("/graph/episodes/uuid")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.episode.update("uuid", {
+            metadata: {
+                key: "value",
+            },
+        });
+        expect(response).toEqual({
+            content: "content",
+            createdAt: "created_at",
+            metadata: {
+                key: "value",
+            },
+            processed: true,
+            relevance: 1.1,
+            role: "role",
+            roleType: "norole",
+            score: 1.1,
+            source: "text",
+            sourceDescription: "source_description",
+            taskId: "task_id",
+            threadId: "thread_id",
+            uuid: "uuid",
+        });
+    });
+
     test("get_nodes_and_edges", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
