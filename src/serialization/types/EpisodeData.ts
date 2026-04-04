@@ -11,6 +11,7 @@ export const EpisodeData: core.serialization.ObjectSchema<serializers.EpisodeDat
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         data: core.serialization.string(),
+        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         type: GraphDataType,
     });
@@ -19,6 +20,7 @@ export declare namespace EpisodeData {
     export interface Raw {
         created_at?: string | null;
         data: string;
+        metadata?: Record<string, unknown> | null;
         source_description?: string | null;
         type: GraphDataType.Raw;
     }

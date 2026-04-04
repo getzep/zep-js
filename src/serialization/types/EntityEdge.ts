@@ -16,6 +16,7 @@ export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
         name: core.serialization.string(),
         relevance: core.serialization.number().optional(),
+        scope: core.serialization.string().optional(),
         score: core.serialization.number().optional(),
         sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string()),
         targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string()),
@@ -33,6 +34,7 @@ export declare namespace EntityEdge {
         invalid_at?: string | null;
         name: string;
         relevance?: number | null;
+        scope?: string | null;
         score?: number | null;
         source_node_uuid: string;
         target_node_uuid: string;

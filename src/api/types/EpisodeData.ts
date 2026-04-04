@@ -7,6 +7,8 @@ import * as Zep from "../index.js";
 export interface EpisodeData {
     createdAt?: string;
     data: string;
+    /** Optional metadata key-value pairs. Max 10 keys. Values must be strings, numbers, or booleans. */
+    metadata?: Record<string, unknown>;
     sourceDescription?: string;
     type: Zep.GraphDataType;
 }

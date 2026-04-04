@@ -5,7 +5,10 @@
 import * as Zep from "../index.js";
 
 export interface PatternResult {
-    /** Human-readable description of the pattern */
+    /**
+     * Human-readable structural description of the pattern (e.g. "Person -[KNOWS]-> Person").
+     * Omitted in query mode in favor of Summary.
+     */
     description?: string;
     /** Edge types in the pattern structure */
     edgeTypes?: string[];
@@ -16,10 +19,21 @@ export interface PatternResult {
     edges?: Zep.EntityEdge[];
     /** Node labels in the pattern structure */
     nodeLabels?: string[];
-    /** Raw occurrence count (always unweighted) */
+    /**
+     * Raw structural occurrence count (always unweighted).
+     * Reflects pattern frequency in the graph, not the number of resolved edges after filtering.
+     */
     occurrences?: number;
+    /**
+     * Fact-derived summary from top reranked edges. Only populated when query is set.
+     * This is the primary display field for QA consumers.
+     */
+    summary?: string;
     /** Pattern type: relationship, path, co_occurrence, hub, cluster */
     type?: string;
-    /** Weighted sum — equals occurrences when recency_weight is "none" */
+    /**
+     * Weighted structural support — equals occurrences when recency_weight is "none".
+     * Reflects graph-level support, not post-enrichment edge count.
+     */
     weightedScore?: number;
 }

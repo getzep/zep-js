@@ -5,6 +5,7 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
+import { CommunityNode } from "./CommunityNode.js";
 import { EntityEdge } from "./EntityEdge.js";
 import { Episode } from "./Episode.js";
 import { EntityNode } from "./EntityNode.js";
@@ -13,15 +14,19 @@ export const GraphSearchResults: core.serialization.ObjectSchema<
     serializers.GraphSearchResults.Raw,
     Zep.GraphSearchResults
 > = core.serialization.object({
+    communities: core.serialization.list(CommunityNode).optional(),
     edges: core.serialization.list(EntityEdge).optional(),
     episodes: core.serialization.list(Episode).optional(),
     nodes: core.serialization.list(EntityNode).optional(),
+    themes: core.serialization.list(CommunityNode).optional(),
 });
 
 export declare namespace GraphSearchResults {
     export interface Raw {
+        communities?: CommunityNode.Raw[] | null;
         edges?: EntityEdge.Raw[] | null;
         episodes?: Episode.Raw[] | null;
         nodes?: EntityNode.Raw[] | null;
+        themes?: CommunityNode.Raw[] | null;
     }
 }

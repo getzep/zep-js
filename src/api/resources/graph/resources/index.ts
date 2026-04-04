@@ -1,3 +1,4 @@
+export * as community from "./community/index.js";
 export * as edge from "./edge/index.js";
 export * as episode from "./episode/index.js";
 export * as node from "./node/index.js";

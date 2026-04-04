@@ -1013,6 +1013,7 @@ Returns all graphs. In order to list users, use user.list_ordered instead
 await client.graph.listAll({
     pageNumber: 1,
     pageSize: 1,
+    search: "search",
     orderBy: "order_by",
     asc: true,
 });
@@ -2723,6 +2724,213 @@ await client.user.warm("userId");
 </dl>
 </details>
 
+## Graph Community
+
+<details><summary><code>client.graph.community.<a href="/src/api/resources/graph/resources/community/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.CommunityNode[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns read-only community nodes for a graph.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.community.getByGraphId("graph_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graphId:** `string` — Graph ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphCommunitiesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Community.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.community.<a href="/src/api/resources/graph/resources/community/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.CommunityNode[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns read-only community nodes for a user's graph.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.community.getByUserId("user_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — User ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphCommunitiesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Community.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.community.<a href="/src/api/resources/graph/resources/community/client/Client.ts">get</a>(uuid) -> Zep.CommunityNode</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a specific community node by UUID. Community nodes are read-only.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.community.get("uuid");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Community UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Community.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Graph Edge
 
 <details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.EntityEdge[]</code></summary>
@@ -3320,6 +3528,81 @@ await client.graph.episode.delete("uuid");
 <dd>
 
 **uuid:** `string` — Episode UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Episode.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">update</a>(uuid, { ...params }) -> Zep.Episode</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update episode metadata with merge semantics. Supplied keys overwrite or add to existing metadata; keys set to null are removed.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.episode.update("uuid", {
+    metadata: {
+        key: "value",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Episode UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.UpdateEpisodeRequest`
 
 </dd>
 </dl>

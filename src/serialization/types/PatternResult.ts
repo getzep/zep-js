@@ -20,6 +20,7 @@ export const PatternResult: core.serialization.ObjectSchema<serializers.PatternR
             core.serialization.list(core.serialization.string()).optional(),
         ),
         occurrences: core.serialization.number().optional(),
+        summary: core.serialization.string().optional(),
         type: core.serialization.string().optional(),
         weightedScore: core.serialization.property("weighted_score", core.serialization.number().optional()),
     });
@@ -31,6 +32,7 @@ export declare namespace PatternResult {
         edges?: EntityEdge.Raw[] | null;
         node_labels?: string[] | null;
         occurrences?: number | null;
+        summary?: string | null;
         type?: string | null;
         weighted_score?: number | null;
     }

@@ -5,7 +5,9 @@
 import * as Zep from "../index.js";
 
 export interface GraphSearchResults {
+    communities?: Zep.CommunityNode[];
     edges?: Zep.EntityEdge[];
     episodes?: Zep.Episode[];
     nodes?: Zep.EntityNode[];
+    themes?: Zep.CommunityNode[];
 }
