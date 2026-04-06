@@ -4,7 +4,7 @@
 
 import * as Zep from "../index.js";
 
-export interface GraphitiEpisodeMetadataFilter {
+export interface EpisodeMetadataFilter {
     /** Comparison operator: =, <>, >, <, >=, <=, IS NULL, IS NOT NULL, IN, CONTAINS */
     comparisonOperator: Zep.ComparisonOperator;
     /** Metadata key to filter on */

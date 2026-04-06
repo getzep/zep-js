@@ -7,16 +7,16 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { ComparisonOperator } from "./ComparisonOperator.js";
 
-export const GraphitiEpisodeMetadataFilter: core.serialization.ObjectSchema<
-    serializers.GraphitiEpisodeMetadataFilter.Raw,
-    Zep.GraphitiEpisodeMetadataFilter
+export const EpisodeMetadataFilter: core.serialization.ObjectSchema<
+    serializers.EpisodeMetadataFilter.Raw,
+    Zep.EpisodeMetadataFilter
 > = core.serialization.object({
     comparisonOperator: core.serialization.property("comparison_operator", ComparisonOperator),
     propertyName: core.serialization.property("property_name", core.serialization.string()),
     propertyValue: core.serialization.property("property_value", core.serialization.unknown().optional()),
 });
 
-export declare namespace GraphitiEpisodeMetadataFilter {
+export declare namespace EpisodeMetadataFilter {
     export interface Raw {
         comparison_operator: ComparisonOperator.Raw;
         property_name: string;

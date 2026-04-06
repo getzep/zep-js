@@ -63,4 +63,4 @@ export * from "./EntityPropertyType.js";
 export * from "./GraphDataType.js";
 export * from "./GraphitiMetadataFilterGroupType.js";
 export * from "./MetadataFilterGroup.js";
-export * from "./GraphitiEpisodeMetadataFilter.js";
+export * from "./EpisodeMetadataFilter.js";

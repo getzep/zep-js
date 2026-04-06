@@ -5,21 +5,21 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { GraphitiEpisodeMetadataFilter } from "./GraphitiEpisodeMetadataFilter.js";
+import { EpisodeMetadataFilter } from "./EpisodeMetadataFilter.js";
 import { GraphitiMetadataFilterGroupType } from "./GraphitiMetadataFilterGroupType.js";
 
 export const MetadataFilterGroup: core.serialization.ObjectSchema<
     serializers.MetadataFilterGroup.Raw,
     Zep.MetadataFilterGroup
 > = core.serialization.object({
-    filters: core.serialization.list(GraphitiEpisodeMetadataFilter).optional(),
+    filters: core.serialization.list(EpisodeMetadataFilter).optional(),
     groups: core.serialization.list(core.serialization.lazyObject(() => serializers.MetadataFilterGroup)).optional(),
     type: GraphitiMetadataFilterGroupType,
 });
 
 export declare namespace MetadataFilterGroup {
     export interface Raw {
-        filters?: GraphitiEpisodeMetadataFilter.Raw[] | null;
+        filters?: EpisodeMetadataFilter.Raw[] | null;
         groups?: serializers.MetadataFilterGroup.Raw[] | null;
         type: GraphitiMetadataFilterGroupType.Raw;
     }
