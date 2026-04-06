@@ -43,7 +43,7 @@ export class Saga {
      * Returns read-only saga nodes for a graph.
      *
      * @param {string} graphId - Graph ID
-     * @param {Zep.ApidataGraphSagasRequest} request
+     * @param {Zep.GraphSagasRequest} request
      * @param {Saga.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -55,7 +55,7 @@ export class Saga {
      */
     public getByGraphId(
         graphId: string,
-        request: Zep.ApidataGraphSagasRequest,
+        request: Zep.GraphSagasRequest,
         requestOptions?: Saga.RequestOptions,
     ): core.HttpResponsePromise<Zep.GraphitiSagaNode[]> {
         return core.HttpResponsePromise.fromPromise(this.__getByGraphId(graphId, request, requestOptions));
@@ -63,7 +63,7 @@ export class Saga {
 
     private async __getByGraphId(
         graphId: string,
-        request: Zep.ApidataGraphSagasRequest,
+        request: Zep.GraphSagasRequest,
         requestOptions?: Saga.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.GraphitiSagaNode[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -81,7 +81,7 @@ export class Saga {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ApidataGraphSagasRequest.jsonOrThrow(request, {
+            body: serializers.GraphSagasRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -167,7 +167,7 @@ export class Saga {
      * Returns read-only saga nodes for a user's graph.
      *
      * @param {string} userId - User ID
-     * @param {Zep.ApidataGraphSagasRequest} request
+     * @param {Zep.GraphSagasRequest} request
      * @param {Saga.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -179,7 +179,7 @@ export class Saga {
      */
     public getByUserId(
         userId: string,
-        request: Zep.ApidataGraphSagasRequest,
+        request: Zep.GraphSagasRequest,
         requestOptions?: Saga.RequestOptions,
     ): core.HttpResponsePromise<Zep.GraphitiSagaNode[]> {
         return core.HttpResponsePromise.fromPromise(this.__getByUserId(userId, request, requestOptions));
@@ -187,7 +187,7 @@ export class Saga {
 
     private async __getByUserId(
         userId: string,
-        request: Zep.ApidataGraphSagasRequest,
+        request: Zep.GraphSagasRequest,
         requestOptions?: Saga.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.GraphitiSagaNode[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -205,7 +205,7 @@ export class Saga {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.ApidataGraphSagasRequest.jsonOrThrow(request, {
+            body: serializers.GraphSagasRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),

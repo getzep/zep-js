@@ -6,15 +6,15 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const ApidataGraphSagasRequest: core.serialization.ObjectSchema<
-    serializers.ApidataGraphSagasRequest.Raw,
-    Zep.ApidataGraphSagasRequest
+export const GraphSagasRequest: core.serialization.ObjectSchema<
+    serializers.GraphSagasRequest.Raw,
+    Zep.GraphSagasRequest
 > = core.serialization.object({
     limit: core.serialization.number().optional(),
     uuidCursor: core.serialization.property("uuid_cursor", core.serialization.string().optional()),
 });
 
-export declare namespace ApidataGraphSagasRequest {
+export declare namespace GraphSagasRequest {
     export interface Raw {
         limit?: number | null;
         uuid_cursor?: string | null;

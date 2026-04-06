@@ -4205,7 +4205,7 @@ await client.graph.saga.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**request:** `Zep.ApidataGraphSagasRequest`
+**request:** `Zep.GraphSagasRequest`
 
 </dd>
 </dl>
@@ -4276,7 +4276,7 @@ await client.graph.saga.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**request:** `Zep.ApidataGraphSagasRequest`
+**request:** `Zep.GraphSagasRequest`
 
 </dd>
 </dl>

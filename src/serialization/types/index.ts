@@ -23,7 +23,7 @@ export * from "./Episode.js";
 export * from "./EpisodeResponse.js";
 export * from "./GraphListResponse.js";
 export * from "./GraphNodesRequest.js";
-export * from "./ApidataGraphSagasRequest.js";
+export * from "./GraphSagasRequest.js";
 export * from "./GraphSearchResults.js";
 export * from "./GraphThemesRequest.js";
 export * from "./HubDetectConfig.js";
