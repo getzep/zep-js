@@ -20,6 +20,8 @@ export interface Episode {
     roleType?: Zep.RoleType;
     /** Score is the reranker output: sigmoid-distributed logits [0,1] when using cross_encoder reranker, or RRF ordinal rank when using rrf reranker */
     score?: number;
+    /** SelectionRank is the global cross-scope rank assigned by auto scope selection. */
+    selectionRank?: number;
     source?: Zep.GraphDataType;
     sourceDescription?: string;
     /** Optional task ID to poll episode processing status. Currently only available for batch ingestion. */

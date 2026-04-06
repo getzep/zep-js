@@ -15,18 +15,22 @@ export const GraphSearchResults: core.serialization.ObjectSchema<
     Zep.GraphSearchResults
 > = core.serialization.object({
     communities: core.serialization.list(CommunityNode).optional(),
+    context: core.serialization.string().optional(),
     edges: core.serialization.list(EntityEdge).optional(),
     episodes: core.serialization.list(Episode).optional(),
     nodes: core.serialization.list(EntityNode).optional(),
+    sagas: core.serialization.list(core.serialization.unknown()).optional(),
     themes: core.serialization.list(CommunityNode).optional(),
 });
 
 export declare namespace GraphSearchResults {
     export interface Raw {
         communities?: CommunityNode.Raw[] | null;
+        context?: string | null;
         edges?: EntityEdge.Raw[] | null;
         episodes?: Episode.Raw[] | null;
         nodes?: EntityNode.Raw[] | null;
+        sagas?: unknown[] | null;
         themes?: CommunityNode.Raw[] | null;
     }
 }

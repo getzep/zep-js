@@ -12,7 +12,6 @@ export const AddDataRequest: core.serialization.Schema<serializers.AddDataReques
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         data: core.serialization.string(),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
-        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         type: GraphDataType,
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
@@ -23,7 +22,6 @@ export declare namespace AddDataRequest {
         created_at?: string | null;
         data: string;
         graph_id?: string | null;
-        metadata?: Record<string, unknown> | null;
         source_description?: string | null;
         type: GraphDataType.Raw;
         user_id?: string | null;

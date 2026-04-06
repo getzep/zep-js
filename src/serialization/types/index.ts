@@ -61,6 +61,6 @@ export * from "./Reranker.js";
 export * from "./SearchFilters.js";
 export * from "./EntityPropertyType.js";
 export * from "./GraphDataType.js";
-export * from "./MetadataFilterEntry.js";
 export * from "./GraphitiMetadataFilterGroupType.js";
 export * from "./MetadataFilterGroup.js";
+export * from "./GraphitiEpisodeMetadataFilter.js";

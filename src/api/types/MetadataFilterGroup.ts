@@ -5,8 +5,10 @@
 import * as Zep from "../index.js";
 
 export interface MetadataFilterGroup {
-    /** Leaf filters and/or nested groups */
-    filters: Zep.MetadataFilterEntry[];
+    /** Leaf filters (predicates on metadata key-value pairs) */
+    filters?: Zep.GraphitiEpisodeMetadataFilter[];
+    /** Nested sub-groups for composing complex boolean expressions */
+    groups?: Zep.MetadataFilterGroup[];
     /** Logical operator: "and" or "or" */
     type: Zep.GraphitiMetadataFilterGroupType;
 }
