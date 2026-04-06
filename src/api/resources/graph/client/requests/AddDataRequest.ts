@@ -16,6 +16,8 @@ export interface AddDataRequest {
     data: string;
     /** graph_id is the ID of the graph to which the data will be added. If adding to the user graph, please use user_id field instead. */
     graphId?: string;
+    /** Optional metadata key-value pairs. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */
+    metadata?: Record<string, unknown>;
     sourceDescription?: string;
     type: Zep.GraphDataType;
     /** User ID is the ID of the user to which the data will be added. If not adding to a user graph, please use graph_id field instead. */

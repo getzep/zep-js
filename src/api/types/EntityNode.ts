@@ -18,6 +18,8 @@ export interface EntityNode {
     relevance?: number;
     /** Score is the reranker output: sigmoid-distributed logits [0,1] when using cross_encoder reranker, or RRF ordinal rank when using rrf reranker */
     score?: number;
+    /** SelectionRank is the global cross-scope rank assigned by auto scope selection. */
+    selectionRank?: number;
     /** Regional summary of surrounding edges */
     summary: string;
     /** UUID of the node */

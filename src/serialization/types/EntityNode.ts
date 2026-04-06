@@ -14,6 +14,7 @@ export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.
         name: core.serialization.string(),
         relevance: core.serialization.number().optional(),
         score: core.serialization.number().optional(),
+        selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
         summary: core.serialization.string(),
         uuid: core.serialization.string(),
     });
@@ -26,6 +27,7 @@ export declare namespace EntityNode {
         name: string;
         relevance?: number | null;
         score?: number | null;
+        selection_rank?: number | null;
         summary: string;
         uuid: string;
     }

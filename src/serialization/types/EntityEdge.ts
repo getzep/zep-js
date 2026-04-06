@@ -18,6 +18,7 @@ export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.
         relevance: core.serialization.number().optional(),
         scope: core.serialization.string().optional(),
         score: core.serialization.number().optional(),
+        selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
         sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string()),
         targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string()),
         uuid: core.serialization.string(),
@@ -36,6 +37,7 @@ export declare namespace EntityEdge {
         relevance?: number | null;
         scope?: string | null;
         score?: number | null;
+        selection_rank?: number | null;
         source_node_uuid: string;
         target_node_uuid: string;
         uuid: string;

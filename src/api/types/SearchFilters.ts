@@ -18,8 +18,8 @@ export interface SearchFilters {
     /** List of edge UUIDs to filter on. Max 256 to align with graph-service filter limits. */
     edgeUuids?: string[];
     /**
-     * Episode metadata filter. Restricts results to edges/nodes derived from episodes
-     * matching the metadata predicates. Uses explicit AND/OR groups.
+     * [Experimental] Episode metadata filter. Restricts results to edges/nodes derived from episodes
+     * matching the metadata predicates. Uses explicit AND/OR groups. This feature is experimental and may change in future releases.
      */
     episodeMetadataFilters?: Zep.MetadataFilterGroup;
     /** List of edge types to exclude from results */

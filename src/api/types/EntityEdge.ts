@@ -26,6 +26,8 @@ export interface EntityEdge {
     scope?: string;
     /** Score is the reranker output: sigmoid-distributed logits [0,1] when using cross_encoder reranker, or RRF ordinal rank when using rrf reranker */
     score?: number;
+    /** SelectionRank is the global cross-scope rank assigned by auto scope selection. */
+    selectionRank?: number;
     /** UUID of the source node */
     sourceNodeUuid: string;
     /** UUID of the target node */

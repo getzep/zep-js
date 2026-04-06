@@ -18,6 +18,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         role: core.serialization.string().optional(),
         roleType: core.serialization.property("role_type", RoleType.optional()),
         score: core.serialization.number().optional(),
+        selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
         source: GraphDataType.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         taskId: core.serialization.property("task_id", core.serialization.string().optional()),
@@ -36,6 +37,7 @@ export declare namespace Episode {
         role?: string | null;
         role_type?: RoleType.Raw | null;
         score?: number | null;
+        selection_rank?: number | null;
         source?: GraphDataType.Raw | null;
         source_description?: string | null;
         task_id?: string | null;

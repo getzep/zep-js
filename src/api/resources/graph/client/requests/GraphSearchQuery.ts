@@ -19,12 +19,16 @@ export interface GraphSearchQuery {
     graphId?: string;
     /** The maximum number of facts to retrieve. Defaults to 10. Limited to 50. */
     limit?: number;
+    /** Maximum total characters across all selected results when scope=auto. Defaults to 2000. Limited to 50000. */
+    maxCharacters?: number;
     /** weighting for maximal marginal relevance */
     mmrLambda?: number;
     /** The string to search for (required) */
     query: string;
     /** Defaults to RRF */
     reranker?: Zep.Reranker;
+    /** When scope=auto, include the selected raw graph results alongside the materialized context block. */
+    returnRawResults?: boolean;
     /** Defaults to Edges. */
     scope?: Zep.GraphSearchScope;
     /** Search filters to apply to the search */

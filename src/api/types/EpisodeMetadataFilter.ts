@@ -4,11 +4,9 @@
 
 import * as Zep from "../index.js";
 
-export interface MetadataFilterEntry {
+export interface EpisodeMetadataFilter {
     /** Comparison operator: =, <>, >, <, >=, <=, IS NULL, IS NOT NULL, IN, CONTAINS */
     comparisonOperator: Zep.ComparisonOperator;
-    /** Nested group (set if this entry is a sub-expression) */
-    group?: Zep.MetadataFilterGroup;
     /** Metadata key to filter on */
     propertyName: string;
     /** Value to compare against. Not required for IS NULL / IS NOT NULL operators. */
