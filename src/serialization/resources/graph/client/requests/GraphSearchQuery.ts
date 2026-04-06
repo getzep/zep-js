@@ -18,9 +18,11 @@ export const GraphSearchQuery: core.serialization.Schema<serializers.GraphSearch
         centerNodeUuid: core.serialization.property("center_node_uuid", core.serialization.string().optional()),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         limit: core.serialization.number().optional(),
+        maxCharacters: core.serialization.property("max_characters", core.serialization.number().optional()),
         mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
         query: core.serialization.string(),
         reranker: Reranker.optional(),
+        returnRawResults: core.serialization.property("return_raw_results", core.serialization.boolean().optional()),
         scope: GraphSearchScope.optional(),
         searchFilters: core.serialization.property("search_filters", SearchFilters.optional()),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
@@ -32,9 +34,11 @@ export declare namespace GraphSearchQuery {
         center_node_uuid?: string | null;
         graph_id?: string | null;
         limit?: number | null;
+        max_characters?: number | null;
         mmr_lambda?: number | null;
         query: string;
         reranker?: Reranker.Raw | null;
+        return_raw_results?: boolean | null;
         scope?: GraphSearchScope.Raw | null;
         search_filters?: SearchFilters.Raw | null;
         user_id?: string | null;

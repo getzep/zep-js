@@ -9,6 +9,7 @@ import { CommunityNode } from "./CommunityNode.js";
 import { EntityEdge } from "./EntityEdge.js";
 import { Episode } from "./Episode.js";
 import { EntityNode } from "./EntityNode.js";
+import { GraphitiSagaNode } from "./GraphitiSagaNode.js";
 
 export const GraphSearchResults: core.serialization.ObjectSchema<
     serializers.GraphSearchResults.Raw,
@@ -19,7 +20,7 @@ export const GraphSearchResults: core.serialization.ObjectSchema<
     edges: core.serialization.list(EntityEdge).optional(),
     episodes: core.serialization.list(Episode).optional(),
     nodes: core.serialization.list(EntityNode).optional(),
-    sagas: core.serialization.list(core.serialization.unknown()).optional(),
+    sagas: core.serialization.list(GraphitiSagaNode).optional(),
     themes: core.serialization.list(CommunityNode).optional(),
 });
 
@@ -30,7 +31,7 @@ export declare namespace GraphSearchResults {
         edges?: EntityEdge.Raw[] | null;
         episodes?: Episode.Raw[] | null;
         nodes?: EntityNode.Raw[] | null;
-        sagas?: unknown[] | null;
+        sagas?: GraphitiSagaNode.Raw[] | null;
         themes?: CommunityNode.Raw[] | null;
     }
 }

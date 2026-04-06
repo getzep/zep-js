@@ -10,6 +10,6 @@ export interface GraphSearchResults {
     edges?: Zep.EntityEdge[];
     episodes?: Zep.Episode[];
     nodes?: Zep.EntityNode[];
-    sagas?: unknown[];
+    sagas?: Zep.GraphitiSagaNode[];
     themes?: Zep.CommunityNode[];
 }

@@ -6,29 +6,29 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.Raw, Zep.EntityNode> =
+export const GraphitiSagaNode: core.serialization.ObjectSchema<serializers.GraphitiSagaNode.Raw, Zep.GraphitiSagaNode> =
     core.serialization.object({
-        attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         labels: core.serialization.list(core.serialization.string()).optional(),
+        lastSummarizedAt: core.serialization.property("last_summarized_at", core.serialization.string().optional()),
         name: core.serialization.string(),
         relevance: core.serialization.number().optional(),
         score: core.serialization.number().optional(),
         selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
-        summary: core.serialization.string(),
+        summary: core.serialization.string().optional(),
         uuid: core.serialization.string(),
     });
 
-export declare namespace EntityNode {
+export declare namespace GraphitiSagaNode {
     export interface Raw {
-        attributes?: Record<string, unknown> | null;
         created_at: string;
         labels?: string[] | null;
+        last_summarized_at?: string | null;
         name: string;
         relevance?: number | null;
         score?: number | null;
         selection_rank?: number | null;
-        summary: string;
+        summary?: string | null;
         uuid: string;
     }
 }
