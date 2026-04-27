@@ -9,7 +9,7 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/he
 import * as serializers from "../../../../../../serialization/index.js";
 import * as errors from "../../../../../../errors/index.js";
 
-export declare namespace Community {
+export declare namespace Observation {
     export interface Options {
         environment?: core.Supplier<environments.ZepEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -32,46 +32,46 @@ export declare namespace Community {
     }
 }
 
-export class Community {
-    protected readonly _options: Community.Options;
+export class Observation {
+    protected readonly _options: Observation.Options;
 
-    constructor(_options: Community.Options = {}) {
+    constructor(_options: Observation.Options = {}) {
         this._options = _options;
     }
 
     /**
-     * Returns read-only community nodes for a graph.
+     * Returns read-only observation nodes for a graph.
      *
      * @param {string} graphId - Graph ID
-     * @param {Zep.GraphCommunitiesRequest} request
-     * @param {Community.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Zep.GraphObservationsRequest} request
+     * @param {Observation.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.community.getByGraphId("graph_id", {})
+     *     await client.graph.observation.getByGraphId("graph_id", {})
      */
     public getByGraphId(
         graphId: string,
-        request: Zep.GraphCommunitiesRequest,
-        requestOptions?: Community.RequestOptions,
-    ): core.HttpResponsePromise<Zep.CommunityNode[]> {
+        request: Zep.GraphObservationsRequest,
+        requestOptions?: Observation.RequestOptions,
+    ): core.HttpResponsePromise<Zep.DerivedNode[]> {
         return core.HttpResponsePromise.fromPromise(this.__getByGraphId(graphId, request, requestOptions));
     }
 
     private async __getByGraphId(
         graphId: string,
-        request: Zep.GraphCommunitiesRequest,
-        requestOptions?: Community.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.CommunityNode[]>> {
+        request: Zep.GraphObservationsRequest,
+        requestOptions?: Observation.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.DerivedNode[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                `graph/community/graph/${encodeURIComponent(graphId)}`,
+                `graph/observation/graph/${encodeURIComponent(graphId)}`,
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -81,7 +81,7 @@ export class Community {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.GraphCommunitiesRequest.jsonOrThrow(request, {
+            body: serializers.GraphObservationsRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -91,7 +91,7 @@ export class Community {
         });
         if (_response.ok) {
             return {
-                data: serializers.graph.community.getByGraphId.Response.parseOrThrow(_response.body, {
+                data: serializers.graph.observation.getByGraphId.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -155,7 +155,7 @@ export class Community {
                 });
             case "timeout":
                 throw new errors.ZepTimeoutError(
-                    "Timeout exceeded when calling POST /graph/community/graph/{graph_id}.",
+                    "Timeout exceeded when calling POST /graph/observation/graph/{graph_id}.",
                 );
             case "unknown":
                 throw new errors.ZepError({
@@ -166,38 +166,38 @@ export class Community {
     }
 
     /**
-     * Returns read-only community nodes for a user's graph.
+     * Returns read-only observation nodes for a user's graph.
      *
      * @param {string} userId - User ID
-     * @param {Zep.GraphCommunitiesRequest} request
-     * @param {Community.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Zep.GraphObservationsRequest} request
+     * @param {Observation.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.community.getByUserId("user_id", {})
+     *     await client.graph.observation.getByUserId("user_id", {})
      */
     public getByUserId(
         userId: string,
-        request: Zep.GraphCommunitiesRequest,
-        requestOptions?: Community.RequestOptions,
-    ): core.HttpResponsePromise<Zep.CommunityNode[]> {
+        request: Zep.GraphObservationsRequest,
+        requestOptions?: Observation.RequestOptions,
+    ): core.HttpResponsePromise<Zep.DerivedNode[]> {
         return core.HttpResponsePromise.fromPromise(this.__getByUserId(userId, request, requestOptions));
     }
 
     private async __getByUserId(
         userId: string,
-        request: Zep.GraphCommunitiesRequest,
-        requestOptions?: Community.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.CommunityNode[]>> {
+        request: Zep.GraphObservationsRequest,
+        requestOptions?: Observation.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.DerivedNode[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                `graph/community/user/${encodeURIComponent(userId)}`,
+                `graph/observation/user/${encodeURIComponent(userId)}`,
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -207,7 +207,7 @@ export class Community {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.GraphCommunitiesRequest.jsonOrThrow(request, {
+            body: serializers.GraphObservationsRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -217,7 +217,7 @@ export class Community {
         });
         if (_response.ok) {
             return {
-                data: serializers.graph.community.getByUserId.Response.parseOrThrow(_response.body, {
+                data: serializers.graph.observation.getByUserId.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -280,7 +280,9 @@ export class Community {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/community/user/{user_id}.");
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /graph/observation/user/{user_id}.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -290,32 +292,32 @@ export class Community {
     }
 
     /**
-     * Returns a specific community node by UUID. Community nodes are read-only.
+     * Returns a specific observation node by UUID. Observation nodes are read-only.
      *
-     * @param {string} uuid - Community UUID
-     * @param {Community.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {string} uuid - Observation UUID
+     * @param {Observation.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.community.get("uuid")
+     *     await client.graph.observation.get("uuid")
      */
-    public get(uuid: string, requestOptions?: Community.RequestOptions): core.HttpResponsePromise<Zep.CommunityNode> {
+    public get(uuid: string, requestOptions?: Observation.RequestOptions): core.HttpResponsePromise<Zep.DerivedNode> {
         return core.HttpResponsePromise.fromPromise(this.__get(uuid, requestOptions));
     }
 
     private async __get(
         uuid: string,
-        requestOptions?: Community.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.CommunityNode>> {
+        requestOptions?: Observation.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.DerivedNode>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                `graph/community/${encodeURIComponent(uuid)}`,
+                `graph/observation/${encodeURIComponent(uuid)}`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -329,7 +331,7 @@ export class Community {
         });
         if (_response.ok) {
             return {
-                data: serializers.CommunityNode.parseOrThrow(_response.body, {
+                data: serializers.DerivedNode.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -392,7 +394,7 @@ export class Community {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /graph/community/{uuid}.");
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /graph/observation/{uuid}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,

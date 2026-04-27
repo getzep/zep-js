@@ -6,10 +6,14 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const CommunityNode: core.serialization.ObjectSchema<serializers.CommunityNode.Raw, Zep.CommunityNode> =
+export const DerivedNode: core.serialization.ObjectSchema<serializers.DerivedNode.Raw, Zep.DerivedNode> =
     core.serialization.object({
         attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
+        episodeIds: core.serialization.property(
+            "episode_ids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         labels: core.serialization.list(core.serialization.string()).optional(),
         name: core.serialization.string(),
         relevance: core.serialization.number().optional(),
@@ -19,10 +23,11 @@ export const CommunityNode: core.serialization.ObjectSchema<serializers.Communit
         uuid: core.serialization.string(),
     });
 
-export declare namespace CommunityNode {
+export declare namespace DerivedNode {
     export interface Raw {
         attributes?: Record<string, unknown> | null;
         created_at: string;
+        episode_ids?: string[] | null;
         labels?: string[] | null;
         name: string;
         relevance?: number | null;

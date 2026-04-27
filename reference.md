@@ -1803,7 +1803,7 @@ Returns messages for a thread.
 ```typescript
 await client.thread.get("threadId", {
     limit: 1,
-    cursor: 1000000,
+    cursor: 1,
     lastn: 1,
 });
 ```
@@ -1986,6 +1986,69 @@ await client.thread.addMessagesBatch("threadId", {
 <dd>
 
 **request:** `Zep.AddThreadMessagesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">getSummary</a>(threadId) -> Zep.ThreadSummary</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the incremental summary generated from messages in the thread. Returns 404 if no summary exists for the thread.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.getSummary("threadId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**threadId:** `string` — The thread ID.
 
 </dd>
 </dl>
@@ -2714,213 +2777,6 @@ await client.user.warm("userId");
 <dd>
 
 **requestOptions:** `User.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Graph Community
-
-<details><summary><code>client.graph.community.<a href="/src/api/resources/graph/resources/community/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.CommunityNode[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns read-only community nodes for a graph.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.community.getByGraphId("graph_id", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graphId:** `string` — Graph ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphCommunitiesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Community.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.community.<a href="/src/api/resources/graph/resources/community/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.CommunityNode[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns read-only community nodes for a user's graph.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.community.getByUserId("user_id", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `string` — User ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphCommunitiesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Community.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.community.<a href="/src/api/resources/graph/resources/community/client/Client.ts">get</a>(uuid) -> Zep.CommunityNode</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a specific community node by UUID. Community nodes are read-only.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.community.get("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Community UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Community.RequestOptions`
 
 </dd>
 </dl>
@@ -4151,9 +4007,9 @@ await client.graph.node.update("uuid");
 </dl>
 </details>
 
-## Graph Saga
+## Graph Observation
 
-<details><summary><code>client.graph.saga.<a href="/src/api/resources/graph/resources/saga/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.GraphitiSagaNode[]</code></summary>
+<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.DerivedNode[]</code></summary>
 <dl>
 <dd>
 
@@ -4165,7 +4021,7 @@ await client.graph.node.update("uuid");
 <dl>
 <dd>
 
-Returns read-only saga nodes for a graph.
+Returns read-only observation nodes for a graph.
 
 </dd>
 </dl>
@@ -4181,7 +4037,7 @@ Returns read-only saga nodes for a graph.
 <dd>
 
 ```typescript
-await client.graph.saga.getByGraphId("graph_id", {});
+await client.graph.observation.getByGraphId("graph_id", {});
 ```
 
 </dd>
@@ -4205,7 +4061,7 @@ await client.graph.saga.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**request:** `Zep.GraphSagasRequest`
+**request:** `Zep.GraphObservationsRequest`
 
 </dd>
 </dl>
@@ -4213,7 +4069,7 @@ await client.graph.saga.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**requestOptions:** `Saga.RequestOptions`
+**requestOptions:** `Observation.RequestOptions`
 
 </dd>
 </dl>
@@ -4224,7 +4080,7 @@ await client.graph.saga.getByGraphId("graph_id", {});
 </dl>
 </details>
 
-<details><summary><code>client.graph.saga.<a href="/src/api/resources/graph/resources/saga/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.GraphitiSagaNode[]</code></summary>
+<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.DerivedNode[]</code></summary>
 <dl>
 <dd>
 
@@ -4236,7 +4092,7 @@ await client.graph.saga.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-Returns read-only saga nodes for a user's graph.
+Returns read-only observation nodes for a user's graph.
 
 </dd>
 </dl>
@@ -4252,7 +4108,7 @@ Returns read-only saga nodes for a user's graph.
 <dd>
 
 ```typescript
-await client.graph.saga.getByUserId("user_id", {});
+await client.graph.observation.getByUserId("user_id", {});
 ```
 
 </dd>
@@ -4276,7 +4132,7 @@ await client.graph.saga.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**request:** `Zep.GraphSagasRequest`
+**request:** `Zep.GraphObservationsRequest`
 
 </dd>
 </dl>
@@ -4284,7 +4140,7 @@ await client.graph.saga.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**requestOptions:** `Saga.RequestOptions`
+**requestOptions:** `Observation.RequestOptions`
 
 </dd>
 </dl>
@@ -4295,9 +4151,7 @@ await client.graph.saga.getByUserId("user_id", {});
 </dl>
 </details>
 
-## Graph Theme
-
-<details><summary><code>client.graph.theme.<a href="/src/api/resources/graph/resources/theme/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.CommunityNode[]</code></summary>
+<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">get</a>(uuid) -> Zep.DerivedNode</code></summary>
 <dl>
 <dd>
 
@@ -4309,7 +4163,7 @@ await client.graph.saga.getByUserId("user_id", {});
 <dl>
 <dd>
 
-Returns read-only theme nodes for a graph.
+Returns a specific observation node by UUID. Observation nodes are read-only.
 
 </dd>
 </dl>
@@ -4325,7 +4179,72 @@ Returns read-only theme nodes for a graph.
 <dd>
 
 ```typescript
-await client.graph.theme.getByGraphId("graph_id", {});
+await client.graph.observation.get("uuid");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**uuid:** `string` — Observation UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Observation.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Graph ThreadSummary
+
+<details><summary><code>client.graph.threadSummary.<a href="/src/api/resources/graph/resources/threadSummary/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.ThreadSummary[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns incremental thread summaries associated with the graph.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.threadSummary.getByGraphId("graph_id", {});
 ```
 
 </dd>
@@ -4349,7 +4268,7 @@ await client.graph.theme.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**request:** `Zep.GraphThemesRequest`
+**request:** `Zep.GraphThreadSummariesRequest`
 
 </dd>
 </dl>
@@ -4357,7 +4276,7 @@ await client.graph.theme.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**requestOptions:** `Theme.RequestOptions`
+**requestOptions:** `ThreadSummary.RequestOptions`
 
 </dd>
 </dl>
@@ -4368,7 +4287,7 @@ await client.graph.theme.getByGraphId("graph_id", {});
 </dl>
 </details>
 
-<details><summary><code>client.graph.theme.<a href="/src/api/resources/graph/resources/theme/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.CommunityNode[]</code></summary>
+<details><summary><code>client.graph.threadSummary.<a href="/src/api/resources/graph/resources/threadSummary/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.ThreadSummary[]</code></summary>
 <dl>
 <dd>
 
@@ -4380,7 +4299,7 @@ await client.graph.theme.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-Returns read-only theme nodes for a user's graph.
+Returns incremental thread summaries generated from messages in each thread associated with the user's graph.
 
 </dd>
 </dl>
@@ -4396,7 +4315,7 @@ Returns read-only theme nodes for a user's graph.
 <dd>
 
 ```typescript
-await client.graph.theme.getByUserId("user_id", {});
+await client.graph.threadSummary.getByUserId("user_id", {});
 ```
 
 </dd>
@@ -4420,7 +4339,7 @@ await client.graph.theme.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**request:** `Zep.GraphThemesRequest`
+**request:** `Zep.GraphThreadSummariesRequest`
 
 </dd>
 </dl>
@@ -4428,70 +4347,7 @@ await client.graph.theme.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**requestOptions:** `Theme.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.theme.<a href="/src/api/resources/graph/resources/theme/client/Client.ts">get</a>(uuid) -> Zep.CommunityNode</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a specific theme node by UUID. Theme nodes are read-only.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.theme.get("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Theme UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Theme.RequestOptions`
+**requestOptions:** `ThreadSummary.RequestOptions`
 
 </dd>
 </dl>

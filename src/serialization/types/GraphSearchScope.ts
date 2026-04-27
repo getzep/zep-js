@@ -7,8 +7,8 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
 export const GraphSearchScope: core.serialization.Schema<serializers.GraphSearchScope.Raw, Zep.GraphSearchScope> =
-    core.serialization.enum_(["edges", "nodes", "episodes", "communities", "sagas", "themes", "auto"]);
+    core.serialization.enum_(["edges", "nodes", "episodes", "thread_summaries", "observations", "auto"]);
 
 export declare namespace GraphSearchScope {
-    export type Raw = "edges" | "nodes" | "episodes" | "communities" | "sagas" | "themes" | "auto";
+    export type Raw = "edges" | "nodes" | "episodes" | "thread_summaries" | "observations" | "auto";
 }

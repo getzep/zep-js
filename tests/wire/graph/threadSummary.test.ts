@@ -6,7 +6,7 @@ import { mockServerPool } from "../../mock-server/MockServerPool";
 import * as Zep from "../../../src/api/index";
 import { ZepClient } from "../../../src/Client";
 
-describe("Saga", () => {
+describe("ThreadSummary", () => {
     test("get_by_graph_id", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
@@ -14,36 +14,28 @@ describe("Saga", () => {
         const rawResponseBody = [
             {
                 created_at: "created_at",
-                labels: ["labels"],
                 last_summarized_at: "last_summarized_at",
-                name: "name",
-                relevance: 1.1,
-                score: 1.1,
-                selection_rank: 1,
                 summary: "summary",
+                thread_id: "thread_id",
                 uuid: "uuid",
             },
         ];
         server
             .mockEndpoint()
-            .post("/graph/saga/graph/graph_id")
+            .post("/graph/thread-summary/graph/graph_id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.graph.saga.getByGraphId("graph_id", {});
+        const response = await client.graph.threadSummary.getByGraphId("graph_id", {});
         expect(response).toEqual([
             {
                 createdAt: "created_at",
-                labels: ["labels"],
                 lastSummarizedAt: "last_summarized_at",
-                name: "name",
-                relevance: 1.1,
-                score: 1.1,
-                selectionRank: 1,
                 summary: "summary",
+                threadId: "thread_id",
                 uuid: "uuid",
             },
         ]);
@@ -56,36 +48,28 @@ describe("Saga", () => {
         const rawResponseBody = [
             {
                 created_at: "created_at",
-                labels: ["labels"],
                 last_summarized_at: "last_summarized_at",
-                name: "name",
-                relevance: 1.1,
-                score: 1.1,
-                selection_rank: 1,
                 summary: "summary",
+                thread_id: "thread_id",
                 uuid: "uuid",
             },
         ];
         server
             .mockEndpoint()
-            .post("/graph/saga/user/user_id")
+            .post("/graph/thread-summary/user/user_id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.graph.saga.getByUserId("user_id", {});
+        const response = await client.graph.threadSummary.getByUserId("user_id", {});
         expect(response).toEqual([
             {
                 createdAt: "created_at",
-                labels: ["labels"],
                 lastSummarizedAt: "last_summarized_at",
-                name: "name",
-                relevance: 1.1,
-                score: 1.1,
-                selectionRank: 1,
                 summary: "summary",
+                threadId: "thread_id",
                 uuid: "uuid",
             },
         ]);

@@ -5,13 +5,13 @@
 import * as serializers from "../../../../../index.js";
 import * as Zep from "../../../../../../api/index.js";
 import * as core from "../../../../../../core/index.js";
-import { GraphitiSagaNode } from "../../../../../types/GraphitiSagaNode.js";
+import { ThreadSummary } from "../../../../../types/ThreadSummary.js";
 
 export const Response: core.serialization.Schema<
-    serializers.graph.saga.getByUserId.Response.Raw,
-    Zep.GraphitiSagaNode[]
-> = core.serialization.list(GraphitiSagaNode);
+    serializers.graph.threadSummary.getByGraphId.Response.Raw,
+    Zep.ThreadSummary[]
+> = core.serialization.list(ThreadSummary);
 
 export declare namespace Response {
-    export type Raw = GraphitiSagaNode.Raw[];
+    export type Raw = ThreadSummary.Raw[];
 }

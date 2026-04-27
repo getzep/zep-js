@@ -5,13 +5,13 @@
 import * as serializers from "../../../../../index.js";
 import * as Zep from "../../../../../../api/index.js";
 import * as core from "../../../../../../core/index.js";
-import { CommunityNode } from "../../../../../types/CommunityNode.js";
+import { ThreadSummary } from "../../../../../types/ThreadSummary.js";
 
 export const Response: core.serialization.Schema<
-    serializers.graph.theme.getByGraphId.Response.Raw,
-    Zep.CommunityNode[]
-> = core.serialization.list(CommunityNode);
+    serializers.graph.threadSummary.getByUserId.Response.Raw,
+    Zep.ThreadSummary[]
+> = core.serialization.list(ThreadSummary);
 
 export declare namespace Response {
-    export type Raw = CommunityNode.Raw[];
+    export type Raw = ThreadSummary.Raw[];
 }

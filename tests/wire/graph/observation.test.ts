@@ -6,7 +6,7 @@ import { mockServerPool } from "../../mock-server/MockServerPool";
 import * as Zep from "../../../src/api/index";
 import { ZepClient } from "../../../src/Client";
 
-describe("Theme", () => {
+describe("Observation", () => {
     test("get_by_graph_id", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
@@ -15,6 +15,7 @@ describe("Theme", () => {
             {
                 attributes: { key: "value" },
                 created_at: "created_at",
+                episode_ids: ["episode_ids"],
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -26,20 +27,21 @@ describe("Theme", () => {
         ];
         server
             .mockEndpoint()
-            .post("/graph/theme/graph/graph_id")
+            .post("/graph/observation/graph/graph_id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.graph.theme.getByGraphId("graph_id", {});
+        const response = await client.graph.observation.getByGraphId("graph_id", {});
         expect(response).toEqual([
             {
                 attributes: {
                     key: "value",
                 },
                 createdAt: "created_at",
+                episodeIds: ["episode_ids"],
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -59,6 +61,7 @@ describe("Theme", () => {
             {
                 attributes: { key: "value" },
                 created_at: "created_at",
+                episode_ids: ["episode_ids"],
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -70,20 +73,21 @@ describe("Theme", () => {
         ];
         server
             .mockEndpoint()
-            .post("/graph/theme/user/user_id")
+            .post("/graph/observation/user/user_id")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.graph.theme.getByUserId("user_id", {});
+        const response = await client.graph.observation.getByUserId("user_id", {});
         expect(response).toEqual([
             {
                 attributes: {
                     key: "value",
                 },
                 createdAt: "created_at",
+                episodeIds: ["episode_ids"],
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -102,6 +106,7 @@ describe("Theme", () => {
         const rawResponseBody = {
             attributes: { key: "value" },
             created_at: "created_at",
+            episode_ids: ["episode_ids"],
             labels: ["labels"],
             name: "name",
             relevance: 1.1,
@@ -110,14 +115,21 @@ describe("Theme", () => {
             summary: "summary",
             uuid: "uuid",
         };
-        server.mockEndpoint().get("/graph/theme/uuid").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/graph/observation/uuid")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.graph.theme.get("uuid");
+        const response = await client.graph.observation.get("uuid");
         expect(response).toEqual({
             attributes: {
                 key: "value",
             },
             createdAt: "created_at",
+            episodeIds: ["episode_ids"],
             labels: ["labels"],
             name: "name",
             relevance: 1.1,

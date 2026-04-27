@@ -9,7 +9,7 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/he
 import * as serializers from "../../../../../../serialization/index.js";
 import * as errors from "../../../../../../errors/index.js";
 
-export declare namespace Saga {
+export declare namespace ThreadSummary {
     export interface Options {
         environment?: core.Supplier<environments.ZepEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -32,46 +32,46 @@ export declare namespace Saga {
     }
 }
 
-export class Saga {
-    protected readonly _options: Saga.Options;
+export class ThreadSummary {
+    protected readonly _options: ThreadSummary.Options;
 
-    constructor(_options: Saga.Options = {}) {
+    constructor(_options: ThreadSummary.Options = {}) {
         this._options = _options;
     }
 
     /**
-     * Returns read-only saga nodes for a graph.
+     * Returns incremental thread summaries associated with the graph.
      *
      * @param {string} graphId - Graph ID
-     * @param {Zep.GraphSagasRequest} request
-     * @param {Saga.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Zep.GraphThreadSummariesRequest} request
+     * @param {ThreadSummary.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.saga.getByGraphId("graph_id", {})
+     *     await client.graph.threadSummary.getByGraphId("graph_id", {})
      */
     public getByGraphId(
         graphId: string,
-        request: Zep.GraphSagasRequest,
-        requestOptions?: Saga.RequestOptions,
-    ): core.HttpResponsePromise<Zep.GraphitiSagaNode[]> {
+        request: Zep.GraphThreadSummariesRequest,
+        requestOptions?: ThreadSummary.RequestOptions,
+    ): core.HttpResponsePromise<Zep.ThreadSummary[]> {
         return core.HttpResponsePromise.fromPromise(this.__getByGraphId(graphId, request, requestOptions));
     }
 
     private async __getByGraphId(
         graphId: string,
-        request: Zep.GraphSagasRequest,
-        requestOptions?: Saga.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.GraphitiSagaNode[]>> {
+        request: Zep.GraphThreadSummariesRequest,
+        requestOptions?: ThreadSummary.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.ThreadSummary[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                `graph/saga/graph/${encodeURIComponent(graphId)}`,
+                `graph/thread-summary/graph/${encodeURIComponent(graphId)}`,
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -81,7 +81,7 @@ export class Saga {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.GraphSagasRequest.jsonOrThrow(request, {
+            body: serializers.GraphThreadSummariesRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -91,7 +91,7 @@ export class Saga {
         });
         if (_response.ok) {
             return {
-                data: serializers.graph.saga.getByGraphId.Response.parseOrThrow(_response.body, {
+                data: serializers.graph.threadSummary.getByGraphId.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -154,7 +154,9 @@ export class Saga {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/saga/graph/{graph_id}.");
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /graph/thread-summary/graph/{graph_id}.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -164,38 +166,38 @@ export class Saga {
     }
 
     /**
-     * Returns read-only saga nodes for a user's graph.
+     * Returns incremental thread summaries generated from messages in each thread associated with the user's graph.
      *
      * @param {string} userId - User ID
-     * @param {Zep.GraphSagasRequest} request
-     * @param {Saga.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Zep.GraphThreadSummariesRequest} request
+     * @param {ThreadSummary.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.InternalServerError}
      *
      * @example
-     *     await client.graph.saga.getByUserId("user_id", {})
+     *     await client.graph.threadSummary.getByUserId("user_id", {})
      */
     public getByUserId(
         userId: string,
-        request: Zep.GraphSagasRequest,
-        requestOptions?: Saga.RequestOptions,
-    ): core.HttpResponsePromise<Zep.GraphitiSagaNode[]> {
+        request: Zep.GraphThreadSummariesRequest,
+        requestOptions?: ThreadSummary.RequestOptions,
+    ): core.HttpResponsePromise<Zep.ThreadSummary[]> {
         return core.HttpResponsePromise.fromPromise(this.__getByUserId(userId, request, requestOptions));
     }
 
     private async __getByUserId(
         userId: string,
-        request: Zep.GraphSagasRequest,
-        requestOptions?: Saga.RequestOptions,
-    ): Promise<core.WithRawResponse<Zep.GraphitiSagaNode[]>> {
+        request: Zep.GraphThreadSummariesRequest,
+        requestOptions?: ThreadSummary.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.ThreadSummary[]>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: core.url.join(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.ZepEnvironment.Default,
-                `graph/saga/user/${encodeURIComponent(userId)}`,
+                `graph/thread-summary/user/${encodeURIComponent(userId)}`,
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -205,7 +207,7 @@ export class Saga {
             ),
             contentType: "application/json",
             requestType: "json",
-            body: serializers.GraphSagasRequest.jsonOrThrow(request, {
+            body: serializers.GraphThreadSummariesRequest.jsonOrThrow(request, {
                 unrecognizedObjectKeys: "strip",
                 omitUndefined: true,
             }),
@@ -215,7 +217,7 @@ export class Saga {
         });
         if (_response.ok) {
             return {
-                data: serializers.graph.saga.getByUserId.Response.parseOrThrow(_response.body, {
+                data: serializers.graph.threadSummary.getByUserId.Response.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -278,7 +280,9 @@ export class Saga {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/saga/user/{user_id}.");
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /graph/thread-summary/user/{user_id}.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,

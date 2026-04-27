@@ -150,7 +150,7 @@ describe("Thread", () => {
 
         const response = await client.thread.get("threadId", {
             limit: 1,
-            cursor: 1000000,
+            cursor: 1,
             lastn: 1,
         });
         expect(response).toEqual({
@@ -229,6 +229,35 @@ describe("Thread", () => {
             context: "context",
             messageUuids: ["message_uuids"],
             taskId: "task_id",
+        });
+    });
+
+    test("get_summary", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            created_at: "created_at",
+            last_summarized_at: "last_summarized_at",
+            summary: "summary",
+            thread_id: "thread_id",
+            uuid: "uuid",
+        };
+        server
+            .mockEndpoint()
+            .get("/threads/threadId/summary")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.thread.getSummary("threadId");
+        expect(response).toEqual({
+            createdAt: "created_at",
+            lastSummarizedAt: "last_summarized_at",
+            summary: "summary",
+            threadId: "thread_id",
+            uuid: "uuid",
         });
     });
 });

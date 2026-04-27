@@ -6,15 +6,15 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const GraphCommunitiesRequest: core.serialization.ObjectSchema<
-    serializers.GraphCommunitiesRequest.Raw,
-    Zep.GraphCommunitiesRequest
+export const GraphObservationsRequest: core.serialization.ObjectSchema<
+    serializers.GraphObservationsRequest.Raw,
+    Zep.GraphObservationsRequest
 > = core.serialization.object({
     limit: core.serialization.number().optional(),
     uuidCursor: core.serialization.property("uuid_cursor", core.serialization.string().optional()),
 });
 
-export declare namespace GraphCommunitiesRequest {
+export declare namespace GraphObservationsRequest {
     export interface Raw {
         limit?: number | null;
         uuid_cursor?: string | null;

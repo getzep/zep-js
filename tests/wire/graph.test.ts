@@ -585,19 +585,6 @@ describe("Graph", () => {
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { query: "query" };
         const rawResponseBody = {
-            communities: [
-                {
-                    attributes: { key: "value" },
-                    created_at: "created_at",
-                    labels: ["labels"],
-                    name: "name",
-                    relevance: 1.1,
-                    score: 1.1,
-                    selection_rank: 1,
-                    summary: "summary",
-                    uuid: "uuid",
-                },
-            ],
             context: "context",
             edges: [
                 {
@@ -649,11 +636,12 @@ describe("Graph", () => {
                     uuid: "uuid",
                 },
             ],
-            sagas: [
+            observations: [
                 {
+                    attributes: { key: "value" },
                     created_at: "created_at",
+                    episode_ids: ["episode_ids"],
                     labels: ["labels"],
-                    last_summarized_at: "last_summarized_at",
                     name: "name",
                     relevance: 1.1,
                     score: 1.1,
@@ -662,11 +650,11 @@ describe("Graph", () => {
                     uuid: "uuid",
                 },
             ],
-            themes: [
+            thread_summaries: [
                 {
-                    attributes: { key: "value" },
                     created_at: "created_at",
                     labels: ["labels"],
+                    last_summarized_at: "last_summarized_at",
                     name: "name",
                     relevance: 1.1,
                     score: 1.1,
@@ -689,21 +677,6 @@ describe("Graph", () => {
             query: "query",
         });
         expect(response).toEqual({
-            communities: [
-                {
-                    attributes: {
-                        key: "value",
-                    },
-                    createdAt: "created_at",
-                    labels: ["labels"],
-                    name: "name",
-                    relevance: 1.1,
-                    score: 1.1,
-                    selectionRank: 1,
-                    summary: "summary",
-                    uuid: "uuid",
-                },
-            ],
             context: "context",
             edges: [
                 {
@@ -761,11 +734,14 @@ describe("Graph", () => {
                     uuid: "uuid",
                 },
             ],
-            sagas: [
+            observations: [
                 {
+                    attributes: {
+                        key: "value",
+                    },
                     createdAt: "created_at",
+                    episodeIds: ["episode_ids"],
                     labels: ["labels"],
-                    lastSummarizedAt: "last_summarized_at",
                     name: "name",
                     relevance: 1.1,
                     score: 1.1,
@@ -774,13 +750,11 @@ describe("Graph", () => {
                     uuid: "uuid",
                 },
             ],
-            themes: [
+            threadSummaries: [
                 {
-                    attributes: {
-                        key: "value",
-                    },
                     createdAt: "created_at",
                     labels: ["labels"],
+                    lastSummarizedAt: "last_summarized_at",
                     name: "name",
                     relevance: 1.1,
                     score: 1.1,

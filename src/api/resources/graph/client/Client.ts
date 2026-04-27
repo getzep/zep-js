@@ -8,12 +8,11 @@ import * as Zep from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
-import { Community } from "../resources/community/client/Client.js";
 import { Edge } from "../resources/edge/client/Client.js";
 import { Episode } from "../resources/episode/client/Client.js";
 import { Node } from "../resources/node/client/Client.js";
-import { Saga } from "../resources/saga/client/Client.js";
-import { Theme } from "../resources/theme/client/Client.js";
+import { Observation } from "../resources/observation/client/Client.js";
+import { ThreadSummary } from "../resources/threadSummary/client/Client.js";
 
 export declare namespace Graph {
     export interface Options {
@@ -40,19 +39,14 @@ export declare namespace Graph {
 
 export class Graph {
     protected readonly _options: Graph.Options;
-    protected _community: Community | undefined;
     protected _edge: Edge | undefined;
     protected _episode: Episode | undefined;
     protected _node: Node | undefined;
-    protected _saga: Saga | undefined;
-    protected _theme: Theme | undefined;
+    protected _observation: Observation | undefined;
+    protected _threadSummary: ThreadSummary | undefined;
 
     constructor(_options: Graph.Options = {}) {
         this._options = _options;
-    }
-
-    public get community(): Community {
-        return (this._community ??= new Community(this._options));
     }
 
     public get edge(): Edge {
@@ -67,12 +61,12 @@ export class Graph {
         return (this._node ??= new Node(this._options));
     }
 
-    public get saga(): Saga {
-        return (this._saga ??= new Saga(this._options));
+    public get observation(): Observation {
+        return (this._observation ??= new Observation(this._options));
     }
 
-    public get theme(): Theme {
-        return (this._theme ??= new Theme(this._options));
+    public get threadSummary(): ThreadSummary {
+        return (this._threadSummary ??= new ThreadSummary(this._options));
     }
 
     /**
