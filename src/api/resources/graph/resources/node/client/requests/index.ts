@@ -1,1 +1,1 @@
-export { type UpdateNodeRequest } from "./UpdateNodeRequest.js";
+export type { UpdateNodeRequest } from "./UpdateNodeRequest.js";
