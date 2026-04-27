@@ -1,4 +1,4 @@
-import { type BaseSchema, type Schema, SchemaType } from "../../Schema.js";
+import { BaseSchema, Schema, SchemaType } from "../../Schema.js";
 import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType.js";
 import { maybeSkipValidation } from "../../utils/maybeSkipValidation.js";
 import { getSchemaUtils } from "../schema-utils/index.js";

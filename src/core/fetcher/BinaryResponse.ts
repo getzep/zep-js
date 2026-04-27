@@ -1,15 +1,17 @@
+import { ResponseWithBody } from "./ResponseWithBody.js";
+
 export type BinaryResponse = {
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bodyUsed) */
-    bodyUsed: Response["bodyUsed"];
+    bodyUsed: boolean;
     /**
      * Returns a ReadableStream of the response body.
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/body)
      */
-    stream: () => Response["body"];
+    stream: () => ReadableStream<Uint8Array>;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/arrayBuffer) */
-    arrayBuffer: () => ReturnType<Response["arrayBuffer"]>;
+    arrayBuffer: () => Promise<ArrayBuffer>;
     /** [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/blob) */
-    blob: () => ReturnType<Response["blob"]>;
+    blob: () => Promise<Blob>;
     /**
      * [MDN Reference](https://developer.mozilla.org/docs/Web/API/Request/bytes)
      * Some versions of the Fetch API may not support this method.
@@ -17,7 +19,7 @@ export type BinaryResponse = {
     bytes?(): Promise<Uint8Array>;
 };
 
-export function getBinaryResponse(response: Response): BinaryResponse {
+export function getBinaryResponse(response: ResponseWithBody): BinaryResponse {
     const binaryResponse: BinaryResponse = {
         get bodyUsed() {
             return response.bodyUsed;

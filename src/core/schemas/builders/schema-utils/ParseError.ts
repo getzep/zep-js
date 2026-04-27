@@ -1,10 +1,9 @@
-import type { ValidationError } from "../../Schema.js";
+import { ValidationError } from "../../Schema.js";
 import { stringifyValidationError } from "./stringifyValidationErrors.js";
 
 export class ParseError extends Error {
     constructor(public readonly errors: ValidationError[]) {
         super(errors.map(stringifyValidationError).join("; "));
-        Object.setPrototypeOf(this, new.target.prototype);
-        this.name = this.constructor.name;
+        Object.setPrototypeOf(this, ParseError.prototype);
     }
 }

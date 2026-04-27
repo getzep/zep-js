@@ -1,10 +1,9 @@
-import { type DefaultBodyType, type HttpHandler, HttpResponse, type HttpResponseResolver, http } from "msw";
+import { DefaultBodyType, HttpHandler, HttpResponse, HttpResponseResolver, http } from "msw";
 
 import { url } from "../../src/core";
 import { toJson } from "../../src/core/json";
-import { type WithFormUrlEncodedOptions, withFormUrlEncoded } from "./withFormUrlEncoded";
 import { withHeaders } from "./withHeaders";
-import { type WithJsonOptions, withJson } from "./withJson";
+import { withJson } from "./withJson";
 
 type HttpMethod = "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head";
 
@@ -26,8 +25,7 @@ interface RequestHeadersStage extends RequestBodyStage, ResponseStage {
 }
 
 interface RequestBodyStage extends ResponseStage {
-    jsonBody(body: unknown, options?: WithJsonOptions): ResponseStage;
-    formUrlEncodedBody(body: unknown, options?: WithFormUrlEncodedOptions): ResponseStage;
+    jsonBody(body: unknown): ResponseStage;
 }
 
 interface ResponseStage {
@@ -44,7 +42,6 @@ interface ResponseHeaderStage extends ResponseBodyStage, BuildStage {
 
 interface ResponseBodyStage {
     jsonBody(body: unknown): BuildStage;
-    sseBody(body: string): BuildStage;
 }
 
 interface BuildStage {
@@ -130,21 +127,8 @@ class RequestBuilder implements MethodStage, RequestHeadersStage, RequestBodySta
         return this;
     }
 
-    jsonBody(body: unknown, options?: WithJsonOptions): ResponseStage {
-        if (body === undefined) {
-            throw new Error("Undefined is not valid JSON. Do not call jsonBody if you want an empty body.");
-        }
-        this.predicates.push((resolver) => withJson(body, resolver, options));
-        return this;
-    }
-
-    formUrlEncodedBody(body: unknown, options?: WithFormUrlEncodedOptions): ResponseStage {
-        if (body === undefined) {
-            throw new Error(
-                "Undefined is not valid for form-urlencoded. Do not call formUrlEncodedBody if you want an empty body.",
-            );
-        }
-        this.predicates.push((resolver) => withFormUrlEncoded(body, resolver, options));
+    jsonBody(body: unknown): ResponseStage {
+        this.predicates.push((resolver) => withJson(body, resolver));
         return this;
     }
 
@@ -195,30 +179,16 @@ class ResponseBuilder implements ResponseStatusStage, ResponseHeaderStage, Respo
     }
 
     public jsonBody(body: unknown): BuildStage {
-        if (body === undefined) {
-            throw new Error("Undefined is not valid JSON. Do not call jsonBody if you expect an empty body.");
-        }
         this.responseBody = toJson(body);
-        return this;
-    }
-
-    public sseBody(body: string): BuildStage {
-        this.responseHeaders["Content-Type"] = "text/event-stream";
-        this.responseBody = body;
         return this;
     }
 
     public build(): HttpHandler {
         const responseResolver: HttpResponseResolver = () => {
-            const response = new HttpResponse(this.responseBody, {
+            return new HttpResponse(this.responseBody, {
                 status: this.responseStatusCode,
                 headers: this.responseHeaders,
             });
-            // if no Content-Type header is set, delete the default text content type that is set
-            if (Object.keys(this.responseHeaders).some((key) => key.toLowerCase() === "content-type") === false) {
-                response.headers.delete("Content-Type");
-            }
-            return response;
         };
 
         const finalResolver = this.requestPredicates.reduceRight((acc, predicate) => predicate(acc), responseResolver);

@@ -1,1 +1,1 @@
-export type { UpdateEdgeRequest } from "./UpdateEdgeRequest.js";
+export { type UpdateEdgeRequest } from "./UpdateEdgeRequest.js";

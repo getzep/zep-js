@@ -1,9 +1,9 @@
 import { object } from "./object.js";
-import type {
-    inferParsedPropertySchema,
-    inferRawObjectFromPropertySchemas,
+import {
     ObjectSchema,
     PropertySchemas,
+    inferParsedPropertySchema,
+    inferRawObjectFromPropertySchemas,
 } from "./types.js";
 
 export function objectWithoutOptionalProperties<ParsedKeys extends string, T extends PropertySchemas<ParsedKeys>>(

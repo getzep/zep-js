@@ -1,4 +1,4 @@
-import type { BaseSchema, Schema } from "../../Schema.js";
+import { BaseSchema, Schema } from "../../Schema.js";
 import { getSchemaUtils } from "../schema-utils/index.js";
 
 export type SchemaGetter<SchemaType extends Schema<any, any>> = () => SchemaType;
