@@ -19,15 +19,23 @@ export interface GraphSearchQuery {
     graphId?: string;
     /** The maximum number of facts to retrieve. Defaults to 10. Limited to 50. */
     limit?: number;
-    /** Maximum total characters across all selected results when scope=auto. Defaults to 2000. Limited to 50000. */
+    /** Maximum total characters across all selected results when scope=auto. Defaults to 2500. Limited to 50000. */
     maxCharacters?: number;
     /** weighting for maximal marginal relevance */
     mmrLambda?: number;
     /** The string to search for (required) */
     query: string;
-    /** Defaults to RRF */
+    /**
+     * Defaults to RRF. When scope=auto, this only affects graph-service retrieval
+     * shape for graph facts, observations, and thread summaries; source-episode
+     * retrieval uses RRF, and auto search applies its own internal rerank after retrieval.
+     */
     reranker?: Zep.Reranker;
-    /** When scope=auto, include the selected raw graph results alongside the materialized context block. */
+    /**
+     * When scope=auto, include the selected raw graph results alongside the materialized context block.
+     * For graph-service-backed auto mode, selected raw results may include episodes,
+     * edges, nodes, observations, and thread_summaries.
+     */
     returnRawResults?: boolean;
     /** Defaults to Edges. */
     scope?: Zep.GraphSearchScope;
