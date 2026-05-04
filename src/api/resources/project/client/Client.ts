@@ -91,16 +91,7 @@ export class Project {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Zep.BadRequestError(
-                        serializers.ApiError.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        _response.rawResponse,
-                    );
+                    throw new Zep.BadRequestError(_response.error.body, _response.rawResponse);
                 case 404:
                     throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {

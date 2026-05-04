@@ -5,6 +5,7 @@
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { mergeHeaders } from "./core/headers.js";
+import { Batch } from "./api/resources/batch/client/Client.js";
 import { Context } from "./api/resources/context/client/Client.js";
 import { Graph } from "./api/resources/graph/client/Client.js";
 import { Project } from "./api/resources/project/client/Client.js";
@@ -37,6 +38,7 @@ export declare namespace ZepClient {
 
 export class ZepClient {
     protected readonly _options: ZepClient.Options;
+    protected _batch: Batch | undefined;
     protected _context: Context | undefined;
     protected _graph: Graph | undefined;
     protected _project: Project | undefined;
@@ -51,14 +53,18 @@ export class ZepClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "zep-cloud",
-                    "X-Fern-SDK-Version": "3.21.0",
-                    "User-Agent": "zep-cloud/3.21.0",
+                    "X-Fern-SDK-Version": "3.22.0",
+                    "User-Agent": "zep-cloud/3.22.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
                 _options?.headers,
             ),
         };
+    }
+
+    public get batch(): Batch {
+        return (this._batch ??= new Batch(this._options));
     }
 
     public get context(): Context {
