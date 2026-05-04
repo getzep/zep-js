@@ -5,8 +5,8 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { ModelsBatchItemKind } from "./ModelsBatchItemKind.js";
-import { ModelsBatchItemStatus } from "./ModelsBatchItemStatus.js";
+import { BatchItemKind } from "./BatchItemKind.js";
+import { BatchItemStatus } from "./BatchItemStatus.js";
 
 export const BatchItemDetail: core.serialization.ObjectSchema<serializers.BatchItemDetail.Raw, Zep.BatchItemDetail> =
     core.serialization.object({
@@ -15,10 +15,10 @@ export const BatchItemDetail: core.serialization.ObjectSchema<serializers.BatchI
         error: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         itemId: core.serialization.property("item_id", core.serialization.string().optional()),
-        kind: ModelsBatchItemKind.optional(),
+        kind: BatchItemKind.optional(),
         sequenceIndex: core.serialization.property("sequence_index", core.serialization.number().optional()),
         sourceUuid: core.serialization.property("source_uuid", core.serialization.string().optional()),
-        status: ModelsBatchItemStatus.optional(),
+        status: BatchItemStatus.optional(),
         threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
@@ -31,10 +31,10 @@ export declare namespace BatchItemDetail {
         error?: Record<string, unknown> | null;
         graph_id?: string | null;
         item_id?: string | null;
-        kind?: ModelsBatchItemKind.Raw | null;
+        kind?: BatchItemKind.Raw | null;
         sequence_index?: number | null;
         source_uuid?: string | null;
-        status?: ModelsBatchItemStatus.Raw | null;
+        status?: BatchItemStatus.Raw | null;
         thread_id?: string | null;
         updated_at?: string | null;
         user_id?: string | null;

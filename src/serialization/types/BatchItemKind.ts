@@ -6,11 +6,9 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const ModelsBatchItemKind: core.serialization.Schema<
-    serializers.ModelsBatchItemKind.Raw,
-    Zep.ModelsBatchItemKind
-> = core.serialization.enum_(["graph_episode", "thread_message"]);
+export const BatchItemKind: core.serialization.Schema<serializers.BatchItemKind.Raw, Zep.BatchItemKind> =
+    core.serialization.enum_(["graph_episode", "thread_message"]);
 
-export declare namespace ModelsBatchItemKind {
+export declare namespace BatchItemKind {
     export type Raw = "graph_episode" | "thread_message";
 }

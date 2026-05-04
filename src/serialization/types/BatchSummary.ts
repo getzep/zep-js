@@ -6,7 +6,7 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import { BatchProgress } from "./BatchProgress.js";
-import { ModelsBatchStatus } from "./ModelsBatchStatus.js";
+import { BatchStatus } from "./BatchStatus.js";
 
 export const BatchSummary: core.serialization.ObjectSchema<serializers.BatchSummary.Raw, Zep.BatchSummary> =
     core.serialization.object({
@@ -17,7 +17,7 @@ export const BatchSummary: core.serialization.ObjectSchema<serializers.BatchSumm
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         processedAt: core.serialization.property("processed_at", core.serialization.string().optional()),
         progress: BatchProgress.optional(),
-        status: ModelsBatchStatus.optional(),
+        status: BatchStatus.optional(),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
     });
 
@@ -30,7 +30,7 @@ export declare namespace BatchSummary {
         metadata?: Record<string, unknown> | null;
         processed_at?: string | null;
         progress?: BatchProgress.Raw | null;
-        status?: ModelsBatchStatus.Raw | null;
+        status?: BatchStatus.Raw | null;
         updated_at?: string | null;
     }
 }

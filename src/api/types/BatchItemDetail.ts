@@ -10,10 +10,10 @@ export interface BatchItemDetail {
     error?: Record<string, unknown>;
     graphId?: string;
     itemId?: string;
-    kind?: Zep.ModelsBatchItemKind;
+    kind?: Zep.BatchItemKind;
     sequenceIndex?: number;
     sourceUuid?: string;
-    status?: Zep.ModelsBatchItemStatus;
+    status?: Zep.BatchItemStatus;
     threadId?: string;
     updatedAt?: string;
     userId?: string;

@@ -12,6 +12,6 @@ export interface BatchSummary {
     metadata?: Record<string, unknown>;
     processedAt?: string;
     progress?: Zep.BatchProgress;
-    status?: Zep.ModelsBatchStatus;
+    status?: Zep.BatchStatus;
     updatedAt?: string;
 }

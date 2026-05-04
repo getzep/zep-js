@@ -6,11 +6,9 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const ModelsBatchItemStatus: core.serialization.Schema<
-    serializers.ModelsBatchItemStatus.Raw,
-    Zep.ModelsBatchItemStatus
-> = core.serialization.enum_(["pending", "queued", "processing", "succeeded", "failed", "skipped"]);
+export const BatchItemStatus: core.serialization.Schema<serializers.BatchItemStatus.Raw, Zep.BatchItemStatus> =
+    core.serialization.enum_(["pending", "queued", "processing", "succeeded", "failed", "skipped"]);
 
-export declare namespace ModelsBatchItemStatus {
+export declare namespace BatchItemStatus {
     export type Raw = "pending" | "queued" | "processing" | "succeeded" | "failed" | "skipped";
 }
