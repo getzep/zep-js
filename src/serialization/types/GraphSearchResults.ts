@@ -9,6 +9,7 @@ import { EntityEdge } from "./EntityEdge.js";
 import { Episode } from "./Episode.js";
 import { EntityNode } from "./EntityNode.js";
 import { DerivedNode } from "./DerivedNode.js";
+import { GraphSearchResponseMetadata } from "./GraphSearchResponseMetadata.js";
 import { GraphitiSagaNode } from "./GraphitiSagaNode.js";
 
 export const GraphSearchResults: core.serialization.ObjectSchema<
@@ -20,6 +21,7 @@ export const GraphSearchResults: core.serialization.ObjectSchema<
     episodes: core.serialization.list(Episode).optional(),
     nodes: core.serialization.list(EntityNode).optional(),
     observations: core.serialization.list(DerivedNode).optional(),
+    response: GraphSearchResponseMetadata.optional(),
     threadSummaries: core.serialization.property(
         "thread_summaries",
         core.serialization.list(GraphitiSagaNode).optional(),
@@ -33,6 +35,7 @@ export declare namespace GraphSearchResults {
         episodes?: Episode.Raw[] | null;
         nodes?: EntityNode.Raw[] | null;
         observations?: DerivedNode.Raw[] | null;
+        response?: GraphSearchResponseMetadata.Raw | null;
         thread_summaries?: GraphitiSagaNode.Raw[] | null;
     }
 }

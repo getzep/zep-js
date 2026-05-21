@@ -5,8 +5,19 @@
 export interface ThreadSummary {
     /** CreatedAt is when the summary node was first created. */
     createdAt?: string;
-    /** LastSummarizedAt is the timestamp of the most recent summary update. */
+    /**
+     * LastSummarizedAt is the wall-clock timestamp of the most recent
+     * summary update. This is an ingestion-time watermark; for the
+     * event-time recency of the summary's content, use
+     * LastSummarizedEpisodeValidAt instead.
+     */
     lastSummarizedAt?: string;
+    /**
+     * LastSummarizedEpisodeValidAt is the maximum episode reference time
+     * (valid_at) covered by the most recent summary. Use this when
+     * answering "how recent is this summary's content in event-time?".
+     */
+    lastSummarizedEpisodeValidAt?: string;
     /** Summary is the incremental summary content. */
     summary?: string;
     /**

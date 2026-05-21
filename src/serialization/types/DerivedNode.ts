@@ -10,15 +10,18 @@ export const DerivedNode: core.serialization.ObjectSchema<serializers.DerivedNod
     core.serialization.object({
         attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
+        endAt: core.serialization.property("end_at", core.serialization.string().optional()),
         episodeIds: core.serialization.property(
             "episode_ids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
         labels: core.serialization.list(core.serialization.string()).optional(),
+        latestEvidenceAt: core.serialization.property("latest_evidence_at", core.serialization.string().optional()),
         name: core.serialization.string(),
         relevance: core.serialization.number().optional(),
         score: core.serialization.number().optional(),
         selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
+        startAt: core.serialization.property("start_at", core.serialization.string().optional()),
         summary: core.serialization.string().optional(),
         uuid: core.serialization.string(),
     });
@@ -27,12 +30,15 @@ export declare namespace DerivedNode {
     export interface Raw {
         attributes?: Record<string, unknown> | null;
         created_at: string;
+        end_at?: string | null;
         episode_ids?: string[] | null;
         labels?: string[] | null;
+        latest_evidence_at?: string | null;
         name: string;
         relevance?: number | null;
         score?: number | null;
         selection_rank?: number | null;
+        start_at?: string | null;
         summary?: string | null;
         uuid: string;
     }

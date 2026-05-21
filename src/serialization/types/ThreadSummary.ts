@@ -10,6 +10,10 @@ export const ThreadSummary: core.serialization.ObjectSchema<serializers.ThreadSu
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         lastSummarizedAt: core.serialization.property("last_summarized_at", core.serialization.string().optional()),
+        lastSummarizedEpisodeValidAt: core.serialization.property(
+            "last_summarized_episode_valid_at",
+            core.serialization.string().optional(),
+        ),
         summary: core.serialization.string().optional(),
         threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
@@ -19,6 +23,7 @@ export declare namespace ThreadSummary {
     export interface Raw {
         created_at?: string | null;
         last_summarized_at?: string | null;
+        last_summarized_episode_valid_at?: string | null;
         summary?: string | null;
         thread_id?: string | null;
         uuid?: string | null;

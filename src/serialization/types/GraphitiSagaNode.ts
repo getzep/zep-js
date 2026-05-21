@@ -11,6 +11,10 @@ export const GraphitiSagaNode: core.serialization.ObjectSchema<serializers.Graph
         createdAt: core.serialization.property("created_at", core.serialization.string()),
         labels: core.serialization.list(core.serialization.string()).optional(),
         lastSummarizedAt: core.serialization.property("last_summarized_at", core.serialization.string().optional()),
+        lastSummarizedEpisodeValidAt: core.serialization.property(
+            "last_summarized_episode_valid_at",
+            core.serialization.string().optional(),
+        ),
         name: core.serialization.string(),
         relevance: core.serialization.number().optional(),
         score: core.serialization.number().optional(),
@@ -24,6 +28,7 @@ export declare namespace GraphitiSagaNode {
         created_at: string;
         labels?: string[] | null;
         last_summarized_at?: string | null;
+        last_summarized_episode_valid_at?: string | null;
         name: string;
         relevance?: number | null;
         score?: number | null;
