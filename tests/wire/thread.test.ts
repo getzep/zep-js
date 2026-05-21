@@ -150,7 +150,7 @@ describe("Thread", () => {
 
         const response = await client.thread.get("threadId", {
             limit: 1,
-            cursor: 1,
+            cursor: 1000000,
             lastn: 1,
         });
         expect(response).toEqual({
@@ -239,6 +239,7 @@ describe("Thread", () => {
         const rawResponseBody = {
             created_at: "created_at",
             last_summarized_at: "last_summarized_at",
+            last_summarized_episode_valid_at: "last_summarized_episode_valid_at",
             summary: "summary",
             thread_id: "thread_id",
             uuid: "uuid",
@@ -255,6 +256,7 @@ describe("Thread", () => {
         expect(response).toEqual({
             createdAt: "created_at",
             lastSummarizedAt: "last_summarized_at",
+            lastSummarizedEpisodeValidAt: "last_summarized_episode_valid_at",
             summary: "summary",
             threadId: "thread_id",
             uuid: "uuid",

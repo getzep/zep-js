@@ -754,7 +754,9 @@ export class Graph {
     }
 
     /**
-     * Add data to the graph in batch mode. Episodes are processed sequentially in the order provided.
+     * Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*`) instead.
+     *
+     * Adds data to the graph in batch mode, processing episodes concurrently.
      *
      * @param {Zep.AddDataBatchRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.

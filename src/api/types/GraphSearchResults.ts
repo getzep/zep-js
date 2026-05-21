@@ -10,5 +10,6 @@ export interface GraphSearchResults {
     episodes?: Zep.Episode[];
     nodes?: Zep.EntityNode[];
     observations?: Zep.DerivedNode[];
+    response?: Zep.GraphSearchResponseMetadata;
     threadSummaries?: Zep.GraphitiSagaNode[];
 }

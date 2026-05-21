@@ -7,8 +7,17 @@ export interface GraphitiSagaNode {
     createdAt: string;
     /** Labels associated with the node */
     labels?: string[];
-    /** Timestamp of the most recent summary update. */
+    /**
+     * Wall-clock timestamp of the most recent summary update. Used internally
+     * as the watermark for filtering new episodes by ingestion time.
+     */
     lastSummarizedAt?: string;
+    /**
+     * Maximum episode reference time (valid_at) covered by the most recent
+     * summary. Use this field — not LastSummarizedAt — when answering "how
+     * recent is this summary's content in event-time?".
+     */
+    lastSummarizedEpisodeValidAt?: string;
     /** Name of the node */
     name: string;
     /**
