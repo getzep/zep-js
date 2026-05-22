@@ -497,7 +497,7 @@ export class Thread {
      * @example
      *     await client.thread.get("threadId", {
      *         limit: 1,
-     *         cursor: 1,
+     *         cursor: 1000000,
      *         lastn: 1
      *     })
      */
@@ -715,7 +715,9 @@ export class Thread {
     }
 
     /**
-     * Add messages to a thread in batch mode. This will process messages concurrently, which is useful for data migrations.
+     * Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*` with `type: "thread_message"`) instead.
+     *
+     * Adds messages to a thread in batch mode, processing messages concurrently.
      *
      * @param {string} threadId - The ID of the thread to which messages should be added.
      * @param {Zep.AddThreadMessagesRequest} request

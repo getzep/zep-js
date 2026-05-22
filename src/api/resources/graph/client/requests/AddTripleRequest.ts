@@ -38,7 +38,13 @@ export interface AddTripleRequest {
      * Nested objects and arrays are not allowed.
      */
     sourceNodeAttributes?: Record<string, unknown>;
-    /** The labels for the source node */
+    /**
+     * The labels for the source node. At most one entity-type label may be
+     * provided so that manually-added triples remain consistent with automatic
+     * episode extraction, which assigns one best-match entity type per node.
+     * The base "Entity" label is added implicitly by the graph layer on save
+     * and does not need to be supplied here.
+     */
     sourceNodeLabels?: string[];
     /** The name of the source node to add */
     sourceNodeName?: string;
@@ -51,7 +57,13 @@ export interface AddTripleRequest {
      * Nested objects and arrays are not allowed.
      */
     targetNodeAttributes?: Record<string, unknown>;
-    /** The labels for the target node */
+    /**
+     * The labels for the target node. At most one entity-type label may be
+     * provided so that manually-added triples remain consistent with automatic
+     * episode extraction, which assigns one best-match entity type per node.
+     * The base "Entity" label is added implicitly by the graph layer on save
+     * and does not need to be supplied here.
+     */
     targetNodeLabels?: string[];
     /** The name of the target node to add */
     targetNodeName?: string;

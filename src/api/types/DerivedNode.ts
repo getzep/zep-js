@@ -7,10 +7,21 @@ export interface DerivedNode {
     attributes?: Record<string, unknown>;
     /** Creation time of the node */
     createdAt: string;
+    /**
+     * EndAt is the close timestamp of the evidence window. Set when the
+     * underlying pattern is no longer supported (closed observations);
+     * nil for active observations.
+     */
+    endAt?: string;
     /** Episode UUIDs that support this observation. Only populated for observation nodes in web API responses. */
     episodeIds?: string[];
     /** Labels associated with the node */
     labels?: string[];
+    /**
+     * LatestEvidenceAt is the most recent source-episode timestamp from
+     * which this observation drew evidence.
+     */
+    latestEvidenceAt?: string;
     /** Name of the node */
     name: string;
     /**
@@ -22,6 +33,11 @@ export interface DerivedNode {
     score?: number;
     /** SelectionRank is the global cross-scope rank assigned by auto scope selection. */
     selectionRank?: number;
+    /**
+     * StartAt is the earliest source-episode timestamp from which this
+     * observation was derived. Only populated for observation nodes.
+     */
+    startAt?: string;
     /** Region summary of member nodes */
     summary?: string;
     /** UUID of the node */

@@ -31,6 +31,7 @@ export * from "./EpisodeResponse.js";
 export * from "./GraphListResponse.js";
 export * from "./GraphNodesRequest.js";
 export * from "./GraphObservationsRequest.js";
+export * from "./GraphSearchResponseMetadata.js";
 export * from "./GraphSearchResults.js";
 export * from "./GraphThreadSummariesRequest.js";
 export * from "./HubDetectConfig.js";

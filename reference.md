@@ -1203,7 +1203,9 @@ await client.graph.add({
 <dl>
 <dd>
 
-Add data to the graph in batch mode. Episodes are processed sequentially in the order provided.
+Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*`) instead.
+
+Adds data to the graph in batch mode, processing episodes concurrently.
 
 </dd>
 </dl>
@@ -2276,7 +2278,7 @@ Returns messages for a thread.
 ```typescript
 await client.thread.get("threadId", {
     limit: 1,
-    cursor: 1,
+    cursor: 1000000,
     lastn: 1,
 });
 ```
@@ -2411,7 +2413,9 @@ await client.thread.addMessages("threadId", {
 <dl>
 <dd>
 
-Add messages to a thread in batch mode. This will process messages concurrently, which is useful for data migrations.
+Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*` with `type: "thread_message"`) instead.
+
+Adds messages to a thread in batch mode, processing messages concurrently.
 
 </dd>
 </dl>

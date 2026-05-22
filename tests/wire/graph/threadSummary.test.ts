@@ -15,6 +15,7 @@ describe("ThreadSummary", () => {
             {
                 created_at: "created_at",
                 last_summarized_at: "last_summarized_at",
+                last_summarized_episode_valid_at: "last_summarized_episode_valid_at",
                 summary: "summary",
                 thread_id: "thread_id",
                 uuid: "uuid",
@@ -34,6 +35,7 @@ describe("ThreadSummary", () => {
             {
                 createdAt: "created_at",
                 lastSummarizedAt: "last_summarized_at",
+                lastSummarizedEpisodeValidAt: "last_summarized_episode_valid_at",
                 summary: "summary",
                 threadId: "thread_id",
                 uuid: "uuid",
@@ -49,6 +51,7 @@ describe("ThreadSummary", () => {
             {
                 created_at: "created_at",
                 last_summarized_at: "last_summarized_at",
+                last_summarized_episode_valid_at: "last_summarized_episode_valid_at",
                 summary: "summary",
                 thread_id: "thread_id",
                 uuid: "uuid",
@@ -68,6 +71,7 @@ describe("ThreadSummary", () => {
             {
                 createdAt: "created_at",
                 lastSummarizedAt: "last_summarized_at",
+                lastSummarizedEpisodeValidAt: "last_summarized_episode_valid_at",
                 summary: "summary",
                 threadId: "thread_id",
                 uuid: "uuid",
