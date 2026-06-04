@@ -7,8 +7,17 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
 export const BatchStatus: core.serialization.Schema<serializers.BatchStatus.Raw, Zep.BatchStatus> =
-    core.serialization.enum_(["draft", "invalid", "queued", "processing", "succeeded", "partial", "failed"]);
+    core.serialization.enum_([
+        "draft",
+        "invalid",
+        "queued",
+        "processing",
+        "succeeded",
+        "partial",
+        "failed",
+        "canceled",
+    ]);
 
 export declare namespace BatchStatus {
-    export type Raw = "draft" | "invalid" | "queued" | "processing" | "succeeded" | "partial" | "failed";
+    export type Raw = "draft" | "invalid" | "queued" | "processing" | "succeeded" | "partial" | "failed" | "canceled";
 }

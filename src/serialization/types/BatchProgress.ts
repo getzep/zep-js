@@ -8,6 +8,7 @@ import * as core from "../../core/index.js";
 
 export const BatchProgress: core.serialization.ObjectSchema<serializers.BatchProgress.Raw, Zep.BatchProgress> =
     core.serialization.object({
+        canceledItems: core.serialization.property("canceled_items", core.serialization.number().optional()),
         failedItems: core.serialization.property("failed_items", core.serialization.number().optional()),
         percentComplete: core.serialization.property("percent_complete", core.serialization.number().optional()),
         processingItems: core.serialization.property("processing_items", core.serialization.number().optional()),
@@ -19,6 +20,7 @@ export const BatchProgress: core.serialization.ObjectSchema<serializers.BatchPro
 
 export declare namespace BatchProgress {
     export interface Raw {
+        canceled_items?: number | null;
         failed_items?: number | null;
         percent_complete?: number | null;
         processing_items?: number | null;

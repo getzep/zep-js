@@ -3,6 +3,7 @@
  */
 
 export interface BatchProgress {
+    canceledItems?: number;
     failedItems?: number;
     percentComplete?: number;
     processingItems?: number;

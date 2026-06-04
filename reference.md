@@ -1854,6 +1854,69 @@ await client.graph.update("graphId");
 </dl>
 </details>
 
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">warm</a>(graphId) -> Zep.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Hints Zep to warm a graph for low-latency search
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.warm("graphId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graphId:** `string` — The graph_id of the graph to warm.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Project
 
 <details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">get</a>() -> Zep.ProjectInfoResponse</code></summary>

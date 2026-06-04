@@ -5,16 +5,19 @@
 import * as serializers from "../../../../index.js";
 import * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
+import { RoleType } from "../../../../types/RoleType.js";
 
 export const ApidataCreateBatchRequest: core.serialization.Schema<
     serializers.ApidataCreateBatchRequest.Raw,
     Zep.ApidataCreateBatchRequest
 > = core.serialization.object({
+    ignoreRoles: core.serialization.property("ignore_roles", core.serialization.list(RoleType).optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
 });
 
 export declare namespace ApidataCreateBatchRequest {
     export interface Raw {
+        ignore_roles?: RoleType.Raw[] | null;
         metadata?: Record<string, unknown> | null;
     }
 }

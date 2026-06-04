@@ -7,8 +7,8 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
 export const BatchItemStatus: core.serialization.Schema<serializers.BatchItemStatus.Raw, Zep.BatchItemStatus> =
-    core.serialization.enum_(["pending", "queued", "processing", "succeeded", "failed", "skipped"]);
+    core.serialization.enum_(["pending", "queued", "processing", "succeeded", "failed", "skipped", "canceled"]);
 
 export declare namespace BatchItemStatus {
-    export type Raw = "pending" | "queued" | "processing" | "succeeded" | "failed" | "skipped";
+    export type Raw = "pending" | "queued" | "processing" | "succeeded" | "failed" | "skipped" | "canceled";
 }
