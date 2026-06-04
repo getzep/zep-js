@@ -8,6 +8,7 @@ export interface BatchSummary {
     batchId?: string;
     completedAt?: string;
     createdAt?: string;
+    ignoreRoles?: Zep.RoleType[];
     itemCount?: number;
     metadata?: Record<string, unknown>;
     processedAt?: string;

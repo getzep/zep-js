@@ -5,6 +5,7 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
+import { RoleType } from "./RoleType.js";
 import { BatchProgress } from "./BatchProgress.js";
 import { BatchStatus } from "./BatchStatus.js";
 
@@ -13,6 +14,7 @@ export const BatchSummary: core.serialization.ObjectSchema<serializers.BatchSumm
         batchId: core.serialization.property("batch_id", core.serialization.string().optional()),
         completedAt: core.serialization.property("completed_at", core.serialization.string().optional()),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        ignoreRoles: core.serialization.property("ignore_roles", core.serialization.list(RoleType).optional()),
         itemCount: core.serialization.property("item_count", core.serialization.number().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         processedAt: core.serialization.property("processed_at", core.serialization.string().optional()),
@@ -26,6 +28,7 @@ export declare namespace BatchSummary {
         batch_id?: string | null;
         completed_at?: string | null;
         created_at?: string | null;
+        ignore_roles?: RoleType.Raw[] | null;
         item_count?: number | null;
         metadata?: Record<string, unknown> | null;
         processed_at?: string | null;
