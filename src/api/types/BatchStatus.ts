@@ -3,14 +3,7 @@
  */
 
 export type BatchStatus =
-    | "draft"
-    | "invalid"
-    | "queued"
-    | "processing"
-    | "succeeded"
-    | "partial"
-    | "failed"
-    | "canceled";
+    "draft" | "invalid" | "queued" | "processing" | "succeeded" | "partial" | "failed" | "canceled";
 export const BatchStatus = {
     Draft: "draft",
     Invalid: "invalid",
