@@ -60,6 +60,8 @@ export * from "./User.js";
 export * from "./UserInstruction.js";
 export * from "./UserListResponse.js";
 export * from "./UserNodeResponse.js";
+export * from "./GraphitiAddNodeItem.js";
+export * from "./GraphitiAddNodesResponse.js";
 export * from "./AddTripleResponse.js";
 export * from "./ComparisonOperator.js";
 export * from "./DateFilter.js";

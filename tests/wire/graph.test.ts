@@ -96,6 +96,7 @@ describe("Graph", () => {
             entity_types: [
                 {
                     description: "description",
+                    identity_properties: ["identity_properties"],
                     name: "name",
                     properties: [{ description: "description", name: "name", type: "Text" }],
                 },
@@ -125,6 +126,7 @@ describe("Graph", () => {
             entityTypes: [
                 {
                     description: "description",
+                    identityProperties: ["identity_properties"],
                     name: "name",
                     properties: [
                         {
@@ -481,6 +483,60 @@ describe("Graph", () => {
             ],
             rowCount: 1,
             totalCount: 1,
+        });
+    });
+
+    test("add_nodes", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { nodes: [{ name: "name" }] };
+        const rawResponseBody = {
+            nodes: [
+                {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    label: "label",
+                    metadata: { key: "value" },
+                    name: "name",
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
+            task_id: "task_id",
+        };
+        server
+            .mockEndpoint()
+            .post("/graph/nodes")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.addNodes({
+            nodes: [
+                {
+                    name: "name",
+                },
+            ],
+        });
+        expect(response).toEqual({
+            nodes: [
+                {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    label: "label",
+                    metadata: {
+                        key: "value",
+                    },
+                    name: "name",
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
+            taskId: "task_id",
         });
     });
 

@@ -5,23 +5,21 @@
 import * as serializers from "../../../../index.js";
 import * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
-import { EpisodeData } from "../../../../types/EpisodeData.js";
+import { GraphitiAddNodeItem } from "../../../../types/GraphitiAddNodeItem.js";
 
-export const AddDataBatchRequest: core.serialization.Schema<
-    serializers.AddDataBatchRequest.Raw,
-    Zep.AddDataBatchRequest
+export const GraphitiAddNodesRequest: core.serialization.Schema<
+    serializers.GraphitiAddNodesRequest.Raw,
+    Zep.GraphitiAddNodesRequest
 > = core.serialization.object({
-    episodes: core.serialization.list(EpisodeData),
     graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
-    strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
+    nodes: core.serialization.list(GraphitiAddNodeItem),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
 });
 
-export declare namespace AddDataBatchRequest {
+export declare namespace GraphitiAddNodesRequest {
     export interface Raw {
-        episodes: EpisodeData.Raw[];
         graph_id?: string | null;
-        strict_ontology?: boolean | null;
+        nodes: GraphitiAddNodeItem.Raw[];
         user_id?: string | null;
     }
 }
