@@ -6,7 +6,6 @@ import * as Zep from "../index.js";
 
 export interface EntityType {
     description: string;
-    identityProperties?: string[];
     name: string;
     properties?: Zep.EntityProperty[];
 }

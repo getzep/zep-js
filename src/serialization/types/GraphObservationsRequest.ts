@@ -5,18 +5,27 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
+import { SearchFilters } from "./SearchFilters.js";
 
 export const GraphObservationsRequest: core.serialization.ObjectSchema<
     serializers.GraphObservationsRequest.Raw,
     Zep.GraphObservationsRequest
 > = core.serialization.object({
+    cursor: core.serialization.string().optional(),
+    direction: core.serialization.string().optional(),
+    filters: SearchFilters.optional(),
     limit: core.serialization.number().optional(),
+    orderBy: core.serialization.property("order_by", core.serialization.string().optional()),
     uuidCursor: core.serialization.property("uuid_cursor", core.serialization.string().optional()),
 });
 
 export declare namespace GraphObservationsRequest {
     export interface Raw {
+        cursor?: string | null;
+        direction?: string | null;
+        filters?: SearchFilters.Raw | null;
         limit?: number | null;
+        order_by?: string | null;
         uuid_cursor?: string | null;
     }
 }
