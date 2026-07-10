@@ -15,7 +15,6 @@
 <dd>
 
 List batches for the current project, optionally filtered by batch status.
-
 </dd>
 </dl>
 </dd>
@@ -82,7 +81,6 @@ await client.batch.list({
 <dd>
 
 Create a draft batch that can be filled with graph episodes and thread messages.
-
 </dd>
 </dl>
 </dd>
@@ -145,7 +143,6 @@ await client.batch.create();
 <dd>
 
 Get a batch summary, including runtime progress when the batch has been processed.
-
 </dd>
 </dl>
 </dd>
@@ -208,7 +205,6 @@ await client.batch.get("batchId");
 <dd>
 
 Delete a draft or invalid unprocessed batch. Processed batches cannot be deleted.
-
 </dd>
 </dl>
 </dd>
@@ -271,7 +267,6 @@ await client.batch.delete("batchId");
 <dd>
 
 List items in a batch, including derived runtime status when the batch has been processed.
-
 </dd>
 </dl>
 </dd>
@@ -346,7 +341,6 @@ await client.batch.listItems("batchId", {
 <dd>
 
 Add graph episodes and thread messages to a draft batch. Items are appended in request order.
-
 </dd>
 </dl>
 </dd>
@@ -422,8 +416,7 @@ await client.batch.add("batchId", {
 <dl>
 <dd>
 
-Start processing a filled batch. Repeated calls return the existing batch run.
-
+Start processing a filled batch. Repeated calls return a conflict.
 </dd>
 </dl>
 </dd>
@@ -488,7 +481,6 @@ await client.batch.process("batchId");
 <dd>
 
 Lists all context templates.
-
 </dd>
 </dl>
 </dd>
@@ -543,7 +535,6 @@ await client.context.listContextTemplates();
 <dd>
 
 Creates a new context template.
-
 </dd>
 </dl>
 </dd>
@@ -609,7 +600,6 @@ await client.context.createContextTemplate({
 <dd>
 
 Retrieves a context template by template_id.
-
 </dd>
 </dl>
 </dd>
@@ -672,7 +662,6 @@ await client.context.getContextTemplate("template_id");
 <dd>
 
 Updates an existing context template by template_id.
-
 </dd>
 </dl>
 </dd>
@@ -745,7 +734,6 @@ await client.context.updateContextTemplate("template_id", {
 <dd>
 
 Deletes a context template by template_id.
-
 </dd>
 </dl>
 </dd>
@@ -810,7 +798,6 @@ await client.context.deleteContextTemplate("template_id");
 <dd>
 
 Lists all custom instructions for a project, user, or graph.
-
 </dd>
 </dl>
 </dd>
@@ -876,7 +863,6 @@ await client.graph.listCustomInstructions({
 <dd>
 
 Adds new custom instructions for graphs without removing existing ones. If user_ids or graph_ids is empty, adds to project-wide default instructions.
-
 </dd>
 </dl>
 </dd>
@@ -946,7 +932,6 @@ await client.graph.addCustomInstructions({
 <dd>
 
 Deletes custom instructions for graphs or project wide defaults.
-
 </dd>
 </dl>
 </dd>
@@ -1009,7 +994,6 @@ await client.graph.deleteCustomInstructions();
 <dd>
 
 Returns all entity types for a project, user, or graph.
-
 </dd>
 </dl>
 </dd>
@@ -1075,7 +1059,6 @@ await client.graph.listEntityTypes({
 <dd>
 
 Sets the entity types for multiple users and graphs, replacing any existing ones.
-
 </dd>
 </dl>
 </dd>
@@ -1138,7 +1121,6 @@ await client.graph.setEntityTypesInternal();
 <dd>
 
 Add data to the graph.
-
 </dd>
 </dl>
 </dd>
@@ -1206,7 +1188,6 @@ await client.graph.add({
 Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*`) instead.
 
 Adds data to the graph in batch mode, processing episodes concurrently.
-
 </dd>
 </dl>
 </dd>
@@ -1276,7 +1257,6 @@ await client.graph.addBatch({
 <dd>
 
 Add a fact triple for a user or group
-
 </dd>
 </dl>
 </dd>
@@ -1342,7 +1322,6 @@ await client.graph.addFactTriple({
 <dd>
 
 Clone a user or group graph.
-
 </dd>
 </dl>
 </dd>
@@ -1405,7 +1384,6 @@ await client.graph.clone();
 <dd>
 
 Creates a new graph.
-
 </dd>
 </dl>
 </dd>
@@ -1470,7 +1448,6 @@ await client.graph.create({
 <dd>
 
 Returns all graphs. In order to list users, use user.list_ordered instead
-
 </dd>
 </dl>
 </dd>
@@ -1542,7 +1519,6 @@ Detects structural patterns in a knowledge graph including relationship frequenc
 multi-hop paths, co-occurrences, hubs, and clusters.
 When a query is provided, uses hybrid search to discover seed nodes,
 detects triple-frequency patterns, and returns resolved edges ranked by relevance.
-
 </dd>
 </dl>
 </dd>
@@ -1605,7 +1581,6 @@ await client.graph.detectPatterns();
 <dd>
 
 Perform a graph search query.
-
 </dd>
 </dl>
 </dd>
@@ -1670,7 +1645,6 @@ await client.graph.search({
 <dd>
 
 Returns a graph.
-
 </dd>
 </dl>
 </dd>
@@ -1733,7 +1707,6 @@ await client.graph.get("graphId");
 <dd>
 
 Deletes a graph. If you would like to delete a user graph, make sure to use user.delete instead.
-
 </dd>
 </dl>
 </dd>
@@ -1796,7 +1769,6 @@ await client.graph.delete("graphId");
 <dd>
 
 Updates information about a graph.
-
 </dd>
 </dl>
 </dd>
@@ -1867,7 +1839,6 @@ await client.graph.update("graphId");
 <dd>
 
 Hints Zep to warm a graph for low-latency search
-
 </dd>
 </dl>
 </dd>
@@ -1932,7 +1903,6 @@ await client.graph.warm("graphId");
 <dd>
 
 Retrieve project info based on the provided api key.
-
 </dd>
 </dl>
 </dd>
@@ -1989,7 +1959,6 @@ await client.project.get();
 <dd>
 
 Gets a task by its ID
-
 </dd>
 </dl>
 </dd>
@@ -2054,7 +2023,6 @@ await client.task.get("task_id");
 <dd>
 
 Returns all threads.
-
 </dd>
 </dl>
 </dd>
@@ -2122,7 +2090,6 @@ await client.thread.listAll({
 <dd>
 
 Start a new thread.
-
 </dd>
 </dl>
 </dd>
@@ -2188,7 +2155,6 @@ await client.thread.create({
 <dd>
 
 Deletes a thread.
-
 </dd>
 </dl>
 </dd>
@@ -2251,7 +2217,6 @@ await client.thread.delete("threadId");
 <dd>
 
 Returns most relevant context from the user graph (including memory from any/all past threads) based on the content of the past few messages of the given thread.
-
 </dd>
 </dl>
 </dd>
@@ -2324,7 +2289,6 @@ await client.thread.getUserContext("threadId", {
 <dd>
 
 Returns messages for a thread.
-
 </dd>
 </dl>
 </dd>
@@ -2399,7 +2363,6 @@ await client.thread.get("threadId", {
 <dd>
 
 Add messages to a thread.
-
 </dd>
 </dl>
 </dd>
@@ -2479,7 +2442,6 @@ await client.thread.addMessages("threadId", {
 Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*` with `type: "thread_message"`) instead.
 
 Adds messages to a thread in batch mode, processing messages concurrently.
-
 </dd>
 </dl>
 </dd>
@@ -2557,7 +2519,6 @@ await client.thread.addMessagesBatch("threadId", {
 <dd>
 
 Returns the incremental summary generated from messages in the thread. Returns 404 if no summary exists for the thread.
-
 </dd>
 </dl>
 </dd>
@@ -2622,7 +2583,6 @@ await client.thread.getSummary("threadId");
 <dd>
 
 Lists all user summary instructions for a project, user.
-
 </dd>
 </dl>
 </dd>
@@ -2687,7 +2647,6 @@ await client.user.listUserSummaryInstructions({
 <dd>
 
 Adds new summary instructions for users graphs without removing existing ones. If user_ids is empty, adds to project-wide default instructions.
-
 </dd>
 </dl>
 </dd>
@@ -2757,7 +2716,6 @@ await client.user.addUserSummaryInstructions({
 <dd>
 
 Deletes user summary/instructions for users or project wide defaults.
-
 </dd>
 </dl>
 </dd>
@@ -2820,7 +2778,6 @@ await client.user.deleteUserSummaryInstructions();
 <dd>
 
 Adds a user.
-
 </dd>
 </dl>
 </dd>
@@ -2885,7 +2842,6 @@ await client.user.add({
 <dd>
 
 Returns all users.
-
 </dd>
 </dl>
 </dd>
@@ -2954,7 +2910,6 @@ await client.user.listOrdered({
 <dd>
 
 Returns a user.
-
 </dd>
 </dl>
 </dd>
@@ -3017,7 +2972,6 @@ await client.user.get("userId");
 <dd>
 
 Deletes a user.
-
 </dd>
 </dl>
 </dd>
@@ -3080,7 +3034,6 @@ await client.user.delete("userId");
 <dd>
 
 Updates a user.
-
 </dd>
 </dl>
 </dd>
@@ -3151,7 +3104,6 @@ await client.user.update("userId");
 <dd>
 
 Returns a user's node.
-
 </dd>
 </dl>
 </dd>
@@ -3214,7 +3166,6 @@ await client.user.getNode("userId");
 <dd>
 
 Returns all threads for a user.
-
 </dd>
 </dl>
 </dd>
@@ -3277,7 +3228,6 @@ await client.user.getThreads("userId");
 <dd>
 
 Hints Zep to warm a user's graph for low-latency search
-
 </dd>
 </dl>
 </dd>
@@ -3342,7 +3292,6 @@ await client.user.warm("userId");
 <dd>
 
 Returns all edges for a graph.
-
 </dd>
 </dl>
 </dd>
@@ -3413,7 +3362,6 @@ await client.graph.edge.getByGraphId("graph_id", {});
 <dd>
 
 Returns all edges for a user.
-
 </dd>
 </dl>
 </dd>
@@ -3484,7 +3432,6 @@ await client.graph.edge.getByUserId("user_id", {});
 <dd>
 
 Returns a specific edge by its UUID.
-
 </dd>
 </dl>
 </dd>
@@ -3547,7 +3494,6 @@ await client.graph.edge.get("uuid");
 <dd>
 
 Deletes an edge by UUID.
-
 </dd>
 </dl>
 </dd>
@@ -3610,7 +3556,6 @@ await client.graph.edge.delete("uuid");
 <dd>
 
 Updates an entity edge by UUID.
-
 </dd>
 </dl>
 </dd>
@@ -3683,7 +3628,6 @@ await client.graph.edge.update("uuid");
 <dd>
 
 Returns episodes by graph id.
-
 </dd>
 </dl>
 </dd>
@@ -3756,7 +3700,6 @@ await client.graph.episode.getByGraphId("graph_id", {
 <dd>
 
 Returns episodes by user id.
-
 </dd>
 </dl>
 </dd>
@@ -3829,7 +3772,6 @@ await client.graph.episode.getByUserId("user_id", {
 <dd>
 
 Returns episodes by UUID
-
 </dd>
 </dl>
 </dd>
@@ -3892,7 +3834,6 @@ await client.graph.episode.get("uuid");
 <dd>
 
 Deletes an episode by its UUID.
-
 </dd>
 </dl>
 </dd>
@@ -3955,7 +3896,6 @@ await client.graph.episode.delete("uuid");
 <dd>
 
 Update episode metadata with merge semantics. Supplied keys overwrite or add to existing metadata; keys set to null are removed.
-
 </dd>
 </dl>
 </dd>
@@ -4030,7 +3970,6 @@ await client.graph.episode.update("uuid", {
 <dd>
 
 Returns nodes and edges mentioned in an episode
-
 </dd>
 </dl>
 </dd>
@@ -4095,7 +4034,6 @@ await client.graph.episode.getNodesAndEdges("uuid");
 <dd>
 
 Returns all nodes for a graph.
-
 </dd>
 </dl>
 </dd>
@@ -4166,7 +4104,6 @@ await client.graph.node.getByGraphId("graph_id", {});
 <dd>
 
 Returns all nodes for a user
-
 </dd>
 </dl>
 </dd>
@@ -4237,7 +4174,6 @@ await client.graph.node.getByUserId("user_id", {});
 <dd>
 
 Returns all edges for a node
-
 </dd>
 </dl>
 </dd>
@@ -4300,7 +4236,6 @@ await client.graph.node.getEdges("node_uuid");
 <dd>
 
 Returns all episodes that mentioned a given node
-
 </dd>
 </dl>
 </dd>
@@ -4363,7 +4298,6 @@ await client.graph.node.getEpisodes("node_uuid");
 <dd>
 
 Returns a specific node by its UUID.
-
 </dd>
 </dl>
 </dd>
@@ -4426,7 +4360,6 @@ await client.graph.node.get("uuid");
 <dd>
 
 Deletes a node by UUID.
-
 </dd>
 </dl>
 </dd>
@@ -4489,7 +4422,6 @@ await client.graph.node.delete("uuid");
 <dd>
 
 Updates an entity node by UUID.
-
 </dd>
 </dl>
 </dd>
@@ -4562,7 +4494,6 @@ await client.graph.node.update("uuid");
 <dd>
 
 Returns read-only observation nodes for a graph.
-
 </dd>
 </dl>
 </dd>
@@ -4633,7 +4564,6 @@ await client.graph.observation.getByGraphId("graph_id", {});
 <dd>
 
 Returns read-only observation nodes for a user's graph.
-
 </dd>
 </dl>
 </dd>
@@ -4704,7 +4634,6 @@ await client.graph.observation.getByUserId("user_id", {});
 <dd>
 
 Returns a specific observation node by UUID. Observation nodes are read-only.
-
 </dd>
 </dl>
 </dd>
@@ -4769,7 +4698,6 @@ await client.graph.observation.get("uuid");
 <dd>
 
 Returns incremental thread summaries associated with the graph.
-
 </dd>
 </dl>
 </dd>
@@ -4840,7 +4768,6 @@ await client.graph.threadSummary.getByGraphId("graph_id", {});
 <dd>
 
 Returns incremental thread summaries generated from messages in each thread associated with the user's graph.
-
 </dd>
 </dl>
 </dd>
@@ -4913,7 +4840,6 @@ await client.graph.threadSummary.getByUserId("user_id", {});
 <dd>
 
 Updates a message.
-
 </dd>
 </dl>
 </dd>

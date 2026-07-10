@@ -805,7 +805,7 @@ export class Batch {
     }
 
     /**
-     * Start processing a filled batch. Repeated calls return the existing batch run.
+     * Start processing a filled batch. Repeated calls return a conflict.
      *
      * @param {string} batchId - The batch ID.
      * @param {Batch.RequestOptions} requestOptions - Request-specific configuration.
