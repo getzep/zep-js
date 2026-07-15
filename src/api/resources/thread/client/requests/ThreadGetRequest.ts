@@ -6,7 +6,7 @@
  * @example
  *     {
  *         limit: 1,
- *         cursor: 1000000,
+ *         cursor: 1,
  *         lastn: 1
  *     }
  */
