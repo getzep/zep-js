@@ -14,6 +14,7 @@ export const BatchItemDetail: core.serialization.ObjectSchema<serializers.BatchI
         episodeUuid: core.serialization.property("episode_uuid", core.serialization.string().optional()),
         error: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
+        graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         itemId: core.serialization.property("item_id", core.serialization.string().optional()),
         kind: BatchItemKind.optional(),
         sequenceIndex: core.serialization.property("sequence_index", core.serialization.number().optional()),
@@ -22,6 +23,7 @@ export const BatchItemDetail: core.serialization.ObjectSchema<serializers.BatchI
         threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         userId: core.serialization.property("user_id", core.serialization.string().optional()),
+        userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
     });
 
 export declare namespace BatchItemDetail {
@@ -30,6 +32,7 @@ export declare namespace BatchItemDetail {
         episode_uuid?: string | null;
         error?: Record<string, unknown> | null;
         graph_id?: string | null;
+        graph_uuid?: string | null;
         item_id?: string | null;
         kind?: BatchItemKind.Raw | null;
         sequence_index?: number | null;
@@ -38,5 +41,6 @@ export declare namespace BatchItemDetail {
         thread_id?: string | null;
         updated_at?: string | null;
         user_id?: string | null;
+        user_uuid?: string | null;
     }
 }

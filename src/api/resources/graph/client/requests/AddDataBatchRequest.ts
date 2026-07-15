@@ -17,6 +17,8 @@ export interface AddDataBatchRequest {
     episodes: Zep.EpisodeData[];
     /** graph_id is the ID of the graph to which the data will be added. If adding to the user graph, please use user_id field instead. */
     graphId?: string;
+    /** When true, prevents extraction of generic Entity nodes that do not match the configured ontology. */
+    strictOntology?: boolean;
     /** User ID is the ID of the user to which the data will be added. If not adding to a user graph, please use graph_id field instead. */
     userId?: string;
 }

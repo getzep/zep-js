@@ -17,4 +17,6 @@ export interface UpdateUserRequest {
     lastName?: string;
     /** The metadata to update */
     metadata?: Record<string, unknown>;
+    /** The user's IANA time zone. Null clears the existing value. */
+    timeZone?: string;
 }
