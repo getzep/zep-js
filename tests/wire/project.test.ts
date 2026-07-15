@@ -11,7 +11,13 @@ describe("Project", () => {
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            project: { created_at: "created_at", description: "description", name: "name", uuid: "uuid" },
+            project: {
+                created_at: "created_at",
+                default_time_zone: "default_time_zone",
+                description: "description",
+                name: "name",
+                uuid: "uuid",
+            },
         };
         server.mockEndpoint().get("/projects/info").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
@@ -19,10 +25,103 @@ describe("Project", () => {
         expect(response).toEqual({
             project: {
                 createdAt: "created_at",
+                defaultTimeZone: "default_time_zone",
                 description: "description",
                 name: "name",
                 uuid: "uuid",
             },
+        });
+    });
+
+    test("update", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            project: {
+                created_at: "created_at",
+                default_time_zone: "default_time_zone",
+                description: "description",
+                name: "name",
+                uuid: "uuid",
+            },
+        };
+        server
+            .mockEndpoint()
+            .patch("/projects/info")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.project.update();
+        expect(response).toEqual({
+            project: {
+                createdAt: "created_at",
+                defaultTimeZone: "default_time_zone",
+                description: "description",
+                name: "name",
+                uuid: "uuid",
+            },
+        });
+    });
+
+    test("get_observation_steering", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { instruction: "instruction", types: [{ description: "description", name: "name" }] };
+        server
+            .mockEndpoint()
+            .get("/projects/observation-steering")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.project.getObservationSteering({
+            userId: "user_id",
+            graphId: "graph_id",
+        });
+        expect(response).toEqual({
+            instruction: "instruction",
+            types: [
+                {
+                    description: "description",
+                    name: "name",
+                },
+            ],
+        });
+    });
+
+    test("set_observation_steering", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { instruction: "instruction", types: [{ description: "description", name: "name" }] };
+        server
+            .mockEndpoint()
+            .put("/projects/observation-steering")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.project.setObservationSteering({
+            userId: "user_id",
+            graphId: "graph_id",
+            body: {},
+        });
+        expect(response).toEqual({
+            instruction: "instruction",
+            types: [
+                {
+                    description: "description",
+                    name: "name",
+                },
+            ],
         });
     });
 });

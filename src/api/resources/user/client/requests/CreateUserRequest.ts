@@ -19,6 +19,8 @@ export interface CreateUserRequest {
     lastName?: string;
     /** The metadata associated with the user. */
     metadata?: Record<string, unknown>;
+    /** The user's IANA time zone. Null or omission leaves it unset at creation. */
+    timeZone?: string;
     /** The unique identifier of the user. */
     userId: string;
 }
