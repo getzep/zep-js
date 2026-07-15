@@ -9,4 +9,6 @@
 export interface UpdateGraphRequest {
     description?: string;
     name?: string;
+    /** The graph's IANA time zone. Stored on its group-backed subject. */
+    timeZone?: string;
 }

@@ -9,6 +9,7 @@ import * as core from "../../core/index.js";
 export const ProjectInfo: core.serialization.ObjectSchema<serializers.ProjectInfo.Raw, Zep.ProjectInfo> =
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        defaultTimeZone: core.serialization.property("default_time_zone", core.serialization.string().optional()),
         description: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
         uuid: core.serialization.string().optional(),
@@ -17,6 +18,7 @@ export const ProjectInfo: core.serialization.ObjectSchema<serializers.ProjectInf
 export declare namespace ProjectInfo {
     export interface Raw {
         created_at?: string | null;
+        default_time_zone?: string | null;
         description?: string | null;
         name?: string | null;
         uuid?: string | null;
