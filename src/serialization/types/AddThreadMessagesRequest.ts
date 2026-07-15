@@ -15,6 +15,7 @@ export const AddThreadMessagesRequest: core.serialization.ObjectSchema<
     ignoreRoles: core.serialization.property("ignore_roles", core.serialization.list(RoleType).optional()),
     messages: core.serialization.list(Message),
     returnContext: core.serialization.property("return_context", core.serialization.boolean().optional()),
+    strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
 });
 
 export declare namespace AddThreadMessagesRequest {
@@ -22,5 +23,6 @@ export declare namespace AddThreadMessagesRequest {
         ignore_roles?: RoleType.Raw[] | null;
         messages: Message.Raw[];
         return_context?: boolean | null;
+        strict_ontology?: boolean | null;
     }
 }

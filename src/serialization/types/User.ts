@@ -20,6 +20,7 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.Use
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
     sessionCount: core.serialization.property("session_count", core.serialization.number().optional()),
+    timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
     updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
@@ -37,6 +38,7 @@ export declare namespace User {
         metadata?: Record<string, unknown> | null;
         project_uuid?: string | null;
         session_count?: number | null;
+        time_zone?: string | null;
         updated_at?: string | null;
         user_id?: string | null;
         uuid?: string | null;

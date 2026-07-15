@@ -13,6 +13,7 @@ export const Graph: core.serialization.ObjectSchema<serializers.Graph.Raw, Zep.G
     id: core.serialization.number().optional(),
     name: core.serialization.string().optional(),
     projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
+    timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
 });
 
@@ -24,6 +25,7 @@ export declare namespace Graph {
         id?: number | null;
         name?: string | null;
         project_uuid?: string | null;
+        time_zone?: string | null;
         uuid?: string | null;
     }
 }

@@ -5,6 +5,8 @@ export * from "./batch/client/requests/index.js";
 export * as context from "./context/index.js";
 export * from "./context/client/requests/index.js";
 export * from "./graph/client/requests/index.js";
+export * as project from "./project/index.js";
+export * from "./project/client/requests/index.js";
 export * as thread from "./thread/index.js";
 export * from "./thread/client/requests/index.js";
 export * from "./user/client/requests/index.js";
