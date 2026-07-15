@@ -4,6 +4,7 @@
 
 export interface ProjectInfo {
     createdAt?: string;
+    defaultTimeZone?: string;
     description?: string;
     name?: string;
     uuid?: string;

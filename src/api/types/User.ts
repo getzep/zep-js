@@ -15,6 +15,7 @@ export interface User {
     projectUuid?: string;
     /** Deprecated */
     sessionCount?: number;
+    timeZone?: string;
     /** Deprecated */
     updatedAt?: string;
     userId?: string;

@@ -16,6 +16,7 @@ export const MessageListResponse: core.serialization.ObjectSchema<
     threadCreatedAt: core.serialization.property("thread_created_at", core.serialization.string().optional()),
     totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
+    userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
 });
 
 export declare namespace MessageListResponse {
@@ -25,5 +26,6 @@ export declare namespace MessageListResponse {
         thread_created_at?: string | null;
         total_count?: number | null;
         user_id?: string | null;
+        user_uuid?: string | null;
     }
 }
