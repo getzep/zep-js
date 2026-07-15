@@ -10,11 +10,13 @@ export const UpdateGraphRequest: core.serialization.Schema<serializers.UpdateGra
     core.serialization.object({
         description: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
+        timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
     });
 
 export declare namespace UpdateGraphRequest {
     export interface Raw {
         description?: string | null;
         name?: string | null;
+        time_zone?: string | null;
     }
 }

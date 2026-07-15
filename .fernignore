@@ -10,3 +10,6 @@ yarn.lock
 README.md
 .gitignore
 LICENSE
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes

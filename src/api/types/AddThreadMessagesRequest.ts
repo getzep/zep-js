@@ -15,4 +15,6 @@ export interface AddThreadMessagesRequest {
     messages: Zep.Message[];
     /** Optionally return context block relevant to the most recent messages. */
     returnContext?: boolean;
+    /** When true, prevents extraction of generic Entity nodes that do not match the configured ontology. */
+    strictOntology?: boolean;
 }

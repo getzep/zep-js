@@ -11,6 +11,7 @@ export const CreateGraphRequest: core.serialization.Schema<serializers.CreateGra
         description: core.serialization.string().optional(),
         graphId: core.serialization.property("graph_id", core.serialization.string()),
         name: core.serialization.string().optional(),
+        timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
     });
 
 export declare namespace CreateGraphRequest {
@@ -18,5 +19,6 @@ export declare namespace CreateGraphRequest {
         description?: string | null;
         graph_id: string;
         name?: string | null;
+        time_zone?: string | null;
     }
 }
