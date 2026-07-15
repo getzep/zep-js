@@ -196,6 +196,7 @@ describe("Batch", () => {
                     episode_uuid: "episode_uuid",
                     error: { key: "value" },
                     graph_id: "graph_id",
+                    graph_uuid: "graph_uuid",
                     item_id: "item_id",
                     kind: "graph_episode",
                     sequence_index: 1,
@@ -204,6 +205,7 @@ describe("Batch", () => {
                     thread_id: "thread_id",
                     updated_at: "updated_at",
                     user_id: "user_id",
+                    user_uuid: "user_uuid",
                 },
             ],
             next_cursor: 1,
@@ -230,6 +232,7 @@ describe("Batch", () => {
                         key: "value",
                     },
                     graphId: "graph_id",
+                    graphUuid: "graph_uuid",
                     itemId: "item_id",
                     kind: "graph_episode",
                     sequenceIndex: 1,
@@ -238,6 +241,7 @@ describe("Batch", () => {
                     threadId: "thread_id",
                     updatedAt: "updated_at",
                     userId: "user_id",
+                    userUuid: "user_uuid",
                 },
             ],
             nextCursor: 1,
@@ -254,6 +258,7 @@ describe("Batch", () => {
                 episode_uuid: "episode_uuid",
                 error: { key: "value" },
                 graph_id: "graph_id",
+                graph_uuid: "graph_uuid",
                 item_id: "item_id",
                 kind: "graph_episode",
                 sequence_index: 1,
@@ -262,6 +267,7 @@ describe("Batch", () => {
                 thread_id: "thread_id",
                 updated_at: "updated_at",
                 user_id: "user_id",
+                user_uuid: "user_uuid",
             },
         ];
         server
@@ -288,6 +294,7 @@ describe("Batch", () => {
                     key: "value",
                 },
                 graphId: "graph_id",
+                graphUuid: "graph_uuid",
                 itemId: "item_id",
                 kind: "graph_episode",
                 sequenceIndex: 1,
@@ -296,6 +303,7 @@ describe("Batch", () => {
                 threadId: "thread_id",
                 updatedAt: "updated_at",
                 userId: "user_id",
+                userUuid: "user_uuid",
             },
         ]);
     });

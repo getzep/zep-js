@@ -16,6 +16,7 @@ export const UpdateUserRequest: core.serialization.Schema<serializers.UpdateUser
         firstName: core.serialization.property("first_name", core.serialization.string().optional()),
         lastName: core.serialization.property("last_name", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
     });
 
 export declare namespace UpdateUserRequest {
@@ -25,5 +26,6 @@ export declare namespace UpdateUserRequest {
         first_name?: string | null;
         last_name?: string | null;
         metadata?: Record<string, unknown> | null;
+        time_zone?: string | null;
     }
 }

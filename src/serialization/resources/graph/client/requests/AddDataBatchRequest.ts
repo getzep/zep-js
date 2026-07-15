@@ -13,6 +13,7 @@ export const AddDataBatchRequest: core.serialization.Schema<
 > = core.serialization.object({
     episodes: core.serialization.list(EpisodeData),
     graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
+    strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
 });
 
@@ -20,6 +21,7 @@ export declare namespace AddDataBatchRequest {
     export interface Raw {
         episodes: EpisodeData.Raw[];
         graph_id?: string | null;
+        strict_ontology?: boolean | null;
         user_id?: string | null;
     }
 }

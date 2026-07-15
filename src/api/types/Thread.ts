@@ -7,5 +7,6 @@ export interface Thread {
     projectUuid?: string;
     threadId?: string;
     userId?: string;
+    userUuid?: string;
     uuid?: string;
 }
