@@ -9,5 +9,6 @@ export interface Graph {
     id?: number;
     name?: string;
     projectUuid?: string;
+    timeZone?: string;
     uuid?: string;
 }

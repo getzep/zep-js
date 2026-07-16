@@ -15,4 +15,6 @@ export interface MessageListResponse {
     totalCount?: number;
     /** The user ID associated with this thread. */
     userId?: string;
+    /** The opaque user identifier used by dashboard routes. */
+    userUuid?: string;
 }
