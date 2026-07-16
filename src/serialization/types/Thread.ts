@@ -11,6 +11,7 @@ export const Thread: core.serialization.ObjectSchema<serializers.Thread.Raw, Zep
     projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
     threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
+    userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
 });
 
@@ -20,6 +21,7 @@ export declare namespace Thread {
         project_uuid?: string | null;
         thread_id?: string | null;
         user_id?: string | null;
+        user_uuid?: string | null;
         uuid?: string | null;
     }
 }

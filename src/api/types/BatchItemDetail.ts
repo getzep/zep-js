@@ -15,6 +15,7 @@ export interface BatchItemDetail {
     episodeUuid?: string;
     error?: Record<string, unknown>;
     graphId?: string;
+    graphUuid?: string;
     itemId?: string;
     kind?: Zep.BatchItemKind;
     sequenceIndex?: number;
@@ -23,4 +24,5 @@ export interface BatchItemDetail {
     threadId?: string;
     updatedAt?: string;
     userId?: string;
+    userUuid?: string;
 }

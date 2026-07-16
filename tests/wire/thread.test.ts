@@ -18,6 +18,7 @@ describe("Thread", () => {
                     project_uuid: "project_uuid",
                     thread_id: "thread_id",
                     user_id: "user_id",
+                    user_uuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
@@ -39,6 +40,7 @@ describe("Thread", () => {
                     projectUuid: "project_uuid",
                     threadId: "thread_id",
                     userId: "user_id",
+                    userUuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
@@ -55,6 +57,7 @@ describe("Thread", () => {
             project_uuid: "project_uuid",
             thread_id: "thread_id",
             user_id: "user_id",
+            user_uuid: "user_uuid",
             uuid: "uuid",
         };
         server
@@ -75,6 +78,7 @@ describe("Thread", () => {
             projectUuid: "project_uuid",
             threadId: "thread_id",
             userId: "user_id",
+            userUuid: "user_uuid",
             uuid: "uuid",
         });
     });
@@ -139,6 +143,7 @@ describe("Thread", () => {
             thread_created_at: "thread_created_at",
             total_count: 1,
             user_id: "user_id",
+            user_uuid: "user_uuid",
         };
         server
             .mockEndpoint()
@@ -150,7 +155,7 @@ describe("Thread", () => {
 
         const response = await client.thread.get("threadId", {
             limit: 1,
-            cursor: 1000000,
+            cursor: 1,
             lastn: 1,
         });
         expect(response).toEqual({
@@ -171,6 +176,7 @@ describe("Thread", () => {
             threadCreatedAt: "thread_created_at",
             totalCount: 1,
             userId: "user_id",
+            userUuid: "user_uuid",
         });
     });
 
