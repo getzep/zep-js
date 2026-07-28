@@ -65,6 +65,7 @@ export * from "./UserNodeResponse.js";
 export * from "./AddNodeItem.js";
 export * from "./AddNodesResponse.js";
 export * from "./AddTripleResponse.js";
+export * from "./AddedNode.js";
 export * from "./ComparisonOperator.js";
 export * from "./DateFilter.js";
 export * from "./DerivedNode.js";

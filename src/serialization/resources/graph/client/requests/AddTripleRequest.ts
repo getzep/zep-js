@@ -16,7 +16,6 @@ export const AddTripleRequest: core.serialization.Schema<serializers.AddTripleRe
         expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
         fact: core.serialization.string(),
         factName: core.serialization.property("fact_name", core.serialization.string()),
-        factUuid: core.serialization.property("fact_uuid", core.serialization.string().optional()),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -53,7 +52,6 @@ export declare namespace AddTripleRequest {
         expired_at?: string | null;
         fact: string;
         fact_name: string;
-        fact_uuid?: string | null;
         graph_id?: string | null;
         invalid_at?: string | null;
         metadata?: Record<string, unknown> | null;

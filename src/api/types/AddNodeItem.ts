@@ -24,11 +24,4 @@ export interface AddNodeItem {
     name: string;
     /** A regional summary of the node. */
     summary?: string;
-    /**
-     * Optional caller-supplied node UUID. When it matches an existing node the
-     * node is upserted; when well-formed but unknown the node is created with
-     * this UUID; when absent the server assigns one. This is the node's only
-     * identity/dedup key -- there is no name-based resolution.
-     */
-    uuid?: string;
 }
