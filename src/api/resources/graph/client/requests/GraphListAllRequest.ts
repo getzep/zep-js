@@ -18,15 +18,15 @@ export interface GraphListAllRequest {
      */
     pageNumber?: number;
     /**
-     * Number of graphs to retrieve per page.
+     * Number of graphs to retrieve per page (default 50, range 1-100; explicit 0 is invalid).
      */
     pageSize?: number;
     /**
-     * Search term for filtering graphs by graph_id.
+     * Search term for filtering graphs by graph_id, name, or description. Queries longer than 200 Unicode code points after whitespace normalization are invalid.
      */
     search?: string;
     /**
-     * Column to sort by (created_at, group_id, name).
+     * Column to sort by (created_at, graph_id, name).
      */
     orderBy?: string;
     /**

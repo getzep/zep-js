@@ -417,6 +417,7 @@ describe("Graph", () => {
             name: "name",
             project_uuid: "project_uuid",
             time_zone: "time_zone",
+            updated_at: "updated_at",
             uuid: "uuid",
         };
         server
@@ -439,6 +440,7 @@ describe("Graph", () => {
             name: "name",
             projectUuid: "project_uuid",
             timeZone: "time_zone",
+            updatedAt: "updated_at",
             uuid: "uuid",
         });
     });
@@ -457,9 +459,12 @@ describe("Graph", () => {
                     name: "name",
                     project_uuid: "project_uuid",
                     time_zone: "time_zone",
+                    updated_at: "updated_at",
                     uuid: "uuid",
                 },
             ],
+            page_number: 1,
+            page_size: 1,
             row_count: 1,
             total_count: 1,
         };
@@ -482,9 +487,12 @@ describe("Graph", () => {
                     name: "name",
                     projectUuid: "project_uuid",
                     timeZone: "time_zone",
+                    updatedAt: "updated_at",
                     uuid: "uuid",
                 },
             ],
+            pageNumber: 1,
+            pageSize: 1,
             rowCount: 1,
             totalCount: 1,
         });
@@ -850,6 +858,7 @@ describe("Graph", () => {
             name: "name",
             project_uuid: "project_uuid",
             time_zone: "time_zone",
+            updated_at: "updated_at",
             uuid: "uuid",
         };
         server.mockEndpoint().get("/graph/graphId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -863,6 +872,7 @@ describe("Graph", () => {
             name: "name",
             projectUuid: "project_uuid",
             timeZone: "time_zone",
+            updatedAt: "updated_at",
             uuid: "uuid",
         });
     });
@@ -892,6 +902,7 @@ describe("Graph", () => {
             name: "name",
             project_uuid: "project_uuid",
             time_zone: "time_zone",
+            updated_at: "updated_at",
             uuid: "uuid",
         };
         server
@@ -912,6 +923,7 @@ describe("Graph", () => {
             name: "name",
             projectUuid: "project_uuid",
             timeZone: "time_zone",
+            updatedAt: "updated_at",
             uuid: "uuid",
         });
     });

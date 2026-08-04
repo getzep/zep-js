@@ -4,10 +4,9 @@
 
 import * as Zep from "../index.js";
 
-export interface GraphListResponse {
-    graphs?: Zep.Graph[];
-    pageNumber?: number;
-    pageSize?: number;
+export interface UserGroupListResponse {
+    quota?: Zep.UserGroupQuota;
     rowCount?: number;
     totalCount?: number;
+    userGroups?: Zep.UserGroup[];
 }
