@@ -5,29 +5,38 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
+import { UserGroupKind } from "./UserGroupKind.js";
 
-export const Graph: core.serialization.ObjectSchema<serializers.Graph.Raw, Zep.Graph> = core.serialization.object({
+export const UserGroupResponse: core.serialization.ObjectSchema<
+    serializers.UserGroupResponse.Raw,
+    Zep.UserGroupResponse
+> = core.serialization.object({
+    attachedPolicySetCount: core.serialization.property(
+        "attached_policy_set_count",
+        core.serialization.number().optional(),
+    ),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     description: core.serialization.string().optional(),
-    graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
-    id: core.serialization.number().optional(),
+    kind: UserGroupKind.optional(),
+    memberCount: core.serialization.property("member_count", core.serialization.number().optional()),
     name: core.serialization.string().optional(),
     projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
-    timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
     updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
+    version: core.serialization.number().optional(),
 });
 
-export declare namespace Graph {
+export declare namespace UserGroupResponse {
     export interface Raw {
+        attached_policy_set_count?: number | null;
         created_at?: string | null;
         description?: string | null;
-        graph_id?: string | null;
-        id?: number | null;
+        kind?: UserGroupKind.Raw | null;
+        member_count?: number | null;
         name?: string | null;
         project_uuid?: string | null;
-        time_zone?: string | null;
         updated_at?: string | null;
         uuid?: string | null;
+        version?: number | null;
     }
 }

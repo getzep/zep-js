@@ -1,5 +1,837 @@
 # Reference
 
+## UserGroup
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listPolicySets</a>(groupUuid, { ...params }) -> Zep.AttachedPolicySetsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.listPolicySets("groupUUID", {
+    projectId: "projectId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListPolicySetsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">attachPolicySet</a>(groupUuid, { ...params }) -> Zep.AttachedPolicySetsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.attachPolicySet("groupUUID", {
+    projectId: "projectId",
+    policySetUuid: "policy_set_uuid",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.AttachPolicySetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">detachPolicySet</a>(groupUuid, policySetUuid, { ...params }) -> Zep.AttachedPolicySetsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.detachPolicySet("groupUUID", "policySetUUID", {
+    projectId: "projectId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**policySetUuid:** `string` — Policy set UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupDetachPolicySetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">list</a>({ ...params }) -> Zep.UserGroupListResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.list({
+    projectId: "projectId",
+    pageNumber: 1,
+    pageSize: 1,
+    search: "search",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">create</a>({ ...params }) -> Zep.UserGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.create({
+    projectId: "projectId",
+    name: "name",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.CreateUserGroupRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listForUser</a>(userUuid, { ...params }) -> Zep.UserMembershipGroupsResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.listForUser("userUUID", {
+    projectId: "projectId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userUuid:** `string` — User UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListForUserRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">get</a>(groupUuid, { ...params }) -> Zep.UserGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.get("groupUUID", {
+    projectId: "projectId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">delete</a>(groupUuid, { ...params }) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.delete("groupUUID", {
+    projectId: "projectId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupDeleteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">update</a>(groupUuid, { ...params }) -> Zep.UserGroupResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.update("groupUUID", {
+    projectId: "projectId",
+    expectedVersion: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UpdateUserGroupRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listMembers</a>(groupUuid, { ...params }) -> Zep.UserGroupMembersResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.listMembers("groupUUID", {
+    projectId: "projectId",
+    pageNumber: 1,
+    pageSize: 1,
+    search: "search",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListMembersRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">addMembers</a>(groupUuid, { ...params }) -> Zep.UserGroupMembershipResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.addMembers("groupUUID", {
+    projectId: "projectId",
+    body: {
+        userUuids: ["user_uuids"],
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupAddMembersRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">removeMembers</a>(groupUuid, { ...params }) -> Zep.UserGroupMembershipResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.removeMembers("groupUUID", {
+    projectId: "projectId",
+    body: {
+        userUuids: ["user_uuids"],
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupRemoveMembersRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listMemberCandidates</a>(groupUuid, { ...params }) -> Zep.UserGroupMembersResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.listMemberCandidates("groupUUID", {
+    projectId: "projectId",
+    pageNumber: 1,
+    pageSize: 1,
+    search: "search",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListMemberCandidatesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">removeMember</a>(groupUuid, userUuid, { ...params }) -> Zep.UserGroupMembershipResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.removeMember("groupUUID", "userUUID", {
+    projectId: "projectId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**groupUuid:** `string` — UserGroup UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userUuid:** `string` — User UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupRemoveMemberRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroup.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Batch
 
 <details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">list</a>({ ...params }) -> Zep.BatchListResponse</code></summary>

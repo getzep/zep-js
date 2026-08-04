@@ -12,6 +12,8 @@ export const GraphListResponse: core.serialization.ObjectSchema<
     Zep.GraphListResponse
 > = core.serialization.object({
     graphs: core.serialization.list(Graph).optional(),
+    pageNumber: core.serialization.property("page_number", core.serialization.number().optional()),
+    pageSize: core.serialization.property("page_size", core.serialization.number().optional()),
     rowCount: core.serialization.property("row_count", core.serialization.number().optional()),
     totalCount: core.serialization.property("total_count", core.serialization.number().optional()),
 });
@@ -19,6 +21,8 @@ export const GraphListResponse: core.serialization.ObjectSchema<
 export declare namespace GraphListResponse {
     export interface Raw {
         graphs?: Graph.Raw[] | null;
+        page_number?: number | null;
+        page_size?: number | null;
         row_count?: number | null;
         total_count?: number | null;
     }

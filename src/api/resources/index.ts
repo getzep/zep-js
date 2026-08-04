@@ -1,3 +1,4 @@
+export * as userGroup from "./userGroup/index.js";
 export * as batch from "./batch/index.js";
 export * as context from "./context/index.js";
 export * as graph from "./graph/index.js";
@@ -5,6 +6,7 @@ export * as project from "./project/index.js";
 export * as task from "./task/index.js";
 export * as thread from "./thread/index.js";
 export * as user from "./user/index.js";
+export * from "./userGroup/client/requests/index.js";
 export * from "./batch/client/requests/index.js";
 export * from "./context/client/requests/index.js";
 export * from "./graph/client/requests/index.js";
