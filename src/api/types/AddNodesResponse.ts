@@ -6,10 +6,10 @@ import * as Zep from "../index.js";
 
 export interface AddNodesResponse {
     /**
-     * The accepted nodes, each carrying its resolved (server-assigned or
-     * caller-supplied) UUID, in request order.
+     * The accepted nodes, each carrying the UUID Zep assigned to it, in request
+     * order.
      */
-    nodes?: Zep.AddNodeItem[];
+    nodes?: Zep.AddedNode[];
     /** Task ID of the async add-nodes task. */
     taskId?: string;
 }

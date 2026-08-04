@@ -6,7 +6,7 @@ import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
-export const AddNodeItem: core.serialization.ObjectSchema<serializers.AddNodeItem.Raw, Zep.AddNodeItem> =
+export const AddedNode: core.serialization.ObjectSchema<serializers.AddedNode.Raw, Zep.AddedNode> =
     core.serialization.object({
         attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
@@ -14,9 +14,10 @@ export const AddNodeItem: core.serialization.ObjectSchema<serializers.AddNodeIte
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string(),
         summary: core.serialization.string().optional(),
+        uuid: core.serialization.string().optional(),
     });
 
-export declare namespace AddNodeItem {
+export declare namespace AddedNode {
     export interface Raw {
         attributes?: Record<string, unknown> | null;
         created_at?: string | null;
@@ -24,5 +25,6 @@ export declare namespace AddNodeItem {
         metadata?: Record<string, unknown> | null;
         name: string;
         summary?: string | null;
+        uuid?: string | null;
     }
 }

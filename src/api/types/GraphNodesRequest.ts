@@ -16,7 +16,7 @@ export interface GraphNodesRequest {
     filters?: Zep.SearchFilters;
     /** Maximum number of items to return */
     limit?: number;
-    /** Field to sort by. One of "created_at" or "uuid" (default "uuid"). */
+    /** Field to sort by. One of "created_at", "valid_at", or "uuid" (default "uuid"). */
     orderBy?: string;
     /**
      * UUID based cursor, used for pagination. Should be the UUID of the last item in the previous page.

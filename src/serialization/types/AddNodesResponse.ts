@@ -5,17 +5,17 @@
 import * as serializers from "../index.js";
 import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
-import { AddNodeItem } from "./AddNodeItem.js";
+import { AddedNode } from "./AddedNode.js";
 
 export const AddNodesResponse: core.serialization.ObjectSchema<serializers.AddNodesResponse.Raw, Zep.AddNodesResponse> =
     core.serialization.object({
-        nodes: core.serialization.list(AddNodeItem).optional(),
+        nodes: core.serialization.list(AddedNode).optional(),
         taskId: core.serialization.property("task_id", core.serialization.string().optional()),
     });
 
 export declare namespace AddNodesResponse {
     export interface Raw {
-        nodes?: AddNodeItem.Raw[] | null;
+        nodes?: AddedNode.Raw[] | null;
         task_id?: string | null;
     }
 }
