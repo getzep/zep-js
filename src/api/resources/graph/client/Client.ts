@@ -1622,6 +1622,132 @@ export class Graph {
     }
 
     /**
+     * Returns the bounded neighborhood of a set of seed nodes as a single {nodes, edges} payload: breadth-first expansion up to a caller-specified depth, subject to explicit budgets, with explicit truncation reporting.
+     *
+     * @param {Zep.GraphSubgraphRequest} request
+     * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.ForbiddenError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.graph.getSubgraph({
+     *         seedNodeUuids: ["seed_node_uuids"]
+     *     })
+     */
+    public getSubgraph(
+        request: Zep.GraphSubgraphRequest,
+        requestOptions?: Graph.RequestOptions,
+    ): core.HttpResponsePromise<Zep.GraphSubgraphResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getSubgraph(request, requestOptions));
+    }
+
+    private async __getSubgraph(
+        request: Zep.GraphSubgraphRequest,
+        requestOptions?: Graph.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.GraphSubgraphResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "graph/subgraph",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.GraphSubgraphRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.GraphSubgraphResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(_response.error.body, _response.rawResponse);
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/subgraph.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Returns a graph.
      *
      * @param {string} graphId - The graph_id of the graph to get.
