@@ -246,7 +246,7 @@ export class Node {
     }
 
     /**
-     * Returns all edges for a node
+     * Deprecated. Use edge listing with `filters.connected_node_uuids`, or the neighbors endpoint (`POST /graph/node/{node_uuid}/neighbors`), instead. Returns all edges for a node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
      *
      * @param {string} nodeUuid - Node UUID
      * @param {Node.RequestOptions} requestOptions - Request-specific configuration.
@@ -342,7 +342,7 @@ export class Node {
     }
 
     /**
-     * Returns all episodes that mentioned a given node
+     * Deprecated. Use episode listing with `mentioned_node_uuids` (`POST /graph/episodes/graph/{graph_id}` or `POST /graph/episodes/user/{user_id}`) instead. Returns episodes that mentioned a given node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
      *
      * @param {string} nodeUuid - Node UUID
      * @param {Node.RequestOptions} requestOptions - Request-specific configuration.
@@ -427,6 +427,123 @@ export class Node {
                 });
             case "timeout":
                 throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /graph/node/{node_uuid}/episodes.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Enumerates the distinct entity nodes directly connected to a node, together with the edges connecting each to it.
+     *
+     * @param {string} nodeUuid - Node UUID
+     * @param {Zep.graph.GraphNodeNeighborsRequest} request
+     * @param {Node.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.graph.node.getNeighbors("node_uuid")
+     */
+    public getNeighbors(
+        nodeUuid: string,
+        request: Zep.graph.GraphNodeNeighborsRequest = {},
+        requestOptions?: Node.RequestOptions,
+    ): core.HttpResponsePromise<Zep.GraphNodeNeighbor[]> {
+        return core.HttpResponsePromise.fromPromise(this.__getNeighbors(nodeUuid, request, requestOptions));
+    }
+
+    private async __getNeighbors(
+        nodeUuid: string,
+        request: Zep.graph.GraphNodeNeighborsRequest = {},
+        requestOptions?: Node.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.GraphNodeNeighbor[]>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graph/node/${encodeURIComponent(nodeUuid)}/neighbors`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.graph.GraphNodeNeighborsRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.graph.node.getNeighbors.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(_response.error.body, _response.rawResponse);
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /graph/node/{node_uuid}/neighbors.",
+                );
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,

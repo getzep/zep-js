@@ -12,4 +12,5 @@ export { type GraphListAllRequest } from "./GraphListAllRequest.js";
 export { type AddNodesRequest } from "./AddNodesRequest.js";
 export { type DetectPatternsRequest } from "./DetectPatternsRequest.js";
 export { type GraphSearchQuery } from "./GraphSearchQuery.js";
+export { type GraphSubgraphRequest } from "./GraphSubgraphRequest.js";
 export { type UpdateGraphRequest } from "./UpdateGraphRequest.js";

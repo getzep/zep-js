@@ -4,6 +4,7 @@
 
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { ZepClient } from "../../../src/Client";
+import * as Zep from "../../../src/api/index";
 
 describe("Episode", () => {
     test("get_by_graph_id", async () => {
@@ -65,6 +66,60 @@ describe("Episode", () => {
         });
     });
 
+    test("list_by_graph_id", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = [
+            {
+                content: "content",
+                created_at: "created_at",
+                metadata: { key: "value" },
+                processed: true,
+                relevance: 1.1,
+                role: "role",
+                role_type: "norole",
+                score: 1.1,
+                selection_rank: 1,
+                source: "text",
+                source_description: "source_description",
+                task_id: "task_id",
+                thread_id: "thread_id",
+                uuid: "uuid",
+            },
+        ];
+        server
+            .mockEndpoint()
+            .post("/graph/episodes/graph/graph_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.episode.listByGraphId("graph_id", {});
+        expect(response).toEqual([
+            {
+                content: "content",
+                createdAt: "created_at",
+                metadata: {
+                    key: "value",
+                },
+                processed: true,
+                relevance: 1.1,
+                role: "role",
+                roleType: "norole",
+                score: 1.1,
+                selectionRank: 1,
+                source: "text",
+                sourceDescription: "source_description",
+                taskId: "task_id",
+                threadId: "thread_id",
+                uuid: "uuid",
+            },
+        ]);
+    });
+
     test("get_by_user_id", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
@@ -122,6 +177,60 @@ describe("Episode", () => {
                 },
             ],
         });
+    });
+
+    test("list_by_user_id", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = [
+            {
+                content: "content",
+                created_at: "created_at",
+                metadata: { key: "value" },
+                processed: true,
+                relevance: 1.1,
+                role: "role",
+                role_type: "norole",
+                score: 1.1,
+                selection_rank: 1,
+                source: "text",
+                source_description: "source_description",
+                task_id: "task_id",
+                thread_id: "thread_id",
+                uuid: "uuid",
+            },
+        ];
+        server
+            .mockEndpoint()
+            .post("/graph/episodes/user/user_id")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.episode.listByUserId("user_id", {});
+        expect(response).toEqual([
+            {
+                content: "content",
+                createdAt: "created_at",
+                metadata: {
+                    key: "value",
+                },
+                processed: true,
+                relevance: 1.1,
+                role: "role",
+                roleType: "norole",
+                score: 1.1,
+                selectionRank: 1,
+                source: "text",
+                sourceDescription: "source_description",
+                taskId: "task_id",
+                threadId: "thread_id",
+                uuid: "uuid",
+            },
+        ]);
     });
 
     test("get", async () => {
@@ -264,7 +373,11 @@ describe("Episode", () => {
                     scope: "scope",
                     score: 1.1,
                     selection_rank: 1,
+                    source_node_labels: ["source_node_labels"],
+                    source_node_name: "source_node_name",
                     source_node_uuid: "source_node_uuid",
+                    target_node_labels: ["target_node_labels"],
+                    target_node_name: "target_node_name",
                     target_node_uuid: "target_node_uuid",
                     uuid: "uuid",
                     valid_at: "valid_at",
@@ -309,7 +422,11 @@ describe("Episode", () => {
                     scope: "scope",
                     score: 1.1,
                     selectionRank: 1,
+                    sourceNodeLabels: ["source_node_labels"],
+                    sourceNodeName: "source_node_name",
                     sourceNodeUuid: "source_node_uuid",
+                    targetNodeLabels: ["target_node_labels"],
+                    targetNodeName: "target_node_name",
                     targetNodeUuid: "target_node_uuid",
                     uuid: "uuid",
                     validAt: "valid_at",

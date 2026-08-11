@@ -291,7 +291,11 @@ describe("Graph", () => {
                 scope: "scope",
                 score: 1.1,
                 selection_rank: 1,
+                source_node_labels: ["source_node_labels"],
+                source_node_name: "source_node_name",
                 source_node_uuid: "source_node_uuid",
+                target_node_labels: ["target_node_labels"],
+                target_node_name: "target_node_name",
                 target_node_uuid: "target_node_uuid",
                 uuid: "uuid",
                 valid_at: "valid_at",
@@ -348,7 +352,11 @@ describe("Graph", () => {
                 scope: "scope",
                 score: 1.1,
                 selectionRank: 1,
+                sourceNodeLabels: ["source_node_labels"],
+                sourceNodeName: "source_node_name",
                 sourceNodeUuid: "source_node_uuid",
+                targetNodeLabels: ["target_node_labels"],
+                targetNodeName: "target_node_name",
                 targetNodeUuid: "target_node_uuid",
                 uuid: "uuid",
                 validAt: "valid_at",
@@ -667,7 +675,11 @@ describe("Graph", () => {
                     scope: "scope",
                     score: 1.1,
                     selection_rank: 1,
+                    source_node_labels: ["source_node_labels"],
+                    source_node_name: "source_node_name",
                     source_node_uuid: "source_node_uuid",
+                    target_node_labels: ["target_node_labels"],
+                    target_node_name: "target_node_name",
                     target_node_uuid: "target_node_uuid",
                     uuid: "uuid",
                     valid_at: "valid_at",
@@ -766,7 +778,11 @@ describe("Graph", () => {
                     scope: "scope",
                     score: 1.1,
                     selectionRank: 1,
+                    sourceNodeLabels: ["source_node_labels"],
+                    sourceNodeName: "source_node_name",
                     sourceNodeUuid: "source_node_uuid",
+                    targetNodeLabels: ["target_node_labels"],
+                    targetNodeName: "target_node_name",
                     targetNodeUuid: "target_node_uuid",
                     uuid: "uuid",
                     validAt: "valid_at",
@@ -843,6 +859,108 @@ describe("Graph", () => {
                     uuid: "uuid",
                 },
             ],
+        });
+    });
+
+    test("get_subgraph", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { seed_node_uuids: ["seed_node_uuids"] };
+        const rawResponseBody = {
+            edges: [
+                {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    episodes: ["episodes"],
+                    expired_at: "expired_at",
+                    fact: "fact",
+                    invalid_at: "invalid_at",
+                    name: "name",
+                    relevance: 1.1,
+                    scope: "scope",
+                    score: 1.1,
+                    selection_rank: 1,
+                    source_node_labels: ["source_node_labels"],
+                    source_node_name: "source_node_name",
+                    source_node_uuid: "source_node_uuid",
+                    target_node_labels: ["target_node_labels"],
+                    target_node_name: "target_node_name",
+                    target_node_uuid: "target_node_uuid",
+                    uuid: "uuid",
+                    valid_at: "valid_at",
+                },
+            ],
+            nodes: [
+                {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    selection_rank: 1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
+            truncated: true,
+            truncation_reason: "truncation_reason",
+        };
+        server
+            .mockEndpoint()
+            .post("/graph/subgraph")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.getSubgraph({
+            seedNodeUuids: ["seed_node_uuids"],
+        });
+        expect(response).toEqual({
+            edges: [
+                {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    episodes: ["episodes"],
+                    expiredAt: "expired_at",
+                    fact: "fact",
+                    invalidAt: "invalid_at",
+                    name: "name",
+                    relevance: 1.1,
+                    scope: "scope",
+                    score: 1.1,
+                    selectionRank: 1,
+                    sourceNodeLabels: ["source_node_labels"],
+                    sourceNodeName: "source_node_name",
+                    sourceNodeUuid: "source_node_uuid",
+                    targetNodeLabels: ["target_node_labels"],
+                    targetNodeName: "target_node_name",
+                    targetNodeUuid: "target_node_uuid",
+                    uuid: "uuid",
+                    validAt: "valid_at",
+                },
+            ],
+            nodes: [
+                {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    selectionRank: 1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
+            truncated: true,
+            truncationReason: "truncation_reason",
         });
     });
 

@@ -28,8 +28,31 @@ export interface EntityEdge {
     score?: number;
     /** SelectionRank is the global cross-scope rank assigned by auto scope selection. */
     selectionRank?: number;
+    /**
+     * SourceNodeLabels are the labels of the source node at read time. Same
+     * read-time-projection semantics as SourceNodeName (spec-2 §4).
+     */
+    sourceNodeLabels?: string[];
+    /**
+     * SourceNodeName is the name of the source node at read time. It is a
+     * read-time projection of current node state, not a stored edge
+     * attribute: a subsequent node rename is reflected on the next read.
+     * Omitted (the edge is still returned) if the source node cannot be
+     * resolved, for example if it was deleted concurrently (spec-2 §4).
+     */
+    sourceNodeName?: string;
     /** UUID of the source node */
     sourceNodeUuid: string;
+    /**
+     * TargetNodeLabels are the labels of the target node at read time. Same
+     * read-time-projection semantics as SourceNodeName (spec-2 §4).
+     */
+    targetNodeLabels?: string[];
+    /**
+     * TargetNodeName is the name of the target node at read time. Same
+     * read-time-projection semantics as SourceNodeName (spec-2 §4).
+     */
+    targetNodeName?: string;
     /** UUID of the target node */
     targetNodeUuid: string;
     /** UUID of the edge */

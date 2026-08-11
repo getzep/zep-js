@@ -19,7 +19,17 @@ export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.
         scope: core.serialization.string().optional(),
         score: core.serialization.number().optional(),
         selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
+        sourceNodeLabels: core.serialization.property(
+            "source_node_labels",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        sourceNodeName: core.serialization.property("source_node_name", core.serialization.string().optional()),
         sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string()),
+        targetNodeLabels: core.serialization.property(
+            "target_node_labels",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        targetNodeName: core.serialization.property("target_node_name", core.serialization.string().optional()),
         targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string()),
         uuid: core.serialization.string(),
         validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
@@ -38,7 +48,11 @@ export declare namespace EntityEdge {
         scope?: string | null;
         score?: number | null;
         selection_rank?: number | null;
+        source_node_labels?: string[] | null;
+        source_node_name?: string | null;
         source_node_uuid: string;
+        target_node_labels?: string[] | null;
+        target_node_name?: string | null;
         target_node_uuid: string;
         uuid: string;
         valid_at?: string | null;

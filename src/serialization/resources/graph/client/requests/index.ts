@@ -9,4 +9,5 @@ export { CreateGraphRequest } from "./CreateGraphRequest.js";
 export { AddNodesRequest } from "./AddNodesRequest.js";
 export { DetectPatternsRequest } from "./DetectPatternsRequest.js";
 export { GraphSearchQuery } from "./GraphSearchQuery.js";
+export { GraphSubgraphRequest } from "./GraphSubgraphRequest.js";
 export { UpdateGraphRequest } from "./UpdateGraphRequest.js";

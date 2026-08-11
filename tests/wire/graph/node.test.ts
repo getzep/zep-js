@@ -112,7 +112,11 @@ describe("Node", () => {
                 scope: "scope",
                 score: 1.1,
                 selection_rank: 1,
+                source_node_labels: ["source_node_labels"],
+                source_node_name: "source_node_name",
                 source_node_uuid: "source_node_uuid",
+                target_node_labels: ["target_node_labels"],
+                target_node_name: "target_node_name",
                 target_node_uuid: "target_node_uuid",
                 uuid: "uuid",
                 valid_at: "valid_at",
@@ -142,7 +146,11 @@ describe("Node", () => {
                 scope: "scope",
                 score: 1.1,
                 selectionRank: 1,
+                sourceNodeLabels: ["source_node_labels"],
+                sourceNodeName: "source_node_name",
                 sourceNodeUuid: "source_node_uuid",
+                targetNodeLabels: ["target_node_labels"],
+                targetNodeName: "target_node_name",
                 targetNodeUuid: "target_node_uuid",
                 uuid: "uuid",
                 validAt: "valid_at",
@@ -205,6 +213,74 @@ describe("Node", () => {
                 },
             ],
         });
+    });
+
+    test("get_neighbors", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = [
+            {
+                edges: [
+                    {
+                        created_at: "created_at",
+                        fact: "fact",
+                        name: "name",
+                        source_node_uuid: "source_node_uuid",
+                        target_node_uuid: "target_node_uuid",
+                        uuid: "uuid",
+                    },
+                ],
+                node: {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    selection_rank: 1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            },
+        ];
+        server
+            .mockEndpoint()
+            .post("/graph/node/node_uuid/neighbors")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.node.getNeighbors("node_uuid");
+        expect(response).toEqual([
+            {
+                edges: [
+                    {
+                        createdAt: "created_at",
+                        fact: "fact",
+                        name: "name",
+                        sourceNodeUuid: "source_node_uuid",
+                        targetNodeUuid: "target_node_uuid",
+                        uuid: "uuid",
+                    },
+                ],
+                node: {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    selectionRank: 1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            },
+        ]);
     });
 
     test("get", async () => {

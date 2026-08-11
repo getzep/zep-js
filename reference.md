@@ -2532,6 +2532,70 @@ await client.graph.search({
 </dl>
 </details>
 
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getSubgraph</a>({ ...params }) -> Zep.GraphSubgraphResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the bounded neighborhood of a set of seed nodes as a single {nodes, edges} payload: breadth-first expansion up to a caller-specified depth, subject to explicit budgets, with explicit truncation reporting.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getSubgraph({
+    seedNodeUuids: ["seed_node_uuids"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphSubgraphRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">get</a>(graphId) -> Zep.Graph</code></summary>
 <dl>
 <dd>
@@ -4780,6 +4844,76 @@ await client.graph.episode.getByGraphId("graph_id", {
 </dl>
 </details>
 
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">listByGraphId</a>(graphId, { ...params }) -> Zep.Episode[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated, filterable list of episodes for a graph.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.episode.listByGraphId("graph_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graphId:** `string` — Graph ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphEpisodeListRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Episode.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.EpisodeResponse</code></summary>
 <dl>
 <dd>
@@ -4834,6 +4968,76 @@ await client.graph.episode.getByUserId("user_id", {
 <dd>
 
 **request:** `Zep.graph.EpisodeGetByUserIdRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Episode.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">listByUserId</a>(userId, { ...params }) -> Zep.Episode[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns a paginated, filterable list of episodes for a user's graph.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.episode.listByUserId("user_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — User ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphEpisodeListRequest`
 
 </dd>
 </dl>
@@ -5062,7 +5266,7 @@ await client.graph.episode.update("uuid", {
 <dl>
 <dd>
 
-Returns nodes and edges mentioned in an episode
+Deprecated. Use edge and node listing with `filters.episode_uuids` instead. Returns nodes and edges mentioned in an episode, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
 </dd>
 </dl>
 </dd>
@@ -5266,7 +5470,7 @@ await client.graph.node.getByUserId("user_id", {});
 <dl>
 <dd>
 
-Returns all edges for a node
+Deprecated. Use edge listing with `filters.connected_node_uuids`, or the neighbors endpoint (`POST /graph/node/{node_uuid}/neighbors`), instead. Returns all edges for a node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
 </dd>
 </dl>
 </dd>
@@ -5328,7 +5532,7 @@ await client.graph.node.getEdges("node_uuid");
 <dl>
 <dd>
 
-Returns all episodes that mentioned a given node
+Deprecated. Use episode listing with `mentioned_node_uuids` (`POST /graph/episodes/graph/{graph_id}` or `POST /graph/episodes/user/{user_id}`) instead. Returns episodes that mentioned a given node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
 </dd>
 </dl>
 </dd>
@@ -5360,6 +5564,76 @@ await client.graph.node.getEpisodes("node_uuid");
 <dd>
 
 **nodeUuid:** `string` — Node UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Node.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getNeighbors</a>(nodeUuid, { ...params }) -> Zep.GraphNodeNeighbor[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Enumerates the distinct entity nodes directly connected to a node, together with the edges connecting each to it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.node.getNeighbors("node_uuid");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**nodeUuid:** `string` — Node UUID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.GraphNodeNeighborsRequest`
 
 </dd>
 </dl>
