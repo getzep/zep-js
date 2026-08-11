@@ -10,6 +10,10 @@ import { PropertyFilter } from "./PropertyFilter.js";
 
 export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFilters.Raw, Zep.SearchFilters> =
     core.serialization.object({
+        connectedNodeUuids: core.serialization.property(
+            "connected_node_uuids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         createdAt: core.serialization.property(
             "created_at",
             core.serialization.list(core.serialization.list(DateFilter)).optional(),
@@ -25,6 +29,10 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
         episodeMetadataFilters: core.serialization.property(
             "episode_metadata_filters",
             core.serialization.lazyObject(() => serializers.MetadataFilterGroup).optional(),
+        ),
+        episodeUuids: core.serialization.property(
+            "episode_uuids",
+            core.serialization.list(core.serialization.string()).optional(),
         ),
         excludeEdgeTypes: core.serialization.property(
             "exclude_edge_types",
@@ -50,6 +58,14 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "property_filters",
             core.serialization.list(PropertyFilter).optional(),
         ),
+        sourceNodeUuids: core.serialization.property(
+            "source_node_uuids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
+        targetNodeUuids: core.serialization.property(
+            "target_node_uuids",
+            core.serialization.list(core.serialization.string()).optional(),
+        ),
         validAt: core.serialization.property(
             "valid_at",
             core.serialization.list(core.serialization.list(DateFilter)).optional(),
@@ -58,16 +74,20 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
 
 export declare namespace SearchFilters {
     export interface Raw {
+        connected_node_uuids?: string[] | null;
         created_at?: DateFilter.Raw[][] | null;
         edge_types?: string[] | null;
         edge_uuids?: string[] | null;
         episode_metadata_filters?: serializers.MetadataFilterGroup.Raw | null;
+        episode_uuids?: string[] | null;
         exclude_edge_types?: string[] | null;
         exclude_node_labels?: string[] | null;
         expired_at?: DateFilter.Raw[][] | null;
         invalid_at?: DateFilter.Raw[][] | null;
         node_labels?: string[] | null;
         property_filters?: PropertyFilter.Raw[] | null;
+        source_node_uuids?: string[] | null;
+        target_node_uuids?: string[] | null;
         valid_at?: DateFilter.Raw[][] | null;
     }
 }
