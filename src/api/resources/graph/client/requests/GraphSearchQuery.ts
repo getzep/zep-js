@@ -28,6 +28,9 @@ export interface GraphSearchQuery {
     /**
      * Defaults to RRF. Ignored when scope=auto except node_distance and episode_mentions are rejected;
      * auto search always uses RRF retrieval and applies its own internal rerank after retrieval.
+     * episode_mentions ranks edge candidates by how many of the episodes listed
+     * in search_filters.episode_uuids mention them; without episode_uuids it has
+     * no effect and results are ranked as if no reranker were specified.
      */
     reranker?: Zep.Reranker;
     /**

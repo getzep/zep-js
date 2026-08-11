@@ -146,6 +146,111 @@ export class Episode {
     }
 
     /**
+     * Returns a paginated, filterable list of episodes for a graph.
+     *
+     * @param {string} graphId - Graph ID
+     * @param {Zep.GraphEpisodeListRequest} request
+     * @param {Episode.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.graph.episode.listByGraphId("graph_id", {})
+     */
+    public listByGraphId(
+        graphId: string,
+        request: Zep.GraphEpisodeListRequest,
+        requestOptions?: Episode.RequestOptions,
+    ): core.HttpResponsePromise<Zep.Episode[]> {
+        return core.HttpResponsePromise.fromPromise(this.__listByGraphId(graphId, request, requestOptions));
+    }
+
+    private async __listByGraphId(
+        graphId: string,
+        request: Zep.GraphEpisodeListRequest,
+        requestOptions?: Episode.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.Episode[]>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graph/episodes/graph/${encodeURIComponent(graphId)}`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.GraphEpisodeListRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.graph.episode.listByGraphId.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(_response.error.body, _response.rawResponse);
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling POST /graph/episodes/graph/{graph_id}.",
+                );
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Returns episodes by user id.
      *
      * @param {string} userId - User ID
@@ -243,6 +348,109 @@ export class Episode {
                 });
             case "timeout":
                 throw new errors.ZepTimeoutError("Timeout exceeded when calling GET /graph/episodes/user/{user_id}.");
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Returns a paginated, filterable list of episodes for a user's graph.
+     *
+     * @param {string} userId - User ID
+     * @param {Zep.GraphEpisodeListRequest} request
+     * @param {Episode.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.graph.episode.listByUserId("user_id", {})
+     */
+    public listByUserId(
+        userId: string,
+        request: Zep.GraphEpisodeListRequest,
+        requestOptions?: Episode.RequestOptions,
+    ): core.HttpResponsePromise<Zep.Episode[]> {
+        return core.HttpResponsePromise.fromPromise(this.__listByUserId(userId, request, requestOptions));
+    }
+
+    private async __listByUserId(
+        userId: string,
+        request: Zep.GraphEpisodeListRequest,
+        requestOptions?: Episode.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.Episode[]>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graph/episodes/user/${encodeURIComponent(userId)}`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: serializers.GraphEpisodeListRequest.jsonOrThrow(request, {
+                unrecognizedObjectKeys: "strip",
+                omitUndefined: true,
+            }),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.graph.episode.listByUserId.Response.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(_response.error.body, _response.rawResponse);
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError("Timeout exceeded when calling POST /graph/episodes/user/{user_id}.");
             case "unknown":
                 throw new errors.ZepError({
                     message: _response.error.errorMessage,
@@ -580,7 +788,7 @@ export class Episode {
     }
 
     /**
-     * Returns nodes and edges mentioned in an episode
+     * Deprecated. Use edge and node listing with `filters.episode_uuids` instead. Returns nodes and edges mentioned in an episode, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
      *
      * @param {string} uuid - Episode uuid
      * @param {Episode.RequestOptions} requestOptions - Request-specific configuration.
