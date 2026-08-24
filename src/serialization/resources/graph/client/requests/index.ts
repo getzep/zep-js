@@ -1,13 +1,6 @@
-export { AddCustomInstructionsRequest } from "./AddCustomInstructionsRequest.js";
-export { DeleteCustomInstructionsRequest } from "./DeleteCustomInstructionsRequest.js";
-export { EntityTypeRequest } from "./EntityTypeRequest.js";
-export { AddDataRequest } from "./AddDataRequest.js";
-export { AddDataBatchRequest } from "./AddDataBatchRequest.js";
-export { AddTripleRequest } from "./AddTripleRequest.js";
 export { CloneGraphRequest } from "./CloneGraphRequest.js";
 export { CreateGraphRequest } from "./CreateGraphRequest.js";
-export { AddNodesRequest } from "./AddNodesRequest.js";
-export { DetectPatternsRequest } from "./DetectPatternsRequest.js";
-export { GraphSearchQuery } from "./GraphSearchQuery.js";
-export { GraphSubgraphRequest } from "./GraphSubgraphRequest.js";
-export { UpdateGraphRequest } from "./UpdateGraphRequest.js";
+export { GraphContextRequest } from "./GraphContextRequest.js";
+export { GraphListRequest } from "./GraphListRequest.js";
+export { PatchGraphRequest } from "./PatchGraphRequest.js";
+export { SubgraphRequest } from "./SubgraphRequest.js";

@@ -1,11 +1,17 @@
-import { getBinaryResponse } from "./BinaryResponse.js";
-import { isResponseWithBody } from "./ResponseWithBody.js";
 import { fromJson } from "../json.js";
+import { getBinaryResponse } from "./BinaryResponse.js";
+
+// Pins the upstream Response so undici's FinalizationRegistry can't GC it and cancel the body stream.
+function retainResponse(target: object, response: Response): void {
+    Object.defineProperty(target, "__fern_response_ref", {
+        value: response,
+        enumerable: false,
+        configurable: true,
+        writable: false,
+    });
+}
 
 export async function getResponseBody(response: Response, responseType?: string): Promise<unknown> {
-    if (!isResponseWithBody(response)) {
-        return undefined;
-    }
     switch (responseType) {
         case "binary-response":
             return getBinaryResponse(response);
@@ -14,8 +20,29 @@ export async function getResponseBody(response: Response, responseType?: string)
         case "arrayBuffer":
             return await response.arrayBuffer();
         case "sse":
+            if (response.body == null) {
+                return {
+                    ok: false,
+                    error: {
+                        reason: "body-is-null",
+                        statusCode: response.status,
+                    },
+                };
+            }
+            retainResponse(response.body, response);
             return response.body;
         case "streaming":
+            if (response.body == null) {
+                return {
+                    ok: false,
+                    error: {
+                        reason: "body-is-null",
+                        statusCode: response.status,
+                    },
+                };
+            }
+
+            retainResponse(response.body, response);
             return response.body;
 
         case "text":
@@ -26,9 +53,9 @@ export async function getResponseBody(response: Response, responseType?: string)
     const text = await response.text();
     if (text.length > 0) {
         try {
-            let responseBody = fromJson(text);
+            const responseBody = fromJson(text);
             return responseBody;
-        } catch (err) {
+        } catch (_err) {
             return {
                 ok: false,
                 error: {

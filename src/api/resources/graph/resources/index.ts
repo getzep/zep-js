@@ -1,8 +1,12 @@
-export * as edge from "./edge/index.js";
-export * as episode from "./episode/index.js";
-export * as node from "./node/index.js";
-export * as observation from "./observation/index.js";
-export * as threadSummary from "./threadSummary/index.js";
+export * from "./documentSummary/client/requests/index.js";
+export * as documentSummary from "./documentSummary/index.js";
 export * from "./edge/client/requests/index.js";
+export * as edge from "./edge/index.js";
 export * from "./episode/client/requests/index.js";
+export * as episode from "./episode/index.js";
 export * from "./node/client/requests/index.js";
+export * as node from "./node/index.js";
+export * from "./observation/client/requests/index.js";
+export * as observation from "./observation/index.js";
+export * from "./threadSummary/client/requests/index.js";
+export * as threadSummary from "./threadSummary/index.js";
