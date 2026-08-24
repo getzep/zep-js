@@ -16,9 +16,15 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v4
 
+      # The v4 generator writes "packageManager": "pnpm@..." into package.json
+      # and a vitest config. Corepack activates the pnpm the manifest pins;
+      # bare yarn 1.x refuses the manifest and never reaches the code.
+      - name: Enable corepack
+        run: corepack enable
+
       - name: Install dependencies
-        run: yarn
+        run: pnpm install --frozen-lockfile
       - name: Test
-        run: yarn test
+        run: pnpm test
       - name: Build
-        run: yarn build
+        run: pnpm build
