@@ -1,1 +1,1 @@
-export { type ThreadMessageUpdate } from "./ThreadMessageUpdate.js";
+export type { PatchMessageRequest } from "./PatchMessageRequest.js";

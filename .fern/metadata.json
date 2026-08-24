@@ -1,0 +1,27 @@
+{
+    "cliVersion": "5.50.1",
+    "generatorName": "fernapi/fern-typescript-sdk",
+    "generatorVersion": "3.88.1",
+    "generatorConfig": {
+        "namespaceExport": "Zep",
+        "allowCustomFetcher": true,
+        "noSerdeLayer": false,
+        "enableInlineTypes": false,
+        "skipResponseValidation": true,
+        "extraDependencies": {
+            "zod": "^3.23.8"
+        },
+        "extraDevDependencies": {
+            "uuid": "^10.0.0",
+            "@types/uuid": "^10.0.0",
+            "@faker-js/faker": "^8.4.1",
+            "msw": "2.11.2"
+        }
+    },
+    "originGitCommit": "18131c407c1974133dac041f31d7b85e2c894762",
+    "originGitCommitIsDirty": true,
+    "invokedBy": "ci",
+    "requestedVersion": "4.0.0-alpha.1",
+    "ciProvider": "github",
+    "sdkVersion": "4.0.0-alpha.1"
+}
