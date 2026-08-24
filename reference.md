@@ -1,856 +1,8 @@
 # Reference
-
-## UserGroup
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listPolicySets</a>(groupUuid, { ...params }) -> Zep.AttachedPolicySetsResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.listPolicySets("groupUUID", {
-    projectId: "projectId",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupListPolicySetsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">attachPolicySet</a>(groupUuid, { ...params }) -> Zep.AttachedPolicySetsResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.attachPolicySet("groupUUID", {
-    projectId: "projectId",
-    policySetUuid: "policy_set_uuid",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.AttachPolicySetRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">detachPolicySet</a>(groupUuid, policySetUuid, { ...params }) -> Zep.AttachedPolicySetsResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.detachPolicySet("groupUUID", "policySetUUID", {
-    projectId: "projectId",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**policySetUuid:** `string` — Policy set UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupDetachPolicySetRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">list</a>({ ...params }) -> Zep.UserGroupListResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.list({
-    projectId: "projectId",
-    pageNumber: 1,
-    pageSize: 1,
-    search: "search",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupListRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">create</a>({ ...params }) -> Zep.UserGroupResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.create({
-    projectId: "projectId",
-    name: "name",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.CreateUserGroupRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listForUser</a>(userUuid, { ...params }) -> Zep.UserMembershipGroupsResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.listForUser("userUUID", {
-    projectId: "projectId",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userUuid:** `string` — User UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupListForUserRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">get</a>(groupUuid, { ...params }) -> Zep.UserGroupResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.get("groupUUID", {
-    projectId: "projectId",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupGetRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">delete</a>(groupUuid, { ...params }) -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.delete("groupUUID", {
-    projectId: "projectId",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupDeleteRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">update</a>(groupUuid, { ...params }) -> Zep.UserGroupResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.update("groupUUID", {
-    projectId: "projectId",
-    expectedVersion: 1,
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UpdateUserGroupRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listMembers</a>(groupUuid, { ...params }) -> Zep.UserGroupMembersResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.listMembers("groupUUID", {
-    projectId: "projectId",
-    pageNumber: 1,
-    pageSize: 1,
-    search: "search",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupListMembersRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">addMembers</a>(groupUuid, { ...params }) -> Zep.UserGroupMembershipResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.addMembers("groupUUID", {
-    projectId: "projectId",
-    body: {
-        userUuids: ["user_uuids"],
-    },
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupAddMembersRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">removeMembers</a>(groupUuid, { ...params }) -> Zep.UserGroupMembershipResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.removeMembers("groupUUID", {
-    projectId: "projectId",
-    body: {
-        userUuids: ["user_uuids"],
-    },
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupRemoveMembersRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listMemberCandidates</a>(groupUuid, { ...params }) -> Zep.UserGroupMembersResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.listMemberCandidates("groupUUID", {
-    projectId: "projectId",
-    pageNumber: 1,
-    pageSize: 1,
-    search: "search",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupListMemberCandidatesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">removeMember</a>(groupUuid, userUuid, { ...params }) -> Zep.UserGroupMembershipResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.userGroup.removeMember("groupUUID", "userUUID", {
-    projectId: "projectId",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**groupUuid:** `string` — UserGroup UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**userUuid:** `string` — User UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.UserGroupRemoveMemberRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `UserGroup.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## Batch
-
-<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">list</a>({ ...params }) -> Zep.BatchListResponse</code></summary>
+<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.Batch, Zep.BatchPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List batches for the current project, optionally filtered by batch status.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -861,13 +13,29 @@ List batches for the current project, optionally filtered by batch status.
 <dd>
 
 ```typescript
-await client.batch.list({
+const pageableResponse = await client.batch.list({
     limit: 1,
-    cursor: 1,
-    status: "status",
+    cursor: "cursor",
+    status: "status"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.batch.list({
+    limit: 1,
+    cursor: "cursor",
+    status: "status"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -881,42 +49,29 @@ await client.batch.list({
 <dl>
 <dd>
 
-**request:** `Zep.BatchListRequest`
-
+**request:** `Zep.BatchListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `BatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">create</a>({ ...params }) -> Zep.BatchSummary</code></summary>
+<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">create</a>({ ...params }) -> Zep.Batch</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a draft batch that can be filled with graph episodes and thread messages.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -928,8 +83,8 @@ Create a draft batch that can be filled with graph episodes and thread messages.
 
 ```typescript
 await client.batch.create();
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -943,42 +98,29 @@ await client.batch.create();
 <dl>
 <dd>
 
-**request:** `Zep.ApidataCreateBatchRequest`
-
+**request:** `Zep.CreateBatchRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `BatchClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">get</a>(batchId) -> Zep.BatchSummary</code></summary>
+<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">get</a>(batch_uuid) -> Zep.Batch</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get a batch summary, including runtime progress when the batch has been processed.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -989,9 +131,9 @@ Get a batch summary, including runtime progress when the batch has been processe
 <dd>
 
 ```typescript
-await client.batch.get("batchId");
-```
+await client.batch.get("batch_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -1005,42 +147,29 @@ await client.batch.get("batchId");
 <dl>
 <dd>
 
-**batchId:** `string` — The batch ID.
-
+**batch_uuid:** `string` — Batch UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `BatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">delete</a>(batchId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">delete</a>(batch_uuid) -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Delete a draft or invalid unprocessed batch. Processed batches cannot be deleted.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1051,9 +180,9 @@ Delete a draft or invalid unprocessed batch. Processed batches cannot be deleted
 <dd>
 
 ```typescript
-await client.batch.delete("batchId");
-```
+await client.batch.delete("batch_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -1067,42 +196,29 @@ await client.batch.delete("batchId");
 <dl>
 <dd>
 
-**batchId:** `string` — The batch ID.
-
+**batch_uuid:** `string` — Batch UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `BatchClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">listItems</a>(batchId, { ...params }) -> Zep.BatchItemListResponse</code></summary>
+<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">listItems</a>(batch_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List items in a batch, including derived runtime status when the batch has been processed.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1113,13 +229,27 @@ List items in a batch, including derived runtime status when the batch has been 
 <dd>
 
 ```typescript
-await client.batch.listItems("batchId", {
+const pageableResponse = await client.batch.listItems("batch_uuid", {
     limit: 1,
-    cursor: 1,
-    status: "status",
+    cursor: "cursor"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.batch.listItems("batch_uuid", {
+    limit: 1,
+    cursor: "cursor"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -1133,50 +263,37 @@ await client.batch.listItems("batchId", {
 <dl>
 <dd>
 
-**batchId:** `string` — The batch ID.
-
+**batch_uuid:** `string` — Batch UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.BatchListItemsRequest`
-
+**request:** `Zep.BatchListItemsRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `BatchClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">add</a>(batchId, { ...params }) -> Zep.BatchItemDetail[]</code></summary>
+<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">addItems</a>(batch_uuid, { ...params }) -> Zep.BatchItemsResponse</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add graph episodes and thread messages to a draft batch. Items are appended in request order.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1187,15 +304,9 @@ Add graph episodes and thread messages to a draft batch. Items are appended in r
 <dd>
 
 ```typescript
-await client.batch.add("batchId", {
-    items: [
-        {
-            type: "graph_episode",
-        },
-    ],
-});
-```
+await client.batch.addItems("batch_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -1209,50 +320,37 @@ await client.batch.add("batchId", {
 <dl>
 <dd>
 
-**batchId:** `string` — The batch ID.
-
+**batch_uuid:** `string` — Batch UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.ApidataAddBatchItemsRequest`
-
+**request:** `Zep.AddBatchItemsRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `BatchClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">process</a>(batchId) -> Zep.BatchSummary</code></summary>
+<details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">process</a>(batch_uuid) -> Zep.ProcessBatchResult</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Start processing a filled batch. Repeated calls return a conflict.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1263,9 +361,9 @@ Start processing a filled batch. Repeated calls return a conflict.
 <dd>
 
 ```typescript
-await client.batch.process("batchId");
-```
+await client.batch.process("batch_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -1279,44 +377,30 @@ await client.batch.process("batchId");
 <dl>
 <dd>
 
-**batchId:** `string` — The batch ID.
-
+**batch_uuid:** `string` — Batch UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Batch.RequestOptions`
+**requestOptions:** `BatchClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Context
-
-<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">listContextTemplates</a>() -> Zep.ListContextTemplatesResponse</code></summary>
+<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">createTemplate</a>({ ...params }) -> Zep.ContextTemplate</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists all context templates.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1327,9 +411,9 @@ Lists all context templates.
 <dd>
 
 ```typescript
-await client.context.listContextTemplates();
-```
+await client.context.createTemplate({});
 
+```
 </dd>
 </dl>
 </dd>
@@ -1343,34 +427,29 @@ await client.context.listContextTemplates();
 <dl>
 <dd>
 
-**requestOptions:** `Context.RequestOptions`
+**request:** `Zep.CreateContextTemplateRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `ContextClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">createContextTemplate</a>({ ...params }) -> Zep.ContextTemplateResponse</code></summary>
+<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">listTemplates</a>({ ...params }) -> core.Page&lt;Zep.ContextTemplate, Zep.ContextTemplatePage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a new context template.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1381,138 +460,27 @@ Creates a new context template.
 <dd>
 
 ```typescript
-await client.context.createContextTemplate({
-    template: "template",
-    templateId: "template_id",
+const pageableResponse = await client.context.listTemplates({
+    limit: 1,
+    cursor: "cursor"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.CreateContextTemplateRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Context.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">getContextTemplate</a>(templateId) -> Zep.ContextTemplateResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves a context template by template_id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.context.getContextTemplate("template_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**templateId:** `string` — Template ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Context.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">updateContextTemplate</a>(templateId, { ...params }) -> Zep.ContextTemplateResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates an existing context template by template_id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.context.updateContextTemplate("template_id", {
-    template: "template",
+// Or you can manually iterate page-by-page
+let page = await client.context.listTemplates({
+    limit: 1,
+    cursor: "cursor"
 });
-```
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -1526,50 +494,29 @@ await client.context.updateContextTemplate("template_id", {
 <dl>
 <dd>
 
-**templateId:** `string` — Template ID
-
+**request:** `Zep.ContextTemplateListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.UpdateContextTemplateRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Context.RequestOptions`
-
+**requestOptions:** `ContextClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">deleteContextTemplate</a>(templateId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">getTemplate</a>(template_uuid) -> Zep.ContextTemplate</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a context template by template_id.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1580,9 +527,9 @@ Deletes a context template by template_id.
 <dd>
 
 ```typescript
-await client.context.deleteContextTemplate("template_id");
-```
+await client.context.getTemplate("template_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -1596,631 +543,137 @@ await client.context.deleteContextTemplate("template_id");
 <dl>
 <dd>
 
-**templateId:** `string` — Template ID
-
+**template_uuid:** `string` — Template UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Context.RequestOptions`
+**requestOptions:** `ContextClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">updateTemplate</a>(template_uuid, { ...params }) -> Zep.ContextTemplate</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.context.updateTemplate("template_uuid", {});
+
+```
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**template_uuid:** `string` — Template UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.CreateContextTemplateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ContextClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.context.<a href="/src/api/resources/context/client/Client.ts">deleteTemplate</a>(template_uuid) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.context.deleteTemplate("template_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**template_uuid:** `string` — Template UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ContextClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
 </details>
 
 ## Graph
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listCustomInstructions</a>({ ...params }) -> Zep.ListCustomInstructionsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists all custom instructions for a project, user, or graph.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.listCustomInstructions({
-    userId: "user_id",
-    graphId: "graph_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphListCustomInstructionsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">addCustomInstructions</a>({ ...params }) -> Zep.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Adds new custom instructions for graphs without removing existing ones. If user_ids or graph_ids is empty, adds to project-wide default instructions.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.addCustomInstructions({
-    instructions: [
-        {
-            name: "name",
-            text: "text",
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.AddCustomInstructionsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">deleteCustomInstructions</a>({ ...params }) -> Zep.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes custom instructions for graphs or project wide defaults.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.deleteCustomInstructions();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.DeleteCustomInstructionsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listEntityTypes</a>({ ...params }) -> Zep.EntityTypeResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all entity types for a project, user, or graph.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.listEntityTypes({
-    userId: "user_id",
-    graphId: "graph_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphListEntityTypesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">setEntityTypesInternal</a>({ ...params }) -> Zep.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Sets the entity types for multiple users and graphs, replacing any existing ones.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.setEntityTypesInternal();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.EntityTypeRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">add</a>({ ...params }) -> Zep.Episode</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add data to the graph.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.add({
-    data: "data",
-    type: "text",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.AddDataRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">addBatch</a>({ ...params }) -> Zep.Episode[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*`) instead.
-
-Adds data to the graph in batch mode, processing episodes concurrently.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.addBatch({
-    episodes: [
-        {
-            data: "data",
-            type: "text",
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.AddDataBatchRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">addFactTriple</a>({ ...params }) -> Zep.AddTripleResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add a fact triple for a user or group
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.addFactTriple({
-    fact: "fact",
-    factName: "fact_name",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.AddTripleRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">clone</a>({ ...params }) -> Zep.CloneGraphResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Clone a user or group graph.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.clone();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.CloneGraphRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">create</a>({ ...params }) -> Zep.Graph</code></summary>
 <dl>
 <dd>
 
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a new graph.
-</dd>
-</dl>
-</dd>
-</dl>
-
 #### 🔌 Usage
 
 <dl>
@@ -2230,11 +683,9 @@ Creates a new graph.
 <dd>
 
 ```typescript
-await client.graph.create({
-    graphId: "graph_id",
-});
-```
+await client.graph.create();
 
+```
 </dd>
 </dl>
 </dd>
@@ -2248,42 +699,29 @@ await client.graph.create({
 <dl>
 <dd>
 
-**request:** `Zep.CreateGraphRequest`
-
+**request:** `Zep.CreateGraphRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listAll</a>({ ...params }) -> Zep.GraphListResponse</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.Graph, Zep.GraphPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all graphs. In order to list users, use user.list_ordered instead
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2294,83 +732,31 @@ Returns all graphs. In order to list users, use user.list_ordered instead
 <dd>
 
 ```typescript
-await client.graph.listAll({
-    pageNumber: 1,
-    pageSize: 1,
-    search: "search",
+const pageableResponse = await client.graph.list({
+    limit: 1,
+    cursor: "cursor",
     orderBy: "order_by",
-    asc: true,
+    order: "order"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphListAllRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">addNodes</a>({ ...params }) -> Zep.AddNodesResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add entity nodes to a user or graph directly, without episode ingestion. Up to 100 nodes per request.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.addNodes({
-    nodes: [
-        {
-            name: "name",
-        },
-    ],
+// Or you can manually iterate page-by-page
+let page = await client.graph.list({
+    limit: 1,
+    cursor: "cursor",
+    orderBy: "order_by",
+    order: "order"
 });
-```
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -2384,45 +770,29 @@ await client.graph.addNodes({
 <dl>
 <dd>
 
-**request:** `Zep.AddNodesRequest`
-
+**request:** `Zep.GraphListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">detectPatterns</a>({ ...params }) -> Zep.DetectPatternsResponse</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">lookup</a>({ ...params }) -> Zep.Graph</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Detects structural patterns in a knowledge graph including relationship frequencies,
-multi-hop paths, co-occurrences, hubs, and clusters.
-When a query is provided, uses hybrid search to discover seed nodes,
-detects triple-frequency patterns, and returns resolved edges ranked by relevance.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2433,9 +803,9 @@ detects triple-frequency patterns, and returns resolved edges ranked by relevanc
 <dd>
 
 ```typescript
-await client.graph.detectPatterns();
-```
+await client.graph.lookup({});
 
+```
 </dd>
 </dl>
 </dd>
@@ -2449,42 +819,29 @@ await client.graph.detectPatterns();
 <dl>
 <dd>
 
-**request:** `Zep.DetectPatternsRequest`
-
+**request:** `Zep.LookupRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">search</a>({ ...params }) -> Zep.GraphSearchResults</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">get</a>(graph_uuid) -> Zep.Graph</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Perform a graph search query.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2495,75 +852,616 @@ Perform a graph search query.
 <dd>
 
 ```typescript
-await client.graph.search({
-    query: "query",
+await client.graph.get("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">delete</a>(graph_uuid) -> Zep.GraphDeleteResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.delete("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">update</a>(graph_uuid, { ...params }) -> Zep.Graph</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.update("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.PatchGraphRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">clone</a>(graph_uuid, { ...params }) -> Zep.CloneGraphResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.clone("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.CloneGraphRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getContext</a>(graph_uuid, { ...params }) -> Zep.GraphContextResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getContext("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphContextRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getInstructions</a>(graph_uuid) -> Zep.Instructions</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getInstructions("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">setInstructions</a>(graph_uuid, { ...params }) -> Zep.Instructions</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.setInstructions("graph_uuid", {});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.Instructions` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getObservationSteering</a>(graph_uuid) -> Zep.ObservationSteering</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getObservationSteering("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">setObservationSteering</a>(graph_uuid, { ...params }) -> Zep.ObservationSteering</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.setObservationSteering("graph_uuid", {});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.ObservationSteering` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getOntology</a>(graph_uuid) -> Zep.Ontology</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getOntology("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">setOntology</a>(graph_uuid, { ...params }) -> Zep.Ontology</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.setOntology("graph_uuid", {});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.Ontology` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">searchEdges</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.graph.searchEdges("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphSearchQuery`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Graph.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getSubgraph</a>({ ...params }) -> Zep.GraphSubgraphResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns the bounded neighborhood of a set of seed nodes as a single {nodes, edges} payload: breadth-first expansion up to a caller-specified depth, subject to explicit budgets, with explicit truncation reporting.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.getSubgraph({
-    seedNodeUuids: ["seed_node_uuids"],
+// Or you can manually iterate page-by-page
+let page = await client.graph.searchEdges("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
 });
-```
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -2577,42 +1475,37 @@ await client.graph.getSubgraph({
 <dl>
 <dd>
 
-**request:** `Zep.GraphSubgraphRequest`
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**request:** `Zep.GraphSearchEdgesRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">get</a>(graphId) -> Zep.Graph</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">searchEpisodes</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2623,9 +1516,29 @@ Returns a graph.
 <dd>
 
 ```typescript
-await client.graph.get("graphId");
-```
+const pageableResponse = await client.graph.searchEpisodes("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.searchEpisodes("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -2639,42 +1552,37 @@ await client.graph.get("graphId");
 <dl>
 <dd>
 
-**graphId:** `string` — The graph_id of the graph to get.
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**request:** `Zep.GraphSearchEpisodesRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">delete</a>(graphId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">searchNodes</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a graph. If you would like to delete a user graph, make sure to use user.delete instead.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2685,9 +1593,29 @@ Deletes a graph. If you would like to delete a user graph, make sure to use user
 <dd>
 
 ```typescript
-await client.graph.delete("graphId");
-```
+const pageableResponse = await client.graph.searchNodes("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.searchNodes("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -2701,42 +1629,37 @@ await client.graph.delete("graphId");
 <dl>
 <dd>
 
-**graphId:** `string` — Graph ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**request:** `Zep.GraphSearchNodesRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">update</a>(graphId, { ...params }) -> Zep.Graph</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">searchObservations</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates information about a graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2747,9 +1670,29 @@ Updates information about a graph.
 <dd>
 
 ```typescript
-await client.graph.update("graphId");
-```
+const pageableResponse = await client.graph.searchObservations("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.searchObservations("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -2763,50 +1706,37 @@ await client.graph.update("graphId");
 <dl>
 <dd>
 
-**graphId:** `string` — Graph ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.UpdateGraphRequest`
-
+**request:** `Zep.GraphSearchObservationsRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">warm</a>(graphId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">searchThreadSummaries</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Hints Zep to warm a graph for low-latency search
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2817,9 +1747,29 @@ Hints Zep to warm a graph for low-latency search
 <dd>
 
 ```typescript
-await client.graph.warm("graphId");
-```
+const pageableResponse = await client.graph.searchThreadSummaries("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.searchThreadSummaries("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -2833,44 +1783,194 @@ await client.graph.warm("graphId");
 <dl>
 <dd>
 
-**graphId:** `string` — The graph_id of the graph to warm.
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Graph.RequestOptions`
+**request:** `Zep.GraphSearchThreadSummariesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getSubgraph</a>(graph_uuid, { ...params }) -> Zep.JsonObject</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getSubgraph("graph_uuid");
+
+```
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.SubgraphRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">warm</a>(graph_uuid) -> Zep.AsyncResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.warm("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Lookup
+<details><summary><code>client.lookup.<a href="/src/api/resources/lookup/client/Client.ts">batch</a>({ ...params }) -> Zep.LookupBatchResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.lookup.batch();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.BatchLookupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `LookupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
 </details>
 
 ## Project
-
-<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">get</a>() -> Zep.ProjectInfoResponse</code></summary>
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">get</a>() -> Zep.Project</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve project info based on the provided api key.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2882,8 +1982,8 @@ Retrieve project info based on the provided api key.
 
 ```typescript
 await client.project.get();
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2897,34 +1997,21 @@ await client.project.get();
 <dl>
 <dd>
 
-**requestOptions:** `Project.RequestOptions`
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">update</a>({ ...params }) -> Zep.ProjectInfoResponse</code></summary>
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">update</a>({ ...params }) -> Zep.Project</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Sets or clears the project-level fallback time zone for the API key's project.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2936,8 +2023,8 @@ Sets or clears the project-level fallback time zone for the API key's project.
 
 ```typescript
 await client.project.update();
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -2951,42 +2038,29 @@ await client.project.update();
 <dl>
 <dd>
 
-**request:** `Zep.UpdateProjectInfoRequest`
-
+**request:** `Zep.PatchProjectRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Project.RequestOptions`
+**requestOptions:** `ProjectClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">getObservationSteering</a>({ ...params }) -> Zep.ObservationSteeringConfig</code></summary>
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">getInstructions</a>() -> Zep.Instructions</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns project steering or the effective user/graph steering with project fallback. This API is experimental and may change in future releases.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -2997,12 +2071,9 @@ Returns project steering or the effective user/graph steering with project fallb
 <dd>
 
 ```typescript
-await client.project.getObservationSteering({
-    userId: "user_id",
-    graphId: "graph_id",
-});
-```
+await client.project.getInstructions();
 
+```
 </dd>
 </dl>
 </dd>
@@ -3016,42 +2087,21 @@ await client.project.getObservationSteering({
 <dl>
 <dd>
 
-**request:** `Zep.GetObservationSteeringRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Project.RequestOptions`
-
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">setObservationSteering</a>({ ...params }) -> Zep.ObservationSteeringConfig</code></summary>
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">setInstructions</a>({ ...params }) -> Zep.Instructions</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Replaces project, user, or graph steering. An empty configuration clears the project default or removes the user/graph override. Changes affect later materializer runs only. This API is experimental and may change in future releases.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3062,13 +2112,9 @@ Replaces project, user, or graph steering. An empty configuration clears the pro
 <dd>
 
 ```typescript
-await client.project.setObservationSteering({
-    userId: "user_id",
-    graphId: "graph_id",
-    body: {},
-});
-```
+await client.project.setInstructions({});
 
+```
 </dd>
 </dl>
 </dd>
@@ -3082,44 +2128,300 @@ await client.project.setObservationSteering({
 <dl>
 <dd>
 
-**request:** `Zep.SetObservationSteeringRequest`
-
+**request:** `Zep.Instructions` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Project.RequestOptions`
+**requestOptions:** `ProjectClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">getObservationSteering</a>() -> Zep.ObservationSteering</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.getObservationSteering();
+
+```
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">setObservationSteering</a>({ ...params }) -> Zep.ObservationSteering</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.setObservationSteering({});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.ObservationSteering` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">getOntology</a>() -> Zep.Ontology</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.getOntology();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">setOntology</a>({ ...params }) -> Zep.Ontology</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.setOntology({});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.Ontology` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">getUserSummaryInstructions</a>() -> Zep.UserSummaryInstructions</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.getUserSummaryInstructions();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">setUserSummaryInstructions</a>({ ...params }) -> Zep.UserSummaryInstructions</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.setUserSummaryInstructions({});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserSummaryInstructions` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
 </details>
 
 ## Task
-
-<details><summary><code>client.task.<a href="/src/api/resources/task/client/Client.ts">get</a>(taskId) -> Zep.GetTaskResponse</code></summary>
+<details><summary><code>client.task.<a href="/src/api/resources/task/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.Task, Zep.TaskPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets a task by its ID
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3130,9 +2432,27 @@ Gets a task by its ID
 <dd>
 
 ```typescript
-await client.task.get("task_id");
-```
+const pageableResponse = await client.task.list({
+    limit: 1,
+    cursor: "cursor"
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.task.list({
+    limit: 1,
+    cursor: "cursor"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -3146,44 +2466,79 @@ await client.task.get("task_id");
 <dl>
 <dd>
 
-**taskId:** `string` — Task ID
-
+**request:** `Zep.TaskListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Task.RequestOptions`
+**requestOptions:** `TaskClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.task.<a href="/src/api/resources/task/client/Client.ts">get</a>(task_uuid) -> Zep.Task</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.task.get("task_uuid");
+
+```
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**task_uuid:** `string` — Task UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TaskClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
 </details>
 
 ## Thread
-
-<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">listAll</a>({ ...params }) -> Zep.ThreadListResponse</code></summary>
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.Thread, Zep.ThreadPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all threads.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3194,14 +2549,33 @@ Returns all threads.
 <dd>
 
 ```typescript
-await client.thread.listAll({
-    pageNumber: 1,
-    pageSize: 1,
+const pageableResponse = await client.thread.list({
+    limit: 1,
+    cursor: "cursor",
     orderBy: "order_by",
-    asc: true,
+    order: "order",
+    userUuid: "user_uuid"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.thread.list({
+    limit: 1,
+    cursor: "cursor",
+    orderBy: "order_by",
+    order: "order",
+    userUuid: "user_uuid"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -3215,20 +2589,21 @@ await client.thread.listAll({
 <dl>
 <dd>
 
-**request:** `Zep.ThreadListAllRequest`
-
+**request:** `Zep.ThreadListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Thread.RequestOptions`
+**requestOptions:** `ThreadClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
@@ -3238,7 +2613,7 @@ await client.thread.listAll({
 <dl>
 <dd>
 
-#### 📝 Description
+#### 🔌 Usage
 
 <dl>
 <dd>
@@ -3246,11 +2621,46 @@ await client.thread.listAll({
 <dl>
 <dd>
 
-Start a new thread.
+```typescript
+await client.thread.create();
+
+```
 </dd>
 </dl>
 </dd>
 </dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.CreateThreadRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">lookup</a>({ ...params }) -> Zep.Thread</code></summary>
+<dl>
+<dd>
 
 #### 🔌 Usage
 
@@ -3261,12 +2671,158 @@ Start a new thread.
 <dd>
 
 ```typescript
-await client.thread.create({
-    threadId: "thread_id",
-    userId: "user_id",
+await client.thread.lookup({});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.LookupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">get</a>(thread_uuid) -> Zep.Thread</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.get("thread_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**thread_uuid:** `string` — Thread UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">delete</a>(thread_uuid) -> Zep.ThreadDeleteResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.delete("thread_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**thread_uuid:** `string` — Thread UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ThreadClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">getContext</a>(thread_uuid, { ...params }) -> Zep.ThreadContextResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.getContext("thread_uuid", {
+    templateUuid: "template_uuid"
 });
-```
 
+```
 </dd>
 </dl>
 </dd>
@@ -3280,42 +2836,37 @@ await client.thread.create({
 <dl>
 <dd>
 
-**request:** `Zep.CreateThreadRequest`
-
+**thread_uuid:** `string` — Thread UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Thread.RequestOptions`
+**request:** `Zep.ThreadGetContextRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `ThreadClient.RequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">delete</a>(threadId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">listEpisodes</a>(thread_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a thread.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3326,147 +2877,27 @@ Deletes a thread.
 <dd>
 
 ```typescript
-await client.thread.delete("threadId");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**threadId:** `string` — The ID of the thread for which memory should be deleted.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Thread.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">getUserContext</a>(threadId, { ...params }) -> Zep.ThreadContextResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns most relevant context from the user graph (including memory from any/all past threads) based on the content of the past few messages of the given thread.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.thread.getUserContext("threadId", {
-    templateId: "template_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**threadId:** `string` — The ID of the current thread (for which context is being retrieved).
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.ThreadGetUserContextRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Thread.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">get</a>(threadId, { ...params }) -> Zep.MessageListResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns messages for a thread.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.thread.get("threadId", {
+const pageableResponse = await client.thread.listEpisodes("thread_uuid", {
     limit: 1,
-    cursor: 1,
-    lastn: 1,
+    cursor: "cursor"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.thread.listEpisodes("thread_uuid", {
+    limit: 1,
+    cursor: "cursor"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -3480,50 +2911,37 @@ await client.thread.get("threadId", {
 <dl>
 <dd>
 
-**threadId:** `string` — Thread ID
-
+**thread_uuid:** `string` — Thread UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.ThreadGetRequest`
-
+**request:** `Zep.ThreadListEpisodesRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Thread.RequestOptions`
+**requestOptions:** `ThreadClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">addMessages</a>(threadId, { ...params }) -> Zep.AddThreadMessagesResponse</code></summary>
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">listMessages</a>(thread_uuid, { ...params }) -> core.Page&lt;Zep.Message, Zep.MessagePage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Add messages to a thread.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3534,16 +2952,27 @@ Add messages to a thread.
 <dd>
 
 ```typescript
-await client.thread.addMessages("threadId", {
-    messages: [
-        {
-            content: "content",
-            role: "norole",
-        },
-    ],
+const pageableResponse = await client.thread.listMessages("thread_uuid", {
+    limit: 1,
+    cursor: "cursor"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.thread.listMessages("thread_uuid", {
+    limit: 1,
+    cursor: "cursor"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -3557,52 +2986,37 @@ await client.thread.addMessages("threadId", {
 <dl>
 <dd>
 
-**threadId:** `string` — The ID of the thread to which messages should be added.
-
+**thread_uuid:** `string` — Thread UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.AddThreadMessagesRequest`
-
+**request:** `Zep.ThreadListMessagesRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Thread.RequestOptions`
+**requestOptions:** `ThreadClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">addMessagesBatch</a>(threadId, { ...params }) -> Zep.AddThreadMessagesResponse</code></summary>
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">addMessages</a>(thread_uuid, { ...params }) -> Zep.AddMessagesResult</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deprecated. Use the [Batch API](/adding-batch-data) (`client.batch.*` with `type: "thread_message"`) instead.
-
-Adds messages to a thread in batch mode, processing messages concurrently.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3613,16 +3027,9 @@ Adds messages to a thread in batch mode, processing messages concurrently.
 <dd>
 
 ```typescript
-await client.thread.addMessagesBatch("threadId", {
-    messages: [
-        {
-            content: "content",
-            role: "norole",
-        },
-    ],
-});
-```
+await client.thread.addMessages("thread_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -3636,50 +3043,37 @@ await client.thread.addMessagesBatch("threadId", {
 <dl>
 <dd>
 
-**threadId:** `string` — The ID of the thread to which messages should be added.
-
+**thread_uuid:** `string` — Thread UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.AddThreadMessagesRequest`
-
+**request:** `Zep.AddMessagesRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Thread.RequestOptions`
+**requestOptions:** `ThreadClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">getSummary</a>(threadId) -> Zep.ThreadSummary</code></summary>
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">getSummary</a>(thread_uuid) -> Zep.ThreadSummary</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns the incremental summary generated from messages in the thread. Returns 404 if no summary exists for the thread.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3690,9 +3084,9 @@ Returns the incremental summary generated from messages in the thread. Returns 4
 <dd>
 
 ```typescript
-await client.thread.getSummary("threadId");
-```
+await client.thread.getSummary("thread_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -3706,44 +3100,30 @@ await client.thread.getSummary("threadId");
 <dl>
 <dd>
 
-**threadId:** `string` — The thread ID.
-
+**thread_uuid:** `string` — Thread UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Thread.RequestOptions`
+**requestOptions:** `ThreadClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## User
-
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">listUserSummaryInstructions</a>({ ...params }) -> Zep.ListUserInstructionsResponse</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">create</a>({ ...params }) -> Zep.User</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists all user summary instructions for a project, user.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3754,11 +3134,9 @@ Lists all user summary instructions for a project, user.
 <dd>
 
 ```typescript
-await client.user.listUserSummaryInstructions({
-    userId: "user_id",
-});
-```
+await client.user.create();
 
+```
 </dd>
 </dl>
 </dd>
@@ -3772,42 +3150,29 @@ await client.user.listUserSummaryInstructions({
 <dl>
 <dd>
 
-**request:** `Zep.UserListUserSummaryInstructionsRequest`
-
+**request:** `Zep.CreateUserRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `User.RequestOptions`
+**requestOptions:** `UserClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">addUserSummaryInstructions</a>({ ...params }) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.User, Zep.UserPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Adds new summary instructions for users graphs without removing existing ones. If user_ids is empty, adds to project-wide default instructions.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -3818,210 +3183,31 @@ Adds new summary instructions for users graphs without removing existing ones. I
 <dd>
 
 ```typescript
-await client.user.addUserSummaryInstructions({
-    instructions: [
-        {
-            name: "name",
-            text: "text",
-        },
-    ],
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.AddUserInstructionsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `User.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">deleteUserSummaryInstructions</a>({ ...params }) -> Zep.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes user summary/instructions for users or project wide defaults.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.user.deleteUserSummaryInstructions();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.DeleteUserInstructionsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `User.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">add</a>({ ...params }) -> Zep.User</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Adds a user.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.user.add({
-    userId: "user_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Zep.CreateUserRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `User.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">listOrdered</a>({ ...params }) -> Zep.UserListResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all users.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.user.listOrdered({
-    pageNumber: 1,
-    pageSize: 1,
-    search: "search",
+const pageableResponse = await client.user.list({
+    limit: 1,
+    cursor: "cursor",
     orderBy: "order_by",
-    asc: true,
+    order: "order"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.user.list({
+    limit: 1,
+    cursor: "cursor",
+    orderBy: "order_by",
+    order: "order"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -4035,42 +3221,29 @@ await client.user.listOrdered({
 <dl>
 <dd>
 
-**request:** `Zep.UserListOrderedRequest`
-
+**request:** `Zep.UserListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `User.RequestOptions`
+**requestOptions:** `UserClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">get</a>(userId) -> Zep.User</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">lookup</a>({ ...params }) -> Zep.User</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a user.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4081,9 +3254,9 @@ Returns a user.
 <dd>
 
 ```typescript
-await client.user.get("userId");
-```
+await client.user.lookup({});
 
+```
 </dd>
 </dl>
 </dd>
@@ -4097,42 +3270,29 @@ await client.user.get("userId");
 <dl>
 <dd>
 
-**userId:** `string` — The user_id of the user to get.
-
+**request:** `Zep.LookupRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `User.RequestOptions`
+**requestOptions:** `UserClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">delete</a>(userId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">get</a>(user_uuid) -> Zep.User</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a user.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4143,9 +3303,9 @@ Deletes a user.
 <dd>
 
 ```typescript
-await client.user.delete("userId");
-```
+await client.user.get("user_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -4159,42 +3319,29 @@ await client.user.delete("userId");
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**user_uuid:** `string` — User UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `User.RequestOptions`
+**requestOptions:** `UserClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">update</a>(userId, { ...params }) -> Zep.User</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">delete</a>(user_uuid) -> Zep.UserDeleteResult</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a user.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4205,9 +3352,9 @@ Updates a user.
 <dd>
 
 ```typescript
-await client.user.update("userId");
-```
+await client.user.delete("user_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -4221,50 +3368,29 @@ await client.user.update("userId");
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**user_uuid:** `string` — User UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.UpdateUserRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `User.RequestOptions`
-
+**requestOptions:** `UserClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getNode</a>(userId) -> Zep.UserNodeResponse</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">update</a>(user_uuid, { ...params }) -> Zep.User</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a user's node.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4275,9 +3401,9 @@ Returns a user's node.
 <dd>
 
 ```typescript
-await client.user.getNode("userId");
-```
+await client.user.update("user_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -4291,42 +3417,37 @@ await client.user.getNode("userId");
 <dl>
 <dd>
 
-**userId:** `string` — The user_id of the user to get the node for.
-
+**user_uuid:** `string` — User UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `User.RequestOptions`
+**request:** `Zep.PatchUserRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `UserClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getThreads</a>(userId) -> Zep.Thread[]</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getNode</a>(user_uuid) -> Zep.JsonObject</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all threads for a user.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4337,9 +3458,9 @@ Returns all threads for a user.
 <dd>
 
 ```typescript
-await client.user.getThreads("userId");
-```
+await client.user.getNode("user_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -4353,42 +3474,29 @@ await client.user.getThreads("userId");
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**user_uuid:** `string` — User UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `User.RequestOptions`
+**requestOptions:** `UserClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">warm</a>(userId) -> Zep.SuccessResponse</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getSummaryInstructions</a>(user_uuid) -> Zep.UserSummaryInstructions</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Hints Zep to warm a user's graph for low-latency search
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4399,9 +3507,9 @@ Hints Zep to warm a user's graph for low-latency search
 <dd>
 
 ```typescript
-await client.user.warm("userId");
-```
+await client.user.getSummaryInstructions("user_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -4415,44 +3523,29 @@ await client.user.warm("userId");
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**user_uuid:** `string` — User UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `User.RequestOptions`
+**requestOptions:** `UserClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-## Graph Edge
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.EntityEdge[]</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">setSummaryInstructions</a>(user_uuid, { ...params }) -> Zep.UserSummaryInstructions</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all edges for a graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4463,9 +3556,9 @@ Returns all edges for a graph.
 <dd>
 
 ```typescript
-await client.graph.edge.getByGraphId("graph_id", {});
-```
+await client.user.setSummaryInstructions("user_uuid", {});
 
+```
 </dd>
 </dl>
 </dd>
@@ -4479,50 +3572,38 @@ await client.graph.edge.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**graphId:** `string` — Graph ID
-
+**user_uuid:** `string` — User UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphEdgesRequest`
-
+**request:** `Zep.UserSummaryInstructions` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Edge.RequestOptions`
+**requestOptions:** `UserClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.EntityEdge[]</code></summary>
+## Graph DocumentSummary
+<details><summary><code>client.graph.documentSummary.<a href="/src/api/resources/graph/resources/documentSummary/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all edges for a user.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4533,9 +3614,29 @@ Returns all edges for a user.
 <dd>
 
 ```typescript
-await client.graph.edge.getByUserId("user_id", {});
-```
+const pageableResponse = await client.graph.documentSummary.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.documentSummary.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -4549,246 +3650,38 @@ await client.graph.edge.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphEdgesRequest`
-
+**request:** `Zep.graph.DocumentSummaryListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Edge.RequestOptions`
-
+**requestOptions:** `DocumentSummaryClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
 
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">get</a>(uuid) -> Zep.EntityEdge</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a specific edge by its UUID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.edge.get("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Edge UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Edge.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">delete</a>(uuid) -> Zep.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes an edge by UUID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.edge.delete("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Edge UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Edge.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">update</a>(uuid, { ...params }) -> Zep.EntityEdge</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates an entity edge by UUID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.edge.update("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Edge UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.graph.UpdateEdgeRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Edge.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Graph Episode
-
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.EpisodeResponse</code></summary>
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">listForDocument</a>(graph_uuid, document_id, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns episodes by graph id.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -4799,153 +3692,27 @@ Returns episodes by graph id.
 <dd>
 
 ```typescript
-await client.graph.episode.getByGraphId("graph_id", {
-    lastn: 1,
+const pageableResponse = await client.graph.episode.listForDocument("graph_uuid", "document_id", {
+    limit: 1,
+    cursor: "cursor"
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graphId:** `string` — Graph ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.graph.EpisodeGetByGraphIdRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Episode.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">listByGraphId</a>(graphId, { ...params }) -> Zep.Episode[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a paginated, filterable list of episodes for a graph.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.episode.listByGraphId("graph_id", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graphId:** `string` — Graph ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphEpisodeListRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Episode.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.EpisodeResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns episodes by user id.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.episode.getByUserId("user_id", {
-    lastn: 1,
+// Or you can manually iterate page-by-page
+let page = await client.graph.episode.listForDocument("graph_uuid", "document_id", {
+    limit: 1,
+    cursor: "cursor"
 });
-```
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
 
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -4959,50 +3726,45 @@ await client.graph.episode.getByUserId("user_id", {
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.graph.EpisodeGetByUserIdRequest`
-
+**document_id:** `string` — Document ID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Episode.RequestOptions`
+**request:** `Zep.graph.EpisodeListForDocumentRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `EpisodeClient.RequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">listByUserId</a>(userId, { ...params }) -> Zep.Episode[]</code></summary>
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddEpisodeResult</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a paginated, filterable list of episodes for a user's graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5013,9 +3775,9 @@ Returns a paginated, filterable list of episodes for a user's graph.
 <dd>
 
 ```typescript
-await client.graph.episode.listByUserId("user_id", {});
-```
+await client.graph.episode.add("graph_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -5029,50 +3791,37 @@ await client.graph.episode.listByUserId("user_id", {});
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphEpisodeListRequest`
-
+**request:** `Zep.graph.AddEpisodeRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Episode.RequestOptions`
+**requestOptions:** `EpisodeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">get</a>(uuid) -> Zep.Episode</code></summary>
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns episodes by UUID
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5083,137 +3832,29 @@ Returns episodes by UUID
 <dd>
 
 ```typescript
-await client.graph.episode.get("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Episode UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Episode.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">delete</a>(uuid) -> Zep.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes an episode by its UUID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.episode.delete("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Episode UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Episode.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">update</a>(uuid, { ...params }) -> Zep.Episode</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update episode metadata with merge semantics. Supplied keys overwrite or add to existing metadata; keys set to null are removed.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.episode.update("uuid", {
-    metadata: {
-        key: "value",
-    },
+const pageableResponse = await client.graph.episode.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
 });
-```
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.episode.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -5227,50 +3868,37 @@ await client.graph.episode.update("uuid", {
 <dl>
 <dd>
 
-**uuid:** `string` — Episode UUID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.graph.UpdateEpisodeRequest`
-
+**request:** `Zep.graph.EpisodeListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Episode.RequestOptions`
+**requestOptions:** `EpisodeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">getNodesAndEdges</a>(uuid) -> Zep.EpisodeMentions</code></summary>
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">get</a>(graph_uuid, episode_uuid) -> Zep.JsonObject</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deprecated. Use edge and node listing with `filters.episode_uuids` instead. Returns nodes and edges mentioned in an episode, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5281,9 +3909,9 @@ Deprecated. Use edge and node listing with `filters.episode_uuids` instead. Retu
 <dd>
 
 ```typescript
-await client.graph.episode.getNodesAndEdges("uuid");
-```
+await client.graph.episode.get("graph_uuid", "episode_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -5297,44 +3925,474 @@ await client.graph.episode.getNodesAndEdges("uuid");
 <dl>
 <dd>
 
-**uuid:** `string` — Episode uuid
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Episode.RequestOptions`
+**episode_uuid:** `string` — Episode UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EpisodeClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
+</details>
+
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">delete</a>(graph_uuid, episode_uuid) -> Zep.AsyncResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.episode.delete("graph_uuid", "episode_uuid");
+
+```
 </dd>
 </dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**episode_uuid:** `string` — Episode UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EpisodeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">update</a>(graph_uuid, episode_uuid, { ...params }) -> Zep.JsonObject</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.episode.update("graph_uuid", "episode_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**episode_uuid:** `string` — Episode UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.PatchEpisodeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EpisodeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Graph Edge
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddEdgeResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.add("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.AddEdgeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.graph.edge.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.graph.edge.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.EdgeListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">get</a>(graph_uuid, edge_uuid) -> Zep.JsonObject</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.get("graph_uuid", "edge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**edge_uuid:** `string` — Edge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">delete</a>(graph_uuid, edge_uuid) -> Zep.AsyncResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.delete("graph_uuid", "edge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**edge_uuid:** `string` — Edge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">update</a>(graph_uuid, edge_uuid, { ...params }) -> Zep.JsonObject</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.update("graph_uuid", "edge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**edge_uuid:** `string` — Edge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.PatchEdgeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
 
 </dd>
 </dl>
 </details>
 
 ## Graph Node
-
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.EntityNode[]</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddNodesResult</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all nodes for a graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5345,9 +4403,9 @@ Returns all nodes for a graph.
 <dd>
 
 ```typescript
-await client.graph.node.getByGraphId("graph_id", {});
-```
+await client.graph.node.add("graph_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -5361,50 +4419,37 @@ await client.graph.node.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**graphId:** `string` — Graph ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphNodesRequest`
-
+**request:** `Zep.graph.AddNodesRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Node.RequestOptions`
+**requestOptions:** `NodeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.EntityNode[]</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns all nodes for a user
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5415,9 +4460,29 @@ Returns all nodes for a user
 <dd>
 
 ```typescript
-await client.graph.node.getByUserId("user_id", {});
-```
+const pageableResponse = await client.graph.node.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.node.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -5431,50 +4496,37 @@ await client.graph.node.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphNodesRequest`
-
+**request:** `Zep.graph.NodeListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Node.RequestOptions`
+**requestOptions:** `NodeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getEdges</a>(nodeUuid) -> Zep.EntityEdge[]</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">get</a>(graph_uuid, node_uuid) -> Zep.JsonObject</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deprecated. Use edge listing with `filters.connected_node_uuids`, or the neighbors endpoint (`POST /graph/node/{node_uuid}/neighbors`), instead. Returns all edges for a node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5485,9 +4537,9 @@ Deprecated. Use edge listing with `filters.connected_node_uuids`, or the neighbo
 <dd>
 
 ```typescript
-await client.graph.node.getEdges("node_uuid");
-```
+await client.graph.node.get("graph_uuid", "node_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -5501,42 +4553,37 @@ await client.graph.node.getEdges("node_uuid");
 <dl>
 <dd>
 
-**nodeUuid:** `string` — Node UUID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Node.RequestOptions`
+**node_uuid:** `string` — Node UUID
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `NodeClient.RequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getEpisodes</a>(nodeUuid) -> Zep.EpisodeResponse</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">delete</a>(graph_uuid, node_uuid) -> Zep.AsyncResult</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deprecated. Use episode listing with `mentioned_node_uuids` (`POST /graph/episodes/graph/{graph_id}` or `POST /graph/episodes/user/{user_id}`) instead. Returns episodes that mentioned a given node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5547,9 +4594,9 @@ Deprecated. Use episode listing with `mentioned_node_uuids` (`POST /graph/episod
 <dd>
 
 ```typescript
-await client.graph.node.getEpisodes("node_uuid");
-```
+await client.graph.node.delete("graph_uuid", "node_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -5563,42 +4610,37 @@ await client.graph.node.getEpisodes("node_uuid");
 <dl>
 <dd>
 
-**nodeUuid:** `string` — Node UUID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Node.RequestOptions`
+**node_uuid:** `string` — Node UUID
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `NodeClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">getNeighbors</a>(nodeUuid, { ...params }) -> Zep.GraphNodeNeighbor[]</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">update</a>(graph_uuid, node_uuid, { ...params }) -> Zep.JsonObject</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Enumerates the distinct entity nodes directly connected to a node, together with the edges connecting each to it.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5609,9 +4651,9 @@ Enumerates the distinct entity nodes directly connected to a node, together with
 <dd>
 
 ```typescript
-await client.graph.node.getNeighbors("node_uuid");
-```
+await client.graph.node.update("graph_uuid", "node_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -5625,50 +4667,45 @@ await client.graph.node.getNeighbors("node_uuid");
 <dl>
 <dd>
 
-**nodeUuid:** `string` — Node UUID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.graph.GraphNodeNeighborsRequest`
-
+**node_uuid:** `string` — Node UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Node.RequestOptions`
+**request:** `Zep.graph.PatchNodeRequest` 
+    
+</dd>
+</dl>
 
+<dl>
+<dd>
+
+**requestOptions:** `NodeClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">get</a>(uuid) -> Zep.EntityNode</code></summary>
+<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">listNeighbors</a>(graph_uuid, node_uuid, { ...params }) -> core.Page&lt;Zep.NeighborEntry, Zep.NeighborPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a specific node by its UUID.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5679,9 +4716,27 @@ Returns a specific node by its UUID.
 <dd>
 
 ```typescript
-await client.graph.node.get("uuid");
-```
+const pageableResponse = await client.graph.node.listNeighbors("graph_uuid", "node_uuid", {
+    limit: 1,
+    cursor: "cursor"
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.node.listNeighbors("graph_uuid", "node_uuid", {
+    limit: 1,
+    cursor: "cursor"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -5695,176 +4750,46 @@ await client.graph.node.get("uuid");
 <dl>
 <dd>
 
-**uuid:** `string` — Node UUID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Node.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">delete</a>(uuid) -> Zep.SuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes a node by UUID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.node.delete("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Node UUID
-
+**node_uuid:** `string` — Node UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Node.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.node.<a href="/src/api/resources/graph/resources/node/client/Client.ts">update</a>(uuid, { ...params }) -> Zep.EntityNode</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates an entity node by UUID.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.node.update("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Node UUID
-
+**request:** `Zep.graph.NeighborsRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.graph.UpdateNodeRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Node.RequestOptions`
-
+**requestOptions:** `NodeClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
+
 
 </dd>
 </dl>
 </details>
 
 ## Graph Observation
-
-<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.DerivedNode[]</code></summary>
+<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns read-only observation nodes for a graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5875,9 +4800,29 @@ Returns read-only observation nodes for a graph.
 <dd>
 
 ```typescript
-await client.graph.observation.getByGraphId("graph_id", {});
-```
+const pageableResponse = await client.graph.observation.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.observation.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -5891,50 +4836,37 @@ await client.graph.observation.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**graphId:** `string` — Graph ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphObservationsRequest`
-
+**request:** `Zep.graph.ObservationListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Observation.RequestOptions`
+**requestOptions:** `ObservationClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
-<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.DerivedNode[]</code></summary>
+<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">get</a>(graph_uuid, observation_uuid) -> Zep.JsonObject</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns read-only observation nodes for a user's graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -5945,9 +4877,9 @@ Returns read-only observation nodes for a user's graph.
 <dd>
 
 ```typescript
-await client.graph.observation.getByUserId("user_id", {});
-```
+await client.graph.observation.get("graph_uuid", "observation_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -5961,114 +4893,38 @@ await client.graph.observation.getByUserId("user_id", {});
 <dl>
 <dd>
 
-**userId:** `string` — User ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphObservationsRequest`
-
+**observation_uuid:** `string` — Observation UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Observation.RequestOptions`
-
+**requestOptions:** `ObservationClient.RequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
 
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.observation.<a href="/src/api/resources/graph/resources/observation/client/Client.ts">get</a>(uuid) -> Zep.DerivedNode</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns a specific observation node by UUID. Observation nodes are read-only.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.observation.get("uuid");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**uuid:** `string` — Observation UUID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Observation.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Graph ThreadSummary
-
-<details><summary><code>client.graph.threadSummary.<a href="/src/api/resources/graph/resources/threadSummary/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.ThreadSummary[]</code></summary>
+<details><summary><code>client.graph.threadSummary.<a href="/src/api/resources/graph/resources/threadSummary/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.JsonObject, Zep.JsonObjectPage&gt;</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns incremental thread summaries associated with the graph.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -6079,9 +4935,29 @@ Returns incremental thread summaries associated with the graph.
 <dd>
 
 ```typescript
-await client.graph.threadSummary.getByGraphId("graph_id", {});
-```
+const pageableResponse = await client.graph.threadSummary.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
 
+// Or you can manually iterate page-by-page
+let page = await client.graph.threadSummary.list("graph_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
 </dd>
 </dl>
 </dd>
@@ -6095,122 +4971,38 @@ await client.graph.threadSummary.getByGraphId("graph_id", {});
 <dl>
 <dd>
 
-**graphId:** `string` — Graph ID
-
+**graph_uuid:** `string` — Graph UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.GraphThreadSummariesRequest`
-
+**request:** `Zep.graph.ThreadSummaryListRequest` 
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `ThreadSummary.RequestOptions`
-
+**requestOptions:** `ThreadSummaryClient.IdempotentRequestOptions` 
+    
 </dd>
 </dl>
 </dd>
 </dl>
 
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.threadSummary.<a href="/src/api/resources/graph/resources/threadSummary/client/Client.ts">getByUserId</a>(userId, { ...params }) -> Zep.ThreadSummary[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Returns incremental thread summaries generated from messages in each thread associated with the user's graph.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.threadSummary.getByUserId("user_id", {});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**userId:** `string` — User ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.GraphThreadSummariesRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ThreadSummary.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
 
 ## Thread Message
-
-<details><summary><code>client.thread.message.<a href="/src/api/resources/thread/resources/message/client/Client.ts">update</a>(messageUuid, { ...params }) -> Zep.Message</code></summary>
+<details><summary><code>client.thread.message.<a href="/src/api/resources/thread/resources/message/client/Client.ts">get</a>(thread_uuid, message_uuid) -> Zep.Message</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates a message.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -6221,13 +5013,9 @@ Updates a message.
 <dd>
 
 ```typescript
-await client.thread.message.update("messageUUID", {
-    metadata: {
-        key: "value",
-    },
-});
-```
+await client.thread.message.get("thread_uuid", "message_uuid");
 
+```
 </dd>
 </dl>
 </dd>
@@ -6241,29 +5029,96 @@ await client.thread.message.update("messageUUID", {
 <dl>
 <dd>
 
-**messageUuid:** `string` — The UUID of the message.
-
+**thread_uuid:** `string` — Thread UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**request:** `Zep.thread.ThreadMessageUpdate`
-
+**message_uuid:** `string` — Message UUID
+    
 </dd>
 </dl>
 
 <dl>
 <dd>
 
-**requestOptions:** `Message.RequestOptions`
+**requestOptions:** `MessageClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
 
-</dd>
-</dl>
-</dd>
-</dl>
 
 </dd>
 </dl>
 </details>
+
+<details><summary><code>client.thread.message.<a href="/src/api/resources/thread/resources/message/client/Client.ts">update</a>(thread_uuid, message_uuid, { ...params }) -> Zep.Message</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.message.update("thread_uuid", "message_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**thread_uuid:** `string` — Thread UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**message_uuid:** `string` — Message UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.thread.PatchMessageRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `MessageClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
