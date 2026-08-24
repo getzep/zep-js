@@ -1,2 +1,1 @@
-export { CreateContextTemplateRequest } from "./CreateContextTemplateRequest.js";
-export { UpdateContextTemplateRequest } from "./UpdateContextTemplateRequest.js";
+export { ContextTemplateListRequest } from "./ContextTemplateListRequest.js";

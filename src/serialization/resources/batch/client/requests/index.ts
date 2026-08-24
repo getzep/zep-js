@@ -1,2 +1,2 @@
-export { ApidataCreateBatchRequest } from "./ApidataCreateBatchRequest.js";
-export { ApidataAddBatchItemsRequest } from "./ApidataAddBatchItemsRequest.js";
+export { AddBatchItemsRequest } from "./AddBatchItemsRequest.js";
+export { CreateBatchRequest } from "./CreateBatchRequest.js";

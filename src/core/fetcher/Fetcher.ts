@@ -1,13 +1,17 @@
 import { toJson } from "../json.js";
-import { APIResponse } from "./APIResponse.js";
-import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse.js";
-import { Supplier } from "./Supplier.js";
+import { createLogger, type LogConfig, type Logger } from "../logging/logger.js";
+import type { APIResponse } from "./APIResponse.js";
 import { createRequestUrl } from "./createRequestUrl.js";
+import type { EndpointMetadata } from "./EndpointMetadata.js";
+import { EndpointSupplier } from "./EndpointSupplier.js";
 import { getErrorResponseBody } from "./getErrorResponseBody.js";
 import { getFetchFn } from "./getFetchFn.js";
 import { getRequestBody } from "./getRequestBody.js";
 import { getResponseBody } from "./getResponseBody.js";
+import { Headers } from "./Headers.js";
 import { makeRequest } from "./makeRequest.js";
+import { abortRawResponse, toRawResponse, unknownRawResponse } from "./RawResponse.js";
+import { redactUrl, SENSITIVE_QUERY_PARAMS } from "./redactUrl.js";
 import { requestWithRetries } from "./requestWithRetries.js";
 
 export type FetchFunction = <R = unknown>(args: Fetcher.Args) => Promise<APIResponse<R, Fetcher.Error>>;
@@ -17,19 +21,28 @@ export declare namespace Fetcher {
         url: string;
         method: string;
         contentType?: string;
-        headers?: Record<string, string | Supplier<string | undefined> | undefined>;
-        queryParameters?: Record<string, string | string[] | object | object[] | null>;
+        headers?: Record<string, unknown>;
+        /**
+         * @deprecated Prefer `queryString` (produced by `core.url.queryBuilder()`).
+         * Retained for backwards compatibility with custom fetchers and callers that
+         * still construct request args with a query-parameter object.
+         */
+        queryParameters?: Record<string, unknown>;
+        queryString?: string;
         body?: unknown;
         timeoutMs?: number;
         maxRetries?: number;
         withCredentials?: boolean;
         abortSignal?: AbortSignal;
-        requestType?: "json" | "file" | "bytes";
+        requestType?: "json" | "file" | "bytes" | "form" | "other";
         responseType?: "json" | "blob" | "sse" | "streaming" | "text" | "arrayBuffer" | "binary-response";
         duplex?: "half";
+        endpointMetadata?: EndpointMetadata;
+        fetchFn?: typeof fetch;
+        logging?: LogConfig | Logger;
     }
 
-    export type Error = FailedStatusCodeError | NonJsonError | TimeoutError | UnknownError;
+    export type Error = FailedStatusCodeError | NonJsonError | BodyIsNullError | TimeoutError | UnknownError;
 
     export interface FailedStatusCodeError {
         reason: "status-code";
@@ -43,20 +56,82 @@ export declare namespace Fetcher {
         rawBody: string;
     }
 
+    export interface BodyIsNullError {
+        reason: "body-is-null";
+        statusCode: number;
+    }
+
     export interface TimeoutError {
         reason: "timeout";
+        cause?: unknown;
     }
 
     export interface UnknownError {
         reason: "unknown";
         errorMessage: string;
+        cause?: unknown;
     }
 }
 
-async function getHeaders(args: Fetcher.Args): Promise<Record<string, string>> {
-    const newHeaders: Record<string, string> = {};
+const SENSITIVE_HEADERS = new Set([
+    "authorization",
+    "www-authenticate",
+    "x-api-key",
+    "api-key",
+    "apikey",
+    "x-api-token",
+    "x-auth-token",
+    "auth-token",
+    "cookie",
+    "set-cookie",
+    "proxy-authorization",
+    "proxy-authenticate",
+    "x-csrf-token",
+    "x-xsrf-token",
+    "x-session-token",
+    "x-access-token",
+]);
+
+function redactHeaders(headers: Headers | Record<string, string>): Record<string, string> {
+    const filtered: Record<string, string> = {};
+    for (const [key, value] of headers instanceof Headers ? headers.entries() : Object.entries(headers)) {
+        if (SENSITIVE_HEADERS.has(key.toLowerCase())) {
+            filtered[key] = "[REDACTED]";
+        } else {
+            filtered[key] = value;
+        }
+    }
+    return filtered;
+}
+
+function redactQueryParameters(
+    queryParameters: Record<string, unknown> | undefined,
+): Record<string, unknown> | undefined {
+    if (queryParameters == null) {
+        return undefined;
+    }
+    const redacted: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(queryParameters)) {
+        redacted[key] = SENSITIVE_QUERY_PARAMS.has(key.toLowerCase()) ? "[REDACTED]" : value;
+    }
+    return redacted;
+}
+
+async function getHeaders(args: Fetcher.Args): Promise<Headers> {
+    const newHeaders: Headers = new Headers();
+
+    newHeaders.set(
+        "Accept",
+        args.responseType === "json"
+            ? "application/json"
+            : args.responseType === "text"
+              ? "text/plain"
+              : args.responseType === "sse"
+                ? "text/event-stream"
+                : "*/*",
+    );
     if (args.body !== undefined && args.contentType != null) {
-        newHeaders["Content-Type"] = args.contentType;
+        newHeaders.set("Content-Type", args.contentType);
     }
 
     if (args.headers == null) {
@@ -64,26 +139,44 @@ async function getHeaders(args: Fetcher.Args): Promise<Record<string, string>> {
     }
 
     for (const [key, value] of Object.entries(args.headers)) {
-        const result = await Supplier.get(value);
+        const result = await EndpointSupplier.get(value, { endpointMetadata: args.endpointMetadata ?? {} });
         if (typeof result === "string") {
-            newHeaders[key] = result;
+            newHeaders.set(key, result);
             continue;
         }
         if (result == null) {
             continue;
         }
-        newHeaders[key] = `${result}`;
+        newHeaders.set(key, `${result}`);
     }
     return newHeaders;
 }
 
 export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIResponse<R, Fetcher.Error>> {
-    const url = createRequestUrl(args.url, args.queryParameters);
+    let url = args.url;
+    if (args.queryString != null && args.queryString.length > 0) {
+        url = `${url}?${args.queryString}`;
+    } else {
+        url = createRequestUrl(args.url, args.queryParameters);
+    }
     const requestBody: BodyInit | undefined = await getRequestBody({
         body: args.body,
-        type: args.requestType === "json" ? "json" : "other",
+        type: args.requestType ?? "other",
     });
-    const fetchFn = await getFetchFn();
+    const fetchFn = args.fetchFn ?? (await getFetchFn());
+    const headers = await getHeaders(args);
+    const logger = createLogger(args.logging);
+
+    if (logger.isDebug()) {
+        const metadata = {
+            method: args.method,
+            url: redactUrl(url),
+            headers: redactHeaders(headers),
+            queryParameters: redactQueryParameters(args.queryParameters),
+            hasBody: requestBody != null,
+        };
+        logger.debug("Making HTTP request", metadata);
+    }
 
     try {
         const response = await requestWithRetries(
@@ -92,24 +185,44 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
                     fetchFn,
                     url,
                     args.method,
-                    await getHeaders(args),
+                    headers,
                     requestBody,
                     args.timeoutMs,
                     args.abortSignal,
                     args.withCredentials,
                     args.duplex,
+                    args.responseType === "streaming" || args.responseType === "sse",
                 ),
             args.maxRetries,
         );
 
         if (response.status >= 200 && response.status < 400) {
+            if (logger.isDebug()) {
+                const metadata = {
+                    method: args.method,
+                    url: redactUrl(url),
+                    statusCode: response.status,
+                    responseHeaders: redactHeaders(response.headers),
+                };
+                logger.debug("HTTP request succeeded", metadata);
+            }
+            const body = await getResponseBody(response, args.responseType);
             return {
                 ok: true,
-                body: (await getResponseBody(response, args.responseType)) as R,
+                body: body as R,
                 headers: response.headers,
                 rawResponse: toRawResponse(response),
             };
         } else {
+            if (logger.isError()) {
+                const metadata = {
+                    method: args.method,
+                    url: redactUrl(url),
+                    statusCode: response.status,
+                    responseHeaders: redactHeaders(Object.fromEntries(response.headers.entries())),
+                };
+                logger.error("HTTP request failed with error status", metadata);
+            }
             return {
                 ok: false,
                 error: {
@@ -121,39 +234,74 @@ export async function fetcherImpl<R = unknown>(args: Fetcher.Args): Promise<APIR
             };
         }
     } catch (error) {
-        if (args.abortSignal != null && args.abortSignal.aborted) {
+        if (args.abortSignal?.aborted) {
+            if (logger.isError()) {
+                const metadata = {
+                    method: args.method,
+                    url: redactUrl(url),
+                };
+                logger.error("HTTP request was aborted", metadata);
+            }
             return {
                 ok: false,
                 error: {
                     reason: "unknown",
                     errorMessage: "The user aborted a request",
+                    cause: error,
                 },
                 rawResponse: abortRawResponse,
             };
         } else if (error instanceof Error && error.name === "AbortError") {
+            if (logger.isError()) {
+                const metadata = {
+                    method: args.method,
+                    url: redactUrl(url),
+                    timeoutMs: args.timeoutMs,
+                };
+                logger.error("HTTP request timed out", metadata);
+            }
             return {
                 ok: false,
                 error: {
                     reason: "timeout",
+                    cause: error,
                 },
                 rawResponse: abortRawResponse,
             };
         } else if (error instanceof Error) {
+            if (logger.isError()) {
+                const metadata = {
+                    method: args.method,
+                    url: redactUrl(url),
+                    errorMessage: error.message,
+                };
+                logger.error("HTTP request failed with error", metadata);
+            }
             return {
                 ok: false,
                 error: {
                     reason: "unknown",
                     errorMessage: error.message,
+                    cause: error,
                 },
                 rawResponse: unknownRawResponse,
             };
         }
 
+        if (logger.isError()) {
+            const metadata = {
+                method: args.method,
+                url: redactUrl(url),
+                error: toJson(error),
+            };
+            logger.error("HTTP request failed with unknown error", metadata);
+        }
         return {
             ok: false,
             error: {
                 reason: "unknown",
                 errorMessage: toJson(error),
+                cause: error,
             },
             rawResponse: unknownRawResponse,
         };

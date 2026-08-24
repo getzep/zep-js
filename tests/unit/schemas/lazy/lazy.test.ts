@@ -1,5 +1,5 @@
-import { Schema } from "../../../../src/core/schemas/Schema";
 import { lazy, list, object, string } from "../../../../src/core/schemas/builders";
+import type { Schema } from "../../../../src/core/schemas/Schema";
 import { itSchemaIdentity } from "../utils/itSchema";
 
 describe("lazy", () => {
@@ -37,7 +37,7 @@ describe("lazy", () => {
         { foo: "hello" },
     );
 
-    // eslint-disable-next-line jest/expect-expect
+    // eslint-disable-next-line vi/expect-expect
     it("self-referencial schema doesn't compile", () => {
         () => {
             // @ts-expect-error
@@ -45,7 +45,7 @@ describe("lazy", () => {
         };
     });
 
-    // eslint-disable-next-line jest/expect-expect
+    // eslint-disable-next-line vi/expect-expect
     it("self-referencial compiles with explicit type", () => {
         () => {
             interface TreeNode {

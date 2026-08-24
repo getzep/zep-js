@@ -1,4 +1,4 @@
-import { Schema, SchemaType } from "../../Schema.js";
+import { type Schema, SchemaType } from "../../Schema.js";
 import { createIdentitySchemaCreator } from "../../utils/createIdentitySchemaCreator.js";
 import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType.js";
 
@@ -40,4 +40,11 @@ export function enum_<U extends string, E extends U[]>(values: E): Schema<E[numb
     );
 
     return schemaCreator();
+}
+
+export function forwardCompatibleEnum_<U extends string, E extends U[]>(values: E): Schema<E[number], string> {
+    return enum_(values).transform<string>({
+        transform: (val) => val,
+        untransform: (val) => val,
+    });
 }
