@@ -5,8 +5,8 @@ import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 
 export const EntityPropertyType: core.serialization.Schema<serializers.EntityPropertyType.Raw, Zep.EntityPropertyType> =
-    core.serialization.enum_(["Text", "Int", "Float", "Boolean"]);
+    core.serialization.enum_(["text", "int", "float", "boolean"]);
 
 export declare namespace EntityPropertyType {
-    export type Raw = "Text" | "Int" | "Float" | "Boolean";
+    export type Raw = "text" | "int" | "float" | "boolean";
 }

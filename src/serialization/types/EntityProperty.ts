@@ -7,15 +7,15 @@ import { EntityPropertyType } from "./EntityPropertyType.js";
 
 export const EntityProperty: core.serialization.ObjectSchema<serializers.EntityProperty.Raw, Zep.EntityProperty> =
     core.serialization.object({
-        description: core.serialization.string(),
-        name: core.serialization.string(),
-        type: EntityPropertyType,
+        description: core.serialization.string().optional(),
+        name: core.serialization.string().optional(),
+        type: EntityPropertyType.optional(),
     });
 
 export declare namespace EntityProperty {
     export interface Raw {
-        description: string;
-        name: string;
-        type: EntityPropertyType.Raw;
+        description?: string | null;
+        name?: string | null;
+        type?: EntityPropertyType.Raw | null;
     }
 }

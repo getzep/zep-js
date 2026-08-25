@@ -3,8 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface EdgeType {
-    description: string;
-    name: string;
+    description?: string;
+    name?: string;
     properties?: Zep.EntityProperty[];
     sourceTargets?: Zep.EdgeSourceTarget[];
 }

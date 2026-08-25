@@ -8,8 +8,8 @@ import { EntityProperty } from "./EntityProperty.js";
 
 export const EdgeType: core.serialization.ObjectSchema<serializers.EdgeType.Raw, Zep.EdgeType> =
     core.serialization.object({
-        description: core.serialization.string(),
-        name: core.serialization.string(),
+        description: core.serialization.string().optional(),
+        name: core.serialization.string().optional(),
         properties: core.serialization.list(EntityProperty).optional(),
         sourceTargets: core.serialization.property(
             "source_targets",
@@ -19,8 +19,8 @@ export const EdgeType: core.serialization.ObjectSchema<serializers.EdgeType.Raw,
 
 export declare namespace EdgeType {
     export interface Raw {
-        description: string;
-        name: string;
+        description?: string | null;
+        name?: string | null;
         properties?: EntityProperty.Raw[] | null;
         source_targets?: EdgeSourceTarget.Raw[] | null;
     }
