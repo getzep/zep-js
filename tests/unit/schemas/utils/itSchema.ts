@@ -1,5 +1,5 @@
-/* eslint-disable jest/no-export */
-import { Schema, SchemaOptions } from "../../../../src/core/schemas/Schema";
+/* eslint-disable vi/no-export */
+import type { Schema, SchemaOptions } from "../../../../src/core/schemas/Schema";
 
 export function itSchemaIdentity<T>(
     schema: Schema<T, T>,
@@ -24,7 +24,7 @@ export function itSchema<Raw, Parsed>(
         only?: boolean;
     },
 ): void {
-    // eslint-disable-next-line jest/valid-title
+    // eslint-disable-next-line vi/valid-title
     (only ? describe.only : describe)(title, () => {
         itParse("parse()", schema, { raw, parsed, opts });
         itJson("json()", schema, { raw, parsed, opts });
@@ -44,11 +44,11 @@ export function itParse<Raw, Parsed>(
         opts?: SchemaOptions;
     },
 ): void {
-    // eslint-disable-next-line jest/valid-title
+    // eslint-disable-next-line vi/valid-title
     it(title, () => {
         const maybeValid = schema.parse(raw, opts);
         if (!maybeValid.ok) {
-            throw new Error("Failed to parse() " + JSON.stringify(maybeValid.errors, undefined, 4));
+            throw new Error(`Failed to parse() ${JSON.stringify(maybeValid.errors, undefined, 4)}`);
         }
         expect(maybeValid.value).toStrictEqual(parsed);
     });
@@ -67,11 +67,11 @@ export function itJson<Raw, Parsed>(
         opts?: SchemaOptions;
     },
 ): void {
-    // eslint-disable-next-line jest/valid-title
+    // eslint-disable-next-line vi/valid-title
     it(title, () => {
         const maybeValid = schema.json(parsed, opts);
         if (!maybeValid.ok) {
-            throw new Error("Failed to json() " + JSON.stringify(maybeValid.errors, undefined, 4));
+            throw new Error(`Failed to json() ${JSON.stringify(maybeValid.errors, undefined, 4)}`);
         }
         expect(maybeValid.value).toStrictEqual(raw);
     });

@@ -1,2 +1,3 @@
-export { GraphNodeNeighborsRequest } from "./GraphNodeNeighborsRequest.js";
-export { UpdateNodeRequest } from "./UpdateNodeRequest.js";
+export { AddNodesRequest } from "./AddNodesRequest.js";
+export { NeighborsRequest } from "./NeighborsRequest.js";
+export { PatchNodeRequest } from "./PatchNodeRequest.js";

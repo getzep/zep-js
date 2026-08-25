@@ -1,1 +1,1 @@
-export { UpdateProjectInfoRequest } from "./UpdateProjectInfoRequest.js";
+export { PatchProjectRequest } from "./PatchProjectRequest.js";
