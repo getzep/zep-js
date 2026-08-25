@@ -13,10 +13,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
       # The v4 generator pins pnpm in package.json and ships a pnpm lockfile.
-      # Corepack activates the pinned version; npm publish then runs prepack,
-      # which is "pnpm build", so pnpm has to be on PATH here too.
+      # Corepack activates the pinned version.
       - name: Enable corepack
         run: corepack enable
       - name: Compare package.json version with tag
@@ -40,6 +39,13 @@ jobs:
           fi
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      # v3's package.json carried "prepack": "yarn build", so npm publish built
+      # the package on its way out. The v4 generator emits no prepack, and
+      # package.json ships only the "dist" directory -- so without an explicit
+      # build the tarball contains just LICENSE, README, reference.md and the
+      # manifest, and main points at a dist/ that is not in it.
+      - name: Build
+        run: pnpm build
       - name: Publish package
         run: |
           publish() {
