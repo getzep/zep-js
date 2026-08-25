@@ -14,8 +14,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - name: Setup yarn
-        run: npm install -g yarn
+      # The v4 generator pins pnpm in package.json and ships a pnpm lockfile.
+      # Corepack activates the pinned version; npm publish then runs prepack,
+      # which is "pnpm build", so pnpm has to be on PATH here too.
+      - name: Enable corepack
+        run: corepack enable
       - name: Compare package.json version with tag
         run: |
           TAG_VERSION=${GITHUB_REF#refs/tags/}
@@ -36,7 +39,7 @@ jobs:
             echo "is_next=true" >> "$GITHUB_ENV"
           fi
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
       - name: Publish package
         run: |
           publish() {
