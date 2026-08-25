@@ -3,6 +3,8 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { BatchItemKind } from "./BatchItemKind.js";
+import { BatchItemStatus } from "./BatchItemStatus.js";
 
 export const BatchItem: core.serialization.ObjectSchema<serializers.BatchItem.Raw, Zep.BatchItem> =
     core.serialization.object({
@@ -11,9 +13,9 @@ export const BatchItem: core.serialization.ObjectSchema<serializers.BatchItem.Ra
         graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         sequenceIndex: core.serialization.property("sequence_index", core.serialization.number().optional()),
         sourceUuid: core.serialization.property("source_uuid", core.serialization.string().optional()),
-        status: core.serialization.string().optional(),
+        status: BatchItemStatus.optional(),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
-        type: core.serialization.string().optional(),
+        type: BatchItemKind.optional(),
         uuid: core.serialization.string().optional(),
     });
 
@@ -24,9 +26,9 @@ export declare namespace BatchItem {
         graph_uuid?: string | null;
         sequence_index?: number | null;
         source_uuid?: string | null;
-        status?: string | null;
+        status?: BatchItemStatus.Raw | null;
         thread_uuid?: string | null;
-        type?: string | null;
+        type?: BatchItemKind.Raw | null;
         uuid?: string | null;
     }
 }

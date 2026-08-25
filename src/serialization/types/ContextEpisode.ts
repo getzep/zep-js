@@ -3,6 +3,8 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { GraphDataType } from "./GraphDataType.js";
+import { RoleType } from "./RoleType.js";
 
 export const ContextEpisode: core.serialization.ObjectSchema<serializers.ContextEpisode.Raw, Zep.ContextEpisode> =
     core.serialization.object({
@@ -13,11 +15,11 @@ export const ContextEpisode: core.serialization.ObjectSchema<serializers.Context
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         processed: core.serialization.boolean().optional(),
         relevance: core.serialization.number().optional(),
-        role: core.serialization.string().optional(),
+        role: RoleType.optional(),
         roleName: core.serialization.property("role_name", core.serialization.string().optional()),
         score: core.serialization.number().optional(),
         selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
-        source: core.serialization.string().optional(),
+        source: GraphDataType.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
@@ -33,11 +35,11 @@ export declare namespace ContextEpisode {
         metadata?: Record<string, unknown> | null;
         processed?: boolean | null;
         relevance?: number | null;
-        role?: string | null;
+        role?: RoleType.Raw | null;
         role_name?: string | null;
         score?: number | null;
         selection_rank?: number | null;
-        source?: string | null;
+        source?: GraphDataType.Raw | null;
         source_description?: string | null;
         thread_uuid?: string | null;
         uuid?: string | null;

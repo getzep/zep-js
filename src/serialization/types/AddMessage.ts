@@ -3,13 +3,14 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { RoleType } from "./RoleType.js";
 
 export const AddMessage: core.serialization.ObjectSchema<serializers.AddMessage.Raw, Zep.AddMessage> =
     core.serialization.object({
         content: core.serialization.string().optional(),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string().optional(),
-        role: core.serialization.string().optional(),
+        role: RoleType.optional(),
         uuid: core.serialization.string().optional(),
     });
 
@@ -18,7 +19,7 @@ export declare namespace AddMessage {
         content?: string | null;
         metadata?: Record<string, unknown> | null;
         name?: string | null;
-        role?: string | null;
+        role?: RoleType.Raw | null;
         uuid?: string | null;
     }
 }

@@ -3,6 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { RoleType } from "./RoleType.js";
 
 export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Zep.Message> = core.serialization.object(
     {
@@ -11,7 +12,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Z
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string().optional(),
         processed: core.serialization.boolean().optional(),
-        role: core.serialization.string().optional(),
+        role: RoleType.optional(),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
     },
@@ -24,7 +25,7 @@ export declare namespace Message {
         metadata?: Record<string, unknown> | null;
         name?: string | null;
         processed?: boolean | null;
-        role?: string | null;
+        role?: RoleType.Raw | null;
         thread_uuid?: string | null;
         uuid?: string | null;
     }
