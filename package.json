@@ -1,6 +1,6 @@
 {
-    "name": "zep-cloud",
-    "version": "4.0.0-alpha.2",
+    "name": "@getzep/zep-cloud",
+    "version": "4.0.0-alpha.3",
     "private": false,
     "repository": {
         "type": "git",
