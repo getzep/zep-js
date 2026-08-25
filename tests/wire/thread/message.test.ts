@@ -15,7 +15,7 @@ describe("MessageClient", () => {
             metadata: { key: "value" },
             name: "name",
             processed: true,
-            role: "role",
+            role: "system",
             thread_uuid: "thread_uuid",
             uuid: "uuid",
         };
@@ -37,7 +37,7 @@ describe("MessageClient", () => {
             },
             name: "name",
             processed: true,
-            role: "role",
+            role: "system",
             threadUuid: "thread_uuid",
             uuid: "uuid",
         });
