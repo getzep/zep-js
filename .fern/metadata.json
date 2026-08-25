@@ -18,10 +18,10 @@
             "msw": "2.11.2"
         }
     },
-    "originGitCommit": "f5d305f39ed149d17c3af28e057c82f3801d28f2",
+    "originGitCommit": "93a98979696249bf014a0bf648ebf5cb10edffdd",
     "originGitCommitIsDirty": true,
     "invokedBy": "ci",
-    "requestedVersion": "4.0.0-alpha.2",
+    "requestedVersion": "4.0.0-alpha.3",
     "ciProvider": "github",
-    "sdkVersion": "4.0.0-alpha.2"
+    "sdkVersion": "4.0.0-alpha.3"
 }
