@@ -238,20 +238,13 @@ describe("ProjectClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            edge_types: [
-                {
-                    description: "description",
-                    name: "name",
-                    properties: [{ description: "description", name: "name", type: "Text" }],
-                    source_targets: [{}],
-                },
-            ],
+            edge_types: [{ description: "description", name: "name", properties: [{}], source_targets: [{}] }],
             entity_types: [
                 {
                     description: "description",
                     identity_properties: ["identity_properties"],
                     name: "name",
-                    properties: [{ description: "description", name: "name", type: "Text" }],
+                    properties: [{}],
                 },
             ],
             inherited: true,
@@ -265,13 +258,7 @@ describe("ProjectClient", () => {
                 {
                     description: "description",
                     name: "name",
-                    properties: [
-                        {
-                            description: "description",
-                            name: "name",
-                            type: "Text",
-                        },
-                    ],
+                    properties: [{}],
                     sourceTargets: [{}],
                 },
             ],
@@ -280,13 +267,7 @@ describe("ProjectClient", () => {
                     description: "description",
                     identityProperties: ["identity_properties"],
                     name: "name",
-                    properties: [
-                        {
-                            description: "description",
-                            name: "name",
-                            type: "Text",
-                        },
-                    ],
+                    properties: [{}],
                 },
             ],
             inherited: true,

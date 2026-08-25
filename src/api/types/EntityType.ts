@@ -3,8 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface EntityType {
-    description: string;
+    description?: string;
     identityProperties?: string[];
-    name: string;
+    name?: string;
     properties?: Zep.EntityProperty[];
 }
