@@ -2,12 +2,25 @@
 #
 # v4 starts from Fern's generated SDK rather than v3's hand-written layer. Only
 # what must not be regenerated stays here:
-#   .github  — the SDK Release audit fails closed unless CI is protected
-#   LICENSE  — legal text, not a generated artifact
+#   .github                — the SDK Release audit fails closed unless CI is
+#                            protected
+#   LICENSE                — legal text, not a generated artifact
+#   src/ontology.ts        — hand-written: declares an ontology with field
+#                            builders, which the generated types cannot express
+#   tests/ontology.test.ts — its tests, which CI runs on the generated branch,
+#                            so a regeneration that breaks the DSL fails its
+#                            own PR
+#   src/exports.ts         — one generated line plus the ontology export, which
+#                            is what puts the DSL on the package root. Watch it
+#                            when the generator version moves: a new core
+#                            export would land here and be skipped.
 #
 # Anything ported forward from v3 is re-added deliberately, file by file.
 .github
 LICENSE
 .gitattributes
+src/ontology.ts
+tests/ontology.test.ts
+src/exports.ts
 .fern/replay.lock
 .fern/replay.yml
