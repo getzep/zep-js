@@ -1,20 +1,23 @@
-import { BaseSchema, MaybeValid, SchemaType } from "../../Schema.js";
+import { type BaseSchema, type MaybeValid, SchemaType } from "../../Schema.js";
 import { getErrorMessageForIncorrectType } from "../../utils/getErrorMessageForIncorrectType.js";
 import { isPlainObject } from "../../utils/isPlainObject.js";
 import { keys } from "../../utils/keys.js";
 import { maybeSkipValidation } from "../../utils/maybeSkipValidation.js";
 import { enum_ } from "../enum/index.js";
-import { ObjectSchema } from "../object/index.js";
-import { ObjectLikeSchema, getObjectLikeUtils } from "../object-like/index.js";
+import type { ObjectSchema } from "../object/index.js";
+import { getObjectLikeUtils, type ObjectLikeSchema } from "../object-like/index.js";
 import { getSchemaUtils } from "../schema-utils/index.js";
-import { Discriminant } from "./discriminant.js";
-import {
-    UnionSubtypes,
+import type { Discriminant } from "./discriminant.js";
+import type {
     inferParsedDiscriminant,
     inferParsedUnion,
     inferRawDiscriminant,
     inferRawUnion,
+    UnionSubtypes,
 } from "./types.js";
+
+// eslint-disable-next-line @typescript-eslint/unbound-method
+const _hasOwn = Object.prototype.hasOwnProperty;
 
 export function union<D extends string | Discriminant<any, any>, U extends UnionSubtypes<any>>(
     discriminant: D,
@@ -112,7 +115,13 @@ function transformAndValidateUnion<
         };
     }
 
-    const { [discriminant]: discriminantValue, ...additionalProperties } = value;
+    const discriminantValue = value[discriminant];
+    const additionalProperties: Record<string, unknown> = {};
+    for (const key in value) {
+        if (_hasOwn.call(value, key) && key !== discriminant) {
+            additionalProperties[key] = value[key];
+        }
+    }
 
     if (discriminantValue == null) {
         return {

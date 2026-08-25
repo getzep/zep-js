@@ -1,3 +1,4 @@
-export { type EpisodeGetByGraphIdRequest } from "./EpisodeGetByGraphIdRequest.js";
-export { type EpisodeGetByUserIdRequest } from "./EpisodeGetByUserIdRequest.js";
-export { type UpdateEpisodeRequest } from "./UpdateEpisodeRequest.js";
+export type { AddEpisodeRequest } from "./AddEpisodeRequest.js";
+export type { EpisodeListForDocumentRequest } from "./EpisodeListForDocumentRequest.js";
+export type { EpisodeListRequest } from "./EpisodeListRequest.js";
+export type { PatchEpisodeRequest } from "./PatchEpisodeRequest.js";
