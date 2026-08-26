@@ -30,5 +30,465 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-typescript-sdk: 3.88.1
-current_generation: c29353624d122f4c978a0871d3626822381ab295
-patches: []
+  - commit_sha: a4483528911d94450169989db28b0b4ef93a5044
+    tree_hash: 5704282407202b5a92b03cc76adfe9614f6ea6b3
+    timestamp: 2026-08-26T21:58:07.709Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-typescript-sdk: 3.88.1
+current_generation: a4483528911d94450169989db28b0b4ef93a5044
+patches:
+  - id: patch-adf6a958
+    content_hash: sha256:89cd980fe4e371589be31c3f79e85e4a6254ca64f7f1bebb33498cb4311c5529
+    original_commit: adf6a95804e473728c5f7ebe2b41a555a2852e48
+    original_message: Fix the README (#222)
+    original_author: Pavlo Paliychuk <paul@getzep.com>
+    base_generation: a4483528911d94450169989db28b0b4ef93a5044
+    files:
+      - README.md
+    patch_content: |
+      diff --git a/README.md b/README.md
+      index 9ba7f8f..42b379b 100644
+      --- a/README.md
+      +++ b/README.md
+      @@ -40,59 +40,18 @@ npm install @getzep/zep-cloud
+       > [!NOTE]
+       > Zep Cloud [overview](https://help.getzep.com/concepts) and [cloud sdk guide](https://help.getzep.com/sdks).
+       
+      -### Community Installation
+      -```bash
+      -npm install @getzep/zep-js
+      -```
+      -> [!NOTE]
+      -> Zep Community Edition [quick start](https://help.getzep.com/ce/quickstart) and [sdk guide](https://help.getzep.com/ce/sdks).
+      -
+      -### Zep v0.x Compatible SDK
+      -You can install Zep v0.x compatible sdk by running:
+      -```bash
+      -npm install @getzep/zep-js@^0.10.0
+      -```
+      -> [!NOTE]
+      -> Zep v0.x [quick start](https://help.getzep.com/ce/legacy/deployment/quickstart) and [sdk guide](https://help.getzep.com/ce/legacy/sdk).
+      -
+       ### How Zep works
+       
+       Zep persists and recalls chat histories, and automatically generates summaries and other artifacts from these chat histories. It also embeds messages and summaries, enabling you to search Zep for relevant context from past conversations. Zep does all of this asynchronously, ensuring these operations don't impact your user's chat experience. Data is persisted to database, allowing you to scale out when growth demands.
+       
+      -Zep also provides a simple, easy to use abstraction for document vector search called Document Collections. This is designed to complement Zep's core context features, but is not designed to be a general purpose vector database.
+      -
+       Zep allows you to be more intentional about constructing your prompt:
+       1. automatically adding a few recent messages, with the number customized for your app;
+       2. a summary of recent conversations prior to the messages above;
+       3. and/or contextually relevant summaries or messages surfaced from the entire chat session.
+      -4. and/or relevant Business data from Zep Document Collections.
+      -
+      -Zep Cloud offers:
+      -- **Fact Extraction:** Automatically build fact tables from conversations, without having to define a data schema upfront.
+      -- **Dialog Classification:** Instantly and accurately classify chat dialog. Understand user intent and emotion, segment users, and more. Route chains based on semantic context, and trigger events.
+      -- **Structured Data Extraction:** Quickly extract business data from chat conversations using a schema you define. Understand what your Assistant should ask for next in order to complete its task.
+       
+       You will also need to provide a Zep Project API key to your zep client.
+       You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
+       
+      -### Using langchain zep classes with `zep-cloud`:
+      -`zep-cloud` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
+      -classes that are compatible with [`Langchain's JS expression language`](https://js.langchain.com/docs/expression_language/)
+      -
+      -In order to use these classes in your application, you need to make sure that you have
+      -`langchain` package installed:
+      -
+      -```bash
+      -npm install langchain@^0.1.23
+      -```
+      -
+      -You can import these classes in the following way:
+      -
+      -```typescript
+      -import { ZepChatMessageHistory, ZepVectorStore, ZepMemory } from "@getzep/zep-cloud/langchain"
+      -```
+      -
+      -
+       ## Installation
+       
+       ```sh
+    theirs_snapshot:
+      README.md: |
+        # Zep TypeScript Library
+
+        [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fgetzep%2Fzep-js)
+        [![npm shield](https://img.shields.io/npm/v/@getzep/zep-cloud)](https://www.npmjs.com/package/@getzep/zep-cloud)
+
+        The Zep TypeScript library provides convenient access to the Zep APIs from TypeScript.
+
+        ## Table of Contents
+
+        - [What Is Zep 💬](#what-is-zep-)
+        - [Installation](#installation)
+        - [Reference](#reference)
+        - [Usage](#usage)
+        - [Environments](#environments)
+        - [Request and Response Types](#request-and-response-types)
+        - [Exception Handling](#exception-handling)
+        - [Pagination](#pagination)
+        - [Advanced](#advanced)
+          - [Subpackage Exports](#subpackage-exports)
+          - [Additional Headers](#additional-headers)
+          - [Additional Query String Parameters](#additional-query-string-parameters)
+          - [Retries](#retries)
+          - [Timeouts](#timeouts)
+          - [Aborting Requests](#aborting-requests)
+          - [Access Raw Response Data](#access-raw-response-data)
+          - [Logging](#logging)
+          - [Custom Fetch](#custom-fetch)
+          - [Custom Fetcher](#custom-fetcher)
+          - [Runtime Compatibility](#runtime-compatibility)
+        - [Contributing](#contributing)
+
+        ## What is Zep? 💬
+        Zep is a context engineering platform for AI Assistant apps. With Zep, you can provide AI assistants with the right context from past conversations, no matter how distant, while also reducing hallucinations, latency, and cost.
+
+        ### Cloud Installation
+        You can install the Zep Cloud SDK by running:
+        ```bash
+        npm install @getzep/zep-cloud
+        ```
+        > [!NOTE]
+        > Zep Cloud [overview](https://help.getzep.com/concepts) and [cloud sdk guide](https://help.getzep.com/sdks).
+
+        ### How Zep works
+
+        Zep persists and recalls chat histories, and automatically generates summaries and other artifacts from these chat histories. It also embeds messages and summaries, enabling you to search Zep for relevant context from past conversations. Zep does all of this asynchronously, ensuring these operations don't impact your user's chat experience. Data is persisted to database, allowing you to scale out when growth demands.
+
+        Zep allows you to be more intentional about constructing your prompt:
+        1. automatically adding a few recent messages, with the number customized for your app;
+        2. a summary of recent conversations prior to the messages above;
+        3. and/or contextually relevant summaries or messages surfaced from the entire chat session.
+
+        You will also need to provide a Zep Project API key to your zep client.
+        You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
+
+        ## Installation
+
+        ```sh
+        npm i -s @getzep/zep-cloud
+        ```
+
+        ## Reference
+
+        A full reference for this library is available [here](https://github.com/getzep/zep-js/blob/HEAD/./reference.md).
+
+        ## Usage
+
+        Instantiate and use the client with the following:
+
+        ```typescript
+        import { ZepClient } from "@getzep/zep-cloud";
+
+        const client = new ZepClient({ apiKey: "YOUR_API_KEY" });
+        await client.batch.create();
+        ```
+
+        ## Environments
+
+        This SDK allows you to configure different environments for API requests.
+
+        ```typescript
+        import { ZepClient, ZepEnvironment } from "@getzep/zep-cloud";
+
+        const client = new ZepClient({
+            environment: ZepEnvironment.Default,
+        });
+        ```
+
+        ## Request and Response Types
+
+        The SDK exports all request and response types as TypeScript interfaces. Simply import them with the
+        following namespace:
+
+        ```typescript
+        import { Zep } from "@getzep/zep-cloud";
+
+        const request: Zep.BatchListRequest = {
+            ...
+        };
+        ```
+
+        ## Exception Handling
+
+        When the API returns a non-success status code (4xx or 5xx response), a subclass of the following error
+        will be thrown.
+
+        ```typescript
+        import { ZepError } from "@getzep/zep-cloud";
+
+        try {
+            await client.batch.create(...);
+        } catch (err) {
+            if (err instanceof ZepError) {
+                console.log(err.statusCode);
+                console.log(err.message);
+                console.log(err.body);
+                console.log(err.rawResponse);
+            }
+        }
+        ```
+
+        ## Pagination
+
+        List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
+
+        ```typescript
+        import { ZepClient } from "@getzep/zep-cloud";
+
+        const client = new ZepClient({ apiKey: "YOUR_API_KEY" });
+        const pageableResponse = await client.batch.list({
+            limit: 1,
+            cursor: "cursor",
+            status: "status"
+        });
+        for await (const item of pageableResponse) {
+            console.log(item);
+        }
+
+        // Or you can manually iterate page-by-page
+        let page = await client.batch.list({
+            limit: 1,
+            cursor: "cursor",
+            status: "status"
+        });
+        while (page.hasNextPage()) {
+            page = page.getNextPage();
+        }
+
+        // You can also access the underlying response
+        const response = page.response;
+        ```
+
+        ## Advanced
+
+        ### Subpackage Exports
+
+        This SDK supports direct imports of subpackage clients, which allows JavaScript bundlers to tree-shake and include only the imported subpackage code. This results in much smaller bundle sizes.
+
+        ```typescript
+        import { BatchClient } from '@getzep/zep-cloud/batch';
+
+        const client = new BatchClient({...});
+        ```
+
+        ### Additional Headers
+
+        If you would like to send additional headers as part of the request, use the `headers` request option.
+
+        ```typescript
+        import { ZepClient } from "@getzep/zep-cloud";
+
+        const client = new ZepClient({
+            ...
+            headers: {
+                'X-Custom-Header': 'custom value'
+            }
+        });
+
+        const response = await client.batch.create(..., {
+            headers: {
+                'X-Custom-Header': 'custom value'
+            }
+        });
+        ```
+
+        ### Additional Query String Parameters
+
+        If you would like to send additional query string parameters as part of the request, use the `queryParams` request option.
+
+        ```typescript
+        const response = await client.batch.create(..., {
+            queryParams: {
+                'customQueryParamKey': 'custom query param value'
+            }
+        });
+        ```
+
+        ### Retries
+
+        The SDK is instrumented with automatic retries with exponential backoff. A request will be retried as long
+        as the request is deemed retryable and the number of retry attempts has not grown larger than the configured
+        retry limit (default: 2).
+
+        Which status codes are retried depends on the `retryStatusCodes` generator configuration:
+
+        **`legacy`** (current default): retries on
+        - [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+        - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+        - [5XX](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#server_error_responses) (All server errors, including 500)
+
+        **`recommended`**: retries on
+        - [408](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/408) (Timeout)
+        - [429](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429) (Too Many Requests)
+        - [502](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502) (Bad Gateway)
+        - [503](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503) (Service Unavailable)
+        - [504](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504) (Gateway Timeout)
+
+        Use the `maxRetries` request option to configure this behavior.
+
+        ```typescript
+        const response = await client.batch.create(..., {
+            maxRetries: 0 // override maxRetries at the request level
+        });
+        ```
+
+        ### Timeouts
+
+        The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
+
+        ```typescript
+        const response = await client.batch.create(..., {
+            timeoutInSeconds: 30 // override timeout to 30s
+        });
+        ```
+
+        ### Aborting Requests
+
+        The SDK allows users to abort requests at any point by passing in an abort signal.
+
+        ```typescript
+        const controller = new AbortController();
+        const response = await client.batch.create(..., {
+            abortSignal: controller.signal
+        });
+        controller.abort(); // aborts the request
+        ```
+
+        ### Access Raw Response Data
+
+        The SDK provides access to raw response data, including headers, through the `.withRawResponse()` method.
+        The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
+
+        ```typescript
+        const { data, rawResponse } = await client.batch.create(...).withRawResponse();
+
+        console.log(data);
+        console.log(rawResponse.headers['X-My-Header']);
+        ```
+
+        ### Logging
+
+        The SDK supports logging. You can configure the logger by passing in a `logging` object to the client options.
+
+        ```typescript
+        import { ZepClient, logging } from "@getzep/zep-cloud";
+
+        const client = new ZepClient({
+            ...
+            logging: {
+                level: logging.LogLevel.Debug, // defaults to logging.LogLevel.Info
+                logger: new logging.ConsoleLogger(), // defaults to ConsoleLogger
+                silent: false, // defaults to true, set to false to enable logging
+            }
+        });
+        ```
+        The `logging` object can have the following properties:
+        - `level`: The log level to use. Defaults to `logging.LogLevel.Info`.
+        - `logger`: The logger to use. Defaults to a `logging.ConsoleLogger`.
+        - `silent`: Whether to silence the logger. Defaults to `true`.
+
+        The `level` property can be one of the following values:
+        - `logging.LogLevel.Debug`
+        - `logging.LogLevel.Info`
+        - `logging.LogLevel.Warn`
+        - `logging.LogLevel.Error`
+
+        To provide a custom logger, you can pass in an object that implements the `logging.ILogger` interface.
+
+        <details>
+        <summary>Custom logger examples</summary>
+
+        Here's an example using the popular `winston` logging library.
+        ```ts
+        import winston from 'winston';
+
+        const winstonLogger = winston.createLogger({...});
+
+        const logger: logging.ILogger = {
+            debug: (msg, ...args) => winstonLogger.debug(msg, ...args),
+            info: (msg, ...args) => winstonLogger.info(msg, ...args),
+            warn: (msg, ...args) => winstonLogger.warn(msg, ...args),
+            error: (msg, ...args) => winstonLogger.error(msg, ...args),
+        };
+        ```
+
+        Here's an example using the popular `pino` logging library.
+
+        ```ts
+        import pino from 'pino';
+
+        const pinoLogger = pino({...});
+
+        const logger: logging.ILogger = {
+          debug: (msg, ...args) => pinoLogger.debug(args, msg),
+          info: (msg, ...args) => pinoLogger.info(args, msg),
+          warn: (msg, ...args) => pinoLogger.warn(args, msg),
+          error: (msg, ...args) => pinoLogger.error(args, msg),
+        };
+        ```
+        </details>
+
+
+        ### Custom Fetch
+
+        The SDK provides a low-level `fetch` method for making custom HTTP requests while still
+        benefiting from SDK-level configuration like authentication, retries, timeouts, and logging.
+        This is useful for calling API endpoints not yet supported in the SDK.
+
+        ```typescript
+        const response = await client.fetch("/v1/custom/endpoint", {
+            method: "GET",
+        }, {
+            timeoutInSeconds: 30,
+            maxRetries: 3,
+            headers: {
+                "X-Custom-Header": "custom-value",
+            },
+        });
+
+        const data = await response.json();
+        ```
+
+        ### Custom Fetcher
+
+        The SDK provides a way for you to customize the underlying HTTP client / Fetch function. If you're running in an
+        unsupported environment, this provides a way for you to break glass and ensure the SDK works.
+
+        ```typescript
+        import { ZepClient } from "@getzep/zep-cloud";
+
+        const client = new ZepClient({
+            ...
+            fetcher: // provide your implementation here
+        });
+        ```
+
+        ### Runtime Compatibility
+
+
+        The SDK works in the following runtimes:
+
+
+
+        - Node.js 18+
+        - Vercel
+        - Cloudflare Workers
+        - Deno v1.25+
+        - Bun 1.0+
+        - React Native
+
+
+        ## Contributing
+
+        While we value open-source contributions to this SDK, this library is generated programmatically.
+        Additions made directly to this library would have to be moved over to our generation code,
+        otherwise they would be overwritten upon the next generated release. Feel free to open a PR as
+        a proof of concept, but know that we will not be able to merge it as-is. We suggest opening
+        an issue first to discuss with us!
+
+        On the other hand, contributions to the README are always very welcome!
