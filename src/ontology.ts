@@ -20,7 +20,7 @@
  * const TraveledTo = {
  *     description: "A traveler visiting a destination.",
  *     fields: { purpose: entityFields.text("Why they went") },
- *     sourceTargets: [{ sourceEntityType: "Traveler", targetEntityType: "Destination" }],
+ *     sourceTargets: [{ source: "Traveler", target: "Destination" }],
  * } as const;
  *
  * const ontology = buildOntology({
