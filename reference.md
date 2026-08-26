@@ -304,7 +304,11 @@ const response = page.response;
 <dd>
 
 ```typescript
-await client.batch.addItems("batch_uuid");
+await client.batch.addItems("batch_uuid", {
+    items: [{
+            type: "graph_episode"
+        }]
+});
 
 ```
 </dd>
@@ -1064,7 +1068,9 @@ await client.graph.clone("graph_uuid");
 <dd>
 
 ```typescript
-await client.graph.getContext("graph_uuid");
+await client.graph.getContext("graph_uuid", {
+    query: "query"
+});
 
 ```
 </dd>
@@ -1442,7 +1448,9 @@ await client.graph.setOntology("graph_uuid", {});
 const pageableResponse = await client.graph.searchEdges("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -1452,7 +1460,9 @@ for await (const item of pageableResponse) {
 let page = await client.graph.searchEdges("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -1519,7 +1529,9 @@ const response = page.response;
 const pageableResponse = await client.graph.searchEpisodes("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -1529,7 +1541,9 @@ for await (const item of pageableResponse) {
 let page = await client.graph.searchEpisodes("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -1596,7 +1610,9 @@ const response = page.response;
 const pageableResponse = await client.graph.searchNodes("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -1606,7 +1622,9 @@ for await (const item of pageableResponse) {
 let page = await client.graph.searchNodes("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -1673,7 +1691,9 @@ const response = page.response;
 const pageableResponse = await client.graph.searchObservations("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -1683,7 +1703,9 @@ for await (const item of pageableResponse) {
 let page = await client.graph.searchObservations("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -1750,7 +1772,9 @@ const response = page.response;
 const pageableResponse = await client.graph.searchThreadSummaries("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -1760,7 +1784,9 @@ for await (const item of pageableResponse) {
 let page = await client.graph.searchThreadSummaries("graph_uuid", {
     limit: 1,
     cursor: "cursor",
-    body: {}
+    body: {
+        query: "query"
+    }
 });
 while (page.hasNextPage()) {
     page = page.getNextPage();
@@ -1824,7 +1850,9 @@ const response = page.response;
 <dd>
 
 ```typescript
-await client.graph.getSubgraph("graph_uuid");
+await client.graph.getSubgraph("graph_uuid", {
+    seedNodeUuids: ["seed_node_uuids"]
+});
 
 ```
 </dd>
@@ -2622,7 +2650,9 @@ const response = page.response;
 <dd>
 
 ```typescript
-await client.thread.create();
+await client.thread.create({
+    userUuid: "user_uuid"
+});
 
 ```
 </dd>
@@ -3027,7 +3057,9 @@ const response = page.response;
 <dd>
 
 ```typescript
-await client.thread.addMessages("thread_uuid");
+await client.thread.addMessages("thread_uuid", {
+    messages: [{}]
+});
 
 ```
 </dd>
@@ -3109,6 +3141,840 @@ await client.thread.getSummary("thread_uuid");
 <dd>
 
 **requestOptions:** `ThreadClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## UserGroup
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">create</a>({ ...params }) -> Zep.UserGroup</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.create({
+    name: "name"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.CreateUserGroupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.UserGroup, Zep.UserGroupPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.userGroup.list({
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.userGroup.list({
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">get</a>(group_uuid) -> Zep.UserGroup</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.get("group_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">delete</a>(group_uuid) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.delete("group_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">update</a>(group_uuid, { ...params }) -> Zep.UserGroup</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.update("group_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.PatchUserGroupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listMemberCandidates</a>(group_uuid, { ...params }) -> core.Page&lt;Zep.User, Zep.UserPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.userGroup.listMemberCandidates("group_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.userGroup.listMemberCandidates("group_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListMemberCandidatesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">addMembers</a>(group_uuid, { ...params }) -> Zep.MembershipMutationResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.addMembers("group_uuid", {
+    userUuids: ["user_uuids"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.MutateMembersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listMembers</a>(group_uuid, { ...params }) -> core.Page&lt;Zep.User, Zep.UserPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.userGroup.listMembers("group_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.userGroup.listMembers("group_uuid", {
+    limit: 1,
+    cursor: "cursor",
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListMembersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">removeMembers</a>(group_uuid, { ...params }) -> Zep.MembershipMutationResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.removeMembers("group_uuid", {
+    userUuids: ["user_uuids"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.MutateMembersRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">removeMember</a>(group_uuid, user_uuid) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.userGroup.removeMember("group_uuid", "user_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**group_uuid:** `string` — User group UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**user_uuid:** `string` — User UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">listForUser</a>(user_uuid, { ...params }) -> core.Page&lt;Zep.UserGroup, Zep.UserGroupPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.userGroup.listForUser("user_uuid", {
+    limit: 1,
+    cursor: "cursor"
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.userGroup.listForUser("user_uuid", {
+    limit: 1,
+    cursor: "cursor"
+});
+while (page.hasNextPage()) {
+    page = page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**user_uuid:** `string` — User UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UserGroupListForUserRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserGroupClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3775,7 +4641,9 @@ const response = page.response;
 <dd>
 
 ```typescript
-await client.graph.episode.add("graph_uuid");
+await client.graph.episode.add("graph_uuid", {
+    data: "data"
+});
 
 ```
 </dd>
@@ -4089,7 +4957,12 @@ await client.graph.episode.update("graph_uuid", "episode_uuid");
 <dd>
 
 ```typescript
-await client.graph.edge.add("graph_uuid");
+await client.graph.edge.add("graph_uuid", {
+    fact: "fact",
+    factName: "fact_name",
+    sourceNode: {},
+    targetNode: {}
+});
 
 ```
 </dd>
@@ -4403,7 +5276,11 @@ await client.graph.edge.update("graph_uuid", "edge_uuid");
 <dd>
 
 ```typescript
-await client.graph.node.add("graph_uuid");
+await client.graph.node.add("graph_uuid", {
+    nodes: [{
+            name: "name"
+        }]
+});
 
 ```
 </dd>

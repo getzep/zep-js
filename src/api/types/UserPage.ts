@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface UserPage {
+    /** The users on this page. */
     items?: Zep.User[];
+    /**
+     * The cursor to pass as the next request's cursor to fetch the following
+     * page; absent when no further pages remain.
+     */
     nextCursor?: string;
+    /**
+     * The total number of matching users, counted at the time of this response.
+     * It does not indicate whether more pages remain.
+     */
     totalSize?: number;
 }

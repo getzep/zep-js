@@ -3,7 +3,12 @@
 import type * as Zep from "../index.js";
 
 export interface AddEdgeResult {
-    /** 8.6: edge is an accept-time acknowledgement, not a full Edge. */
+    /**
+     * An accept-time acknowledgement of the fact you submitted, carrying the
+     * identifier and fields you supplied rather than the full edge resource
+     * returned by later reads.
+     */
     edge?: Zep.AddedEdge;
+    /** The asynchronous task that tracks the edge's extraction and indexing. */
     task?: Zep.Task;
 }

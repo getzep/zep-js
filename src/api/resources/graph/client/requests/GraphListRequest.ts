@@ -18,5 +18,9 @@ export interface GraphListRequest {
     orderBy?: string;
     /** asc or desc */
     order?: string;
+    /**
+     * Filters results to graphs whose name, description, or graph ID contains
+     * this text.
+     */
     search?: string;
 }

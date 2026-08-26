@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface ThreadPage {
+    /** The threads on this page. */
     items?: Zep.Thread[];
+    /**
+     * The cursor to pass as the next request's cursor to fetch the following
+     * page; absent when no further pages remain.
+     */
     nextCursor?: string;
+    /**
+     * The total number of matching threads, counted at the time of this
+     * response. It does not indicate whether more pages remain.
+     */
     totalSize?: number;
 }

@@ -69,6 +69,19 @@ describe("GraphClient", () => {
 
         const rawResponseBody = {};
 
+        server.mockEndpoint().get("/graphs/graph_uuid").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.graph.get("graph_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
         server.mockEndpoint().get("/graphs/graph_uuid").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -80,7 +93,7 @@ describe("GraphClient", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { inherited: true, instructions: [{ key: "value" }] };
+        const rawResponseBody = { inherited: true, instructions: [{ name: "name", text: "text" }] };
 
         server
             .mockEndpoint()
@@ -95,7 +108,8 @@ describe("GraphClient", () => {
             inherited: true,
             instructions: [
                 {
-                    key: "value",
+                    name: "name",
+                    text: "text",
                 },
             ],
         });
@@ -162,7 +176,11 @@ describe("GraphClient", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { inherited: true, instruction: "instruction", types: [{ key: "value" }] };
+        const rawResponseBody = {
+            inherited: true,
+            instruction: "instruction",
+            types: [{ description: "description", name: "name" }],
+        };
 
         server
             .mockEndpoint()
@@ -178,7 +196,8 @@ describe("GraphClient", () => {
             instruction: "instruction",
             types: [
                 {
-                    key: "value",
+                    description: "description",
+                    name: "name",
                 },
             ],
         });

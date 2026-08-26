@@ -38,7 +38,9 @@ export class EpisodeClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -125,8 +127,30 @@ export class EpisodeClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        case 409:
+                            throw new Zep.ConflictError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
@@ -173,16 +197,20 @@ export class EpisodeClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.episode.add("graph_uuid")
+     *     await client.graph.episode.add("graph_uuid", {
+     *         data: "data"
+     *     })
      */
     public add(
         graph_uuid: string,
-        request: Zep.graph.AddEpisodeRequest = {},
+        request: Zep.graph.AddEpisodeRequest,
         requestOptions?: EpisodeClient.IdempotentRequestOptions,
     ): core.HttpResponsePromise<Zep.AddEpisodeResult> {
         return core.HttpResponsePromise.fromPromise(this.__add(graph_uuid, request, requestOptions));
@@ -190,7 +218,7 @@ export class EpisodeClient {
 
     private async __add(
         graph_uuid: string,
-        request: Zep.graph.AddEpisodeRequest = {},
+        request: Zep.graph.AddEpisodeRequest,
         requestOptions?: EpisodeClient.IdempotentRequestOptions,
     ): Promise<core.WithRawResponse<Zep.AddEpisodeResult>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -262,8 +290,30 @@ export class EpisodeClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -297,6 +347,7 @@ export class EpisodeClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -392,6 +443,17 @@ export class EpisodeClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -440,6 +502,7 @@ export class EpisodeClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -519,6 +582,17 @@ export class EpisodeClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -554,7 +628,9 @@ export class EpisodeClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -634,8 +710,30 @@ export class EpisodeClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -670,7 +768,9 @@ export class EpisodeClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -761,8 +861,30 @@ export class EpisodeClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

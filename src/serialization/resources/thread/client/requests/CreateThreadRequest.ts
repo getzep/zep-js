@@ -9,12 +9,12 @@ export const CreateThreadRequest: core.serialization.Schema<
     Zep.CreateThreadRequest
 > = core.serialization.object({
     threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
-    userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
+    userUuid: core.serialization.property("user_uuid", core.serialization.string()),
 });
 
 export declare namespace CreateThreadRequest {
     export interface Raw {
         thread_id?: string | null;
-        user_uuid?: string | null;
+        user_uuid: string;
     }
 }

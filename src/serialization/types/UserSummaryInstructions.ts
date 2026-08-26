@@ -3,20 +3,19 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { UserInstruction } from "./UserInstruction.js";
 
 export const UserSummaryInstructions: core.serialization.ObjectSchema<
     serializers.UserSummaryInstructions.Raw,
     Zep.UserSummaryInstructions
 > = core.serialization.object({
     inherited: core.serialization.boolean().optional(),
-    instructions: core.serialization
-        .list(core.serialization.record(core.serialization.string(), core.serialization.unknown()))
-        .optional(),
+    instructions: core.serialization.list(UserInstruction).optional(),
 });
 
 export declare namespace UserSummaryInstructions {
     export interface Raw {
         inherited?: boolean | null;
-        instructions?: Record<string, unknown>[] | null;
+        instructions?: UserInstruction.Raw[] | null;
     }
 }

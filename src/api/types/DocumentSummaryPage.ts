@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface DocumentSummaryPage {
+    /** The document summaries on this page. */
     items?: Zep.DocumentSummary[];
+    /**
+     * Opaque cursor for retrieving the next page, present only when more results
+     * are available.
+     */
     nextCursor?: string;
+    /**
+     * Omitted for this collection; use next_cursor to detect the end of
+     * pagination.
+     */
     totalSize?: number;
 }

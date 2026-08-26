@@ -37,7 +37,9 @@ export class ObservationClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -132,8 +134,30 @@ export class ObservationClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        case 409:
+                            throw new Zep.ConflictError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
@@ -180,7 +204,9 @@ export class ObservationClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -259,8 +285,30 @@ export class ObservationClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

@@ -4,9 +4,11 @@ import type * as Zep from "../index.js";
 
 export interface AddNodesResult {
     /**
-     * 8.6: nodes is an accept-time acknowledgement carrying the assigned
-     * identifier plus the fields the caller supplied, not a full Node.
+     * An accept-time acknowledgement of the nodes you submitted, each carrying
+     * its assigned identifier and the fields you supplied, not the full stored
+     * node.
      */
     nodes?: Zep.AddedNode[];
+    /** The asynchronous task that tracks the nodes' extraction and indexing. */
     task?: Zep.Task;
 }

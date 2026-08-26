@@ -1,6 +1,6 @@
 {
     "name": "@getzep/zep-cloud",
-    "version": "4.0.0-alpha.4",
+    "version": "4.0.0-alpha.5",
     "private": false,
     "repository": {
         "type": "git",
@@ -109,6 +109,17 @@
                 "default": "./dist/cjs/api/resources/thread/exports.js"
             },
             "default": "./dist/cjs/api/resources/thread/exports.js"
+        },
+        "./userGroup": {
+            "import": {
+                "types": "./dist/esm/api/resources/userGroup/exports.d.mts",
+                "default": "./dist/esm/api/resources/userGroup/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/userGroup/exports.d.ts",
+                "default": "./dist/cjs/api/resources/userGroup/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/userGroup/exports.js"
         },
         "./user": {
             "import": {

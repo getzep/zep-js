@@ -8,6 +8,7 @@ import { ProjectClient } from "./api/resources/project/client/Client.js";
 import { TaskClient } from "./api/resources/task/client/Client.js";
 import { ThreadClient } from "./api/resources/thread/client/Client.js";
 import { UserClient } from "./api/resources/user/client/Client.js";
+import { UserGroupClient } from "./api/resources/userGroup/client/Client.js";
 import type { BaseClientOptions, BaseRequestOptions } from "./BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "./BaseClient.js";
 import * as core from "./core/index.js";
@@ -27,6 +28,7 @@ export class ZepClient {
     protected _project: ProjectClient | undefined;
     protected _task: TaskClient | undefined;
     protected _thread: ThreadClient | undefined;
+    protected _userGroup: UserGroupClient | undefined;
     protected _user: UserClient | undefined;
 
     constructor(options: ZepClient.Options = {}) {
@@ -59,6 +61,10 @@ export class ZepClient {
 
     public get thread(): ThreadClient {
         return (this._thread ??= new ThreadClient(this._options));
+    }
+
+    public get userGroup(): UserGroupClient {
+        return (this._userGroup ??= new UserGroupClient(this._options));
     }
 
     public get user(): UserClient {

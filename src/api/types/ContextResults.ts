@@ -3,9 +3,14 @@
 import type * as Zep from "../index.js";
 
 export interface ContextResults {
+    /** The edges selected for inclusion in the assembled context. */
     edges?: Zep.ContextEdge[];
+    /** The episodes selected for inclusion in the assembled context. */
     episodes?: Zep.ContextEpisode[];
+    /** The nodes selected for inclusion in the assembled context. */
     nodes?: Zep.ContextNode[];
+    /** The observations selected for inclusion in the assembled context. */
     observations?: Zep.ContextObservation[];
+    /** The thread summaries selected for inclusion in the assembled context. */
     threadSummaries?: Zep.ContextThreadSummary[];
 }

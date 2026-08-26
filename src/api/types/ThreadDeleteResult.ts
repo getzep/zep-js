@@ -3,5 +3,6 @@
 import type * as Zep from "../index.js";
 
 export interface ThreadDeleteResult {
+    /** The task tracking the thread's asynchronous deletion. */
     task?: Zep.Task;
 }

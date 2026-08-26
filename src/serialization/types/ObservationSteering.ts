@@ -3,6 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { ObservationType } from "./ObservationType.js";
 
 export const ObservationSteering: core.serialization.ObjectSchema<
     serializers.ObservationSteering.Raw,
@@ -10,15 +11,13 @@ export const ObservationSteering: core.serialization.ObjectSchema<
 > = core.serialization.object({
     inherited: core.serialization.boolean().optional(),
     instruction: core.serialization.string().optional(),
-    types: core.serialization
-        .list(core.serialization.record(core.serialization.string(), core.serialization.unknown()))
-        .optional(),
+    types: core.serialization.list(ObservationType).optional(),
 });
 
 export declare namespace ObservationSteering {
     export interface Raw {
         inherited?: boolean | null;
         instruction?: string | null;
-        types?: Record<string, unknown>[] | null;
+        types?: ObservationType.Raw[] | null;
     }
 }

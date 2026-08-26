@@ -5,5 +5,6 @@
  *     {}
  */
 export interface CloneGraphRequest {
+    /** An optional name for the cloned graph. */
     targetGraphId?: string;
 }

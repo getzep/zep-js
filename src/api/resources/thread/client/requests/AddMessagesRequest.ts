@@ -4,11 +4,26 @@ import type * as Zep from "../../../../index.js";
 
 /**
  * @example
- *     {}
+ *     {
+ *         messages: [{}]
+ *     }
  */
 export interface AddMessagesRequest {
+    /**
+     * Message roles to skip during graph extraction; the messages are still
+     * stored.
+     */
     ignoreRoles?: string[];
-    messages?: Zep.AddMessage[];
+    /** The messages to add to the thread. */
+    messages: Zep.AddMessage[];
+    /**
+     * When true, returns the context block for the thread's most recent
+     * messages.
+     */
     returnContext?: boolean;
+    /**
+     * When true, prevents extraction of generic entity nodes that do not match
+     * the configured ontology.
+     */
     strictOntology?: boolean;
 }

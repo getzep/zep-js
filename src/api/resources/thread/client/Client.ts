@@ -170,21 +170,24 @@ export class ThreadClient {
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.thread.create()
+     *     await client.thread.create({
+     *         userUuid: "user_uuid"
+     *     })
      */
     public create(
-        request: Zep.CreateThreadRequest = {},
+        request: Zep.CreateThreadRequest,
         requestOptions?: ThreadClient.IdempotentRequestOptions,
     ): core.HttpResponsePromise<Zep.Thread> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Zep.CreateThreadRequest = {},
+        request: Zep.CreateThreadRequest,
         requestOptions?: ThreadClient.IdempotentRequestOptions,
     ): Promise<core.WithRawResponse<Zep.Thread>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -258,6 +261,17 @@ export class ThreadClient {
                     );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -508,6 +522,7 @@ export class ThreadClient {
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -596,6 +611,17 @@ export class ThreadClient {
                         }),
                         _response.rawResponse,
                     );
+                case 409:
+                    throw new Zep.ConflictError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
@@ -616,6 +642,7 @@ export class ThreadClient {
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -715,6 +742,17 @@ export class ThreadClient {
                         }),
                         _response.rawResponse,
                     );
+                case 409:
+                    throw new Zep.ConflictError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
@@ -739,7 +777,9 @@ export class ThreadClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -823,8 +863,30 @@ export class ThreadClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        case 409:
+                            throw new Zep.ConflictError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
@@ -1004,15 +1066,18 @@ export class ThreadClient {
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.thread.addMessages("thread_uuid")
+     *     await client.thread.addMessages("thread_uuid", {
+     *         messages: [{}]
+     *     })
      */
     public addMessages(
         thread_uuid: string,
-        request: Zep.AddMessagesRequest = {},
+        request: Zep.AddMessagesRequest,
         requestOptions?: ThreadClient.IdempotentRequestOptions,
     ): core.HttpResponsePromise<Zep.AddMessagesResult> {
         return core.HttpResponsePromise.fromPromise(this.__addMessages(thread_uuid, request, requestOptions));
@@ -1020,7 +1085,7 @@ export class ThreadClient {
 
     private async __addMessages(
         thread_uuid: string,
-        request: Zep.AddMessagesRequest = {},
+        request: Zep.AddMessagesRequest,
         requestOptions?: ThreadClient.IdempotentRequestOptions,
     ): Promise<core.WithRawResponse<Zep.AddMessagesResult>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -1103,6 +1168,17 @@ export class ThreadClient {
                         }),
                         _response.rawResponse,
                     );
+                case 409:
+                    throw new Zep.ConflictError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.ZepError({
                         statusCode: _response.error.statusCode,
@@ -1126,6 +1202,7 @@ export class ThreadClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -1194,6 +1271,17 @@ export class ThreadClient {
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Zep.ForbiddenError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

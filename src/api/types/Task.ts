@@ -3,14 +3,40 @@
 import type * as Zep from "../index.js";
 
 export interface Task {
+    /**
+     * The time the task reached a terminal status; absent while it is still in
+     * progress.
+     */
     completedAt?: string;
+    /** The time the task was created. */
     createdAt?: string;
+    /**
+     * The error that caused the task to fail; also present on a partial task
+     * when the worker can name a single cause.
+     */
     error?: Zep.ErrorBody;
+    /**
+     * The last processing stage a worker reported for this task. It is not
+     * cleared when the task finishes, so a completed task may still show its
+     * final stage.
+     */
     progress?: Zep.TaskProgress;
+    /**
+     * Operation-specific output populated once the task reaches succeeded or
+     * partial, such as identifiers the operation could not return synchronously.
+     */
     result?: Record<string, unknown>;
+    /** The time a worker began processing the task; absent until then. */
     startedAt?: string;
+    /**
+     * The task's current state: pending, processing, succeeded, partial, or
+     * failed.
+     */
     status?: string;
+    /** The kind of asynchronous operation the task represents. */
     type?: string;
+    /** The time the task was last updated. */
     updatedAt?: string;
+    /** The unique identifier of the task, used to poll its status. */
     uuid?: string;
 }

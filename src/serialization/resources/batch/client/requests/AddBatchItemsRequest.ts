@@ -3,18 +3,17 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
+import { BatchItemInput } from "../../../../types/BatchItemInput.js";
 
 export const AddBatchItemsRequest: core.serialization.Schema<
     serializers.AddBatchItemsRequest.Raw,
     Zep.AddBatchItemsRequest
 > = core.serialization.object({
-    items: core.serialization
-        .list(core.serialization.record(core.serialization.string(), core.serialization.unknown()))
-        .optional(),
+    items: core.serialization.list(BatchItemInput),
 });
 
 export declare namespace AddBatchItemsRequest {
     export interface Raw {
-        items?: Record<string, unknown>[] | null;
+        items: BatchItemInput.Raw[];
     }
 }

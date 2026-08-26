@@ -3,8 +3,15 @@
 import type * as Zep from "../index.js";
 
 export interface EdgeType {
+    /**
+     * A description of the relationship this edge type represents, used to guide
+     * extraction.
+     */
     description?: string;
+    /** The name of the edge type, in upper snake case. */
     name?: string;
+    /** The custom properties defined on edges of this type. */
     properties?: Zep.EntityProperty[];
+    /** The allowed source and target entity type pairs for edges of this type. */
     sourceTargets?: Zep.EdgeSourceTarget[];
 }

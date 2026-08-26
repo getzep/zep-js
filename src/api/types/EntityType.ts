@@ -3,8 +3,15 @@
 import type * as Zep from "../index.js";
 
 export interface EntityType {
+    /** A description of the entity type, used to guide extraction. */
     description?: string;
+    /**
+     * The property names that determine whether two nodes of this type are the
+     * same entity.
+     */
     identityProperties?: string[];
+    /** The name of the entity type. */
     name?: string;
+    /** The custom properties defined on nodes of this type. */
     properties?: Zep.EntityProperty[];
 }

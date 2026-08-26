@@ -3,6 +3,8 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { SearchFilters } from "./SearchFilters.js";
+import { V4SearchRequestReranker } from "./V4SearchRequestReranker.js";
 
 export const SearchRequest: core.serialization.ObjectSchema<serializers.SearchRequest.Raw, Zep.SearchRequest> =
     core.serialization.object({
@@ -11,19 +13,19 @@ export const SearchRequest: core.serialization.ObjectSchema<serializers.SearchRe
             core.serialization.list(core.serialization.string()).optional(),
         ),
         centerNodeUuid: core.serialization.property("center_node_uuid", core.serialization.string().optional()),
-        filters: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        filters: SearchFilters.optional(),
         mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
-        query: core.serialization.string().optional(),
-        reranker: core.serialization.string().optional(),
+        query: core.serialization.string(),
+        reranker: V4SearchRequestReranker.optional(),
     });
 
 export declare namespace SearchRequest {
     export interface Raw {
         bfs_origin_node_uuids?: string[] | null;
         center_node_uuid?: string | null;
-        filters?: Record<string, unknown> | null;
+        filters?: SearchFilters.Raw | null;
         mmr_lambda?: number | null;
-        query?: string | null;
-        reranker?: string | null;
+        query: string;
+        reranker?: V4SearchRequestReranker.Raw | null;
     }
 }

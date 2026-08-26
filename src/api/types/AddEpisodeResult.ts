@@ -4,9 +4,13 @@ import type * as Zep from "../index.js";
 
 export interface AddEpisodeResult {
     /**
-     * 8.6: only the episode response is a stored resource, so it is a full
-     * Episode readable immediately with processed false.
+     * The newly created episode, a full resource that is readable immediately.
+     * Its processed field is false until graph extraction finishes.
      */
     episode?: Zep.Episode;
+    /**
+     * The asynchronous task that tracks the episode's graph extraction and
+     * indexing.
+     */
     task?: Zep.Task;
 }

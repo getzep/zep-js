@@ -3,8 +3,21 @@
 import type * as Zep from "../index.js";
 
 export interface SubgraphResponse {
+    /**
+     * Every traversed edge that passed the request filters; both endpoints of
+     * every edge are present in nodes.
+     */
     edges?: Zep.Edge[];
+    /**
+     * Every admitted seed node and every node reached within the traversal
+     * budget.
+     */
     nodes?: Zep.Node[];
+    /** Whether any budget or limit reduced the result. */
     truncated?: boolean;
+    /**
+     * The binding limit that caused truncation, such as max_nodes or max_edges;
+     * present only when truncated is true.
+     */
     truncationReason?: string;
 }

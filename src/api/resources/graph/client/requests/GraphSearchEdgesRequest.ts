@@ -7,7 +7,9 @@ import type * as Zep from "../../../../index.js";
  *     {
  *         limit: 1,
  *         cursor: "cursor",
- *         body: {}
+ *         body: {
+ *             query: "query"
+ *         }
  *     }
  */
 export interface GraphSearchEdgesRequest {

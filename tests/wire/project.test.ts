@@ -72,7 +72,7 @@ describe("ProjectClient", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { inherited: true, instructions: [{ key: "value" }] };
+        const rawResponseBody = { inherited: true, instructions: [{ name: "name", text: "text" }] };
 
         server
             .mockEndpoint()
@@ -87,7 +87,8 @@ describe("ProjectClient", () => {
             inherited: true,
             instructions: [
                 {
-                    key: "value",
+                    name: "name",
+                    text: "text",
                 },
             ],
         });
@@ -154,7 +155,11 @@ describe("ProjectClient", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { inherited: true, instruction: "instruction", types: [{ key: "value" }] };
+        const rawResponseBody = {
+            inherited: true,
+            instruction: "instruction",
+            types: [{ description: "description", name: "name" }],
+        };
 
         server
             .mockEndpoint()
@@ -170,7 +175,8 @@ describe("ProjectClient", () => {
             instruction: "instruction",
             types: [
                 {
-                    key: "value",
+                    description: "description",
+                    name: "name",
                 },
             ],
         });
@@ -317,7 +323,7 @@ describe("ProjectClient", () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { inherited: true, instructions: [{ key: "value" }] };
+        const rawResponseBody = { inherited: true, instructions: [{ name: "name", text: "text" }] };
 
         server
             .mockEndpoint()
@@ -332,7 +338,8 @@ describe("ProjectClient", () => {
             inherited: true,
             instructions: [
                 {
-                    key: "value",
+                    name: "name",
+                    text: "text",
                 },
             ],
         });

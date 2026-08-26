@@ -3,26 +3,28 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
+import { SearchFilters } from "../../../../types/SearchFilters.js";
+import { V4GraphContextRequestRecencyBias } from "../../types/V4GraphContextRequestRecencyBias.js";
 
 export const GraphContextRequest: core.serialization.Schema<
     serializers.GraphContextRequest.Raw,
     Zep.GraphContextRequest
 > = core.serialization.object({
-    filters: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    filters: SearchFilters.optional(),
     includeResults: core.serialization.property("include_results", core.serialization.boolean().optional()),
     maxCharacters: core.serialization.property("max_characters", core.serialization.number().optional()),
-    query: core.serialization.string().optional(),
-    recencyBias: core.serialization.property("recency_bias", core.serialization.string().optional()),
+    query: core.serialization.string(),
+    recencyBias: core.serialization.property("recency_bias", V4GraphContextRequestRecencyBias.optional()),
     templateUuid: core.serialization.property("template_uuid", core.serialization.string().optional()),
 });
 
 export declare namespace GraphContextRequest {
     export interface Raw {
-        filters?: Record<string, unknown> | null;
+        filters?: SearchFilters.Raw | null;
         include_results?: boolean | null;
         max_characters?: number | null;
-        query?: string | null;
-        recency_bias?: string | null;
+        query: string;
+        recency_bias?: V4GraphContextRequestRecencyBias.Raw | null;
         template_uuid?: string | null;
     }
 }
