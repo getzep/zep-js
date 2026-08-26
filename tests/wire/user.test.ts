@@ -168,6 +168,25 @@ describe("UserClient", () => {
             .mockEndpoint()
             .get("/users/user_uuid/node")
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.user.getNode("user_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get_node (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/users/user_uuid/node")
+            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
@@ -177,11 +196,30 @@ describe("UserClient", () => {
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
+    test("get_node (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/users/user_uuid/node")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.user.getNode("user_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
     test("get_summary_instructions (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { inherited: true, instructions: [{ key: "value" }] };
+        const rawResponseBody = { inherited: true, instructions: [{ name: "name", text: "text" }] };
 
         server
             .mockEndpoint()
@@ -196,7 +234,8 @@ describe("UserClient", () => {
             inherited: true,
             instructions: [
                 {
-                    key: "value",
+                    name: "name",
+                    text: "text",
                 },
             ],
         });

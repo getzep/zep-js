@@ -11,7 +11,7 @@ export const AddMessagesRequest: core.serialization.Schema<serializers.AddMessag
             "ignore_roles",
             core.serialization.list(core.serialization.string()).optional(),
         ),
-        messages: core.serialization.list(AddMessage).optional(),
+        messages: core.serialization.list(AddMessage),
         returnContext: core.serialization.property("return_context", core.serialization.boolean().optional()),
         strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
     });
@@ -19,7 +19,7 @@ export const AddMessagesRequest: core.serialization.Schema<serializers.AddMessag
 export declare namespace AddMessagesRequest {
     export interface Raw {
         ignore_roles?: string[] | null;
-        messages?: AddMessage.Raw[] | null;
+        messages: AddMessage.Raw[];
         return_context?: boolean | null;
         strict_ontology?: boolean | null;
     }

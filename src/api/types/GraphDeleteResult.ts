@@ -3,5 +3,6 @@
 import type * as Zep from "../index.js";
 
 export interface GraphDeleteResult {
+    /** The asynchronous task that tracks the graph's deletion. */
     task?: Zep.Task;
 }

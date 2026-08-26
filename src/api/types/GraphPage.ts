@@ -3,7 +3,13 @@
 import type * as Zep from "../index.js";
 
 export interface GraphPage {
+    /** The graphs on this page. */
     items?: Zep.Graph[];
+    /**
+     * Opaque cursor for retrieving the next page, present only when more results
+     * are available.
+     */
     nextCursor?: string;
+    /** The total number of graphs that match the request. */
     totalSize?: number;
 }

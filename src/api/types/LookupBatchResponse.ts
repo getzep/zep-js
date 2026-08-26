@@ -3,5 +3,9 @@
 import type * as Zep from "../index.js";
 
 export interface LookupBatchResponse {
+    /**
+     * The lookup result for each identifier submitted, in request order within
+     * each resource type.
+     */
     items?: Zep.LookupItem[];
 }

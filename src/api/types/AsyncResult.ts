@@ -3,5 +3,6 @@
 import type * as Zep from "../index.js";
 
 export interface AsyncResult {
+    /** The asynchronous task that tracks this operation's progress. */
     task?: Zep.Task;
 }

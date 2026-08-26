@@ -3,5 +3,6 @@
 import type * as Zep from "../index.js";
 
 export interface BatchItemsResponse {
+    /** The batch items that were added, in the order they were appended. */
     items?: Zep.BatchItem[];
 }

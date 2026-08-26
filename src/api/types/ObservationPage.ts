@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface ObservationPage {
+    /** The observations on this page. */
     items?: Zep.Observation[];
+    /**
+     * The cursor to pass as the next request's cursor to fetch the following
+     * page; absent when no further pages remain.
+     */
     nextCursor?: string;
+    /**
+     * Omitted for this collection; use next_cursor to detect the end of
+     * pagination.
+     */
     totalSize?: number;
 }

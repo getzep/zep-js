@@ -5,7 +5,10 @@
  *     {}
  */
 export interface BatchLookupRequest {
+    /** Developer-assigned graph IDs to resolve to UUIDs. */
     graphs?: string[];
+    /** Developer-assigned thread IDs to resolve to UUIDs. */
     threads?: string[];
+    /** Developer-assigned user IDs to resolve to UUIDs. */
     users?: string[];
 }

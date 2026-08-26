@@ -3,7 +3,13 @@
 import type * as Zep from "../index.js";
 
 export interface Ontology {
+    /** The edge types defined in the ontology in effect at this scope. */
     edgeTypes?: Zep.EdgeType[];
+    /** The entity types defined in the ontology in effect at this scope. */
     entityTypes?: Zep.EntityType[];
+    /**
+     * Whether this is the project's default value rather than an override set on
+     * this graph.
+     */
     inherited?: boolean;
 }

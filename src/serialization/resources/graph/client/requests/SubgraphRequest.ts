@@ -3,27 +3,29 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
+import { SearchFilters } from "../../../../types/SearchFilters.js";
+import { V4SubgraphRequestDirection } from "../../types/V4SubgraphRequestDirection.js";
 
 export const SubgraphRequest: core.serialization.Schema<serializers.SubgraphRequest.Raw, Zep.SubgraphRequest> =
     core.serialization.object({
         depth: core.serialization.number().optional(),
-        direction: core.serialization.string().optional(),
-        filters: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        direction: V4SubgraphRequestDirection.optional(),
+        filters: SearchFilters.optional(),
         maxEdges: core.serialization.property("max_edges", core.serialization.number().optional()),
         maxNodes: core.serialization.property("max_nodes", core.serialization.number().optional()),
         seedNodeUuids: core.serialization.property(
             "seed_node_uuids",
-            core.serialization.list(core.serialization.string()).optional(),
+            core.serialization.list(core.serialization.string()),
         ),
     });
 
 export declare namespace SubgraphRequest {
     export interface Raw {
         depth?: number | null;
-        direction?: string | null;
-        filters?: Record<string, unknown> | null;
+        direction?: V4SubgraphRequestDirection.Raw | null;
+        filters?: SearchFilters.Raw | null;
         max_edges?: number | null;
         max_nodes?: number | null;
-        seed_node_uuids?: string[] | null;
+        seed_node_uuids: string[];
     }
 }

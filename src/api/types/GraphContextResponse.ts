@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface GraphContextResponse {
+    /**
+     * The assembled context block of facts, entities, and episodes, ready to
+     * insert into a system prompt.
+     */
     context?: string;
+    /**
+     * The individual edges, nodes, episodes, observations, and thread summaries
+     * selected to build the context. Present only when requested.
+     */
     results?: Zep.ContextResults;
+    /** Whether the character budget limited the size of the context block. */
     truncated?: boolean;
 }

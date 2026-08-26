@@ -5,7 +5,14 @@
  *     {}
  */
 export interface PatchEdgeRequest {
+    /**
+     * Additional attributes to merge onto the edge; a key set to null is
+     * removed.
+     */
     attributes?: Record<string, unknown>;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /**
+     * The fact text describing the relationship between the source and target
+     * nodes.
+     */
     fact?: string;
 }

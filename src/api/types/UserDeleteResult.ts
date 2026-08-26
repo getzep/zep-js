@@ -3,5 +3,9 @@
 import type * as Zep from "../index.js";
 
 export interface UserDeleteResult {
+    /**
+     * The task tracking the user's asynchronous deletion. Once it completes, the
+     * user's threads, messages, and graph are removed as well.
+     */
     task?: Zep.Task;
 }

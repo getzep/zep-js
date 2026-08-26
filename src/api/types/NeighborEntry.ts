@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface NeighborEntry {
+    /** The edges connecting the neighboring node to the queried node. */
     edges?: Zep.Edge[];
+    /** The neighboring node reached from the queried node. */
     node?: Zep.Node;
 }

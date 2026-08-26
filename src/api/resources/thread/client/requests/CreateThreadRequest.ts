@@ -2,9 +2,13 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         userUuid: "user_uuid"
+ *     }
  */
 export interface CreateThreadRequest {
+    /** An optional developer-assigned identifier for the thread. */
     threadId?: string;
-    userUuid?: string;
+    /** The UUID of the user this thread belongs to. */
+    userUuid: string;
 }

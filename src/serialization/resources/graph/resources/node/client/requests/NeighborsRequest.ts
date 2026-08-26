@@ -3,18 +3,20 @@
 import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
+import { SearchFilters } from "../../../../../../types/SearchFilters.js";
+import { V4NeighborsRequestDirection } from "../../types/V4NeighborsRequestDirection.js";
 
 export const NeighborsRequest: core.serialization.Schema<
     serializers.graph.NeighborsRequest.Raw,
     Omit<Zep.graph.NeighborsRequest, "limit" | "cursor">
 > = core.serialization.object({
-    direction: core.serialization.string().optional(),
-    filters: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    direction: V4NeighborsRequestDirection.optional(),
+    filters: SearchFilters.optional(),
 });
 
 export declare namespace NeighborsRequest {
     export interface Raw {
-        direction?: string | null;
-        filters?: Record<string, unknown> | null;
+        direction?: V4NeighborsRequestDirection.Raw | null;
+        filters?: SearchFilters.Raw | null;
     }
 }

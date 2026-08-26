@@ -5,10 +5,10 @@
  *     {}
  */
 export interface PatchGraphRequest {
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** A description of the graph. */
     description?: string;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** The graph's display name. */
     name?: string;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** The graph's IANA time zone. */
     timeZone?: string;
 }

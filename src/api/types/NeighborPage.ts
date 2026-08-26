@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface NeighborPage {
+    /** The neighboring nodes and their connecting edges on this page. */
     items?: Zep.NeighborEntry[];
+    /**
+     * The cursor to pass as the next request's cursor to fetch the following
+     * page; absent when no further pages remain.
+     */
     nextCursor?: string;
+    /**
+     * Omitted for this collection; use next_cursor to detect the end of
+     * pagination.
+     */
     totalSize?: number;
 }

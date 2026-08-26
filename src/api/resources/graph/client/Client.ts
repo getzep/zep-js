@@ -68,7 +68,9 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -155,8 +157,30 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -184,6 +208,7 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -272,6 +297,17 @@ export class GraphClient {
                             );
                         case 401:
                             throw new Zep.UnauthorizedError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new Zep.ForbiddenError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
@@ -439,6 +475,7 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -513,6 +550,17 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -542,7 +590,9 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -620,8 +670,30 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -650,7 +722,9 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -739,8 +813,30 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -769,7 +865,9 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -858,8 +956,30 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -888,16 +1008,20 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.getContext("graph_uuid")
+     *     await client.graph.getContext("graph_uuid", {
+     *         query: "query"
+     *     })
      */
     public getContext(
         graph_uuid: string,
-        request: Zep.GraphContextRequest = {},
+        request: Zep.GraphContextRequest,
         requestOptions?: GraphClient.IdempotentRequestOptions,
     ): core.HttpResponsePromise<Zep.GraphContextResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getContext(graph_uuid, request, requestOptions));
@@ -905,7 +1029,7 @@ export class GraphClient {
 
     private async __getContext(
         graph_uuid: string,
-        request: Zep.GraphContextRequest = {},
+        request: Zep.GraphContextRequest,
         requestOptions?: GraphClient.IdempotentRequestOptions,
     ): Promise<core.WithRawResponse<Zep.GraphContextResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -977,8 +1101,30 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,
@@ -1696,6 +1842,7 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -1704,7 +1851,9 @@ export class GraphClient {
      *     await client.graph.searchEdges("graph_uuid", {
      *         limit: 1,
      *         cursor: "cursor",
-     *         body: {}
+     *         body: {
+     *             query: "query"
+     *         }
      *     })
      */
     public async searchEdges(
@@ -1791,6 +1940,17 @@ export class GraphClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -1839,6 +1999,7 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -1847,7 +2008,9 @@ export class GraphClient {
      *     await client.graph.searchEpisodes("graph_uuid", {
      *         limit: 1,
      *         cursor: "cursor",
-     *         body: {}
+     *         body: {
+     *             query: "query"
+     *         }
      *     })
      */
     public async searchEpisodes(
@@ -1934,6 +2097,17 @@ export class GraphClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -1982,6 +2156,7 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -1990,7 +2165,9 @@ export class GraphClient {
      *     await client.graph.searchNodes("graph_uuid", {
      *         limit: 1,
      *         cursor: "cursor",
-     *         body: {}
+     *         body: {
+     *             query: "query"
+     *         }
      *     })
      */
     public async searchNodes(
@@ -2077,6 +2254,17 @@ export class GraphClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -2125,6 +2313,7 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -2133,7 +2322,9 @@ export class GraphClient {
      *     await client.graph.searchObservations("graph_uuid", {
      *         limit: 1,
      *         cursor: "cursor",
-     *         body: {}
+     *         body: {
+     *             query: "query"
+     *         }
      *     })
      */
     public async searchObservations(
@@ -2220,6 +2411,17 @@ export class GraphClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -2268,6 +2470,7 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -2276,7 +2479,9 @@ export class GraphClient {
      *     await client.graph.searchThreadSummaries("graph_uuid", {
      *         limit: 1,
      *         cursor: "cursor",
-     *         body: {}
+     *         body: {
+     *             query: "query"
+     *         }
      *     })
      */
     public async searchThreadSummaries(
@@ -2365,6 +2570,17 @@ export class GraphClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 404:
                             throw new Zep.NotFoundError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -2413,16 +2629,19 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.getSubgraph("graph_uuid")
+     *     await client.graph.getSubgraph("graph_uuid", {
+     *         seedNodeUuids: ["seed_node_uuids"]
+     *     })
      */
     public getSubgraph(
         graph_uuid: string,
-        request: Zep.SubgraphRequest = {},
+        request: Zep.SubgraphRequest,
         requestOptions?: GraphClient.IdempotentRequestOptions,
     ): core.HttpResponsePromise<Zep.SubgraphResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getSubgraph(graph_uuid, request, requestOptions));
@@ -2430,7 +2649,7 @@ export class GraphClient {
 
     private async __getSubgraph(
         graph_uuid: string,
-        request: Zep.SubgraphRequest = {},
+        request: Zep.SubgraphRequest,
         requestOptions?: GraphClient.IdempotentRequestOptions,
     ): Promise<core.WithRawResponse<Zep.SubgraphResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -2502,6 +2721,17 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -2536,7 +2766,9 @@ export class GraphClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -2614,8 +2846,30 @@ export class GraphClient {
                         }),
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

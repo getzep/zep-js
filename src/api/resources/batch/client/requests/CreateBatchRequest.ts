@@ -5,7 +5,16 @@
  *     {}
  */
 export interface CreateBatchRequest {
+    /**
+     * Message roles to skip during graph extraction for thread message items in
+     * this batch.
+     */
     ignoreRoles?: string[];
+    /** Metadata to store on the batch. */
     metadata?: Record<string, unknown>;
+    /**
+     * When true, prevents extraction of generic entity nodes that do not match
+     * the configured ontology for episodes in this batch.
+     */
     strictOntology?: boolean;
 }

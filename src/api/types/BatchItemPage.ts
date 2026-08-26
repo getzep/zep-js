@@ -3,7 +3,13 @@
 import type * as Zep from "../index.js";
 
 export interface BatchItemPage {
+    /** The batch items on this page. */
     items?: Zep.BatchItem[];
+    /**
+     * Opaque cursor for retrieving the next page, present only when more results
+     * are available.
+     */
     nextCursor?: string;
+    /** The total number of items in the batch that match the request. */
     totalSize?: number;
 }

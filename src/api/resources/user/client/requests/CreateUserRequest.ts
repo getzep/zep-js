@@ -5,11 +5,18 @@
  *     {}
  */
 export interface CreateUserRequest {
+    /** When true, disables the default ontology for the user's graph. */
     disableDefaultOntology?: boolean;
+    /** The email address of the user. */
     email?: string;
+    /** The user's first name. */
     firstName?: string;
+    /** The user's last name. */
     lastName?: string;
+    /** Metadata to store on the user. */
     metadata?: Record<string, unknown>;
+    /** The user's IANA time zone. */
     timeZone?: string;
+    /** An optional developer-assigned identifier for the user. */
     userId?: string;
 }

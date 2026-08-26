@@ -3,18 +3,17 @@
 import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
+import { NodeInput } from "../../../../../../types/NodeInput.js";
 
 export const AddNodesRequest: core.serialization.Schema<
     serializers.graph.AddNodesRequest.Raw,
     Zep.graph.AddNodesRequest
 > = core.serialization.object({
-    nodes: core.serialization
-        .list(core.serialization.record(core.serialization.string(), core.serialization.unknown()))
-        .optional(),
+    nodes: core.serialization.list(NodeInput),
 });
 
 export declare namespace AddNodesRequest {
     export interface Raw {
-        nodes?: Record<string, unknown>[] | null;
+        nodes: NodeInput.Raw[];
     }
 }
