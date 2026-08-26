@@ -6,13 +6,13 @@ import type * as serializers from "../index.js";
 
 export const EdgeSourceTarget: core.serialization.ObjectSchema<serializers.EdgeSourceTarget.Raw, Zep.EdgeSourceTarget> =
     core.serialization.object({
-        sourceEntityType: core.serialization.property("source_entity_type", core.serialization.string().optional()),
-        targetEntityType: core.serialization.property("target_entity_type", core.serialization.string().optional()),
+        source: core.serialization.string().optional(),
+        target: core.serialization.string().optional(),
     });
 
 export declare namespace EdgeSourceTarget {
     export interface Raw {
-        source_entity_type?: string | null;
-        target_entity_type?: string | null;
+        source?: string | null;
+        target?: string | null;
     }
 }

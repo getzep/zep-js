@@ -5,5 +5,6 @@
  *     {}
  */
 export interface PatchEpisodeRequest {
+    /** Metadata to merge onto the episode; a key set to null is removed. */
     metadata?: Record<string, unknown>;
 }

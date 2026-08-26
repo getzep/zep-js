@@ -95,6 +95,25 @@ describe("ObservationClient", () => {
             .mockEndpoint()
             .get("/graphs/graph_uuid/observations/observation_uuid")
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.observation.get("graph_uuid", "observation_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/observations/observation_uuid")
+            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
@@ -102,5 +121,24 @@ describe("ObservationClient", () => {
         await expect(async () => {
             return await client.graph.observation.get("graph_uuid", "observation_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("get (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/observations/observation_uuid")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.observation.get("graph_uuid", "observation_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
     });
 });

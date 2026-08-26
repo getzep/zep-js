@@ -3,12 +3,26 @@
 import type * as Zep from "../index.js";
 
 export interface Message {
+    /** The content of the message. */
     content?: string;
+    /** The time the message was created. */
     createdAt?: string;
+    /** Arbitrary key-value metadata attached to the message. */
     metadata?: Record<string, unknown>;
+    /**
+     * A custom name for the message's sender, for example a specific user or
+     * agent name.
+     */
     name?: string;
+    /** Whether the message has finished being ingested into the user's graph. */
     processed?: boolean;
+    /**
+     * The role of the message's sender: system, assistant, user, function, or
+     * tool.
+     */
     role?: Zep.RoleType;
+    /** The unique identifier of the thread this message belongs to. */
     threadUuid?: string;
+    /** The unique identifier of the message. */
     uuid?: string;
 }

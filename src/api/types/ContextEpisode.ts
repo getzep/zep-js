@@ -3,20 +3,61 @@
 import type * as Zep from "../index.js";
 
 export interface ContextEpisode {
+    /** The raw content of the episode. */
     content?: string;
+    /** The time the episode was created. */
     createdAt?: string;
+    /**
+     * The developer-assigned identifier of the document this episode belongs to,
+     * present only for episodes added to a document.
+     */
     documentId?: string;
+    /** The unique identifier of the graph this episode belongs to. */
     graphUuid?: string;
+    /** Custom metadata associated with the episode. */
     metadata?: Record<string, unknown>;
+    /** Whether the episode has finished graph extraction and indexing. */
     processed?: boolean;
+    /**
+     * A cross-encoder-derived relevance score, present only when the
+     * cross-encoder reranker scored this result; like score, it is omitted from
+     * plain list results.
+     */
     relevance?: number;
+    /**
+     * The role of the episode's sender, present only when the episode was added
+     * as a message.
+     */
     role?: Zep.RoleType;
+    /**
+     * The free-form display name of the episode's sender, present only when the
+     * episode was added as a message.
+     */
     roleName?: string;
+    /**
+     * The ranking score returned with every search result; omitted when the
+     * episode appears in a plain list rather than a search result.
+     */
     score?: number;
+    /**
+     * The 1-based position this episode was selected in across all
+     * context-assembly scopes.
+     */
     selectionRank?: number;
+    /** The format of the episode's content: text, json, or message. */
     source?: Zep.GraphDataType;
+    /** A free-form description of where the episode's content came from. */
     sourceDescription?: string;
+    /**
+     * The thread this episode belongs to, present only for episodes added to a
+     * thread.
+     */
     threadUuid?: string;
+    /** The unique identifier of the episode. */
     uuid?: string;
+    /**
+     * The time the episode's content became true or was observed, used for
+     * temporal reasoning.
+     */
     validAt?: string;
 }

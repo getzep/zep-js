@@ -3,23 +3,18 @@
 import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
+import { EdgeNodeRef } from "../../../../../../types/EdgeNodeRef.js";
 
 export const AddEdgeRequest: core.serialization.Schema<serializers.graph.AddEdgeRequest.Raw, Zep.graph.AddEdgeRequest> =
     core.serialization.object({
         attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
-        fact: core.serialization.string().optional(),
-        factName: core.serialization.property("fact_name", core.serialization.string().optional()),
+        fact: core.serialization.string(),
+        factName: core.serialization.property("fact_name", core.serialization.string()),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        sourceNode: core.serialization.property(
-            "source_node",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
-        targetNode: core.serialization.property(
-            "target_node",
-            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        ),
+        sourceNode: core.serialization.property("source_node", EdgeNodeRef),
+        targetNode: core.serialization.property("target_node", EdgeNodeRef),
         validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
     });
 
@@ -27,12 +22,12 @@ export declare namespace AddEdgeRequest {
     export interface Raw {
         attributes?: Record<string, unknown> | null;
         expired_at?: string | null;
-        fact?: string | null;
-        fact_name?: string | null;
+        fact: string;
+        fact_name: string;
         invalid_at?: string | null;
         metadata?: Record<string, unknown> | null;
-        source_node?: Record<string, unknown> | null;
-        target_node?: Record<string, unknown> | null;
+        source_node: EdgeNodeRef.Raw;
+        target_node: EdgeNodeRef.Raw;
         valid_at?: string | null;
     }
 }

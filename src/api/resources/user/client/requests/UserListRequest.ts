@@ -18,5 +18,6 @@ export interface UserListRequest {
     orderBy?: string;
     /** asc or desc */
     order?: string;
+    /** Filters results to users whose user ID, email, or name contains this text. */
     search?: string;
 }

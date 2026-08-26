@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface ProcessBatchResult {
+    /** The batch that was submitted for processing. */
     batch?: Zep.Batch;
+    /** The task tracking the batch's asynchronous processing. */
     task?: Zep.Task;
 }

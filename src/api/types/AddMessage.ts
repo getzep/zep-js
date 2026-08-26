@@ -3,9 +3,20 @@
 import type * as Zep from "../index.js";
 
 export interface AddMessage {
+    /** The content of the message. */
     content?: string;
+    /** Custom metadata to store with the message. */
     metadata?: Record<string, unknown>;
+    /**
+     * A customizable name for the sender of the message, for example "john" or
+     * "sales_agent".
+     */
     name?: string;
+    /** The role of the message's sender. */
     role?: Zep.RoleType;
+    /**
+     * Reserved for future use. Message identifiers are always server-assigned,
+     * so this field must be left unset.
+     */
     uuid?: string;
 }

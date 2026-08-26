@@ -125,6 +125,25 @@ describe("EpisodeClient", () => {
             .mockEndpoint()
             .get("/graphs/graph_uuid/documents/document_id/episodes")
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.episode.listForDocument("graph_uuid", "document_id");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_for_document (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/documents/document_id/episodes")
+            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
@@ -132,6 +151,25 @@ describe("EpisodeClient", () => {
         await expect(async () => {
             return await client.graph.episode.listForDocument("graph_uuid", "document_id");
         }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("list_for_document (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/documents/document_id/episodes")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.episode.listForDocument("graph_uuid", "document_id");
+        }).rejects.toThrow(Zep.ConflictError);
     });
 
     test("get (1)", async () => {
@@ -225,6 +263,25 @@ describe("EpisodeClient", () => {
     });
 
     test("get (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/episodes/episode_uuid")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.episode.get("graph_uuid", "episode_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 

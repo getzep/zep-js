@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface CloneGraphResult {
+    /** The newly created graph the source graph is being cloned into. */
     graph?: Zep.Graph;
+    /** The asynchronous task that tracks the clone operation. */
     task?: Zep.Task;
 }

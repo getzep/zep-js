@@ -5,9 +5,13 @@
  *     {}
  */
 export interface PatchNodeRequest {
+    /**
+     * Additional attributes to merge onto the node; a key set to null is
+     * removed.
+     */
     attributes?: Record<string, unknown>;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** The node's name. */
     name?: string;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** A summary of the node. */
     summary?: string;
 }

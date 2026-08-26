@@ -3,13 +3,28 @@
 import type * as Zep from "../index.js";
 
 export interface BatchItem {
+    /** The time the item was appended to the batch. */
     createdAt?: string;
+    /** The identifier of the episode created for this item, equal to source_uuid. */
     episodeUuid?: string;
+    /** The graph the item's episode is or will be ingested into. */
     graphUuid?: string;
+    /** The item's position within the batch, in the order it was appended. */
     sequenceIndex?: number;
+    /** The unique identifier of the item's stored source row. */
     sourceUuid?: string;
+    /**
+     * The processing status of the item: pending, queued, processing, succeeded,
+     * failed, skipped, or canceled.
+     */
     status?: Zep.BatchItemStatus;
+    /**
+     * The thread the item's message is or will be added to. Present only for
+     * thread_message items.
+     */
     threadUuid?: string;
+    /** The kind of item: graph_episode or thread_message. */
     type?: Zep.BatchItemKind;
+    /** The unique identifier of the batch item. */
     uuid?: string;
 }

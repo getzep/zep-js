@@ -3,28 +3,29 @@
 import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
+import { V4AddEpisodeRequestType } from "../../types/V4AddEpisodeRequestType.js";
 
 export const AddEpisodeRequest: core.serialization.Schema<
     serializers.graph.AddEpisodeRequest.Raw,
     Zep.graph.AddEpisodeRequest
 > = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
-    data: core.serialization.string().optional(),
+    data: core.serialization.string(),
     documentId: core.serialization.property("document_id", core.serialization.string().optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
     strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
-    type: core.serialization.string().optional(),
+    type: V4AddEpisodeRequestType.optional(),
 });
 
 export declare namespace AddEpisodeRequest {
     export interface Raw {
         created_at?: string | null;
-        data?: string | null;
+        data: string;
         document_id?: string | null;
         metadata?: Record<string, unknown> | null;
         source_description?: string | null;
         strict_ontology?: boolean | null;
-        type?: string | null;
+        type?: V4AddEpisodeRequestType.Raw | null;
     }
 }

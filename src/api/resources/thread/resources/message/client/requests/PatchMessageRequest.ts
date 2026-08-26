@@ -5,5 +5,6 @@
  *     {}
  */
 export interface PatchMessageRequest {
+    /** Metadata to merge onto the message; a key set to null is removed. */
     metadata?: Record<string, unknown>;
 }

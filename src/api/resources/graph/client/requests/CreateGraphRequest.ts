@@ -5,8 +5,12 @@
  *     {}
  */
 export interface CreateGraphRequest {
+    /** A description of the graph. */
     description?: string;
+    /** An optional developer-assigned identifier for the graph. */
     graphId?: string;
+    /** A display name for the graph. */
     name?: string;
+    /** The graph's IANA time zone. */
     timeZone?: string;
 }

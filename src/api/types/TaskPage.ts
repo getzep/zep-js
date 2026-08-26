@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface TaskPage {
+    /** The tasks on this page. */
     items?: Zep.Task[];
+    /**
+     * The cursor to pass as the next request's cursor to fetch the following
+     * page; absent when no further pages remain.
+     */
     nextCursor?: string;
+    /**
+     * The total number of matching tasks, counted at the time of this response.
+     * It does not indicate whether more pages remain.
+     */
     totalSize?: number;
 }

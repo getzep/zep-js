@@ -113,6 +113,25 @@ describe("EdgeClient", () => {
             .mockEndpoint()
             .get("/graphs/graph_uuid/edges/edge_uuid")
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.edge.get("graph_uuid", "edge_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/edges/edge_uuid")
+            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();

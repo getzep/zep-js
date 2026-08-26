@@ -267,6 +267,25 @@ describe("ThreadClient", () => {
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
+    test("get_context (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/threads/thread_uuid/context")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.thread.getContext("thread_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
     test("list_episodes (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -387,6 +406,25 @@ describe("ThreadClient", () => {
             .mockEndpoint()
             .get("/threads/thread_uuid/episodes")
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.thread.listEpisodes("thread_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_episodes (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/threads/thread_uuid/episodes")
+            .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
@@ -394,6 +432,25 @@ describe("ThreadClient", () => {
         await expect(async () => {
             return await client.thread.listEpisodes("thread_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("list_episodes (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/threads/thread_uuid/episodes")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.thread.listEpisodes("thread_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
     });
 
     test("list_messages (1)", async () => {
@@ -586,6 +643,25 @@ describe("ThreadClient", () => {
     });
 
     test("get_summary (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/threads/thread_uuid/summary")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.thread.getSummary("thread_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get_summary (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 

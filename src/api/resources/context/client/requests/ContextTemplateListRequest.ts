@@ -12,5 +12,6 @@ export interface ContextTemplateListRequest {
     limit?: number;
     /** Opaque page cursor */
     cursor?: string;
+    /** Filters results to the context template with this exact name. */
     name?: string;
 }

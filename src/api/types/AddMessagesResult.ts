@@ -3,7 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface AddMessagesResult {
+    /**
+     * The context block assembled from the graph after adding the messages,
+     * present only when return_context is true in the request.
+     */
     context?: string;
+    /** The messages that were added, each including its assigned identifier. */
     messages?: Zep.Message[];
+    /**
+     * The asynchronous task that tracks the messages' graph extraction and
+     * indexing.
+     */
     task?: Zep.Task;
 }

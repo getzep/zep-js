@@ -5,6 +5,9 @@
  *     {}
  */
 export interface PatchProjectRequest {
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /**
+     * The project's IANA fallback time zone. Set to null to clear the existing
+     * value.
+     */
     defaultTimeZone?: string;
 }

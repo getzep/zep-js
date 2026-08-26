@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface EntityProperty {
+    /** A description of the property, used to guide extraction. */
     description?: string;
+    /** The name of the property. */
     name?: string;
+    /** The value type of the property: text, int, float, or boolean. */
     type?: Zep.EntityPropertyType;
 }

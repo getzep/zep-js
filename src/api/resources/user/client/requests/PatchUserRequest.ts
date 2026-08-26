@@ -5,15 +5,16 @@
  *     {}
  */
 export interface PatchUserRequest {
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** When true, disables the default ontology for the user's graph. */
     disableDefaultOntology?: boolean;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** The email address of the user. */
     email?: string;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** The user's first name. */
     firstName?: string;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** The user's last name. */
     lastName?: string;
+    /** Metadata to merge onto the user; a key set to null is removed. */
     metadata?: Record<string, unknown>;
-    /** Omit to leave unchanged, send JSON null to clear, or send a value to set. */
+    /** The user's IANA time zone. */
     timeZone?: string;
 }
