@@ -14,7 +14,7 @@ const Traveler = {
 const TraveledTo = {
     description: "A traveler visiting a destination.",
     fields: { purpose: entityFields.text("Why they went") },
-    sourceTargets: [{ sourceEntityType: "Traveler", targetEntityType: "Destination" }],
+    sourceTargets: [{ source: "Traveler", target: "Destination" }],
 } as const;
 
 describe("buildOntology", () => {
@@ -38,7 +38,7 @@ describe("buildOntology", () => {
                     name: "TRAVELED_TO",
                     description: "A traveler visiting a destination.",
                     properties: [{ name: "purpose", description: "Why they went", type: "text" }],
-                    sourceTargets: [{ sourceEntityType: "Traveler", targetEntityType: "Destination" }],
+                    sourceTargets: [{ source: "Traveler", target: "Destination" }],
                 },
             ],
         });
@@ -68,7 +68,7 @@ describe("buildOntology", () => {
                     name: "TRAVELED_TO",
                     description: "A traveler visiting a destination.",
                     properties: [{ name: "purpose", description: "Why they went", type: "text" }],
-                    source_targets: [{ source_entity_type: "Traveler", target_entity_type: "Destination" }],
+                    source_targets: [{ source: "Traveler", target: "Destination" }],
                 },
             ],
         });
