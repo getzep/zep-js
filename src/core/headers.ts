@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export function mergeHeaders(...headersArray: (Record<string, unknown> | null | undefined)[]): Record<string, unknown> {
     const result: Record<string, unknown> = {};
 
@@ -24,7 +26,9 @@ export function mergeOnlyDefinedHeaders(
         .filter((headers) => headers != null)
         .flatMap((headers) => Object.entries(headers))) {
         const insensitiveKey = key.toLowerCase();
-        if (value != null) {
+        if (insensitiveKey === "idempotency-key" && value == null) {
+            result[insensitiveKey] = uuidv4();
+        } else if (value != null) {
             result[insensitiveKey] = value;
         }
     }
