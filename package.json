@@ -56,7 +56,6 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
-        "@faker-js/faker": "^8.4.1",
         "@jest/globals": "^29.7.0",
         "@types/jest": "^29.5.14",
         "@types/node": "^18.19.70",
@@ -87,7 +86,7 @@
         "**/filelist/minimatch": "5.1.9",
         "**/serialize-javascript": "7.0.5",
         "**/@tootallnate/once": "2.0.1",
-        "**/fast-uri": "3.1.2",
+        "**/fast-uri": "3.1.6",
         "**/picomatch": "2.3.2"
     }
 }
