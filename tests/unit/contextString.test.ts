@@ -10,7 +10,7 @@ describe("contextString", () => {
         name: "works_at",
         sourceNodeUuid: "source-uuid",
         targetNodeUuid: "target-uuid",
-        uuid: "edge-uuid-1"
+        uuid: "edge-uuid-1",
     };
 
     const mockNode: EntityNode = {
@@ -21,9 +21,9 @@ describe("contextString", () => {
         attributes: {
             age: "30",
             department: "Engineering",
-            labels: ["Person", "Employee"] // This should be filtered out
+            labels: ["Person", "Employee"], // This should be filtered out
         },
-        uuid: "node-uuid-1"
+        uuid: "node-uuid-1",
     };
 
     const mockEpisode: Episode = {
@@ -31,7 +31,7 @@ describe("contextString", () => {
         createdAt: "2024-01-15T14:30:00Z",
         role: "user",
         roleType: RoleType.UserRole,
-        uuid: "episode-uuid-1"
+        uuid: "episode-uuid-1",
     };
 
     describe("formatEdgeDateRange", () => {
@@ -51,14 +51,22 @@ describe("contextString", () => {
             const result = formatEdgeDateRange(edge);
             expect(result).toMatch(/2024-01-01 \d{2}:\d{2}:\d{2} - present/);
         });
+
+        it("should handle invalid date strings gracefully without throwing", () => {
+            const edge = { ...mockEdge, validAt: "invalid-date", invalidAt: "not-a-date" };
+            const result = formatEdgeDateRange(edge);
+            expect(result).toBe("date unknown - date unknown");
+        });
     });
 
     describe("composeContextString", () => {
         it("should compose context string with only facts and entities", () => {
             const result = composeContextString([mockEdge], [mockNode]);
-            
+
             expect(result).toContain("FACTS and ENTITIES represent relevant context");
-            expect(result).toMatch(/John works at Acme Corp \(Date range: 2024-01-01 \d{2}:\d{2}:\d{2} - 2024-12-31 \d{2}:\d{2}:\d{2}\)/);
+            expect(result).toMatch(
+                /John works at Acme Corp \(Date range: 2024-01-01 \d{2}:\d{2}:\d{2} - 2024-12-31 \d{2}:\d{2}:\d{2}\)/,
+            );
             expect(result).toContain("Name: John Doe");
             expect(result).toContain("Label: Person");
             expect(result).toContain("Attributes:");
@@ -70,9 +78,11 @@ describe("contextString", () => {
 
         it("should compose context string with facts, entities, and episodes", () => {
             const result = composeContextString([mockEdge], [mockNode], [mockEpisode]);
-            
+
             expect(result).toContain("FACTS and ENTITIES, and EPISODES represent relevant context");
-            expect(result).toMatch(/John works at Acme Corp \(Date range: 2024-01-01 \d{2}:\d{2}:\d{2} - 2024-12-31 \d{2}:\d{2}:\d{2}\)/);
+            expect(result).toMatch(
+                /John works at Acme Corp \(Date range: 2024-01-01 \d{2}:\d{2}:\d{2} - 2024-12-31 \d{2}:\d{2}:\d{2}\)/,
+            );
             expect(result).toContain("Name: John Doe");
             expect(result).toMatch(/user \(user\): Hello, how are you\? \(2024-01-15 \d{2}:\d{2}:\d{2}\)/);
             expect(result).toContain("<EPISODES>");
@@ -82,7 +92,7 @@ describe("contextString", () => {
         it("should handle entity without labels", () => {
             const nodeWithoutLabels = { ...mockNode, labels: undefined };
             const result = composeContextString([], [nodeWithoutLabels]);
-            
+
             expect(result).toContain("Name: John Doe");
             expect(result).not.toMatch(/^Label:/m);
             expect(result).toContain("Summary: Software engineer at Acme Corp");
@@ -91,7 +101,7 @@ describe("contextString", () => {
         it("should handle entity with only 'Entity' label", () => {
             const nodeWithEntityLabel = { ...mockNode, labels: ["Entity"] };
             const result = composeContextString([], [nodeWithEntityLabel]);
-            
+
             expect(result).toContain("Name: John Doe");
             expect(result).not.toMatch(/^Label:/m);
         });
@@ -99,7 +109,7 @@ describe("contextString", () => {
         it("should handle entity without attributes", () => {
             const nodeWithoutAttributes = { ...mockNode, attributes: undefined };
             const result = composeContextString([], [nodeWithoutAttributes]);
-            
+
             expect(result).toContain("Name: John Doe");
             expect(result).not.toMatch(/^Attributes:/m);
         });
@@ -107,7 +117,7 @@ describe("contextString", () => {
         it("should handle entity without summary", () => {
             const nodeWithoutSummary = { ...mockNode, summary: "" };
             const result = composeContextString([], [nodeWithoutSummary]);
-            
+
             expect(result).toContain("Name: John Doe");
             expect(result).not.toMatch(/^Summary:/m);
         });
@@ -115,27 +125,33 @@ describe("contextString", () => {
         it("should handle episode with only role", () => {
             const episodeWithOnlyRole = { ...mockEpisode, roleType: undefined };
             const result = composeContextString([], [], [episodeWithOnlyRole]);
-            
+
             expect(result).toMatch(/user: Hello, how are you\? \(2024-01-15 \d{2}:\d{2}:\d{2}\)/);
         });
 
         it("should handle episode with only roleType", () => {
             const episodeWithOnlyRoleType = { ...mockEpisode, role: undefined };
             const result = composeContextString([], [], [episodeWithOnlyRoleType]);
-            
+
             expect(result).toMatch(/\(user\): Hello, how are you\? \(2024-01-15 \d{2}:\d{2}:\d{2}\)/);
         });
 
         it("should handle episode without role and roleType", () => {
             const episodeWithoutRole = { ...mockEpisode, role: undefined, roleType: undefined };
             const result = composeContextString([], [], [episodeWithoutRole]);
-            
+
             expect(result).toMatch(/Hello, how are you\? \(2024-01-15 \d{2}:\d{2}:\d{2}\)/);
+        });
+
+        it("should handle episode with invalid createdAt date string gracefully", () => {
+            const episodeWithInvalidDate = { ...mockEpisode, createdAt: "invalid-date" };
+            const result = composeContextString([], [], [episodeWithInvalidDate]);
+            expect(result).toMatch(/user \(user\): Hello, how are you\? \(date unknown\)/);
         });
 
         it("should handle empty inputs", () => {
             const result = composeContextString([], [], []);
-            
+
             expect(result).toContain("FACTS and ENTITIES represent relevant context");
             expect(result).toContain("<FACTS>");
             expect(result).toContain("</FACTS>");
@@ -146,7 +162,7 @@ describe("contextString", () => {
 
         it("should filter out 'labels' attribute correctly", () => {
             const result = composeContextString([], [mockNode]);
-            
+
             expect(result).toContain("Attributes:");
             expect(result).toContain("  age: 30");
             expect(result).toContain("  department: Engineering");
@@ -158,19 +174,19 @@ describe("contextString", () => {
                 name: "Jane Smith",
                 summary: "Product manager",
                 createdAt: "2024-01-01T10:00:00Z",
-                uuid: "node-uuid-2"
+                uuid: "node-uuid-2",
             };
-            
+
             const secondEpisode: Episode = {
                 content: "I'm doing well, thanks!",
                 createdAt: "2024-01-15T14:31:00Z",
                 role: "assistant",
                 roleType: RoleType.AssistantRole,
-                uuid: "episode-uuid-2"
+                uuid: "episode-uuid-2",
             };
 
             const result = composeContextString([mockEdge], [mockNode, secondNode], [mockEpisode, secondEpisode]);
-            
+
             expect(result).toContain("Name: John Doe");
             expect(result).toContain("Name: Jane Smith");
             expect(result).toMatch(/user \(user\): Hello, how are you\?/);
