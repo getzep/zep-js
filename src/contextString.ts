@@ -48,6 +48,10 @@ export function formatEdgeDateRange(edge: EntityEdge): string {
  * @returns A formatted date string.
  */
 function formatDate(date: Date): string {
+    if (isNaN(date.getTime())) {
+        return "date unknown";
+    }
+
     return new Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "2-digit",
@@ -56,6 +60,7 @@ function formatDate(date: Date): string {
         minute: "2-digit",
         second: "2-digit",
         hour12: false,
+        timeZone: "UTC",
     })
         .format(date)
         .replace(/\//g, "-")
@@ -78,10 +83,10 @@ export function composeContextString(edges: EntityEdge[], nodes: EntityNode[], e
 
     const entities = nodes.map((node) => {
         const entityParts = [`Name: ${node.name}`];
-        
+
         if (node.labels && node.labels.length > 0) {
             const labels = [...node.labels];
-            const entityIndex = labels.indexOf('Entity');
+            const entityIndex = labels.indexOf("Entity");
             if (entityIndex > -1) {
                 labels.splice(entityIndex, 1);
             }
@@ -89,23 +94,23 @@ export function composeContextString(edges: EntityEdge[], nodes: EntityNode[], e
                 entityParts.push(`Label: ${labels[0]}`);
             }
         }
-        
+
         if (node.attributes && Object.keys(node.attributes).length > 0) {
             const filteredAttributes = { ...node.attributes };
             delete filteredAttributes.labels;
             if (Object.keys(filteredAttributes).length > 0) {
-                entityParts.push('Attributes:');
+                entityParts.push("Attributes:");
                 Object.entries(filteredAttributes).forEach(([key, value]) => {
                     entityParts.push(`  ${key}: ${value}`);
                 });
             }
         }
-        
+
         if (node.summary && node.summary.trim()) {
             entityParts.push(`Summary: ${node.summary}`);
         }
-        
-        return entityParts.join('\n');
+
+        return entityParts.join("\n");
     });
 
     const episodesList: string[] = [];
@@ -119,9 +124,9 @@ export function composeContextString(edges: EntityEdge[], nodes: EntityNode[], e
             } else if (episode.roleType) {
                 rolePrefix = `(${episode.roleType}): `;
             }
-            
+
             const timestamp = formatDate(new Date(episode.createdAt));
-            
+
             const episodeStr = `  - ${rolePrefix}${episode.content} (${timestamp})`;
             episodesList.push(episodeStr);
         });
@@ -130,14 +135,12 @@ export function composeContextString(edges: EntityEdge[], nodes: EntityNode[], e
     const factsStr = facts.join("\n");
     const entitiesStr = entities.join("\n");
     const episodesStr = episodesList.join("\n");
-    
+
     const episodesHeader = episodes.length > 0 ? ", and EPISODES" : "";
-    const episodesSection = episodes.length > 0 
-        ? `\n# These are the most relevant episodes\n<EPISODES>\n${episodesStr}\n</EPISODES>` 
-        : "";
-    
-    return TEMPLATE_STRING
-        .replace("%episodesHeader%", episodesHeader)
+    const episodesSection =
+        episodes.length > 0 ? `\n# These are the most relevant episodes\n<EPISODES>\n${episodesStr}\n</EPISODES>` : "";
+
+    return TEMPLATE_STRING.replace("%episodesHeader%", episodesHeader)
         .replace("%facts%", factsStr)
         .replace("%entities%", entitiesStr)
         .replace("%episodesSection%", episodesSection);
