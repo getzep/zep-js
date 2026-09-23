@@ -4,6 +4,8 @@
 
 export interface Thread {
     createdAt?: string;
+    /** GraphUUID is the graphs.uuid of the owning user's graph (spec-3 section 13.5). */
+    graphUuid?: string;
     projectUuid?: string;
     threadId?: string;
     userId?: string;

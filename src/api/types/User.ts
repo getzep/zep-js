@@ -8,6 +8,11 @@ export interface User {
     disableDefaultOntology?: boolean;
     email?: string;
     firstName?: string;
+    /**
+     * GraphUUID is the graphs.uuid of the user's graph (spec-3 section 13.5).
+     * Omitted when the graph row does not exist. Read-only; never accepted as input.
+     */
+    graphUuid?: string;
     id?: number;
     lastName?: string;
     /** Deprecated */

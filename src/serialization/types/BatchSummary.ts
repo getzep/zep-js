@@ -20,6 +20,7 @@ export const BatchSummary: core.serialization.ObjectSchema<serializers.BatchSumm
         processedAt: core.serialization.property("processed_at", core.serialization.string().optional()),
         progress: BatchProgress.optional(),
         status: BatchStatus.optional(),
+        strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
     });
 
@@ -34,6 +35,7 @@ export declare namespace BatchSummary {
         processed_at?: string | null;
         progress?: BatchProgress.Raw | null;
         status?: BatchStatus.Raw | null;
+        strict_ontology?: boolean | null;
         updated_at?: string | null;
     }
 }

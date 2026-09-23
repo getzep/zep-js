@@ -15,6 +15,7 @@ describe("Thread", () => {
             threads: [
                 {
                     created_at: "created_at",
+                    graph_uuid: "graph_uuid",
                     project_uuid: "project_uuid",
                     thread_id: "thread_id",
                     user_id: "user_id",
@@ -37,6 +38,7 @@ describe("Thread", () => {
             threads: [
                 {
                     createdAt: "created_at",
+                    graphUuid: "graph_uuid",
                     projectUuid: "project_uuid",
                     threadId: "thread_id",
                     userId: "user_id",
@@ -54,6 +56,7 @@ describe("Thread", () => {
         const rawRequestBody = { thread_id: "thread_id", user_id: "user_id" };
         const rawResponseBody = {
             created_at: "created_at",
+            graph_uuid: "graph_uuid",
             project_uuid: "project_uuid",
             thread_id: "thread_id",
             user_id: "user_id",
@@ -75,6 +78,7 @@ describe("Thread", () => {
         });
         expect(response).toEqual({
             createdAt: "created_at",
+            graphUuid: "graph_uuid",
             projectUuid: "project_uuid",
             threadId: "thread_id",
             userId: "user_id",
@@ -120,6 +124,65 @@ describe("Thread", () => {
         });
         expect(response).toEqual({
             context: "context",
+        });
+    });
+
+    test("get_episodes", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            episodes: [
+                {
+                    content: "content",
+                    created_at: "created_at",
+                    document_id: "document_id",
+                    metadata: { key: "value" },
+                    processed: true,
+                    relevance: 1.1,
+                    role: "role",
+                    role_type: "norole",
+                    score: 1.1,
+                    selection_rank: 1,
+                    source: "text",
+                    source_description: "source_description",
+                    task_id: "task_id",
+                    thread_id: "thread_id",
+                    uuid: "uuid",
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .get("/threads/threadId/episodes")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.thread.getEpisodes("threadId");
+        expect(response).toEqual({
+            episodes: [
+                {
+                    content: "content",
+                    createdAt: "created_at",
+                    documentId: "document_id",
+                    metadata: {
+                        key: "value",
+                    },
+                    processed: true,
+                    relevance: 1.1,
+                    role: "role",
+                    roleType: "norole",
+                    score: 1.1,
+                    selectionRank: 1,
+                    source: "text",
+                    sourceDescription: "source_description",
+                    taskId: "task_id",
+                    threadId: "thread_id",
+                    uuid: "uuid",
+                },
+            ],
         });
     });
 

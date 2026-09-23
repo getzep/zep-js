@@ -352,6 +352,7 @@ describe("UserGroup", () => {
                     disable_default_ontology: true,
                     email: "email",
                     first_name: "first_name",
+                    graph_uuid: "graph_uuid",
                     id: 1,
                     last_name: "last_name",
                     metadata: { key: "value" },
@@ -388,6 +389,7 @@ describe("UserGroup", () => {
                     disableDefaultOntology: true,
                     email: "email",
                     firstName: "first_name",
+                    graphUuid: "graph_uuid",
                     id: 1,
                     lastName: "last_name",
                     metadata: {
@@ -472,6 +474,7 @@ describe("UserGroup", () => {
                     disable_default_ontology: true,
                     email: "email",
                     first_name: "first_name",
+                    graph_uuid: "graph_uuid",
                     id: 1,
                     last_name: "last_name",
                     metadata: { key: "value" },
@@ -508,6 +511,7 @@ describe("UserGroup", () => {
                     disableDefaultOntology: true,
                     email: "email",
                     firstName: "first_name",
+                    graphUuid: "graph_uuid",
                     id: 1,
                     lastName: "last_name",
                     metadata: {

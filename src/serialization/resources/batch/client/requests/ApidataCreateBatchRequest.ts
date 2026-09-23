@@ -13,11 +13,13 @@ export const ApidataCreateBatchRequest: core.serialization.Schema<
 > = core.serialization.object({
     ignoreRoles: core.serialization.property("ignore_roles", core.serialization.list(RoleType).optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
 });
 
 export declare namespace ApidataCreateBatchRequest {
     export interface Raw {
         ignore_roles?: RoleType.Raw[] | null;
         metadata?: Record<string, unknown> | null;
+        strict_ontology?: boolean | null;
     }
 }

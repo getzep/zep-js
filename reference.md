@@ -2267,6 +2267,78 @@ await client.graph.create({
 </dl>
 </details>
 
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getEpisodesForDocument</a>(documentId, { ...params }) -> Zep.EpisodeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns episodes associated with a document on a graph. Documents group episodes as chunks, parallel to how threads group messages.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getEpisodesForDocument("document_id", {
+    graphId: "graph_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**documentId:** `string` — Document ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphGetEpisodesForDocumentRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Graph.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listAll</a>({ ...params }) -> Zep.GraphListResponse</code></summary>
 <dl>
 <dd>
@@ -2279,7 +2351,14 @@ await client.graph.create({
 <dl>
 <dd>
 
-Returns all graphs. In order to list users, use user.list_ordered instead
+Returns a paginated directory of live standalone graphs in the
+authenticated project. Optional `search` matches `graph_id`, `name`, and
+`description` (metadata only; not graph contents).
+
+Default `pageSize` is 50 (range 1–100). To list users, use
+`user.list_ordered` instead. See the
+[graph directory guide](/graph-directory) for pagination, relevance
+ordering, and Memory MCP exposure.
 </dd>
 </dl>
 </dd>
@@ -2415,6 +2494,7 @@ await client.graph.addNodes({
 <dl>
 <dd>
 
+Deprecated. Pattern detection is not part of Public API v4.
 Detects structural patterns in a knowledge graph including relationship frequencies,
 multi-hop paths, co-occurrences, hubs, and clusters.
 When a query is provided, uses hybrid search to discover seed nodes,
@@ -3433,6 +3513,68 @@ await client.thread.getUserContext("threadId", {
 </dl>
 </details>
 
+<details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">getEpisodes</a>(threadId) -> Zep.EpisodeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns graph episodes associated with a thread. Parallel to get_episodes_for_document for documents.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.thread.getEpisodes("threadId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**threadId:** `string` — The ID of the thread
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Thread.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.thread.<a href="/src/api/resources/thread/client/Client.ts">get</a>(threadId, { ...params }) -> Zep.MessageListResponse</code></summary>
 <dl>
 <dd>
@@ -4424,6 +4566,78 @@ await client.user.warm("userId");
 <dd>
 
 **requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Graph DocumentSummary
+
+<details><summary><code>client.graph.documentSummary.<a href="/src/api/resources/graph/resources/documentSummary/client/Client.ts">getByGraphId</a>(graphId, { ...params }) -> Zep.DocumentSummary[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns incremental document summaries associated with the graph. Document summaries are derived similarly to thread summaries.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.documentSummary.getByGraphId("graph_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graphId:** `string` — Graph ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.GraphDocumentSummariesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DocumentSummary.RequestOptions`
 
 </dd>
 </dl>
@@ -5532,7 +5746,7 @@ await client.graph.node.getEdges("node_uuid");
 <dl>
 <dd>
 
-Deprecated. Use episode listing with `mentioned_node_uuids` (`POST /graph/episodes/graph/{graph_id}` or `POST /graph/episodes/user/{user_id}`) instead. Returns episodes that mentioned a given node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
+Deprecated. Read the `episodes` field on the node; when `episodes_truncated` is true, use the episode list SDK methods `graph.episode.list_by_graph_id` or `graph.episode.list_by_user_id` with the `mentioned_node_uuids` filter. Returns episodes that mentioned a given node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
 </dd>
 </dl>
 </dd>

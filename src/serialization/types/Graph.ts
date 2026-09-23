@@ -7,6 +7,7 @@ import * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 
 export const Graph: core.serialization.ObjectSchema<serializers.Graph.Raw, Zep.Graph> = core.serialization.object({
+    canonicalGraphUuid: core.serialization.property("canonical_graph_uuid", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     description: core.serialization.string().optional(),
     graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
@@ -20,6 +21,7 @@ export const Graph: core.serialization.ObjectSchema<serializers.Graph.Raw, Zep.G
 
 export declare namespace Graph {
     export interface Raw {
+        canonical_graph_uuid?: string | null;
         created_at?: string | null;
         description?: string | null;
         graph_id?: string | null;

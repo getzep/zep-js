@@ -11,6 +11,7 @@ export const AddDataBatchRequest: core.serialization.Schema<
     serializers.AddDataBatchRequest.Raw,
     Zep.AddDataBatchRequest
 > = core.serialization.object({
+    documentId: core.serialization.property("document_id", core.serialization.string().optional()),
     episodes: core.serialization.list(EpisodeData),
     graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
     strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
@@ -19,6 +20,7 @@ export const AddDataBatchRequest: core.serialization.Schema<
 
 export declare namespace AddDataBatchRequest {
     export interface Raw {
+        document_id?: string | null;
         episodes: EpisodeData.Raw[];
         graph_id?: string | null;
         strict_ontology?: boolean | null;

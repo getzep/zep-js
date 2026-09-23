@@ -6,6 +6,7 @@ import * as Zep from "../index.js";
 
 export interface BatchItemDetail {
     createdAt?: string;
+    documentId?: string;
     /**
      * EpisodeUUID is the UUID of the episode that will be (or has been) created
      * for this batch item. Populated for every item kind and always equal to

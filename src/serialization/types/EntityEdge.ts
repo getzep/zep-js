@@ -13,6 +13,7 @@ export const EntityEdge: core.serialization.ObjectSchema<serializers.EntityEdge.
         episodes: core.serialization.list(core.serialization.string()).optional(),
         expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
         fact: core.serialization.string(),
+        hyperedgeUuid: core.serialization.property("hyperedge_uuid", core.serialization.string().optional()),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
         name: core.serialization.string(),
         relevance: core.serialization.number().optional(),
@@ -42,6 +43,7 @@ export declare namespace EntityEdge {
         episodes?: string[] | null;
         expired_at?: string | null;
         fact: string;
+        hyperedge_uuid?: string | null;
         invalid_at?: string | null;
         name: string;
         relevance?: number | null;

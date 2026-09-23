@@ -17,6 +17,7 @@ export * from "./ContextTemplateResponse.js";
 export * from "./CustomInstruction.js";
 export * from "./DetectConfig.js";
 export * from "./DetectPatternsResponse.js";
+export * from "./DocumentSummary.js";
 export * from "./EdgeType.js";
 export * from "./EntityEdgeSourceTarget.js";
 export * from "./EntityProperty.js";

@@ -11,6 +11,7 @@ import { BatchItemStatus } from "./BatchItemStatus.js";
 export const BatchItemDetail: core.serialization.ObjectSchema<serializers.BatchItemDetail.Raw, Zep.BatchItemDetail> =
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        documentId: core.serialization.property("document_id", core.serialization.string().optional()),
         episodeUuid: core.serialization.property("episode_uuid", core.serialization.string().optional()),
         error: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
@@ -29,6 +30,7 @@ export const BatchItemDetail: core.serialization.ObjectSchema<serializers.BatchI
 export declare namespace BatchItemDetail {
     export interface Raw {
         created_at?: string | null;
+        document_id?: string | null;
         episode_uuid?: string | null;
         error?: Record<string, unknown> | null;
         graph_id?: string | null;

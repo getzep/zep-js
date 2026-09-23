@@ -7,6 +7,8 @@ import * as Zep from "../index.js";
 export interface Episode {
     content: string;
     createdAt: string;
+    /** Optional document ID, will be present if the episode is part of a document */
+    documentId?: string;
     metadata?: Record<string, unknown>;
     processed?: boolean;
     /**

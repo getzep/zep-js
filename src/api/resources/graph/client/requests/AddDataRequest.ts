@@ -14,6 +14,11 @@ import * as Zep from "../../../../index.js";
 export interface AddDataRequest {
     createdAt?: string;
     data: string;
+    /**
+     * Optional document ID that groups episodes as chunks of the same document
+     * on a graph. Parallel to thread_id for message threads.
+     */
+    documentId?: string;
     /** graph_id is the ID of the graph to which the data will be added. If adding to the user graph, please use user_id field instead. */
     graphId?: string;
     /** Optional metadata key-value pairs. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */

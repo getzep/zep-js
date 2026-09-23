@@ -15,6 +15,7 @@ export const User: core.serialization.ObjectSchema<serializers.User.Raw, Zep.Use
     ),
     email: core.serialization.string().optional(),
     firstName: core.serialization.property("first_name", core.serialization.string().optional()),
+    graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
     id: core.serialization.number().optional(),
     lastName: core.serialization.property("last_name", core.serialization.string().optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -33,6 +34,7 @@ export declare namespace User {
         disable_default_ontology?: boolean | null;
         email?: string | null;
         first_name?: string | null;
+        graph_uuid?: string | null;
         id?: number | null;
         last_name?: string | null;
         metadata?: Record<string, unknown> | null;

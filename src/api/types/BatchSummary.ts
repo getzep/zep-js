@@ -14,5 +14,6 @@ export interface BatchSummary {
     processedAt?: string;
     progress?: Zep.BatchProgress;
     status?: Zep.BatchStatus;
+    strictOntology?: boolean;
     updatedAt?: string;
 }

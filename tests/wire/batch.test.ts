@@ -21,6 +21,7 @@ describe("Batch", () => {
                     metadata: { key: "value" },
                     processed_at: "processed_at",
                     status: "draft",
+                    strict_ontology: true,
                     updated_at: "updated_at",
                 },
             ],
@@ -46,6 +47,7 @@ describe("Batch", () => {
                     },
                     processedAt: "processed_at",
                     status: "draft",
+                    strictOntology: true,
                     updatedAt: "updated_at",
                 },
             ],
@@ -76,6 +78,7 @@ describe("Batch", () => {
                 total_items: 1,
             },
             status: "draft",
+            strict_ontology: true,
             updated_at: "updated_at",
         };
         server
@@ -109,6 +112,7 @@ describe("Batch", () => {
                 totalItems: 1,
             },
             status: "draft",
+            strictOntology: true,
             updatedAt: "updated_at",
         });
     });
@@ -136,6 +140,7 @@ describe("Batch", () => {
                 total_items: 1,
             },
             status: "draft",
+            strict_ontology: true,
             updated_at: "updated_at",
         };
         server.mockEndpoint().get("/batches/batchId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -162,6 +167,7 @@ describe("Batch", () => {
                 totalItems: 1,
             },
             status: "draft",
+            strictOntology: true,
             updatedAt: "updated_at",
         });
     });
@@ -193,6 +199,7 @@ describe("Batch", () => {
             items: [
                 {
                     created_at: "created_at",
+                    document_id: "document_id",
                     episode_uuid: "episode_uuid",
                     error: { key: "value" },
                     graph_id: "graph_id",
@@ -227,6 +234,7 @@ describe("Batch", () => {
             items: [
                 {
                     createdAt: "created_at",
+                    documentId: "document_id",
                     episodeUuid: "episode_uuid",
                     error: {
                         key: "value",
@@ -255,6 +263,7 @@ describe("Batch", () => {
         const rawResponseBody = [
             {
                 created_at: "created_at",
+                document_id: "document_id",
                 episode_uuid: "episode_uuid",
                 error: { key: "value" },
                 graph_id: "graph_id",
@@ -289,6 +298,7 @@ describe("Batch", () => {
         expect(response).toEqual([
             {
                 createdAt: "created_at",
+                documentId: "document_id",
                 episodeUuid: "episode_uuid",
                 error: {
                     key: "value",
@@ -331,6 +341,7 @@ describe("Batch", () => {
                 total_items: 1,
             },
             status: "draft",
+            strict_ontology: true,
             updated_at: "updated_at",
         };
         server
@@ -363,6 +374,7 @@ describe("Batch", () => {
                 totalItems: 1,
             },
             status: "draft",
+            strictOntology: true,
             updatedAt: "updated_at",
         });
     });

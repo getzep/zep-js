@@ -17,4 +17,6 @@ export interface ApidataCreateBatchRequest {
      */
     ignoreRoles?: Zep.RoleType[];
     metadata?: Record<string, unknown>;
+    /** When true, prevents extraction of generic Entity nodes that do not match the configured ontology. */
+    strictOntology?: boolean;
 }

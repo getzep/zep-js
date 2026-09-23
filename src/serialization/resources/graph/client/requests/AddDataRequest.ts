@@ -11,6 +11,7 @@ export const AddDataRequest: core.serialization.Schema<serializers.AddDataReques
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         data: core.serialization.string(),
+        documentId: core.serialization.property("document_id", core.serialization.string().optional()),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
@@ -23,6 +24,7 @@ export declare namespace AddDataRequest {
     export interface Raw {
         created_at?: string | null;
         data: string;
+        document_id?: string | null;
         graph_id?: string | null;
         metadata?: Record<string, unknown> | null;
         source_description?: string | null;

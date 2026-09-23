@@ -89,6 +89,7 @@ describe("User", () => {
             disable_default_ontology: true,
             email: "email",
             first_name: "first_name",
+            graph_uuid: "graph_uuid",
             id: 1,
             last_name: "last_name",
             metadata: { key: "value" },
@@ -117,6 +118,7 @@ describe("User", () => {
             disableDefaultOntology: true,
             email: "email",
             firstName: "first_name",
+            graphUuid: "graph_uuid",
             id: 1,
             lastName: "last_name",
             metadata: {
@@ -145,6 +147,7 @@ describe("User", () => {
                     disable_default_ontology: true,
                     email: "email",
                     first_name: "first_name",
+                    graph_uuid: "graph_uuid",
                     id: 1,
                     last_name: "last_name",
                     metadata: { key: "value" },
@@ -176,6 +179,7 @@ describe("User", () => {
                     disableDefaultOntology: true,
                     email: "email",
                     firstName: "first_name",
+                    graphUuid: "graph_uuid",
                     id: 1,
                     lastName: "last_name",
                     metadata: {
@@ -202,6 +206,7 @@ describe("User", () => {
             disable_default_ontology: true,
             email: "email",
             first_name: "first_name",
+            graph_uuid: "graph_uuid",
             id: 1,
             last_name: "last_name",
             metadata: { key: "value" },
@@ -221,6 +226,7 @@ describe("User", () => {
             disableDefaultOntology: true,
             email: "email",
             firstName: "first_name",
+            graphUuid: "graph_uuid",
             id: 1,
             lastName: "last_name",
             metadata: {
@@ -258,6 +264,7 @@ describe("User", () => {
             disable_default_ontology: true,
             email: "email",
             first_name: "first_name",
+            graph_uuid: "graph_uuid",
             id: 1,
             last_name: "last_name",
             metadata: { key: "value" },
@@ -284,6 +291,7 @@ describe("User", () => {
             disableDefaultOntology: true,
             email: "email",
             firstName: "first_name",
+            graphUuid: "graph_uuid",
             id: 1,
             lastName: "last_name",
             metadata: {
@@ -306,6 +314,8 @@ describe("User", () => {
             node: {
                 attributes: { key: "value" },
                 created_at: "created_at",
+                episodes: ["episodes"],
+                episodes_truncated: true,
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -324,6 +334,8 @@ describe("User", () => {
                     key: "value",
                 },
                 createdAt: "created_at",
+                episodes: ["episodes"],
+                episodesTruncated: true,
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -342,6 +354,7 @@ describe("User", () => {
         const rawResponseBody = [
             {
                 created_at: "created_at",
+                graph_uuid: "graph_uuid",
                 project_uuid: "project_uuid",
                 thread_id: "thread_id",
                 user_id: "user_id",
@@ -361,6 +374,7 @@ describe("User", () => {
         expect(response).toEqual([
             {
                 createdAt: "created_at",
+                graphUuid: "graph_uuid",
                 projectUuid: "project_uuid",
                 threadId: "thread_id",
                 userId: "user_id",

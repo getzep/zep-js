@@ -27,6 +27,6 @@ export interface ThreadSummary {
      * as an opaque identifier.
      */
     threadId?: string;
-    /** UUID of the thread summary node. */
+    /** UUID of the derived thread summary node. */
     uuid?: string;
 }

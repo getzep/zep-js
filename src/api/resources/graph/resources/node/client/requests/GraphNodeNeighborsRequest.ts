@@ -28,7 +28,7 @@ export interface GraphNodeNeighborsRequest {
     directionSort?: string;
     /**
      * Filters constraining the connecting edges (edge types, dates, and the
-     * section-3 node-/episode-anchored fields) and the neighbor nodes
+     * node- and episode-anchored UUID fields) and the neighbor nodes
      * (node_labels/exclude_node_labels). Reuses the graph.search filter
      * type.
      */

@@ -9,6 +9,11 @@ export interface BatchAddItem {
     createdAt?: string;
     data?: string;
     dataType?: Zep.GraphDataType;
+    /**
+     * Optional document ID for graph_episode items. Groups episodes as document
+     * chunks. Ignored for thread_message items.
+     */
+    documentId?: string;
     graphId?: string;
     metadata?: Record<string, unknown>;
     name?: string;

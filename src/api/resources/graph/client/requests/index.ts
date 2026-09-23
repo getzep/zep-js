@@ -8,6 +8,7 @@ export { type AddDataBatchRequest } from "./AddDataBatchRequest.js";
 export { type AddTripleRequest } from "./AddTripleRequest.js";
 export { type CloneGraphRequest } from "./CloneGraphRequest.js";
 export { type CreateGraphRequest } from "./CreateGraphRequest.js";
+export { type GraphGetEpisodesForDocumentRequest } from "./GraphGetEpisodesForDocumentRequest.js";
 export { type GraphListAllRequest } from "./GraphListAllRequest.js";
 export { type AddNodesRequest } from "./AddNodesRequest.js";
 export { type DetectPatternsRequest } from "./DetectPatternsRequest.js";

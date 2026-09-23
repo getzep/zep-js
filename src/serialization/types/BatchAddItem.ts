@@ -15,6 +15,7 @@ export const BatchAddItem: core.serialization.ObjectSchema<serializers.BatchAddI
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         data: core.serialization.string().optional(),
         dataType: core.serialization.property("data_type", GraphDataType.optional()),
+        documentId: core.serialization.property("document_id", core.serialization.string().optional()),
         graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string().optional(),
@@ -31,6 +32,7 @@ export declare namespace BatchAddItem {
         created_at?: string | null;
         data?: string | null;
         data_type?: GraphDataType.Raw | null;
+        document_id?: string | null;
         graph_id?: string | null;
         metadata?: Record<string, unknown> | null;
         name?: string | null;
