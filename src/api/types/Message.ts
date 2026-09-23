@@ -9,7 +9,7 @@ export interface Message {
     content: string;
     /** The timestamp of when the message was created. */
     createdAt?: string;
-    /** The metadata associated with the message. */
+    /** The metadata associated with the message. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */
     metadata?: Record<string, unknown>;
     /** Customizable name of the sender of the message (e.g., "john", "sales_agent"). */
     name?: string;

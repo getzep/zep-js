@@ -8,6 +8,7 @@ import * as Zep from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as serializers from "../../../../serialization/index.js";
 import * as errors from "../../../../errors/index.js";
+import { DocumentSummary } from "../resources/documentSummary/client/Client.js";
 import { Edge } from "../resources/edge/client/Client.js";
 import { Episode } from "../resources/episode/client/Client.js";
 import { Node } from "../resources/node/client/Client.js";
@@ -39,6 +40,7 @@ export declare namespace Graph {
 
 export class Graph {
     protected readonly _options: Graph.Options;
+    protected _documentSummary: DocumentSummary | undefined;
     protected _edge: Edge | undefined;
     protected _episode: Episode | undefined;
     protected _node: Node | undefined;
@@ -47,6 +49,10 @@ export class Graph {
 
     constructor(_options: Graph.Options = {}) {
         this._options = _options;
+    }
+
+    public get documentSummary(): DocumentSummary {
+        return (this._documentSummary ??= new DocumentSummary(this._options));
     }
 
     public get edge(): Edge {
@@ -1166,7 +1172,131 @@ export class Graph {
     }
 
     /**
-     * Returns all graphs. In order to list users, use user.list_ordered instead
+     * Returns episodes associated with a document on a graph. Documents group episodes as chunks, parallel to how threads group messages.
+     *
+     * @param {string} documentId - Document ID
+     * @param {Zep.GraphGetEpisodesForDocumentRequest} request
+     * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.InternalServerError}
+     *
+     * @example
+     *     await client.graph.getEpisodesForDocument("document_id", {
+     *         graphId: "graph_id"
+     *     })
+     */
+    public getEpisodesForDocument(
+        documentId: string,
+        request: Zep.GraphGetEpisodesForDocumentRequest,
+        requestOptions?: Graph.RequestOptions,
+    ): core.HttpResponsePromise<Zep.EpisodeResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getEpisodesForDocument(documentId, request, requestOptions));
+    }
+
+    private async __getEpisodesForDocument(
+        documentId: string,
+        request: Zep.GraphGetEpisodesForDocumentRequest,
+        requestOptions?: Graph.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.EpisodeResponse>> {
+        const { graphId } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["graph_id"] = graphId;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graph/documents/${encodeURIComponent(documentId)}/episodes`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+                requestOptions?.headers,
+            ),
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.EpisodeResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(_response.error.body, _response.rawResponse);
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Zep.InternalServerError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.ZepError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.ZepTimeoutError(
+                    "Timeout exceeded when calling GET /graph/documents/{document_id}/episodes.",
+                );
+            case "unknown":
+                throw new errors.ZepError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Returns a paginated directory of live standalone graphs in the
+     * authenticated project. Optional `search` matches `graph_id`, `name`, and
+     * `description` (metadata only; not graph contents).
+     *
+     * Default `pageSize` is 50 (range 1–100). To list users, use
+     * `user.list_ordered` instead. See the
+     * [graph directory guide](/graph-directory) for pagination, relevance
+     * ordering, and Memory MCP exposure.
      *
      * @param {Zep.GraphListAllRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.
@@ -1393,6 +1523,7 @@ export class Graph {
     }
 
     /**
+     * Deprecated. Pattern detection is not part of Public API v4.
      * Detects structural patterns in a knowledge graph including relationship frequencies,
      * multi-hop paths, co-occurrences, hubs, and clusters.
      * When a query is provided, uses hybrid search to discover seed nodes,

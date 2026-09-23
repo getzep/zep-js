@@ -16,6 +16,7 @@ describe("Episode", () => {
                 {
                     content: "content",
                     created_at: "created_at",
+                    document_id: "document_id",
                     metadata: { key: "value" },
                     processed: true,
                     relevance: 1.1,
@@ -47,6 +48,7 @@ describe("Episode", () => {
                 {
                     content: "content",
                     createdAt: "created_at",
+                    documentId: "document_id",
                     metadata: {
                         key: "value",
                     },
@@ -74,6 +76,7 @@ describe("Episode", () => {
             {
                 content: "content",
                 created_at: "created_at",
+                document_id: "document_id",
                 metadata: { key: "value" },
                 processed: true,
                 relevance: 1.1,
@@ -102,6 +105,7 @@ describe("Episode", () => {
             {
                 content: "content",
                 createdAt: "created_at",
+                documentId: "document_id",
                 metadata: {
                     key: "value",
                 },
@@ -129,6 +133,7 @@ describe("Episode", () => {
                 {
                     content: "content",
                     created_at: "created_at",
+                    document_id: "document_id",
                     metadata: { key: "value" },
                     processed: true,
                     relevance: 1.1,
@@ -160,6 +165,7 @@ describe("Episode", () => {
                 {
                     content: "content",
                     createdAt: "created_at",
+                    documentId: "document_id",
                     metadata: {
                         key: "value",
                     },
@@ -187,6 +193,7 @@ describe("Episode", () => {
             {
                 content: "content",
                 created_at: "created_at",
+                document_id: "document_id",
                 metadata: { key: "value" },
                 processed: true,
                 relevance: 1.1,
@@ -215,6 +222,7 @@ describe("Episode", () => {
             {
                 content: "content",
                 createdAt: "created_at",
+                documentId: "document_id",
                 metadata: {
                     key: "value",
                 },
@@ -240,6 +248,7 @@ describe("Episode", () => {
         const rawResponseBody = {
             content: "content",
             created_at: "created_at",
+            document_id: "document_id",
             metadata: { key: "value" },
             processed: true,
             relevance: 1.1,
@@ -265,6 +274,7 @@ describe("Episode", () => {
         expect(response).toEqual({
             content: "content",
             createdAt: "created_at",
+            documentId: "document_id",
             metadata: {
                 key: "value",
             },
@@ -308,6 +318,7 @@ describe("Episode", () => {
         const rawResponseBody = {
             content: "content",
             created_at: "created_at",
+            document_id: "document_id",
             metadata: { key: "value" },
             processed: true,
             relevance: 1.1,
@@ -338,6 +349,7 @@ describe("Episode", () => {
         expect(response).toEqual({
             content: "content",
             createdAt: "created_at",
+            documentId: "document_id",
             metadata: {
                 key: "value",
             },
@@ -367,6 +379,7 @@ describe("Episode", () => {
                     episodes: ["episodes"],
                     expired_at: "expired_at",
                     fact: "fact",
+                    hyperedge_uuid: "hyperedge_uuid",
                     invalid_at: "invalid_at",
                     name: "name",
                     relevance: 1.1,
@@ -387,6 +400,8 @@ describe("Episode", () => {
                 {
                     attributes: { key: "value" },
                     created_at: "created_at",
+                    episodes: ["episodes"],
+                    episodes_truncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,
@@ -416,6 +431,7 @@ describe("Episode", () => {
                     episodes: ["episodes"],
                     expiredAt: "expired_at",
                     fact: "fact",
+                    hyperedgeUuid: "hyperedge_uuid",
                     invalidAt: "invalid_at",
                     name: "name",
                     relevance: 1.1,
@@ -438,6 +454,8 @@ describe("Episode", () => {
                         key: "value",
                     },
                     createdAt: "created_at",
+                    episodes: ["episodes"],
+                    episodesTruncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,

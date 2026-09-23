@@ -167,6 +167,7 @@ describe("Graph", () => {
         const rawResponseBody = {
             content: "content",
             created_at: "created_at",
+            document_id: "document_id",
             metadata: { key: "value" },
             processed: true,
             relevance: 1.1,
@@ -196,6 +197,7 @@ describe("Graph", () => {
         expect(response).toEqual({
             content: "content",
             createdAt: "created_at",
+            documentId: "document_id",
             metadata: {
                 key: "value",
             },
@@ -221,6 +223,7 @@ describe("Graph", () => {
             {
                 content: "content",
                 created_at: "created_at",
+                document_id: "document_id",
                 metadata: { key: "value" },
                 processed: true,
                 relevance: 1.1,
@@ -256,6 +259,7 @@ describe("Graph", () => {
             {
                 content: "content",
                 createdAt: "created_at",
+                documentId: "document_id",
                 metadata: {
                     key: "value",
                 },
@@ -285,6 +289,7 @@ describe("Graph", () => {
                 episodes: ["episodes"],
                 expired_at: "expired_at",
                 fact: "fact",
+                hyperedge_uuid: "hyperedge_uuid",
                 invalid_at: "invalid_at",
                 name: "name",
                 relevance: 1.1,
@@ -303,6 +308,8 @@ describe("Graph", () => {
             source_node: {
                 attributes: { key: "value" },
                 created_at: "created_at",
+                episodes: ["episodes"],
+                episodes_truncated: true,
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -314,6 +321,8 @@ describe("Graph", () => {
             target_node: {
                 attributes: { key: "value" },
                 created_at: "created_at",
+                episodes: ["episodes"],
+                episodes_truncated: true,
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -346,6 +355,7 @@ describe("Graph", () => {
                 episodes: ["episodes"],
                 expiredAt: "expired_at",
                 fact: "fact",
+                hyperedgeUuid: "hyperedge_uuid",
                 invalidAt: "invalid_at",
                 name: "name",
                 relevance: 1.1,
@@ -366,6 +376,8 @@ describe("Graph", () => {
                     key: "value",
                 },
                 createdAt: "created_at",
+                episodes: ["episodes"],
+                episodesTruncated: true,
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -379,6 +391,8 @@ describe("Graph", () => {
                     key: "value",
                 },
                 createdAt: "created_at",
+                episodes: ["episodes"],
+                episodesTruncated: true,
                 labels: ["labels"],
                 name: "name",
                 relevance: 1.1,
@@ -418,6 +432,7 @@ describe("Graph", () => {
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { graph_id: "graph_id" };
         const rawResponseBody = {
+            canonical_graph_uuid: "canonical_graph_uuid",
             created_at: "created_at",
             description: "description",
             graph_id: "graph_id",
@@ -441,6 +456,7 @@ describe("Graph", () => {
             graphId: "graph_id",
         });
         expect(response).toEqual({
+            canonicalGraphUuid: "canonical_graph_uuid",
             createdAt: "created_at",
             description: "description",
             graphId: "graph_id",
@@ -453,6 +469,67 @@ describe("Graph", () => {
         });
     });
 
+    test("get_episodes_for_document", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            episodes: [
+                {
+                    content: "content",
+                    created_at: "created_at",
+                    document_id: "document_id",
+                    metadata: { key: "value" },
+                    processed: true,
+                    relevance: 1.1,
+                    role: "role",
+                    role_type: "norole",
+                    score: 1.1,
+                    selection_rank: 1,
+                    source: "text",
+                    source_description: "source_description",
+                    task_id: "task_id",
+                    thread_id: "thread_id",
+                    uuid: "uuid",
+                },
+            ],
+        };
+        server
+            .mockEndpoint()
+            .get("/graph/documents/document_id/episodes")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.getEpisodesForDocument("document_id", {
+            graphId: "graph_id",
+        });
+        expect(response).toEqual({
+            episodes: [
+                {
+                    content: "content",
+                    createdAt: "created_at",
+                    documentId: "document_id",
+                    metadata: {
+                        key: "value",
+                    },
+                    processed: true,
+                    relevance: 1.1,
+                    role: "role",
+                    roleType: "norole",
+                    score: 1.1,
+                    selectionRank: 1,
+                    source: "text",
+                    sourceDescription: "source_description",
+                    taskId: "task_id",
+                    threadId: "thread_id",
+                    uuid: "uuid",
+                },
+            ],
+        });
+    });
+
     test("list_all", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
@@ -460,6 +537,7 @@ describe("Graph", () => {
         const rawResponseBody = {
             graphs: [
                 {
+                    canonical_graph_uuid: "canonical_graph_uuid",
                     created_at: "created_at",
                     description: "description",
                     graph_id: "graph_id",
@@ -488,6 +566,7 @@ describe("Graph", () => {
         expect(response).toEqual({
             graphs: [
                 {
+                    canonicalGraphUuid: "canonical_graph_uuid",
                     createdAt: "created_at",
                     description: "description",
                     graphId: "graph_id",
@@ -570,6 +649,8 @@ describe("Graph", () => {
                 {
                     attributes: { key: "value" },
                     created_at: "created_at",
+                    episodes: ["episodes"],
+                    episodes_truncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,
@@ -623,6 +704,8 @@ describe("Graph", () => {
                         key: "value",
                     },
                     createdAt: "created_at",
+                    episodes: ["episodes"],
+                    episodesTruncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,
@@ -669,6 +752,7 @@ describe("Graph", () => {
                     episodes: ["episodes"],
                     expired_at: "expired_at",
                     fact: "fact",
+                    hyperedge_uuid: "hyperedge_uuid",
                     invalid_at: "invalid_at",
                     name: "name",
                     relevance: 1.1,
@@ -689,6 +773,7 @@ describe("Graph", () => {
                 {
                     content: "content",
                     created_at: "created_at",
+                    document_id: "document_id",
                     metadata: { key: "value" },
                     processed: true,
                     relevance: 1.1,
@@ -707,6 +792,8 @@ describe("Graph", () => {
                 {
                     attributes: { key: "value" },
                     created_at: "created_at",
+                    episodes: ["episodes"],
+                    episodes_truncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,
@@ -772,6 +859,7 @@ describe("Graph", () => {
                     episodes: ["episodes"],
                     expiredAt: "expired_at",
                     fact: "fact",
+                    hyperedgeUuid: "hyperedge_uuid",
                     invalidAt: "invalid_at",
                     name: "name",
                     relevance: 1.1,
@@ -792,6 +880,7 @@ describe("Graph", () => {
                 {
                     content: "content",
                     createdAt: "created_at",
+                    documentId: "document_id",
                     metadata: {
                         key: "value",
                     },
@@ -814,6 +903,8 @@ describe("Graph", () => {
                         key: "value",
                     },
                     createdAt: "created_at",
+                    episodes: ["episodes"],
+                    episodesTruncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,
@@ -874,6 +965,7 @@ describe("Graph", () => {
                     episodes: ["episodes"],
                     expired_at: "expired_at",
                     fact: "fact",
+                    hyperedge_uuid: "hyperedge_uuid",
                     invalid_at: "invalid_at",
                     name: "name",
                     relevance: 1.1,
@@ -894,6 +986,8 @@ describe("Graph", () => {
                 {
                     attributes: { key: "value" },
                     created_at: "created_at",
+                    episodes: ["episodes"],
+                    episodes_truncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,
@@ -928,6 +1022,7 @@ describe("Graph", () => {
                     episodes: ["episodes"],
                     expiredAt: "expired_at",
                     fact: "fact",
+                    hyperedgeUuid: "hyperedge_uuid",
                     invalidAt: "invalid_at",
                     name: "name",
                     relevance: 1.1,
@@ -950,6 +1045,8 @@ describe("Graph", () => {
                         key: "value",
                     },
                     createdAt: "created_at",
+                    episodes: ["episodes"],
+                    episodesTruncated: true,
                     labels: ["labels"],
                     name: "name",
                     relevance: 1.1,
@@ -969,6 +1066,7 @@ describe("Graph", () => {
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
+            canonical_graph_uuid: "canonical_graph_uuid",
             created_at: "created_at",
             description: "description",
             graph_id: "graph_id",
@@ -983,6 +1081,7 @@ describe("Graph", () => {
 
         const response = await client.graph.get("graphId");
         expect(response).toEqual({
+            canonicalGraphUuid: "canonical_graph_uuid",
             createdAt: "created_at",
             description: "description",
             graphId: "graph_id",
@@ -1013,6 +1112,7 @@ describe("Graph", () => {
         const client = new ZepClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = {
+            canonical_graph_uuid: "canonical_graph_uuid",
             created_at: "created_at",
             description: "description",
             graph_id: "graph_id",
@@ -1034,6 +1134,7 @@ describe("Graph", () => {
 
         const response = await client.graph.update("graphId");
         expect(response).toEqual({
+            canonicalGraphUuid: "canonical_graph_uuid",
             createdAt: "created_at",
             description: "description",
             graphId: "graph_id",

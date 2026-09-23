@@ -33,7 +33,7 @@ export interface GraphSubgraphRequest {
     /**
      * Filters constraining traversed edges and included nodes. Reuses the
      * graph.search filter type. search_filters.episode_metadata_filters is
-     * rejected: it cannot be enforced during graph traversal (spec-2 §9.4).
+     * rejected: it cannot be enforced during graph traversal.
      */
     searchFilters?: Zep.SearchFilters;
     /**

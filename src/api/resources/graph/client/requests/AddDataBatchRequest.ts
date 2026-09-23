@@ -14,6 +14,8 @@ import * as Zep from "../../../../index.js";
  *     }
  */
 export interface AddDataBatchRequest {
+    /** Optional document ID applied to every episode in this batch request. */
+    documentId?: string;
     episodes: Zep.EpisodeData[];
     /** graph_id is the ID of the graph to which the data will be added. If adding to the user graph, please use user_id field instead. */
     graphId?: string;

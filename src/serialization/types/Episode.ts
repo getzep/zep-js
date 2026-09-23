@@ -12,6 +12,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
     {
         content: core.serialization.string(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
+        documentId: core.serialization.property("document_id", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         processed: core.serialization.boolean().optional(),
         relevance: core.serialization.number().optional(),
@@ -31,6 +32,7 @@ export declare namespace Episode {
     export interface Raw {
         content: string;
         created_at: string;
+        document_id?: string | null;
         metadata?: Record<string, unknown> | null;
         processed?: boolean | null;
         relevance?: number | null;

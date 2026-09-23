@@ -13,6 +13,11 @@ export interface EntityEdge {
     expiredAt?: string;
     /** Fact representing the edge and nodes that it connects */
     fact: string;
+    /**
+     * HyperedgeUUID groups the pairwise edges projected from the same atomic
+     * multi-entity fact. Omitted when the edge is not part of a hyperedge.
+     */
+    hyperedgeUuid?: string;
     /** Datetime of when the fact stopped being true */
     invalidAt?: string;
     /** Name of the edge, relation name */
@@ -30,7 +35,7 @@ export interface EntityEdge {
     selectionRank?: number;
     /**
      * SourceNodeLabels are the labels of the source node at read time. Same
-     * read-time-projection semantics as SourceNodeName (spec-2 §4).
+     * read-time-projection semantics as SourceNodeName.
      */
     sourceNodeLabels?: string[];
     /**
@@ -38,19 +43,19 @@ export interface EntityEdge {
      * read-time projection of current node state, not a stored edge
      * attribute: a subsequent node rename is reflected on the next read.
      * Omitted (the edge is still returned) if the source node cannot be
-     * resolved, for example if it was deleted concurrently (spec-2 §4).
+     * resolved, for example if it was deleted concurrently.
      */
     sourceNodeName?: string;
     /** UUID of the source node */
     sourceNodeUuid: string;
     /**
      * TargetNodeLabels are the labels of the target node at read time. Same
-     * read-time-projection semantics as SourceNodeName (spec-2 §4).
+     * read-time-projection semantics as SourceNodeName.
      */
     targetNodeLabels?: string[];
     /**
      * TargetNodeName is the name of the target node at read time. Same
-     * read-time-projection semantics as SourceNodeName (spec-2 §4).
+     * read-time-projection semantics as SourceNodeName.
      */
     targetNodeName?: string;
     /** UUID of the target node */

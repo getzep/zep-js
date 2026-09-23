@@ -11,5 +11,6 @@
  *     }
  */
 export interface ThreadMessageUpdate {
+    /** Metadata to store on the message. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */
     metadata: Record<string, unknown>;
 }

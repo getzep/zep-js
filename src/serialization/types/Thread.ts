@@ -8,6 +8,7 @@ import * as core from "../../core/index.js";
 
 export const Thread: core.serialization.ObjectSchema<serializers.Thread.Raw, Zep.Thread> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+    graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
     projectUuid: core.serialization.property("project_uuid", core.serialization.string().optional()),
     threadId: core.serialization.property("thread_id", core.serialization.string().optional()),
     userId: core.serialization.property("user_id", core.serialization.string().optional()),
@@ -18,6 +19,7 @@ export const Thread: core.serialization.ObjectSchema<serializers.Thread.Raw, Zep
 export declare namespace Thread {
     export interface Raw {
         created_at?: string | null;
+        graph_uuid?: string | null;
         project_uuid?: string | null;
         thread_id?: string | null;
         user_id?: string | null;

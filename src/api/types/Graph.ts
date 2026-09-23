@@ -3,6 +3,12 @@
  */
 
 export interface Graph {
+    /**
+     * CanonicalGraphUUID is graphs.uuid, the v4 graph address (spec-3 §13.5).
+     * Omitted when the graphs row does not yet exist. Distinct from UUID,
+     * which is the group-row identifier.
+     */
+    canonicalGraphUuid?: string;
     createdAt?: string;
     description?: string;
     graphId?: string;

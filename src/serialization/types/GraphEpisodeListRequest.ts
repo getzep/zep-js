@@ -12,6 +12,10 @@ export const GraphEpisodeListRequest: core.serialization.ObjectSchema<
 > = core.serialization.object({
     cursor: core.serialization.string().optional(),
     direction: core.serialization.string().optional(),
+    episodeMetadataFilters: core.serialization.property(
+        "episode_metadata_filters",
+        core.serialization.lazyObject(() => serializers.MetadataFilterGroup).optional(),
+    ),
     limit: core.serialization.number().optional(),
     mentionedNodeUuids: core.serialization.property(
         "mentioned_node_uuids",
@@ -24,6 +28,7 @@ export declare namespace GraphEpisodeListRequest {
     export interface Raw {
         cursor?: string | null;
         direction?: string | null;
+        episode_metadata_filters?: serializers.MetadataFilterGroup.Raw | null;
         limit?: number | null;
         mentioned_node_uuids?: string[] | null;
         order_by?: string | null;

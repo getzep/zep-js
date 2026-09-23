@@ -342,7 +342,7 @@ export class Node {
     }
 
     /**
-     * Deprecated. Use episode listing with `mentioned_node_uuids` (`POST /graph/episodes/graph/{graph_id}` or `POST /graph/episodes/user/{user_id}`) instead. Returns episodes that mentioned a given node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
+     * Deprecated. Read the `episodes` field on the node; when `episodes_truncated` is true, use the episode list SDK methods `graph.episode.list_by_graph_id` or `graph.episode.list_by_user_id` with the `mentioned_node_uuids` filter. Returns episodes that mentioned a given node, subject to an internal cap; responses reduced by that cap set the Zep-Truncated header.
      *
      * @param {string} nodeUuid - Node UUID
      * @param {Node.RequestOptions} requestOptions - Request-specific configuration.
