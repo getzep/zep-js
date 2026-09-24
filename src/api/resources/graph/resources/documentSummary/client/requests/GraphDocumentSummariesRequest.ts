@@ -20,7 +20,12 @@ export interface GraphDocumentSummariesRequest {
     filters?: Zep.SearchFilters;
     /** Maximum number of items to return */
     limit?: number;
-    /** Field to sort by. One of "created_at", "valid_at", or "uuid" (default "uuid"). */
+    /**
+     * Field to sort by. One of "created_at", "valid_at", "degree", or "uuid"
+     * (default "uuid"). "degree" sorts by the count of live entity edges that
+     * touch each node (the edge scopes the entity edge list returns) and is
+     * supported on the node list endpoints only.
+     */
     orderBy?: string;
     /**
      * UUID based cursor, used for pagination. Should be the UUID of the last item in the previous page.

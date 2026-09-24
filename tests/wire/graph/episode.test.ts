@@ -400,6 +400,7 @@ describe("Episode", () => {
                 {
                     attributes: { key: "value" },
                     created_at: "created_at",
+                    degree: 12,
                     episodes: ["episodes"],
                     episodes_truncated: true,
                     labels: ["labels"],
@@ -454,6 +455,7 @@ describe("Episode", () => {
                         key: "value",
                     },
                     createdAt: "created_at",
+                    degree: 12,
                     episodes: ["episodes"],
                     episodesTruncated: true,
                     labels: ["labels"],
