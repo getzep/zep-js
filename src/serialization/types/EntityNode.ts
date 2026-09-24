@@ -10,6 +10,7 @@ export const EntityNode: core.serialization.ObjectSchema<serializers.EntityNode.
     core.serialization.object({
         attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         createdAt: core.serialization.property("created_at", core.serialization.string()),
+        degree: core.serialization.number().optional(),
         episodes: core.serialization.list(core.serialization.string()).optional(),
         episodesTruncated: core.serialization.property("episodes_truncated", core.serialization.boolean().optional()),
         labels: core.serialization.list(core.serialization.string()).optional(),
@@ -25,6 +26,7 @@ export declare namespace EntityNode {
     export interface Raw {
         attributes?: Record<string, unknown> | null;
         created_at: string;
+        degree?: number | null;
         episodes?: string[] | null;
         episodes_truncated?: boolean | null;
         labels?: string[] | null;

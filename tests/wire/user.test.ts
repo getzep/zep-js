@@ -314,6 +314,7 @@ describe("User", () => {
             node: {
                 attributes: { key: "value" },
                 created_at: "created_at",
+                degree: 12,
                 episodes: ["episodes"],
                 episodes_truncated: true,
                 labels: ["labels"],
@@ -334,6 +335,7 @@ describe("User", () => {
                     key: "value",
                 },
                 createdAt: "created_at",
+                degree: 12,
                 episodes: ["episodes"],
                 episodesTruncated: true,
                 labels: ["labels"],

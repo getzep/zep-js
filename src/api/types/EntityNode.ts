@@ -8,6 +8,12 @@ export interface EntityNode {
     /** Creation time of the node */
     createdAt: string;
     /**
+     * The count of live entity edges that touch this node (the edge scopes
+     * the entity edge list returns). Present only when the list request
+     * orders by degree.
+     */
+    degree?: number;
+    /**
      * The UUIDs of the live episodes that mention this node, newest first. The
      * list is complete when `episodes_truncated` is false. The list is empty
      * when the node has more than 100 source episodes; list episodes with the
