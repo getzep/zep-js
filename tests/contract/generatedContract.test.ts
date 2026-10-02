@@ -1,11 +1,11 @@
 // This test table comes from spec 3 section 4.2 of the v4 public API specification.
 // This file is hand-written and listed in .fernignore.
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { cwd, env } from "node:process";
-import { parse as parseUuid, validate as validateUuid, version as uuidVersion } from "uuid";
 import * as ts from "typescript";
+import { parse as parseUuid, version as uuidVersion, validate as validateUuid } from "uuid";
 
 import { ZepClient } from "../../src/Client.js";
 import * as core from "../../src/core/index.js";
@@ -53,7 +53,7 @@ const SECTION_4_2_OPERATIONS: ReadonlyArray<readonly [string, string, string, bo
         false,
         false,
     ],
-    ["agent.learning.get", "GET", "/agents/{agent_uuid}/learning", true, false],
+    ["agent.learning.get", "GET", "/agents/{agent_uuid}/learning", false, false],
     ["agent.learning.list_runs", "GET", "/agents/{agent_uuid}/learning-runs", true, false],
     ["agent.skill.create", "POST", "/agents/{agent_uuid}/skills", false, false],
     ["agent.skill.import_package", "POST", "/agents/{agent_uuid}/skills/import", false, false],
@@ -380,8 +380,6 @@ const ALPHA5_POST_READ_EXPOSES_IDEMPOTENCY = new Set<string>([
 
 const D1_REASON =
     "The generator configuration does not enable automatic Idempotency-Key generation (spec 3 section 14.6), so a state-changing call without a caller key sends no Idempotency-Key.";
-const D5_REASON =
-    "Spec 3 section 4.2 marks agent.learning.get as paginated, but the v4 contract returns one AgentLearningState with no cursor, so the generated method returns no pager.";
 const CALLER_KEY = "contract-caller-key";
 const PROJECT_UUID = "00000000-0000-4000-8000-000000000001";
 const API_RESOURCES_ROOT = join(cwd(), "src", "api", "resources");
@@ -734,8 +732,7 @@ describe("generated SDK contract", () => {
         if (!paginated) {
             continue;
         }
-        const expected =
-            missingOperationReason(operation) ?? (operation === "agent.learning.get" ? D5_REASON : undefined);
+        const expected = missingOperationReason(operation);
         const register = expected ? it.fails : it;
         register(`returns a Page from every paginated operation: ${operation}`, () => {
             const method = CLIENT_METHODS.get(generatedOperationName(operation));
