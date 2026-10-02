@@ -10,6 +10,7 @@
 #   tests/ontology.test.ts — its tests, which CI runs on the generated branch,
 #                            so a regeneration that breaks the DSL fails its
 #                            own PR
+#   tests/contract/        — hand-written generated SDK contract tests
 #   src/exports.ts         — one generated line plus the ontology export, which
 #                            is what puts the DSL on the package root. Watch it
 #                            when the generator version moves: a new core
@@ -21,6 +22,7 @@ LICENSE
 .gitattributes
 src/ontology.ts
 tests/ontology.test.ts
+tests/contract/
 src/exports.ts
 .fern/replay.lock
 .fern/replay.yml
