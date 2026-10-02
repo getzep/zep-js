@@ -41,7 +41,7 @@ const SECTION_4_2_OPERATIONS: ReadonlyArray<readonly [string, string, string, bo
     ["agent.update", "PATCH", "/agents/{agent_uuid}", false, false],
     ["agent.declare_breaking_change", "POST", "/agents/{agent_uuid}/breaking-changes", false, false],
     ["agent.get_context", "POST", "/agents/{agent_uuid}/context", false, true],
-    ["agent.split.plan", "POST", "/agents/{agent_uuid}/split-plan", false, false],
+    ["agent.split.plan", "POST", "/agents/{agent_uuid}/split-plan", false, true],
     ["agent.literal_policy.get", "GET", "/agents/{agent_uuid}/literal-policy", false, false],
     ["agent.literal_policy.update", "PUT", "/agents/{agent_uuid}/literal-policy", false, false],
     ["agent.skill.candidate.list", "GET", "/agents/{agent_uuid}/skill-candidates", true, false],
@@ -352,6 +352,7 @@ const MISSING_FROM_ALPHA5 = new Set<string>([
 ]);
 
 const ALPHA5_POST_READ_EXPOSES_IDEMPOTENCY = new Set<string>([
+    "agent.split.plan",
     "context.list_templates",
     "user.list",
     "user.lookup",
