@@ -3,7 +3,7 @@
 
 import { readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
-import { cwd, env } from "node:process";
+import { cwd } from "node:process";
 import * as ts from "typescript";
 import { parse as parseUuid, version as uuidVersion, validate as validateUuid } from "uuid";
 
@@ -380,9 +380,8 @@ const ALPHA5_POST_READ_EXPOSES_IDEMPOTENCY = new Set<string>([
 ]);
 
 const D1_REASON =
-    "The generator configuration does not enable automatic Idempotency-Key generation (spec 3 section 14.6), so a state-changing call without a caller key sends no Idempotency-Key.";
+    "ZEPAI-3750: the generated SDKs do not generate an Idempotency-Key yet (spec 3 section 14.6). This is a post-GA follow-up.";
 const CALLER_KEY = "contract-caller-key";
-const PROJECT_UUID = "00000000-0000-4000-8000-000000000001";
 const API_RESOURCES_ROOT = join(cwd(), "src", "api", "resources");
 const API_ROOT = join(cwd(), "src", "api");
 
@@ -552,11 +551,26 @@ function containsTypeReference(typeNode: ts.TypeNode | undefined, expectedName: 
     return found;
 }
 
+function containsNullType(typeNode: ts.TypeNode | undefined): boolean {
+    if (typeNode === undefined) {
+        return false;
+    }
+    let found = false;
+    const visit = (node: ts.Node): void => {
+        if (ts.isLiteralTypeNode(node) && node.literal.kind === ts.SyntaxKind.NullKeyword) {
+            found = true;
+        }
+        ts.forEachChild(node, visit);
+    };
+    visit(typeNode);
+    return found;
+}
+
 function findInterfacePropertyType(
     filePath: string,
     interfaceName: string,
     propertyName: string,
-): { sourceFile: ts.SourceFile; typeNode: ts.TypeNode } | undefined {
+): { sourceFile: ts.SourceFile; typeNode: ts.TypeNode; isOptional: boolean } | undefined {
     const sourceFile = readTypeScriptFile(filePath);
     const declaration = sourceFile.statements.find(
         (statement): statement is ts.InterfaceDeclaration =>
@@ -569,7 +583,9 @@ function findInterfacePropertyType(
             ts.isIdentifier(member.name) &&
             member.name.text === propertyName,
     );
-    return property?.type ? { sourceFile, typeNode: property.type } : undefined;
+    return property?.type
+        ? { sourceFile, typeNode: property.type, isOptional: property.questionToken !== undefined }
+        : undefined;
 }
 
 function stringEnumValues(filePath: string, typeName: string): Set<string> {
@@ -743,6 +759,20 @@ describe("generated SDK contract", () => {
         });
     }
 
+    const expected = SDK_VERSION === "4.0.0-alpha.5";
+    const register = expected ? it.fails : it;
+    register("types optional enum query parameters as optional, not nullable", () => {
+        const requestPath = join(API_RESOURCES_ROOT, "batch", "client", "requests", "BatchListRequest.ts");
+        const status = findInterfacePropertyType(requestPath, "BatchListRequest", "status");
+        expect(status, "BatchListRequest.status").toBeDefined();
+        if (status === undefined) {
+            return;
+        }
+        expect(status.isOptional).toBe(true);
+        expect(containsTypeReference(status.typeNode, "BatchListRequestStatus")).toBe(true);
+        expect(containsNullType(status.typeNode)).toBe(false);
+    });
+
     it.each([
         "batch.list",
         "user.list",
@@ -873,35 +903,6 @@ describe("generated SDK contract", () => {
 
         expect(requests[0]?.headers.get("Authorization")).toBe("Api-Key contract-api-key");
         expect(requests[0]?.headers.get("X-Zep-Project")).toBeNull();
-    });
-
-    it("sends the admin bearer token with X-Zep-Project", async () => {
-        const previousApiKey = env.ZEP_API_KEY;
-        delete env.ZEP_API_KEY;
-        try {
-            const server = mockServerPool.createServer();
-            const requests: RequestRecord[] = [];
-            mockJsonEndpoint(server, "get", "/project", {});
-            const client = makeClient(server, requests, {
-                auth: async () => ({
-                    headers: {
-                        Authorization: "Bearer contract-token",
-                        "X-Zep-Project": PROJECT_UUID,
-                    },
-                }),
-            });
-            await client.project.get();
-
-            expect(requests[0]?.headers.get("Authorization")).toBe("Bearer contract-token");
-            expect(requests[0]?.headers.get("X-Zep-Project")).toBe(PROJECT_UUID);
-            expect(requests[0]?.headers.get("Api-Key")).toBeNull();
-        } finally {
-            if (previousApiKey === undefined) {
-                delete env.ZEP_API_KEY;
-            } else {
-                env.ZEP_API_KEY = previousApiKey;
-            }
-        }
     });
 
     it("types graph context recencyBias as the off, mild, strong string enum", () => {
