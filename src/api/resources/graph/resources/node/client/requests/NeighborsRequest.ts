@@ -4,18 +4,19 @@ import type * as Zep from "../../../../../../index.js";
 
 /**
  * @example
- *     {
- *         limit: 1,
- *         cursor: "cursor"
- *     }
+ *     {}
  */
 export interface NeighborsRequest {
     /** Page size */
     limit?: number;
     /** Opaque page cursor */
     cursor?: string;
+    /** Sort field */
+    orderBy?: Zep.graph.NodeListNeighborsRequestOrderBy;
+    /** Sort direction: asc or desc */
+    order?: Zep.graph.NodeListNeighborsRequestOrder;
     /** The edge orientation to follow from the node: in, out, or both. */
-    direction?: Zep.graph.V4NeighborsRequestDirection;
+    direction?: Zep.graph.NeighborsRequestDirection;
     /** Filters constraining the connecting edges and the neighbor nodes. */
     filters?: Zep.SearchFilters;
 }

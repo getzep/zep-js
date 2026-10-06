@@ -5,6 +5,24 @@ export interface Node {
     attributes?: Record<string, unknown>;
     /** The time the node was created. */
     createdAt?: string;
+    /**
+     * The count of live entity edges that touch this node, in both directions.
+     * Present only when the list request orders by `degree`.
+     */
+    degree?: number;
+    /**
+     * The UUIDs of the live episodes that mention this node, newest first. The
+     * list is complete when `episode_uuids_truncated` is false. The list holds
+     * the newest 100 when the node has more than 100 source episodes; list
+     * episodes with the `mentioned_node_uuids` filter to read them all.
+     */
+    episodeUuids: string[];
+    /**
+     * True when the node has more than 100 source episodes, so `episode_uuids`
+     * holds only the newest 100, or when provenance is unavailable. False means
+     * `episode_uuids` is the complete set.
+     */
+    episodeUuidsTruncated: boolean;
     /** The unique identifier of the graph this node belongs to. */
     graphUuid?: string;
     /** The entity type labels assigned to the node. */

@@ -5,6 +5,146 @@ import { ZepClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("UserGroupClient", () => {
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            items: [
+                {
+                    created_at: "created_at",
+                    description: "description",
+                    name: "name",
+                    updated_at: "updated_at",
+                    uuid: "uuid",
+                    version: 1,
+                },
+            ],
+            next_cursor: "next_cursor",
+            total_size: 1,
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .post("/user-groups/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    createdAt: "created_at",
+                    description: "description",
+                    name: "name",
+                    updatedAt: "updated_at",
+                    uuid: "uuid",
+                    version: 1,
+                },
+            ],
+            nextCursor: "next_cursor",
+            totalSize: 1,
+        };
+        const page = await client.userGroup.list({
+            body: {},
+        });
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.list({
+                body: {},
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.list({
+                body: {},
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.list({
+                body: {},
+            });
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.list({
+                body: {},
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -113,6 +253,328 @@ describe("UserGroupClient", () => {
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
+    test("list_member_candidates (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            items: [
+                {
+                    created_at: "created_at",
+                    disable_default_ontology: true,
+                    email: "email",
+                    first_name: "first_name",
+                    graph_uuid: "graph_uuid",
+                    last_name: "last_name",
+                    metadata: { key: "value" },
+                    time_zone: "time_zone",
+                    user_id: "user_id",
+                    uuid: "uuid",
+                },
+            ],
+            next_cursor: "next_cursor",
+            total_size: 1,
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .post("/user-groups/group_uuid/member-candidates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    createdAt: "created_at",
+                    disableDefaultOntology: true,
+                    email: "email",
+                    firstName: "first_name",
+                    graphUuid: "graph_uuid",
+                    lastName: "last_name",
+                    metadata: {
+                        key: "value",
+                    },
+                    timeZone: "time_zone",
+                    userId: "user_id",
+                    uuid: "uuid",
+                },
+            ],
+            nextCursor: "next_cursor",
+            totalSize: 1,
+        };
+        const page = await client.userGroup.listMemberCandidates("group_uuid", {
+            body: {},
+        });
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list_member_candidates (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/member-candidates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMemberCandidates("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list_member_candidates (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/member-candidates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMemberCandidates("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list_member_candidates (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/member-candidates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMemberCandidates("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_member_candidates (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/member-candidates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMemberCandidates("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("list_member_candidates (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/member-candidates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMemberCandidates("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
+    test("list_members (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            items: [
+                {
+                    created_at: "created_at",
+                    disable_default_ontology: true,
+                    email: "email",
+                    first_name: "first_name",
+                    graph_uuid: "graph_uuid",
+                    last_name: "last_name",
+                    metadata: { key: "value" },
+                    time_zone: "time_zone",
+                    user_id: "user_id",
+                    uuid: "uuid",
+                },
+            ],
+            next_cursor: "next_cursor",
+            total_size: 1,
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .post("/user-groups/group_uuid/members/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    createdAt: "created_at",
+                    disableDefaultOntology: true,
+                    email: "email",
+                    firstName: "first_name",
+                    graphUuid: "graph_uuid",
+                    lastName: "last_name",
+                    metadata: {
+                        key: "value",
+                    },
+                    timeZone: "time_zone",
+                    userId: "user_id",
+                    uuid: "uuid",
+                },
+            ],
+            nextCursor: "next_cursor",
+            totalSize: 1,
+        };
+        const page = await client.userGroup.listMembers("group_uuid", {
+            body: {},
+        });
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list_members (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/members/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMembers("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list_members (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/members/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMembers("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list_members (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/members/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMembers("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_members (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/user-groups/group_uuid/members/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.userGroup.listMembers("group_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("list_for_user (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -154,10 +616,7 @@ describe("UserGroupClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.userGroup.listForUser("user_uuid", {
-            limit: 1,
-            cursor: "cursor",
-        });
+        const page = await client.userGroup.listForUser("user_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);

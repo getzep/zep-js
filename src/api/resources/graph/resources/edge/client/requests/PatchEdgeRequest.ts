@@ -9,10 +9,10 @@ export interface PatchEdgeRequest {
      * Additional attributes to merge onto the edge; a key set to null is
      * removed.
      */
-    attributes?: Record<string, unknown>;
+    attributes?: Record<string, unknown> | null;
     /**
      * The fact text describing the relationship between the source and target
      * nodes.
      */
-    fact?: string;
+    fact?: string | null;
 }

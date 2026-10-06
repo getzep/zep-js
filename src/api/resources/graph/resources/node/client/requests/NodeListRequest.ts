@@ -5,8 +5,6 @@ import type * as Zep from "../../../../../../index.js";
 /**
  * @example
  *     {
- *         limit: 1,
- *         cursor: "cursor",
  *         body: {}
  *     }
  */
@@ -15,5 +13,9 @@ export interface NodeListRequest {
     limit?: number;
     /** Opaque page cursor */
     cursor?: string;
+    /** Sort key: uuid (default) or degree */
+    orderBy?: Zep.graph.NodeListRequestOrderBy;
+    /** Sort direction: asc or desc (default desc) */
+    order?: Zep.graph.NodeListRequestOrder;
     body: Zep.ArtifactListRequest;
 }

@@ -6,15 +6,15 @@
  */
 export interface PatchUserRequest {
     /** When true, disables the default ontology for the user's graph. */
-    disableDefaultOntology?: boolean;
+    disableDefaultOntology?: boolean | null;
     /** The email address of the user. */
-    email?: string;
+    email?: string | null;
     /** The user's first name. */
-    firstName?: string;
+    firstName?: string | null;
     /** The user's last name. */
-    lastName?: string;
+    lastName?: string | null;
     /** Metadata to merge onto the user; a key set to null is removed. */
-    metadata?: Record<string, unknown>;
+    metadata?: Record<string, unknown> | null;
     /** The user's IANA time zone. */
-    timeZone?: string;
+    timeZone?: string | null;
 }

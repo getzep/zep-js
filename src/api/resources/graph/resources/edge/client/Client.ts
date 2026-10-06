@@ -7,6 +7,7 @@ import type {
 } from "../../../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../../../core/idempotency.js";
 import * as core from "../../../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
@@ -31,8 +32,11 @@ export class EdgeClient {
     }
 
     /**
+     * Adds 1 to 100 edges. A name creates a node when deduplicate is false. When deduplicate is true, Zep matches a node by name first.
+     * Example: {"edges":[{"fact":"Ada works at Acme Corp","fact_name":"WORKS_AT","source_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d479"},"target_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d480"}},{"fact":"Ada leads a team","fact_name":"LEADS","source_node":{"name":"Ada Lovelace","labels":["Person"]},"target_node":{"name":"Engineering","labels":["Department"]}}],"deduplicate":false}
+     *
      * @param {string} graph_uuid - Graph UUID
-     * @param {Zep.graph.AddEdgeRequest} request
+     * @param {Zep.graph.AddEdgesRequest} request
      * @param {EdgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -45,30 +49,32 @@ export class EdgeClient {
      *
      * @example
      *     await client.graph.edge.add("graph_uuid", {
-     *         fact: "fact",
-     *         factName: "fact_name",
-     *         sourceNode: {},
-     *         targetNode: {}
+     *         edges: [{
+     *                 fact: "Ada works at Acme Corp",
+     *                 factName: "WORKS_AT",
+     *                 sourceNode: {},
+     *                 targetNode: {}
+     *             }]
      *     })
      */
     public add(
         graph_uuid: string,
-        request: Zep.graph.AddEdgeRequest,
+        request: Zep.graph.AddEdgesRequest,
         requestOptions?: EdgeClient.IdempotentRequestOptions,
-    ): core.HttpResponsePromise<Zep.AddEdgeResult> {
+    ): core.HttpResponsePromise<Zep.AddEdgesResult> {
         return core.HttpResponsePromise.fromPromise(this.__add(graph_uuid, request, requestOptions));
     }
 
     private async __add(
         graph_uuid: string,
-        request: Zep.graph.AddEdgeRequest,
+        request: Zep.graph.AddEdgesRequest,
         requestOptions?: EdgeClient.IdempotentRequestOptions,
-    ): Promise<core.WithRawResponse<Zep.AddEdgeResult>> {
+    ): Promise<core.WithRawResponse<Zep.AddEdgesResult>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -84,7 +90,7 @@ export class EdgeClient {
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
             body: mergeAdditionalBodyParameters(
-                serializers.graph.AddEdgeRequest.jsonOrThrow(request, {
+                serializers.graph.AddEdgesRequest.jsonOrThrow(request, {
                     unrecognizedObjectKeys: "strip",
                     omitUndefined: true,
                 }),
@@ -98,7 +104,7 @@ export class EdgeClient {
         });
         if (_response.ok) {
             return {
-                data: serializers.AddEdgeResult.parseOrThrow(_response.body, {
+                data: serializers.AddEdgesResult.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,
@@ -181,7 +187,7 @@ export class EdgeClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.graph.EdgeListRequest} request
-     * @param {EdgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {EdgeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -193,15 +199,13 @@ export class EdgeClient {
      *
      * @example
      *     await client.graph.edge.list("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {}
      *     })
      */
     public async list(
         graph_uuid: string,
         request: Zep.graph.EdgeListRequest,
-        requestOptions?: EdgeClient.IdempotentRequestOptions,
+        requestOptions?: EdgeClient.RequestOptions,
     ): Promise<core.Page<Zep.Edge, Zep.EdgePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.EdgeListRequest): Promise<core.WithRawResponse<Zep.EdgePage>> => {
@@ -214,7 +218,7 @@ export class EdgeClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -504,7 +508,7 @@ export class EdgeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -611,6 +615,11 @@ export class EdgeClient {
     }
 
     /**
+     * Updates one edge. When the edge belongs to a hyperedge, changing fact
+     * rewrites it on every member of that hyperedge in one all-or-nothing
+     * write, because the members share it. Attribute-only edits touch this
+     * edge alone.
+     *
      * @param {string} graph_uuid - Graph UUID
      * @param {string} edge_uuid - Edge UUID
      * @param {Zep.graph.PatchEdgeRequest} request
@@ -646,7 +655,7 @@ export class EdgeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({

@@ -8,11 +8,11 @@ export const PatchEpisodeRequest: core.serialization.Schema<
     serializers.graph.PatchEpisodeRequest.Raw,
     Zep.graph.PatchEpisodeRequest
 > = core.serialization.object({
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optionalNullable(),
 });
 
 export declare namespace PatchEpisodeRequest {
     export interface Raw {
-        metadata?: Record<string, unknown> | null;
+        metadata?: (Record<string, unknown> | null | undefined) | null;
     }
 }

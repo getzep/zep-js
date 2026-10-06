@@ -3,7 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import * as serializers from "../index.js";
-import { DateFilter } from "./DateFilter.js";
+import { DateFilters } from "./DateFilters.js";
 import { PropertyFilter } from "./PropertyFilter.js";
 
 export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFilters.Raw, Zep.SearchFilters> =
@@ -12,10 +12,11 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "connected_node_uuids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
-        createdAt: core.serialization.property(
-            "created_at",
-            core.serialization.list(core.serialization.list(DateFilter)).optional(),
+        contentPolicyViolated: core.serialization.property(
+            "content_policy_violated",
+            core.serialization.boolean().optional(),
         ),
+        dateFilters: core.serialization.property("date_filters", DateFilters.optional()),
         edgeTypes: core.serialization.property(
             "edge_types",
             core.serialization.list(core.serialization.string()).optional(),
@@ -23,10 +24,6 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
         edgeUuids: core.serialization.property(
             "edge_uuids",
             core.serialization.list(core.serialization.string()).optional(),
-        ),
-        episodeMetadataFilters: core.serialization.property(
-            "episode_metadata_filters",
-            core.serialization.lazyObject(() => serializers.MetadataFilterGroup).optional(),
         ),
         episodeUuids: core.serialization.property(
             "episode_uuids",
@@ -40,13 +37,9 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "exclude_node_labels",
             core.serialization.list(core.serialization.string()).optional(),
         ),
-        expiredAt: core.serialization.property(
-            "expired_at",
-            core.serialization.list(core.serialization.list(DateFilter)).optional(),
-        ),
-        invalidAt: core.serialization.property(
-            "invalid_at",
-            core.serialization.list(core.serialization.list(DateFilter)).optional(),
+        metadataFilters: core.serialization.property(
+            "metadata_filters",
+            core.serialization.lazyObject(() => serializers.MetadataFilterGroup).optional(),
         ),
         nodeLabels: core.serialization.property(
             "node_labels",
@@ -64,28 +57,22 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "target_node_uuids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
-        validAt: core.serialization.property(
-            "valid_at",
-            core.serialization.list(core.serialization.list(DateFilter)).optional(),
-        ),
     });
 
 export declare namespace SearchFilters {
     export interface Raw {
         connected_node_uuids?: string[] | null;
-        created_at?: DateFilter.Raw[][] | null;
+        content_policy_violated?: boolean | null;
+        date_filters?: DateFilters.Raw | null;
         edge_types?: string[] | null;
         edge_uuids?: string[] | null;
-        episode_metadata_filters?: serializers.MetadataFilterGroup.Raw | null;
         episode_uuids?: string[] | null;
         exclude_edge_types?: string[] | null;
         exclude_node_labels?: string[] | null;
-        expired_at?: DateFilter.Raw[][] | null;
-        invalid_at?: DateFilter.Raw[][] | null;
+        metadata_filters?: serializers.MetadataFilterGroup.Raw | null;
         node_labels?: string[] | null;
         property_filters?: PropertyFilter.Raw[] | null;
         source_node_uuids?: string[] | null;
         target_node_uuids?: string[] | null;
-        valid_at?: DateFilter.Raw[][] | null;
     }
 }

@@ -34,10 +34,7 @@ export class TaskClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.task.list({
-     *         limit: 1,
-     *         cursor: "cursor"
-     *     })
+     *     await client.task.list()
      */
     public async list(
         request: Zep.TaskListRequest = {},

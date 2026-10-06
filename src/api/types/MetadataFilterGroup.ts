@@ -3,10 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface MetadataFilterGroup {
-    /** Leaf filters (predicates on metadata key-value pairs) */
-    filters?: Zep.EpisodeMetadataFilter[];
-    /** Nested sub-groups for composing complex boolean expressions */
+    /** The metadata predicates in this group. */
+    filters?: Zep.MetadataFilter[];
+    /** The nested metadata groups in this group. */
     groups?: Zep.MetadataFilterGroup[];
-    /** Logical operator: "and" or "or" */
-    type: Zep.GraphitiMetadataFilterGroupType;
+    /** The logical operator for this group. */
+    type?: Zep.MetadataFilterGroupType;
 }

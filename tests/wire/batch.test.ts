@@ -50,11 +50,7 @@ describe("BatchClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.batch.list({
-            limit: 1,
-            cursor: "cursor",
-            status: "status",
-        });
+        const page = await client.batch.list();
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -201,6 +197,13 @@ describe("BatchClient", () => {
         const rawResponseBody = {
             items: [
                 {
+                    content_policy: {
+                        category_keys: ["health"],
+                        dropped_count: 0,
+                        retained_count: 7,
+                        revision: 3,
+                        violated: false,
+                    },
                     created_at: "created_at",
                     episode_uuid: "episode_uuid",
                     graph_uuid: "graph_uuid",
@@ -227,6 +230,13 @@ describe("BatchClient", () => {
         const expected = {
             items: [
                 {
+                    contentPolicy: {
+                        categoryKeys: ["health"],
+                        droppedCount: 0,
+                        retainedCount: 7,
+                        revision: 3,
+                        violated: false,
+                    },
                     createdAt: "created_at",
                     episodeUuid: "episode_uuid",
                     graphUuid: "graph_uuid",
@@ -241,10 +251,7 @@ describe("BatchClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.batch.listItems("batch_uuid", {
-            limit: 1,
-            cursor: "cursor",
-        });
+        const page = await client.batch.listItems("batch_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);

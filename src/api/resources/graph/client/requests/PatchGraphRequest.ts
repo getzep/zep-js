@@ -6,9 +6,9 @@
  */
 export interface PatchGraphRequest {
     /** A description of the graph. */
-    description?: string;
+    description?: string | null;
     /** The graph's display name. */
-    name?: string;
+    name?: string | null;
     /** The graph's IANA time zone. */
-    timeZone?: string;
+    timeZone?: string | null;
 }

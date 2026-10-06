@@ -8,22 +8,24 @@ export const PatchUserRequest: core.serialization.Schema<serializers.PatchUserRe
     core.serialization.object({
         disableDefaultOntology: core.serialization.property(
             "disable_default_ontology",
-            core.serialization.boolean().optional(),
+            core.serialization.boolean().optionalNullable(),
         ),
-        email: core.serialization.string().optional(),
-        firstName: core.serialization.property("first_name", core.serialization.string().optional()),
-        lastName: core.serialization.property("last_name", core.serialization.string().optional()),
-        metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-        timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
+        email: core.serialization.string().optionalNullable(),
+        firstName: core.serialization.property("first_name", core.serialization.string().optionalNullable()),
+        lastName: core.serialization.property("last_name", core.serialization.string().optionalNullable()),
+        metadata: core.serialization
+            .record(core.serialization.string(), core.serialization.unknown())
+            .optionalNullable(),
+        timeZone: core.serialization.property("time_zone", core.serialization.string().optionalNullable()),
     });
 
 export declare namespace PatchUserRequest {
     export interface Raw {
-        disable_default_ontology?: boolean | null;
-        email?: string | null;
-        first_name?: string | null;
-        last_name?: string | null;
-        metadata?: Record<string, unknown> | null;
-        time_zone?: string | null;
+        disable_default_ontology?: (boolean | null | undefined) | null;
+        email?: (string | null | undefined) | null;
+        first_name?: (string | null | undefined) | null;
+        last_name?: (string | null | undefined) | null;
+        metadata?: (Record<string, unknown> | null | undefined) | null;
+        time_zone?: (string | null | undefined) | null;
     }
 }

@@ -5,6 +5,6 @@
  *     {}
  */
 export interface PatchEpisodeRequest {
-    /** Metadata to merge onto the episode; a key set to null is removed. */
-    metadata?: Record<string, unknown>;
+    /** Metadata to merge onto the episode; a key set to null is removed. Max 10 keys after the merge. Values must be strings, numbers, booleans, or arrays of scalars. */
+    metadata?: Record<string, unknown> | null;
 }

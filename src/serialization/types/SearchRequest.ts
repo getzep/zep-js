@@ -4,7 +4,7 @@ import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { SearchFilters } from "./SearchFilters.js";
-import { V4SearchRequestReranker } from "./V4SearchRequestReranker.js";
+import { SearchRequestReranker } from "./SearchRequestReranker.js";
 
 export const SearchRequest: core.serialization.ObjectSchema<serializers.SearchRequest.Raw, Zep.SearchRequest> =
     core.serialization.object({
@@ -16,7 +16,7 @@ export const SearchRequest: core.serialization.ObjectSchema<serializers.SearchRe
         filters: SearchFilters.optional(),
         mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
         query: core.serialization.string(),
-        reranker: V4SearchRequestReranker.optional(),
+        reranker: SearchRequestReranker.optional(),
     });
 
 export declare namespace SearchRequest {
@@ -26,6 +26,6 @@ export declare namespace SearchRequest {
         filters?: SearchFilters.Raw | null;
         mmr_lambda?: number | null;
         query: string;
-        reranker?: V4SearchRequestReranker.Raw | null;
+        reranker?: SearchRequestReranker.Raw | null;
     }
 }

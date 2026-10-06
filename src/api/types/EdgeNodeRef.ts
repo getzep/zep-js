@@ -5,7 +5,7 @@ export interface EdgeNodeRef {
     attributes?: Record<string, unknown>;
     /** The entity type labels to assign to the node. */
     labels?: string[];
-    /** The name of the node to create or match. */
+    /** The name of the node to create, or to match when deduplication is enabled. */
     name?: string;
     /** A summary of the node. */
     summary?: string;

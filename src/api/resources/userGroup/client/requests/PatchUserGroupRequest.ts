@@ -6,9 +6,9 @@
  */
 export interface PatchUserGroupRequest {
     /** A description of the user group. */
-    description?: string;
+    description?: string | null;
     /** The user group's current version, used to detect concurrent updates. */
     expectedVersion?: number;
     /** The name of the user group. */
-    name?: string;
+    name?: string | null;
 }

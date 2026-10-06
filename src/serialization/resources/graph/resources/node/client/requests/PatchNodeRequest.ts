@@ -8,15 +8,15 @@ export const PatchNodeRequest: core.serialization.Schema<
     serializers.graph.PatchNodeRequest.Raw,
     Zep.graph.PatchNodeRequest
 > = core.serialization.object({
-    attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    name: core.serialization.string().optional(),
-    summary: core.serialization.string().optional(),
+    attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optionalNullable(),
+    name: core.serialization.string().optionalNullable(),
+    summary: core.serialization.string().optionalNullable(),
 });
 
 export declare namespace PatchNodeRequest {
     export interface Raw {
-        attributes?: Record<string, unknown> | null;
-        name?: string | null;
-        summary?: string | null;
+        attributes?: (Record<string, unknown> | null | undefined) | null;
+        name?: (string | null | undefined) | null;
+        summary?: (string | null | undefined) | null;
     }
 }

@@ -3,12 +3,14 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { EpisodeContentPolicy } from "./EpisodeContentPolicy.js";
 import { GraphDataType } from "./GraphDataType.js";
 import { RoleType } from "./RoleType.js";
 
 export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Zep.Episode> = core.serialization.object(
     {
         content: core.serialization.string().optional(),
+        contentPolicy: core.serialization.property("content_policy", EpisodeContentPolicy.optional()),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         documentId: core.serialization.property("document_id", core.serialization.string().optional()),
         graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
@@ -29,6 +31,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
 export declare namespace Episode {
     export interface Raw {
         content?: string | null;
+        content_policy?: EpisodeContentPolicy.Raw | null;
         created_at?: string | null;
         document_id?: string | null;
         graph_uuid?: string | null;

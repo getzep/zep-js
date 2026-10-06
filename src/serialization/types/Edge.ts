@@ -14,6 +14,7 @@ export const Edge: core.serialization.ObjectSchema<serializers.Edge.Raw, Zep.Edg
     expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
     fact: core.serialization.string().optional(),
     graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
+    hyperedgeUuid: core.serialization.property("hyperedge_uuid", core.serialization.string().optional()),
     invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
     name: core.serialization.string().optional(),
     relevance: core.serialization.number().optional(),
@@ -43,6 +44,7 @@ export declare namespace Edge {
         expired_at?: string | null;
         fact?: string | null;
         graph_uuid?: string | null;
+        hyperedge_uuid?: string | null;
         invalid_at?: string | null;
         name?: string | null;
         relevance?: number | null;
