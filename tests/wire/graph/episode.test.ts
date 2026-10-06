@@ -13,6 +13,13 @@ describe("EpisodeClient", () => {
             items: [
                 {
                     content: "content",
+                    content_policy: {
+                        category_keys: ["health"],
+                        dropped_count: 0,
+                        retained_count: 7,
+                        revision: 3,
+                        violated: false,
+                    },
                     created_at: "created_at",
                     document_id: "document_id",
                     graph_uuid: "graph_uuid",
@@ -45,6 +52,13 @@ describe("EpisodeClient", () => {
             items: [
                 {
                     content: "content",
+                    contentPolicy: {
+                        categoryKeys: ["health"],
+                        droppedCount: 0,
+                        retainedCount: 7,
+                        revision: 3,
+                        violated: false,
+                    },
                     createdAt: "created_at",
                     documentId: "document_id",
                     graphUuid: "graph_uuid",
@@ -66,10 +80,7 @@ describe("EpisodeClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.graph.episode.listForDocument("graph_uuid", "document_id", {
-            limit: 1,
-            cursor: "cursor",
-        });
+        const page = await client.graph.episode.listForDocument("graph_uuid", "document_id");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -172,12 +183,194 @@ describe("EpisodeClient", () => {
         }).rejects.toThrow(Zep.ConflictError);
     });
 
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            items: [
+                {
+                    content: "content",
+                    content_policy: {
+                        category_keys: ["health"],
+                        dropped_count: 0,
+                        retained_count: 7,
+                        revision: 3,
+                        violated: false,
+                    },
+                    created_at: "created_at",
+                    document_id: "document_id",
+                    graph_uuid: "graph_uuid",
+                    metadata: { key: "value" },
+                    processed: true,
+                    relevance: 1.1,
+                    role: "system",
+                    role_name: "role_name",
+                    score: 1.1,
+                    source: "text",
+                    source_description: "source_description",
+                    thread_uuid: "thread_uuid",
+                    uuid: "uuid",
+                    valid_at: "valid_at",
+                },
+            ],
+            next_cursor: "next_cursor",
+            total_size: 1,
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .post("/graphs/graph_uuid/episodes/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    content: "content",
+                    contentPolicy: {
+                        categoryKeys: ["health"],
+                        droppedCount: 0,
+                        retainedCount: 7,
+                        revision: 3,
+                        violated: false,
+                    },
+                    createdAt: "created_at",
+                    documentId: "document_id",
+                    graphUuid: "graph_uuid",
+                    metadata: {
+                        key: "value",
+                    },
+                    processed: true,
+                    relevance: 1.1,
+                    role: "system",
+                    roleName: "role_name",
+                    score: 1.1,
+                    source: "text",
+                    sourceDescription: "source_description",
+                    threadUuid: "thread_uuid",
+                    uuid: "uuid",
+                    validAt: "valid_at",
+                },
+            ],
+            nextCursor: "next_cursor",
+            totalSize: 1,
+        };
+        const page = await client.graph.episode.list("graph_uuid", {
+            body: {},
+        });
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/episodes/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.episode.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/episodes/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.episode.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/episodes/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.episode.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/episodes/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.episode.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             content: "content",
+            content_policy: {
+                category_keys: ["health"],
+                dropped_count: 0,
+                retained_count: 7,
+                revision: 3,
+                status: "pending",
+                violated: false,
+            },
             created_at: "created_at",
             document_id: "document_id",
             graph_uuid: "graph_uuid",
@@ -205,6 +398,14 @@ describe("EpisodeClient", () => {
         const response = await client.graph.episode.get("graph_uuid", "episode_uuid");
         expect(response).toEqual({
             content: "content",
+            contentPolicy: {
+                categoryKeys: ["health"],
+                droppedCount: 0,
+                retainedCount: 7,
+                revision: 3,
+                status: "pending",
+                violated: false,
+            },
             createdAt: "created_at",
             documentId: "document_id",
             graphUuid: "graph_uuid",

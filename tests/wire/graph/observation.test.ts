@@ -5,6 +5,178 @@ import { ZepClient } from "../../../src/Client";
 import { mockServerPool } from "../../mock-server/MockServerPool";
 
 describe("ObservationClient", () => {
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            items: [
+                {
+                    attributes: { key: "value" },
+                    created_at: "created_at",
+                    episode_uuids: ["episode_uuids"],
+                    graph_uuid: "graph_uuid",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
+            next_cursor: "next_cursor",
+            total_size: 1,
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .post("/graphs/graph_uuid/observations/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    attributes: {
+                        key: "value",
+                    },
+                    createdAt: "created_at",
+                    episodeUuids: ["episode_uuids"],
+                    graphUuid: "graph_uuid",
+                    labels: ["labels"],
+                    name: "name",
+                    relevance: 1.1,
+                    score: 1.1,
+                    summary: "summary",
+                    uuid: "uuid",
+                },
+            ],
+            nextCursor: "next_cursor",
+            totalSize: 1,
+        };
+        const page = await client.graph.observation.list("graph_uuid", {
+            body: {},
+        });
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/observations/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.observation.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/observations/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.observation.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/observations/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.observation.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/observations/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.observation.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("list (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/graph_uuid/observations/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.observation.list("graph_uuid", {
+                body: {},
+            });
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });

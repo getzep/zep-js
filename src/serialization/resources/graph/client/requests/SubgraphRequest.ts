@@ -4,12 +4,12 @@ import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
 import { SearchFilters } from "../../../../types/SearchFilters.js";
-import { V4SubgraphRequestDirection } from "../../types/V4SubgraphRequestDirection.js";
+import { SubgraphRequestDirection } from "../../types/SubgraphRequestDirection.js";
 
 export const SubgraphRequest: core.serialization.Schema<serializers.SubgraphRequest.Raw, Zep.SubgraphRequest> =
     core.serialization.object({
         depth: core.serialization.number().optional(),
-        direction: V4SubgraphRequestDirection.optional(),
+        direction: SubgraphRequestDirection.optional(),
         filters: SearchFilters.optional(),
         maxEdges: core.serialization.property("max_edges", core.serialization.number().optional()),
         maxNodes: core.serialization.property("max_nodes", core.serialization.number().optional()),
@@ -22,7 +22,7 @@ export const SubgraphRequest: core.serialization.Schema<serializers.SubgraphRequ
 export declare namespace SubgraphRequest {
     export interface Raw {
         depth?: number | null;
-        direction?: V4SubgraphRequestDirection.Raw | null;
+        direction?: SubgraphRequestDirection.Raw | null;
         filters?: SearchFilters.Raw | null;
         max_edges?: number | null;
         max_nodes?: number | null;

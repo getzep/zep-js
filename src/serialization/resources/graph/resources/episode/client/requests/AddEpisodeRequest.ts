@@ -3,7 +3,7 @@
 import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
-import { V4AddEpisodeRequestType } from "../../types/V4AddEpisodeRequestType.js";
+import { AddEpisodeRequestType } from "../../types/AddEpisodeRequestType.js";
 
 export const AddEpisodeRequest: core.serialization.Schema<
     serializers.graph.AddEpisodeRequest.Raw,
@@ -15,7 +15,7 @@ export const AddEpisodeRequest: core.serialization.Schema<
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
     strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
-    type: V4AddEpisodeRequestType.optional(),
+    type: AddEpisodeRequestType.optional(),
 });
 
 export declare namespace AddEpisodeRequest {
@@ -26,6 +26,6 @@ export declare namespace AddEpisodeRequest {
         metadata?: Record<string, unknown> | null;
         source_description?: string | null;
         strict_ontology?: boolean | null;
-        type?: V4AddEpisodeRequestType.Raw | null;
+        type?: AddEpisodeRequestType.Raw | null;
     }
 }

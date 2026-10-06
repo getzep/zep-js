@@ -3,6 +3,7 @@
 import type { BaseClientOptions, BaseIdempotentRequestOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../core/idempotency.js";
 import * as core from "../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
@@ -55,7 +56,7 @@ export class ContextClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -156,24 +157,20 @@ export class ContextClient {
 
     /**
      * @param {Zep.ContextTemplateListRequest} request
-     * @param {ContextClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {ContextClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
-     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.context.listTemplates({
-     *         limit: 1,
-     *         cursor: "cursor"
-     *     })
+     *     await client.context.listTemplates()
      */
     public async listTemplates(
         request: Zep.ContextTemplateListRequest = {},
-        requestOptions?: ContextClient.IdempotentRequestOptions,
+        requestOptions?: ContextClient.RequestOptions,
     ): Promise<core.Page<Zep.ContextTemplate, Zep.ContextTemplatePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.ContextTemplateListRequest): Promise<core.WithRawResponse<Zep.ContextTemplatePage>> => {
@@ -186,7 +183,7 @@ export class ContextClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -256,17 +253,6 @@ export class ContextClient {
                             );
                         case 404:
                             throw new Zep.NotFoundError(
-                                serializers.ApiError.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
-                                _response.rawResponse,
-                            );
-                        case 409:
-                            throw new Zep.ConflictError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
                                     unrecognizedObjectKeys: "passthrough",
                                     allowUnrecognizedUnionMembers: true,
@@ -449,7 +435,7 @@ export class ContextClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -582,7 +568,7 @@ export class ContextClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({

@@ -13,6 +13,7 @@ describe("ProjectClient", () => {
             created_at: "created_at",
             default_time_zone: "default_time_zone",
             description: "description",
+            include_policy_violating_episodes: false,
             name: "name",
             uuid: "uuid",
         };
@@ -24,6 +25,7 @@ describe("ProjectClient", () => {
             createdAt: "created_at",
             defaultTimeZone: "default_time_zone",
             description: "description",
+            includePolicyViolatingEpisodes: false,
             name: "name",
             uuid: "uuid",
         });
@@ -65,6 +67,368 @@ describe("ProjectClient", () => {
 
         await expect(async () => {
             return await client.project.get();
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("get_content_policy (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            categories: [
+                {
+                    description: "Facts about a person's medical conditions or treatment.",
+                    id: "cat_01J8ZJ1P2Q3R4S5T6U7V8W9X0Y",
+                    key: "health",
+                },
+            ],
+            created_at: "2026-09-22T05:09:00Z",
+            revision: 3,
+            rules: [
+                {
+                    category_key: "health",
+                    description: "Statements that a named person has a diagnosed medical condition.",
+                    id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    permitted_examples: ["Jane works at a diabetes research lab."],
+                    prohibited_examples: ["Jane was diagnosed with type 2 diabetes last year."],
+                },
+            ],
+            uuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
+        };
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.project.getContentPolicy();
+        expect(response).toEqual({
+            categories: [
+                {
+                    description: "Facts about a person's medical conditions or treatment.",
+                    id: "cat_01J8ZJ1P2Q3R4S5T6U7V8W9X0Y",
+                    key: "health",
+                },
+            ],
+            createdAt: "2026-09-22T05:09:00Z",
+            revision: 3,
+            rules: [
+                {
+                    categoryKey: "health",
+                    description: "Statements that a named person has a diagnosed medical condition.",
+                    id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    permittedExamples: ["Jane works at a diabetes research lab."],
+                    prohibitedExamples: ["Jane was diagnosed with type 2 diabetes last year."],
+                },
+            ],
+            uuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
+        });
+    });
+
+    test("get_content_policy (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getContentPolicy();
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("get_content_policy (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getContentPolicy();
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_content_policy_revisions (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            items: [
+                {
+                    categories: [
+                        {
+                            description: "Facts about a person's medical conditions or treatment.",
+                            id: "cat_01J8ZJ1P2Q3R4S5T6U7V8W9X0Y",
+                            key: "health",
+                        },
+                    ],
+                    created_at: "2026-09-22T05:09:00Z",
+                    revision: 3,
+                    rules: [
+                        {
+                            category_key: "health",
+                            description: "Statements that a named person has a diagnosed medical condition.",
+                            id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                            permitted_examples: ["Jane works at a diabetes research lab."],
+                            prohibited_examples: ["Jane was diagnosed with type 2 diabetes last year."],
+                        },
+                    ],
+                    uuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
+                },
+            ],
+            next_cursor: "next_cursor",
+            total_size: 4,
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .get("/project/content-policy/revisions")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    categories: [
+                        {
+                            description: "Facts about a person's medical conditions or treatment.",
+                            id: "cat_01J8ZJ1P2Q3R4S5T6U7V8W9X0Y",
+                            key: "health",
+                        },
+                    ],
+                    createdAt: "2026-09-22T05:09:00Z",
+                    revision: 3,
+                    rules: [
+                        {
+                            categoryKey: "health",
+                            description: "Statements that a named person has a diagnosed medical condition.",
+                            id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                            permittedExamples: ["Jane works at a diabetes research lab."],
+                            prohibitedExamples: ["Jane was diagnosed with type 2 diabetes last year."],
+                        },
+                    ],
+                    uuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
+                },
+            ],
+            nextCursor: "next_cursor",
+            totalSize: 4,
+        };
+        const page = await client.project.listContentPolicyRevisions();
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list_content_policy_revisions (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.listContentPolicyRevisions();
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list_content_policy_revisions (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.listContentPolicyRevisions();
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list_content_policy_revisions (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.listContentPolicyRevisions();
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get_content_policy_revision (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            categories: [
+                {
+                    description: "Facts about a person's medical conditions or treatment.",
+                    id: "cat_01J8ZJ1P2Q3R4S5T6U7V8W9X0Y",
+                    key: "health",
+                },
+            ],
+            created_at: "2026-09-22T05:09:00Z",
+            revision: 3,
+            rules: [
+                {
+                    category_key: "health",
+                    description: "Statements that a named person has a diagnosed medical condition.",
+                    id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    permitted_examples: ["Jane works at a diabetes research lab."],
+                    prohibited_examples: ["Jane was diagnosed with type 2 diabetes last year."],
+                },
+            ],
+            uuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
+        };
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions/revision_uuid")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.project.getContentPolicyRevision("revision_uuid");
+        expect(response).toEqual({
+            categories: [
+                {
+                    description: "Facts about a person's medical conditions or treatment.",
+                    id: "cat_01J8ZJ1P2Q3R4S5T6U7V8W9X0Y",
+                    key: "health",
+                },
+            ],
+            createdAt: "2026-09-22T05:09:00Z",
+            revision: 3,
+            rules: [
+                {
+                    categoryKey: "health",
+                    description: "Statements that a named person has a diagnosed medical condition.",
+                    id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    permittedExamples: ["Jane works at a diabetes research lab."],
+                    prohibitedExamples: ["Jane was diagnosed with type 2 diabetes last year."],
+                },
+            ],
+            uuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
+        });
+    });
+
+    test("get_content_policy_revision (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions/revision_uuid")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getContentPolicyRevision("revision_uuid");
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("get_content_policy_revision (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions/revision_uuid")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getContentPolicyRevision("revision_uuid");
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("get_content_policy_revision (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions/revision_uuid")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getContentPolicyRevision("revision_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("get_content_policy_revision (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/content-policy/revisions/revision_uuid")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getContentPolicyRevision("revision_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -245,6 +609,7 @@ describe("ProjectClient", () => {
 
         const rawResponseBody = {
             edge_types: [{ description: "description", name: "name", properties: [{}], source_targets: [{}] }],
+            entity_type_hierarchy: { key: "value" },
             entity_types: [
                 {
                     description: "description",
@@ -268,6 +633,9 @@ describe("ProjectClient", () => {
                     sourceTargets: [{}],
                 },
             ],
+            entityTypeHierarchy: {
+                key: "value",
+            },
             entityTypes: [
                 {
                     description: "description",

@@ -13,6 +13,11 @@ export interface Edge {
     fact?: string;
     /** The unique identifier of the graph this edge belongs to. */
     graphUuid?: string;
+    /**
+     * The unique identifier of the hyperedge this edge is a member of. Omitted
+     * when the edge is not part of a hyperedge.
+     */
+    hyperedgeUuid?: string;
     /** The time at which the fact stopped being true. */
     invalidAt?: string;
     /** The name of the edge, in upper snake case, for example RELATES_TO. */

@@ -21,7 +21,7 @@ export interface GraphContextRequest {
     /** The search query used to assemble the context block. */
     query: string;
     /** Adjusts result selection to favor more recent graph data. */
-    recencyBias?: Zep.V4GraphContextRequestRecencyBias;
+    recencyBias?: Zep.GraphContextRequestRecencyBias;
     /** The UUID of a context template used to render the context block. */
     templateUuid?: string;
 }

@@ -5,6 +5,11 @@ import type * as Zep from "../index.js";
 export interface ContextEpisode {
     /** The raw content of the episode. */
     content?: string;
+    /**
+     * The content policy state of the episode, present only on a graph with a
+     * bound content policy rule.
+     */
+    contentPolicy?: Zep.EpisodeContentPolicy;
     /** The time the episode was created. */
     createdAt?: string;
     /**

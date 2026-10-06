@@ -1,4 +1,4 @@
-export { CloneGraphRequest } from "./CloneGraphRequest.js";
+export { ContentPolicyEventListRequest } from "./ContentPolicyEventListRequest.js";
 export { CreateGraphRequest } from "./CreateGraphRequest.js";
 export { GraphContextRequest } from "./GraphContextRequest.js";
 export { GraphListRequest } from "./GraphListRequest.js";

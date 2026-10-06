@@ -5,8 +5,6 @@ import type * as Zep from "../../../../../../index.js";
 /**
  * @example
  *     {
- *         limit: 1,
- *         cursor: "cursor",
  *         body: {}
  *     }
  */
@@ -15,5 +13,9 @@ export interface EpisodeListRequest {
     limit?: number;
     /** Opaque page cursor */
     cursor?: string;
+    /** Sort field */
+    orderBy?: Zep.graph.EpisodeListRequestOrderBy;
+    /** Sort direction: asc or desc */
+    order?: Zep.graph.EpisodeListRequestOrder;
     body: Zep.ArtifactListRequest;
 }

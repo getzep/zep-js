@@ -3,6 +3,7 @@
 import type { BaseClientOptions, BaseIdempotentRequestOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../core/idempotency.js";
 import * as core from "../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
@@ -43,13 +44,7 @@ export class ThreadClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.thread.list({
-     *         limit: 1,
-     *         cursor: "cursor",
-     *         orderBy: "order_by",
-     *         order: "order",
-     *         userUuid: "user_uuid"
-     *     })
+     *     await client.thread.list()
      */
     public async list(
         request: Zep.ThreadListRequest = {},
@@ -61,8 +56,20 @@ export class ThreadClient {
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
-                    order_by: orderBy,
-                    order,
+                    order_by:
+                        orderBy != null
+                            ? serializers.ThreadListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.ThreadListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                     user_uuid: userUuid,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -194,7 +201,7 @@ export class ThreadClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -295,7 +302,7 @@ export class ThreadClient {
 
     /**
      * @param {Zep.LookupRequest} request
-     * @param {ThreadClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {ThreadClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -308,20 +315,20 @@ export class ThreadClient {
      */
     public lookup(
         request: Zep.LookupRequest,
-        requestOptions?: ThreadClient.IdempotentRequestOptions,
+        requestOptions?: ThreadClient.RequestOptions,
     ): core.HttpResponsePromise<Zep.Thread> {
         return core.HttpResponsePromise.fromPromise(this.__lookup(request, requestOptions));
     }
 
     private async __lookup(
         request: Zep.LookupRequest,
-        requestOptions?: ThreadClient.IdempotentRequestOptions,
+        requestOptions?: ThreadClient.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.Thread>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            getIdempotencyHeaders(),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -544,7 +551,7 @@ export class ThreadClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -647,9 +654,7 @@ export class ThreadClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.thread.getContext("thread_uuid", {
-     *         templateUuid: "template_uuid"
-     *     })
+     *     await client.thread.getContext("thread_uuid")
      */
     public getContext(
         thread_uuid: string,
@@ -784,10 +789,7 @@ export class ThreadClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.thread.listEpisodes("thread_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor"
-     *     })
+     *     await client.thread.listEpisodes("thread_uuid")
      */
     public async listEpisodes(
         thread_uuid: string,
@@ -938,10 +940,7 @@ export class ThreadClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.thread.listMessages("thread_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor"
-     *     })
+     *     await client.thread.listMessages("thread_uuid")
      */
     public async listMessages(
         thread_uuid: string,
@@ -950,10 +949,18 @@ export class ThreadClient {
     ): Promise<core.Page<Zep.Message, Zep.MessagePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.ThreadListMessagesRequest): Promise<core.WithRawResponse<Zep.MessagePage>> => {
-                const { limit, cursor } = request;
+                const { limit, cursor, orderBy, order } = request;
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
+                    order_by: orderBy != null ? orderBy : undefined,
+                    order:
+                        order != null
+                            ? serializers.ThreadListMessagesRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -1092,7 +1099,7 @@ export class ThreadClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({

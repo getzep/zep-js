@@ -1,4 +1,403 @@
 # Reference
+## Agent
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">create</a>({ ...params }) -> Zep.Agent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.create({
+    agentId: "agent_id",
+    name: "name",
+    securityDomain: "security_domain"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.CreateAgentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AgentClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.Agent, Zep.AgentPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.list();
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.list();
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.AgentListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AgentClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">get</a>(agent_uuid) -> Zep.Agent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.get("agent_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AgentClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">delete</a>(agent_uuid, { ...params }) -> Zep.AgentDeleteResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.delete("agent_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.DeleteAgentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AgentClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">update</a>(agent_uuid, { ...params }) -> Zep.Agent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.update("agent_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.PatchAgentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AgentClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">declareBreakingChange</a>(agent_uuid, { ...params }) -> Zep.AgentBreakingChange</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.declareBreakingChange("agent_uuid", {
+    expectedRevision: 1,
+    version: "version"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.DeclareAgentBreakingChangeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AgentClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getContext</a>(agent_uuid, { ...params }) -> Zep.AgentContext</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.getContext("agent_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GetAgentContextRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AgentClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Batch
 <details><summary><code>client.batch.<a href="/src/api/resources/batch/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.Batch, Zep.BatchPage&gt;</code></summary>
 <dl>
@@ -13,23 +412,15 @@
 <dd>
 
 ```typescript
-const pageableResponse = await client.batch.list({
-    limit: 1,
-    cursor: "cursor",
-    status: "status"
-});
+const pageableResponse = await client.batch.list();
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.batch.list({
-    limit: 1,
-    cursor: "cursor",
-    status: "status"
-});
+let page = await client.batch.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -229,21 +620,15 @@ await client.batch.delete("batch_uuid");
 <dd>
 
 ```typescript
-const pageableResponse = await client.batch.listItems("batch_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.batch.listItems("batch_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.batch.listItems("batch_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.batch.listItems("batch_uuid");
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -464,21 +849,15 @@ await client.context.createTemplate({});
 <dd>
 
 ```typescript
-const pageableResponse = await client.context.listTemplates({
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.context.listTemplates();
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.context.listTemplates({
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.context.listTemplates();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -506,7 +885,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `ContextClient.IdempotentRequestOptions` 
+**requestOptions:** `ContextClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -736,25 +1115,15 @@ await client.graph.create();
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.list({
-    limit: 1,
-    cursor: "cursor",
-    orderBy: "order_by",
-    order: "order"
-});
+const pageableResponse = await client.graph.list();
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.list({
-    limit: 1,
-    cursor: "cursor",
-    orderBy: "order_by",
-    order: "order"
-});
+let page = await client.graph.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -782,7 +1151,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -831,7 +1200,7 @@ await client.graph.lookup({});
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1011,7 +1380,9 @@ await client.graph.update("graph_uuid");
 <dd>
 
 ```typescript
-await client.graph.clone("graph_uuid");
+await client.graph.clone("graph_uuid", {
+    "key": "value"
+});
 
 ```
 </dd>
@@ -1044,6 +1415,152 @@ await client.graph.clone("graph_uuid");
 <dd>
 
 **requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">getContentPolicy</a>(graph_uuid) -> Zep.GraphContentPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the content policy the graph bound at creation. The policy of a graph does not change after creation. A graph without a content policy returns revision 0 with no categories and no rules.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.getContentPolicy("graph_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listContentPolicyEvents</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.ContentPolicyEvent, Zep.ContentPolicyEventPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the content policy decisions recorded for a graph, newest first. Each event carries identifiers only. A graph without a content policy returns an empty list.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.graph.listContentPolicyEvents("graph_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.graph.listContentPolicyEvents("graph_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.ContentPolicyEventListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1102,7 +1619,7 @@ await client.graph.getContext("graph_uuid", {
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1446,8 +1963,6 @@ await client.graph.setOntology("graph_uuid", {});
 
 ```typescript
 const pageableResponse = await client.graph.searchEdges("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
@@ -1458,14 +1973,12 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchEdges("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1501,7 +2014,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1527,8 +2040,6 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.searchEpisodes("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
@@ -1539,14 +2050,12 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchEpisodes("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1582,7 +2091,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1608,8 +2117,6 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.searchNodes("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
@@ -1620,14 +2127,12 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchNodes("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1663,7 +2168,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1689,8 +2194,6 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.searchObservations("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
@@ -1701,14 +2204,12 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchObservations("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1744,7 +2245,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1770,8 +2271,6 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.searchThreadSummaries("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
@@ -1782,14 +2281,12 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchThreadSummaries("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {
         query: "query"
     }
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -1825,7 +2322,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1884,7 +2381,7 @@ await client.graph.getSubgraph("graph_uuid", {
 <dl>
 <dd>
 
-**requestOptions:** `GraphClient.IdempotentRequestOptions` 
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -1983,7 +2480,7 @@ await client.lookup.batch();
 <dl>
 <dd>
 
-**requestOptions:** `LookupClient.IdempotentRequestOptions` 
+**requestOptions:** `LookupClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2075,6 +2572,248 @@ await client.project.update();
 <dd>
 
 **requestOptions:** `ProjectClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">getContentPolicy</a>() -> Zep.ContentPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current content policy revision of the project. A new graph binds this revision at creation.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.getContentPolicy();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">setContentPolicy</a>({ ...params }) -> Zep.ContentPolicy</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replaces the project content policy and creates a new immutable revision. Graphs that already exist keep the revision they bound. An empty policy (no categories and no rules) removes the content policy for new graphs.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.setContentPolicy();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.ContentPolicyRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">listContentPolicyRevisions</a>({ ...params }) -> core.Page&lt;Zep.ContentPolicy, Zep.ContentPolicyRevisionPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists every revision of the project content policy, newest first, including revision 0.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.project.listContentPolicyRevisions();
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.project.listContentPolicyRevisions();
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.ProjectListContentPolicyRevisionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.project.<a href="/src/api/resources/project/client/Client.ts">getContentPolicyRevision</a>(revision_uuid) -> Zep.ContentPolicy</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.project.getContentPolicyRevision("revision_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**revision_uuid:** `string` — Revision UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2311,6 +3050,20 @@ await client.project.getOntology();
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replaces the entity types and the edge types that the project uses.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -2460,21 +3213,15 @@ await client.project.setUserSummaryInstructions({});
 <dd>
 
 ```typescript
-const pageableResponse = await client.task.list({
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.task.list();
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.task.list({
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.task.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -2577,27 +3324,15 @@ await client.task.get("task_uuid");
 <dd>
 
 ```typescript
-const pageableResponse = await client.thread.list({
-    limit: 1,
-    cursor: "cursor",
-    orderBy: "order_by",
-    order: "order",
-    userUuid: "user_uuid"
-});
+const pageableResponse = await client.thread.list();
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.thread.list({
-    limit: 1,
-    cursor: "cursor",
-    orderBy: "order_by",
-    order: "order",
-    userUuid: "user_uuid"
-});
+let page = await client.thread.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -2725,7 +3460,7 @@ await client.thread.lookup({});
 <dl>
 <dd>
 
-**requestOptions:** `ThreadClient.IdempotentRequestOptions` 
+**requestOptions:** `ThreadClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -2848,9 +3583,7 @@ await client.thread.delete("thread_uuid");
 <dd>
 
 ```typescript
-await client.thread.getContext("thread_uuid", {
-    templateUuid: "template_uuid"
-});
+await client.thread.getContext("thread_uuid");
 
 ```
 </dd>
@@ -2907,21 +3640,15 @@ await client.thread.getContext("thread_uuid", {
 <dd>
 
 ```typescript
-const pageableResponse = await client.thread.listEpisodes("thread_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.thread.listEpisodes("thread_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.thread.listEpisodes("thread_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.thread.listEpisodes("thread_uuid");
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -2982,21 +3709,15 @@ const response = page.response;
 <dd>
 
 ```typescript
-const pageableResponse = await client.thread.listMessages("thread_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.thread.listMessages("thread_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.thread.listMessages("thread_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.thread.listMessages("thread_uuid");
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -3152,6 +3873,405 @@ await client.thread.getSummary("thread_uuid");
 </dl>
 </details>
 
+## TraceConnection
+<details><summary><code>client.traceConnection.<a href="/src/api/resources/traceConnection/client/Client.ts">list</a>({ ...params }) -> core.Page&lt;Zep.TraceConnection, Zep.TraceConnectionPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List trace connections in the current Zep project.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.traceConnection.list();
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.traceConnection.list();
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.TraceConnectionListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceConnectionClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.traceConnection.<a href="/src/api/resources/traceConnection/client/Client.ts">create</a>({ ...params }) -> Zep.TraceConnection</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Verify the provider credential before Zep stores it. Example request: `{"name":"Support traces","provider":"braintrust","credential":"secret","requests_per_minute":10}`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.traceConnection.create();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.CreateTraceConnectionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceConnectionClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.traceConnection.<a href="/src/api/resources/traceConnection/client/Client.ts">get</a>(connection_uuid) -> Zep.TraceConnection</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Read one trace connection. The response includes a credential hint and never includes the credential.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.traceConnection.get("connection_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_uuid:** `string` — Trace connection UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceConnectionClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.traceConnection.<a href="/src/api/resources/traceConnection/client/Client.ts">delete</a>(connection_uuid) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a trace connection that no active trajectory import uses.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.traceConnection.delete("connection_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_uuid:** `string` — Trace connection UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceConnectionClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.traceConnection.<a href="/src/api/resources/traceConnection/client/Client.ts">update</a>(connection_uuid, { ...params }) -> Zep.TraceConnection</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Verify changed provider settings before Zep stores them. Example request: `{"credential":"new-secret","requests_per_minute":20}`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.traceConnection.update("connection_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_uuid:** `string` — Trace connection UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.UpdateTraceConnectionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceConnectionClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.traceConnection.<a href="/src/api/resources/traceConnection/client/Client.ts">verify</a>(connection_uuid) -> Zep.TraceConnection</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Check the provider credential and update the connection status.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.traceConnection.verify("connection_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_uuid:** `string` — Trace connection UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceConnectionClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## UserGroup
 <details><summary><code>client.userGroup.<a href="/src/api/resources/userGroup/client/Client.ts">create</a>({ ...params }) -> Zep.UserGroup</code></summary>
 <dl>
@@ -3246,8 +4366,6 @@ Requires a project API key, or an account-admin bearer token with the X-Zep-Proj
 
 ```typescript
 const pageableResponse = await client.userGroup.list({
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -3256,12 +4374,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.userGroup.list({
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -3289,7 +4405,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+**requestOptions:** `UserGroupClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3526,8 +4642,6 @@ Requires a project API key, or an account-admin bearer token with the X-Zep-Proj
 
 ```typescript
 const pageableResponse = await client.userGroup.listMemberCandidates("group_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -3536,12 +4650,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.userGroup.listMemberCandidates("group_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -3577,7 +4689,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+**requestOptions:** `UserGroupClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3690,8 +4802,6 @@ Requires a project API key, or an account-admin bearer token with the X-Zep-Proj
 
 ```typescript
 const pageableResponse = await client.userGroup.listMembers("group_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -3700,12 +4810,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.userGroup.listMembers("group_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -3741,7 +4849,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `UserGroupClient.IdempotentRequestOptions` 
+**requestOptions:** `UserGroupClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -3924,21 +5032,15 @@ Requires a project API key, or an account-admin bearer token with the X-Zep-Proj
 <dd>
 
 ```typescript
-const pageableResponse = await client.userGroup.listForUser("user_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.userGroup.listForUser("user_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.userGroup.listForUser("user_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.userGroup.listForUser("user_uuid");
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4049,25 +5151,15 @@ await client.user.create();
 <dd>
 
 ```typescript
-const pageableResponse = await client.user.list({
-    limit: 1,
-    cursor: "cursor",
-    orderBy: "order_by",
-    order: "order"
-});
+const pageableResponse = await client.user.list();
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.user.list({
-    limit: 1,
-    cursor: "cursor",
-    orderBy: "order_by",
-    order: "order"
-});
+let page = await client.user.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4095,7 +5187,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `UserClient.IdempotentRequestOptions` 
+**requestOptions:** `UserClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4144,7 +5236,7 @@ await client.user.lookup({});
 <dl>
 <dd>
 
-**requestOptions:** `UserClient.IdempotentRequestOptions` 
+**requestOptions:** `UserClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4466,6 +5558,4075 @@ await client.user.setSummaryInstructions("user_uuid", {});
 </dl>
 </details>
 
+## Agent Learning
+<details><summary><code>client.agent.learning.<a href="/src/api/resources/agent/resources/learning/client/Client.ts">get</a>(agent_uuid, { ...params }) -> Zep.AgentLearningState</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.learning.get("agent_uuid", {
+    taskFamily: "task_family"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.LearningGetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `LearningClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.learning.<a href="/src/api/resources/agent/resources/learning/client/Client.ts">listRuns</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillCompilationOutcome, Zep.Pagev4AgentSkillCompilationOutcome&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.learning.listRuns("agent_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.learning.listRuns("agent_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.LearningListRunsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `LearningClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent LiteralPolicy
+<details><summary><code>client.agent.literalPolicy.<a href="/src/api/resources/agent/resources/literalPolicy/client/Client.ts">get</a>(agent_uuid) -> Zep.AgentLiteralPolicy</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.literalPolicy.get("agent_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `LiteralPolicyClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.literalPolicy.<a href="/src/api/resources/agent/resources/literalPolicy/client/Client.ts">update</a>(agent_uuid, { ...params }) -> Zep.AgentLiteralPolicy</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.literalPolicy.update("agent_uuid", {
+    allowlistedClasses: {
+        environments: ["environments"],
+        tools: ["tools"]
+    },
+    allowlistedValues: {
+        environments: ["environments"],
+        tools: ["tools"]
+    },
+    "default": "parameterize"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.UpdateAgentLiteralPolicyRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `LiteralPolicyClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill
+<details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">create</a>(agent_uuid, { ...params }) -> Zep.AgentSkill</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.create("agent_uuid", {
+    definition: {}
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.CreateAgentSkillRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SkillClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">list</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillSearchHit, Zep.Pagev4AgentSkillSearchHit&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.skill.list("agent_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.skill.list("agent_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.AgentSkillListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SkillClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">search</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillSearchHit, Zep.AgentSkillSearchResponse&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.skill.search("agent_uuid", {
+    query: "query"
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.skill.search("agent_uuid", {
+    query: "query"
+});
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.AgentSkillSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SkillClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">get</a>(agent_uuid, skill_uuid) -> Zep.AgentSkill</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.get("agent_uuid", "skill_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SkillClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">approve</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillAdmissionDecision</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.approve("agent_uuid", "skill_uuid", {
+    expectedVersion: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.ApproveAgentSkillRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SkillClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">retire</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkill</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.retire("agent_uuid", "skill_uuid", {
+    expectedVersion: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.RetireAgentSkillRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SkillClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">createVersion</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillVersion</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.createVersion("agent_uuid", "skill_uuid", {
+    definition: {},
+    expectedVersion: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.CreateAgentSkillVersionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SkillClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Split
+<details><summary><code>client.agent.split.<a href="/src/api/resources/agent/resources/split/client/Client.ts">plan</a>(agent_uuid, { ...params }) -> Zep.AgentSplitPlan</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.split.plan("agent_uuid", {
+    destinations: [{
+            agent: {
+                agentId: "agent_id",
+                name: "name",
+                securityDomain: "security_domain"
+            },
+            skills: [{
+                    skillUuid: "skill_uuid",
+                    skillVersionUuid: "skill_version_uuid",
+                    version: 1
+                }]
+        }],
+    expectedRevision: 1,
+    rationale: "rationale",
+    reviewAcknowledged: true
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Source Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.CreateAgentSplitPlanRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SplitClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Trajectory
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">create</a>(agent_uuid, { ...params }) -> Zep.AgentTrajectory</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.create("agent_uuid", {
+    objective: "objective",
+    taskFamily: "task_family"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.CreateAgentTrajectoryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">list</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentTrajectory, Zep.AgentTrajectoryPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.trajectory.list("agent_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.trajectory.list("agent_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.AgentTrajectoryListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">get</a>(agent_uuid, trajectory_uuid) -> Zep.AgentTrajectory</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.get("agent_uuid", "trajectory_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">delete</a>(agent_uuid, trajectory_uuid, { ...params }) -> Zep.AgentTrajectorySourceDeletionResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.delete("agent_uuid", "trajectory_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.DeleteAgentTrajectoryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">update</a>(agent_uuid, trajectory_uuid, { ...params }) -> Zep.AgentTrajectory</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.update("agent_uuid", "trajectory_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.PatchAgentTrajectoryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">abandon</a>(agent_uuid, trajectory_uuid, { ...params }) -> Zep.AgentTrajectoryFinalizationResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.abandon("agent_uuid", "trajectory_uuid", {
+    highestAcceptedSequence: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.AbandonAgentTrajectoryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">close</a>(agent_uuid, trajectory_uuid, { ...params }) -> Zep.AgentTrajectoryFinalizationResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.close("agent_uuid", "trajectory_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.CloseAgentTrajectoryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">correctTaskFamily</a>(agent_uuid, trajectory_uuid, { ...params }) -> Zep.AgentTrajectoryFinalizationResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.correctTaskFamily("agent_uuid", "trajectory_uuid", {
+    expectedRevision: 1,
+    reason: "reason"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.CorrectAgentTrajectoryTaskFamilyRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">listEvents</a>(agent_uuid, trajectory_uuid, { ...params }) -> core.Page&lt;Zep.AgentTrajectoryEvent, Zep.AgentTrajectoryEventPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.trajectory.listEvents("agent_uuid", "trajectory_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.trajectory.listEvents("agent_uuid", "trajectory_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.TrajectoryListEventsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">appendEvent</a>(agent_uuid, trajectory_uuid, { ...params }) -> Zep.AgentTrajectoryEvent</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.appendEvent("agent_uuid", "trajectory_uuid", {
+    eventType: "input_reference"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.AppendAgentTrajectoryEventRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">deleteEvent</a>(agent_uuid, trajectory_uuid, event_uuid, { ...params }) -> Zep.AgentTrajectorySourceDeletionResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.deleteEvent("agent_uuid", "trajectory_uuid", "event_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**event_uuid:** `string` — Event UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.DeleteAgentTrajectoryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">reopen</a>(agent_uuid, trajectory_uuid, { ...params }) -> Zep.AgentTrajectory</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.reopen("agent_uuid", "trajectory_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.ReopenAgentTrajectoryRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">getSummary</a>(agent_uuid, trajectory_uuid) -> Zep.AgentTrajectorySummaryVersion</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectory.getSummary("agent_uuid", "trajectory_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectory.<a href="/src/api/resources/agent/resources/trajectory/client/Client.ts">listSummaryVersions</a>(agent_uuid, trajectory_uuid, { ...params }) -> core.Page&lt;Zep.AgentTrajectorySummaryVersion, Zep.AgentTrajectorySummaryPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.trajectory.listSummaryVersions("agent_uuid", "trajectory_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.trajectory.listSummaryVersions("agent_uuid", "trajectory_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**trajectory_uuid:** `string` — Trajectory UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.TrajectoryListSummaryVersionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent TrajectoryImport
+<details><summary><code>client.agent.trajectoryImport.<a href="/src/api/resources/agent/resources/trajectoryImport/client/Client.ts">list</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.TrajectoryImport, Zep.TrajectoryImportPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List trajectory imports that belong to this Agent.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.trajectoryImport.list("agent_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.trajectoryImport.list("agent_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.TrajectoryImportListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryImportClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.<a href="/src/api/resources/agent/resources/trajectoryImport/client/Client.ts">create</a>(agent_uuid, { ...params }) -> Zep.TrajectoryImport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a scheduled import or queue a one-time import. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.create("agent_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.CreateTrajectoryImportRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryImportClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.<a href="/src/api/resources/agent/resources/trajectoryImport/client/Client.ts">get</a>(agent_uuid, import_uuid) -> Zep.TrajectoryImport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Read one trajectory import. The response does not include its source cursor.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.get("agent_uuid", "import_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryImportClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.<a href="/src/api/resources/agent/resources/trajectoryImport/client/Client.ts">delete</a>(agent_uuid, import_uuid, { ...params }) -> Zep.Task | undefined</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Set `trajectories=delete` to queue asynchronous Trajectory deletion. The default keeps Trajectories. Example query: `?trajectories=delete`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.delete("agent_uuid", "import_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.TrajectoryImportDeleteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryImportClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.<a href="/src/api/resources/agent/resources/trajectoryImport/client/Client.ts">update</a>(agent_uuid, import_uuid, { ...params }) -> Zep.TrajectoryImport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Use `expected_revision` to reject a stale update. Example request: `{"expected_revision":1,"name":"Updated support traces"}`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.update("agent_uuid", "import_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.UpdateTrajectoryImportRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryImportClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.<a href="/src/api/resources/agent/resources/trajectoryImport/client/Client.ts">pause</a>(agent_uuid, import_uuid) -> Zep.TrajectoryImport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Pause a scheduled trajectory import. One-time imports cannot be paused.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.pause("agent_uuid", "import_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryImportClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.<a href="/src/api/resources/agent/resources/trajectoryImport/client/Client.ts">resume</a>(agent_uuid, import_uuid) -> Zep.TrajectoryImport</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Resume a scheduled trajectory import. Zep verifies credentials first when they caused the pause.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.resume("agent_uuid", "import_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TrajectoryImportClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Verifier
+<details><summary><code>client.agent.verifier.<a href="/src/api/resources/agent/resources/verifier/client/Client.ts">list</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentVerifier, Zep.Pagev4AgentVerifier&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.verifier.list("agent_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.verifier.list("agent_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.AgentVerifierListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VerifierClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.verifier.<a href="/src/api/resources/agent/resources/verifier/client/Client.ts">get</a>(agent_uuid, verifier_uuid) -> Zep.AgentVerifier</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.verifier.get("agent_uuid", "verifier_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verifier_uuid:** `string` — Verifier UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VerifierClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.verifier.<a href="/src/api/resources/agent/resources/verifier/client/Client.ts">update</a>(agent_uuid, verifier_uuid, { ...params }) -> Zep.AgentVerifier</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.verifier.update("agent_uuid", "verifier_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verifier_uuid:** `string` — Verifier UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.PatchAgentVerifierRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VerifierClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.verifier.<a href="/src/api/resources/agent/resources/verifier/client/Client.ts">invalidateEvidence</a>(agent_uuid, verifier_uuid, { ...params }) -> Zep.AgentVerifierEvidenceInvalidationResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.verifier.invalidateEvidence("agent_uuid", "verifier_uuid", {
+    reason: "reason",
+    verifierRevisions: [1]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verifier_uuid:** `string` — Verifier UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.InvalidateAgentVerifierEvidenceRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VerifierClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.verifier.<a href="/src/api/resources/agent/resources/verifier/client/Client.ts">revoke</a>(agent_uuid, verifier_uuid, { ...params }) -> Zep.AgentVerifier</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.verifier.revoke("agent_uuid", "verifier_uuid", {
+    expectedRevision: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**verifier_uuid:** `string` — Verifier UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.RevokeAgentVerifierRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VerifierClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Candidate
+<details><summary><code>client.agent.skill.candidate.<a href="/src/api/resources/agent/resources/skill/resources/candidate/client/Client.ts">list</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillCandidateReviewSummary, Zep.Pagev4AgentSkillCandidateReviewSummary&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.skill.candidate.list("agent_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.skill.candidate.list("agent_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.CandidateListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CandidateClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.candidate.<a href="/src/api/resources/agent/resources/skill/resources/candidate/client/Client.ts">get</a>(agent_uuid, review_uuid) -> Zep.AgentSkillCandidateReview</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.candidate.get("agent_uuid", "review_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**review_uuid:** `string` — Candidate review UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CandidateClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Evaluation
+<details><summary><code>client.agent.skill.evaluation.<a href="/src/api/resources/agent/resources/skill/resources/evaluation/client/Client.ts">createForCandidate</a>(agent_uuid, review_uuid, candidate_uuid, { ...params }) -> Zep.AgentSkillCandidateEvaluation</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.evaluation.createForCandidate("agent_uuid", "review_uuid", "candidate_uuid", {
+    evaluatedBy: "customer",
+    evaluatorVersion: "evaluator_version",
+    expectedRevision: 1,
+    verdict: "succeeded"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**review_uuid:** `string` — Candidate review UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**candidate_uuid:** `string` — Candidate UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.CreateAgentSkillCandidateEvaluationRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EvaluationClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.evaluation.<a href="/src/api/resources/agent/resources/skill/resources/evaluation/client/Client.ts">create</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillEvaluation</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.evaluation.create("agent_uuid", "skill_uuid", {
+    evaluatedBy: "customer",
+    evaluatorVersion: "evaluator_version",
+    skillVersion: 1,
+    verdict: "succeeded"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.CreateAgentSkillEvaluationRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EvaluationClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Publication
+<details><summary><code>client.agent.skill.publication.<a href="/src/api/resources/agent/resources/skill/resources/publication/client/Client.ts">lookup</a>(agent_uuid, { ...params }) -> Zep.AgentSkillPublicationLineage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Find a destination Skill by its source Agent, Skill, and version. The endpoint returns 404 until an automatic publication is ready or after it is invalidated.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.publication.lookup("agent_uuid", {
+    sourceAgentUuid: "source_agent_uuid",
+    sourceSkillUuid: "source_skill_uuid",
+    sourceVersion: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Destination Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.PublicationLookupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PublicationClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.publication.<a href="/src/api/resources/agent/resources/skill/resources/publication/client/Client.ts">get</a>(agent_uuid, skill_uuid) -> Zep.AgentSkillPublicationLineage</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get the publication that created a destination Skill. Use its source version and policy identity to verify a copied Skill. The endpoint returns 404 for unpublished and invalidated Skills.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.publication.get("agent_uuid", "skill_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Destination Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Destination Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PublicationClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Evidence
+<details><summary><code>client.agent.skill.evidence.<a href="/src/api/resources/agent/resources/skill/resources/evidence/client/Client.ts">list</a>(agent_uuid, skill_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillEvidence, Zep.Pagev4AgentSkillEvidence&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.skill.evidence.list("agent_uuid", "skill_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.skill.evidence.list("agent_uuid", "skill_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.EvidenceListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EvidenceClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Relation
+<details><summary><code>client.agent.skill.relation.<a href="/src/api/resources/agent/resources/skill/resources/relation/client/Client.ts">list</a>(agent_uuid, skill_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillRelationship, Zep.Pagev4AgentSkillRelationship&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.skill.relation.list("agent_uuid", "skill_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.skill.relation.list("agent_uuid", "skill_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.RelationListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RelationClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Version
+<details><summary><code>client.agent.skill.version.<a href="/src/api/resources/agent/resources/skill/resources/version/client/Client.ts">restoreVersion</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillVersion</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.version.restoreVersion("agent_uuid", "skill_uuid", {
+    expectedVersion: 1,
+    version: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.RestoreAgentSkillVersionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.version.<a href="/src/api/resources/agent/resources/skill/resources/version/client/Client.ts">list</a>(agent_uuid, skill_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillVersion, Zep.Pagev4AgentSkillVersion&gt;</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.skill.version.list("agent_uuid", "skill_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.skill.version.list("agent_uuid", "skill_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.VersionListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.version.<a href="/src/api/resources/agent/resources/skill/resources/version/client/Client.ts">compare</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillVersionComparison</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.version.compare("agent_uuid", "skill_uuid", {
+    fromVersion: 1,
+    toVersion: 1
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.CompareAgentSkillVersionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.version.<a href="/src/api/resources/agent/resources/skill/resources/version/client/Client.ts">get</a>(agent_uuid, skill_uuid, version, { ...params }) -> Zep.AgentSkillVersion</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.version.get("agent_uuid", "skill_uuid", 1);
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `number` — Skill version
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.VersionGetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VersionClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Use
+<details><summary><code>client.agent.skill.use.<a href="/src/api/resources/agent/resources/skill/resources/use/client/Client.ts">create</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillUse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.use.create("agent_uuid", "skill_uuid", {
+    searchId: "search_id",
+    trajectoryUuid: "trajectory_uuid",
+    usage: "selected"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.skill.CreateAgentSkillUseRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UseClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.use.<a href="/src/api/resources/agent/resources/skill/resources/use/client/Client.ts">addOutcome</a>(agent_uuid, skill_uuid, use_uuid, { ...params }) -> Zep.AgentSkillUseOutcome</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.use.addOutcome("agent_uuid", "skill_uuid", "use_uuid", {
+    outcome: "succeeded"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**use_uuid:** `string` — Skill use UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.AddAgentSkillUseOutcomeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UseClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent Skill Export
+<details><summary><code>client.agent.skill.export.<a href="/src/api/resources/agent/resources/skill/resources/export/client/Client.ts">create</a>(agent_uuid, skill_uuid, version) -> Zep.Task</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.export.create("agent_uuid", "skill_uuid", 1);
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `number` — Skill version
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ExportClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.skill.export.<a href="/src/api/resources/agent/resources/skill/resources/export/client/Client.ts">get</a>(agent_uuid, skill_uuid, version, task_uuid) -> core.BinaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.skill.export.get("agent_uuid", "skill_uuid", 1, "task_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**skill_uuid:** `string` — Skill UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `number` — Skill version
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**task_uuid:** `string` — Export Task UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ExportClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent TrajectoryImport Run
+<details><summary><code>client.agent.trajectoryImport.run.<a href="/src/api/resources/agent/resources/trajectoryImport/resources/run/client/Client.ts">list</a>(agent_uuid, import_uuid, { ...params }) -> core.Page&lt;Zep.TrajectoryImportRun, Zep.TrajectoryImportRunPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List runs that belong to this trajectory import.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.trajectoryImport.run.list("agent_uuid", "import_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.trajectoryImport.run.list("agent_uuid", "import_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.trajectoryImport.RunListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RunClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.run.<a href="/src/api/resources/agent/resources/trajectoryImport/resources/run/client/Client.ts">create</a>(agent_uuid, import_uuid) -> Zep.Task</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a pending run and its Task. This operation does not start the run.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.run.create("agent_uuid", "import_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RunClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.agent.trajectoryImport.run.<a href="/src/api/resources/agent/resources/trajectoryImport/resources/run/client/Client.ts">get</a>(agent_uuid, import_uuid, run_uuid) -> Zep.TrajectoryImportRun</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Read one run that belongs to this trajectory import.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.agent.trajectoryImport.run.get("agent_uuid", "import_uuid", "run_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_uuid:** `string` — Run UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RunClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Agent TrajectoryImport Run Item
+<details><summary><code>client.agent.trajectoryImport.run.item.<a href="/src/api/resources/agent/resources/trajectoryImport/resources/run/resources/item/client/Client.ts">list</a>(agent_uuid, import_uuid, run_uuid, { ...params }) -> core.Page&lt;Zep.TrajectoryImportRunItem, Zep.TrajectoryImportRunItemPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List trace results for this run. Run items do not include source payload.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.agent.trajectoryImport.run.item.list("agent_uuid", "import_uuid", "run_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.agent.trajectoryImport.run.item.list("agent_uuid", "import_uuid", "run_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agent_uuid:** `string` — Agent UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**import_uuid:** `string` — Trajectory import UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**run_uuid:** `string` — Run UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.agent.trajectoryImport.run.ItemListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ItemClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Graph DocumentSummary
 <details><summary><code>client.graph.documentSummary.<a href="/src/api/resources/graph/resources/documentSummary/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.DocumentSummary, Zep.DocumentSummaryPage&gt;</code></summary>
 <dl>
@@ -4481,8 +9642,6 @@ await client.user.setSummaryInstructions("user_uuid", {});
 
 ```typescript
 const pageableResponse = await client.graph.documentSummary.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -4491,12 +9650,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.documentSummary.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4532,7 +9689,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `DocumentSummaryClient.IdempotentRequestOptions` 
+**requestOptions:** `DocumentSummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4558,21 +9715,15 @@ const response = page.response;
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.episode.listForDocument("graph_uuid", "document_id", {
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.graph.episode.listForDocument("graph_uuid", "document_id");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.episode.listForDocument("graph_uuid", "document_id", {
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.graph.episode.listForDocument("graph_uuid", "document_id");
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4691,6 +9842,25 @@ await client.graph.episode.add("graph_uuid", {
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the episodes of a graph. `filters.mentioned_node_uuids` restricts
+the results to episodes that mention any of the listed node UUIDs. The
+list can also contain episode UUIDs: an episode UUID matches that episode,
+so one request can return a known set of episodes. At most 256 entries.
+`filters.metadata_filters` restricts the results to episodes whose stored
+metadata matches the predicate.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -4701,8 +9871,6 @@ await client.graph.episode.add("graph_uuid", {
 
 ```typescript
 const pageableResponse = await client.graph.episode.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -4711,12 +9879,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.episode.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -4752,7 +9918,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `EpisodeClient.IdempotentRequestOptions` 
+**requestOptions:** `EpisodeClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -4944,9 +10110,24 @@ await client.graph.episode.update("graph_uuid", "episode_uuid");
 </details>
 
 ## Graph Edge
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddEdgeResult</code></summary>
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddEdgesResult</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds 1 to 100 edges. A name creates a node when deduplicate is false. When deduplicate is true, Zep matches a node by name first.
+Example: {"edges":[{"fact":"Ada works at Acme Corp","fact_name":"WORKS_AT","source_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d479"},"target_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d480"}},{"fact":"Ada leads a team","fact_name":"LEADS","source_node":{"name":"Ada Lovelace","labels":["Person"]},"target_node":{"name":"Engineering","labels":["Department"]}}],"deduplicate":false}
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -4958,10 +10139,12 @@ await client.graph.episode.update("graph_uuid", "episode_uuid");
 
 ```typescript
 await client.graph.edge.add("graph_uuid", {
-    fact: "fact",
-    factName: "fact_name",
-    sourceNode: {},
-    targetNode: {}
+    edges: [{
+            fact: "Ada works at Acme Corp",
+            factName: "WORKS_AT",
+            sourceNode: {},
+            targetNode: {}
+        }]
 });
 
 ```
@@ -4986,7 +10169,7 @@ await client.graph.edge.add("graph_uuid", {
 <dl>
 <dd>
 
-**request:** `Zep.graph.AddEdgeRequest` 
+**request:** `Zep.graph.AddEdgesRequest` 
     
 </dd>
 </dl>
@@ -5020,8 +10203,6 @@ await client.graph.edge.add("graph_uuid", {
 
 ```typescript
 const pageableResponse = await client.graph.edge.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -5030,12 +10211,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.edge.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -5071,7 +10250,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+**requestOptions:** `EdgeClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5201,6 +10380,23 @@ await client.graph.edge.delete("graph_uuid", "edge_uuid");
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates one edge. When the edge belongs to a hyperedge, changing fact
+rewrites it on every member of that hyperedge in one all-or-nothing
+write, because the members share it. Attribute-only edits touch this
+edge alone.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5251,6 +10447,574 @@ await client.graph.edge.update("graph_uuid", "edge_uuid");
 <dd>
 
 **requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Graph Hyperedge
+<details><summary><code>client.graph.hyperedge.<a href="/src/api/resources/graph/resources/hyperedge/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddHyperedgeResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates one hyperedge: a fact that relates more than two nodes, written
+onto one member edge per node pair. The member edges must span at least
+three distinct nodes, since two nodes are a pair of edges rather than a
+hyperedge; a single pair uses graph.edge.add. Zep assigns the hyperedge
+identifier and every member edge identifier at accept time, and the
+members become readable when the task completes.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.hyperedge.add("graph_uuid", {
+    edges: [{
+            name: "name",
+            sourceNode: {},
+            targetNode: {}
+        }],
+    fact: "fact"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.AddHyperedgeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HyperedgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.hyperedge.<a href="/src/api/resources/graph/resources/hyperedge/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.Hyperedge, Zep.HyperedgePage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the graph's hyperedges. A hyperedge is listed while it has at
+least one member edge. Supported filters are node_uuids, edge_uuids and
+episode_uuids: a hyperedge matches a list when any of its members does,
+and must match every list supplied.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.graph.hyperedge.list("graph_uuid", {
+    body: {}
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.graph.hyperedge.list("graph_uuid", {
+    body: {}
+});
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.HyperedgeListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HyperedgeClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.hyperedge.<a href="/src/api/resources/graph/resources/hyperedge/client/Client.ts">get</a>(graph_uuid, hyperedge_uuid) -> Zep.Hyperedge</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns one hyperedge assembled from its member edges. The fact and the
+validity timestamps are shared by every member and are reported on the
+hyperedge; each member reports only its own name and endpoints.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.hyperedge.get("graph_uuid", "hyperedge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hyperedge_uuid:** `string` — Hyperedge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HyperedgeClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.hyperedge.<a href="/src/api/resources/graph/resources/hyperedge/client/Client.ts">delete</a>(graph_uuid, hyperedge_uuid) -> Zep.AsyncResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes every member edge of the hyperedge. After the task completes the
+hyperedge and each of its members are gone.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.hyperedge.delete("graph_uuid", "hyperedge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hyperedge_uuid:** `string` — Hyperedge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HyperedgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.hyperedge.<a href="/src/api/resources/graph/resources/hyperedge/client/Client.ts">update</a>(graph_uuid, hyperedge_uuid, { ...params }) -> Zep.Hyperedge</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the shared fact and writes it onto every member edge in one
+all-or-nothing write: either every member carries the new fact or none
+does. Only fact is accepted, because it is the only field the members
+share. name belongs to each member edge, and membership changes use
+create_edge and delete_edge. Updating fact on one member through
+graph.edge.update cascades the same way.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.hyperedge.update("graph_uuid", "hyperedge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hyperedge_uuid:** `string` — Hyperedge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.PatchHyperedgeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HyperedgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.hyperedge.<a href="/src/api/resources/graph/resources/hyperedge/client/Client.ts">createEdge</a>(graph_uuid, hyperedge_uuid, { ...params }) -> Zep.AddHyperedgeEdgeResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds one member edge to an existing hyperedge. The new member inherits the
+hyperedge's fact and timestamps and joins its episodes, so only its own
+name and node pair are supplied.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.hyperedge.createEdge("graph_uuid", "hyperedge_uuid", {
+    name: "name",
+    sourceNode: {},
+    targetNode: {}
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hyperedge_uuid:** `string` — Hyperedge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.AddHyperedgeEdgeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HyperedgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.hyperedge.<a href="/src/api/resources/graph/resources/hyperedge/client/Client.ts">deleteEdge</a>(graph_uuid, hyperedge_uuid, edge_uuid) -> Zep.AsyncResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Removes one member edge from the hyperedge. The remaining members stay in
+the hyperedge, and deleting the last member removes the hyperedge itself.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.hyperedge.deleteEdge("graph_uuid", "hyperedge_uuid", "edge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — Graph UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**hyperedge_uuid:** `string` — Hyperedge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**edge_uuid:** `string` — Edge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HyperedgeClient.IdempotentRequestOptions` 
     
 </dd>
 </dl>
@@ -5338,8 +11102,6 @@ await client.graph.node.add("graph_uuid", {
 
 ```typescript
 const pageableResponse = await client.graph.node.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -5348,12 +11110,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.node.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -5389,7 +11149,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `NodeClient.IdempotentRequestOptions` 
+**requestOptions:** `NodeClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5593,21 +11353,15 @@ await client.graph.node.update("graph_uuid", "node_uuid");
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.node.listNeighbors("graph_uuid", "node_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+const pageableResponse = await client.graph.node.listNeighbors("graph_uuid", "node_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.node.listNeighbors("graph_uuid", "node_uuid", {
-    limit: 1,
-    cursor: "cursor"
-});
+let page = await client.graph.node.listNeighbors("graph_uuid", "node_uuid");
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -5651,7 +11405,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `NodeClient.IdempotentRequestOptions` 
+**requestOptions:** `NodeClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5678,8 +11432,6 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.observation.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -5688,12 +11440,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.observation.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -5729,7 +11479,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `ObservationClient.IdempotentRequestOptions` 
+**requestOptions:** `ObservationClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5813,8 +11563,6 @@ await client.graph.observation.get("graph_uuid", "observation_uuid");
 
 ```typescript
 const pageableResponse = await client.graph.threadSummary.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 for await (const item of pageableResponse) {
@@ -5823,12 +11571,10 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.threadSummary.list("graph_uuid", {
-    limit: 1,
-    cursor: "cursor",
     body: {}
 });
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -5864,7 +11610,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**requestOptions:** `ThreadSummaryClient.IdempotentRequestOptions` 
+**requestOptions:** `ThreadSummaryClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5988,6 +11734,252 @@ await client.thread.message.update("thread_uuid", "message_uuid");
 <dd>
 
 **requestOptions:** `MessageClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## TraceConnection Project
+<details><summary><code>client.traceConnection.project.<a href="/src/api/resources/traceConnection/resources/project/client/Client.ts">list</a>(connection_uuid, { ...params }) -> core.Page&lt;Zep.TraceProviderProject, Zep.TraceProviderProjectPage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List provider projects with the `limit` and `cursor` query parameters.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.traceConnection.project.list("connection_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.traceConnection.project.list("connection_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_uuid:** `string` — Trace connection UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.traceConnection.ProjectListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ProjectClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## TraceConnection Trace
+<details><summary><code>client.traceConnection.trace.<a href="/src/api/resources/traceConnection/resources/trace/client/Client.ts">get</a>(connection_uuid, { ...params }) -> Zep.SourceTraceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Read one trace and optionally preview a mapping. Example body: `{"provider_project_id":"project_123","trace_id":"trace-123","mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.traceConnection.trace.get("connection_uuid", {
+    providerProjectId: "project_123",
+    traceId: "trace_123"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_uuid:** `string` — Trace connection UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.traceConnection.SourceTraceGetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.traceConnection.trace.<a href="/src/api/resources/traceConnection/resources/trace/client/Client.ts">list</a>(connection_uuid, { ...params }) -> core.Page&lt;Zep.SourceTraceSummary, Zep.SourceTracePage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Filter provider traces. Example body: `{"provider_project_id":"project_123","filter":{"started_after":"2026-01-01T00:00:00Z"}}`.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.traceConnection.trace.list("connection_uuid", {
+    providerProjectId: "project_123"
+});
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.traceConnection.trace.list("connection_uuid", {
+    providerProjectId: "project_123"
+});
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**connection_uuid:** `string` — Trace connection UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.traceConnection.SourceTraceListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TraceClient.RequestOptions` 
     
 </dd>
 </dl>

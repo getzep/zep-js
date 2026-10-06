@@ -5,8 +5,6 @@ import type * as Zep from "../../../../../../index.js";
 /**
  * @example
  *     {
- *         limit: 1,
- *         cursor: "cursor",
  *         body: {}
  *     }
  */

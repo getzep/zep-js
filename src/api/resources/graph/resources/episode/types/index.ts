@@ -1,1 +1,3 @@
-export * from "./V4AddEpisodeRequestType.js";
+export * from "./AddEpisodeRequestType.js";
+export * from "./EpisodeListRequestOrder.js";
+export * from "./EpisodeListRequestOrderBy.js";

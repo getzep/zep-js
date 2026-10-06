@@ -2,10 +2,7 @@
 
 /**
  * @example
- *     {
- *         limit: 1,
- *         cursor: "cursor"
- *     }
+ *     {}
  */
 export interface UserGroupListForUserRequest {
     /** Page size */

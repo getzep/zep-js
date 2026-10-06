@@ -7,6 +7,9 @@ import type * as serializers from "../index.js";
 export const Node: core.serialization.ObjectSchema<serializers.Node.Raw, Zep.Node> = core.serialization.object({
     attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+    degree: core.serialization.number().optional(),
+    episodeUuids: core.serialization.property("episode_uuids", core.serialization.list(core.serialization.string())),
+    episodeUuidsTruncated: core.serialization.property("episode_uuids_truncated", core.serialization.boolean()),
     graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
     labels: core.serialization.list(core.serialization.string()).optional(),
     name: core.serialization.string().optional(),
@@ -20,6 +23,9 @@ export declare namespace Node {
     export interface Raw {
         attributes?: Record<string, unknown> | null;
         created_at?: string | null;
+        degree?: number | null;
+        episode_uuids: string[];
+        episode_uuids_truncated: boolean;
         graph_uuid?: string | null;
         labels?: string[] | null;
         name?: string | null;

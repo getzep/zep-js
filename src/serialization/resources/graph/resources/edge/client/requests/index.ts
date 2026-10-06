@@ -1,2 +1,2 @@
-export { AddEdgeRequest } from "./AddEdgeRequest.js";
+export { AddEdgesRequest } from "./AddEdgesRequest.js";
 export { PatchEdgeRequest } from "./PatchEdgeRequest.js";

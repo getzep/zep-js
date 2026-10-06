@@ -8,11 +8,11 @@ export const PatchMessageRequest: core.serialization.Schema<
     serializers.thread.PatchMessageRequest.Raw,
     Zep.thread.PatchMessageRequest
 > = core.serialization.object({
-    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optionalNullable(),
 });
 
 export declare namespace PatchMessageRequest {
     export interface Raw {
-        metadata?: Record<string, unknown> | null;
+        metadata?: (Record<string, unknown> | null | undefined) | null;
     }
 }

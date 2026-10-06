@@ -8,15 +8,15 @@ export const PatchUserGroupRequest: core.serialization.Schema<
     serializers.PatchUserGroupRequest.Raw,
     Zep.PatchUserGroupRequest
 > = core.serialization.object({
-    description: core.serialization.string().optional(),
+    description: core.serialization.string().optionalNullable(),
     expectedVersion: core.serialization.property("expected_version", core.serialization.number().optional()),
-    name: core.serialization.string().optional(),
+    name: core.serialization.string().optionalNullable(),
 });
 
 export declare namespace PatchUserGroupRequest {
     export interface Raw {
-        description?: string | null;
+        description?: (string | null | undefined) | null;
         expected_version?: number | null;
-        name?: string | null;
+        name?: (string | null | undefined) | null;
     }
 }

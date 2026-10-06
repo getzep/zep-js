@@ -3,6 +3,7 @@
 import type { BaseClientOptions, BaseIdempotentRequestOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../core/idempotency.js";
 import * as core from "../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
@@ -13,6 +14,7 @@ import * as Zep from "../../../index.js";
 import { DocumentSummaryClient } from "../resources/documentSummary/client/Client.js";
 import { EdgeClient } from "../resources/edge/client/Client.js";
 import { EpisodeClient } from "../resources/episode/client/Client.js";
+import { HyperedgeClient } from "../resources/hyperedge/client/Client.js";
 import { NodeClient } from "../resources/node/client/Client.js";
 import { ObservationClient } from "../resources/observation/client/Client.js";
 import { ThreadSummaryClient } from "../resources/threadSummary/client/Client.js";
@@ -30,6 +32,7 @@ export class GraphClient {
     protected _documentSummary: DocumentSummaryClient | undefined;
     protected _episode: EpisodeClient | undefined;
     protected _edge: EdgeClient | undefined;
+    protected _hyperedge: HyperedgeClient | undefined;
     protected _node: NodeClient | undefined;
     protected _observation: ObservationClient | undefined;
     protected _threadSummary: ThreadSummaryClient | undefined;
@@ -48,6 +51,10 @@ export class GraphClient {
 
     public get edge(): EdgeClient {
         return (this._edge ??= new EdgeClient(this._options));
+    }
+
+    public get hyperedge(): HyperedgeClient {
+        return (this._hyperedge ??= new HyperedgeClient(this._options));
     }
 
     public get node(): NodeClient {
@@ -92,7 +99,7 @@ export class GraphClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -204,7 +211,7 @@ export class GraphClient {
 
     /**
      * @param {Zep.GraphListRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -214,16 +221,11 @@ export class GraphClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.list({
-     *         limit: 1,
-     *         cursor: "cursor",
-     *         orderBy: "order_by",
-     *         order: "order"
-     *     })
+     *     await client.graph.list()
      */
     public async list(
         request: Zep.GraphListRequest = {},
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Graph, Zep.GraphPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.GraphListRequest): Promise<core.WithRawResponse<Zep.GraphPage>> => {
@@ -231,14 +233,26 @@ export class GraphClient {
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
-                    order_by: orderBy,
-                    order,
+                    order_by:
+                        orderBy != null
+                            ? serializers.GraphListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.GraphListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -355,7 +369,7 @@ export class GraphClient {
 
     /**
      * @param {Zep.LookupRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -368,20 +382,20 @@ export class GraphClient {
      */
     public lookup(
         request: Zep.LookupRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): core.HttpResponsePromise<Zep.Graph> {
         return core.HttpResponsePromise.fromPromise(this.__lookup(request, requestOptions));
     }
 
     private async __lookup(
         request: Zep.LookupRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.Graph>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            getIdempotencyHeaders(),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -614,7 +628,7 @@ export class GraphClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -748,7 +762,7 @@ export class GraphClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -872,11 +886,13 @@ export class GraphClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.clone("graph_uuid")
+     *     await client.graph.clone("graph_uuid", {
+     *         "key": "value"
+     *     })
      */
     public clone(
         graph_uuid: string,
-        request: Zep.CloneGraphRequest = {},
+        request: Zep.CloneGraphRequest,
         requestOptions?: GraphClient.IdempotentRequestOptions,
     ): core.HttpResponsePromise<Zep.CloneGraphResult> {
         return core.HttpResponsePromise.fromPromise(this.__clone(graph_uuid, request, requestOptions));
@@ -884,14 +900,14 @@ export class GraphClient {
 
     private async __clone(
         graph_uuid: string,
-        request: Zep.CloneGraphRequest = {},
+        request: Zep.CloneGraphRequest,
         requestOptions?: GraphClient.IdempotentRequestOptions,
     ): Promise<core.WithRawResponse<Zep.CloneGraphResult>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1002,9 +1018,289 @@ export class GraphClient {
     }
 
     /**
+     * Returns the content policy the graph bound at creation. The policy of a graph does not change after creation. A graph without a content policy returns revision 0 with no categories and no rules.
+     *
+     * @param {string} graph_uuid - Graph UUID
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.graph.getContentPolicy("graph_uuid")
+     */
+    public getContentPolicy(
+        graph_uuid: string,
+        requestOptions?: GraphClient.RequestOptions,
+    ): core.HttpResponsePromise<Zep.GraphContentPolicy> {
+        return core.HttpResponsePromise.fromPromise(this.__getContentPolicy(graph_uuid, requestOptions));
+    }
+
+    private async __getContentPolicy(
+        graph_uuid: string,
+        requestOptions?: GraphClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.GraphContentPolicy>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graphs/${core.url.encodePathParam(graph_uuid)}/content-policy`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.GraphContentPolicy.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Zep.ForbiddenError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/graphs/{graph_uuid}/content-policy",
+        );
+    }
+
+    /**
+     * Lists the content policy decisions recorded for a graph, newest first. Each event carries identifiers only. A graph without a content policy returns an empty list.
+     *
+     * @param {string} graph_uuid - Graph UUID
+     * @param {Zep.ContentPolicyEventListRequest} request
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.graph.listContentPolicyEvents("graph_uuid")
+     */
+    public async listContentPolicyEvents(
+        graph_uuid: string,
+        request: Zep.ContentPolicyEventListRequest = {},
+        requestOptions?: GraphClient.RequestOptions,
+    ): Promise<core.Page<Zep.ContentPolicyEvent, Zep.ContentPolicyEventPage>> {
+        const list = core.HttpResponsePromise.interceptFunction(
+            async (
+                request: Zep.ContentPolicyEventListRequest,
+            ): Promise<core.WithRawResponse<Zep.ContentPolicyEventPage>> => {
+                const { limit, cursor, ..._body } = request;
+                const _queryParams: Record<string, unknown> = {
+                    limit,
+                    cursor,
+                };
+                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+                const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+                    _authRequest.headers,
+                    this._options?.headers,
+                    getIdempotencyHeaders(),
+                    requestOptions?.headers,
+                );
+                const _response = await (this._options.fetcher ?? core.fetcher)({
+                    url: core.url.join(
+                        (await core.Supplier.get(this._options.baseUrl)) ??
+                            (await core.Supplier.get(this._options.environment)) ??
+                            environments.ZepEnvironment.Default,
+                        `graphs/${core.url.encodePathParam(graph_uuid)}/content-policy/events/list`,
+                    ),
+                    method: "POST",
+                    headers: _headers,
+                    contentType: "application/json",
+                    queryString: core.url
+                        .queryBuilder()
+                        .addMany(_queryParams)
+                        .mergeAdditional(requestOptions?.queryParams)
+                        .build(),
+                    requestType: "json",
+                    body: mergeAdditionalBodyParameters(
+                        serializers.ContentPolicyEventListRequest.jsonOrThrow(_body, {
+                            unrecognizedObjectKeys: "strip",
+                            omitUndefined: true,
+                        }),
+                        requestOptions?.additionalBodyParameters,
+                    ),
+                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+                    abortSignal: requestOptions?.abortSignal,
+                    fetchFn: this._options?.fetch,
+                    logging: this._options.logging,
+                });
+                if (_response.ok) {
+                    return {
+                        data: serializers.ContentPolicyEventPage.parseOrThrow(_response.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        rawResponse: _response.rawResponse,
+                    };
+                }
+                if (_response.error.reason === "status-code") {
+                    switch (_response.error.statusCode) {
+                        case 400:
+                            throw new Zep.BadRequestError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        case 401:
+                            throw new Zep.UnauthorizedError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        case 403:
+                            throw new Zep.ForbiddenError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        case 404:
+                            throw new Zep.NotFoundError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
+                        default:
+                            throw new errors.ZepError({
+                                statusCode: _response.error.statusCode,
+                                body: _response.error.body,
+                                rawResponse: _response.rawResponse,
+                            });
+                    }
+                }
+                return handleNonStatusCodeError(
+                    _response.error,
+                    _response.rawResponse,
+                    "POST",
+                    "/graphs/{graph_uuid}/content-policy/events/list",
+                );
+            },
+        );
+        const dataWithRawResponse = await list(request).withRawResponse();
+        return new core.Page<Zep.ContentPolicyEvent, Zep.ContentPolicyEventPage>({
+            response: dataWithRawResponse.data,
+            rawResponse: dataWithRawResponse.rawResponse,
+            hasNextPage: (response) =>
+                response?.nextCursor != null &&
+                !(typeof response?.nextCursor === "string" && response?.nextCursor === ""),
+            getItems: (response) => response?.items ?? [],
+            loadPage: (response) => {
+                return list(core.setObjectProperty(request, "cursor", response?.nextCursor));
+            },
+        });
+    }
+
+    /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.GraphContextRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -1022,7 +1318,7 @@ export class GraphClient {
     public getContext(
         graph_uuid: string,
         request: Zep.GraphContextRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): core.HttpResponsePromise<Zep.GraphContextResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getContext(graph_uuid, request, requestOptions));
     }
@@ -1030,13 +1326,13 @@ export class GraphClient {
     private async __getContext(
         graph_uuid: string,
         request: Zep.GraphContextRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.GraphContextResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            getIdempotencyHeaders(),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1288,7 +1584,7 @@ export class GraphClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1520,7 +1816,7 @@ export class GraphClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1750,7 +2046,7 @@ export class GraphClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1838,7 +2134,7 @@ export class GraphClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.GraphSearchEdgesRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -1849,8 +2145,6 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchEdges("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {
      *             query: "query"
      *         }
@@ -1859,7 +2153,7 @@ export class GraphClient {
     public async searchEdges(
         graph_uuid: string,
         request: Zep.GraphSearchEdgesRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Edge, Zep.EdgePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.GraphSearchEdgesRequest): Promise<core.WithRawResponse<Zep.EdgePage>> => {
@@ -1872,7 +2166,7 @@ export class GraphClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1995,7 +2289,7 @@ export class GraphClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.GraphSearchEpisodesRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -2006,8 +2300,6 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchEpisodes("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {
      *             query: "query"
      *         }
@@ -2016,7 +2308,7 @@ export class GraphClient {
     public async searchEpisodes(
         graph_uuid: string,
         request: Zep.GraphSearchEpisodesRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Episode, Zep.EpisodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.GraphSearchEpisodesRequest): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
@@ -2029,7 +2321,7 @@ export class GraphClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -2152,7 +2444,7 @@ export class GraphClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.GraphSearchNodesRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -2163,8 +2455,6 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchNodes("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {
      *             query: "query"
      *         }
@@ -2173,7 +2463,7 @@ export class GraphClient {
     public async searchNodes(
         graph_uuid: string,
         request: Zep.GraphSearchNodesRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Node, Zep.NodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.GraphSearchNodesRequest): Promise<core.WithRawResponse<Zep.NodePage>> => {
@@ -2186,7 +2476,7 @@ export class GraphClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -2309,7 +2599,7 @@ export class GraphClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.GraphSearchObservationsRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -2320,8 +2610,6 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchObservations("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {
      *             query: "query"
      *         }
@@ -2330,7 +2618,7 @@ export class GraphClient {
     public async searchObservations(
         graph_uuid: string,
         request: Zep.GraphSearchObservationsRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Observation, Zep.ObservationPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.GraphSearchObservationsRequest): Promise<core.WithRawResponse<Zep.ObservationPage>> => {
@@ -2343,7 +2631,7 @@ export class GraphClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -2466,7 +2754,7 @@ export class GraphClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.GraphSearchThreadSummariesRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -2477,8 +2765,6 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchThreadSummaries("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {
      *             query: "query"
      *         }
@@ -2487,7 +2773,7 @@ export class GraphClient {
     public async searchThreadSummaries(
         graph_uuid: string,
         request: Zep.GraphSearchThreadSummariesRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.ThreadSummary, Zep.ThreadSummaryPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
@@ -2502,7 +2788,7 @@ export class GraphClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -2625,7 +2911,7 @@ export class GraphClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.SubgraphRequest} request
-     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -2642,7 +2928,7 @@ export class GraphClient {
     public getSubgraph(
         graph_uuid: string,
         request: Zep.SubgraphRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): core.HttpResponsePromise<Zep.SubgraphResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getSubgraph(graph_uuid, request, requestOptions));
     }
@@ -2650,13 +2936,13 @@ export class GraphClient {
     private async __getSubgraph(
         graph_uuid: string,
         request: Zep.SubgraphRequest,
-        requestOptions?: GraphClient.IdempotentRequestOptions,
+        requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.SubgraphResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            getIdempotencyHeaders(),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -2790,7 +3076,7 @@ export class GraphClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({

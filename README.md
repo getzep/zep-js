@@ -14,6 +14,8 @@ The Zep TypeScript library provides convenient access to the Zep APIs from TypeS
 - [Environments](#environments)
 - [Request and Response Types](#request-and-response-types)
 - [Exception Handling](#exception-handling)
+- [File Uploads](#file-uploads)
+- [Binary Response](#binary-response)
 - [Pagination](#pagination)
 - [Advanced](#advanced)
   - [Subpackage Exports](#subpackage-exports)
@@ -40,17 +42,58 @@ npm install @getzep/zep-cloud
 > [!NOTE]
 > Zep Cloud [overview](https://help.getzep.com/concepts) and [cloud sdk guide](https://help.getzep.com/sdks).
 
+### Community Installation
+```bash
+npm install @getzep/zep-js
+```
+> [!NOTE]
+> Zep Community Edition [quick start](https://help.getzep.com/ce/quickstart) and [sdk guide](https://help.getzep.com/ce/sdks).
+
+### Zep v0.x Compatible SDK
+You can install Zep v0.x compatible sdk by running:
+```bash
+npm install @getzep/zep-js@^0.10.0
+```
+> [!NOTE]
+> Zep v0.x [quick start](https://help.getzep.com/ce/legacy/deployment/quickstart) and [sdk guide](https://help.getzep.com/ce/legacy/sdk).
+
 ### How Zep works
 
 Zep persists and recalls chat histories, and automatically generates summaries and other artifacts from these chat histories. It also embeds messages and summaries, enabling you to search Zep for relevant context from past conversations. Zep does all of this asynchronously, ensuring these operations don't impact your user's chat experience. Data is persisted to database, allowing you to scale out when growth demands.
+
+Zep also provides a simple, easy to use abstraction for document vector search called Document Collections. This is designed to complement Zep's core context features, but is not designed to be a general purpose vector database.
 
 Zep allows you to be more intentional about constructing your prompt:
 1. automatically adding a few recent messages, with the number customized for your app;
 2. a summary of recent conversations prior to the messages above;
 3. and/or contextually relevant summaries or messages surfaced from the entire chat session.
+4. and/or relevant Business data from Zep Document Collections.
+
+Zep Cloud offers:
+- **Fact Extraction:** Automatically build fact tables from conversations, without having to define a data schema upfront.
+- **Dialog Classification:** Instantly and accurately classify chat dialog. Understand user intent and emotion, segment users, and more. Route chains based on semantic context, and trigger events.
+- **Structured Data Extraction:** Quickly extract business data from chat conversations using a schema you define. Understand what your Assistant should ask for next in order to complete its task.
 
 You will also need to provide a Zep Project API key to your zep client.
 You can find out about zep projects in our [cloud docs](https://help.getzep.com/projects.html)
+
+### Using langchain zep classes with `zep-cloud`:
+`zep-cloud` sdk comes with `ZepChatMessageHistory`, `ZepVectorStore` and `ZepMemory`
+classes that are compatible with [`Langchain's JS expression language`](https://js.langchain.com/docs/expression_language/)
+
+In order to use these classes in your application, you need to make sure that you have
+`langchain` package installed:
+
+```bash
+npm install langchain@^0.1.23
+```
+
+You can import these classes in the following way:
+
+```typescript
+import { ZepChatMessageHistory, ZepVectorStore, ZepMemory } from "@getzep/zep-cloud/langchain"
+```
+
 
 ## Installation
 
@@ -70,7 +113,11 @@ Instantiate and use the client with the following:
 import { ZepClient } from "@getzep/zep-cloud";
 
 const client = new ZepClient({ apiKey: "YOUR_API_KEY" });
-await client.batch.create();
+await client.agent.create({
+    agentId: "agent_id",
+    name: "name",
+    securityDomain: "security_domain"
+});
 ```
 
 ## Environments
@@ -93,7 +140,7 @@ following namespace:
 ```typescript
 import { Zep } from "@getzep/zep-cloud";
 
-const request: Zep.BatchListRequest = {
+const request: Zep.AgentListRequest = {
     ...
 };
 ```
@@ -107,7 +154,7 @@ will be thrown.
 import { ZepError } from "@getzep/zep-cloud";
 
 try {
-    await client.batch.create(...);
+    await client.agent.create(...);
 } catch (err) {
     if (err instanceof ZepError) {
         console.log(err.statusCode);
@@ -118,6 +165,440 @@ try {
 }
 ```
 
+## File Uploads
+
+You can upload files using the client:
+
+```typescript
+import { createReadStream } from "fs";
+
+await client.agent.skill.importPackage(createReadStream("path/to/file"), ...);
+await client.agent.skill.importPackage(new ReadableStream(), ...);
+await client.agent.skill.importPackage(Buffer.from('binary data'), ...);
+await client.agent.skill.importPackage(new Blob(['binary data'], { type: 'audio/mpeg' }), ...);
+await client.agent.skill.importPackage(new File(['binary data'], 'file.mp3'), ...);
+await client.agent.skill.importPackage(new ArrayBuffer(8), ...);
+await client.agent.skill.importPackage(new Uint8Array([0, 1, 2]), ...);
+```
+The client accepts a variety of types for file upload parameters:
+* Stream types: `fs.ReadStream`, `stream.Readable`, and `ReadableStream`
+* Buffered types: `Buffer`, `Blob`, `File`, `ArrayBuffer`, `ArrayBufferView`, and `Uint8Array`
+
+### Metadata
+
+You can configure metadata when uploading a file:
+```typescript
+const file: Uploadable.WithMetadata = {
+    data: createReadStream("path/to/file"),
+    filename: "my-file",       // optional
+    contentType: "audio/mpeg", // optional
+    contentLength: 1949,       // optional
+};
+```
+
+Alternatively, you can upload a file directly from a file path:
+```typescript
+const file : Uploadable.FromPath = {
+    path: "path/to/file",
+    filename: "my-file",        // optional
+    contentType: "audio/mpeg",  // optional
+    contentLength: 1949,        // optional
+};
+```
+
+The metadata is used to set the `Content-Length`, `Content-Type`, and `Content-Disposition` headers. If not provided, the client will attempt to determine them automatically.
+For example, `fs.ReadStream` has a `path` property which the SDK uses to retrieve the file size from the filesystem without loading it into memory.
+
+
+## Binary Response
+
+You can consume binary data from endpoints using the `BinaryResponse` type which lets you choose how to consume the data:
+
+```typescript
+const response = await client.agent.skill.export.get(...);
+const stream: ReadableStream<Uint8Array> = response.stream();
+// const arrayBuffer: ArrayBuffer = await response.arrayBuffer();
+// const blob: Blob = response.blob();
+// const bytes: Uint8Array = response.bytes();
+// You can only use the response body once, so you must choose one of the above methods.
+// If you want to check if the response body has been used, you can use the following property.
+const bodyUsed = response.bodyUsed;
+```
+<details>
+<summary>Save binary response to a file</summary>
+
+<blockquote>
+<details>
+<summary>Node.js</summary>
+
+<blockquote>
+<details>
+<summary>ReadableStream (most-efficient)</summary>
+
+```ts
+import { createWriteStream } from 'fs';
+import { Readable } from 'stream';
+import { pipeline } from 'stream/promises';
+
+const response = await client.agent.skill.export.get(...);
+
+const stream = response.stream();
+const nodeStream = Readable.fromWeb(stream);
+const writeStream = createWriteStream('path/to/file');
+
+await pipeline(nodeStream, writeStream);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>ArrayBuffer</summary>
+
+```ts
+import { writeFile } from 'fs/promises';
+
+const response = await client.agent.skill.export.get(...);
+
+const arrayBuffer = await response.arrayBuffer();
+await writeFile('path/to/file', Buffer.from(arrayBuffer));
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Blob</summary>
+
+```ts
+import { writeFile } from 'fs/promises';
+
+const response = await client.agent.skill.export.get(...);
+
+const blob = await response.blob();
+const arrayBuffer = await blob.arrayBuffer();
+await writeFile('output.bin', Buffer.from(arrayBuffer));
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Bytes (UIntArray8)</summary>
+
+```ts
+import { writeFile } from 'fs/promises';
+
+const response = await client.agent.skill.export.get(...);
+
+const bytes = await response.bytes();
+await writeFile('path/to/file', bytes);
+```
+
+</details>
+</blockquote>
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Bun</summary>
+
+<blockquote>
+<details>
+<summary>ReadableStream (most-efficient)</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const stream = response.stream();
+await Bun.write('path/to/file', stream);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>ArrayBuffer</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const arrayBuffer = await response.arrayBuffer();
+await Bun.write('path/to/file', arrayBuffer);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Blob</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const blob = await response.blob();
+await Bun.write('path/to/file', blob);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Bytes (UIntArray8)</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const bytes = await response.bytes();
+await Bun.write('path/to/file', bytes);
+```
+
+</details>
+</blockquote>
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Deno</summary>
+
+<blockquote>
+<details>
+<summary>ReadableStream (most-efficient)</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const stream = response.stream();
+const file = await Deno.open('path/to/file', { write: true, create: true });
+await stream.pipeTo(file.writable);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>ArrayBuffer</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const arrayBuffer = await response.arrayBuffer();
+await Deno.writeFile('path/to/file', new Uint8Array(arrayBuffer));
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Blob</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const blob = await response.blob();
+const arrayBuffer = await blob.arrayBuffer();
+await Deno.writeFile('path/to/file', new Uint8Array(arrayBuffer));
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Bytes (UIntArray8)</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const bytes = await response.bytes();
+await Deno.writeFile('path/to/file', bytes);
+```
+
+</details>
+</blockquote>
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Browser</summary>
+
+<blockquote>
+<details>
+<summary>Blob (most-efficient)</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const blob = await response.blob();
+const url = URL.createObjectURL(blob);
+
+// trigger download
+const a = document.createElement('a');
+a.href = url;
+a.download = 'filename';
+a.click();
+URL.revokeObjectURL(url);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>ReadableStream</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const stream = response.stream();
+const reader = stream.getReader();
+const chunks = [];
+
+while (true) {
+  const { done, value } = await reader.read();
+  if (done) break;
+  chunks.push(value);
+}
+
+const blob = new Blob(chunks);
+const url = URL.createObjectURL(blob);
+
+// trigger download
+const a = document.createElement('a');
+a.href = url;
+a.download = 'filename';
+a.click();
+URL.revokeObjectURL(url);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>ArrayBuffer</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const arrayBuffer = await response.arrayBuffer();
+const blob = new Blob([arrayBuffer]);
+const url = URL.createObjectURL(blob);
+
+// trigger download
+const a = document.createElement('a');
+a.href = url;
+a.download = 'filename';
+a.click();
+URL.revokeObjectURL(url);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Bytes (UIntArray8)</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const bytes = await response.bytes();
+const blob = new Blob([bytes]);
+const url = URL.createObjectURL(blob);
+
+// trigger download
+const a = document.createElement('a');
+a.href = url;
+a.download = 'filename';
+a.click();
+URL.revokeObjectURL(url);
+```
+
+</details>
+</blockquote>
+
+</details>
+</blockquote>
+
+</details>
+</blockquote>
+
+<details>
+<summary>Convert binary response to text</summary>
+
+<blockquote>
+<details>
+<summary>ReadableStream</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const stream = response.stream();
+const text = await new Response(stream).text();
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>ArrayBuffer</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const arrayBuffer = await response.arrayBuffer();
+const text = new TextDecoder().decode(arrayBuffer);
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Blob</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const blob = await response.blob();
+const text = await blob.text();
+```
+
+</details>
+</blockquote>
+
+<blockquote>
+<details>
+<summary>Bytes (UIntArray8)</summary>
+
+```ts
+const response = await client.agent.skill.export.get(...);
+
+const bytes = await response.bytes();
+const text = new TextDecoder().decode(bytes);
+```
+
+</details>
+</blockquote>
+
+</details>
+
 ## Pagination
 
 List endpoints are paginated. The SDK provides an iterator so that you can simply loop over the items:
@@ -126,23 +607,15 @@ List endpoints are paginated. The SDK provides an iterator so that you can simpl
 import { ZepClient } from "@getzep/zep-cloud";
 
 const client = new ZepClient({ apiKey: "YOUR_API_KEY" });
-const pageableResponse = await client.batch.list({
-    limit: 1,
-    cursor: "cursor",
-    status: "status"
-});
+const pageableResponse = await client.agent.list();
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.batch.list({
-    limit: 1,
-    cursor: "cursor",
-    status: "status"
-});
+let page = await client.agent.list();
 while (page.hasNextPage()) {
-    page = page.getNextPage();
+    page = await page.getNextPage();
 }
 
 // You can also access the underlying response
@@ -156,9 +629,9 @@ const response = page.response;
 This SDK supports direct imports of subpackage clients, which allows JavaScript bundlers to tree-shake and include only the imported subpackage code. This results in much smaller bundle sizes.
 
 ```typescript
-import { BatchClient } from '@getzep/zep-cloud/batch';
+import { AgentClient } from '@getzep/zep-cloud/agent';
 
-const client = new BatchClient({...});
+const client = new AgentClient({...});
 ```
 
 ### Additional Headers
@@ -175,7 +648,7 @@ const client = new ZepClient({
     }
 });
 
-const response = await client.batch.create(..., {
+const response = await client.agent.create(..., {
     headers: {
         'X-Custom-Header': 'custom value'
     }
@@ -187,7 +660,7 @@ const response = await client.batch.create(..., {
 If you would like to send additional query string parameters as part of the request, use the `queryParams` request option.
 
 ```typescript
-const response = await client.batch.create(..., {
+const response = await client.agent.create(..., {
     queryParams: {
         'customQueryParamKey': 'custom query param value'
     }
@@ -217,7 +690,7 @@ Which status codes are retried depends on the `retryStatusCodes` generator confi
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.batch.create(..., {
+const response = await client.agent.create(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -227,7 +700,7 @@ const response = await client.batch.create(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.batch.create(..., {
+const response = await client.agent.create(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -238,7 +711,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.batch.create(..., {
+const response = await client.agent.create(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
@@ -250,7 +723,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
 
 ```typescript
-const { data, rawResponse } = await client.batch.create(...).withRawResponse();
+const { data, rawResponse } = await client.agent.create(...).withRawResponse();
 
 console.log(data);
 console.log(rawResponse.headers['X-My-Header']);

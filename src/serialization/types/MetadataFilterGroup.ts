@@ -3,22 +3,22 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import * as serializers from "../index.js";
-import { EpisodeMetadataFilter } from "./EpisodeMetadataFilter.js";
-import { GraphitiMetadataFilterGroupType } from "./GraphitiMetadataFilterGroupType.js";
+import { MetadataFilter } from "./MetadataFilter.js";
+import { MetadataFilterGroupType } from "./MetadataFilterGroupType.js";
 
 export const MetadataFilterGroup: core.serialization.ObjectSchema<
     serializers.MetadataFilterGroup.Raw,
     Zep.MetadataFilterGroup
 > = core.serialization.object({
-    filters: core.serialization.list(EpisodeMetadataFilter).optional(),
+    filters: core.serialization.list(MetadataFilter).optional(),
     groups: core.serialization.list(core.serialization.lazyObject(() => serializers.MetadataFilterGroup)).optional(),
-    type: GraphitiMetadataFilterGroupType,
+    type: MetadataFilterGroupType.optional(),
 });
 
 export declare namespace MetadataFilterGroup {
     export interface Raw {
-        filters?: EpisodeMetadataFilter.Raw[] | null;
+        filters?: MetadataFilter.Raw[] | null;
         groups?: serializers.MetadataFilterGroup.Raw[] | null;
-        type: GraphitiMetadataFilterGroupType.Raw;
+        type?: MetadataFilterGroupType.Raw | null;
     }
 }

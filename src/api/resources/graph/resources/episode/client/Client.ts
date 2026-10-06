@@ -7,6 +7,7 @@ import type {
 } from "../../../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../../../core/idempotency.js";
 import * as core from "../../../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
@@ -45,10 +46,7 @@ export class EpisodeClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.episode.listForDocument("graph_uuid", "document_id", {
-     *         limit: 1,
-     *         cursor: "cursor"
-     *     })
+     *     await client.graph.episode.listForDocument("graph_uuid", "document_id")
      */
     public async listForDocument(
         graph_uuid: string,
@@ -225,7 +223,7 @@ export class EpisodeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -341,9 +339,16 @@ export class EpisodeClient {
     }
 
     /**
+     * Lists the episodes of a graph. `filters.mentioned_node_uuids` restricts
+     * the results to episodes that mention any of the listed node UUIDs. The
+     * list can also contain episode UUIDs: an episode UUID matches that episode,
+     * so one request can return a known set of episodes. At most 256 entries.
+     * `filters.metadata_filters` restricts the results to episodes whose stored
+     * metadata matches the predicate.
+     *
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.graph.EpisodeListRequest} request
-     * @param {EpisodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {EpisodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -354,28 +359,40 @@ export class EpisodeClient {
      *
      * @example
      *     await client.graph.episode.list("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {}
      *     })
      */
     public async list(
         graph_uuid: string,
         request: Zep.graph.EpisodeListRequest,
-        requestOptions?: EpisodeClient.IdempotentRequestOptions,
+        requestOptions?: EpisodeClient.RequestOptions,
     ): Promise<core.Page<Zep.Episode, Zep.EpisodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.EpisodeListRequest): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
-                const { limit, cursor, body: _body } = request;
+                const { limit, cursor, orderBy, order, body: _body } = request;
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
+                    order_by:
+                        orderBy != null
+                            ? serializers.graph.EpisodeListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.graph.EpisodeListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -654,7 +671,7 @@ export class EpisodeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -796,7 +813,7 @@ export class EpisodeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({

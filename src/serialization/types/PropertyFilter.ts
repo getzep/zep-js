@@ -3,19 +3,20 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
-import { ComparisonOperator } from "./ComparisonOperator.js";
+import { PropertyFilterOperator } from "./PropertyFilterOperator.js";
+import { PropertyFilterValue } from "./PropertyFilterValue.js";
 
 export const PropertyFilter: core.serialization.ObjectSchema<serializers.PropertyFilter.Raw, Zep.PropertyFilter> =
     core.serialization.object({
-        comparisonOperator: core.serialization.property("comparison_operator", ComparisonOperator),
-        propertyName: core.serialization.property("property_name", core.serialization.string()),
-        propertyValue: core.serialization.property("property_value", core.serialization.unknown().optional()),
+        operator: PropertyFilterOperator.optional(),
+        propertyName: core.serialization.property("property_name", core.serialization.string().optional()),
+        value: PropertyFilterValue.optional(),
     });
 
 export declare namespace PropertyFilter {
     export interface Raw {
-        comparison_operator: ComparisonOperator.Raw;
-        property_name: string;
-        property_value?: unknown | null;
+        operator?: PropertyFilterOperator.Raw | null;
+        property_name?: string | null;
+        value?: PropertyFilterValue.Raw | null;
     }
 }
