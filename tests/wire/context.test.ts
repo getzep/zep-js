@@ -5,6 +5,105 @@ import { ZepClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("ContextClient", () => {
+    test("list_templates (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            items: [{ created_at: "created_at", name: "name", template: "template", uuid: "uuid" }],
+            next_cursor: "next_cursor",
+            total_size: 1,
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .post("/context-templates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    createdAt: "created_at",
+                    name: "name",
+                    template: "template",
+                    uuid: "uuid",
+                },
+            ],
+            nextCursor: "next_cursor",
+            totalSize: 1,
+        };
+        const page = await client.context.listTemplates();
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list_templates (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/context-templates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.context.listTemplates();
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list_templates (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/context-templates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.context.listTemplates();
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list_templates (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/context-templates/list")
+            .jsonBody(rawRequestBody, { ignoredFields: ["cursor"] })
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.context.listTemplates();
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("get_template (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });

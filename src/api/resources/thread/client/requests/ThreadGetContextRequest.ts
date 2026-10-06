@@ -2,9 +2,7 @@
 
 /**
  * @example
- *     {
- *         templateUuid: "template_uuid"
- *     }
+ *     {}
  */
 export interface ThreadGetContextRequest {
     /** Context template UUID */

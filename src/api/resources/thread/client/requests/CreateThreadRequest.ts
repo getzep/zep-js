@@ -7,8 +7,6 @@
  *     }
  */
 export interface CreateThreadRequest {
-    /** An optional developer-assigned identifier for the thread. */
-    threadId?: string;
     /** The UUID of the user this thread belongs to. */
     userUuid: string;
 }

@@ -3,14 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface PropertyFilter {
-    /** Comparison operator for property filter */
-    comparisonOperator: Zep.ComparisonOperator;
-    /** Property name to filter on */
-    propertyName: string;
-    /**
-     * Property value to match on. Accepted types: string, int, float64, bool, or nil.
-     * Invalid types (e.g., arrays, objects) will be rejected by validation.
-     * Must be non-nil for non-null operators (`=`, `<>`, `>`, `<`, `>=`, `<=`).
-     */
-    propertyValue?: unknown;
+    /** The lowercase comparison operator. */
+    operator?: Zep.PropertyFilterOperator;
+    /** The property name to compare. */
+    propertyName?: string;
+    /** The comparison value. Use an array for in. Its string members must be non-empty, contain no comma, and have no surrounding whitespace. */
+    value?: Zep.PropertyFilterValue;
 }

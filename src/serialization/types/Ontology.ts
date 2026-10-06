@@ -9,6 +9,10 @@ import { EntityType } from "./EntityType.js";
 export const Ontology: core.serialization.ObjectSchema<serializers.Ontology.Raw, Zep.Ontology> =
     core.serialization.object({
         edgeTypes: core.serialization.property("edge_types", core.serialization.list(EdgeType).optional()),
+        entityTypeHierarchy: core.serialization.property(
+            "entity_type_hierarchy",
+            core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        ),
         entityTypes: core.serialization.property("entity_types", core.serialization.list(EntityType).optional()),
         inherited: core.serialization.boolean().optional(),
     });
@@ -16,6 +20,7 @@ export const Ontology: core.serialization.ObjectSchema<serializers.Ontology.Raw,
 export declare namespace Ontology {
     export interface Raw {
         edge_types?: EdgeType.Raw[] | null;
+        entity_type_hierarchy?: Record<string, unknown> | null;
         entity_types?: EntityType.Raw[] | null;
         inherited?: boolean | null;
     }

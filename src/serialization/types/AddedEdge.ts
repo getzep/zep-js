@@ -14,7 +14,9 @@ export const AddedEdge: core.serialization.ObjectSchema<serializers.AddedEdge.Ra
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         sourceNode: core.serialization.property("source_node", EdgeNodeRef.optional()),
+        sourceNodeUuid: core.serialization.property("source_node_uuid", core.serialization.string().optional()),
         targetNode: core.serialization.property("target_node", EdgeNodeRef.optional()),
+        targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
         validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
     });
@@ -28,7 +30,9 @@ export declare namespace AddedEdge {
         invalid_at?: string | null;
         metadata?: Record<string, unknown> | null;
         source_node?: EdgeNodeRef.Raw | null;
+        source_node_uuid?: string | null;
         target_node?: EdgeNodeRef.Raw | null;
+        target_node_uuid?: string | null;
         uuid?: string | null;
         valid_at?: string | null;
     }

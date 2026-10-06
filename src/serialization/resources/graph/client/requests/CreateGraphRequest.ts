@@ -3,19 +3,20 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
+import { GraphContentPolicyRequest } from "../../../../types/GraphContentPolicyRequest.js";
 
 export const CreateGraphRequest: core.serialization.Schema<serializers.CreateGraphRequest.Raw, Zep.CreateGraphRequest> =
     core.serialization.object({
+        contentPolicy: core.serialization.property("content_policy", GraphContentPolicyRequest.optional()),
         description: core.serialization.string().optional(),
-        graphId: core.serialization.property("graph_id", core.serialization.string().optional()),
         name: core.serialization.string().optional(),
         timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
     });
 
 export declare namespace CreateGraphRequest {
     export interface Raw {
+        content_policy?: GraphContentPolicyRequest.Raw | null;
         description?: string | null;
-        graph_id?: string | null;
         name?: string | null;
         time_zone?: string | null;
     }

@@ -4,13 +4,14 @@ import type * as Zep from "../index.js";
 
 export interface GraphContextResponse {
     /**
-     * The assembled context block of facts, entities, and episodes, ready to
-     * insert into a system prompt.
+     * The assembled context block of facts, entities, observations, and thread
+     * summaries. Pass it through the model provider's untrusted-data channel.
      */
     context?: string;
     /**
      * The individual edges, nodes, episodes, observations, and thread summaries
-     * selected to build the context. Present only when requested.
+     * selected to build the context. Episodes are always empty because context
+     * assembly does not select episodes. Present only when requested.
      */
     results?: Zep.ContextResults;
     /** Whether the character budget limited the size of the context block. */

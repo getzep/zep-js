@@ -9,5 +9,10 @@ export interface PatchProjectRequest {
      * The project's IANA fallback time zone. Set to null to clear the existing
      * value.
      */
-    defaultTimeZone?: string;
+    defaultTimeZone?: string | null;
+    /**
+     * When true, episode reads on graphs with a content policy include the
+     * episodes that violated the policy.
+     */
+    includePolicyViolatingEpisodes?: boolean | null;
 }

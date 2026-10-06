@@ -20,5 +20,5 @@ export interface SearchRequest {
     /** The search query. */
     query: string;
     /** The reranking strategy applied to retrieved results. Defaults to rrf. */
-    reranker?: Zep.V4SearchRequestReranker;
+    reranker?: Zep.SearchRequestReranker;
 }

@@ -6,15 +6,15 @@ import type * as serializers from "../../../../index.js";
 
 export const PatchGraphRequest: core.serialization.Schema<serializers.PatchGraphRequest.Raw, Zep.PatchGraphRequest> =
     core.serialization.object({
-        description: core.serialization.string().optional(),
-        name: core.serialization.string().optional(),
-        timeZone: core.serialization.property("time_zone", core.serialization.string().optional()),
+        description: core.serialization.string().optionalNullable(),
+        name: core.serialization.string().optionalNullable(),
+        timeZone: core.serialization.property("time_zone", core.serialization.string().optionalNullable()),
     });
 
 export declare namespace PatchGraphRequest {
     export interface Raw {
-        description?: string | null;
-        name?: string | null;
-        time_zone?: string | null;
+        description?: (string | null | undefined) | null;
+        name?: (string | null | undefined) | null;
+        time_zone?: (string | null | undefined) | null;
     }
 }

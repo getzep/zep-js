@@ -46,13 +46,7 @@ describe("ThreadClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.thread.list({
-            limit: 1,
-            cursor: "cursor",
-            orderBy: "order_by",
-            order: "order",
-            userUuid: "user_uuid",
-        });
+        const page = await client.thread.list();
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -96,6 +90,99 @@ describe("ThreadClient", () => {
 
         await expect(async () => {
             return await client.thread.list();
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("lookup (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            created_at: "created_at",
+            graph_uuid: "graph_uuid",
+            thread_id: "thread_id",
+            updated_at: "updated_at",
+            user_uuid: "user_uuid",
+            uuid: "uuid",
+        };
+
+        server
+            .mockEndpoint()
+            .post("/threads/lookup")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.thread.lookup({});
+        expect(response).toEqual({
+            createdAt: "created_at",
+            graphUuid: "graph_uuid",
+            threadId: "thread_id",
+            updatedAt: "updated_at",
+            userUuid: "user_uuid",
+            uuid: "uuid",
+        });
+    });
+
+    test("lookup (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/threads/lookup")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.thread.lookup({});
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("lookup (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/threads/lookup")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.thread.lookup({});
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("lookup (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/threads/lookup")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.thread.lookup({});
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -202,9 +289,7 @@ describe("ThreadClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.thread.getContext("thread_uuid", {
-            templateUuid: "template_uuid",
-        });
+        const response = await client.thread.getContext("thread_uuid");
         expect(response).toEqual({
             context: "context",
         });
@@ -294,6 +379,13 @@ describe("ThreadClient", () => {
             items: [
                 {
                     content: "content",
+                    content_policy: {
+                        category_keys: ["health"],
+                        dropped_count: 0,
+                        retained_count: 7,
+                        revision: 3,
+                        violated: false,
+                    },
                     created_at: "created_at",
                     document_id: "document_id",
                     graph_uuid: "graph_uuid",
@@ -326,6 +418,13 @@ describe("ThreadClient", () => {
             items: [
                 {
                     content: "content",
+                    contentPolicy: {
+                        categoryKeys: ["health"],
+                        droppedCount: 0,
+                        retainedCount: 7,
+                        revision: 3,
+                        violated: false,
+                    },
                     createdAt: "created_at",
                     documentId: "document_id",
                     graphUuid: "graph_uuid",
@@ -347,10 +446,7 @@ describe("ThreadClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.thread.listEpisodes("thread_uuid", {
-            limit: 1,
-            cursor: "cursor",
-        });
+        const page = await client.thread.listEpisodes("thread_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -500,10 +596,7 @@ describe("ThreadClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.thread.listMessages("thread_uuid", {
-            limit: 1,
-            cursor: "cursor",
-        });
+        const page = await client.thread.listMessages("thread_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);

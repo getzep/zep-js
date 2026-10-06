@@ -3,6 +3,7 @@
 import type { BaseClientOptions, BaseIdempotentRequestOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../core/idempotency.js";
 import * as core from "../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
@@ -60,7 +61,7 @@ export class UserGroupClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -174,7 +175,7 @@ export class UserGroupClient {
      * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
      *
      * @param {Zep.UserGroupListRequest} request
-     * @param {UserGroupClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {UserGroupClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -185,14 +186,12 @@ export class UserGroupClient {
      *
      * @example
      *     await client.userGroup.list({
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {}
      *     })
      */
     public async list(
         request: Zep.UserGroupListRequest,
-        requestOptions?: UserGroupClient.IdempotentRequestOptions,
+        requestOptions?: UserGroupClient.RequestOptions,
     ): Promise<core.Page<Zep.UserGroup, Zep.UserGroupPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserGroupListRequest): Promise<core.WithRawResponse<Zep.UserGroupPage>> => {
@@ -205,7 +204,7 @@ export class UserGroupClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -472,7 +471,7 @@ export class UserGroupClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -599,7 +598,7 @@ export class UserGroupClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -714,7 +713,7 @@ export class UserGroupClient {
      *
      * @param {string} group_uuid - User group UUID
      * @param {Zep.UserGroupListMemberCandidatesRequest} request
-     * @param {UserGroupClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {UserGroupClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -726,15 +725,13 @@ export class UserGroupClient {
      *
      * @example
      *     await client.userGroup.listMemberCandidates("group_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {}
      *     })
      */
     public async listMemberCandidates(
         group_uuid: string,
         request: Zep.UserGroupListMemberCandidatesRequest,
-        requestOptions?: UserGroupClient.IdempotentRequestOptions,
+        requestOptions?: UserGroupClient.RequestOptions,
     ): Promise<core.Page<Zep.User, Zep.UserPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserGroupListMemberCandidatesRequest): Promise<core.WithRawResponse<Zep.UserPage>> => {
@@ -747,7 +744,7 @@ export class UserGroupClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -915,7 +912,7 @@ export class UserGroupClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1035,7 +1032,7 @@ export class UserGroupClient {
      *
      * @param {string} group_uuid - User group UUID
      * @param {Zep.UserGroupListMembersRequest} request
-     * @param {UserGroupClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {UserGroupClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -1046,15 +1043,13 @@ export class UserGroupClient {
      *
      * @example
      *     await client.userGroup.listMembers("group_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {}
      *     })
      */
     public async listMembers(
         group_uuid: string,
         request: Zep.UserGroupListMembersRequest,
-        requestOptions?: UserGroupClient.IdempotentRequestOptions,
+        requestOptions?: UserGroupClient.RequestOptions,
     ): Promise<core.Page<Zep.User, Zep.UserPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserGroupListMembersRequest): Promise<core.WithRawResponse<Zep.UserPage>> => {
@@ -1067,7 +1062,7 @@ export class UserGroupClient {
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1224,7 +1219,7 @@ export class UserGroupClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1374,7 +1369,7 @@ export class UserGroupClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1487,10 +1482,7 @@ export class UserGroupClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.userGroup.listForUser("user_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor"
-     *     })
+     *     await client.userGroup.listForUser("user_uuid")
      */
     public async listForUser(
         user_uuid: string,

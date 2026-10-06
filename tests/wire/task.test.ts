@@ -52,10 +52,7 @@ describe("TaskClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.task.list({
-            limit: 1,
-            cursor: "cursor",
-        });
+        const page = await client.task.list();
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);

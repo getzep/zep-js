@@ -9,9 +9,9 @@ export interface PatchNodeRequest {
      * Additional attributes to merge onto the node; a key set to null is
      * removed.
      */
-    attributes?: Record<string, unknown>;
+    attributes?: Record<string, unknown> | null;
     /** The node's name. */
-    name?: string;
+    name?: string | null;
     /** A summary of the node. */
-    summary?: string;
+    summary?: string | null;
 }

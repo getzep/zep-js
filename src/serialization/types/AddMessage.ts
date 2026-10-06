@@ -8,6 +8,7 @@ import { RoleType } from "./RoleType.js";
 export const AddMessage: core.serialization.ObjectSchema<serializers.AddMessage.Raw, Zep.AddMessage> =
     core.serialization.object({
         content: core.serialization.string().optional(),
+        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string().optional(),
         role: RoleType.optional(),
@@ -17,6 +18,7 @@ export const AddMessage: core.serialization.ObjectSchema<serializers.AddMessage.
 export declare namespace AddMessage {
     export interface Raw {
         content?: string | null;
+        created_at?: string | null;
         metadata?: Record<string, unknown> | null;
         name?: string | null;
         role?: RoleType.Raw | null;

@@ -4,19 +4,19 @@ import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
 import { SearchFilters } from "../../../../../../types/SearchFilters.js";
-import { V4NeighborsRequestDirection } from "../../types/V4NeighborsRequestDirection.js";
+import { NeighborsRequestDirection } from "../../types/NeighborsRequestDirection.js";
 
 export const NeighborsRequest: core.serialization.Schema<
     serializers.graph.NeighborsRequest.Raw,
-    Omit<Zep.graph.NeighborsRequest, "limit" | "cursor">
+    Omit<Zep.graph.NeighborsRequest, "limit" | "cursor" | "orderBy" | "order">
 > = core.serialization.object({
-    direction: V4NeighborsRequestDirection.optional(),
+    direction: NeighborsRequestDirection.optional(),
     filters: SearchFilters.optional(),
 });
 
 export declare namespace NeighborsRequest {
     export interface Raw {
-        direction?: V4NeighborsRequestDirection.Raw | null;
+        direction?: NeighborsRequestDirection.Raw | null;
         filters?: SearchFilters.Raw | null;
     }
 }

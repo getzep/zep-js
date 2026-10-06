@@ -17,8 +17,20 @@ export interface AddedEdge {
     metadata?: Record<string, unknown>;
     /** The source node fields you supplied when creating this edge. */
     sourceNode?: Zep.EdgeNodeRef;
+    /**
+     * The source node UUID is set when deduplicate is false. It is the UUID you
+     * supplied, or the UUID Zep assigned to a node that the request creates.
+     * When deduplicate is true, read the endpoint from the task result.
+     */
+    sourceNodeUuid?: string;
     /** The target node fields you supplied when creating this edge. */
     targetNode?: Zep.EdgeNodeRef;
+    /**
+     * The target node UUID is set when deduplicate is false. It is the UUID you
+     * supplied, or the UUID Zep assigned to a node that the request creates.
+     * When deduplicate is true, read the endpoint from the task result.
+     */
+    targetNodeUuid?: string;
     /** The unique identifier assigned to the edge. */
     uuid?: string;
     /** The time from which the fact is considered true. */

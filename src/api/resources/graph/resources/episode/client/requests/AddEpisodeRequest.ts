@@ -18,7 +18,7 @@ export interface AddEpisodeRequest {
     data: string;
     /** Groups this episode as a chunk of a document on the graph. */
     documentId?: string;
-    /** Metadata to store on the episode. */
+    /** Metadata to store on the episode. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */
     metadata?: Record<string, unknown>;
     /** A description of the source of this episode. */
     sourceDescription?: string;
@@ -28,5 +28,5 @@ export interface AddEpisodeRequest {
      */
     strictOntology?: boolean;
     /** The data format of the episode: text, json, or message. Defaults to text. */
-    type?: Zep.graph.V4AddEpisodeRequestType;
+    type?: Zep.graph.AddEpisodeRequestType;
 }

@@ -3,6 +3,7 @@
 import type { BaseClientOptions, BaseIdempotentRequestOptions, BaseRequestOptions } from "../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../core/idempotency.js";
 import * as core from "../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
@@ -55,7 +56,7 @@ export class UserClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -156,7 +157,7 @@ export class UserClient {
 
     /**
      * @param {Zep.UserListRequest} request
-     * @param {UserClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {UserClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -165,16 +166,11 @@ export class UserClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.user.list({
-     *         limit: 1,
-     *         cursor: "cursor",
-     *         orderBy: "order_by",
-     *         order: "order"
-     *     })
+     *     await client.user.list()
      */
     public async list(
         request: Zep.UserListRequest = {},
-        requestOptions?: UserClient.IdempotentRequestOptions,
+        requestOptions?: UserClient.RequestOptions,
     ): Promise<core.Page<Zep.User, Zep.UserPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserListRequest): Promise<core.WithRawResponse<Zep.UserPage>> => {
@@ -182,14 +178,26 @@ export class UserClient {
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
-                    order_by: orderBy,
-                    order,
+                    order_by:
+                        orderBy != null
+                            ? serializers.UserListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.UserListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -295,7 +303,7 @@ export class UserClient {
 
     /**
      * @param {Zep.LookupRequest} request
-     * @param {UserClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {UserClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -308,20 +316,20 @@ export class UserClient {
      */
     public lookup(
         request: Zep.LookupRequest,
-        requestOptions?: UserClient.IdempotentRequestOptions,
+        requestOptions?: UserClient.RequestOptions,
     ): core.HttpResponsePromise<Zep.User> {
         return core.HttpResponsePromise.fromPromise(this.__lookup(request, requestOptions));
     }
 
     private async __lookup(
         request: Zep.LookupRequest,
-        requestOptions?: UserClient.IdempotentRequestOptions,
+        requestOptions?: UserClient.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.User>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            getIdempotencyHeaders(),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -541,7 +549,7 @@ export class UserClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -663,7 +671,7 @@ export class UserClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1031,7 +1039,7 @@ export class UserClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({

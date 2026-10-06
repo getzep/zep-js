@@ -15,7 +15,7 @@ export interface SubgraphRequest {
      * The edge orientation to follow during expansion: in, out, or both.
      * Defaults to both.
      */
-    direction?: Zep.V4SubgraphRequestDirection;
+    direction?: Zep.SubgraphRequestDirection;
     /** Filters constraining the traversed edges and included nodes. */
     filters?: Zep.SearchFilters;
     /** The maximum number of edges in the response. Defaults to 200. */

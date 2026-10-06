@@ -10,6 +10,11 @@ export interface Project {
     defaultTimeZone?: string;
     /** A human-readable description of the project. */
     description?: string;
+    /**
+     * When true, episode reads on graphs with a content policy include the
+     * episodes that violated the policy. The default is false.
+     */
+    includePolicyViolatingEpisodes?: boolean;
     /** The name of the project. */
     name?: string;
     /** The unique identifier of the project. */

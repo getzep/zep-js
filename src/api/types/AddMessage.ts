@@ -5,7 +5,12 @@ import type * as Zep from "../index.js";
 export interface AddMessage {
     /** The content of the message. */
     content?: string;
-    /** Custom metadata to store with the message. */
+    /**
+     * The message's reference time, used for temporal reasoning rather than
+     * ingestion time. Defaults to the ingestion time.
+     */
+    createdAt?: string;
+    /** Custom metadata to store with the message. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */
     metadata?: Record<string, unknown>;
     /**
      * A customizable name for the sender of the message, for example "john" or

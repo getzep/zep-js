@@ -3,6 +3,11 @@
 import type * as Zep from "../index.js";
 
 export interface BatchItem {
+    /**
+     * The content policy state of the item's episode, present only on a graph
+     * with a bound content policy rule and only once the item is processed.
+     */
+    contentPolicy?: Zep.EpisodeContentPolicy;
     /** The time the item was appended to the batch. */
     createdAt?: string;
     /** The identifier of the episode created for this item, equal to source_uuid. */

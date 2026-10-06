@@ -8,11 +8,16 @@ export const PatchProjectRequest: core.serialization.Schema<
     serializers.PatchProjectRequest.Raw,
     Zep.PatchProjectRequest
 > = core.serialization.object({
-    defaultTimeZone: core.serialization.property("default_time_zone", core.serialization.string().optional()),
+    defaultTimeZone: core.serialization.property("default_time_zone", core.serialization.string().optionalNullable()),
+    includePolicyViolatingEpisodes: core.serialization.property(
+        "include_policy_violating_episodes",
+        core.serialization.boolean().optionalNullable(),
+    ),
 });
 
 export declare namespace PatchProjectRequest {
     export interface Raw {
-        default_time_zone?: string | null;
+        default_time_zone?: (string | null | undefined) | null;
+        include_policy_violating_episodes?: (boolean | null | undefined) | null;
     }
 }

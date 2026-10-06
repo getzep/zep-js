@@ -7,6 +7,7 @@ import type {
 } from "../../../../../../BaseClient.js";
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../../../BaseClient.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../../../core/headers.js";
+import { generateIdempotencyKey, getIdempotencyHeaders } from "../../../../../../core/idempotency.js";
 import * as core from "../../../../../../core/index.js";
 import { mergeAdditionalBodyParameters } from "../../../../../../core/requestBody.js";
 import * as environments from "../../../../../../environments.js";
@@ -67,7 +68,7 @@ export class NodeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -180,7 +181,7 @@ export class NodeClient {
     /**
      * @param {string} graph_uuid - Graph UUID
      * @param {Zep.graph.NodeListRequest} request
-     * @param {NodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {NodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -192,28 +193,40 @@ export class NodeClient {
      *
      * @example
      *     await client.graph.node.list("graph_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor",
      *         body: {}
      *     })
      */
     public async list(
         graph_uuid: string,
         request: Zep.graph.NodeListRequest,
-        requestOptions?: NodeClient.IdempotentRequestOptions,
+        requestOptions?: NodeClient.RequestOptions,
     ): Promise<core.Page<Zep.Node, Zep.NodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.NodeListRequest): Promise<core.WithRawResponse<Zep.NodePage>> => {
-                const { limit, cursor, body: _body } = request;
+                const { limit, cursor, orderBy, order, body: _body } = request;
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
+                    order_by:
+                        orderBy != null
+                            ? serializers.graph.NodeListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.graph.NodeListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -515,7 +528,7 @@ export class NodeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -657,7 +670,7 @@ export class NodeClient {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
             this._options?.headers,
-            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
             requestOptions?.headers,
         );
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -776,7 +789,7 @@ export class NodeClient {
      * @param {string} graph_uuid - Graph UUID
      * @param {string} node_uuid - Node UUID
      * @param {Zep.graph.NeighborsRequest} request
-     * @param {NodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     * @param {NodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
@@ -787,29 +800,40 @@ export class NodeClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.node.listNeighbors("graph_uuid", "node_uuid", {
-     *         limit: 1,
-     *         cursor: "cursor"
-     *     })
+     *     await client.graph.node.listNeighbors("graph_uuid", "node_uuid")
      */
     public async listNeighbors(
         graph_uuid: string,
         node_uuid: string,
         request: Zep.graph.NeighborsRequest = {},
-        requestOptions?: NodeClient.IdempotentRequestOptions,
+        requestOptions?: NodeClient.RequestOptions,
     ): Promise<core.Page<Zep.NeighborEntry, Zep.NeighborPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.NeighborsRequest): Promise<core.WithRawResponse<Zep.NeighborPage>> => {
-                const { limit, cursor, ..._body } = request;
+                const { limit, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
+                    order_by:
+                        orderBy != null
+                            ? serializers.graph.NodeListNeighborsRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.graph.NodeListNeighborsRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
                     _authRequest.headers,
                     this._options?.headers,
-                    mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey }),
+                    getIdempotencyHeaders(),
                     requestOptions?.headers,
                 );
                 const _response = await (this._options.fetcher ?? core.fetcher)({

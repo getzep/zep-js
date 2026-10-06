@@ -8,13 +8,13 @@ export const PatchEdgeRequest: core.serialization.Schema<
     serializers.graph.PatchEdgeRequest.Raw,
     Zep.graph.PatchEdgeRequest
 > = core.serialization.object({
-    attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    fact: core.serialization.string().optional(),
+    attributes: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optionalNullable(),
+    fact: core.serialization.string().optionalNullable(),
 });
 
 export declare namespace PatchEdgeRequest {
     export interface Raw {
-        attributes?: Record<string, unknown> | null;
-        fact?: string | null;
+        attributes?: (Record<string, unknown> | null | undefined) | null;
+        fact?: (string | null | undefined) | null;
     }
 }

@@ -3,11 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface DateFilter {
-    /** Comparison operator for date filter */
-    comparisonOperator: Zep.ComparisonOperator;
-    /**
-     * Date to filter on. Required for non-null operators (`=`, `<>`, `>`, `<`, `>=`, `<=`).
-     * Should be omitted for IS NULL (or is_null) and IS NOT NULL operators.
-     */
-    date?: string;
+    /** The temporal field to compare. */
+    field?: Zep.DateFilterField;
+    /** The lowercase comparison operator. */
+    operator?: Zep.DateFilterOperator;
+    /** The RFC 3339 timestamp. Omit this field for null operators. */
+    value?: Date;
 }

@@ -3,17 +3,20 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
-import { ComparisonOperator } from "./ComparisonOperator.js";
+import { DateFilterField } from "./DateFilterField.js";
+import { DateFilterOperator } from "./DateFilterOperator.js";
 
 export const DateFilter: core.serialization.ObjectSchema<serializers.DateFilter.Raw, Zep.DateFilter> =
     core.serialization.object({
-        comparisonOperator: core.serialization.property("comparison_operator", ComparisonOperator),
-        date: core.serialization.string().optional(),
+        field: DateFilterField.optional(),
+        operator: DateFilterOperator.optional(),
+        value: core.serialization.date().optional(),
     });
 
 export declare namespace DateFilter {
     export interface Raw {
-        comparison_operator: ComparisonOperator.Raw;
-        date?: string | null;
+        field?: DateFilterField.Raw | null;
+        operator?: DateFilterOperator.Raw | null;
+        value?: string | null;
     }
 }
