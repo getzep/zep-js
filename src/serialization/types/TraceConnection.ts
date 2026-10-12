@@ -3,6 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { TraceConnectionProvider } from "./TraceConnectionProvider.js";
 import { TraceConnectionSettings } from "./TraceConnectionSettings.js";
 
 export const TraceConnection: core.serialization.ObjectSchema<serializers.TraceConnection.Raw, Zep.TraceConnection> =
@@ -13,7 +14,7 @@ export const TraceConnection: core.serialization.ObjectSchema<serializers.TraceC
         importCount: core.serialization.property("import_count", core.serialization.number().optional()),
         lastVerifiedAt: core.serialization.property("last_verified_at", core.serialization.string().optional()),
         name: core.serialization.string().optional(),
-        provider: core.serialization.string().optional(),
+        provider: TraceConnectionProvider.optional(),
         providerOrganizationId: core.serialization.property(
             "provider_organization_id",
             core.serialization.string().optional(),
@@ -36,7 +37,7 @@ export declare namespace TraceConnection {
         import_count?: number | null;
         last_verified_at?: string | null;
         name?: string | null;
-        provider?: string | null;
+        provider?: TraceConnectionProvider.Raw | null;
         provider_organization_id?: string | null;
         provider_organization_name?: string | null;
         settings?: TraceConnectionSettings.Raw | null;

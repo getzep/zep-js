@@ -11,8 +11,8 @@ export interface UpdateTraceConnectionRequest {
     credential?: string;
     /** Name is the new connection name, when supplied. */
     name?: string;
-    /** RequestsPerMinute is the new provider request rate limit, when supplied. */
+    /** RequestsPerMinute is the new request rate limit, when supplied. */
     requestsPerMinute?: number;
-    /** RetentionDays is the new provider retention window, when supplied. */
+    /** RetentionDays is the new retention window in days, when supplied. */
     retentionDays?: number;
 }

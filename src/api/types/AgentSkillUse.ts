@@ -9,7 +9,7 @@ export interface AgentSkillUse {
     reasonCode?: string;
     skillUuid?: string;
     skillVersion?: number;
-    trajectoryUuid?: string;
+    traceUuid?: string;
     usage?: string;
     uuid?: string;
 }

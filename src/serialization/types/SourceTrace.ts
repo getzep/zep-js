@@ -3,7 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
-import { ImportedTrajectoryReference } from "./ImportedTrajectoryReference.js";
+import { ImportedTraceReference } from "./ImportedTraceReference.js";
 import { SourceSpan } from "./SourceSpan.js";
 
 export const SourceTrace: core.serialization.ObjectSchema<serializers.SourceTrace.Raw, Zep.SourceTrace> =
@@ -11,9 +11,9 @@ export const SourceTrace: core.serialization.ObjectSchema<serializers.SourceTrac
         closed: core.serialization.boolean().optional(),
         endedAt: core.serialization.property("ended_at", core.serialization.string().optional()),
         hasError: core.serialization.property("has_error", core.serialization.boolean().optional()),
-        importedTrajectories: core.serialization.property(
-            "imported_trajectories",
-            core.serialization.list(ImportedTrajectoryReference).optional(),
+        importedTraces: core.serialization.property(
+            "imported_traces",
+            core.serialization.list(ImportedTraceReference).optional(),
         ),
         lastActivityAt: core.serialization.property("last_activity_at", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
@@ -33,7 +33,7 @@ export declare namespace SourceTrace {
         closed?: boolean | null;
         ended_at?: string | null;
         has_error?: boolean | null;
-        imported_trajectories?: ImportedTrajectoryReference.Raw[] | null;
+        imported_traces?: ImportedTraceReference.Raw[] | null;
         last_activity_at?: string | null;
         metadata?: Record<string, unknown> | null;
         name?: string | null;

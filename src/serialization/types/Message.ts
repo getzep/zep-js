@@ -12,6 +12,7 @@ export const Message: core.serialization.ObjectSchema<serializers.Message.Raw, Z
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string().optional(),
         processed: core.serialization.boolean().optional(),
+        referenceTime: core.serialization.property("reference_time", core.serialization.string().optional()),
         role: RoleType.optional(),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
@@ -25,6 +26,7 @@ export declare namespace Message {
         metadata?: Record<string, unknown> | null;
         name?: string | null;
         processed?: boolean | null;
+        reference_time?: string | null;
         role?: RoleType.Raw | null;
         thread_uuid?: string | null;
         uuid?: string | null;

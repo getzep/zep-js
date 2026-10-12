@@ -9,6 +9,7 @@ export const Project: core.serialization.ObjectSchema<serializers.Project.Raw, Z
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         defaultTimeZone: core.serialization.property("default_time_zone", core.serialization.string().optional()),
         description: core.serialization.string().optional(),
+        hyperedgesEnabled: core.serialization.property("hyperedges_enabled", core.serialization.boolean().optional()),
         includePolicyViolatingEpisodes: core.serialization.property(
             "include_policy_violating_episodes",
             core.serialization.boolean().optional(),
@@ -23,6 +24,7 @@ export declare namespace Project {
         created_at?: string | null;
         default_time_zone?: string | null;
         description?: string | null;
+        hyperedges_enabled?: boolean | null;
         include_policy_violating_episodes?: boolean | null;
         name?: string | null;
         uuid?: string | null;

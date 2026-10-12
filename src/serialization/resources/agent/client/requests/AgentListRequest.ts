@@ -7,11 +7,12 @@ import { AgentStatus } from "../../../../types/AgentStatus.js";
 
 export const AgentListRequest: core.serialization.Schema<
     serializers.AgentListRequest.Raw,
-    Omit<Zep.AgentListRequest, "limit" | "cursor">
+    Omit<Zep.AgentListRequest, "limit" | "cursor" | "orderBy" | "order">
 > = core.serialization.object({
     agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
     deploymentId: core.serialization.property("deployment_id", core.serialization.string().optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    search: core.serialization.string().optional(),
     status: AgentStatus.optional(),
     version: core.serialization.string().optional(),
 });
@@ -21,6 +22,7 @@ export declare namespace AgentListRequest {
         agent_id?: string | null;
         deployment_id?: string | null;
         metadata?: Record<string, unknown> | null;
+        search?: string | null;
         status?: AgentStatus.Raw | null;
         version?: string | null;
     }

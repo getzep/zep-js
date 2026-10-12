@@ -13,7 +13,7 @@ export const AgentSkillUse: core.serialization.ObjectSchema<serializers.AgentSki
         reasonCode: core.serialization.property("reason_code", core.serialization.string().optional()),
         skillUuid: core.serialization.property("skill_uuid", core.serialization.string().optional()),
         skillVersion: core.serialization.property("skill_version", core.serialization.number().optional()),
-        trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
+        traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
         usage: core.serialization.string().optional(),
         uuid: core.serialization.string().optional(),
     });
@@ -26,7 +26,7 @@ export declare namespace AgentSkillUse {
         reason_code?: string | null;
         skill_uuid?: string | null;
         skill_version?: number | null;
-        trajectory_uuid?: string | null;
+        trace_uuid?: string | null;
         usage?: string | null;
         uuid?: string | null;
     }

@@ -17,7 +17,7 @@ export const AgentSkillEvaluation: core.serialization.ObjectSchema<
     metrics: core.serialization.record(core.serialization.string(), core.serialization.number()).optional(),
     skillUuid: core.serialization.property("skill_uuid", core.serialization.string().optional()),
     skillVersion: core.serialization.property("skill_version", core.serialization.number().optional()),
-    trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
+    traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
     useUuid: core.serialization.property("use_uuid", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
     verdict: core.serialization.string().optional(),
@@ -34,7 +34,7 @@ export declare namespace AgentSkillEvaluation {
         metrics?: Record<string, number> | null;
         skill_uuid?: string | null;
         skill_version?: number | null;
-        trajectory_uuid?: string | null;
+        trace_uuid?: string | null;
         use_uuid?: string | null;
         uuid?: string | null;
         verdict?: string | null;

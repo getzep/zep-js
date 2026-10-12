@@ -12,8 +12,8 @@ export interface AgentSkillRelationship {
     relatedVersionConstraint?: string;
     resourceName?: string;
     resourceVersionConstraint?: string;
-    trajectoryOutcome?: string;
-    trajectoryTaskFamily?: string;
-    trajectoryUuid?: string;
-    trajectoryVerification?: string;
+    traceOutcome?: string;
+    traceTaskFamily?: string;
+    traceUuid?: string;
+    traceVerification?: string;
 }

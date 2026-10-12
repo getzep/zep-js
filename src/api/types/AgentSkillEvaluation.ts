@@ -10,7 +10,7 @@ export interface AgentSkillEvaluation {
     metrics?: Record<string, number>;
     skillUuid?: string;
     skillVersion?: number;
-    trajectoryUuid?: string;
+    traceUuid?: string;
     useUuid?: string;
     uuid?: string;
     verdict?: string;

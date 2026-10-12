@@ -3,8 +3,8 @@
 export interface TraceConnectionSettings {
     /** APIURL is an optional custom provider endpoint. */
     apiUrl?: string;
-    /** RequestsPerMinute is the maximum provider request rate. */
+    /** RequestsPerMinute is the request rate limit from 1 to 60 per minute. */
     requestsPerMinute?: number;
-    /** RetentionDays is the provider retention window, when known. */
+    /** RetentionDays is the optional retention window in days. */
     retentionDays?: number;
 }

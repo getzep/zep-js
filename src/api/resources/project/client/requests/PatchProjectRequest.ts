@@ -11,6 +11,11 @@ export interface PatchProjectRequest {
      */
     defaultTimeZone?: string | null;
     /**
+     * Set to true to enable hyperedge extraction. This setting cannot be disabled.
+     * A member needs project.edit. Project API keys receive 403 permission_denied.
+     */
+    hyperedgesEnabled?: boolean;
+    /**
      * When true, episode reads on graphs with a content policy include the
      * episodes that violated the policy.
      */

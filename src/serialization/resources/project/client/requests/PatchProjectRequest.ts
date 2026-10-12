@@ -9,6 +9,7 @@ export const PatchProjectRequest: core.serialization.Schema<
     Zep.PatchProjectRequest
 > = core.serialization.object({
     defaultTimeZone: core.serialization.property("default_time_zone", core.serialization.string().optionalNullable()),
+    hyperedgesEnabled: core.serialization.property("hyperedges_enabled", core.serialization.boolean().optional()),
     includePolicyViolatingEpisodes: core.serialization.property(
         "include_policy_violating_episodes",
         core.serialization.boolean().optionalNullable(),
@@ -18,6 +19,7 @@ export const PatchProjectRequest: core.serialization.Schema<
 export declare namespace PatchProjectRequest {
     export interface Raw {
         default_time_zone?: (string | null | undefined) | null;
+        hyperedges_enabled?: boolean | null;
         include_policy_violating_episodes?: (boolean | null | undefined) | null;
     }
 }

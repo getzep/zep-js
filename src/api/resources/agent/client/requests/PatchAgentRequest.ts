@@ -15,7 +15,7 @@ export interface PatchAgentRequest {
     description?: string | null;
     /** The current Agent revision used for optimistic concurrency. */
     expectedRevision: number;
-    /** Replacement Agent Memory settings. Set to null to restore defaults. */
+    /** Replacement Agent Skills settings. Set to null to restore defaults. */
     memorySettings?: Zep.AgentMemorySettings;
     /** Replacement developer metadata. Set to null to clear it. */
     metadata?: Record<string, unknown> | null;

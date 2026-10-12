@@ -3,19 +3,19 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
-import { TrajectoryMappingResult } from "./TrajectoryMappingResult.js";
+import { TraceMappingResult } from "./TraceMappingResult.js";
 
 export const TracePreview: core.serialization.ObjectSchema<serializers.TracePreview.Raw, Zep.TracePreview> =
     core.serialization.object({
         eventCount: core.serialization.property("event_count", core.serialization.number().optional()),
-        mappingResult: core.serialization.property("mapping_result", TrajectoryMappingResult.optional()),
+        mappingResult: core.serialization.property("mapping_result", TraceMappingResult.optional()),
         skipReason: core.serialization.property("skip_reason", core.serialization.string().optional()),
     });
 
 export declare namespace TracePreview {
     export interface Raw {
         event_count?: number | null;
-        mapping_result?: TrajectoryMappingResult.Raw | null;
+        mapping_result?: TraceMappingResult.Raw | null;
         skip_reason?: string | null;
     }
 }

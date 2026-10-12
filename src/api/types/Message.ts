@@ -5,7 +5,7 @@ import type * as Zep from "../index.js";
 export interface Message {
     /** The content of the message. */
     content?: string;
-    /** The time the message was created. */
+    /** The time Zep received the message. */
     createdAt?: string;
     /** Arbitrary key-value metadata attached to the message. */
     metadata?: Record<string, unknown>;
@@ -16,6 +16,11 @@ export interface Message {
     name?: string;
     /** Whether the message has finished being ingested into the user's graph. */
     processed?: boolean;
+    /**
+     * The message's reference time: the time that the developer supplied on
+     * add, or the ingestion time when the developer supplied no time.
+     */
+    referenceTime?: string;
     /**
      * The role of the message's sender: system, assistant, user, function, or
      * tool.

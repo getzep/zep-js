@@ -10,7 +10,7 @@ export interface Episode {
      * bound content policy rule.
      */
     contentPolicy?: Zep.EpisodeContentPolicy;
-    /** The time the episode was created. */
+    /** The time Zep received the episode. */
     createdAt?: string;
     /**
      * The developer-assigned identifier of the document this episode belongs to,
@@ -23,6 +23,12 @@ export interface Episode {
     metadata?: Record<string, unknown>;
     /** Whether the episode has finished graph extraction and indexing. */
     processed?: boolean;
+    /**
+     * The episode's reference time, used for temporal reasoning: the time that
+     * the developer supplied on add, or the ingestion time when the developer
+     * supplied no time.
+     */
+    referenceTime?: string;
     /**
      * A cross-encoder-derived relevance score, present only when the
      * cross-encoder reranker scored this result; like score, it is omitted from
@@ -55,9 +61,4 @@ export interface Episode {
     threadUuid?: string;
     /** The unique identifier of the episode. */
     uuid?: string;
-    /**
-     * The time the episode's content became true or was observed, used for
-     * temporal reasoning.
-     */
-    validAt?: string;
 }
