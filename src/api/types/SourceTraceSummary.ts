@@ -9,8 +9,8 @@ export interface SourceTraceSummary {
     endedAt?: string;
     /** HasError reports whether the trace contains an error. */
     hasError?: boolean;
-    /** ImportedTrajectories contains visible Zep Trajectories imported from this trace. Example: [{"agent_uuid":"f8b28f94-4f5a-4b3a-b782-87aa8464ac04","trajectory_uuid":"6a906e70-50ca-4e43-a874-5fcae02a71fa","import_uuid":"332c28e1-e6a7-4bca-97b2-ef1ec82c65fa"}]. */
-    importedTrajectories?: Zep.ImportedTrajectoryReference[];
+    /** ImportedTraces contains visible Zep Traces imported from this trace. Example: [{"agent_uuid":"f8b28f94-4f5a-4b3a-b782-87aa8464ac04","trace_uuid":"6a906e70-50ca-4e43-a874-5fcae02a71fa","import_uuid":"332c28e1-e6a7-4bca-97b2-ef1ec82c65fa"}]. */
+    importedTraces?: Zep.ImportedTraceReference[];
     /** LastActivityAt is the most recent activity time across spans. */
     lastActivityAt?: string;
     /** Metadata contains the root span metadata summary. Example: {"team":"support"}. */

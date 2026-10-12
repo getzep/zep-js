@@ -8,7 +8,7 @@ export const AgentSkillCompilationOutcomeRejectionClass: core.serialization.Sche
     serializers.AgentSkillCompilationOutcomeRejectionClass.Raw,
     Zep.AgentSkillCompilationOutcomeRejectionClass
 > = core.serialization.enum_([
-    "no_eligible_trajectories",
+    "no_eligible_traces",
     "reflector_invalid_output",
     "applicability_ungrounded",
     "corroboration_insufficient",
@@ -21,7 +21,7 @@ export const AgentSkillCompilationOutcomeRejectionClass: core.serialization.Sche
 
 export declare namespace AgentSkillCompilationOutcomeRejectionClass {
     export type Raw =
-        | "no_eligible_trajectories"
+        | "no_eligible_traces"
         | "reflector_invalid_output"
         | "applicability_ungrounded"
         | "corroboration_insufficient"

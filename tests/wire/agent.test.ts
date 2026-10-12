@@ -301,7 +301,7 @@ describe("AgentClient", () => {
                 },
             ],
             task_family: "task_family",
-            trajectory_uuid: "trajectory_uuid",
+            trace_uuid: "trace_uuid",
             truncated: true,
         };
 
@@ -343,7 +343,7 @@ describe("AgentClient", () => {
                 },
             ],
             taskFamily: "task_family",
-            trajectoryUuid: "trajectory_uuid",
+            traceUuid: "trace_uuid",
             truncated: true,
         });
     });

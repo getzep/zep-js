@@ -19,7 +19,7 @@ export const AgentContext: core.serialization.ObjectSchema<serializers.AgentCont
         skipped: core.serialization.list(AgentContextSkippedSkill).optional(),
         snapshot: core.serialization.list(AgentContextSkillSnapshot).optional(),
         taskFamily: core.serialization.property("task_family", core.serialization.string().optional()),
-        trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
+        traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
         truncated: core.serialization.boolean().optional(),
     });
 
@@ -32,7 +32,7 @@ export declare namespace AgentContext {
         skipped?: AgentContextSkippedSkill.Raw[] | null;
         snapshot?: AgentContextSkillSnapshot.Raw[] | null;
         task_family?: string | null;
-        trajectory_uuid?: string | null;
+        trace_uuid?: string | null;
         truncated?: boolean | null;
     }
 }

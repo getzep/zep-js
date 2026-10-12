@@ -9,7 +9,7 @@ export interface CreateAgentRequest {
     deploymentId?: string;
     /** A human-readable description of the Agent. */
     description?: string;
-    /** Agent Memory capture, compilation, and promotion settings. */
+    /** Agent Skills capture, compilation, and promotion settings. */
     memorySettings?: Zep.AgentMemorySettings;
     /** Developer metadata used to organize and filter Agents. */
     metadata?: Record<string, unknown>;

@@ -13,7 +13,7 @@ export const CreateAgentSkillUseRequest: core.serialization.Schema<
     outcome: AddAgentSkillUseOutcomeRequest.optional(),
     reasonCode: core.serialization.property("reason_code", core.serialization.string().optional()),
     searchId: core.serialization.property("search_id", core.serialization.string()),
-    trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string()),
+    traceUuid: core.serialization.property("trace_uuid", core.serialization.string()),
     usage: CreateAgentSkillUseRequestUsage,
 });
 
@@ -22,7 +22,7 @@ export declare namespace CreateAgentSkillUseRequest {
         outcome?: AddAgentSkillUseOutcomeRequest.Raw | null;
         reason_code?: string | null;
         search_id: string;
-        trajectory_uuid: string;
+        trace_uuid: string;
         usage: CreateAgentSkillUseRequestUsage.Raw;
     }
 }

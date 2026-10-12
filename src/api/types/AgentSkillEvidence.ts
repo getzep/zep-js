@@ -7,7 +7,7 @@ export interface AgentSkillEvidence {
     polarity?: string;
     sourceKind?: string;
     summaryVersionUuid?: string;
-    trajectoryEventUuid?: string;
-    trajectoryUuid?: string;
+    traceEventUuid?: string;
+    traceUuid?: string;
     verification?: string;
 }

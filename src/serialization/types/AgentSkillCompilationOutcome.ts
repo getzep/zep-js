@@ -28,7 +28,7 @@ export const AgentSkillCompilationOutcome: core.serialization.ObjectSchema<
     ),
     stage: core.serialization.string().optional(),
     taskFamily: core.serialization.property("task_family", core.serialization.string().optional()),
-    trajectoryCount: core.serialization.property("trajectory_count", core.serialization.number().optional()),
+    traceCount: core.serialization.property("trace_count", core.serialization.number().optional()),
     uuid: core.serialization.string().optional(),
 });
 
@@ -47,7 +47,7 @@ export declare namespace AgentSkillCompilationOutcome {
         rejection_class?: AgentSkillCompilationOutcomeRejectionClass.Raw | null;
         stage?: string | null;
         task_family?: string | null;
-        trajectory_count?: number | null;
+        trace_count?: number | null;
         uuid?: string | null;
     }
 }

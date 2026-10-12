@@ -10,6 +10,8 @@ export interface Project {
     defaultTimeZone?: string;
     /** A human-readable description of the project. */
     description?: string;
+    /** True when hyperedge extraction is enabled for this project. This setting is one-way. */
+    hyperedgesEnabled?: boolean;
     /**
      * When true, episode reads on graphs with a content policy include the
      * episodes that violated the policy. The default is false.

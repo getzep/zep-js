@@ -9,17 +9,17 @@ import type * as Zep from "../../../../../../index.js";
  *     }
  */
 export interface AddEpisodeRequest {
-    /**
-     * The episode's reference time, used for temporal reasoning rather than
-     * ingestion time.
-     */
-    createdAt?: string;
     /** The episode content to add to the graph. */
     data: string;
     /** Groups this episode as a chunk of a document on the graph. */
     documentId?: string;
     /** Metadata to store on the episode. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */
     metadata?: Record<string, unknown>;
+    /**
+     * The episode's reference time, used for temporal reasoning rather than
+     * ingestion time. Defaults to the ingestion time.
+     */
+    referenceTime?: string;
     /** A description of the source of this episode. */
     sourceDescription?: string;
     /**

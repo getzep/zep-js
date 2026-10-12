@@ -10,6 +10,6 @@ export interface AgentContext {
     skipped?: Zep.AgentContextSkippedSkill[];
     snapshot?: Zep.AgentContextSkillSnapshot[];
     taskFamily?: string;
-    trajectoryUuid?: string;
+    traceUuid?: string;
     truncated?: boolean;
 }

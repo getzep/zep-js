@@ -1,6 +1,6 @@
 {
     "name": "@getzep/zep-cloud",
-    "version": "4.0.0-beta.1",
+    "version": "4.0.0-rc.1",
     "private": false,
     "repository": {
         "type": "git",
@@ -209,27 +209,38 @@
             },
             "default": "./dist/cjs/api/resources/agent/resources/split/exports.js"
         },
-        "./agent/trajectory": {
+        "./agent/taskFamily": {
             "import": {
-                "types": "./dist/esm/api/resources/agent/resources/trajectory/exports.d.mts",
-                "default": "./dist/esm/api/resources/agent/resources/trajectory/exports.mjs"
+                "types": "./dist/esm/api/resources/agent/resources/taskFamily/exports.d.mts",
+                "default": "./dist/esm/api/resources/agent/resources/taskFamily/exports.mjs"
             },
             "require": {
-                "types": "./dist/cjs/api/resources/agent/resources/trajectory/exports.d.ts",
-                "default": "./dist/cjs/api/resources/agent/resources/trajectory/exports.js"
+                "types": "./dist/cjs/api/resources/agent/resources/taskFamily/exports.d.ts",
+                "default": "./dist/cjs/api/resources/agent/resources/taskFamily/exports.js"
             },
-            "default": "./dist/cjs/api/resources/agent/resources/trajectory/exports.js"
+            "default": "./dist/cjs/api/resources/agent/resources/taskFamily/exports.js"
         },
-        "./agent/trajectoryImport": {
+        "./agent/traceImport": {
             "import": {
-                "types": "./dist/esm/api/resources/agent/resources/trajectoryImport/exports.d.mts",
-                "default": "./dist/esm/api/resources/agent/resources/trajectoryImport/exports.mjs"
+                "types": "./dist/esm/api/resources/agent/resources/traceImport/exports.d.mts",
+                "default": "./dist/esm/api/resources/agent/resources/traceImport/exports.mjs"
             },
             "require": {
-                "types": "./dist/cjs/api/resources/agent/resources/trajectoryImport/exports.d.ts",
-                "default": "./dist/cjs/api/resources/agent/resources/trajectoryImport/exports.js"
+                "types": "./dist/cjs/api/resources/agent/resources/traceImport/exports.d.ts",
+                "default": "./dist/cjs/api/resources/agent/resources/traceImport/exports.js"
             },
-            "default": "./dist/cjs/api/resources/agent/resources/trajectoryImport/exports.js"
+            "default": "./dist/cjs/api/resources/agent/resources/traceImport/exports.js"
+        },
+        "./agent/trace": {
+            "import": {
+                "types": "./dist/esm/api/resources/agent/resources/trace/exports.d.mts",
+                "default": "./dist/esm/api/resources/agent/resources/trace/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/agent/resources/trace/exports.d.ts",
+                "default": "./dist/cjs/api/resources/agent/resources/trace/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/agent/resources/trace/exports.js"
         },
         "./agent/verifier": {
             "import": {
@@ -330,27 +341,27 @@
             },
             "default": "./dist/cjs/api/resources/agent/resources/skill/resources/export/exports.js"
         },
-        "./agent/trajectoryImport/run": {
+        "./agent/traceImport/run": {
             "import": {
-                "types": "./dist/esm/api/resources/agent/resources/trajectoryImport/resources/run/exports.d.mts",
-                "default": "./dist/esm/api/resources/agent/resources/trajectoryImport/resources/run/exports.mjs"
+                "types": "./dist/esm/api/resources/agent/resources/traceImport/resources/run/exports.d.mts",
+                "default": "./dist/esm/api/resources/agent/resources/traceImport/resources/run/exports.mjs"
             },
             "require": {
-                "types": "./dist/cjs/api/resources/agent/resources/trajectoryImport/resources/run/exports.d.ts",
-                "default": "./dist/cjs/api/resources/agent/resources/trajectoryImport/resources/run/exports.js"
+                "types": "./dist/cjs/api/resources/agent/resources/traceImport/resources/run/exports.d.ts",
+                "default": "./dist/cjs/api/resources/agent/resources/traceImport/resources/run/exports.js"
             },
-            "default": "./dist/cjs/api/resources/agent/resources/trajectoryImport/resources/run/exports.js"
+            "default": "./dist/cjs/api/resources/agent/resources/traceImport/resources/run/exports.js"
         },
-        "./agent/trajectoryImport/run/item": {
+        "./agent/traceImport/run/item": {
             "import": {
-                "types": "./dist/esm/api/resources/agent/resources/trajectoryImport/resources/run/resources/item/exports.d.mts",
-                "default": "./dist/esm/api/resources/agent/resources/trajectoryImport/resources/run/resources/item/exports.mjs"
+                "types": "./dist/esm/api/resources/agent/resources/traceImport/resources/run/resources/item/exports.d.mts",
+                "default": "./dist/esm/api/resources/agent/resources/traceImport/resources/run/resources/item/exports.mjs"
             },
             "require": {
-                "types": "./dist/cjs/api/resources/agent/resources/trajectoryImport/resources/run/resources/item/exports.d.ts",
-                "default": "./dist/cjs/api/resources/agent/resources/trajectoryImport/resources/run/resources/item/exports.js"
+                "types": "./dist/cjs/api/resources/agent/resources/traceImport/resources/run/resources/item/exports.d.ts",
+                "default": "./dist/cjs/api/resources/agent/resources/traceImport/resources/run/resources/item/exports.js"
             },
-            "default": "./dist/cjs/api/resources/agent/resources/trajectoryImport/resources/run/resources/item/exports.js"
+            "default": "./dist/cjs/api/resources/agent/resources/traceImport/resources/run/resources/item/exports.js"
         },
         "./graph/documentSummary": {
             "import": {

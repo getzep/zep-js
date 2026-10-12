@@ -6,7 +6,7 @@ import type * as Zep from "../../../../../../../../index.js";
  * @example
  *     {
  *         searchId: "search_id",
- *         trajectoryUuid: "trajectory_uuid",
+ *         traceUuid: "trace_uuid",
  *         usage: "selected"
  *     }
  */
@@ -14,6 +14,6 @@ export interface CreateAgentSkillUseRequest {
     outcome?: Zep.AddAgentSkillUseOutcomeRequest;
     reasonCode?: string;
     searchId: string;
-    trajectoryUuid: string;
+    traceUuid: string;
     usage: Zep.agent.skill.CreateAgentSkillUseRequestUsage;
 }

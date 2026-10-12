@@ -3,6 +3,7 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
+import { CreateTraceConnectionRequestProvider } from "../../types/CreateTraceConnectionRequestProvider.js";
 
 export const CreateTraceConnectionRequest: core.serialization.Schema<
     serializers.CreateTraceConnectionRequest.Raw,
@@ -11,7 +12,7 @@ export const CreateTraceConnectionRequest: core.serialization.Schema<
     apiUrl: core.serialization.property("api_url", core.serialization.string().optional()),
     credential: core.serialization.string().optional(),
     name: core.serialization.string().optional(),
-    provider: core.serialization.string().optional(),
+    provider: CreateTraceConnectionRequestProvider.optional(),
     requestsPerMinute: core.serialization.property("requests_per_minute", core.serialization.number().optional()),
     retentionDays: core.serialization.property("retention_days", core.serialization.number().optional()),
 });
@@ -21,7 +22,7 @@ export declare namespace CreateTraceConnectionRequest {
         api_url?: string | null;
         credential?: string | null;
         name?: string | null;
-        provider?: string | null;
+        provider?: CreateTraceConnectionRequestProvider.Raw | null;
         requests_per_minute?: number | null;
         retention_days?: number | null;
     }
