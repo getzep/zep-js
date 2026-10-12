@@ -28,7 +28,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {Zep.CreateUserGroupRequest} request
      * @param {UserGroupClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -172,7 +172,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {Zep.UserGroupListRequest} request
      * @param {UserGroupClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -320,7 +320,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {UserGroupClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -440,7 +440,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {UserGroupClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -564,7 +564,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {Zep.PatchUserGroupRequest} request
@@ -709,7 +709,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {Zep.UserGroupListMemberCandidatesRequest} request
@@ -876,7 +876,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {Zep.MutateMembersRequest} request
@@ -1028,7 +1028,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {Zep.UserGroupListMembersRequest} request
@@ -1183,7 +1183,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {Zep.MutateMembersRequest} request
@@ -1335,7 +1335,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} group_uuid - User group UUID
      * @param {string} user_uuid - User UUID
@@ -1467,7 +1467,7 @@ export class UserGroupClient {
     }
 
     /**
-     * Requires a project API key, or an account-admin bearer token with the X-Zep-Project header. The account must be entitled to attribute-based access control.
+     * Requires attribute-based access control to be enabled for your account.
      *
      * @param {string} user_uuid - User UUID
      * @param {Zep.UserGroupListForUserRequest} request

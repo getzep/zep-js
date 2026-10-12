@@ -9,10 +9,10 @@ export const AddEpisodeRequest: core.serialization.Schema<
     serializers.graph.AddEpisodeRequest.Raw,
     Zep.graph.AddEpisodeRequest
 > = core.serialization.object({
-    createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     data: core.serialization.string(),
     documentId: core.serialization.property("document_id", core.serialization.string().optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    referenceTime: core.serialization.property("reference_time", core.serialization.string().optional()),
     sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
     strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
     type: AddEpisodeRequestType.optional(),
@@ -20,10 +20,10 @@ export const AddEpisodeRequest: core.serialization.Schema<
 
 export declare namespace AddEpisodeRequest {
     export interface Raw {
-        created_at?: string | null;
         data: string;
         document_id?: string | null;
         metadata?: Record<string, unknown> | null;
+        reference_time?: string | null;
         source_description?: string | null;
         strict_ontology?: boolean | null;
         type?: AddEpisodeRequestType.Raw | null;

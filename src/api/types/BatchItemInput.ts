@@ -5,11 +5,6 @@ import type * as Zep from "../index.js";
 export interface BatchItemInput {
     /** The message content, for a thread_message item. */
     content?: string;
-    /**
-     * The item's reference time, used for temporal reasoning rather than
-     * ingestion time. Applies to both graph_episode and thread_message items.
-     */
-    createdAt?: string;
     /** The episode content, for a graph_episode item. */
     data?: string;
     /** The data format of the episode: text, json, or message. */
@@ -22,6 +17,12 @@ export interface BatchItemInput {
     metadata?: Record<string, unknown>;
     /** A customizable name for the sender of the message. */
     name?: string;
+    /**
+     * The item's reference time, used for temporal reasoning rather than
+     * ingestion time. Applies to both graph_episode and thread_message items.
+     * Defaults to the ingestion time.
+     */
+    referenceTime?: string;
     /** The role of the message's sender, for a thread_message item. */
     role?: Zep.BatchItemInputRole;
     /** A description of the source of this episode. */

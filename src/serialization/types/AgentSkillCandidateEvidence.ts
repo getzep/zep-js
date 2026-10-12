@@ -13,7 +13,7 @@ export const AgentSkillCandidateEvidence: core.serialization.ObjectSchema<
     outcome: core.serialization.string().optional(),
     polarity: core.serialization.string().optional(),
     sourceKind: core.serialization.property("source_kind", core.serialization.string().optional()),
-    trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
+    traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
     verification: core.serialization.string().optional(),
 });
 
@@ -24,7 +24,7 @@ export declare namespace AgentSkillCandidateEvidence {
         outcome?: string | null;
         polarity?: string | null;
         source_kind?: string | null;
-        trajectory_uuid?: string | null;
+        trace_uuid?: string | null;
         verification?: string | null;
     }
 }

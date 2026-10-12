@@ -11,10 +11,7 @@ export const AgentLearningState: core.serialization.ObjectSchema<
     approval: core.serialization.string().optional(),
     compilationMode: core.serialization.property("compilation_mode", core.serialization.string().optional()),
     compilationPending: core.serialization.property("compilation_pending", core.serialization.boolean().optional()),
-    eligibleTrajectoryCount: core.serialization.property(
-        "eligible_trajectory_count",
-        core.serialization.number().optional(),
-    ),
+    eligibleTraceCount: core.serialization.property("eligible_trace_count", core.serialization.number().optional()),
     minimumAttemptFamilies: core.serialization.property(
         "minimum_attempt_families",
         core.serialization.number().optional(),
@@ -32,7 +29,7 @@ export declare namespace AgentLearningState {
         approval?: string | null;
         compilation_mode?: string | null;
         compilation_pending?: boolean | null;
-        eligible_trajectory_count?: number | null;
+        eligible_trace_count?: number | null;
         minimum_attempt_families?: number | null;
         next_step?: string | null;
         required_evaluations?: string[] | null;

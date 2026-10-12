@@ -10,13 +10,13 @@ import { BatchItemInputType } from "./BatchItemInputType.js";
 export const BatchItemInput: core.serialization.ObjectSchema<serializers.BatchItemInput.Raw, Zep.BatchItemInput> =
     core.serialization.object({
         content: core.serialization.string().optional(),
-        createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         data: core.serialization.string().optional(),
         dataType: core.serialization.property("data_type", BatchItemInputDataType.optional()),
         documentId: core.serialization.property("document_id", core.serialization.string().optional()),
         graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         name: core.serialization.string().optional(),
+        referenceTime: core.serialization.property("reference_time", core.serialization.string().optional()),
         role: BatchItemInputRole.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
@@ -27,13 +27,13 @@ export const BatchItemInput: core.serialization.ObjectSchema<serializers.BatchIt
 export declare namespace BatchItemInput {
     export interface Raw {
         content?: string | null;
-        created_at?: string | null;
         data?: string | null;
         data_type?: BatchItemInputDataType.Raw | null;
         document_id?: string | null;
         graph_uuid?: string | null;
         metadata?: Record<string, unknown> | null;
         name?: string | null;
+        reference_time?: string | null;
         role?: BatchItemInputRole.Raw | null;
         source_description?: string | null;
         thread_uuid?: string | null;

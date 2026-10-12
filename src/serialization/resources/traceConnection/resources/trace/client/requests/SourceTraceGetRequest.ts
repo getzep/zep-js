@@ -3,20 +3,20 @@
 import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
-import { TrajectoryMapping } from "../../../../../../types/TrajectoryMapping.js";
+import { TraceMapping } from "../../../../../../types/TraceMapping.js";
 
 export const SourceTraceGetRequest: core.serialization.Schema<
     serializers.traceConnection.SourceTraceGetRequest.Raw,
     Zep.traceConnection.SourceTraceGetRequest
 > = core.serialization.object({
-    mapping: TrajectoryMapping.optional(),
+    mapping: TraceMapping.optional(),
     providerProjectId: core.serialization.property("provider_project_id", core.serialization.string()),
     traceId: core.serialization.property("trace_id", core.serialization.string()),
 });
 
 export declare namespace SourceTraceGetRequest {
     export interface Raw {
-        mapping?: TrajectoryMapping.Raw | null;
+        mapping?: TraceMapping.Raw | null;
         provider_project_id: string;
         trace_id: string;
     }

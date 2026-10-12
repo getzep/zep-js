@@ -948,14 +948,16 @@ describe("GraphClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            edge_types: [{ description: "description", name: "name", properties: [{}], source_targets: [{}] }],
+            edge_types: [
+                { description: "description", name: "name", properties: [{ protected: true }], source_targets: [{}] },
+            ],
             entity_type_hierarchy: { key: "value" },
             entity_types: [
                 {
                     description: "description",
                     identity_properties: ["identity_properties"],
                     name: "name",
-                    properties: [{}],
+                    properties: [{ protected: true }],
                 },
             ],
             inherited: true,
@@ -975,7 +977,11 @@ describe("GraphClient", () => {
                 {
                     description: "description",
                     name: "name",
-                    properties: [{}],
+                    properties: [
+                        {
+                            protected: true,
+                        },
+                    ],
                     sourceTargets: [{}],
                 },
             ],
@@ -987,7 +993,11 @@ describe("GraphClient", () => {
                     description: "description",
                     identityProperties: ["identity_properties"],
                     name: "name",
-                    properties: [{}],
+                    properties: [
+                        {
+                            protected: true,
+                        },
+                    ],
                 },
             ],
             inherited: true,
@@ -1124,9 +1134,7 @@ describe("GraphClient", () => {
             totalSize: 1,
         };
         const page = await client.graph.searchEdges("graph_uuid", {
-            body: {
-                query: "query",
-            },
+            query: "query",
         });
 
         expect(expected.items).toEqual(page.data);
@@ -1152,9 +1160,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchEdges("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.BadRequestError);
     });
@@ -1176,9 +1182,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchEdges("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
@@ -1200,9 +1204,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchEdges("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.ForbiddenError);
     });
@@ -1224,9 +1226,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchEdges("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.NotFoundError);
     });
@@ -1251,6 +1251,7 @@ describe("GraphClient", () => {
                     graph_uuid: "graph_uuid",
                     metadata: { key: "value" },
                     processed: true,
+                    reference_time: "reference_time",
                     relevance: 1.1,
                     role: "system",
                     role_name: "role_name",
@@ -1259,7 +1260,6 @@ describe("GraphClient", () => {
                     source_description: "source_description",
                     thread_uuid: "thread_uuid",
                     uuid: "uuid",
-                    valid_at: "valid_at",
                 },
             ],
             next_cursor: "next_cursor",
@@ -1293,6 +1293,7 @@ describe("GraphClient", () => {
                         key: "value",
                     },
                     processed: true,
+                    referenceTime: "reference_time",
                     relevance: 1.1,
                     role: "system",
                     roleName: "role_name",
@@ -1301,7 +1302,6 @@ describe("GraphClient", () => {
                     sourceDescription: "source_description",
                     threadUuid: "thread_uuid",
                     uuid: "uuid",
-                    validAt: "valid_at",
                 },
             ],
             nextCursor: "next_cursor",
@@ -1472,9 +1472,7 @@ describe("GraphClient", () => {
             totalSize: 1,
         };
         const page = await client.graph.searchNodes("graph_uuid", {
-            body: {
-                query: "query",
-            },
+            query: "query",
         });
 
         expect(expected.items).toEqual(page.data);
@@ -1500,9 +1498,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchNodes("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.BadRequestError);
     });
@@ -1524,9 +1520,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchNodes("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
@@ -1548,9 +1542,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchNodes("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.ForbiddenError);
     });
@@ -1572,9 +1564,7 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.searchNodes("graph_uuid", {
-                body: {
-                    query: "query",
-                },
+                query: "query",
             });
         }).rejects.toThrow(Zep.NotFoundError);
     });

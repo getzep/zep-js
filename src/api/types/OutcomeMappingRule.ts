@@ -13,6 +13,6 @@ export interface OutcomeMappingRule {
     rule?: Zep.OutcomeMappingRuleRule;
     /** SucceededAtOrAbove is the score threshold for success. */
     succeededAtOrAbove?: number;
-    /** Values maps metadata strings to Trajectory outcomes. */
+    /** Values maps metadata strings to Trace outcomes. */
     values?: Record<string, string>;
 }

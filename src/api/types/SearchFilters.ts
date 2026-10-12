@@ -3,30 +3,30 @@
 import type * as Zep from "../index.js";
 
 export interface SearchFilters {
-    /** Include edges connected to any of these node UUIDs. */
+    /** Include edges connected to any of these node UUIDs. Node search does not support this filter. */
     connectedNodeUuids?: string[];
     /** Match episodes by their content-policy result. Supported only on episode search when the project setting include_policy_violating_episodes is true. */
     contentPolicyViolated?: boolean;
     /** Filter results by temporal values. */
     dateFilters?: Zep.DateFilters;
-    /** Include results with any of these edge types. */
+    /** Include results with any of these edge types. Node search does not support this filter. */
     edgeTypes?: string[];
-    /** Include results with any of these edge UUIDs. */
+    /** Include results with any of these edge UUIDs. Node search does not support this filter. */
     edgeUuids?: string[];
     /** Include results derived from any of these episode UUIDs. */
     episodeUuids?: string[];
-    /** Exclude results with any of these edge types. */
+    /** Exclude results with any of these edge types. Node search does not support this filter. */
     excludeEdgeTypes?: string[];
-    /** Exclude results with any of these node labels. */
+    /** Exclude results with any of these node labels. Edge search does not support this filter. */
     excludeNodeLabels?: string[];
     /** Filter results by episode metadata. */
     metadataFilters?: Zep.MetadataFilterGroup;
-    /** Include results with any of these node labels. */
+    /** Include results with any of these node labels. Edge search does not support this filter. */
     nodeLabels?: string[];
     /** Filter results by node or edge properties. */
     propertyFilters?: Zep.PropertyFilter[];
-    /** Include edges that start at any of these node UUIDs. */
+    /** Include edges that start at any of these node UUIDs. Node search does not support this filter. */
     sourceNodeUuids?: string[];
-    /** Include edges that end at any of these node UUIDs. */
+    /** Include edges that end at any of these node UUIDs. Node search does not support this filter. */
     targetNodeUuids?: string[];
 }

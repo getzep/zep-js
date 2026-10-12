@@ -7,6 +7,12 @@ export interface EntityProperty {
     description?: string;
     /** The name of the property. */
     name?: string;
+    /**
+     * Whether ingestion keeps the stored value of this property when it merges
+     * new information into an existing node. Supported on entity type
+     * properties only.
+     */
+    protected?: boolean;
     /** The value type of the property: text, int, float, or boolean. */
     type?: Zep.EntityPropertyType;
 }

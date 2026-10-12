@@ -5,8 +5,8 @@ import type * as Zep from "../index.js";
 export interface TracePreview {
     /** EventCount is the number of mapped events. */
     eventCount?: number;
-    /** MappingResult contains the resolved Trajectory fields. Example: {"task_family":"support","objective":"Help the customer"}. */
-    mappingResult?: Zep.TrajectoryMappingResult;
+    /** MappingResult contains the resolved Trace fields. Example: {"task_family":"support","objective":"Help the customer"}. */
+    mappingResult?: Zep.TraceMappingResult;
     /** SkipReason is the reason the trace cannot be imported, when present. */
     skipReason?: string;
 }

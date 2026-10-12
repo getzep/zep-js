@@ -11,7 +11,7 @@ export const AgentSkillUseOutcome: core.serialization.ObjectSchema<
     assertionUuid: core.serialization.property("assertion_uuid", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     outcome: core.serialization.string().optional(),
-    trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
+    traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
     useUuid: core.serialization.property("use_uuid", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
     verification: core.serialization.string().optional(),
@@ -22,7 +22,7 @@ export declare namespace AgentSkillUseOutcome {
         assertion_uuid?: string | null;
         created_at?: string | null;
         outcome?: string | null;
-        trajectory_uuid?: string | null;
+        trace_uuid?: string | null;
         use_uuid?: string | null;
         uuid?: string | null;
         verification?: string | null;

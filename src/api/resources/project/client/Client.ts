@@ -127,11 +127,14 @@ export class ProjectClient {
     }
 
     /**
+     * Set `hyperedges_enabled` to `true` to enable extraction. A member needs the `project.edit` permission. Project API keys receive `403 permission_denied`.
+     *
      * @param {Zep.PatchProjectRequest} request
      * @param {ProjectClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
@@ -211,6 +214,17 @@ export class ProjectClient {
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Zep.ForbiddenError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

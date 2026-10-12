@@ -15,10 +15,10 @@
             "msw": "2.11.2"
         }
     },
-    "originGitCommit": "26e9820bad75494d5ac535a7f939856d42587c22",
+    "originGitCommit": "de231feaf8d16d1d40ce178210ec14d056437ad2",
     "originGitCommitIsDirty": true,
     "invokedBy": "ci",
-    "requestedVersion": "4.0.0-beta.1",
+    "requestedVersion": "4.0.0-rc.1",
     "ciProvider": "github",
-    "sdkVersion": "4.0.0-beta.1"
+    "sdkVersion": "4.0.0-rc.1"
 }

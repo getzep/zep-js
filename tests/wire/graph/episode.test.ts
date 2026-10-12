@@ -25,6 +25,7 @@ describe("EpisodeClient", () => {
                     graph_uuid: "graph_uuid",
                     metadata: { key: "value" },
                     processed: true,
+                    reference_time: "reference_time",
                     relevance: 1.1,
                     role: "system",
                     role_name: "role_name",
@@ -33,7 +34,6 @@ describe("EpisodeClient", () => {
                     source_description: "source_description",
                     thread_uuid: "thread_uuid",
                     uuid: "uuid",
-                    valid_at: "valid_at",
                 },
             ],
             next_cursor: "next_cursor",
@@ -66,6 +66,7 @@ describe("EpisodeClient", () => {
                         key: "value",
                     },
                     processed: true,
+                    referenceTime: "reference_time",
                     relevance: 1.1,
                     role: "system",
                     roleName: "role_name",
@@ -74,7 +75,6 @@ describe("EpisodeClient", () => {
                     sourceDescription: "source_description",
                     threadUuid: "thread_uuid",
                     uuid: "uuid",
-                    validAt: "valid_at",
                 },
             ],
             nextCursor: "next_cursor",
@@ -203,6 +203,7 @@ describe("EpisodeClient", () => {
                     graph_uuid: "graph_uuid",
                     metadata: { key: "value" },
                     processed: true,
+                    reference_time: "reference_time",
                     relevance: 1.1,
                     role: "system",
                     role_name: "role_name",
@@ -211,7 +212,6 @@ describe("EpisodeClient", () => {
                     source_description: "source_description",
                     thread_uuid: "thread_uuid",
                     uuid: "uuid",
-                    valid_at: "valid_at",
                 },
             ],
             next_cursor: "next_cursor",
@@ -245,6 +245,7 @@ describe("EpisodeClient", () => {
                         key: "value",
                     },
                     processed: true,
+                    referenceTime: "reference_time",
                     relevance: 1.1,
                     role: "system",
                     roleName: "role_name",
@@ -253,7 +254,6 @@ describe("EpisodeClient", () => {
                     sourceDescription: "source_description",
                     threadUuid: "thread_uuid",
                     uuid: "uuid",
-                    validAt: "valid_at",
                 },
             ],
             nextCursor: "next_cursor",
@@ -376,6 +376,7 @@ describe("EpisodeClient", () => {
             graph_uuid: "graph_uuid",
             metadata: { key: "value" },
             processed: true,
+            reference_time: "reference_time",
             relevance: 1.1,
             role: "system",
             role_name: "role_name",
@@ -384,7 +385,6 @@ describe("EpisodeClient", () => {
             source_description: "source_description",
             thread_uuid: "thread_uuid",
             uuid: "uuid",
-            valid_at: "valid_at",
         };
 
         server
@@ -413,6 +413,7 @@ describe("EpisodeClient", () => {
                 key: "value",
             },
             processed: true,
+            referenceTime: "reference_time",
             relevance: 1.1,
             role: "system",
             roleName: "role_name",
@@ -421,7 +422,6 @@ describe("EpisodeClient", () => {
             sourceDescription: "source_description",
             threadUuid: "thread_uuid",
             uuid: "uuid",
-            validAt: "valid_at",
         });
     });
 
@@ -622,6 +622,10 @@ describe("EpisodeClient", () => {
                 {
                     created_at: "created_at",
                     error: "error",
+                    input: {
+                        edge_types: [{ properties: [{ protected: true }] }],
+                        entity_types: [{ properties: [{ protected: true }] }],
+                    },
                     status: "recorded",
                     step: "combined_extraction",
                     uuid: "uuid",
@@ -643,6 +647,26 @@ describe("EpisodeClient", () => {
                 {
                     createdAt: "created_at",
                     error: "error",
+                    input: {
+                        edgeTypes: [
+                            {
+                                properties: [
+                                    {
+                                        protected: true,
+                                    },
+                                ],
+                            },
+                        ],
+                        entityTypes: [
+                            {
+                                properties: [
+                                    {
+                                        protected: true,
+                                    },
+                                ],
+                            },
+                        ],
+                    },
                     status: "recorded",
                     step: "combined_extraction",
                     uuid: "uuid",

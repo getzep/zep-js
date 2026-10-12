@@ -15,8 +15,9 @@ import { LearningClient } from "../resources/learning/client/Client.js";
 import { LiteralPolicyClient } from "../resources/literalPolicy/client/Client.js";
 import { SkillClient } from "../resources/skill/client/Client.js";
 import { SplitClient } from "../resources/split/client/Client.js";
-import { TrajectoryClient } from "../resources/trajectory/client/Client.js";
-import { TrajectoryImportClient } from "../resources/trajectoryImport/client/Client.js";
+import { TaskFamilyClient } from "../resources/taskFamily/client/Client.js";
+import { TraceClient } from "../resources/trace/client/Client.js";
+import { TraceImportClient } from "../resources/traceImport/client/Client.js";
 import { VerifierClient } from "../resources/verifier/client/Client.js";
 
 export declare namespace AgentClient {
@@ -33,8 +34,9 @@ export class AgentClient {
     protected _literalPolicy: LiteralPolicyClient | undefined;
     protected _skill: SkillClient | undefined;
     protected _split: SplitClient | undefined;
-    protected _trajectory: TrajectoryClient | undefined;
-    protected _trajectoryImport: TrajectoryImportClient | undefined;
+    protected _taskFamily: TaskFamilyClient | undefined;
+    protected _traceImport: TraceImportClient | undefined;
+    protected _trace: TraceClient | undefined;
     protected _verifier: VerifierClient | undefined;
 
     constructor(options: AgentClient.Options = {}) {
@@ -57,12 +59,16 @@ export class AgentClient {
         return (this._split ??= new SplitClient(this._options));
     }
 
-    public get trajectory(): TrajectoryClient {
-        return (this._trajectory ??= new TrajectoryClient(this._options));
+    public get taskFamily(): TaskFamilyClient {
+        return (this._taskFamily ??= new TaskFamilyClient(this._options));
     }
 
-    public get trajectoryImport(): TrajectoryImportClient {
-        return (this._trajectoryImport ??= new TrajectoryImportClient(this._options));
+    public get traceImport(): TraceImportClient {
+        return (this._traceImport ??= new TraceImportClient(this._options));
+    }
+
+    public get trace(): TraceClient {
+        return (this._trace ??= new TraceClient(this._options));
     }
 
     public get verifier(): VerifierClient {
@@ -233,10 +239,24 @@ export class AgentClient {
     ): Promise<core.Page<Zep.Agent, Zep.AgentPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.AgentListRequest): Promise<core.WithRawResponse<Zep.AgentPage>> => {
-                const { limit, cursor, ..._body } = request;
+                const { limit, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
+                    order_by:
+                        orderBy != null
+                            ? serializers.AgentListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.AgentListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(

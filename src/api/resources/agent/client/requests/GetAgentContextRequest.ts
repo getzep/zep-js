@@ -14,5 +14,5 @@ export interface GetAgentContextRequest {
     objective?: string;
     taskFamily?: string;
     tools?: Zep.AgentContextResource[];
-    trajectoryUuid?: string;
+    traceUuid?: string;
 }

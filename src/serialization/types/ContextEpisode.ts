@@ -16,6 +16,7 @@ export const ContextEpisode: core.serialization.ObjectSchema<serializers.Context
         graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         processed: core.serialization.boolean().optional(),
+        referenceTime: core.serialization.property("reference_time", core.serialization.string().optional()),
         relevance: core.serialization.number().optional(),
         role: RoleType.optional(),
         roleName: core.serialization.property("role_name", core.serialization.string().optional()),
@@ -25,7 +26,6 @@ export const ContextEpisode: core.serialization.ObjectSchema<serializers.Context
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
-        validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
     });
 
 export declare namespace ContextEpisode {
@@ -37,6 +37,7 @@ export declare namespace ContextEpisode {
         graph_uuid?: string | null;
         metadata?: Record<string, unknown> | null;
         processed?: boolean | null;
+        reference_time?: string | null;
         relevance?: number | null;
         role?: RoleType.Raw | null;
         role_name?: string | null;
@@ -46,6 +47,5 @@ export declare namespace ContextEpisode {
         source_description?: string | null;
         thread_uuid?: string | null;
         uuid?: string | null;
-        valid_at?: string | null;
     }
 }

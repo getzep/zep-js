@@ -13,6 +13,7 @@ describe("ProjectClient", () => {
             created_at: "created_at",
             default_time_zone: "default_time_zone",
             description: "description",
+            hyperedges_enabled: true,
             include_policy_violating_episodes: false,
             name: "name",
             uuid: "uuid",
@@ -25,6 +26,7 @@ describe("ProjectClient", () => {
             createdAt: "created_at",
             defaultTimeZone: "default_time_zone",
             description: "description",
+            hyperedgesEnabled: true,
             includePolicyViolatingEpisodes: false,
             name: "name",
             uuid: "uuid",
@@ -608,14 +610,16 @@ describe("ProjectClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            edge_types: [{ description: "description", name: "name", properties: [{}], source_targets: [{}] }],
+            edge_types: [
+                { description: "description", name: "name", properties: [{ protected: true }], source_targets: [{}] },
+            ],
             entity_type_hierarchy: { key: "value" },
             entity_types: [
                 {
                     description: "description",
                     identity_properties: ["identity_properties"],
                     name: "name",
-                    properties: [{}],
+                    properties: [{ protected: true }],
                 },
             ],
             inherited: true,
@@ -629,7 +633,11 @@ describe("ProjectClient", () => {
                 {
                     description: "description",
                     name: "name",
-                    properties: [{}],
+                    properties: [
+                        {
+                            protected: true,
+                        },
+                    ],
                     sourceTargets: [{}],
                 },
             ],
@@ -641,7 +649,11 @@ describe("ProjectClient", () => {
                     description: "description",
                     identityProperties: ["identity_properties"],
                     name: "name",
-                    properties: [{}],
+                    properties: [
+                        {
+                            protected: true,
+                        },
+                    ],
                 },
             ],
             inherited: true,

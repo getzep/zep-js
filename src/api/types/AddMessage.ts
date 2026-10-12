@@ -5,11 +5,6 @@ import type * as Zep from "../index.js";
 export interface AddMessage {
     /** The content of the message. */
     content?: string;
-    /**
-     * The message's reference time, used for temporal reasoning rather than
-     * ingestion time. Defaults to the ingestion time.
-     */
-    createdAt?: string;
     /** Custom metadata to store with the message. Max 10 keys. Values must be strings, numbers, booleans, or arrays of scalars. */
     metadata?: Record<string, unknown>;
     /**
@@ -17,6 +12,11 @@ export interface AddMessage {
      * "sales_agent".
      */
     name?: string;
+    /**
+     * The message's reference time, used for temporal reasoning rather than
+     * ingestion time. Defaults to the ingestion time.
+     */
+    referenceTime?: string;
     /** The role of the message's sender. */
     role?: Zep.RoleType;
     /**
