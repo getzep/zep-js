@@ -3,4 +3,6 @@ export { CreateGraphRequest } from "./CreateGraphRequest.js";
 export { GraphContextRequest } from "./GraphContextRequest.js";
 export { GraphListRequest } from "./GraphListRequest.js";
 export { PatchGraphRequest } from "./PatchGraphRequest.js";
+export { SearchEdgesRequest } from "./SearchEdgesRequest.js";
+export { SearchNodesRequest } from "./SearchNodesRequest.js";
 export { SubgraphRequest } from "./SubgraphRequest.js";

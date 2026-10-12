@@ -47,7 +47,7 @@ export class UseClient {
      * @example
      *     await client.agent.skill.use.create("agent_uuid", "skill_uuid", {
      *         searchId: "search_id",
-     *         trajectoryUuid: "trajectory_uuid",
+     *         traceUuid: "trace_uuid",
      *         usage: "selected"
      *     })
      */

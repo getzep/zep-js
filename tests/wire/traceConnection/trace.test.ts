@@ -27,11 +27,11 @@ describe("TraceClient", () => {
                 closed: true,
                 ended_at: "2026-01-01T00:01:00Z",
                 has_error: false,
-                imported_trajectories: [
+                imported_traces: [
                     {
                         agent_uuid: "f8b28f94-4f5a-4b3a-b782-87aa8464ac04",
                         import_uuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
-                        trajectory_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        trace_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     },
                 ],
                 last_activity_at: "2026-01-01T00:01:00Z",
@@ -39,7 +39,8 @@ describe("TraceClient", () => {
                 name: "Handle support request",
                 scores: { quality: 0.9 },
                 source_revision: "123456789",
-                source_url: "https://app.braintrust.dev/app/trace_123",
+                source_url:
+                    "https://smith.langchain.com/o/workspace_uuid/projects/p/project_uuid/trace/trace_uuid/run/trace_uuid",
                 span_count: 4,
                 spans: [
                     {
@@ -96,11 +97,11 @@ describe("TraceClient", () => {
                 closed: true,
                 endedAt: "2026-01-01T00:01:00Z",
                 hasError: false,
-                importedTrajectories: [
+                importedTraces: [
                     {
                         agentUuid: "f8b28f94-4f5a-4b3a-b782-87aa8464ac04",
                         importUuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
-                        trajectoryUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     },
                 ],
                 lastActivityAt: "2026-01-01T00:01:00Z",
@@ -112,7 +113,8 @@ describe("TraceClient", () => {
                     quality: 0.9,
                 },
                 sourceRevision: "123456789",
-                sourceUrl: "https://app.braintrust.dev/app/trace_123",
+                sourceUrl:
+                    "https://smith.langchain.com/o/workspace_uuid/projects/p/project_uuid/trace/trace_uuid/run/trace_uuid",
                 spanCount: 4,
                 spans: [
                     {
@@ -260,11 +262,11 @@ describe("TraceClient", () => {
                     closed: true,
                     ended_at: "2026-01-01T00:01:00Z",
                     has_error: false,
-                    imported_trajectories: [
+                    imported_traces: [
                         {
                             agent_uuid: "f8b28f94-4f5a-4b3a-b782-87aa8464ac04",
                             import_uuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
-                            trajectory_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            trace_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                         },
                     ],
                     last_activity_at: "2026-01-01T00:01:00Z",
@@ -272,7 +274,8 @@ describe("TraceClient", () => {
                     name: "Handle support request",
                     scores: { quality: 0.9 },
                     source_revision: "123456789",
-                    source_url: "https://app.braintrust.dev/app/trace_123",
+                    source_url:
+                        "https://smith.langchain.com/o/workspace_uuid/projects/p/project_uuid/trace/trace_uuid/run/trace_uuid",
                     span_count: 4,
                     started_at: "2026-01-01T00:00:00Z",
                     tags: ["support", "prod"],
@@ -297,11 +300,11 @@ describe("TraceClient", () => {
                     closed: true,
                     endedAt: "2026-01-01T00:01:00Z",
                     hasError: false,
-                    importedTrajectories: [
+                    importedTraces: [
                         {
                             agentUuid: "f8b28f94-4f5a-4b3a-b782-87aa8464ac04",
                             importUuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
-                            trajectoryUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                         },
                     ],
                     lastActivityAt: "2026-01-01T00:01:00Z",
@@ -313,7 +316,8 @@ describe("TraceClient", () => {
                         quality: 0.9,
                     },
                     sourceRevision: "123456789",
-                    sourceUrl: "https://app.braintrust.dev/app/trace_123",
+                    sourceUrl:
+                        "https://smith.langchain.com/o/workspace_uuid/projects/p/project_uuid/trace/trace_uuid/run/trace_uuid",
                     spanCount: 4,
                     startedAt: "2026-01-01T00:00:00Z",
                     tags: ["support", "prod"],

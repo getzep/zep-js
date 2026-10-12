@@ -9,7 +9,7 @@ export interface AgentLearningState {
      * waits to start or runs. Skills from that run are not yet available.
      */
     compilationPending?: boolean;
-    eligibleTrajectoryCount?: number;
+    eligibleTraceCount?: number;
     minimumAttemptFamilies?: number;
     nextStep?: string;
     requiredEvaluations?: string[];

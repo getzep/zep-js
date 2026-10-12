@@ -4,7 +4,7 @@ export interface AgentSkillUseOutcome {
     assertionUuid?: string;
     createdAt?: string;
     outcome?: string;
-    trajectoryUuid?: string;
+    traceUuid?: string;
     useUuid?: string;
     uuid?: string;
     verification?: string;

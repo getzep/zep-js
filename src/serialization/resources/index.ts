@@ -1,5 +1,6 @@
 export * from "./agent/client/requests/index.js";
 export * as agent from "./agent/index.js";
+export * from "./agent/types/index.js";
 export * from "./batch/client/requests/index.js";
 export * as batch from "./batch/index.js";
 export * from "./batch/types/index.js";
@@ -17,6 +18,7 @@ export * as thread from "./thread/index.js";
 export * from "./thread/types/index.js";
 export * from "./traceConnection/client/requests/index.js";
 export * as traceConnection from "./traceConnection/index.js";
+export * from "./traceConnection/types/index.js";
 export * from "./user/client/requests/index.js";
 export * as user from "./user/index.js";
 export * from "./user/types/index.js";

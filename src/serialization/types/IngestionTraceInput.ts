@@ -8,6 +8,7 @@ import { IngestionTraceEdge } from "./IngestionTraceEdge.js";
 import { IngestionTraceEntityType } from "./IngestionTraceEntityType.js";
 import { IngestionTraceEpisode } from "./IngestionTraceEpisode.js";
 import { IngestionTraceNode } from "./IngestionTraceNode.js";
+import { IngestionTraceProtectedAttributeConflict } from "./IngestionTraceProtectedAttributeConflict.js";
 
 export const IngestionTraceInput: core.serialization.ObjectSchema<
     serializers.IngestionTraceInput.Raw,
@@ -48,6 +49,10 @@ export const IngestionTraceInput: core.serialization.ObjectSchema<
         "previous_episodes",
         core.serialization.list(IngestionTraceEpisode).optional(),
     ),
+    protectedAttributeConflicts: core.serialization.property(
+        "protected_attribute_conflicts",
+        core.serialization.list(IngestionTraceProtectedAttributeConflict).optional(),
+    ),
     resolvedNodes: core.serialization.property(
         "resolved_nodes",
         core.serialization.list(IngestionTraceNode).optional(),
@@ -67,6 +72,7 @@ export declare namespace IngestionTraceInput {
         extracted_nodes?: IngestionTraceNode.Raw[] | null;
         ignore_default_ontology?: boolean | null;
         previous_episodes?: IngestionTraceEpisode.Raw[] | null;
+        protected_attribute_conflicts?: IngestionTraceProtectedAttributeConflict.Raw[] | null;
         resolved_nodes?: IngestionTraceNode.Raw[] | null;
     }
 }

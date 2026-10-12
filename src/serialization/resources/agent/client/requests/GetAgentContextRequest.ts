@@ -16,7 +16,7 @@ export const GetAgentContextRequest: core.serialization.Schema<
     objective: core.serialization.string().optional(),
     taskFamily: core.serialization.property("task_family", core.serialization.string().optional()),
     tools: core.serialization.list(AgentContextResource).optional(),
-    trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
+    traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
 });
 
 export declare namespace GetAgentContextRequest {
@@ -28,6 +28,6 @@ export declare namespace GetAgentContextRequest {
         objective?: string | null;
         task_family?: string | null;
         tools?: AgentContextResource.Raw[] | null;
-        trajectory_uuid?: string | null;
+        trace_uuid?: string | null;
     }
 }

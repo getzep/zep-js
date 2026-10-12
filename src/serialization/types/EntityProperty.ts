@@ -9,6 +9,7 @@ export const EntityProperty: core.serialization.ObjectSchema<serializers.EntityP
     core.serialization.object({
         description: core.serialization.string().optional(),
         name: core.serialization.string().optional(),
+        protected: core.serialization.boolean().optional(),
         type: EntityPropertyType.optional(),
     });
 
@@ -16,6 +17,7 @@ export declare namespace EntityProperty {
     export interface Raw {
         description?: string | null;
         name?: string | null;
+        protected?: boolean | null;
         type?: EntityPropertyType.Raw | null;
     }
 }

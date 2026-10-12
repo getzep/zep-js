@@ -28,13 +28,10 @@ export const AgentSkillRelationship: core.serialization.ObjectSchema<
         "resource_version_constraint",
         core.serialization.string().optional(),
     ),
-    trajectoryOutcome: core.serialization.property("trajectory_outcome", core.serialization.string().optional()),
-    trajectoryTaskFamily: core.serialization.property("trajectory_task_family", core.serialization.string().optional()),
-    trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
-    trajectoryVerification: core.serialization.property(
-        "trajectory_verification",
-        core.serialization.string().optional(),
-    ),
+    traceOutcome: core.serialization.property("trace_outcome", core.serialization.string().optional()),
+    traceTaskFamily: core.serialization.property("trace_task_family", core.serialization.string().optional()),
+    traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
+    traceVerification: core.serialization.property("trace_verification", core.serialization.string().optional()),
 });
 
 export declare namespace AgentSkillRelationship {
@@ -50,9 +47,9 @@ export declare namespace AgentSkillRelationship {
         related_version_constraint?: string | null;
         resource_name?: string | null;
         resource_version_constraint?: string | null;
-        trajectory_outcome?: string | null;
-        trajectory_task_family?: string | null;
-        trajectory_uuid?: string | null;
-        trajectory_verification?: string | null;
+        trace_outcome?: string | null;
+        trace_task_family?: string | null;
+        trace_uuid?: string | null;
+        trace_verification?: string | null;
     }
 }

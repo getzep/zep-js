@@ -14,8 +14,8 @@ export const AgentSkillEvidence: core.serialization.ObjectSchema<
     polarity: core.serialization.string().optional(),
     sourceKind: core.serialization.property("source_kind", core.serialization.string().optional()),
     summaryVersionUuid: core.serialization.property("summary_version_uuid", core.serialization.string().optional()),
-    trajectoryEventUuid: core.serialization.property("trajectory_event_uuid", core.serialization.string().optional()),
-    trajectoryUuid: core.serialization.property("trajectory_uuid", core.serialization.string().optional()),
+    traceEventUuid: core.serialization.property("trace_event_uuid", core.serialization.string().optional()),
+    traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
     verification: core.serialization.string().optional(),
 });
 
@@ -27,8 +27,8 @@ export declare namespace AgentSkillEvidence {
         polarity?: string | null;
         source_kind?: string | null;
         summary_version_uuid?: string | null;
-        trajectory_event_uuid?: string | null;
-        trajectory_uuid?: string | null;
+        trace_event_uuid?: string | null;
+        trace_uuid?: string | null;
         verification?: string | null;
     }
 }

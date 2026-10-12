@@ -40,6 +40,12 @@ export interface IngestionTraceInput {
     /** The previous episodes that the step used as context. */
     previousEpisodes?: Zep.IngestionTraceEpisode[];
     /**
+     * The identity attributes where the extracted value differed from the
+     * stored value. The nodes keep the stored values. Present for resolve_nodes
+     * and empty for the other steps.
+     */
+    protectedAttributeConflicts?: Zep.IngestionTraceProtectedAttributeConflict[];
+    /**
      * The resolved nodes that the extracted edges connect. Present for resolve_edges and empty for
      * the other steps.
      */

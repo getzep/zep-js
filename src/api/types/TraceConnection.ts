@@ -15,8 +15,8 @@ export interface TraceConnection {
     lastVerifiedAt?: string;
     /** Name is the display name. */
     name?: string;
-    /** Provider is the observability provider. */
-    provider?: string;
+    /** Provider is the Braintrust or LangSmith provider. */
+    provider?: Zep.TraceConnectionProvider;
     /** ProviderOrganizationID is the provider organization identifier. */
     providerOrganizationId?: string;
     /** ProviderOrganizationName is the provider organization name. */

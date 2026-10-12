@@ -2132,8 +2132,10 @@ export class GraphClient {
     }
 
     /**
+     * Edge search does not support node_labels or exclude_node_labels. An edge has two nodes, so a node label filter is not defined for edge search. To filter edges by node label, use graph.edge.list, graph.node.list_neighbors, or graph.get_subgraph. To search the edges of nodes that have a label, do these two steps. First, call graph.search_nodes with node_labels. Then, call graph.search_edges with connected_node_uuids set to the UUIDs of the returned nodes.
+     *
      * @param {string} graph_uuid - Graph UUID
-     * @param {Zep.GraphSearchEdgesRequest} request
+     * @param {Zep.SearchEdgesRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -2145,19 +2147,17 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchEdges("graph_uuid", {
-     *         body: {
-     *             query: "query"
-     *         }
+     *         query: "query"
      *     })
      */
     public async searchEdges(
         graph_uuid: string,
-        request: Zep.GraphSearchEdgesRequest,
+        request: Zep.SearchEdgesRequest,
         requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Edge, Zep.EdgePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (request: Zep.GraphSearchEdgesRequest): Promise<core.WithRawResponse<Zep.EdgePage>> => {
-                const { limit, cursor, body: _body } = request;
+            async (request: Zep.SearchEdgesRequest): Promise<core.WithRawResponse<Zep.EdgePage>> => {
+                const { limit, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
@@ -2186,7 +2186,7 @@ export class GraphClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.SearchRequest.jsonOrThrow(_body, {
+                        serializers.SearchEdgesRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -2442,8 +2442,10 @@ export class GraphClient {
     }
 
     /**
+     * Node search does not support edge_types, exclude_edge_types, edge_uuids, connected_node_uuids, source_node_uuids, or target_node_uuids. These filters select edges. To get the nodes that an edge connects, use graph.search_edges or graph.node.list_neighbors.
+     *
      * @param {string} graph_uuid - Graph UUID
-     * @param {Zep.GraphSearchNodesRequest} request
+     * @param {Zep.SearchNodesRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -2455,19 +2457,17 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchNodes("graph_uuid", {
-     *         body: {
-     *             query: "query"
-     *         }
+     *         query: "query"
      *     })
      */
     public async searchNodes(
         graph_uuid: string,
-        request: Zep.GraphSearchNodesRequest,
+        request: Zep.SearchNodesRequest,
         requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Node, Zep.NodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (request: Zep.GraphSearchNodesRequest): Promise<core.WithRawResponse<Zep.NodePage>> => {
-                const { limit, cursor, body: _body } = request;
+            async (request: Zep.SearchNodesRequest): Promise<core.WithRawResponse<Zep.NodePage>> => {
+                const { limit, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
                     limit,
                     cursor,
@@ -2496,7 +2496,7 @@ export class GraphClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.SearchRequest.jsonOrThrow(_body, {
+                        serializers.SearchNodesRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),

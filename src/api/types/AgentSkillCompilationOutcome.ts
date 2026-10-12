@@ -20,6 +20,6 @@ export interface AgentSkillCompilationOutcome {
     rejectionClass?: Zep.AgentSkillCompilationOutcomeRejectionClass;
     stage?: string;
     taskFamily?: string;
-    trajectoryCount?: number;
+    traceCount?: number;
     uuid?: string;
 }
