@@ -14,7 +14,7 @@ export interface AgentTraceSummaryVersion {
     omittedSequenceRanges?: Zep.AgentTraceSummaryOmittedRange[];
     outcome?: Zep.AgentTraceOutcome;
     parentVersionUuid?: string;
-    structuredSummary?: Record<string, unknown>;
+    structuredSummary?: Zep.AgentTraceStructuredSummary;
     text?: string;
     traceUuid?: string;
     uuid?: string;

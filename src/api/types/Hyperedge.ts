@@ -21,6 +21,11 @@ export interface Hyperedge {
     graphUuid?: string;
     /** The time at which the fact stopped being true. */
     invalidAt?: string;
+    /**
+     * The unique identifier of the user that owns the graph. Present only when
+     * the graph is a user graph.
+     */
+    userUuid?: string;
     /** The unique identifier of the hyperedge. */
     uuid?: string;
     /** The time from which the fact is considered true. */

@@ -9,7 +9,7 @@ import { AgentTraceVerification } from "../../../../../../types/AgentTraceVerifi
 
 export const AgentTraceListRequest: core.serialization.Schema<
     serializers.agent.AgentTraceListRequest.Raw,
-    Omit<Zep.agent.AgentTraceListRequest, "limit" | "cursor" | "orderBy" | "order" | "importUuid" | "sourceKind">
+    Omit<Zep.agent.AgentTraceListRequest, "pageSize" | "cursor" | "orderBy" | "order" | "importUuid" | "sourceKind">
 > = core.serialization.object({
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
     outcome: AgentTraceOutcome.optional(),

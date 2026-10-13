@@ -51,9 +51,7 @@ describe("ThreadSummaryClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.graph.threadSummary.list("graph_uuid", {
-            body: {},
-        });
+        const page = await client.graph.threadSummary.list("graph_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -77,9 +75,7 @@ describe("ThreadSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.threadSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.threadSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.BadRequestError);
     });
 
@@ -99,9 +95,7 @@ describe("ThreadSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.threadSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.threadSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
 
@@ -121,9 +115,7 @@ describe("ThreadSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.threadSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.threadSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.ForbiddenError);
     });
 
@@ -143,9 +135,7 @@ describe("ThreadSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.threadSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.threadSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -165,9 +155,7 @@ describe("ThreadSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.threadSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.threadSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.ConflictError);
     });
 });

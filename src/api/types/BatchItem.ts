@@ -30,6 +30,11 @@ export interface BatchItem {
     threadUuid?: string;
     /** The kind of item: graph_episode or thread_message. */
     type?: Zep.BatchItemKind;
+    /**
+     * The unique identifier of the user that owns the graph. Present only when
+     * the graph is a user graph.
+     */
+    userUuid?: string;
     /** The unique identifier of the batch item. */
     uuid?: string;
 }

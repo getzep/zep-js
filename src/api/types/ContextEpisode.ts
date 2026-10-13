@@ -64,6 +64,11 @@ export interface ContextEpisode {
      * thread.
      */
     threadUuid?: string;
+    /**
+     * The unique identifier of the user that owns the graph. Present only when
+     * the graph is a user graph.
+     */
+    userUuid?: string;
     /** The unique identifier of the episode. */
     uuid?: string;
 }

@@ -4,6 +4,7 @@ import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { AgentTraceResourceRef } from "./AgentTraceResourceRef.js";
+import { AgentTraceVerification } from "./AgentTraceVerification.js";
 
 export const AgentTraceEventContext: core.serialization.ObjectSchema<
     serializers.AgentTraceEventContext.Raw,
@@ -13,7 +14,7 @@ export const AgentTraceEventContext: core.serialization.ObjectSchema<
     environments: core.serialization.list(AgentTraceResourceRef).optional(),
     model: AgentTraceResourceRef.optional(),
     tools: core.serialization.list(AgentTraceResourceRef).optional(),
-    verification: core.serialization.string().optional(),
+    verification: AgentTraceVerification.optional(),
 });
 
 export declare namespace AgentTraceEventContext {
@@ -22,6 +23,6 @@ export declare namespace AgentTraceEventContext {
         environments?: AgentTraceResourceRef.Raw[] | null;
         model?: AgentTraceResourceRef.Raw | null;
         tools?: AgentTraceResourceRef.Raw[] | null;
-        verification?: string | null;
+        verification?: AgentTraceVerification.Raw | null;
     }
 }

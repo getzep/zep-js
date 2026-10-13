@@ -16,12 +16,12 @@ export interface CreateTraceImportRequest {
     /** Name is the import display name. */
     name?: string;
     /** OnSourceChange defines how changed source traces are handled. */
-    onSourceChange?: string;
+    onSourceChange?: Zep.TraceImportOnSourceChange;
     /** ProviderProjectID is the source provider project identifier. */
     providerProjectId?: string;
     /** RequireReview requires review for candidates backed by this import. */
     requireReview?: boolean;
-    /** Schedule enables recurring imports when supplied. Example: {"interval_hours":4,"start_from":"24h","settle_minutes":5,"max_open_hours":24}. */
+    /** Schedule enables recurring imports when supplied. Example: {"interval_hours":4,"start_from":"now","settle_minutes":5,"max_open_hours":24}. */
     schedule?: Zep.TraceImportSchedule;
     /** Selection defines the traces to import. Example: {"trace_ids":["trace_123"]}. */
     selection?: Zep.TraceImportSelection;

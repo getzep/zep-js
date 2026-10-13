@@ -4,5 +4,8 @@ export { GraphContextRequest } from "./GraphContextRequest.js";
 export { GraphListRequest } from "./GraphListRequest.js";
 export { PatchGraphRequest } from "./PatchGraphRequest.js";
 export { SearchEdgesRequest } from "./SearchEdgesRequest.js";
+export { SearchEpisodesRequest } from "./SearchEpisodesRequest.js";
 export { SearchNodesRequest } from "./SearchNodesRequest.js";
+export { SearchObservationsRequest } from "./SearchObservationsRequest.js";
+export { SearchThreadSummariesRequest } from "./SearchThreadSummariesRequest.js";
 export { SubgraphRequest } from "./SubgraphRequest.js";

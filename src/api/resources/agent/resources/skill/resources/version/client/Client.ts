@@ -229,9 +229,9 @@ export class VersionClient {
             async (
                 request: Zep.agent.skill.VersionListRequest,
             ): Promise<core.WithRawResponse<Zep.Pagev4AgentSkillVersion>> => {
-                const { limit, cursor, markdownFormat } = request;
+                const { pageSize, cursor, markdownFormat } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     markdown_format:
                         markdownFormat != null

@@ -7,7 +7,7 @@ import { AgentVerifierStatus } from "../../../../../../types/AgentVerifierStatus
 
 export const AgentVerifierListRequest: core.serialization.Schema<
     serializers.agent.AgentVerifierListRequest.Raw,
-    Omit<Zep.agent.AgentVerifierListRequest, "limit" | "cursor">
+    Omit<Zep.agent.AgentVerifierListRequest, "pageSize" | "cursor">
 > = core.serialization.object({
     class: core.serialization.string().optional(),
     principalId: core.serialization.property("principal_id", core.serialization.string().optional()),

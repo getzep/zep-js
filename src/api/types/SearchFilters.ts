@@ -17,11 +17,19 @@ export interface SearchFilters {
     episodeUuids?: string[];
     /** Exclude results with any of these edge types. Node search does not support this filter. */
     excludeEdgeTypes?: string[];
-    /** Exclude results with any of these node labels. Edge search does not support this filter. */
+    /**
+     * Exclude nodes that have any of these labels. On an edge list, the API
+     * excludes an edge when its source node or its target node has one of
+     * these labels. Edge search does not support this filter.
+     */
     excludeNodeLabels?: string[];
     /** Filter results by episode metadata. */
     metadataFilters?: Zep.MetadataFilterGroup;
-    /** Include results with any of these node labels. Edge search does not support this filter. */
+    /**
+     * Include only nodes that have at least one of these labels. On an edge
+     * list, the source node and the target node of each edge must each have
+     * at least one of these labels. Edge search does not support this filter.
+     */
     nodeLabels?: string[];
     /** Filter results by node or edge properties. */
     propertyFilters?: Zep.PropertyFilter[];

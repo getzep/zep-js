@@ -3,12 +3,14 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { BatchProgress } from "./BatchProgress.js";
+import { BatchStatus } from "./BatchStatus.js";
 
 export const Batch: core.serialization.ObjectSchema<serializers.Batch.Raw, Zep.Batch> = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    progress: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    status: core.serialization.string().optional(),
+    progress: BatchProgress.optional(),
+    status: BatchStatus.optional(),
     strictOntology: core.serialization.property("strict_ontology", core.serialization.boolean().optional()),
     uuid: core.serialization.string().optional(),
 });
@@ -17,8 +19,8 @@ export declare namespace Batch {
     export interface Raw {
         created_at?: string | null;
         metadata?: Record<string, unknown> | null;
-        progress?: Record<string, unknown> | null;
-        status?: string | null;
+        progress?: BatchProgress.Raw | null;
+        status?: BatchStatus.Raw | null;
         strict_ontology?: boolean | null;
         uuid?: string | null;
     }

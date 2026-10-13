@@ -6,7 +6,7 @@ import type * as serializers from "../../../../index.js";
 
 export const ContextTemplateListRequest: core.serialization.Schema<
     serializers.ContextTemplateListRequest.Raw,
-    Omit<Zep.ContextTemplateListRequest, "limit" | "cursor">
+    Omit<Zep.ContextTemplateListRequest, "pageSize" | "cursor">
 > = core.serialization.object({
     name: core.serialization.string().optional(),
 });

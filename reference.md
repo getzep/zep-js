@@ -1297,7 +1297,7 @@ await client.graph.get("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1346,7 +1346,7 @@ await client.graph.delete("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1395,7 +1395,7 @@ await client.graph.update("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1454,7 +1454,7 @@ await client.graph.clone("graph_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1525,7 +1525,7 @@ await client.graph.getContentPolicy("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1600,7 +1600,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1659,7 +1659,7 @@ await client.graph.getContext("graph_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1716,7 +1716,7 @@ await client.graph.getInstructions("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1765,7 +1765,7 @@ await client.graph.setInstructions("graph_uuid", {});
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1822,7 +1822,7 @@ await client.graph.getObservationSteering("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1871,7 +1871,7 @@ await client.graph.setObservationSteering("graph_uuid", {});
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1928,7 +1928,7 @@ await client.graph.getOntology("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -1977,7 +1977,7 @@ await client.graph.setOntology("graph_uuid", {});
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -2064,7 +2064,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -2106,9 +2106,7 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.searchEpisodes("graph_uuid", {
-    body: {
-        query: "query"
-    }
+    query: "query"
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -2116,9 +2114,7 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchEpisodes("graph_uuid", {
-    body: {
-        query: "query"
-    }
+    query: "query"
 });
 while (page.hasNextPage()) {
     page = await page.getNextPage();
@@ -2141,7 +2137,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -2149,7 +2145,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Zep.GraphSearchEpisodesRequest` 
+**request:** `Zep.SearchEpisodesRequest` 
     
 </dd>
 </dl>
@@ -2228,7 +2224,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -2270,9 +2266,7 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.searchObservations("graph_uuid", {
-    body: {
-        query: "query"
-    }
+    query: "query"
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -2280,9 +2274,7 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchObservations("graph_uuid", {
-    body: {
-        query: "query"
-    }
+    query: "query"
 });
 while (page.hasNextPage()) {
     page = await page.getNextPage();
@@ -2305,7 +2297,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -2313,7 +2305,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Zep.GraphSearchObservationsRequest` 
+**request:** `Zep.SearchObservationsRequest` 
     
 </dd>
 </dl>
@@ -2347,9 +2339,7 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.graph.searchThreadSummaries("graph_uuid", {
-    body: {
-        query: "query"
-    }
+    query: "query"
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -2357,9 +2347,7 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.graph.searchThreadSummaries("graph_uuid", {
-    body: {
-        query: "query"
-    }
+    query: "query"
 });
 while (page.hasNextPage()) {
     page = await page.getNextPage();
@@ -2382,7 +2370,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -2390,7 +2378,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Zep.GraphSearchThreadSummariesRequest` 
+**request:** `Zep.SearchThreadSummariesRequest` 
     
 </dd>
 </dl>
@@ -2441,7 +2429,7 @@ await client.graph.getSubgraph("graph_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -2498,7 +2486,7 @@ await client.graph.warm("graph_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -6643,7 +6631,7 @@ const response = page.response;
 </dl>
 </details>
 
-<details><summary><code>client.agent.traceImport.<a href="/src/api/resources/agent/resources/traceImport/client/Client.ts">create</a>(agent_uuid, { ...params }) -> Zep.TraceImport</code></summary>
+<details><summary><code>client.agent.traceImport.<a href="/src/api/resources/agent/resources/traceImport/client/Client.ts">create</a>(agent_uuid, { ...params }) -> Zep.TraceImportCreateResult</code></summary>
 <dl>
 <dd>
 
@@ -6655,7 +6643,7 @@ const response = page.response;
 <dl>
 <dd>
 
-Create a scheduled import or queue a one-time import. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
+Create a scheduled import or queue a one-time import. A scheduled import returns HTTP 201 with `import`. A one-time import returns HTTP 202 with `import`, `run`, and `task`. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
 </dd>
 </dl>
 </dd>
@@ -9851,6 +9839,23 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the document summaries of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+You can sort by `uuid` or `created_at`. The default sort is `uuid` in descending order.
+You cannot use these `filters` fields: `episode_uuids`, `connected_node_uuids`, `source_node_uuids`, `target_node_uuids`, and `content_policy_violated`.
+If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -9860,17 +9865,13 @@ const response = page.response;
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.documentSummary.list("graph_uuid", {
-    body: {}
-});
+const pageableResponse = await client.graph.documentSummary.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.documentSummary.list("graph_uuid", {
-    body: {}
-});
+let page = await client.graph.documentSummary.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -9892,7 +9893,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -9962,7 +9963,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10029,7 +10030,7 @@ await client.graph.episode.add("graph_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10089,17 +10090,13 @@ metadata matches the predicate.
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.episode.list("graph_uuid", {
-    body: {}
-});
+const pageableResponse = await client.graph.episode.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.episode.list("graph_uuid", {
-    body: {}
-});
+let page = await client.graph.episode.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -10121,7 +10118,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10178,7 +10175,7 @@ await client.graph.episode.get("graph_uuid", "episode_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10235,7 +10232,7 @@ await client.graph.episode.delete("graph_uuid", "episode_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10292,7 +10289,7 @@ await client.graph.episode.update("graph_uuid", "episode_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10371,7 +10368,7 @@ await client.graph.episode.getDebugLogs("graph_uuid", "episode_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10454,7 +10451,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10542,7 +10539,7 @@ await client.graph.edge.add("graph_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10574,6 +10571,23 @@ await client.graph.edge.add("graph_uuid", {
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the edges of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+You can sort by `uuid`, `created_at`, or `valid_at`. The default sort is `uuid` in descending order. An edge with no `valid_at` sorts as if its `valid_at` is 1970-01-01T00:00:00Z. Thus it comes before an edge with a later `valid_at` in ascending order, and after an edge with an earlier `valid_at`.
+You can use all `filters` fields except `content_policy_violated`.
+If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -10583,17 +10597,13 @@ await client.graph.edge.add("graph_uuid", {
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.edge.list("graph_uuid", {
-    body: {}
-});
+const pageableResponse = await client.graph.edge.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.edge.list("graph_uuid", {
-    body: {}
-});
+let page = await client.graph.edge.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -10615,7 +10625,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10672,7 +10682,7 @@ await client.graph.edge.get("graph_uuid", "edge_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10729,7 +10739,7 @@ await client.graph.edge.delete("graph_uuid", "edge_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10803,7 +10813,7 @@ await client.graph.edge.update("graph_uuid", "edge_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10895,7 +10905,7 @@ await client.graph.hyperedge.add("graph_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -10953,17 +10963,13 @@ and must match every list supplied.
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.hyperedge.list("graph_uuid", {
-    body: {}
-});
+const pageableResponse = await client.graph.hyperedge.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.hyperedge.list("graph_uuid", {
-    body: {}
-});
+let page = await client.graph.hyperedge.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -10985,7 +10991,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11058,7 +11064,7 @@ await client.graph.hyperedge.get("graph_uuid", "hyperedge_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11130,7 +11136,7 @@ await client.graph.hyperedge.delete("graph_uuid", "hyperedge_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11206,7 +11212,7 @@ await client.graph.hyperedge.update("graph_uuid", "hyperedge_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11291,7 +11297,7 @@ await client.graph.hyperedge.createEdge("graph_uuid", "hyperedge_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11371,7 +11377,7 @@ await client.graph.hyperedge.deleteEdge("graph_uuid", "hyperedge_uuid", "edge_uu
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11441,7 +11447,7 @@ await client.graph.node.add("graph_uuid", {
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11473,6 +11479,23 @@ await client.graph.node.add("graph_uuid", {
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the nodes of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+You can sort by `uuid`, `created_at`, or `degree`. The default sort is `uuid` in descending order.
+You cannot use these `filters` fields: `connected_node_uuids`, `source_node_uuids`, `target_node_uuids`, and `content_policy_violated`.
+If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -11482,17 +11505,13 @@ await client.graph.node.add("graph_uuid", {
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.node.list("graph_uuid", {
-    body: {}
-});
+const pageableResponse = await client.graph.node.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.node.list("graph_uuid", {
-    body: {}
-});
+let page = await client.graph.node.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -11514,7 +11533,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11571,7 +11590,7 @@ await client.graph.node.get("graph_uuid", "node_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11628,7 +11647,7 @@ await client.graph.node.delete("graph_uuid", "node_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11685,7 +11704,7 @@ await client.graph.node.update("graph_uuid", "node_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11762,7 +11781,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11803,6 +11822,23 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the observations of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+You can sort by `uuid` or `created_at`. The default sort is `uuid` in descending order.
+You cannot use these `filters` fields: `episode_uuids`, `connected_node_uuids`, `source_node_uuids`, `target_node_uuids`, and `content_policy_violated`.
+If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -11812,17 +11848,13 @@ const response = page.response;
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.observation.list("graph_uuid", {
-    body: {}
-});
+const pageableResponse = await client.graph.observation.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.observation.list("graph_uuid", {
-    body: {}
-});
+let page = await client.graph.observation.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -11844,7 +11876,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11901,7 +11933,7 @@ await client.graph.observation.get("graph_uuid", "observation_uuid");
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -11934,6 +11966,23 @@ await client.graph.observation.get("graph_uuid", "observation_uuid");
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the thread summaries of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+You can sort by `uuid` or `created_at`. The default sort is `uuid` in descending order.
+You cannot use these `filters` fields: `episode_uuids`, `connected_node_uuids`, `source_node_uuids`, `target_node_uuids`, and `content_policy_violated`.
+If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -11943,17 +11992,13 @@ await client.graph.observation.get("graph_uuid", "observation_uuid");
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.threadSummary.list("graph_uuid", {
-    body: {}
-});
+const pageableResponse = await client.graph.threadSummary.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.threadSummary.list("graph_uuid", {
-    body: {}
-});
+let page = await client.graph.threadSummary.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -11975,7 +12020,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**graph_uuid:** `string` — Graph UUID
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
     
 </dd>
 </dl>
@@ -12139,7 +12184,7 @@ await client.thread.message.update("thread_uuid", "message_uuid");
 <dl>
 <dd>
 
-List provider projects with the `limit` and `cursor` query parameters.
+List provider projects with the `page_size` and `cursor` query parameters.
 </dd>
 </dl>
 </dd>

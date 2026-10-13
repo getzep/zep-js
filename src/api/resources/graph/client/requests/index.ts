@@ -2,10 +2,10 @@ export type { ContentPolicyEventListRequest } from "./ContentPolicyEventListRequ
 export type { CreateGraphRequest } from "./CreateGraphRequest.js";
 export type { GraphContextRequest } from "./GraphContextRequest.js";
 export type { GraphListRequest } from "./GraphListRequest.js";
-export type { GraphSearchEpisodesRequest } from "./GraphSearchEpisodesRequest.js";
-export type { GraphSearchObservationsRequest } from "./GraphSearchObservationsRequest.js";
-export type { GraphSearchThreadSummariesRequest } from "./GraphSearchThreadSummariesRequest.js";
 export type { PatchGraphRequest } from "./PatchGraphRequest.js";
 export type { SearchEdgesRequest } from "./SearchEdgesRequest.js";
+export type { SearchEpisodesRequest } from "./SearchEpisodesRequest.js";
 export type { SearchNodesRequest } from "./SearchNodesRequest.js";
+export type { SearchObservationsRequest } from "./SearchObservationsRequest.js";
+export type { SearchThreadSummariesRequest } from "./SearchThreadSummariesRequest.js";
 export type { SubgraphRequest } from "./SubgraphRequest.js";

@@ -4,18 +4,17 @@ import type * as Zep from "../../../../../../index.js";
 
 /**
  * @example
- *     {
- *         body: {}
- *     }
+ *     {}
  */
 export interface EpisodeListRequest {
-    /** Page size */
-    limit?: number;
+    /** The maximum number of items in one page. The SDK method returns a pager. In Python, `.items` holds only the first page. In TypeScript, `.data` holds only the first page. To read every page, iterate the pager: use `for` or `list(...)` in Python, or `for await` in TypeScript. In Go, the method returns one page, and `Iterator()` reads all pages. */
+    pageSize?: number;
     /** Opaque page cursor */
     cursor?: string;
     /** Sort field */
     orderBy?: Zep.graph.EpisodeListRequestOrderBy;
     /** Sort direction: asc or desc */
     order?: Zep.graph.EpisodeListRequestOrder;
-    body: Zep.ArtifactListRequest;
+    /** Filters that limit the episodes in the list. */
+    filters?: Zep.EpisodeListFilters;
 }

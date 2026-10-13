@@ -4,6 +4,7 @@ import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { AgentTraceOutcome } from "./AgentTraceOutcome.js";
+import { AgentTraceStructuredSummary } from "./AgentTraceStructuredSummary.js";
 import { AgentTraceSummaryCreationReason } from "./AgentTraceSummaryCreationReason.js";
 import { AgentTraceSummaryOmittedRange } from "./AgentTraceSummaryOmittedRange.js";
 import { AgentTraceVerification } from "./AgentTraceVerification.js";
@@ -26,10 +27,7 @@ export const AgentTraceSummaryVersion: core.serialization.ObjectSchema<
     ),
     outcome: AgentTraceOutcome.optional(),
     parentVersionUuid: core.serialization.property("parent_version_uuid", core.serialization.string().optional()),
-    structuredSummary: core.serialization.property(
-        "structured_summary",
-        core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
-    ),
+    structuredSummary: core.serialization.property("structured_summary", AgentTraceStructuredSummary.optional()),
     text: core.serialization.string().optional(),
     traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
@@ -50,7 +48,7 @@ export declare namespace AgentTraceSummaryVersion {
         omitted_sequence_ranges?: AgentTraceSummaryOmittedRange.Raw[] | null;
         outcome?: AgentTraceOutcome.Raw | null;
         parent_version_uuid?: string | null;
-        structured_summary?: Record<string, unknown> | null;
+        structured_summary?: AgentTraceStructuredSummary.Raw | null;
         text?: string | null;
         trace_uuid?: string | null;
         uuid?: string | null;

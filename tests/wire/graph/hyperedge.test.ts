@@ -18,6 +18,7 @@ describe("HyperedgeClient", () => {
                     fact: "fact",
                     graph_uuid: "graph_uuid",
                     invalid_at: "invalid_at",
+                    user_uuid: "user_uuid",
                     uuid: "uuid",
                     valid_at: "valid_at",
                 },
@@ -43,15 +44,14 @@ describe("HyperedgeClient", () => {
                     fact: "fact",
                     graphUuid: "graph_uuid",
                     invalidAt: "invalid_at",
+                    userUuid: "user_uuid",
                     uuid: "uuid",
                     validAt: "valid_at",
                 },
             ],
             nextCursor: "next_cursor",
         };
-        const page = await client.graph.hyperedge.list("graph_uuid", {
-            body: {},
-        });
+        const page = await client.graph.hyperedge.list("graph_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -75,9 +75,7 @@ describe("HyperedgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.hyperedge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.hyperedge.list("graph_uuid");
         }).rejects.toThrow(Zep.BadRequestError);
     });
 
@@ -97,9 +95,7 @@ describe("HyperedgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.hyperedge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.hyperedge.list("graph_uuid");
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
 
@@ -119,9 +115,7 @@ describe("HyperedgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.hyperedge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.hyperedge.list("graph_uuid");
         }).rejects.toThrow(Zep.ForbiddenError);
     });
 
@@ -141,9 +135,7 @@ describe("HyperedgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.hyperedge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.hyperedge.list("graph_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -163,9 +155,7 @@ describe("HyperedgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.hyperedge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.hyperedge.list("graph_uuid");
         }).rejects.toThrow(Zep.ConflictError);
     });
 
@@ -187,6 +177,7 @@ describe("HyperedgeClient", () => {
             fact: "fact",
             graph_uuid: "graph_uuid",
             invalid_at: "invalid_at",
+            user_uuid: "user_uuid",
             uuid: "uuid",
             valid_at: "valid_at",
         };
@@ -214,6 +205,7 @@ describe("HyperedgeClient", () => {
             fact: "fact",
             graphUuid: "graph_uuid",
             invalidAt: "invalid_at",
+            userUuid: "user_uuid",
             uuid: "uuid",
             validAt: "valid_at",
         });

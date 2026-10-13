@@ -8,26 +8,31 @@ import { SearchNodesRequestReranker } from "../../types/SearchNodesRequestRerank
 
 export const SearchNodesRequest: core.serialization.Schema<
     serializers.SearchNodesRequest.Raw,
-    Omit<Zep.SearchNodesRequest, "limit" | "cursor">
+    Omit<Zep.SearchNodesRequest, "pageSize" | "cursor">
 > = core.serialization.object({
+    query: core.serialization.string(),
     bfsOriginNodeUuids: core.serialization.property(
         "bfs_origin_node_uuids",
         core.serialization.list(core.serialization.string()).optional(),
     ),
     centerNodeUuid: core.serialization.property("center_node_uuid", core.serialization.string().optional()),
+    filterLowQualityResults: core.serialization.property(
+        "filter_low_quality_results",
+        core.serialization.boolean().optional(),
+    ),
     filters: NodeSearchFilters.optional(),
     mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
-    query: core.serialization.string(),
     reranker: SearchNodesRequestReranker.optional(),
 });
 
 export declare namespace SearchNodesRequest {
     export interface Raw {
+        query: string;
         bfs_origin_node_uuids?: string[] | null;
         center_node_uuid?: string | null;
+        filter_low_quality_results?: boolean | null;
         filters?: NodeSearchFilters.Raw | null;
         mmr_lambda?: number | null;
-        query: string;
         reranker?: SearchNodesRequestReranker.Raw | null;
     }
 }

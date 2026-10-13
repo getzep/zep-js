@@ -13,6 +13,7 @@ export const Hyperedge: core.serialization.ObjectSchema<serializers.Hyperedge.Ra
         fact: core.serialization.string().optional(),
         graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         invalidAt: core.serialization.property("invalid_at", core.serialization.string().optional()),
+        userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
         validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
     });
@@ -25,6 +26,7 @@ export declare namespace Hyperedge {
         fact?: string | null;
         graph_uuid?: string | null;
         invalid_at?: string | null;
+        user_uuid?: string | null;
         uuid?: string | null;
         valid_at?: string | null;
     }

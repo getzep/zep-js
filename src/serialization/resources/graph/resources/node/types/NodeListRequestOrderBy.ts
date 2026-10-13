@@ -7,8 +7,8 @@ import type * as serializers from "../../../../../index.js";
 export const NodeListRequestOrderBy: core.serialization.Schema<
     serializers.graph.NodeListRequestOrderBy.Raw,
     Zep.graph.NodeListRequestOrderBy
-> = core.serialization.enum_(["uuid", "degree"]);
+> = core.serialization.enum_(["uuid", "created_at", "degree"]);
 
 export declare namespace NodeListRequestOrderBy {
-    export type Raw = "uuid" | "degree";
+    export type Raw = "uuid" | "created_at" | "degree";
 }

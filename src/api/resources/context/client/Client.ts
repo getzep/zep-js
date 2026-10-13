@@ -174,9 +174,9 @@ export class ContextClient {
     ): Promise<core.Page<Zep.ContextTemplate, Zep.ContextTemplatePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.ContextTemplateListRequest): Promise<core.WithRawResponse<Zep.ContextTemplatePage>> => {
-                const { limit, cursor, ..._body } = request;
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

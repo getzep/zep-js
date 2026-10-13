@@ -24,7 +24,7 @@ export class ProjectClient {
     }
 
     /**
-     * List provider projects with the `limit` and `cursor` query parameters.
+     * List provider projects with the `page_size` and `cursor` query parameters.
      *
      * @param {string} connection_uuid - Trace connection UUID
      * @param {Zep.traceConnection.ProjectListRequest} request
@@ -49,9 +49,9 @@ export class ProjectClient {
             async (
                 request: Zep.traceConnection.ProjectListRequest,
             ): Promise<core.WithRawResponse<Zep.TraceProviderProjectPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

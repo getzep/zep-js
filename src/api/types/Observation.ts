@@ -26,6 +26,11 @@ export interface Observation {
     score?: number;
     /** A generated summary of the observation. */
     summary?: string;
+    /**
+     * The unique identifier of the user that owns the graph. Present only when
+     * the graph is a user graph.
+     */
+    userUuid?: string;
     /** The unique identifier of the observation, assigned by Zep. */
     uuid?: string;
 }

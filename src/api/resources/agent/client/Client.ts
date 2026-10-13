@@ -239,9 +239,9 @@ export class AgentClient {
     ): Promise<core.Page<Zep.Agent, Zep.AgentPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.AgentListRequest): Promise<core.WithRawResponse<Zep.AgentPage>> => {
-                const { limit, cursor, orderBy, order, ..._body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null

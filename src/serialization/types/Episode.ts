@@ -24,6 +24,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         source: GraphDataType.optional(),
         sourceDescription: core.serialization.property("source_description", core.serialization.string().optional()),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
+        userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
     },
 );
@@ -45,6 +46,7 @@ export declare namespace Episode {
         source?: GraphDataType.Raw | null;
         source_description?: string | null;
         thread_uuid?: string | null;
+        user_uuid?: string | null;
         uuid?: string | null;
     }
 }

@@ -68,6 +68,11 @@ export interface ContextEdge {
     targetNodeName?: string;
     /** The unique identifier of the edge's target node. */
     targetNodeUuid?: string;
+    /**
+     * The unique identifier of the user that owns the graph. Present only when
+     * the graph is a user graph.
+     */
+    userUuid?: string;
     /** The unique identifier of the edge. */
     uuid?: string;
     /** The time from which the fact is considered true. */

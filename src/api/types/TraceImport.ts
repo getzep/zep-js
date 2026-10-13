@@ -22,7 +22,7 @@ export interface TraceImport {
     /** NextRunAt is the next scheduled run time. */
     nextRunAt?: string;
     /** OnSourceChange defines how changed source traces are handled. */
-    onSourceChange?: string;
+    onSourceChange?: Zep.TraceImportOnSourceChange;
     /** PauseReason is the reason for a paused import, when present. */
     pauseReason?: Zep.TraceImportPauseReason;
     /** Provider is the Braintrust or LangSmith provider. */
@@ -35,7 +35,7 @@ export interface TraceImport {
     requireReview?: boolean;
     /** Revision is the import update revision. */
     revision?: number;
-    /** Schedule contains recurring import settings, when enabled. Example: {"interval_hours":4,"start_from":"24h","settle_minutes":5,"max_open_hours":24}. */
+    /** Schedule contains recurring import settings, when enabled. Example: {"interval_hours":4,"start_from":"now","settle_minutes":5,"max_open_hours":24}. */
     schedule?: Zep.TraceImportSchedule;
     /** Selection defines the source traces to import. Example: {"trace_ids":["trace_123"]}. */
     selection?: Zep.TraceImportSelection;

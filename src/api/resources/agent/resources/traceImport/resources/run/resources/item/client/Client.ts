@@ -55,9 +55,9 @@ export class ItemClient {
             async (
                 request: Zep.agent.traceImport.run.ItemListRequest,
             ): Promise<core.WithRawResponse<Zep.TraceImportRunItemPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

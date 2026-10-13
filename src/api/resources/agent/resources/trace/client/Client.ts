@@ -198,9 +198,9 @@ export class TraceClient {
     ): Promise<core.Page<Zep.AgentTrace, Zep.AgentTracePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.agent.AgentTraceListRequest): Promise<core.WithRawResponse<Zep.AgentTracePage>> => {
-                const { limit, cursor, orderBy, order, importUuid, sourceKind, ..._body } = request;
+                const { pageSize, cursor, orderBy, order, importUuid, sourceKind, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null
@@ -1094,9 +1094,9 @@ export class TraceClient {
             async (
                 request: Zep.agent.TraceListEventsRequest,
             ): Promise<core.WithRawResponse<Zep.AgentTraceEventPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -1659,9 +1659,9 @@ export class TraceClient {
             async (
                 request: Zep.agent.TraceListSummaryVersionsRequest,
             ): Promise<core.WithRawResponse<Zep.AgentTraceSummaryPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

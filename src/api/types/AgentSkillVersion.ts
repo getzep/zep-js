@@ -3,7 +3,7 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillVersion {
-    contract?: Record<string, unknown>;
+    contract?: Zep.AgentSkillContract;
     createdAt?: string;
     definition?: Zep.SkillDefinition;
     /**

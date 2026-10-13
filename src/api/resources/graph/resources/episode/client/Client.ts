@@ -32,7 +32,7 @@ export class EpisodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} document_id - Document ID
      * @param {Zep.graph.EpisodeListForDocumentRequest} request
      * @param {EpisodeClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -58,9 +58,9 @@ export class EpisodeClient {
             async (
                 request: Zep.graph.EpisodeListForDocumentRequest,
             ): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -189,7 +189,7 @@ export class EpisodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.AddEpisodeRequest} request
      * @param {EpisodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -346,7 +346,7 @@ export class EpisodeClient {
      * `filters.metadata_filters` restricts the results to episodes whose stored
      * metadata matches the predicate.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.EpisodeListRequest} request
      * @param {EpisodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -358,20 +358,18 @@ export class EpisodeClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.episode.list("graph_uuid", {
-     *         body: {}
-     *     })
+     *     await client.graph.episode.list("graph_uuid")
      */
     public async list(
         graph_uuid: string,
-        request: Zep.graph.EpisodeListRequest,
+        request: Zep.graph.EpisodeListRequest = {},
         requestOptions?: EpisodeClient.RequestOptions,
     ): Promise<core.Page<Zep.Episode, Zep.EpisodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.EpisodeListRequest): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
-                const { limit, cursor, orderBy, order, body: _body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null
@@ -412,7 +410,7 @@ export class EpisodeClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.ArtifactListRequest.jsonOrThrow(_body, {
+                        serializers.graph.EpisodeListRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -513,7 +511,7 @@ export class EpisodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} episode_uuid - Episode UUID
      * @param {EpisodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -639,7 +637,7 @@ export class EpisodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} episode_uuid - Episode UUID
      * @param {EpisodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -778,7 +776,7 @@ export class EpisodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} episode_uuid - Episode UUID
      * @param {Zep.graph.PatchEpisodeRequest} request
      * @param {EpisodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -931,7 +929,7 @@ export class EpisodeClient {
     /**
      * Returns the ingestion workflow log of an episode. The log exists only when debug logging was enabled for the project when the episode was ingested (see `debug_log.enable`). The log holds episode content, so an API key with an ABAC policy needs an explicit grant of this action; the `readonly` macro does not grant it.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} episode_uuid - Episode UUID
      * @param {EpisodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1059,7 +1057,7 @@ export class EpisodeClient {
     /**
      * Returns the ingestion traces of an episode, oldest first. Each trace records the input and the output of one ingestion step, with an explanation on each output entry that has one. Traces exist only when ingestion tracing was enabled for the project when the episode was ingested (see `debug_log.enable`). An episode with no traces returns a page with an empty `items` array. Traces hold episode content, prompt input, and model output, so an API key with an ABAC policy needs an explicit grant of this action; the `readonly` macro does not grant it.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} episode_uuid - Episode UUID
      * @param {Zep.graph.EpisodeListIngestionTracesRequest} request
      * @param {EpisodeClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -1084,9 +1082,9 @@ export class EpisodeClient {
             async (
                 request: Zep.graph.EpisodeListIngestionTracesRequest,
             ): Promise<core.WithRawResponse<Zep.IngestionTracePage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

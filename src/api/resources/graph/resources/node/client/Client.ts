@@ -32,7 +32,7 @@ export class NodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.AddNodesRequest} request
      * @param {NodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -179,7 +179,12 @@ export class NodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * Lists the nodes of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+     * You can sort by `uuid`, `created_at`, or `degree`. The default sort is `uuid` in descending order.
+     * You cannot use these `filters` fields: `connected_node_uuids`, `source_node_uuids`, `target_node_uuids`, and `content_policy_violated`.
+     * If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+     *
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.NodeListRequest} request
      * @param {NodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -192,20 +197,18 @@ export class NodeClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.node.list("graph_uuid", {
-     *         body: {}
-     *     })
+     *     await client.graph.node.list("graph_uuid")
      */
     public async list(
         graph_uuid: string,
-        request: Zep.graph.NodeListRequest,
+        request: Zep.graph.NodeListRequest = {},
         requestOptions?: NodeClient.RequestOptions,
     ): Promise<core.Page<Zep.Node, Zep.NodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.NodeListRequest): Promise<core.WithRawResponse<Zep.NodePage>> => {
-                const { limit, cursor, orderBy, order, body: _body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null
@@ -246,7 +249,7 @@ export class NodeClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.ArtifactListRequest.jsonOrThrow(_body, {
+                        serializers.graph.NodeListRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -358,7 +361,7 @@ export class NodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} node_uuid - Node UUID
      * @param {NodeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -496,7 +499,7 @@ export class NodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} node_uuid - Node UUID
      * @param {NodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -635,7 +638,7 @@ export class NodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} node_uuid - Node UUID
      * @param {Zep.graph.PatchNodeRequest} request
      * @param {NodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -786,7 +789,7 @@ export class NodeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} node_uuid - Node UUID
      * @param {Zep.graph.NeighborsRequest} request
      * @param {NodeClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -810,9 +813,9 @@ export class NodeClient {
     ): Promise<core.Page<Zep.NeighborEntry, Zep.NeighborPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.NeighborsRequest): Promise<core.WithRawResponse<Zep.NeighborPage>> => {
-                const { limit, cursor, orderBy, order, ..._body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null

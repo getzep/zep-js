@@ -52,7 +52,7 @@ describe("TraceImportClient", () => {
                     provider_project_id: "project_123",
                     require_review: false,
                     revision: 1,
-                    schedule: { interval_hours: 4, max_open_hours: 24, settle_minutes: 5, start_from: "24h" },
+                    schedule: { interval_hours: 4, max_open_hours: 24, settle_minutes: 60, start_from: "now" },
                     selection: {
                         filter: {
                             has_error: false,
@@ -136,8 +136,8 @@ describe("TraceImportClient", () => {
                     schedule: {
                         intervalHours: 4,
                         maxOpenHours: 24,
-                        settleMinutes: 5,
-                        startFrom: "24h",
+                        settleMinutes: 60,
+                        startFrom: "now",
                     },
                     selection: {
                         filter: {
@@ -279,7 +279,7 @@ describe("TraceImportClient", () => {
             provider_project_id: "project_123",
             require_review: false,
             revision: 1,
-            schedule: { interval_hours: 4, max_open_hours: 24, settle_minutes: 5, start_from: "24h" },
+            schedule: { interval_hours: 4, max_open_hours: 24, settle_minutes: 60, start_from: "now" },
             selection: {
                 filter: {
                     has_error: false,
@@ -363,8 +363,8 @@ describe("TraceImportClient", () => {
             schedule: {
                 intervalHours: 4,
                 maxOpenHours: 24,
-                settleMinutes: 5,
-                startFrom: "24h",
+                settleMinutes: 60,
+                startFrom: "now",
             },
             selection: {
                 filter: {

@@ -4,14 +4,20 @@ import type * as Zep from "../../../../../../index.js";
 
 /**
  * @example
- *     {
- *         body: {}
- *     }
+ *     {}
  */
 export interface DocumentSummaryListRequest {
-    /** Page size */
-    limit?: number;
+    /** The maximum number of items in one page. The SDK method returns a pager. In Python, `.items` holds only the first page. In TypeScript, `.data` holds only the first page. To read every page, iterate the pager: use `for` or `list(...)` in Python, or `for await` in TypeScript. In Go, the method returns one page, and `Iterator()` reads all pages. */
+    pageSize?: number;
     /** Opaque page cursor */
     cursor?: string;
-    body: Zep.ArtifactListRequest;
+    /** Sort key: uuid (default) or created_at */
+    orderBy?: Zep.graph.DocumentSummaryListRequestOrderBy;
+    /** Sort direction: asc or desc (default desc) */
+    order?: Zep.graph.DocumentSummaryListRequestOrder;
+    /**
+     * Filters that limit the items in the list. The operation description
+     * names the filter fields that the operation does not support.
+     */
+    filters?: Zep.DocumentSummaryListFilters;
 }

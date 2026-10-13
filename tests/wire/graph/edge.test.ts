@@ -30,6 +30,7 @@ describe("EdgeClient", () => {
                     target_node_labels: ["target_node_labels"],
                     target_node_name: "target_node_name",
                     target_node_uuid: "target_node_uuid",
+                    user_uuid: "user_uuid",
                     uuid: "uuid",
                     valid_at: "valid_at",
                 },
@@ -70,6 +71,7 @@ describe("EdgeClient", () => {
                     targetNodeLabels: ["target_node_labels"],
                     targetNodeName: "target_node_name",
                     targetNodeUuid: "target_node_uuid",
+                    userUuid: "user_uuid",
                     uuid: "uuid",
                     validAt: "valid_at",
                 },
@@ -77,9 +79,7 @@ describe("EdgeClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.graph.edge.list("graph_uuid", {
-            body: {},
-        });
+        const page = await client.graph.edge.list("graph_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -103,9 +103,7 @@ describe("EdgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.edge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.edge.list("graph_uuid");
         }).rejects.toThrow(Zep.BadRequestError);
     });
 
@@ -125,9 +123,7 @@ describe("EdgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.edge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.edge.list("graph_uuid");
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
 
@@ -147,9 +143,7 @@ describe("EdgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.edge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.edge.list("graph_uuid");
         }).rejects.toThrow(Zep.ForbiddenError);
     });
 
@@ -169,9 +163,7 @@ describe("EdgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.edge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.edge.list("graph_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -191,9 +183,7 @@ describe("EdgeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.edge.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.edge.list("graph_uuid");
         }).rejects.toThrow(Zep.ConflictError);
     });
 
@@ -220,6 +210,7 @@ describe("EdgeClient", () => {
             target_node_labels: ["target_node_labels"],
             target_node_name: "target_node_name",
             target_node_uuid: "target_node_uuid",
+            user_uuid: "user_uuid",
             uuid: "uuid",
             valid_at: "valid_at",
         };
@@ -254,6 +245,7 @@ describe("EdgeClient", () => {
             targetNodeLabels: ["target_node_labels"],
             targetNodeName: "target_node_name",
             targetNodeUuid: "target_node_uuid",
+            userUuid: "user_uuid",
             uuid: "uuid",
             validAt: "valid_at",
         });

@@ -35,7 +35,7 @@ export class EdgeClient {
      * Adds 1 to 100 edges. A name creates a node when deduplicate is false. When deduplicate is true, Zep matches a node by name first.
      * Example: {"edges":[{"fact":"Ada works at Acme Corp","fact_name":"WORKS_AT","source_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d479"},"target_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d480"}},{"fact":"Ada leads a team","fact_name":"LEADS","source_node":{"name":"Ada Lovelace","labels":["Person"]},"target_node":{"name":"Engineering","labels":["Department"]}}],"deduplicate":false}
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.AddEdgesRequest} request
      * @param {EdgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -185,7 +185,12 @@ export class EdgeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * Lists the edges of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+     * You can sort by `uuid`, `created_at`, or `valid_at`. The default sort is `uuid` in descending order. An edge with no `valid_at` sorts as if its `valid_at` is 1970-01-01T00:00:00Z. Thus it comes before an edge with a later `valid_at` in ascending order, and after an edge with an earlier `valid_at`.
+     * You can use all `filters` fields except `content_policy_violated`.
+     * If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+     *
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.EdgeListRequest} request
      * @param {EdgeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -198,21 +203,33 @@ export class EdgeClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.edge.list("graph_uuid", {
-     *         body: {}
-     *     })
+     *     await client.graph.edge.list("graph_uuid")
      */
     public async list(
         graph_uuid: string,
-        request: Zep.graph.EdgeListRequest,
+        request: Zep.graph.EdgeListRequest = {},
         requestOptions?: EdgeClient.RequestOptions,
     ): Promise<core.Page<Zep.Edge, Zep.EdgePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.EdgeListRequest): Promise<core.WithRawResponse<Zep.EdgePage>> => {
-                const { limit, cursor, body: _body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
+                    order_by:
+                        orderBy != null
+                            ? serializers.graph.EdgeListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.graph.EdgeListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -238,7 +255,7 @@ export class EdgeClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.ArtifactListRequest.jsonOrThrow(_body, {
+                        serializers.graph.EdgeListRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -350,7 +367,7 @@ export class EdgeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} edge_uuid - Edge UUID
      * @param {EdgeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -476,7 +493,7 @@ export class EdgeClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} edge_uuid - Edge UUID
      * @param {EdgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -620,7 +637,7 @@ export class EdgeClient {
      * write, because the members share it. Attribute-only edits touch this
      * edge alone.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} edge_uuid - Edge UUID
      * @param {Zep.graph.PatchEdgeRequest} request
      * @param {EdgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.

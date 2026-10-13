@@ -47,9 +47,7 @@ describe("DocumentSummaryClient", () => {
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.graph.documentSummary.list("graph_uuid", {
-            body: {},
-        });
+        const page = await client.graph.documentSummary.list("graph_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -73,9 +71,7 @@ describe("DocumentSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.documentSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.documentSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.BadRequestError);
     });
 
@@ -95,9 +91,7 @@ describe("DocumentSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.documentSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.documentSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
 
@@ -117,9 +111,7 @@ describe("DocumentSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.documentSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.documentSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.ForbiddenError);
     });
 
@@ -139,9 +131,7 @@ describe("DocumentSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.documentSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.documentSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -161,9 +151,7 @@ describe("DocumentSummaryClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.documentSummary.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.documentSummary.list("graph_uuid");
         }).rejects.toThrow(Zep.ConflictError);
     });
 });

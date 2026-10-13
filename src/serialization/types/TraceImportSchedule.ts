@@ -8,17 +8,17 @@ export const TraceImportSchedule: core.serialization.ObjectSchema<
     serializers.TraceImportSchedule.Raw,
     Zep.TraceImportSchedule
 > = core.serialization.object({
-    intervalHours: core.serialization.property("interval_hours", core.serialization.number().optional()),
+    intervalHours: core.serialization.property("interval_hours", core.serialization.number()),
     maxOpenHours: core.serialization.property("max_open_hours", core.serialization.number().optional()),
     settleMinutes: core.serialization.property("settle_minutes", core.serialization.number().optional()),
-    startFrom: core.serialization.property("start_from", core.serialization.string().optional()),
+    startFrom: core.serialization.property("start_from", core.serialization.string()),
 });
 
 export declare namespace TraceImportSchedule {
     export interface Raw {
-        interval_hours?: number | null;
+        interval_hours: number;
         max_open_hours?: number | null;
         settle_minutes?: number | null;
-        start_from?: string | null;
+        start_from: string;
     }
 }

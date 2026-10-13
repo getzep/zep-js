@@ -18,6 +18,7 @@ export const BatchItem: core.serialization.ObjectSchema<serializers.BatchItem.Ra
         status: BatchItemStatus.optional(),
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
         type: BatchItemKind.optional(),
+        userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
     });
 
@@ -32,6 +33,7 @@ export declare namespace BatchItem {
         status?: BatchItemStatus.Raw | null;
         thread_uuid?: string | null;
         type?: BatchItemKind.Raw | null;
+        user_uuid?: string | null;
         uuid?: string | null;
     }
 }

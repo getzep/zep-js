@@ -6,7 +6,7 @@ import type * as serializers from "../../../../index.js";
 
 export const GraphListRequest: core.serialization.Schema<
     serializers.GraphListRequest.Raw,
-    Omit<Zep.GraphListRequest, "limit" | "cursor" | "orderBy" | "order">
+    Omit<Zep.GraphListRequest, "pageSize" | "cursor" | "orderBy" | "order">
 > = core.serialization.object({
     search: core.serialization.string().optional(),
 });

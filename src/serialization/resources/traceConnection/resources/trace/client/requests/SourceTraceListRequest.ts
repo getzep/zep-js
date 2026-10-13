@@ -7,7 +7,7 @@ import { TraceFilter } from "../../../../../../types/TraceFilter.js";
 
 export const SourceTraceListRequest: core.serialization.Schema<
     serializers.traceConnection.SourceTraceListRequest.Raw,
-    Omit<Zep.traceConnection.SourceTraceListRequest, "limit" | "cursor">
+    Omit<Zep.traceConnection.SourceTraceListRequest, "pageSize" | "cursor">
 > = core.serialization.object({
     filter: TraceFilter.optional(),
     providerProjectId: core.serialization.property("provider_project_id", core.serialization.string()),

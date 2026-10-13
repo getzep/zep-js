@@ -8,7 +8,7 @@ export interface AgentTraceSource {
     provider?: string;
     providerProjectId?: string;
     runUuid?: string;
-    scores?: Record<string, unknown>;
+    scores?: Record<string, number>;
     /** SourceChanged reports whether the provider trace changed after import. */
     sourceChanged?: boolean;
     sourceRevision?: string;

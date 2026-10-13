@@ -2,6 +2,7 @@
 
 export const NodeListRequestOrderBy = {
     Uuid: "uuid",
+    CreatedAt: "created_at",
     Degree: "degree",
 } as const;
 export type NodeListRequestOrderBy = (typeof NodeListRequestOrderBy)[keyof typeof NodeListRequestOrderBy];

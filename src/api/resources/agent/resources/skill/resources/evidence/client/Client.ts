@@ -53,9 +53,9 @@ export class EvidenceClient {
             async (
                 request: Zep.agent.skill.EvidenceListRequest,
             ): Promise<core.WithRawResponse<Zep.Pagev4AgentSkillEvidence>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

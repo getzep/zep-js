@@ -23,7 +23,14 @@ export interface User {
     metadata?: Record<string, unknown>;
     /** The user's IANA time zone, used to localize dates in generated context. */
     timeZone?: string;
-    /** The developer-assigned identifier of the user. */
+    /**
+     * An optional external identity identifier, such as an identity-provider
+     * subject claim. Zep uses it to match an identity-provider sign-in to this
+     * user. It is not an address; use uuid to address the user in v4. It is
+     * unique within the project, can contain at most 500 characters, and
+     * cannot be changed after creation. v4 sets it on create; v3 users keep
+     * their existing value.
+     */
     userId?: string;
     /** The unique identifier of the user. */
     uuid?: string;
