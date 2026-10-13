@@ -42,6 +42,11 @@ export interface Node {
     score?: number;
     /** A generated summary of the entity that the node represents. */
     summary?: string;
+    /**
+     * The unique identifier of the user that owns the graph. Present only when
+     * the graph is a user graph.
+     */
+    userUuid?: string;
     /** The node UUID, assigned by Zep. */
     uuid?: string;
 }

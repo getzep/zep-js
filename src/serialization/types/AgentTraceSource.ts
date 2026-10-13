@@ -13,7 +13,7 @@ export const AgentTraceSource: core.serialization.ObjectSchema<serializers.Agent
         provider: core.serialization.string().optional(),
         providerProjectId: core.serialization.property("provider_project_id", core.serialization.string().optional()),
         runUuid: core.serialization.property("run_uuid", core.serialization.string().optional()),
-        scores: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+        scores: core.serialization.record(core.serialization.string(), core.serialization.number()).optional(),
         sourceChanged: core.serialization.property("source_changed", core.serialization.boolean().optional()),
         sourceRevision: core.serialization.property("source_revision", core.serialization.string().optional()),
         sourceUrl: core.serialization.property("source_url", core.serialization.string().optional()),
@@ -31,7 +31,7 @@ export declare namespace AgentTraceSource {
         provider?: string | null;
         provider_project_id?: string | null;
         run_uuid?: string | null;
-        scores?: Record<string, unknown> | null;
+        scores?: Record<string, number> | null;
         source_changed?: boolean | null;
         source_revision?: string | null;
         source_url?: string | null;

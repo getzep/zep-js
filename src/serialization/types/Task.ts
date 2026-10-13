@@ -5,15 +5,17 @@ import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { ErrorBody } from "./ErrorBody.js";
 import { TaskProgress } from "./TaskProgress.js";
+import { TaskResult } from "./TaskResult.js";
+import { TaskStatus } from "./TaskStatus.js";
 
 export const Task: core.serialization.ObjectSchema<serializers.Task.Raw, Zep.Task> = core.serialization.object({
     completedAt: core.serialization.property("completed_at", core.serialization.string().optional()),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     error: ErrorBody.optional(),
     progress: TaskProgress.optional(),
-    result: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    result: TaskResult.optional(),
     startedAt: core.serialization.property("started_at", core.serialization.string().optional()),
-    status: core.serialization.string().optional(),
+    status: TaskStatus.optional(),
     type: core.serialization.string().optional(),
     updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
@@ -25,9 +27,9 @@ export declare namespace Task {
         created_at?: string | null;
         error?: ErrorBody.Raw | null;
         progress?: TaskProgress.Raw | null;
-        result?: Record<string, unknown> | null;
+        result?: TaskResult.Raw | null;
         started_at?: string | null;
-        status?: string | null;
+        status?: TaskStatus.Raw | null;
         type?: string | null;
         updated_at?: string | null;
         uuid?: string | null;

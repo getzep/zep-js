@@ -174,9 +174,9 @@ export class UserClient {
     ): Promise<core.Page<Zep.User, Zep.UserPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserListRequest): Promise<core.WithRawResponse<Zep.UserPage>> => {
-                const { limit, cursor, orderBy, order, ..._body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null

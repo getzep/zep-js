@@ -6,6 +6,7 @@ import type * as serializers from "../../../../../../index.js";
 import { TraceImportSchedule } from "../../../../../../types/TraceImportSchedule.js";
 import { TraceImportSelection } from "../../../../../../types/TraceImportSelection.js";
 import { TraceMapping } from "../../../../../../types/TraceMapping.js";
+import { UpdateTraceImportRequestOnSourceChange } from "../../types/UpdateTraceImportRequestOnSourceChange.js";
 
 export const UpdateTraceImportRequest: core.serialization.Schema<
     serializers.agent.UpdateTraceImportRequest.Raw,
@@ -15,7 +16,7 @@ export const UpdateTraceImportRequest: core.serialization.Schema<
     learnFrom: core.serialization.property("learn_from", core.serialization.boolean().optional()),
     mapping: TraceMapping.optional(),
     name: core.serialization.string().optional(),
-    onSourceChange: core.serialization.property("on_source_change", core.serialization.string().optional()),
+    onSourceChange: core.serialization.property("on_source_change", UpdateTraceImportRequestOnSourceChange.optional()),
     requireReview: core.serialization.property("require_review", core.serialization.boolean().optional()),
     schedule: TraceImportSchedule.optional(),
     selection: TraceImportSelection.optional(),
@@ -27,7 +28,7 @@ export declare namespace UpdateTraceImportRequest {
         learn_from?: boolean | null;
         mapping?: TraceMapping.Raw | null;
         name?: string | null;
-        on_source_change?: string | null;
+        on_source_change?: UpdateTraceImportRequestOnSourceChange.Raw | null;
         require_review?: boolean | null;
         schedule?: TraceImportSchedule.Raw | null;
         selection?: TraceImportSelection.Raw | null;

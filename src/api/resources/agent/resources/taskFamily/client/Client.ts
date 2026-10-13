@@ -55,9 +55,9 @@ export class TaskFamilyClient {
             async (
                 request: Zep.agent.TaskFamilyListRequest,
             ): Promise<core.WithRawResponse<Zep.AgentTaskFamilyDescriptorPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

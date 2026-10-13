@@ -7,7 +7,7 @@ import { AgentStatus } from "../../../../types/AgentStatus.js";
 
 export const AgentListRequest: core.serialization.Schema<
     serializers.AgentListRequest.Raw,
-    Omit<Zep.AgentListRequest, "limit" | "cursor" | "orderBy" | "order">
+    Omit<Zep.AgentListRequest, "pageSize" | "cursor" | "orderBy" | "order">
 > = core.serialization.object({
     agentId: core.serialization.property("agent_id", core.serialization.string().optional()),
     deploymentId: core.serialization.property("deployment_id", core.serialization.string().optional()),

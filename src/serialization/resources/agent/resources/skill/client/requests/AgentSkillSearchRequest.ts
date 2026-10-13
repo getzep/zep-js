@@ -7,7 +7,7 @@ import { AgentSkillSearchRequestMarkdownFormat } from "../../types/AgentSkillSea
 
 export const AgentSkillSearchRequest: core.serialization.Schema<
     serializers.agent.AgentSkillSearchRequest.Raw,
-    Omit<Zep.agent.AgentSkillSearchRequest, "limit" | "cursor">
+    Omit<Zep.agent.AgentSkillSearchRequest, "pageSize" | "cursor">
 > = core.serialization.object({
     environments: core.serialization.list(core.serialization.string()).optional(),
     includeMarkdown: core.serialization.property("include_markdown", core.serialization.boolean().optional()),

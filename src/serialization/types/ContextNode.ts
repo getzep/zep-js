@@ -21,6 +21,7 @@ export const ContextNode: core.serialization.ObjectSchema<serializers.ContextNod
         score: core.serialization.number().optional(),
         selectionRank: core.serialization.property("selection_rank", core.serialization.number().optional()),
         summary: core.serialization.string().optional(),
+        userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
     });
 
@@ -38,6 +39,7 @@ export declare namespace ContextNode {
         score?: number | null;
         selection_rank?: number | null;
         summary?: string | null;
+        user_uuid?: string | null;
         uuid?: string | null;
     }
 }

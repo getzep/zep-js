@@ -10,7 +10,7 @@ export interface SkillDefinition {
     doneWhen?: string[];
     environments?: Zep.SkillResource[];
     failures?: Zep.SkillFailure[];
-    kind?: string;
+    kind?: Zep.SkillKind;
     name?: string;
     outputs?: string[];
     packageName?: string;

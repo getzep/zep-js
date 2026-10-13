@@ -3,12 +3,13 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { LookupItemResourceType } from "./LookupItemResourceType.js";
 
 export const LookupItem: core.serialization.ObjectSchema<serializers.LookupItem.Raw, Zep.LookupItem> =
     core.serialization.object({
         found: core.serialization.boolean().optional(),
         legacyId: core.serialization.property("legacy_id", core.serialization.string().optional()),
-        resourceType: core.serialization.property("resource_type", core.serialization.string().optional()),
+        resourceType: core.serialization.property("resource_type", LookupItemResourceType.optional()),
         uuid: core.serialization.string().optional(),
     });
 
@@ -16,7 +17,7 @@ export declare namespace LookupItem {
     export interface Raw {
         found?: boolean | null;
         legacy_id?: string | null;
-        resource_type?: string | null;
+        resource_type?: LookupItemResourceType.Raw | null;
         uuid?: string | null;
     }
 }

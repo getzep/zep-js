@@ -26,7 +26,12 @@ export class DocumentSummaryClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * Lists the document summaries of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+     * You can sort by `uuid` or `created_at`. The default sort is `uuid` in descending order.
+     * You cannot use these `filters` fields: `episode_uuids`, `connected_node_uuids`, `source_node_uuids`, `target_node_uuids`, and `content_policy_violated`.
+     * If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+     *
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.DocumentSummaryListRequest} request
      * @param {DocumentSummaryClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -39,23 +44,35 @@ export class DocumentSummaryClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.documentSummary.list("graph_uuid", {
-     *         body: {}
-     *     })
+     *     await client.graph.documentSummary.list("graph_uuid")
      */
     public async list(
         graph_uuid: string,
-        request: Zep.graph.DocumentSummaryListRequest,
+        request: Zep.graph.DocumentSummaryListRequest = {},
         requestOptions?: DocumentSummaryClient.RequestOptions,
     ): Promise<core.Page<Zep.DocumentSummary, Zep.DocumentSummaryPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (
                 request: Zep.graph.DocumentSummaryListRequest,
             ): Promise<core.WithRawResponse<Zep.DocumentSummaryPage>> => {
-                const { limit, cursor, body: _body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
+                    order_by:
+                        orderBy != null
+                            ? serializers.graph.DocumentSummaryListRequestOrderBy.jsonOrThrow(orderBy, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    order:
+                        order != null
+                            ? serializers.graph.DocumentSummaryListRequestOrder.jsonOrThrow(order, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -81,7 +98,7 @@ export class DocumentSummaryClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.ArtifactListRequest.jsonOrThrow(_body, {
+                        serializers.graph.DocumentSummaryListRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),

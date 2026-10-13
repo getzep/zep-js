@@ -5,6 +5,7 @@ import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { SkillDefinitionSection } from "./SkillDefinitionSection.js";
 import { SkillFailure } from "./SkillFailure.js";
+import { SkillKind } from "./SkillKind.js";
 import { SkillProcedureStep } from "./SkillProcedureStep.js";
 import { SkillRelation } from "./SkillRelation.js";
 import { SkillResource } from "./SkillResource.js";
@@ -27,7 +28,7 @@ export const SkillDefinition: core.serialization.ObjectSchema<serializers.SkillD
         ),
         environments: core.serialization.list(SkillResource).optional(),
         failures: core.serialization.list(SkillFailure).optional(),
-        kind: core.serialization.string().optional(),
+        kind: SkillKind.optional(),
         name: core.serialization.string().optional(),
         outputs: core.serialization.list(core.serialization.string()).optional(),
         packageName: core.serialization.property("package_name", core.serialization.string().optional()),
@@ -56,7 +57,7 @@ export declare namespace SkillDefinition {
         done_when?: string[] | null;
         environments?: SkillResource.Raw[] | null;
         failures?: SkillFailure.Raw[] | null;
-        kind?: string | null;
+        kind?: SkillKind.Raw | null;
         name?: string | null;
         outputs?: string[] | null;
         package_name?: string | null;

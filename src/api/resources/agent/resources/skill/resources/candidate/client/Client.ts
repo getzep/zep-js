@@ -51,9 +51,9 @@ export class CandidateClient {
             async (
                 request: Zep.agent.skill.CandidateListRequest,
             ): Promise<core.WithRawResponse<Zep.Pagev4AgentSkillCandidateReviewSummary>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

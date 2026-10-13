@@ -8,7 +8,7 @@ import { NeighborsRequestDirection } from "../../types/NeighborsRequestDirection
 
 export const NeighborsRequest: core.serialization.Schema<
     serializers.graph.NeighborsRequest.Raw,
-    Omit<Zep.graph.NeighborsRequest, "limit" | "cursor" | "orderBy" | "order">
+    Omit<Zep.graph.NeighborsRequest, "pageSize" | "cursor" | "orderBy" | "order">
 > = core.serialization.object({
     direction: NeighborsRequestDirection.optional(),
     filters: SearchFilters.optional(),

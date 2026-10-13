@@ -2,11 +2,15 @@
 
 export interface TraceImportSchedule {
     /** IntervalHours is the scheduled run interval. */
-    intervalHours?: number;
-    /** MaxOpenHours is the maximum wait for an open trace. */
+    intervalHours: number;
+    /** MaxOpenHours is the maximum wait for an open trace. The value must be 1 to 168 hours. The default is 24 hours. */
     maxOpenHours?: number;
-    /** SettleMinutes is the wait time for trace updates. */
+    /** SettleMinutes is the wait time for trace updates. The value must be 0 to 1,440 minutes. The default is 60 minutes. */
     settleMinutes?: number;
-    /** StartFrom selects the initial history window. */
-    startFrom?: string;
+    /**
+     * StartFrom is the earliest trace start time that scheduled runs import.
+     * The value is "now", which is the time when the import was created, or an
+     * RFC 3339 timestamp.
+     */
+    startFrom: string;
 }

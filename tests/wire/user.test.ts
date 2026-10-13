@@ -319,6 +319,7 @@ describe("UserClient", () => {
             relevance: 1.1,
             score: 1.1,
             summary: "summary",
+            user_uuid: "user_uuid",
             uuid: "uuid",
         };
 
@@ -345,6 +346,7 @@ describe("UserClient", () => {
             relevance: 1.1,
             score: 1.1,
             summary: "summary",
+            userUuid: "user_uuid",
             uuid: "uuid",
         });
     });

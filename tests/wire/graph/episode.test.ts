@@ -33,6 +33,7 @@ describe("EpisodeClient", () => {
                     source: "text",
                     source_description: "source_description",
                     thread_uuid: "thread_uuid",
+                    user_uuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
@@ -74,6 +75,7 @@ describe("EpisodeClient", () => {
                     source: "text",
                     sourceDescription: "source_description",
                     threadUuid: "thread_uuid",
+                    userUuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
@@ -211,6 +213,7 @@ describe("EpisodeClient", () => {
                     source: "text",
                     source_description: "source_description",
                     thread_uuid: "thread_uuid",
+                    user_uuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
@@ -253,15 +256,14 @@ describe("EpisodeClient", () => {
                     source: "text",
                     sourceDescription: "source_description",
                     threadUuid: "thread_uuid",
+                    userUuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.graph.episode.list("graph_uuid", {
-            body: {},
-        });
+        const page = await client.graph.episode.list("graph_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -285,9 +287,7 @@ describe("EpisodeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.episode.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.episode.list("graph_uuid");
         }).rejects.toThrow(Zep.BadRequestError);
     });
 
@@ -307,9 +307,7 @@ describe("EpisodeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.episode.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.episode.list("graph_uuid");
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
 
@@ -329,9 +327,7 @@ describe("EpisodeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.episode.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.episode.list("graph_uuid");
         }).rejects.toThrow(Zep.ForbiddenError);
     });
 
@@ -351,9 +347,7 @@ describe("EpisodeClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.episode.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.episode.list("graph_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -384,6 +378,7 @@ describe("EpisodeClient", () => {
             source: "text",
             source_description: "source_description",
             thread_uuid: "thread_uuid",
+            user_uuid: "user_uuid",
             uuid: "uuid",
         };
 
@@ -421,6 +416,7 @@ describe("EpisodeClient", () => {
             source: "text",
             sourceDescription: "source_description",
             threadUuid: "thread_uuid",
+            userUuid: "user_uuid",
             uuid: "uuid",
         });
     });

@@ -9,8 +9,8 @@ import type * as Zep from "../../../../../../index.js";
  *     }
  */
 export interface SourceTraceListRequest {
-    /** Page size from 1 to 100; default 25 */
-    limit?: number;
+    /** The maximum number of items in one page. The SDK method returns a pager. In Python, `.items` holds only the first page. In TypeScript, `.data` holds only the first page. To read every page, iterate the pager: use `for` or `list(...)` in Python, or `for await` in TypeScript. In Go, the method returns one page, and `Iterator()` reads all pages. */
+    pageSize?: number;
     /** Opaque page cursor */
     cursor?: string;
     /** Filter contains provider trace filters. Example: {"started_after":"2026-01-01T00:00:00Z"}. */

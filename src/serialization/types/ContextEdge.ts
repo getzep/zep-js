@@ -34,6 +34,7 @@ export const ContextEdge: core.serialization.ObjectSchema<serializers.ContextEdg
         ),
         targetNodeName: core.serialization.property("target_node_name", core.serialization.string().optional()),
         targetNodeUuid: core.serialization.property("target_node_uuid", core.serialization.string().optional()),
+        userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
         validAt: core.serialization.property("valid_at", core.serialization.string().optional()),
     });
@@ -59,6 +60,7 @@ export declare namespace ContextEdge {
         target_node_labels?: string[] | null;
         target_node_name?: string | null;
         target_node_uuid?: string | null;
+        user_uuid?: string | null;
         uuid?: string | null;
         valid_at?: string | null;
     }

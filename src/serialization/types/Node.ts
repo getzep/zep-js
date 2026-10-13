@@ -16,6 +16,7 @@ export const Node: core.serialization.ObjectSchema<serializers.Node.Raw, Zep.Nod
     relevance: core.serialization.number().optional(),
     score: core.serialization.number().optional(),
     summary: core.serialization.string().optional(),
+    userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
     uuid: core.serialization.string().optional(),
 });
 
@@ -32,6 +33,7 @@ export declare namespace Node {
         relevance?: number | null;
         score?: number | null;
         summary?: string | null;
+        user_uuid?: string | null;
         uuid?: string | null;
     }
 }

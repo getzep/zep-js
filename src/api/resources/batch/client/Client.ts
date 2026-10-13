@@ -46,9 +46,9 @@ export class BatchClient {
     ): Promise<core.Page<Zep.Batch, Zep.BatchPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.BatchListRequest): Promise<core.WithRawResponse<Zep.BatchPage>> => {
-                const { limit, cursor, status } = request;
+                const { pageSize, cursor, status } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     status:
                         status != null
@@ -518,9 +518,9 @@ export class BatchClient {
     ): Promise<core.Page<Zep.BatchItem, Zep.BatchItemPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.BatchListItemsRequest): Promise<core.WithRawResponse<Zep.BatchItemPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

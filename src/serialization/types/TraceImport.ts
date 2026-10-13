@@ -3,6 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { TraceImportOnSourceChange } from "./TraceImportOnSourceChange.js";
 import { TraceImportPauseReason } from "./TraceImportPauseReason.js";
 import { TraceImportProvider } from "./TraceImportProvider.js";
 import { TraceImportRunReference } from "./TraceImportRunReference.js";
@@ -21,7 +22,7 @@ export const TraceImport: core.serialization.ObjectSchema<serializers.TraceImpor
         mapping: TraceMapping.optional(),
         name: core.serialization.string().optional(),
         nextRunAt: core.serialization.property("next_run_at", core.serialization.string().optional()),
-        onSourceChange: core.serialization.property("on_source_change", core.serialization.string().optional()),
+        onSourceChange: core.serialization.property("on_source_change", TraceImportOnSourceChange.optional()),
         pauseReason: core.serialization.property("pause_reason", TraceImportPauseReason.optional()),
         provider: TraceImportProvider.optional(),
         providerOrganizationId: core.serialization.property(
@@ -53,7 +54,7 @@ export declare namespace TraceImport {
         mapping?: TraceMapping.Raw | null;
         name?: string | null;
         next_run_at?: string | null;
-        on_source_change?: string | null;
+        on_source_change?: TraceImportOnSourceChange.Raw | null;
         pause_reason?: TraceImportPauseReason.Raw | null;
         provider?: TraceImportProvider.Raw | null;
         provider_organization_id?: string | null;

@@ -21,6 +21,7 @@ describe("ObservationClient", () => {
                     relevance: 1.1,
                     score: 1.1,
                     summary: "summary",
+                    user_uuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
@@ -51,15 +52,14 @@ describe("ObservationClient", () => {
                     relevance: 1.1,
                     score: 1.1,
                     summary: "summary",
+                    userUuid: "user_uuid",
                     uuid: "uuid",
                 },
             ],
             nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.graph.observation.list("graph_uuid", {
-            body: {},
-        });
+        const page = await client.graph.observation.list("graph_uuid");
 
         expect(expected.items).toEqual(page.data);
         expect(page.hasNextPage()).toBe(true);
@@ -83,9 +83,7 @@ describe("ObservationClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.observation.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.observation.list("graph_uuid");
         }).rejects.toThrow(Zep.BadRequestError);
     });
 
@@ -105,9 +103,7 @@ describe("ObservationClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.observation.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.observation.list("graph_uuid");
         }).rejects.toThrow(Zep.UnauthorizedError);
     });
 
@@ -127,9 +123,7 @@ describe("ObservationClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.observation.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.observation.list("graph_uuid");
         }).rejects.toThrow(Zep.ForbiddenError);
     });
 
@@ -149,9 +143,7 @@ describe("ObservationClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.observation.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.observation.list("graph_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -171,9 +163,7 @@ describe("ObservationClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.graph.observation.list("graph_uuid", {
-                body: {},
-            });
+            return await client.graph.observation.list("graph_uuid");
         }).rejects.toThrow(Zep.ConflictError);
     });
 
@@ -191,6 +181,7 @@ describe("ObservationClient", () => {
             relevance: 1.1,
             score: 1.1,
             summary: "summary",
+            user_uuid: "user_uuid",
             uuid: "uuid",
         };
 
@@ -215,6 +206,7 @@ describe("ObservationClient", () => {
             relevance: 1.1,
             score: 1.1,
             summary: "summary",
+            userUuid: "user_uuid",
             uuid: "uuid",
         });
     });

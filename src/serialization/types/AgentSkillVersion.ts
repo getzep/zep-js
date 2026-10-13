@@ -3,13 +3,14 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { AgentSkillContract } from "./AgentSkillContract.js";
 import { SkillDefinition } from "./SkillDefinition.js";
 
 export const AgentSkillVersion: core.serialization.ObjectSchema<
     serializers.AgentSkillVersion.Raw,
     Zep.AgentSkillVersion
 > = core.serialization.object({
-    contract: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    contract: AgentSkillContract.optional(),
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
     definition: SkillDefinition.optional(),
     markdown: core.serialization.string().optional(),
@@ -19,7 +20,7 @@ export const AgentSkillVersion: core.serialization.ObjectSchema<
 
 export declare namespace AgentSkillVersion {
     export interface Raw {
-        contract?: Record<string, unknown> | null;
+        contract?: AgentSkillContract.Raw | null;
         created_at?: string | null;
         definition?: SkillDefinition.Raw | null;
         markdown?: string | null;

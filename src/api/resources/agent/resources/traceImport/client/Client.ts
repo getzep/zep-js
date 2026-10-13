@@ -60,9 +60,9 @@ export class TraceImportClient {
     ): Promise<core.Page<Zep.TraceImport, Zep.TraceImportPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.agent.TraceImportListRequest): Promise<core.WithRawResponse<Zep.TraceImportPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -169,7 +169,7 @@ export class TraceImportClient {
     }
 
     /**
-     * Create a scheduled import or queue a one-time import. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
+     * Create a scheduled import or queue a one-time import. A scheduled import returns HTTP 201 with `import`. A one-time import returns HTTP 202 with `import`, `run`, and `task`. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.CreateTraceImportRequest} request
@@ -191,7 +191,7 @@ export class TraceImportClient {
         agent_uuid: string,
         request: Zep.agent.CreateTraceImportRequest = {},
         requestOptions?: TraceImportClient.IdempotentRequestOptions,
-    ): core.HttpResponsePromise<Zep.TraceImport> {
+    ): core.HttpResponsePromise<Zep.TraceImportCreateResult> {
         return core.HttpResponsePromise.fromPromise(this.__create(agent_uuid, request, requestOptions));
     }
 
@@ -199,7 +199,7 @@ export class TraceImportClient {
         agent_uuid: string,
         request: Zep.agent.CreateTraceImportRequest = {},
         requestOptions?: TraceImportClient.IdempotentRequestOptions,
-    ): Promise<core.WithRawResponse<Zep.TraceImport>> {
+    ): Promise<core.WithRawResponse<Zep.TraceImportCreateResult>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             _authRequest.headers,
@@ -234,7 +234,7 @@ export class TraceImportClient {
         });
         if (_response.ok) {
             return {
-                data: serializers.TraceImport.parseOrThrow(_response.body, {
+                data: serializers.TraceImportCreateResult.parseOrThrow(_response.body, {
                     unrecognizedObjectKeys: "passthrough",
                     allowUnrecognizedUnionMembers: true,
                     allowUnrecognizedEnumValues: true,

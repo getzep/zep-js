@@ -207,9 +207,9 @@ export class TraceClient {
             async (
                 request: Zep.traceConnection.SourceTraceListRequest,
             ): Promise<core.WithRawResponse<Zep.SourceTracePage>> => {
-                const { limit, cursor, ..._body } = request;
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

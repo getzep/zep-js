@@ -59,9 +59,9 @@ export class TraceConnectionClient {
     ): Promise<core.Page<Zep.TraceConnection, Zep.TraceConnectionPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.TraceConnectionListRequest): Promise<core.WithRawResponse<Zep.TraceConnectionPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

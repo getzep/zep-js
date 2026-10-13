@@ -6,7 +6,7 @@ import type * as serializers from "../../../../index.js";
 
 export const UserListRequest: core.serialization.Schema<
     serializers.UserListRequest.Raw,
-    Omit<Zep.UserListRequest, "limit" | "cursor" | "orderBy" | "order">
+    Omit<Zep.UserListRequest, "pageSize" | "cursor" | "orderBy" | "order">
 > = core.serialization.object({
     search: core.serialization.string().optional(),
 });

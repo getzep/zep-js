@@ -3,6 +3,7 @@
 import type * as Zep from "../../../../../../../api/index.js";
 import * as core from "../../../../../../../core/index.js";
 import type * as serializers from "../../../../../../index.js";
+import { TraceImportOnSourceChange } from "../../../../../../types/TraceImportOnSourceChange.js";
 import { TraceImportSchedule } from "../../../../../../types/TraceImportSchedule.js";
 import { TraceImportSelection } from "../../../../../../types/TraceImportSelection.js";
 import { TraceMapping } from "../../../../../../types/TraceMapping.js";
@@ -15,7 +16,7 @@ export const CreateTraceImportRequest: core.serialization.Schema<
     learnFrom: core.serialization.property("learn_from", core.serialization.boolean().optional()),
     mapping: TraceMapping.optional(),
     name: core.serialization.string().optional(),
-    onSourceChange: core.serialization.property("on_source_change", core.serialization.string().optional()),
+    onSourceChange: core.serialization.property("on_source_change", TraceImportOnSourceChange.optional()),
     providerProjectId: core.serialization.property("provider_project_id", core.serialization.string().optional()),
     requireReview: core.serialization.property("require_review", core.serialization.boolean().optional()),
     schedule: TraceImportSchedule.optional(),
@@ -28,7 +29,7 @@ export declare namespace CreateTraceImportRequest {
         learn_from?: boolean | null;
         mapping?: TraceMapping.Raw | null;
         name?: string | null;
-        on_source_change?: string | null;
+        on_source_change?: TraceImportOnSourceChange.Raw | null;
         provider_project_id?: string | null;
         require_review?: boolean | null;
         schedule?: TraceImportSchedule.Raw | null;

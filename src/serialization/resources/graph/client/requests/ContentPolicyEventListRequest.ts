@@ -3,16 +3,17 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
+import { ContentPolicyEventListFilters } from "../../../../types/ContentPolicyEventListFilters.js";
 
 export const ContentPolicyEventListRequest: core.serialization.Schema<
     serializers.ContentPolicyEventListRequest.Raw,
-    Omit<Zep.ContentPolicyEventListRequest, "limit" | "cursor">
+    Omit<Zep.ContentPolicyEventListRequest, "pageSize" | "cursor">
 > = core.serialization.object({
-    filters: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
+    filters: ContentPolicyEventListFilters.optional(),
 });
 
 export declare namespace ContentPolicyEventListRequest {
     export interface Raw {
-        filters?: Record<string, unknown> | null;
+        filters?: ContentPolicyEventListFilters.Raw | null;
     }
 }

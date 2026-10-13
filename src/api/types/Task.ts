@@ -25,14 +25,14 @@ export interface Task {
      * Operation-specific output populated once the task reaches succeeded or
      * partial, such as identifiers the operation could not return synchronously.
      */
-    result?: Record<string, unknown>;
+    result?: Zep.TaskResult;
     /** The time a worker began processing the task; absent until then. */
     startedAt?: string;
     /**
      * The task's current state: pending, processing, succeeded, partial, or
      * failed.
      */
-    status?: string;
+    status?: Zep.TaskStatus;
     /** The kind of asynchronous operation the task represents. */
     type?: string;
     /** The time the task was last updated. */

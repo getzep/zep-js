@@ -195,9 +195,9 @@ export class UserGroupClient {
     ): Promise<core.Page<Zep.UserGroup, Zep.UserGroupPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserGroupListRequest): Promise<core.WithRawResponse<Zep.UserGroupPage>> => {
-                const { limit, cursor, body: _body } = request;
+                const { pageSize, cursor, body: _body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -735,9 +735,9 @@ export class UserGroupClient {
     ): Promise<core.Page<Zep.User, Zep.UserPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserGroupListMemberCandidatesRequest): Promise<core.WithRawResponse<Zep.UserPage>> => {
-                const { limit, cursor, body: _body } = request;
+                const { pageSize, cursor, body: _body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -1053,9 +1053,9 @@ export class UserGroupClient {
     ): Promise<core.Page<Zep.User, Zep.UserPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserGroupListMembersRequest): Promise<core.WithRawResponse<Zep.UserPage>> => {
-                const { limit, cursor, body: _body } = request;
+                const { pageSize, cursor, body: _body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -1491,9 +1491,9 @@ export class UserGroupClient {
     ): Promise<core.Page<Zep.UserGroup, Zep.UserGroupPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.UserGroupListForUserRequest): Promise<core.WithRawResponse<Zep.UserGroupPage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

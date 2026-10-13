@@ -52,9 +52,9 @@ export class ThreadClient {
     ): Promise<core.Page<Zep.Thread, Zep.ThreadPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.ThreadListRequest): Promise<core.WithRawResponse<Zep.ThreadPage>> => {
-                const { limit, cursor, orderBy, order, userUuid } = request;
+                const { pageSize, cursor, orderBy, order, userUuid } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null
@@ -798,9 +798,9 @@ export class ThreadClient {
     ): Promise<core.Page<Zep.Episode, Zep.EpisodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.ThreadListEpisodesRequest): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
-                const { limit, cursor } = request;
+                const { pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -949,9 +949,9 @@ export class ThreadClient {
     ): Promise<core.Page<Zep.Message, Zep.MessagePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.ThreadListMessagesRequest): Promise<core.WithRawResponse<Zep.MessagePage>> => {
-                const { limit, cursor, orderBy, order } = request;
+                const { pageSize, cursor, orderBy, order } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by: orderBy != null ? orderBy : undefined,
                     order:

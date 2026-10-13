@@ -6,7 +6,7 @@ import type * as serializers from "../../../../../../index.js";
 
 export const AgentSkillListRequest: core.serialization.Schema<
     serializers.agent.AgentSkillListRequest.Raw,
-    Omit<Zep.agent.AgentSkillListRequest, "limit" | "cursor">
+    Omit<Zep.agent.AgentSkillListRequest, "pageSize" | "cursor">
 > = core.serialization.object({
     environments: core.serialization.list(core.serialization.string()).optional(),
     kind: core.serialization.string().optional(),

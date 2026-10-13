@@ -16,10 +16,10 @@ export interface UpdateTraceImportRequest {
     /** Name is the new import name, when supplied. */
     name?: string;
     /** OnSourceChange is the new change policy, when supplied. */
-    onSourceChange?: string;
+    onSourceChange?: Zep.agent.UpdateTraceImportRequestOnSourceChange;
     /** RequireReview is the new review setting, when supplied. */
     requireReview?: boolean;
-    /** Schedule is the new schedule, when supplied. Example: {"interval_hours":4,"start_from":"24h","settle_minutes":5,"max_open_hours":24}. */
+    /** Schedule is the new schedule, when supplied. Example: {"interval_hours":4,"start_from":"now","settle_minutes":5,"max_open_hours":24}. */
     schedule?: Zep.TraceImportSchedule;
     /** Selection is the new selection, when supplied. Example: {"trace_ids":["trace_123"]}. */
     selection?: Zep.TraceImportSelection;

@@ -176,10 +176,10 @@ export class LearningClient {
             async (
                 request: Zep.agent.LearningListRunsRequest,
             ): Promise<core.WithRawResponse<Zep.Pagev4AgentSkillCompilationOutcome>> => {
-                const { taskFamily, limit, cursor } = request;
+                const { taskFamily, pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
                     task_family: taskFamily,
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

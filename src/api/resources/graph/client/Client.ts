@@ -229,9 +229,9 @@ export class GraphClient {
     ): Promise<core.Page<Zep.Graph, Zep.GraphPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.GraphListRequest): Promise<core.WithRawResponse<Zep.GraphPage>> => {
-                const { limit, cursor, orderBy, order, ..._body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null
@@ -484,7 +484,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -599,7 +599,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -730,7 +730,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.PatchGraphRequest} request
      * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -873,7 +873,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.CloneGraphRequest} request
      * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1020,7 +1020,7 @@ export class GraphClient {
     /**
      * Returns the content policy the graph bound at creation. The policy of a graph does not change after creation. A graph without a content policy returns revision 0 with no categories and no rules.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -1145,7 +1145,7 @@ export class GraphClient {
     /**
      * Lists the content policy decisions recorded for a graph, newest first. Each event carries identifiers only. A graph without a content policy returns an empty list.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.ContentPolicyEventListRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1168,9 +1168,9 @@ export class GraphClient {
             async (
                 request: Zep.ContentPolicyEventListRequest,
             ): Promise<core.WithRawResponse<Zep.ContentPolicyEventPage>> => {
-                const { limit, cursor, ..._body } = request;
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -1298,7 +1298,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.GraphContextRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1443,7 +1443,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -1554,7 +1554,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.Instructions} request
      * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1675,7 +1675,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -1786,7 +1786,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.ObservationSteering} request
      * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1910,7 +1910,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -2016,7 +2016,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.Ontology} request
      * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -2134,7 +2134,7 @@ export class GraphClient {
     /**
      * Edge search does not support node_labels or exclude_node_labels. An edge has two nodes, so a node label filter is not defined for edge search. To filter edges by node label, use graph.edge.list, graph.node.list_neighbors, or graph.get_subgraph. To search the edges of nodes that have a label, do these two steps. First, call graph.search_nodes with node_labels. Then, call graph.search_edges with connected_node_uuids set to the UUIDs of the returned nodes.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.SearchEdgesRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -2157,9 +2157,9 @@ export class GraphClient {
     ): Promise<core.Page<Zep.Edge, Zep.EdgePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.SearchEdgesRequest): Promise<core.WithRawResponse<Zep.EdgePage>> => {
-                const { limit, cursor, ..._body } = request;
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -2287,8 +2287,8 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
-     * @param {Zep.GraphSearchEpisodesRequest} request
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
+     * @param {Zep.SearchEpisodesRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -2300,21 +2300,19 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchEpisodes("graph_uuid", {
-     *         body: {
-     *             query: "query"
-     *         }
+     *         query: "query"
      *     })
      */
     public async searchEpisodes(
         graph_uuid: string,
-        request: Zep.GraphSearchEpisodesRequest,
+        request: Zep.SearchEpisodesRequest,
         requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Episode, Zep.EpisodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (request: Zep.GraphSearchEpisodesRequest): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
-                const { limit, cursor, body: _body } = request;
+            async (request: Zep.SearchEpisodesRequest): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -2341,7 +2339,7 @@ export class GraphClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.SearchRequest.jsonOrThrow(_body, {
+                        serializers.SearchEpisodesRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -2444,7 +2442,7 @@ export class GraphClient {
     /**
      * Node search does not support edge_types, exclude_edge_types, edge_uuids, connected_node_uuids, source_node_uuids, or target_node_uuids. These filters select edges. To get the nodes that an edge connects, use graph.search_edges or graph.node.list_neighbors.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.SearchNodesRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -2467,9 +2465,9 @@ export class GraphClient {
     ): Promise<core.Page<Zep.Node, Zep.NodePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.SearchNodesRequest): Promise<core.WithRawResponse<Zep.NodePage>> => {
-                const { limit, cursor, ..._body } = request;
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -2597,8 +2595,8 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
-     * @param {Zep.GraphSearchObservationsRequest} request
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
+     * @param {Zep.SearchObservationsRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -2610,21 +2608,19 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchObservations("graph_uuid", {
-     *         body: {
-     *             query: "query"
-     *         }
+     *         query: "query"
      *     })
      */
     public async searchObservations(
         graph_uuid: string,
-        request: Zep.GraphSearchObservationsRequest,
+        request: Zep.SearchObservationsRequest,
         requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.Observation, Zep.ObservationPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (request: Zep.GraphSearchObservationsRequest): Promise<core.WithRawResponse<Zep.ObservationPage>> => {
-                const { limit, cursor, body: _body } = request;
+            async (request: Zep.SearchObservationsRequest): Promise<core.WithRawResponse<Zep.ObservationPage>> => {
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -2651,7 +2647,7 @@ export class GraphClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.SearchRequest.jsonOrThrow(_body, {
+                        serializers.SearchObservationsRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -2752,8 +2748,8 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
-     * @param {Zep.GraphSearchThreadSummariesRequest} request
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
+     * @param {Zep.SearchThreadSummariesRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
@@ -2765,23 +2761,19 @@ export class GraphClient {
      *
      * @example
      *     await client.graph.searchThreadSummaries("graph_uuid", {
-     *         body: {
-     *             query: "query"
-     *         }
+     *         query: "query"
      *     })
      */
     public async searchThreadSummaries(
         graph_uuid: string,
-        request: Zep.GraphSearchThreadSummariesRequest,
+        request: Zep.SearchThreadSummariesRequest,
         requestOptions?: GraphClient.RequestOptions,
     ): Promise<core.Page<Zep.ThreadSummary, Zep.ThreadSummaryPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
-            async (
-                request: Zep.GraphSearchThreadSummariesRequest,
-            ): Promise<core.WithRawResponse<Zep.ThreadSummaryPage>> => {
-                const { limit, cursor, body: _body } = request;
+            async (request: Zep.SearchThreadSummariesRequest): Promise<core.WithRawResponse<Zep.ThreadSummaryPage>> => {
+                const { pageSize, cursor, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -2808,7 +2800,7 @@ export class GraphClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.SearchRequest.jsonOrThrow(_body, {
+                        serializers.SearchThreadSummariesRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -2909,7 +2901,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.SubgraphRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -3047,7 +3039,7 @@ export class GraphClient {
     }
 
     /**
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}

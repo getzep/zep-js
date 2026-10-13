@@ -5,8 +5,8 @@
  *     {}
  */
 export interface TraceImportListRequest {
-    /** Page size */
-    limit?: number;
+    /** The maximum number of items in one page. The SDK method returns a pager. In Python, `.items` holds only the first page. In TypeScript, `.data` holds only the first page. To read every page, iterate the pager: use `for` or `list(...)` in Python, or `for await` in TypeScript. In Go, the method returns one page, and `Iterator()` reads all pages. */
+    pageSize?: number;
     /** Opaque page cursor */
     cursor?: string;
 }

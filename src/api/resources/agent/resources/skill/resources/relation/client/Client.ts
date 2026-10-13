@@ -53,7 +53,7 @@ export class RelationClient {
             async (
                 request: Zep.agent.skill.RelationListRequest,
             ): Promise<core.WithRawResponse<Zep.Pagev4AgentSkillRelationship>> => {
-                const { kind, limit, cursor } = request;
+                const { kind, pageSize, cursor } = request;
                 const _queryParams: Record<string, unknown> = {
                     kind: Array.isArray(kind)
                         ? kind.map((item) =>
@@ -68,7 +68,7 @@ export class RelationClient {
                                 omitUndefined: true,
                             })
                           : undefined,
-                    limit,
+                    page_size: pageSize,
                     cursor,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();

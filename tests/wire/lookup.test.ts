@@ -10,7 +10,7 @@ describe("LookupClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = {
-            items: [{ found: true, legacy_id: "legacy_id", resource_type: "resource_type", uuid: "uuid" }],
+            items: [{ found: true, legacy_id: "legacy_id", resource_type: "user", uuid: "uuid" }],
         };
 
         server
@@ -28,7 +28,7 @@ describe("LookupClient", () => {
                 {
                     found: true,
                     legacyId: "legacy_id",
-                    resourceType: "resource_type",
+                    resourceType: "user",
                     uuid: "uuid",
                 },
             ],

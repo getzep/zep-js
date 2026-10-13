@@ -7,5 +7,5 @@ export interface AgentTraceEventContext {
     environments?: Zep.AgentTraceResourceRef[];
     model?: Zep.AgentTraceResourceRef;
     tools?: Zep.AgentTraceResourceRef[];
-    verification?: string;
+    verification?: Zep.AgentTraceVerification;
 }

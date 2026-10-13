@@ -39,7 +39,7 @@ export class HyperedgeClient {
      * identifier and every member edge identifier at accept time, and the
      * members become readable when the task completes.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.AddHyperedgeRequest} request
      * @param {HyperedgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -187,7 +187,7 @@ export class HyperedgeClient {
      * episode_uuids: a hyperedge matches a list when any of its members does,
      * and must match every list supplied.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.HyperedgeListRequest} request
      * @param {HyperedgeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -200,20 +200,18 @@ export class HyperedgeClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.graph.hyperedge.list("graph_uuid", {
-     *         body: {}
-     *     })
+     *     await client.graph.hyperedge.list("graph_uuid")
      */
     public async list(
         graph_uuid: string,
-        request: Zep.graph.HyperedgeListRequest,
+        request: Zep.graph.HyperedgeListRequest = {},
         requestOptions?: HyperedgeClient.RequestOptions,
     ): Promise<core.Page<Zep.Hyperedge, Zep.HyperedgePage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.graph.HyperedgeListRequest): Promise<core.WithRawResponse<Zep.HyperedgePage>> => {
-                const { limit, cursor, orderBy, order, body: _body } = request;
+                const { pageSize, cursor, orderBy, order, ..._body } = request;
                 const _queryParams: Record<string, unknown> = {
-                    limit,
+                    page_size: pageSize,
                     cursor,
                     order_by:
                         orderBy != null
@@ -254,7 +252,7 @@ export class HyperedgeClient {
                         .build(),
                     requestType: "json",
                     body: mergeAdditionalBodyParameters(
-                        serializers.ArtifactListRequest.jsonOrThrow(_body, {
+                        serializers.graph.HyperedgeListRequest.jsonOrThrow(_body, {
                             unrecognizedObjectKeys: "strip",
                             omitUndefined: true,
                         }),
@@ -370,7 +368,7 @@ export class HyperedgeClient {
      * validity timestamps are shared by every member and are reported on the
      * hyperedge; each member reports only its own name and endpoints.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} hyperedge_uuid - Hyperedge UUID
      * @param {HyperedgeClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -499,7 +497,7 @@ export class HyperedgeClient {
      * Deletes every member edge of the hyperedge. After the task completes the
      * hyperedge and each of its members are gone.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} hyperedge_uuid - Hyperedge UUID
      * @param {HyperedgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -633,7 +631,7 @@ export class HyperedgeClient {
      * create_edge and delete_edge. Updating fact on one member through
      * graph.edge.update cascades the same way.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} hyperedge_uuid - Hyperedge UUID
      * @param {Zep.graph.PatchHyperedgeRequest} request
      * @param {HyperedgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -788,7 +786,7 @@ export class HyperedgeClient {
      * hyperedge's fact and timestamps and joins its episodes, so only its own
      * name and node pair are supplied.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} hyperedge_uuid - Hyperedge UUID
      * @param {Zep.graph.AddHyperedgeEdgeRequest} request
      * @param {HyperedgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -936,7 +934,7 @@ export class HyperedgeClient {
      * Removes one member edge from the hyperedge. The remaining members stay in
      * the hyperedge, and deleting the last member removes the hyperedge itself.
      *
-     * @param {string} graph_uuid - Graph UUID
+     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} hyperedge_uuid - Hyperedge UUID
      * @param {string} edge_uuid - Edge UUID
      * @param {HyperedgeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
