@@ -4,16 +4,19 @@ import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { BatchItem } from "./BatchItem.js";
+import { RejectedBatchItem } from "./RejectedBatchItem.js";
 
 export const BatchItemsResponse: core.serialization.ObjectSchema<
     serializers.BatchItemsResponse.Raw,
     Zep.BatchItemsResponse
 > = core.serialization.object({
     items: core.serialization.list(BatchItem).optional(),
+    rejectedItems: core.serialization.property("rejected_items", core.serialization.list(RejectedBatchItem).optional()),
 });
 
 export declare namespace BatchItemsResponse {
     export interface Raw {
         items?: BatchItem.Raw[] | null;
+        rejected_items?: RejectedBatchItem.Raw[] | null;
     }
 }

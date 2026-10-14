@@ -14,10 +14,6 @@ export const EdgeSearchFilters: core.serialization.ObjectSchema<
         "connected_node_uuids",
         core.serialization.list(core.serialization.string()).optional(),
     ),
-    contentPolicyViolated: core.serialization.property(
-        "content_policy_violated",
-        core.serialization.boolean().optional(),
-    ),
     dateFilters: core.serialization.property("date_filters", DateFilters.optional()),
     edgeTypes: core.serialization.property(
         "edge_types",
@@ -56,7 +52,6 @@ export const EdgeSearchFilters: core.serialization.ObjectSchema<
 export declare namespace EdgeSearchFilters {
     export interface Raw {
         connected_node_uuids?: string[] | null;
-        content_policy_violated?: boolean | null;
         date_filters?: DateFilters.Raw | null;
         edge_types?: string[] | null;
         edge_uuids?: string[] | null;

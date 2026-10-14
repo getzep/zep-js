@@ -3,7 +3,7 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
-import { SearchFilters } from "../../../../types/SearchFilters.js";
+import { EpisodeSearchFilters } from "../../../../types/EpisodeSearchFilters.js";
 import { SearchEpisodesRequestReranker } from "../../types/SearchEpisodesRequestReranker.js";
 
 export const SearchEpisodesRequest: core.serialization.Schema<
@@ -20,7 +20,7 @@ export const SearchEpisodesRequest: core.serialization.Schema<
         "filter_low_quality_results",
         core.serialization.boolean().optional(),
     ),
-    filters: SearchFilters.optional(),
+    filters: EpisodeSearchFilters.optional(),
     mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
     reranker: SearchEpisodesRequestReranker.optional(),
 });
@@ -31,7 +31,7 @@ export declare namespace SearchEpisodesRequest {
         bfs_origin_node_uuids?: string[] | null;
         center_node_uuid?: string | null;
         filter_low_quality_results?: boolean | null;
-        filters?: SearchFilters.Raw | null;
+        filters?: EpisodeSearchFilters.Raw | null;
         mmr_lambda?: number | null;
         reranker?: SearchEpisodesRequestReranker.Raw | null;
     }

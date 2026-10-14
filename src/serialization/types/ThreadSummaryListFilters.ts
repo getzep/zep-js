@@ -10,71 +10,21 @@ export const ThreadSummaryListFilters: core.serialization.ObjectSchema<
     serializers.ThreadSummaryListFilters.Raw,
     Zep.ThreadSummaryListFilters
 > = core.serialization.object({
-    connectedNodeUuids: core.serialization.property(
-        "connected_node_uuids",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-    contentPolicyViolated: core.serialization.property(
-        "content_policy_violated",
-        core.serialization.boolean().optional(),
-    ),
     dateFilters: core.serialization.property("date_filters", DateFilters.optional()),
-    edgeTypes: core.serialization.property(
-        "edge_types",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-    edgeUuids: core.serialization.property(
-        "edge_uuids",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-    episodeUuids: core.serialization.property(
-        "episode_uuids",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-    excludeEdgeTypes: core.serialization.property(
-        "exclude_edge_types",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-    excludeNodeLabels: core.serialization.property(
-        "exclude_node_labels",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
     metadataFilters: core.serialization.property(
         "metadata_filters",
         core.serialization.lazyObject(() => serializers.MetadataFilterGroup).optional(),
-    ),
-    nodeLabels: core.serialization.property(
-        "node_labels",
-        core.serialization.list(core.serialization.string()).optional(),
     ),
     propertyFilters: core.serialization.property(
         "property_filters",
         core.serialization.list(PropertyFilter).optional(),
     ),
-    sourceNodeUuids: core.serialization.property(
-        "source_node_uuids",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
-    targetNodeUuids: core.serialization.property(
-        "target_node_uuids",
-        core.serialization.list(core.serialization.string()).optional(),
-    ),
 });
 
 export declare namespace ThreadSummaryListFilters {
     export interface Raw {
-        connected_node_uuids?: string[] | null;
-        content_policy_violated?: boolean | null;
         date_filters?: DateFilters.Raw | null;
-        edge_types?: string[] | null;
-        edge_uuids?: string[] | null;
-        episode_uuids?: string[] | null;
-        exclude_edge_types?: string[] | null;
-        exclude_node_labels?: string[] | null;
         metadata_filters?: serializers.MetadataFilterGroup.Raw | null;
-        node_labels?: string[] | null;
         property_filters?: PropertyFilter.Raw[] | null;
-        source_node_uuids?: string[] | null;
-        target_node_uuids?: string[] | null;
     }
 }

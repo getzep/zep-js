@@ -35,7 +35,7 @@ export interface SearchEpisodesRequest {
      */
     filterLowQualityResults?: boolean;
     /** Filters constraining which items are returned. */
-    filters?: Zep.SearchFilters;
+    filters?: Zep.EpisodeSearchFilters;
     /**
      * The diversity weighting used for maximal marginal relevance reranking.
      * Required when reranker is mmr.

@@ -35,7 +35,7 @@ export interface SearchObservationsRequest {
      */
     filterLowQualityResults?: boolean;
     /** Filters constraining which items are returned. */
-    filters?: Zep.SearchFilters;
+    filters?: Zep.ObservationSearchFilters;
     /**
      * The diversity weighting used for maximal marginal relevance reranking.
      * Required when reranker is mmr.
