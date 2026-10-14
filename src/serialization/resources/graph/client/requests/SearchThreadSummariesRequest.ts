@@ -3,7 +3,7 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
-import { SearchFilters } from "../../../../types/SearchFilters.js";
+import { ThreadSummarySearchFilters } from "../../../../types/ThreadSummarySearchFilters.js";
 import { SearchThreadSummariesRequestReranker } from "../../types/SearchThreadSummariesRequestReranker.js";
 
 export const SearchThreadSummariesRequest: core.serialization.Schema<
@@ -20,7 +20,7 @@ export const SearchThreadSummariesRequest: core.serialization.Schema<
         "filter_low_quality_results",
         core.serialization.boolean().optional(),
     ),
-    filters: SearchFilters.optional(),
+    filters: ThreadSummarySearchFilters.optional(),
     mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
     reranker: SearchThreadSummariesRequestReranker.optional(),
 });
@@ -31,7 +31,7 @@ export declare namespace SearchThreadSummariesRequest {
         bfs_origin_node_uuids?: string[] | null;
         center_node_uuid?: string | null;
         filter_low_quality_results?: boolean | null;
-        filters?: SearchFilters.Raw | null;
+        filters?: ThreadSummarySearchFilters.Raw | null;
         mmr_lambda?: number | null;
         reranker?: SearchThreadSummariesRequestReranker.Raw | null;
     }

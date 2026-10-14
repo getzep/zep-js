@@ -3,18 +3,12 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import * as serializers from "../index.js";
-import { DateFilters } from "./DateFilters.js";
 import { PropertyFilter } from "./PropertyFilter.js";
 
 export const NodeSearchFilters: core.serialization.ObjectSchema<
     serializers.NodeSearchFilters.Raw,
     Zep.NodeSearchFilters
 > = core.serialization.object({
-    contentPolicyViolated: core.serialization.property(
-        "content_policy_violated",
-        core.serialization.boolean().optional(),
-    ),
-    dateFilters: core.serialization.property("date_filters", DateFilters.optional()),
     episodeUuids: core.serialization.property(
         "episode_uuids",
         core.serialization.list(core.serialization.string()).optional(),
@@ -39,8 +33,6 @@ export const NodeSearchFilters: core.serialization.ObjectSchema<
 
 export declare namespace NodeSearchFilters {
     export interface Raw {
-        content_policy_violated?: boolean | null;
-        date_filters?: DateFilters.Raw | null;
         episode_uuids?: string[] | null;
         exclude_node_labels?: string[] | null;
         metadata_filters?: serializers.MetadataFilterGroup.Raw | null;

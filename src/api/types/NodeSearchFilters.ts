@@ -3,10 +3,6 @@
 import type * as Zep from "../index.js";
 
 export interface NodeSearchFilters {
-    /** Match episodes by their content-policy result. Supported only on episode search when the project setting include_policy_violating_episodes is true. */
-    contentPolicyViolated?: boolean;
-    /** Filter results by temporal values. */
-    dateFilters?: Zep.DateFilters;
     /** Include results derived from any of these episode UUIDs. */
     episodeUuids?: string[];
     /** Exclude results with any of these node labels. Edge search does not support this filter. */

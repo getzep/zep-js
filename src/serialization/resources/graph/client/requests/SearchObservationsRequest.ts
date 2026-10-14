@@ -3,7 +3,7 @@
 import type * as Zep from "../../../../../api/index.js";
 import * as core from "../../../../../core/index.js";
 import type * as serializers from "../../../../index.js";
-import { SearchFilters } from "../../../../types/SearchFilters.js";
+import { ObservationSearchFilters } from "../../../../types/ObservationSearchFilters.js";
 import { SearchObservationsRequestReranker } from "../../types/SearchObservationsRequestReranker.js";
 
 export const SearchObservationsRequest: core.serialization.Schema<
@@ -20,7 +20,7 @@ export const SearchObservationsRequest: core.serialization.Schema<
         "filter_low_quality_results",
         core.serialization.boolean().optional(),
     ),
-    filters: SearchFilters.optional(),
+    filters: ObservationSearchFilters.optional(),
     mmrLambda: core.serialization.property("mmr_lambda", core.serialization.number().optional()),
     reranker: SearchObservationsRequestReranker.optional(),
 });
@@ -31,7 +31,7 @@ export declare namespace SearchObservationsRequest {
         bfs_origin_node_uuids?: string[] | null;
         center_node_uuid?: string | null;
         filter_low_quality_results?: boolean | null;
-        filters?: SearchFilters.Raw | null;
+        filters?: ObservationSearchFilters.Raw | null;
         mmr_lambda?: number | null;
         reranker?: SearchObservationsRequestReranker.Raw | null;
     }
