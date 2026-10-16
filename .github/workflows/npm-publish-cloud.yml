@@ -50,5 +50,7 @@ jobs:
           if [ "$is_next" = "true" ]; then
             publish --tag preview
           else
-            publish
+            # v4 owns npm `latest`. A stable v3 publish without a dist-tag
+            # would take it, so stable v3 versions publish behind v3-latest.
+            publish --tag v3-latest
           fi
