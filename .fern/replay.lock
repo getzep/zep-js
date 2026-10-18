@@ -60,14 +60,20 @@ generations:
     cli_version: unknown
     generator_versions:
       fernapi/fern-typescript-sdk: 3.98.5
-current_generation: 4ad33ee1709d0edfd94310f2f22157d7d5fda6bf
+  - commit_sha: d841f73fc9d58c65226ad7e7f2708e3f3fbfae2c
+    tree_hash: 317f552ace5f52862f8e66c630f9e64d6dd910d6
+    timestamp: 2026-10-18T19:43:16.182Z
+    cli_version: unknown
+    generator_versions:
+      fernapi/fern-typescript-sdk: 3.98.5
+current_generation: d841f73fc9d58c65226ad7e7f2708e3f3fbfae2c
 patches:
   - id: patch-adf6a958
     content_hash: sha256:cfe8432673f4dc0678bcb502dde736bd7b1f83813cae3b3c93cfdd4d57048630
     original_commit: adf6a95804e473728c5f7ebe2b41a555a2852e48
     original_message: Fix the README (#222)
     original_author: Pavlo Paliychuk <paul@getzep.com>
-    base_generation: 4ad33ee1709d0edfd94310f2f22157d7d5fda6bf
+    base_generation: d841f73fc9d58c65226ad7e7f2708e3f3fbfae2c
     files:
       - README.md
     patch_content: |
