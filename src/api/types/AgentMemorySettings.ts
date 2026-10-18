@@ -3,28 +3,45 @@
 import type * as Zep from "../index.js";
 
 export interface AgentMemorySettings {
+    /** The developer lists the evaluations that each candidate must pass for its category. */
     admissionEvaluationRequirements?: Zep.AgentMemoryEvaluationPolicy[];
+    /** The developer sets the approval mode. Valid values are auto and manual. The default is auto. */
     approval?: Zep.AgentMemorySettingsApproval;
+    /**
+     * The developer sets the minimum number of distinct attempt families for admission. The range is
+     * 1 to 16, and the default is 1.
+     */
     approvalMinimumAttemptFamilies?: number;
     /**
-     * ApprovalRequiredTools lists the tool names that need a member approval in
-     * auto approval. A generated Skill that uses one of these tools waits for a
-     * member. The default is an empty list.
+     * The developer lists tool names that need member approval in auto approval. A generated Skill
+     * that uses one of these tools waits for a member. The list can contain up to 256 unique names,
+     * each at most 255 characters. The default is an empty list.
      */
     approvalRequiredTools?: string[];
+    /**
+     * The developer lists task-family slugs that use auto approval. An empty list applies auto
+     * approval to all task families.
+     */
     autoApprovalTaskFamilies?: string[];
+    /**
+     * The developer selects the compilation mode. Valid values are scheduled, manual, and on_close.
+     * The default is scheduled.
+     */
     compilationMode?: Zep.AgentMemorySettingsCompilationMode;
     /**
-     * ProvisionalExpiryDays is the period after which Zep retires a provisional
-     * Skill that no application used. When it is not set, provisional Skills do
-     * not expire.
+     * The developer sets how many days an unused provisional Skill can remain before the service
+     * retires it. The range is 1 to 3650 days. If omitted, provisional Skills do not expire.
      */
     provisionalExpiryDays?: number;
     /**
-     * ProvisionalSkillLimit is the maximum count of provisional Skills in one
-     * task family. Over the limit, a new provisional Skill waits for a member.
-     * When it is not set, no limit applies.
+     * The developer sets the maximum number of provisional Skills in one category. The range is 1 to
+     * 1000. A new Skill waits for a member when the count is over the limit. If omitted, no limit
+     * applies.
      */
     provisionalSkillLimit?: number;
+    /**
+     * The developer sets the age-based cleanup period for eligible proposal sets. The range is 1 to
+     * 3650 days. If omitted, the setting does not enable age-based cleanup.
+     */
     retentionDays?: number;
 }

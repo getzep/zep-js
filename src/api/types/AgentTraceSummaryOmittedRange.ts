@@ -3,7 +3,13 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryOmittedRange {
+    /** The service returns the first sequence number in the omitted range. */
     firstSequence?: number;
+    /** The service returns the last sequence number in the omitted range. */
     lastSequence?: number;
+    /**
+     * The service returns the reason for this result. Valid values are narrower_authorization_boundary,
+     * acknowledged_gap, abandoned_gap, processing_failed, source_deleted.
+     */
     reason?: Zep.AgentTraceSummaryOmissionReason;
 }

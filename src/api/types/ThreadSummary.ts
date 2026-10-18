@@ -3,6 +3,8 @@
 export interface ThreadSummary {
     /** The time the summary was first created. */
     createdAt?: string;
+    /** The unique identifier of the graph this thread summary belongs to. */
+    graphUuid?: string;
     /** The wall-clock time of the most recent summary update. */
     lastSummarizedAt?: string;
     /**

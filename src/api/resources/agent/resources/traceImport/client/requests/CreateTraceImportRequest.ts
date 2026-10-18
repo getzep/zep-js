@@ -7,7 +7,7 @@ import type * as Zep from "../../../../../../index.js";
  *     {}
  */
 export interface CreateTraceImportRequest {
-    /** ConnectionUUID identifies the project trace connection. */
+    /** The developer selects the configured provider connection. */
     connectionUuid?: string;
     /** LearnFrom controls whether imported evidence can support Skills. */
     learnFrom?: boolean;
@@ -17,7 +17,7 @@ export interface CreateTraceImportRequest {
     name?: string;
     /** OnSourceChange defines how changed source traces are handled. */
     onSourceChange?: Zep.TraceImportOnSourceChange;
-    /** ProviderProjectID is the source provider project identifier. */
+    /** The developer selects the project to import from the provider. */
     providerProjectId?: string;
     /** RequireReview requires review for candidates backed by this import. */
     requireReview?: boolean;

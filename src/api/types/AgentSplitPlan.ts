@@ -3,12 +3,18 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSplitPlan {
+    /** The service reports whether the plan authorizes Agent creation. */
     authorizesAgentCreation?: boolean;
+    /** The service reports whether the plan authorizes Skill publication. */
     authorizesPublication?: boolean;
     /** A split plan is not human approval and grants no authority for later commands. */
     createsResources?: boolean;
+    /** The service returns UUIDs of the destination Agents. */
     destinations?: Zep.AgentSplitPlanDestination[];
+    /** The service returns the reason for the requested split. */
     rationale?: string;
+    /** The service reports whether the developer confirmed the review. */
     reviewAcknowledged?: boolean;
+    /** The service returns the source Agent and the revision used for this plan. */
     source?: Zep.AgentSplitPlanSource;
 }

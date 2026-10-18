@@ -14,9 +14,9 @@
 
 ```typescript
 await client.agent.create({
-    agentId: "agent_id",
-    name: "name",
-    securityDomain: "security_domain"
+    agentId: "payments-agent",
+    name: "Refund a duplicate charge",
+    securityDomain: "customer:support"
 });
 
 ```
@@ -285,6 +285,20 @@ await client.agent.update("agent_uuid", {
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Declare a breaking Agent deployment change. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -296,7 +310,7 @@ await client.agent.update("agent_uuid", {
 ```typescript
 await client.agent.declareBreakingChange("agent_uuid", {
     expectedRevision: 1,
-    version: "version"
+    version: "2026.09.01"
 });
 
 ```
@@ -344,6 +358,20 @@ await client.agent.declareBreakingChange("agent_uuid", {
 <details><summary><code>client.agent.<a href="/src/api/resources/agent/client/Client.ts">getContext</a>(agent_uuid, { ...params }) -> Zep.AgentContext</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Agent context. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -1249,6 +1277,141 @@ await client.graph.lookup({});
 <dd>
 
 **request:** `Zep.LookupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">queryStream</a>({ ...params }) -> core.Stream&lt;Zep.GraphQueryStreamEvent&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. A project with a BYOM configuration supports only deep. A BYOC deployment supports only deep. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const response = await client.graph.queryStream({
+    graphUuids: ["graph_uuids"],
+    query: "query"
+});
+for await (const item of response) {
+    console.log(item);
+}
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphQueryStreamRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">query</a>({ ...params }) -> Zep.GraphQueryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. A project with a BYOM configuration supports only deep. A BYOC deployment supports only deep. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.query({
+    graphUuids: ["graph_uuids"],
+    query: "query"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphQueryRequest` 
     
 </dd>
 </dl>
@@ -5683,6 +5846,20 @@ await client.user.setSummaryInstructions("user_uuid", {});
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Agent Learning State. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5741,6 +5918,20 @@ await client.agent.learning.get("agent_uuid", {
 <details><summary><code>client.agent.learning.<a href="/src/api/resources/agent/resources/learning/client/Client.ts">listRuns</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillCompilationOutcome, Zep.Pagev4AgentSkillCompilationOutcome&gt;</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List durable learning-run outcomes for an Agent. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5812,6 +6003,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Agent Literal Policy. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5861,6 +6066,20 @@ await client.agent.literalPolicy.get("agent_uuid");
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update Agent Literal Policy. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -5872,12 +6091,12 @@ await client.agent.literalPolicy.get("agent_uuid");
 ```typescript
 await client.agent.literalPolicy.update("agent_uuid", {
     allowlistedClasses: {
-        environments: ["environments"],
-        tools: ["tools"]
+        environments: ["environment_name"],
+        tools: ["command_name"]
     },
     allowlistedValues: {
-        environments: ["environments"],
-        tools: ["tools"]
+        environments: ["production"],
+        tools: ["refund_payment"]
     },
     "default": "parameterize"
 });
@@ -5928,6 +6147,20 @@ await client.agent.literalPolicy.update("agent_uuid", {
 <details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">create</a>(agent_uuid, { ...params }) -> Zep.AgentSkill</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -5987,6 +6220,20 @@ await client.agent.skill.create("agent_uuid", {
 <details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">list</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillSearchHit, Zep.Pagev4AgentSkillSearchHit&gt;</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Agent Skills. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -6057,6 +6304,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search Agent Skills. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6067,7 +6328,7 @@ const response = page.response;
 
 ```typescript
 const pageableResponse = await client.agent.skill.search("agent_uuid", {
-    query: "query"
+    query: "How do I refund a duplicate charge?"
 });
 for await (const item of pageableResponse) {
     console.log(item);
@@ -6075,7 +6336,7 @@ for await (const item of pageableResponse) {
 
 // Or you can manually iterate page-by-page
 let page = await client.agent.skill.search("agent_uuid", {
-    query: "query"
+    query: "How do I refund a duplicate charge?"
 });
 while (page.hasNextPage()) {
     page = await page.getNextPage();
@@ -6129,6 +6390,20 @@ const response = page.response;
 <details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">get</a>(agent_uuid, skill_uuid) -> Zep.AgentSkill</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -6186,6 +6461,20 @@ await client.agent.skill.get("agent_uuid", "skill_uuid");
 <details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">approve</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillAdmissionDecision</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Approve Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -6254,6 +6543,20 @@ await client.agent.skill.approve("agent_uuid", "skill_uuid", {
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retire Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6320,6 +6623,20 @@ await client.agent.skill.retire("agent_uuid", "skill_uuid", {
 <details><summary><code>client.agent.skill.<a href="/src/api/resources/agent/resources/skill/client/Client.ts">createVersion</a>(agent_uuid, skill_uuid, { ...params }) -> Zep.AgentSkillVersion</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -6390,6 +6707,20 @@ await client.agent.skill.createVersion("agent_uuid", "skill_uuid", {
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Plan an Agent split. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -6402,18 +6733,18 @@ await client.agent.skill.createVersion("agent_uuid", "skill_uuid", {
 await client.agent.split.plan("agent_uuid", {
     destinations: [{
             agent: {
-                agentId: "agent_id",
-                name: "name",
-                securityDomain: "security_domain"
+                agentId: "payments-agent",
+                name: "Refund a duplicate charge",
+                securityDomain: "customer:support"
             },
             skills: [{
-                    skillUuid: "skill_uuid",
-                    skillVersionUuid: "skill_version_uuid",
+                    skillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    skillVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     version: 1
                 }]
         }],
     expectedRevision: 1,
-    rationale: "rationale",
+    rationale: "Keep payment refunds separate from charge disputes.",
     reviewAcknowledged: true
 });
 
@@ -6543,8 +6874,8 @@ const response = page.response;
 
 ```typescript
 await client.agent.taskFamily.rename("agent_uuid", {
-    fromSlug: "from_slug",
-    toSlug: "to_slug"
+    fromSlug: "support/refund",
+    toSlug: "support/refund"
 });
 
 ```
@@ -6602,7 +6933,7 @@ await client.agent.taskFamily.rename("agent_uuid", {
 <dl>
 <dd>
 
-List trace imports that belong to this Agent.
+List trace imports that belong to this Agent. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -6685,7 +7016,7 @@ const response = page.response;
 <dl>
 <dd>
 
-Create a scheduled import or queue a one-time import. A scheduled import returns HTTP 201 with `import`. A one-time import returns HTTP 202 with `import`, `run`, and `task`. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
+Create a scheduled import or queue a one-time import. A scheduled import returns HTTP 201 with `import`. A one-time import returns HTTP 202 with `import`, `run`, and `task`. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -6756,7 +7087,7 @@ await client.agent.traceImport.create("agent_uuid");
 <dl>
 <dd>
 
-Read one trace import. The response does not include its source cursor.
+Read one trace import. The response does not include its source cursor. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -6827,7 +7158,7 @@ await client.agent.traceImport.get("agent_uuid", "import_uuid");
 <dl>
 <dd>
 
-Set `traces=delete` to queue asynchronous Trace deletion. The default keeps Traces. Example query: `?traces=delete`.
+Set `traces=delete` to queue asynchronous Trace deletion. The default keeps Traces. Example query: `?traces=delete`. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -6906,7 +7237,7 @@ await client.agent.traceImport.delete("agent_uuid", "import_uuid");
 <dl>
 <dd>
 
-Use `expected_revision` to reject a stale update. Example request: `{"expected_revision":1,"name":"Updated support traces"}`.
+Use `expected_revision` to reject a stale update. Example request: `{"expected_revision":1,"name":"Updated support traces"}`. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -6985,7 +7316,7 @@ await client.agent.traceImport.update("agent_uuid", "import_uuid");
 <dl>
 <dd>
 
-Pause a scheduled trace import. One-time imports cannot be paused.
+Pause a scheduled trace import. One-time imports cannot be paused. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -7056,7 +7387,7 @@ await client.agent.traceImport.pause("agent_uuid", "import_uuid");
 <dl>
 <dd>
 
-Resume a scheduled trace import. Zep verifies credentials first when they caused the pause.
+Resume a scheduled trace import. Zep verifies credentials first when they caused the pause. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -7130,7 +7461,7 @@ await client.agent.traceImport.resume("agent_uuid", "import_uuid");
 
 ```typescript
 await client.agent.trace.create("agent_uuid", {
-    objective: "objective"
+    objective: "Refund a duplicate charge."
 });
 
 ```
@@ -7382,7 +7713,8 @@ await client.agent.trace.delete("agent_uuid", "trace_uuid", {
 
 ```typescript
 await client.agent.trace.update("agent_uuid", "trace_uuid", {
-    expectedRevision: 1
+    expectedRevision: 1,
+    taskFamily: "support/refund"
 });
 
 ```
@@ -7582,7 +7914,8 @@ await client.agent.trace.close("agent_uuid", "trace_uuid");
 ```typescript
 await client.agent.trace.correctTaskFamily("agent_uuid", "trace_uuid", {
     expectedRevision: 1,
-    reason: "reason"
+    reason: "acknowledged_gap",
+    taskFamily: "support/refund"
 });
 
 ```
@@ -7715,6 +8048,20 @@ const response = page.response;
 <details><summary><code>client.agent.trace.<a href="/src/api/resources/agent/resources/trace/client/Client.ts">appendEvent</a>(agent_uuid, trace_uuid, { ...params }) -> Zep.AgentTraceEvent</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+A tool call and its result can share a tool_call_id. For example, append {"event_type":"tool_call","tool_call_id":"call_8f2b","content":"Search orders","context":{"tools":[{"name":"search_orders"}]}} and {"event_type":"tool_result","tool_call_id":"call_8f2b","content":"Order results","context":{"tools":[{"name":"search_orders"}]}}.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8060,6 +8407,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Agent Verifiers. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -8129,6 +8490,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Agent Verifier. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -8185,6 +8560,20 @@ await client.agent.verifier.get("agent_uuid", "verifier_uuid");
 <details><summary><code>client.agent.verifier.<a href="/src/api/resources/agent/resources/verifier/client/Client.ts">update</a>(agent_uuid, verifier_uuid, { ...params }) -> Zep.AgentVerifier</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update Agent Verifier. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8253,6 +8642,20 @@ await client.agent.verifier.update("agent_uuid", "verifier_uuid", {
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Invalidate Agent Verifier Evidence. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -8263,7 +8666,7 @@ await client.agent.verifier.update("agent_uuid", "verifier_uuid", {
 
 ```typescript
 await client.agent.verifier.invalidateEvidence("agent_uuid", "verifier_uuid", {
-    reason: "reason",
+    reason: "acknowledged_gap",
     verifierRevisions: [1]
 });
 
@@ -8320,6 +8723,20 @@ await client.agent.verifier.invalidateEvidence("agent_uuid", "verifier_uuid", {
 <details><summary><code>client.agent.verifier.<a href="/src/api/resources/agent/resources/verifier/client/Client.ts">revoke</a>(agent_uuid, verifier_uuid, { ...params }) -> Zep.AgentVerifier</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Revoke Agent Verifier. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8388,6 +8805,20 @@ await client.agent.verifier.revoke("agent_uuid", "verifier_uuid", {
 <details><summary><code>client.agent.skill.candidate.<a href="/src/api/resources/agent/resources/skill/resources/candidate/client/Client.ts">list</a>(agent_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillCandidateReviewSummary, Zep.Pagev4AgentSkillCandidateReviewSummary&gt;</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Agent Skill Candidate Reviews. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8458,6 +8889,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Agent Skill Candidate Review. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -8527,7 +8972,7 @@ await client.agent.skill.candidate.get("agent_uuid", "review_uuid");
 ```typescript
 await client.agent.skill.evaluation.createForCandidate("agent_uuid", "review_uuid", "candidate_uuid", {
     evaluatedBy: "customer",
-    evaluatorVersion: "evaluator_version",
+    evaluatorVersion: "v1.0.0",
     expectedRevision: 1,
     verdict: "succeeded"
 });
@@ -8594,6 +9039,20 @@ await client.agent.skill.evaluation.createForCandidate("agent_uuid", "review_uui
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Record Agent Skill Evaluation. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -8605,7 +9064,7 @@ await client.agent.skill.evaluation.createForCandidate("agent_uuid", "review_uui
 ```typescript
 await client.agent.skill.evaluation.create("agent_uuid", "skill_uuid", {
     evaluatedBy: "customer",
-    evaluatorVersion: "evaluator_version",
+    evaluatorVersion: "v1.0.0",
     skillVersion: 1,
     verdict: "succeeded"
 });
@@ -8673,7 +9132,7 @@ await client.agent.skill.evaluation.create("agent_uuid", "skill_uuid", {
 <dl>
 <dd>
 
-Find a destination Skill by its source Agent, Skill, and version. The endpoint returns 404 until an automatic publication is ready or after it is invalidated.
+Find a destination Skill by its source Agent, Skill, and version. The endpoint returns 404 until an automatic publication is ready or after it is invalidated. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -8748,7 +9207,7 @@ await client.agent.skill.publication.lookup("agent_uuid", {
 <dl>
 <dd>
 
-Get the publication that created a destination Skill. Use its source version and policy identity to verify a copied Skill. The endpoint returns 404 for unpublished and invalidated Skills.
+Get the publication that created a destination Skill. Use its source version and policy identity to verify a copied Skill. The endpoint returns 404 for unpublished and invalidated Skills. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -8811,6 +9270,20 @@ await client.agent.skill.publication.get("agent_uuid", "skill_uuid");
 <details><summary><code>client.agent.skill.evidence.<a href="/src/api/resources/agent/resources/skill/resources/evidence/client/Client.ts">list</a>(agent_uuid, skill_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillEvidence, Zep.Pagev4AgentSkillEvidence&gt;</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Agent Skill Evidence. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -8890,6 +9363,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Agent Skill Relationships. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -8968,6 +9455,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Restore Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -9035,6 +9536,20 @@ await client.agent.skill.version.restoreVersion("agent_uuid", "skill_uuid", {
 <details><summary><code>client.agent.skill.version.<a href="/src/api/resources/agent/resources/skill/resources/version/client/Client.ts">list</a>(agent_uuid, skill_uuid, { ...params }) -> core.Page&lt;Zep.AgentSkillVersion, Zep.Pagev4AgentSkillVersion&gt;</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Agent Skill Versions. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -9113,6 +9628,20 @@ const response = page.response;
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Compare Agent Skill Versions. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -9180,6 +9709,20 @@ await client.agent.skill.version.compare("agent_uuid", "skill_uuid", {
 <details><summary><code>client.agent.skill.version.<a href="/src/api/resources/agent/resources/skill/resources/version/client/Client.ts">get</a>(agent_uuid, skill_uuid, version, { ...params }) -> Zep.AgentSkillVersion</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -9255,6 +9798,20 @@ await client.agent.skill.version.get("agent_uuid", "skill_uuid", 1);
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create Agent Skill Use. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -9265,8 +9822,8 @@ await client.agent.skill.version.get("agent_uuid", "skill_uuid", 1);
 
 ```typescript
 await client.agent.skill.use.create("agent_uuid", "skill_uuid", {
-    searchId: "search_id",
-    traceUuid: "trace_uuid",
+    searchId: "eyJ2IjoxLCJyZXF1ZXN0X2lkIjoiNmE5MDZlNzAtNTBjYS00ZTQzLWE4NzQtNWZjYWUwMmE3MWZhIn0.signature",
+    traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
     usage: "selected"
 });
 
@@ -9323,6 +9880,20 @@ await client.agent.skill.use.create("agent_uuid", "skill_uuid", {
 <details><summary><code>client.agent.skill.use.<a href="/src/api/resources/agent/resources/skill/resources/use/client/Client.ts">addOutcome</a>(agent_uuid, skill_uuid, use_uuid, { ...params }) -> Zep.AgentSkillUseOutcome</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Record Agent Skill Feedback. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -9400,6 +9971,20 @@ await client.agent.skill.use.addOutcome("agent_uuid", "skill_uuid", "use_uuid", 
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export an Agent Skill version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -9464,6 +10049,20 @@ await client.agent.skill.export.create("agent_uuid", "skill_uuid", 1);
 <details><summary><code>client.agent.skill.export.<a href="/src/api/resources/agent/resources/skill/resources/export/client/Client.ts">get</a>(agent_uuid, skill_uuid, version, task_uuid) -> core.BinaryResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Download an Agent Skill export. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -9547,7 +10146,7 @@ await client.agent.skill.export.get("agent_uuid", "skill_uuid", 1, "task_uuid");
 <dl>
 <dd>
 
-List runs that belong to this trace import.
+List runs that belong to this trace import. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -9638,7 +10237,7 @@ const response = page.response;
 <dl>
 <dd>
 
-Create a pending run and its Task. This operation does not start the run.
+Create a pending run and its Task. This operation does not start the run. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -9709,7 +10308,7 @@ await client.agent.traceImport.run.create("agent_uuid", "import_uuid");
 <dl>
 <dd>
 
-Read one run that belongs to this trace import.
+Read one run that belongs to this trace import. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -9789,7 +10388,7 @@ await client.agent.traceImport.run.get("agent_uuid", "import_uuid", "run_uuid");
 <dl>
 <dd>
 
-List trace results for this run. Run items do not include source payload.
+List trace results for this run. Run items do not include source payload. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>

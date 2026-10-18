@@ -3,10 +3,16 @@
 import type * as Zep from "../index.js";
 
 export interface AgentContextSkillSnapshot {
+    /** The service returns the SHA-256 digest of the Skill artifact. */
     artifactSha256?: string;
+    /** The service returns citations that support this Skill snapshot. */
     evidenceCitations?: string[];
+    /** The service returns counts of evidence items by result. */
     evidenceCounts?: Zep.AgentContextEvidenceCounts;
+    /** The service returns result rank. */
     rank?: number;
+    /** The service returns the UUID of the Skill. */
     skillUuid?: string;
+    /** The service returns the Skill version number. */
     version?: number;
 }

@@ -53,7 +53,7 @@ export class EvaluationClient {
      * @example
      *     await client.agent.skill.evaluation.createForCandidate("agent_uuid", "review_uuid", "candidate_uuid", {
      *         evaluatedBy: "customer",
-     *         evaluatorVersion: "evaluator_version",
+     *         evaluatorVersion: "v1.0.0",
      *         expectedRevision: 1,
      *         verdict: "succeeded"
      *     })
@@ -208,6 +208,8 @@ export class EvaluationClient {
     }
 
     /**
+     * Record Agent Skill Evaluation. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} skill_uuid - Skill UUID
      * @param {Zep.agent.skill.CreateAgentSkillEvaluationRequest} request
@@ -224,7 +226,7 @@ export class EvaluationClient {
      * @example
      *     await client.agent.skill.evaluation.create("agent_uuid", "skill_uuid", {
      *         evaluatedBy: "customer",
-     *         evaluatorVersion: "evaluator_version",
+     *         evaluatorVersion: "v1.0.0",
      *         skillVersion: 1,
      *         verdict: "succeeded"
      *     })

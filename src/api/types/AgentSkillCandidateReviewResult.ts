@@ -3,9 +3,14 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillCandidateReviewResult {
+    /** The service returns Skill versions used as the split-plan base. */
     baseVersions?: Zep.AgentSkillCandidateBaseVersion[];
+    /** The service returns UUIDs of the candidate Skills in this plan. */
     candidateUuids?: string[];
+    /** The service returns the Curator decision for this review result. Valid values are add, patch, merge, split, supersede, contradict, retire, reject, and no_change. */
     decision?: string;
+    /** The service returns UUIDs of the Skills that this plan can update. */
     targetSkillUuids?: string[];
+    /** The service returns the UUID that identifies this resource. */
     uuid?: string;
 }

@@ -10,7 +10,138 @@ describe("VersionClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            items: [{ created_at: "created_at", markdown: "markdown", self_contained: true, version: 1 }],
+            items: [
+                {
+                    contract: {
+                        aliases: ["duplicate-refund"],
+                        applicability: {
+                            agent_versions: ["2026.09.01"],
+                            citations: ["event-001"],
+                            models: [{ name: "support-agent-prod", version_constraint: "^1.0.0" }],
+                        },
+                        citations: ["event-001"],
+                        confidence: 0.5,
+                        contraindications: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        customer_sections: [
+                            {
+                                heading: "Verify the duplicate charge",
+                                markdown: "Confirm the duplicate charge before issuing a refund.",
+                                schema_version: "v1",
+                                section_id: "refund_workflow",
+                            },
+                        ],
+                        dependencies: [{ package_name: "payments", version_constraint: "^1.0.0" }],
+                        description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                        environments: [
+                            {
+                                aliases: ["duplicate-refund"],
+                                citations: ["event-001"],
+                                name: "refund_payment",
+                                version_constraint: "^1.0.0",
+                            },
+                        ],
+                        evidence: [
+                            {
+                                attempt_family_id: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                                id: "evidence-1",
+                                source_id: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                                trace_id: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            },
+                        ],
+                        failures: [
+                            {
+                                condition: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                                recovery: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                            },
+                        ],
+                        invocation: {
+                            conditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                            summary: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                        },
+                        name: "refund_payment",
+                        outputs: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        package_name: "payments",
+                        preconditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        procedure: [
+                            {
+                                decision: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                                expected_observations: [
+                                    { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                                ],
+                                instruction: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                            },
+                        ],
+                        relations: [
+                            {
+                                citations: ["event-001"],
+                                target_package_name: "refund-guidance",
+                                version_constraint: "^1.0.0",
+                            },
+                        ],
+                        schema_version: "v1",
+                        success_criteria: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        task_family: "support/refund",
+                        termination_conditions: [
+                            { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                        ],
+                        tools: [
+                            {
+                                aliases: ["duplicate-refund"],
+                                citations: ["event-001"],
+                                name: "refund_payment",
+                                version_constraint: "^1.0.0",
+                            },
+                        ],
+                    },
+                    created_at: "2026-01-01T00:00:00Z",
+                    definition: {
+                        agent_versions: ["2026.09.01"],
+                        aliases: ["duplicate-refund"],
+                        description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                        do_not_use_when: ["The payment has not settled."],
+                        done_when: ["support/refund"],
+                        environments: [
+                            { aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" },
+                        ],
+                        failures: [
+                            {
+                                recover: ["Retry the refund after the payment service recovers."],
+                                when: "A duplicate charge is confirmed.",
+                            },
+                        ],
+                        name: "Refund a duplicate charge",
+                        outputs: ["support/refund"],
+                        package_name: "payments",
+                        preconditions: ["support/refund"],
+                        procedure: [
+                            {
+                                decision: "If the payment is settled.",
+                                expect: ["A refund is confirmed."],
+                                instruction: "Confirm that the payment was processed twice.",
+                            },
+                        ],
+                        related_skills: [
+                            { relation: "depends_on", skill: "refund-duplicate-charge", version: "2026.09.01" },
+                        ],
+                        sections: [
+                            {
+                                heading: "Verify the duplicate charge",
+                                id: "refund-workflow",
+                                markdown: "Confirm the duplicate charge before issuing a refund.",
+                            },
+                        ],
+                        stop_when: ["Stop if the duplicate charge cannot be confirmed."],
+                        task_family: "support/refund",
+                        tools: [
+                            { aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" },
+                        ],
+                        use_when: ["A customer reports a duplicate charge."],
+                    },
+                    markdown: "Confirm the duplicate charge before issuing a refund.",
+                    self_contained: false,
+                    version: 1,
+                },
+            ],
             next_cursor: "next_cursor",
             total_size: 1,
         };
@@ -26,9 +157,203 @@ describe("VersionClient", () => {
         const expected = {
             items: [
                 {
-                    createdAt: "created_at",
-                    markdown: "markdown",
-                    selfContained: true,
+                    contract: {
+                        aliases: ["duplicate-refund"],
+                        applicability: {
+                            agentVersions: ["2026.09.01"],
+                            citations: ["event-001"],
+                            models: [
+                                {
+                                    name: "support-agent-prod",
+                                    versionConstraint: "^1.0.0",
+                                },
+                            ],
+                        },
+                        citations: ["event-001"],
+                        confidence: 0.5,
+                        contraindications: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        customerSections: [
+                            {
+                                heading: "Verify the duplicate charge",
+                                markdown: "Confirm the duplicate charge before issuing a refund.",
+                                schemaVersion: "v1",
+                                sectionId: "refund_workflow",
+                            },
+                        ],
+                        dependencies: [
+                            {
+                                packageName: "payments",
+                                versionConstraint: "^1.0.0",
+                            },
+                        ],
+                        description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                        environments: [
+                            {
+                                aliases: ["duplicate-refund"],
+                                citations: ["event-001"],
+                                name: "refund_payment",
+                                versionConstraint: "^1.0.0",
+                            },
+                        ],
+                        evidence: [
+                            {
+                                attemptFamilyId: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                                id: "evidence-1",
+                                sourceId: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                                traceId: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            },
+                        ],
+                        failures: [
+                            {
+                                condition: {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                                recovery: [
+                                    {
+                                        citations: ["event-001"],
+                                        text: "The duplicate charge was refunded.",
+                                    },
+                                ],
+                            },
+                        ],
+                        invocation: {
+                            conditions: [
+                                {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            ],
+                            summary: {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        },
+                        name: "refund_payment",
+                        outputs: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        packageName: "payments",
+                        preconditions: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        procedure: [
+                            {
+                                decision: {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                                expectedObservations: [
+                                    {
+                                        citations: ["event-001"],
+                                        text: "The duplicate charge was refunded.",
+                                    },
+                                ],
+                                instruction: {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            },
+                        ],
+                        relations: [
+                            {
+                                citations: ["event-001"],
+                                targetPackageName: "refund-guidance",
+                                versionConstraint: "^1.0.0",
+                            },
+                        ],
+                        schemaVersion: "v1",
+                        successCriteria: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        taskFamily: "support/refund",
+                        terminationConditions: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        tools: [
+                            {
+                                aliases: ["duplicate-refund"],
+                                citations: ["event-001"],
+                                name: "refund_payment",
+                                versionConstraint: "^1.0.0",
+                            },
+                        ],
+                    },
+                    createdAt: "2026-01-01T00:00:00Z",
+                    definition: {
+                        agentVersions: ["2026.09.01"],
+                        aliases: ["duplicate-refund"],
+                        description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                        doNotUseWhen: ["The payment has not settled."],
+                        doneWhen: ["support/refund"],
+                        environments: [
+                            {
+                                aliases: ["duplicate-refund"],
+                                name: "Refund a duplicate charge",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        failures: [
+                            {
+                                recover: ["Retry the refund after the payment service recovers."],
+                                when: "A duplicate charge is confirmed.",
+                            },
+                        ],
+                        name: "Refund a duplicate charge",
+                        outputs: ["support/refund"],
+                        packageName: "payments",
+                        preconditions: ["support/refund"],
+                        procedure: [
+                            {
+                                decision: "If the payment is settled.",
+                                expect: ["A refund is confirmed."],
+                                instruction: "Confirm that the payment was processed twice.",
+                            },
+                        ],
+                        relatedSkills: [
+                            {
+                                relation: "depends_on",
+                                skill: "refund-duplicate-charge",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        sections: [
+                            {
+                                heading: "Verify the duplicate charge",
+                                id: "refund-workflow",
+                                markdown: "Confirm the duplicate charge before issuing a refund.",
+                            },
+                        ],
+                        stopWhen: ["Stop if the duplicate charge cannot be confirmed."],
+                        taskFamily: "support/refund",
+                        tools: [
+                            {
+                                aliases: ["duplicate-refund"],
+                                name: "Refund a duplicate charge",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        useWhen: ["A customer reports a duplicate charge."],
+                    },
+                    markdown: "Confirm the duplicate charge before issuing a refund.",
+                    selfContained: false,
                     version: 1,
                 },
             ],
@@ -143,109 +468,267 @@ describe("VersionClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { from_version: 1, to_version: 1 };
         const rawResponseBody = {
-            changed_fields: ["changed_fields"],
+            changed_fields: ["name"],
             from: {
                 contract: {
-                    aliases: ["aliases"],
-                    citations: ["citations"],
-                    confidence: 1.1,
-                    contraindications: [{}],
-                    customer_sections: [{}],
-                    dependencies: [{}],
-                    description: "description",
-                    environments: [{}],
-                    evidence: [{}],
-                    failures: [{}],
+                    aliases: ["duplicate-refund"],
+                    applicability: {
+                        agent_versions: ["2026.09.01"],
+                        citations: ["event-001"],
+                        models: [{ name: "support-agent-prod", version_constraint: "^1.0.0" }],
+                    },
+                    citations: ["event-001"],
+                    confidence: 0.5,
+                    contraindications: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    customer_sections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                            schema_version: "v1",
+                            section_id: "refund_workflow",
+                        },
+                    ],
+                    dependencies: [{ package_name: "payments", version_constraint: "^1.0.0" }],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            version_constraint: "^1.0.0",
+                        },
+                    ],
+                    evidence: [
+                        {
+                            attempt_family_id: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                            id: "evidence-1",
+                            source_id: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                            trace_id: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        },
+                    ],
+                    failures: [
+                        {
+                            condition: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                            recovery: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        },
+                    ],
+                    invocation: {
+                        conditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        summary: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                    },
                     kind: "principle",
-                    name: "name",
+                    name: "refund_payment",
                     origin: "evidence_derived",
-                    outputs: [{}],
-                    package_name: "package_name",
-                    preconditions: [{}],
-                    procedure: [{}],
-                    relations: [{}],
-                    schema_version: "schema_version",
-                    success_criteria: [{}],
-                    task_family: "task_family",
-                    termination_conditions: [{}],
-                    tools: [{}],
+                    outputs: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    package_name: "payments",
+                    preconditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    procedure: [
+                        {
+                            decision: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                            expected_observations: [
+                                { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                            ],
+                            instruction: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                        },
+                    ],
+                    relations: [
+                        {
+                            citations: ["event-001"],
+                            target_package_name: "refund-guidance",
+                            version_constraint: "^1.0.0",
+                        },
+                    ],
+                    schema_version: "v1",
+                    success_criteria: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    task_family: "support/refund",
+                    termination_conditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    tools: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            version_constraint: "^1.0.0",
+                        },
+                    ],
                 },
-                created_at: "created_at",
+                created_at: "2026-01-01T00:00:00Z",
                 definition: {
-                    agent_versions: ["agent_versions"],
-                    aliases: ["aliases"],
-                    description: "description",
-                    do_not_use_when: ["do_not_use_when"],
-                    done_when: ["done_when"],
-                    environments: [{}],
-                    failures: [{}],
+                    agent_versions: ["2026.09.01"],
+                    aliases: ["duplicate-refund"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    do_not_use_when: ["The payment has not settled."],
+                    done_when: ["support/refund"],
+                    environments: [
+                        { aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" },
+                    ],
+                    failures: [
+                        {
+                            recover: ["Retry the refund after the payment service recovers."],
+                            when: "A duplicate charge is confirmed.",
+                        },
+                    ],
                     kind: "principle",
-                    name: "name",
-                    outputs: ["outputs"],
-                    package_name: "package_name",
-                    preconditions: ["preconditions"],
-                    procedure: [{}],
-                    related_skills: [{}],
-                    sections: [{}],
-                    stop_when: ["stop_when"],
-                    task_family: "task_family",
-                    tools: [{}],
-                    use_when: ["use_when"],
+                    name: "Refund a duplicate charge",
+                    outputs: ["support/refund"],
+                    package_name: "payments",
+                    preconditions: ["support/refund"],
+                    procedure: [
+                        {
+                            decision: "If the payment is settled.",
+                            expect: ["A refund is confirmed."],
+                            instruction: "Confirm that the payment was processed twice.",
+                        },
+                    ],
+                    related_skills: [
+                        { relation: "depends_on", skill: "refund-duplicate-charge", version: "2026.09.01" },
+                    ],
+                    sections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            id: "refund-workflow",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                        },
+                    ],
+                    stop_when: ["Stop if the duplicate charge cannot be confirmed."],
+                    task_family: "support/refund",
+                    tools: [
+                        { aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" },
+                    ],
+                    use_when: ["A customer reports a duplicate charge."],
                 },
-                markdown: "markdown",
-                self_contained: true,
+                markdown: "Confirm the duplicate charge before issuing a refund.",
+                self_contained: false,
                 version: 1,
             },
             to: {
                 contract: {
-                    aliases: ["aliases"],
-                    citations: ["citations"],
-                    confidence: 1.1,
-                    contraindications: [{}],
-                    customer_sections: [{}],
-                    dependencies: [{}],
-                    description: "description",
-                    environments: [{}],
-                    evidence: [{}],
-                    failures: [{}],
+                    aliases: ["duplicate-refund"],
+                    applicability: {
+                        agent_versions: ["2026.09.01"],
+                        citations: ["event-001"],
+                        models: [{ name: "support-agent-prod", version_constraint: "^1.0.0" }],
+                    },
+                    citations: ["event-001"],
+                    confidence: 0.5,
+                    contraindications: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    customer_sections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                            schema_version: "v1",
+                            section_id: "refund_workflow",
+                        },
+                    ],
+                    dependencies: [{ package_name: "payments", version_constraint: "^1.0.0" }],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            version_constraint: "^1.0.0",
+                        },
+                    ],
+                    evidence: [
+                        {
+                            attempt_family_id: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                            id: "evidence-1",
+                            source_id: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                            trace_id: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        },
+                    ],
+                    failures: [
+                        {
+                            condition: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                            recovery: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        },
+                    ],
+                    invocation: {
+                        conditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                        summary: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                    },
                     kind: "principle",
-                    name: "name",
+                    name: "refund_payment",
                     origin: "evidence_derived",
-                    outputs: [{}],
-                    package_name: "package_name",
-                    preconditions: [{}],
-                    procedure: [{}],
-                    relations: [{}],
-                    schema_version: "schema_version",
-                    success_criteria: [{}],
-                    task_family: "task_family",
-                    termination_conditions: [{}],
-                    tools: [{}],
+                    outputs: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    package_name: "payments",
+                    preconditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    procedure: [
+                        {
+                            decision: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                            expected_observations: [
+                                { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                            ],
+                            instruction: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                        },
+                    ],
+                    relations: [
+                        {
+                            citations: ["event-001"],
+                            target_package_name: "refund-guidance",
+                            version_constraint: "^1.0.0",
+                        },
+                    ],
+                    schema_version: "v1",
+                    success_criteria: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    task_family: "support/refund",
+                    termination_conditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    tools: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            version_constraint: "^1.0.0",
+                        },
+                    ],
                 },
-                created_at: "created_at",
+                created_at: "2026-01-01T00:00:00Z",
                 definition: {
-                    agent_versions: ["agent_versions"],
-                    aliases: ["aliases"],
-                    description: "description",
-                    do_not_use_when: ["do_not_use_when"],
-                    done_when: ["done_when"],
-                    environments: [{}],
-                    failures: [{}],
+                    agent_versions: ["2026.09.01"],
+                    aliases: ["duplicate-refund"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    do_not_use_when: ["The payment has not settled."],
+                    done_when: ["support/refund"],
+                    environments: [
+                        { aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" },
+                    ],
+                    failures: [
+                        {
+                            recover: ["Retry the refund after the payment service recovers."],
+                            when: "A duplicate charge is confirmed.",
+                        },
+                    ],
                     kind: "principle",
-                    name: "name",
-                    outputs: ["outputs"],
-                    package_name: "package_name",
-                    preconditions: ["preconditions"],
-                    procedure: [{}],
-                    related_skills: [{}],
-                    sections: [{}],
-                    stop_when: ["stop_when"],
-                    task_family: "task_family",
-                    tools: [{}],
-                    use_when: ["use_when"],
+                    name: "Refund a duplicate charge",
+                    outputs: ["support/refund"],
+                    package_name: "payments",
+                    preconditions: ["support/refund"],
+                    procedure: [
+                        {
+                            decision: "If the payment is settled.",
+                            expect: ["A refund is confirmed."],
+                            instruction: "Confirm that the payment was processed twice.",
+                        },
+                    ],
+                    related_skills: [
+                        { relation: "depends_on", skill: "refund-duplicate-charge", version: "2026.09.01" },
+                    ],
+                    sections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            id: "refund-workflow",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                        },
+                    ],
+                    stop_when: ["Stop if the duplicate charge cannot be confirmed."],
+                    task_family: "support/refund",
+                    tools: [
+                        { aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" },
+                    ],
+                    use_when: ["A customer reports a duplicate charge."],
                 },
-                markdown: "markdown",
-                self_contained: true,
+                markdown: "Confirm the duplicate charge before issuing a refund.",
+                self_contained: false,
                 version: 1,
             },
         };
@@ -264,109 +747,411 @@ describe("VersionClient", () => {
             toVersion: 1,
         });
         expect(response).toEqual({
-            changedFields: ["changed_fields"],
+            changedFields: ["name"],
             from: {
                 contract: {
-                    aliases: ["aliases"],
-                    citations: ["citations"],
-                    confidence: 1.1,
-                    contraindications: [{}],
-                    customerSections: [{}],
-                    dependencies: [{}],
-                    description: "description",
-                    environments: [{}],
-                    evidence: [{}],
-                    failures: [{}],
+                    aliases: ["duplicate-refund"],
+                    applicability: {
+                        agentVersions: ["2026.09.01"],
+                        citations: ["event-001"],
+                        models: [
+                            {
+                                name: "support-agent-prod",
+                                versionConstraint: "^1.0.0",
+                            },
+                        ],
+                    },
+                    citations: ["event-001"],
+                    confidence: 0.5,
+                    contraindications: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    customerSections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                            schemaVersion: "v1",
+                            sectionId: "refund_workflow",
+                        },
+                    ],
+                    dependencies: [
+                        {
+                            packageName: "payments",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
+                    evidence: [
+                        {
+                            attemptFamilyId: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                            id: "evidence-1",
+                            sourceId: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                            traceId: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        },
+                    ],
+                    failures: [
+                        {
+                            condition: {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                            recovery: [
+                                {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            ],
+                        },
+                    ],
+                    invocation: {
+                        conditions: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        summary: {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    },
                     kind: "principle",
-                    name: "name",
+                    name: "refund_payment",
                     origin: "evidence_derived",
-                    outputs: [{}],
-                    packageName: "package_name",
-                    preconditions: [{}],
-                    procedure: [{}],
-                    relations: [{}],
-                    schemaVersion: "schema_version",
-                    successCriteria: [{}],
-                    taskFamily: "task_family",
-                    terminationConditions: [{}],
-                    tools: [{}],
+                    outputs: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    packageName: "payments",
+                    preconditions: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    procedure: [
+                        {
+                            decision: {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                            expectedObservations: [
+                                {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            ],
+                            instruction: {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        },
+                    ],
+                    relations: [
+                        {
+                            citations: ["event-001"],
+                            targetPackageName: "refund-guidance",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
+                    schemaVersion: "v1",
+                    successCriteria: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    taskFamily: "support/refund",
+                    terminationConditions: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    tools: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
                 },
-                createdAt: "created_at",
+                createdAt: "2026-01-01T00:00:00Z",
                 definition: {
-                    agentVersions: ["agent_versions"],
-                    aliases: ["aliases"],
-                    description: "description",
-                    doNotUseWhen: ["do_not_use_when"],
-                    doneWhen: ["done_when"],
-                    environments: [{}],
-                    failures: [{}],
+                    agentVersions: ["2026.09.01"],
+                    aliases: ["duplicate-refund"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    doNotUseWhen: ["The payment has not settled."],
+                    doneWhen: ["support/refund"],
+                    environments: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            name: "Refund a duplicate charge",
+                            version: "2026.09.01",
+                        },
+                    ],
+                    failures: [
+                        {
+                            recover: ["Retry the refund after the payment service recovers."],
+                            when: "A duplicate charge is confirmed.",
+                        },
+                    ],
                     kind: "principle",
-                    name: "name",
-                    outputs: ["outputs"],
-                    packageName: "package_name",
-                    preconditions: ["preconditions"],
-                    procedure: [{}],
-                    relatedSkills: [{}],
-                    sections: [{}],
-                    stopWhen: ["stop_when"],
-                    taskFamily: "task_family",
-                    tools: [{}],
-                    useWhen: ["use_when"],
+                    name: "Refund a duplicate charge",
+                    outputs: ["support/refund"],
+                    packageName: "payments",
+                    preconditions: ["support/refund"],
+                    procedure: [
+                        {
+                            decision: "If the payment is settled.",
+                            expect: ["A refund is confirmed."],
+                            instruction: "Confirm that the payment was processed twice.",
+                        },
+                    ],
+                    relatedSkills: [
+                        {
+                            relation: "depends_on",
+                            skill: "refund-duplicate-charge",
+                            version: "2026.09.01",
+                        },
+                    ],
+                    sections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            id: "refund-workflow",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                        },
+                    ],
+                    stopWhen: ["Stop if the duplicate charge cannot be confirmed."],
+                    taskFamily: "support/refund",
+                    tools: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            name: "Refund a duplicate charge",
+                            version: "2026.09.01",
+                        },
+                    ],
+                    useWhen: ["A customer reports a duplicate charge."],
                 },
-                markdown: "markdown",
-                selfContained: true,
+                markdown: "Confirm the duplicate charge before issuing a refund.",
+                selfContained: false,
                 version: 1,
             },
             to: {
                 contract: {
-                    aliases: ["aliases"],
-                    citations: ["citations"],
-                    confidence: 1.1,
-                    contraindications: [{}],
-                    customerSections: [{}],
-                    dependencies: [{}],
-                    description: "description",
-                    environments: [{}],
-                    evidence: [{}],
-                    failures: [{}],
+                    aliases: ["duplicate-refund"],
+                    applicability: {
+                        agentVersions: ["2026.09.01"],
+                        citations: ["event-001"],
+                        models: [
+                            {
+                                name: "support-agent-prod",
+                                versionConstraint: "^1.0.0",
+                            },
+                        ],
+                    },
+                    citations: ["event-001"],
+                    confidence: 0.5,
+                    contraindications: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    customerSections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                            schemaVersion: "v1",
+                            sectionId: "refund_workflow",
+                        },
+                    ],
+                    dependencies: [
+                        {
+                            packageName: "payments",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
+                    evidence: [
+                        {
+                            attemptFamilyId: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                            id: "evidence-1",
+                            sourceId: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                            traceId: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        },
+                    ],
+                    failures: [
+                        {
+                            condition: {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                            recovery: [
+                                {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            ],
+                        },
+                    ],
+                    invocation: {
+                        conditions: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        summary: {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    },
                     kind: "principle",
-                    name: "name",
+                    name: "refund_payment",
                     origin: "evidence_derived",
-                    outputs: [{}],
-                    packageName: "package_name",
-                    preconditions: [{}],
-                    procedure: [{}],
-                    relations: [{}],
-                    schemaVersion: "schema_version",
-                    successCriteria: [{}],
-                    taskFamily: "task_family",
-                    terminationConditions: [{}],
-                    tools: [{}],
+                    outputs: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    packageName: "payments",
+                    preconditions: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    procedure: [
+                        {
+                            decision: {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                            expectedObservations: [
+                                {
+                                    citations: ["event-001"],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            ],
+                            instruction: {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        },
+                    ],
+                    relations: [
+                        {
+                            citations: ["event-001"],
+                            targetPackageName: "refund-guidance",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
+                    schemaVersion: "v1",
+                    successCriteria: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    taskFamily: "support/refund",
+                    terminationConditions: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    tools: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            citations: ["event-001"],
+                            name: "refund_payment",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
                 },
-                createdAt: "created_at",
+                createdAt: "2026-01-01T00:00:00Z",
                 definition: {
-                    agentVersions: ["agent_versions"],
-                    aliases: ["aliases"],
-                    description: "description",
-                    doNotUseWhen: ["do_not_use_when"],
-                    doneWhen: ["done_when"],
-                    environments: [{}],
-                    failures: [{}],
+                    agentVersions: ["2026.09.01"],
+                    aliases: ["duplicate-refund"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    doNotUseWhen: ["The payment has not settled."],
+                    doneWhen: ["support/refund"],
+                    environments: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            name: "Refund a duplicate charge",
+                            version: "2026.09.01",
+                        },
+                    ],
+                    failures: [
+                        {
+                            recover: ["Retry the refund after the payment service recovers."],
+                            when: "A duplicate charge is confirmed.",
+                        },
+                    ],
                     kind: "principle",
-                    name: "name",
-                    outputs: ["outputs"],
-                    packageName: "package_name",
-                    preconditions: ["preconditions"],
-                    procedure: [{}],
-                    relatedSkills: [{}],
-                    sections: [{}],
-                    stopWhen: ["stop_when"],
-                    taskFamily: "task_family",
-                    tools: [{}],
-                    useWhen: ["use_when"],
+                    name: "Refund a duplicate charge",
+                    outputs: ["support/refund"],
+                    packageName: "payments",
+                    preconditions: ["support/refund"],
+                    procedure: [
+                        {
+                            decision: "If the payment is settled.",
+                            expect: ["A refund is confirmed."],
+                            instruction: "Confirm that the payment was processed twice.",
+                        },
+                    ],
+                    relatedSkills: [
+                        {
+                            relation: "depends_on",
+                            skill: "refund-duplicate-charge",
+                            version: "2026.09.01",
+                        },
+                    ],
+                    sections: [
+                        {
+                            heading: "Verify the duplicate charge",
+                            id: "refund-workflow",
+                            markdown: "Confirm the duplicate charge before issuing a refund.",
+                        },
+                    ],
+                    stopWhen: ["Stop if the duplicate charge cannot be confirmed."],
+                    taskFamily: "support/refund",
+                    tools: [
+                        {
+                            aliases: ["duplicate-refund"],
+                            name: "Refund a duplicate charge",
+                            version: "2026.09.01",
+                        },
+                    ],
+                    useWhen: ["A customer reports a duplicate charge."],
                 },
-                markdown: "markdown",
-                selfContained: true,
+                markdown: "Confirm the duplicate charge before issuing a refund.",
+                selfContained: false,
                 version: 1,
             },
         });
@@ -493,56 +1278,125 @@ describe("VersionClient", () => {
 
         const rawResponseBody = {
             contract: {
-                aliases: ["aliases"],
-                applicability: { agent_versions: ["agent_versions"], citations: ["citations"], models: [{}] },
-                citations: ["citations"],
-                confidence: 1.1,
-                contraindications: [{}],
-                customer_sections: [{}],
-                dependencies: [{}],
-                description: "description",
-                environments: [{}],
-                evidence: [{}],
-                failures: [{}],
-                invocation: { conditions: [{}] },
+                aliases: ["duplicate-refund"],
+                applicability: {
+                    agent_versions: ["2026.09.01"],
+                    citations: ["event-001"],
+                    models: [{ name: "support-agent-prod", version_constraint: "^1.0.0" }],
+                },
+                citations: ["event-001"],
+                confidence: 0.5,
+                contraindications: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                customer_sections: [
+                    {
+                        heading: "Verify the duplicate charge",
+                        markdown: "Confirm the duplicate charge before issuing a refund.",
+                        schema_version: "v1",
+                        section_id: "refund_workflow",
+                    },
+                ],
+                dependencies: [{ package_name: "payments", version_constraint: "^1.0.0" }],
+                description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                environments: [
+                    {
+                        aliases: ["duplicate-refund"],
+                        citations: ["event-001"],
+                        name: "refund_payment",
+                        version_constraint: "^1.0.0",
+                    },
+                ],
+                evidence: [
+                    {
+                        attempt_family_id: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                        id: "evidence-1",
+                        source_id: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                        trace_id: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    },
+                ],
+                failures: [
+                    {
+                        condition: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                        recovery: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    },
+                ],
+                invocation: {
+                    conditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                    summary: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                },
                 kind: "principle",
-                name: "name",
+                name: "refund_payment",
                 origin: "evidence_derived",
-                outputs: [{}],
-                package_name: "package_name",
-                preconditions: [{}],
-                procedure: [{}],
-                relations: [{}],
-                schema_version: "schema_version",
-                success_criteria: [{}],
-                task_family: "task_family",
-                termination_conditions: [{}],
-                tools: [{}],
+                outputs: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                package_name: "payments",
+                preconditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                procedure: [
+                    {
+                        decision: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                        expected_observations: [
+                            { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                        ],
+                        instruction: { citations: ["event-001"], text: "The duplicate charge was refunded." },
+                    },
+                ],
+                relations: [
+                    { citations: ["event-001"], target_package_name: "refund-guidance", version_constraint: "^1.0.0" },
+                ],
+                schema_version: "v1",
+                success_criteria: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                task_family: "support/refund",
+                termination_conditions: [{ citations: ["event-001"], text: "The duplicate charge was refunded." }],
+                tools: [
+                    {
+                        aliases: ["duplicate-refund"],
+                        citations: ["event-001"],
+                        name: "refund_payment",
+                        version_constraint: "^1.0.0",
+                    },
+                ],
             },
-            created_at: "created_at",
+            created_at: "2026-01-01T00:00:00Z",
             definition: {
-                agent_versions: ["agent_versions"],
-                aliases: ["aliases"],
-                description: "description",
-                do_not_use_when: ["do_not_use_when"],
-                done_when: ["done_when"],
-                environments: [{}],
-                failures: [{}],
+                agent_versions: ["2026.09.01"],
+                aliases: ["duplicate-refund"],
+                description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                do_not_use_when: ["The payment has not settled."],
+                done_when: ["support/refund"],
+                environments: [
+                    { aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" },
+                ],
+                failures: [
+                    {
+                        recover: ["Retry the refund after the payment service recovers."],
+                        when: "A duplicate charge is confirmed.",
+                    },
+                ],
                 kind: "principle",
-                name: "name",
-                outputs: ["outputs"],
-                package_name: "package_name",
-                preconditions: ["preconditions"],
-                procedure: [{}],
-                related_skills: [{}],
-                sections: [{}],
-                stop_when: ["stop_when"],
-                task_family: "task_family",
-                tools: [{}],
-                use_when: ["use_when"],
+                name: "Refund a duplicate charge",
+                outputs: ["support/refund"],
+                package_name: "payments",
+                preconditions: ["support/refund"],
+                procedure: [
+                    {
+                        decision: "If the payment is settled.",
+                        expect: ["A refund is confirmed."],
+                        instruction: "Confirm that the payment was processed twice.",
+                    },
+                ],
+                related_skills: [{ relation: "depends_on", skill: "refund-duplicate-charge", version: "2026.09.01" }],
+                sections: [
+                    {
+                        heading: "Verify the duplicate charge",
+                        id: "refund-workflow",
+                        markdown: "Confirm the duplicate charge before issuing a refund.",
+                    },
+                ],
+                stop_when: ["Stop if the duplicate charge cannot be confirmed."],
+                task_family: "support/refund",
+                tools: [{ aliases: ["duplicate-refund"], name: "Refund a duplicate charge", version: "2026.09.01" }],
+                use_when: ["A customer reports a duplicate charge."],
             },
-            markdown: "markdown",
-            self_contained: true,
+            markdown: "Confirm the duplicate charge before issuing a refund.",
+            self_contained: false,
             version: 1,
         };
 
@@ -557,62 +1411,205 @@ describe("VersionClient", () => {
         const response = await client.agent.skill.version.get("agent_uuid", "skill_uuid", 1);
         expect(response).toEqual({
             contract: {
-                aliases: ["aliases"],
+                aliases: ["duplicate-refund"],
                 applicability: {
-                    agentVersions: ["agent_versions"],
-                    citations: ["citations"],
-                    models: [{}],
+                    agentVersions: ["2026.09.01"],
+                    citations: ["event-001"],
+                    models: [
+                        {
+                            name: "support-agent-prod",
+                            versionConstraint: "^1.0.0",
+                        },
+                    ],
                 },
-                citations: ["citations"],
-                confidence: 1.1,
-                contraindications: [{}],
-                customerSections: [{}],
-                dependencies: [{}],
-                description: "description",
-                environments: [{}],
-                evidence: [{}],
-                failures: [{}],
+                citations: ["event-001"],
+                confidence: 0.5,
+                contraindications: [
+                    {
+                        citations: ["event-001"],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                customerSections: [
+                    {
+                        heading: "Verify the duplicate charge",
+                        markdown: "Confirm the duplicate charge before issuing a refund.",
+                        schemaVersion: "v1",
+                        sectionId: "refund_workflow",
+                    },
+                ],
+                dependencies: [
+                    {
+                        packageName: "payments",
+                        versionConstraint: "^1.0.0",
+                    },
+                ],
+                description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                environments: [
+                    {
+                        aliases: ["duplicate-refund"],
+                        citations: ["event-001"],
+                        name: "refund_payment",
+                        versionConstraint: "^1.0.0",
+                    },
+                ],
+                evidence: [
+                    {
+                        attemptFamilyId: "c58dd7b4-bd8a-41ed-a8be-e32dc6a7c0e3",
+                        id: "evidence-1",
+                        sourceId: "fe2f7bc1-0a8f-4834-98a2-715c8d2b56bc",
+                        traceId: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    },
+                ],
+                failures: [
+                    {
+                        condition: {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                        recovery: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                    },
+                ],
                 invocation: {
-                    conditions: [{}],
+                    conditions: [
+                        {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    summary: {
+                        citations: ["event-001"],
+                        text: "The duplicate charge was refunded.",
+                    },
                 },
                 kind: "principle",
-                name: "name",
+                name: "refund_payment",
                 origin: "evidence_derived",
-                outputs: [{}],
-                packageName: "package_name",
-                preconditions: [{}],
-                procedure: [{}],
-                relations: [{}],
-                schemaVersion: "schema_version",
-                successCriteria: [{}],
-                taskFamily: "task_family",
-                terminationConditions: [{}],
-                tools: [{}],
+                outputs: [
+                    {
+                        citations: ["event-001"],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                packageName: "payments",
+                preconditions: [
+                    {
+                        citations: ["event-001"],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                procedure: [
+                    {
+                        decision: {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                        expectedObservations: [
+                            {
+                                citations: ["event-001"],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        instruction: {
+                            citations: ["event-001"],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    },
+                ],
+                relations: [
+                    {
+                        citations: ["event-001"],
+                        targetPackageName: "refund-guidance",
+                        versionConstraint: "^1.0.0",
+                    },
+                ],
+                schemaVersion: "v1",
+                successCriteria: [
+                    {
+                        citations: ["event-001"],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                taskFamily: "support/refund",
+                terminationConditions: [
+                    {
+                        citations: ["event-001"],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                tools: [
+                    {
+                        aliases: ["duplicate-refund"],
+                        citations: ["event-001"],
+                        name: "refund_payment",
+                        versionConstraint: "^1.0.0",
+                    },
+                ],
             },
-            createdAt: "created_at",
+            createdAt: "2026-01-01T00:00:00Z",
             definition: {
-                agentVersions: ["agent_versions"],
-                aliases: ["aliases"],
-                description: "description",
-                doNotUseWhen: ["do_not_use_when"],
-                doneWhen: ["done_when"],
-                environments: [{}],
-                failures: [{}],
+                agentVersions: ["2026.09.01"],
+                aliases: ["duplicate-refund"],
+                description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                doNotUseWhen: ["The payment has not settled."],
+                doneWhen: ["support/refund"],
+                environments: [
+                    {
+                        aliases: ["duplicate-refund"],
+                        name: "Refund a duplicate charge",
+                        version: "2026.09.01",
+                    },
+                ],
+                failures: [
+                    {
+                        recover: ["Retry the refund after the payment service recovers."],
+                        when: "A duplicate charge is confirmed.",
+                    },
+                ],
                 kind: "principle",
-                name: "name",
-                outputs: ["outputs"],
-                packageName: "package_name",
-                preconditions: ["preconditions"],
-                procedure: [{}],
-                relatedSkills: [{}],
-                sections: [{}],
-                stopWhen: ["stop_when"],
-                taskFamily: "task_family",
-                tools: [{}],
-                useWhen: ["use_when"],
+                name: "Refund a duplicate charge",
+                outputs: ["support/refund"],
+                packageName: "payments",
+                preconditions: ["support/refund"],
+                procedure: [
+                    {
+                        decision: "If the payment is settled.",
+                        expect: ["A refund is confirmed."],
+                        instruction: "Confirm that the payment was processed twice.",
+                    },
+                ],
+                relatedSkills: [
+                    {
+                        relation: "depends_on",
+                        skill: "refund-duplicate-charge",
+                        version: "2026.09.01",
+                    },
+                ],
+                sections: [
+                    {
+                        heading: "Verify the duplicate charge",
+                        id: "refund-workflow",
+                        markdown: "Confirm the duplicate charge before issuing a refund.",
+                    },
+                ],
+                stopWhen: ["Stop if the duplicate charge cannot be confirmed."],
+                taskFamily: "support/refund",
+                tools: [
+                    {
+                        aliases: ["duplicate-refund"],
+                        name: "Refund a duplicate charge",
+                        version: "2026.09.01",
+                    },
+                ],
+                useWhen: ["A customer reports a duplicate charge."],
             },
-            markdown: "markdown",
-            selfContained: true,
+            markdown: "Confirm the duplicate charge before issuing a refund.",
+            selfContained: false,
             version: 1,
         });
     });

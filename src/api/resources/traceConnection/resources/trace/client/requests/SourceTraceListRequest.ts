@@ -15,6 +15,6 @@ export interface SourceTraceListRequest {
     cursor?: string;
     /** Filter contains provider trace filters. Example: {"started_after":"2026-01-01T00:00:00Z"}. */
     filter?: Zep.TraceFilter;
-    /** ProviderProjectID is the provider project identifier. */
+    /** The developer supplies the project ID from the selected provider. */
     providerProjectId: string;
 }

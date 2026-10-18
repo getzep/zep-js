@@ -40,7 +40,7 @@ export class RunClient {
     }
 
     /**
-     * List runs that belong to this trace import.
+     * List runs that belong to this trace import. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID
@@ -175,7 +175,7 @@ export class RunClient {
     }
 
     /**
-     * Create a pending run and its Task. This operation does not start the run.
+     * Create a pending run and its Task. This operation does not start the run. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID
@@ -304,7 +304,7 @@ export class RunClient {
     }
 
     /**
-     * Read one run that belongs to this trace import.
+     * Read one run that belongs to this trace import. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID

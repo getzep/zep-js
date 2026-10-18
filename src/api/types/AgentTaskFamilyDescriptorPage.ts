@@ -7,6 +7,6 @@ export interface AgentTaskFamilyDescriptorPage {
     items?: Zep.AgentTaskFamilyDescriptor[];
     /** Opaque cursor for retrieving the next page, present only when more results are available. */
     nextCursor?: string;
-    /** The total number of discovered task families within the owning Agent. */
+    /** The service returns the total number of discovered task families within the owning Agent. */
     totalSize?: number;
 }

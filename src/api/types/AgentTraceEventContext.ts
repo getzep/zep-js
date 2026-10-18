@@ -6,6 +6,10 @@ export interface AgentTraceEventContext {
     artifacts?: Zep.AgentTraceResourceRef[];
     environments?: Zep.AgentTraceResourceRef[];
     model?: Zep.AgentTraceResourceRef;
+    /**
+     * Tools identifies the tool that the event calls or returns. Skills learning reads this field.
+     * It is optional. A tool event can omit the tool name.
+     */
     tools?: Zep.AgentTraceResourceRef[];
     verification?: Zep.AgentTraceVerification;
 }

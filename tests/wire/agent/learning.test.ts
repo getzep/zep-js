@@ -10,14 +10,14 @@ describe("LearningClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            approval: "approval",
-            compilation_mode: "compilation_mode",
-            compilation_pending: true,
-            eligible_trace_count: 1,
-            minimum_attempt_families: 1,
-            next_step: "next_step",
-            required_evaluations: ["required_evaluations"],
-            task_family: "task_family",
+            approval: "auto",
+            compilation_mode: "scheduled",
+            compilation_pending: false,
+            eligible_trace_count: 2,
+            minimum_attempt_families: 3,
+            next_step: "Collect more eligible traces before compilation.",
+            required_evaluations: ["policy:version:pass"],
+            task_family: "support/refund",
         };
 
         server
@@ -32,14 +32,14 @@ describe("LearningClient", () => {
             taskFamily: "task_family",
         });
         expect(response).toEqual({
-            approval: "approval",
-            compilationMode: "compilation_mode",
-            compilationPending: true,
-            eligibleTraceCount: 1,
-            minimumAttemptFamilies: 1,
-            nextStep: "next_step",
-            requiredEvaluations: ["required_evaluations"],
-            taskFamily: "task_family",
+            approval: "auto",
+            compilationMode: "scheduled",
+            compilationPending: false,
+            eligibleTraceCount: 2,
+            minimumAttemptFamilies: 3,
+            nextStep: "Collect more eligible traces before compilation.",
+            requiredEvaluations: ["policy:version:pass"],
+            taskFamily: "support/refund",
         });
     });
 
@@ -134,21 +134,21 @@ describe("LearningClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    agent_uuid: "agent_uuid",
+                    agent_uuid: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
                     attempts: 1,
                     candidate_count: 1,
-                    compilation_identity: "compilation_identity",
-                    compilation_window_uuid: "compilation_window_uuid",
-                    created_at: "created_at",
-                    decision: "decision",
-                    proposal_count: 1,
-                    reason_text: "reason_text",
+                    compilation_identity: "c3d4e5f6-a7b8-4c9d-8e1f-2a3b4c5d6e7f",
+                    compilation_window_uuid: "d4e5f6a7-b8c9-4d0e-9f2a-3b4c5d6e7f80",
+                    created_at: "2026-01-01T00:00:00Z",
+                    decision: "produced",
+                    proposal_count: 2,
+                    reason_text: "No eligible Traces were found.",
                     rejected_add_count: 1,
                     rejection_class: "no_eligible_traces",
-                    stage: "stage",
-                    task_family: "task_family",
-                    trace_count: 1,
-                    uuid: "uuid",
+                    stage: "selection",
+                    task_family: "support/refund",
+                    trace_count: 3,
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 },
             ],
             next_cursor: "next_cursor",
@@ -166,21 +166,21 @@ describe("LearningClient", () => {
         const expected = {
             items: [
                 {
-                    agentUuid: "agent_uuid",
+                    agentUuid: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
                     attempts: 1,
                     candidateCount: 1,
-                    compilationIdentity: "compilation_identity",
-                    compilationWindowUuid: "compilation_window_uuid",
-                    createdAt: "created_at",
-                    decision: "decision",
-                    proposalCount: 1,
-                    reasonText: "reason_text",
+                    compilationIdentity: "c3d4e5f6-a7b8-4c9d-8e1f-2a3b4c5d6e7f",
+                    compilationWindowUuid: "d4e5f6a7-b8c9-4d0e-9f2a-3b4c5d6e7f80",
+                    createdAt: "2026-01-01T00:00:00Z",
+                    decision: "produced",
+                    proposalCount: 2,
+                    reasonText: "No eligible Traces were found.",
                     rejectedAddCount: 1,
                     rejectionClass: "no_eligible_traces",
-                    stage: "stage",
-                    taskFamily: "task_family",
-                    traceCount: 1,
-                    uuid: "uuid",
+                    stage: "selection",
+                    taskFamily: "support/refund",
+                    traceCount: 3,
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 },
             ],
             nextCursor: "next_cursor",
@@ -214,6 +214,44 @@ describe("LearningClient", () => {
     });
 
     test("list_runs (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/learning-runs")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.learning.listRuns("agent_uuid");
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list_runs (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/learning-runs")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.learning.listRuns("agent_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_runs (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 

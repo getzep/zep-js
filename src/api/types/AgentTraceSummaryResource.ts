@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryResource {
+    /** The service returns the events that support this resource summary. */
     citations?: Zep.AgentTraceSummaryCitation[];
+    /** The service returns the resource name recorded in the source event. */
     name?: string;
+    /** The service returns the resource version recorded in the source event. */
     version?: string;
 }

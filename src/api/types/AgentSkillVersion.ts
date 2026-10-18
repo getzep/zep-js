@@ -3,14 +3,19 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillVersion {
+    /** The service returns skill contract. */
     contract?: Zep.AgentSkillContract;
+    /** The service returns when Zep created this resource. */
     createdAt?: string;
+    /** The service returns the customer-authored Skill definition. */
     definition?: Zep.SkillDefinition;
     /**
      * Markdown is the agent view of the Skill unless the request selects
      * `markdown_format=full`.
      */
     markdown?: string;
+    /** The service reports whether the Skill can run without external context. */
     selfContained?: boolean;
+    /** The service returns the Skill version number. */
     version?: number;
 }

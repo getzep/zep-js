@@ -240,6 +240,543 @@ describe("GraphClient", () => {
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
+    test("query_stream (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids"], query: "query", stream: true };
+        const rawResponseBody =
+            'event: \ndata: {"sequence":1,"graph_uuids":["graph_uuids"],"handles":[{"handle":"handle","item_type":"node","uuid":"uuid","graph_uuid":"graph_uuid"}],"type":"started"}\n\n';
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .sseBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.queryStream({
+            graphUuids: ["graph_uuids"],
+            query: "query",
+        });
+        const events: unknown[] = [];
+        for await (const event of response) {
+            events.push(event);
+        }
+        expect(events).toEqual([
+            {
+                type: "started",
+                sequence: 1,
+                graphUuids: ["graph_uuids"],
+                handles: [
+                    {
+                        handle: "handle",
+                        itemType: "node",
+                        uuid: "uuid",
+                        graphUuid: "graph_uuid",
+                    },
+                ],
+            },
+        ]);
+    });
+
+    test("query_stream (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("query_stream (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("query_stream (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("query_stream (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("query_stream (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(413)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.ContentTooLargeError);
+    });
+
+    test("query_stream (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.TooManyRequestsError);
+    });
+
+    test("query_stream (8)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.InternalServerError);
+    });
+
+    test("query_stream (9)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: true };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.queryStream({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.ServiceUnavailableError);
+    });
+
+    test("query (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {
+            answer: "answer",
+            citations: { edge_uuids: ["edge_uuids"], episode_uuids: ["episode_uuids"], node_uuids: ["node_uuids"] },
+            results: {
+                edges: [
+                    {
+                        created_at: "2024-01-15T10:30:00Z",
+                        expired_at: "2024-02-15T10:30:00Z",
+                        fact: "Acme Corp was founded in 2001.",
+                        graph_uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d480",
+                        hyperedge_uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d482",
+                        invalid_at: "2024-02-15T10:30:00Z",
+                        name: "FOUNDED",
+                        scope: "entity",
+                        source_node_labels: ["Organization"],
+                        source_node_name: "Acme Corp",
+                        source_node_uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d483",
+                        target_node_labels: ["Organization"],
+                        target_node_name: "Globex",
+                        target_node_uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d484",
+                        user_uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d481",
+                        uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                        valid_at: "2024-01-15T10:30:00Z",
+                    },
+                ],
+                episodes: [
+                    {
+                        content_policy: {
+                            category_keys: ["health"],
+                            dropped_count: 0,
+                            retained_count: 7,
+                            revision: 3,
+                            violated: false,
+                        },
+                    },
+                ],
+                nodes: [
+                    {
+                        created_at: "2024-01-15T10:30:00Z",
+                        graph_uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d480",
+                        labels: ["Organization"],
+                        name: "Acme Corp",
+                        summary: "Acme provides logistics services.",
+                        user_uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d481",
+                        uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    },
+                ],
+                observations: [{}],
+                thread_summaries: [{}],
+            },
+            truncated: true,
+        };
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.query({
+            graphUuids: ["graph_uuids"],
+            query: "query",
+        });
+        expect(response).toEqual({
+            answer: "answer",
+            citations: {
+                edgeUuids: ["edge_uuids"],
+                episodeUuids: ["episode_uuids"],
+                nodeUuids: ["node_uuids"],
+            },
+            results: {
+                edges: [
+                    {
+                        createdAt: "2024-01-15T10:30:00Z",
+                        expiredAt: "2024-02-15T10:30:00Z",
+                        fact: "Acme Corp was founded in 2001.",
+                        graphUuid: "f47ac10b-58cc-4372-a567-0e02b2c3d480",
+                        hyperedgeUuid: "f47ac10b-58cc-4372-a567-0e02b2c3d482",
+                        invalidAt: "2024-02-15T10:30:00Z",
+                        name: "FOUNDED",
+                        scope: "entity",
+                        sourceNodeLabels: ["Organization"],
+                        sourceNodeName: "Acme Corp",
+                        sourceNodeUuid: "f47ac10b-58cc-4372-a567-0e02b2c3d483",
+                        targetNodeLabels: ["Organization"],
+                        targetNodeName: "Globex",
+                        targetNodeUuid: "f47ac10b-58cc-4372-a567-0e02b2c3d484",
+                        userUuid: "f47ac10b-58cc-4372-a567-0e02b2c3d481",
+                        uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                        validAt: "2024-01-15T10:30:00Z",
+                    },
+                ],
+                episodes: [
+                    {
+                        contentPolicy: {
+                            categoryKeys: ["health"],
+                            droppedCount: 0,
+                            retainedCount: 7,
+                            revision: 3,
+                            violated: false,
+                        },
+                    },
+                ],
+                nodes: [
+                    {
+                        createdAt: "2024-01-15T10:30:00Z",
+                        graphUuid: "f47ac10b-58cc-4372-a567-0e02b2c3d480",
+                        labels: ["Organization"],
+                        name: "Acme Corp",
+                        summary: "Acme provides logistics services.",
+                        userUuid: "f47ac10b-58cc-4372-a567-0e02b2c3d481",
+                        uuid: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    },
+                ],
+                observations: [{}],
+                threadSummaries: [{}],
+            },
+            truncated: true,
+        });
+    });
+
+    test("query (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("query (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("query (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("query (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("query (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(413)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.ContentTooLargeError);
+    });
+
+    test("query (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(429)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.TooManyRequestsError);
+    });
+
+    test("query (8)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.InternalServerError);
+    });
+
+    test("query (9)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { graph_uuids: ["graph_uuids", "graph_uuids"], query: "query", stream: false };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/graphs/query")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(503)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.query({
+                graphUuids: ["graph_uuids", "graph_uuids"],
+                query: "query",
+            });
+        }).rejects.toThrow(Zep.ServiceUnavailableError);
+    });
+
     test("get (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -1725,6 +2262,7 @@ describe("GraphClient", () => {
             items: [
                 {
                     created_at: "created_at",
+                    graph_uuid: "graph_uuid",
                     last_summarized_at: "last_summarized_at",
                     last_summarized_episode_valid_at: "last_summarized_episode_valid_at",
                     relevance: 1.1,
@@ -1751,6 +2289,7 @@ describe("GraphClient", () => {
             items: [
                 {
                     createdAt: "created_at",
+                    graphUuid: "graph_uuid",
                     lastSummarizedAt: "last_summarized_at",
                     lastSummarizedEpisodeValidAt: "last_summarized_episode_valid_at",
                     relevance: 1.1,

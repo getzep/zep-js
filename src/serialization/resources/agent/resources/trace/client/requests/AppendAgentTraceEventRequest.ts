@@ -19,6 +19,7 @@ export const AppendAgentTraceEventRequest: core.serialization.Schema<
     occurredAt: core.serialization.property("occurred_at", core.serialization.string().optional()),
     sequence: core.serialization.number().optional(),
     sources: core.serialization.list(AgentTraceEventSource).optional(),
+    toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
 });
 
 export declare namespace AppendAgentTraceEventRequest {
@@ -31,5 +32,6 @@ export declare namespace AppendAgentTraceEventRequest {
         occurred_at?: string | null;
         sequence?: number | null;
         sources?: AgentTraceEventSource.Raw[] | null;
+        tool_call_id?: string | null;
     }
 }

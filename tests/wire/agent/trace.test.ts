@@ -12,29 +12,57 @@ describe("TraceClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    abandoned_at: "abandoned_at",
-                    agent_uuid: "agent_uuid",
-                    attempt_family_uuid: "attempt_family_uuid",
-                    closed_at: "closed_at",
-                    created_at: "created_at",
+                    abandoned_at: "2026-01-01T00:01:00Z",
+                    agent_uuid: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+                    attempt_family_uuid: "d4e5f6a7-b8c9-4d0e-9f2a-3b4c5d6e7f80",
+                    closed_at: "2026-01-01T00:01:00Z",
+                    created_at: "2026-01-01T00:00:00Z",
+                    internal: {
+                        assertion_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        closing_sequence: 1,
+                        current_summary_version: 1,
+                        last_task_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        next_sequence: 1,
+                    },
                     learn_from: true,
-                    learn_from_reason: "learn_from_reason",
+                    learn_from_reason: "caller_opt_out",
                     metadata: { key: "value" },
-                    objective: "objective",
+                    objective: "Refund a duplicate charge.",
                     outcome: "succeeded",
-                    parent_trace_uuid: "parent_trace_uuid",
+                    parent_trace_uuid: "c3d4e5f6-a7b8-4c9d-8e1f-2a3b4c5d6e7f",
                     revision: 1,
-                    source: { source_changed: false },
+                    source: {
+                        connection_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        import_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        imported_at: "2026-01-01T00:00:00Z",
+                        provider: "braintrust",
+                        provider_project_id: "project-123",
+                        run_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        source_changed: false,
+                        source_revision: "revision-1",
+                        source_url: "https://example.com/traces/trace-123",
+                        trace_ended_at: "2026-01-01T00:00:00Z",
+                        trace_id: "provider-trace-123",
+                        trace_started_at: "2026-01-01T00:00:00Z",
+                    },
                     status: "open",
-                    task_family: "task_family",
-                    task_family_source: "task_family_source",
-                    trace_id: "trace_id",
-                    updated_at: "updated_at",
-                    uuid: "uuid",
+                    task_family: "support/refund",
+                    task_family_inference: {
+                        assigned_at: "2026-01-01T00:00:00Z",
+                        classifier_version: "task-family-classifier-v1",
+                        confidence: 0.5,
+                        descriptor_version: 1,
+                        learning_reusable: false,
+                        state: "pending",
+                    },
+                    task_family_source: "declared",
+                    trace_id: "support-001",
+                    updated_at: "2026-01-01T00:00:00Z",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verification: "none",
                 },
             ],
-            next_cursor: "next_cursor",
+            next_cursor: "eyJvZmZzZXQiOjEwfQ",
             total_size: 1,
         };
 
@@ -50,33 +78,59 @@ describe("TraceClient", () => {
         const expected = {
             items: [
                 {
-                    abandonedAt: "abandoned_at",
-                    agentUuid: "agent_uuid",
-                    attemptFamilyUuid: "attempt_family_uuid",
-                    closedAt: "closed_at",
-                    createdAt: "created_at",
+                    abandonedAt: "2026-01-01T00:01:00Z",
+                    agentUuid: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+                    attemptFamilyUuid: "d4e5f6a7-b8c9-4d0e-9f2a-3b4c5d6e7f80",
+                    closedAt: "2026-01-01T00:01:00Z",
+                    createdAt: "2026-01-01T00:00:00Z",
+                    internal: {
+                        assertionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        closingSequence: 1,
+                        currentSummaryVersion: 1,
+                        lastTaskUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        nextSequence: 1,
+                    },
                     learnFrom: true,
-                    learnFromReason: "learn_from_reason",
+                    learnFromReason: "caller_opt_out",
                     metadata: {
                         key: "value",
                     },
-                    objective: "objective",
+                    objective: "Refund a duplicate charge.",
                     outcome: "succeeded",
-                    parentTraceUuid: "parent_trace_uuid",
+                    parentTraceUuid: "c3d4e5f6-a7b8-4c9d-8e1f-2a3b4c5d6e7f",
                     revision: 1,
                     source: {
+                        connectionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        importUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                        importedAt: "2026-01-01T00:00:00Z",
+                        provider: "braintrust",
+                        providerProjectId: "project-123",
+                        runUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                         sourceChanged: false,
+                        sourceRevision: "revision-1",
+                        sourceUrl: "https://example.com/traces/trace-123",
+                        traceEndedAt: "2026-01-01T00:00:00Z",
+                        traceId: "provider-trace-123",
+                        traceStartedAt: "2026-01-01T00:00:00Z",
                     },
                     status: "open",
-                    taskFamily: "task_family",
-                    taskFamilySource: "task_family_source",
-                    traceId: "trace_id",
-                    updatedAt: "updated_at",
-                    uuid: "uuid",
+                    taskFamily: "support/refund",
+                    taskFamilyInference: {
+                        assignedAt: "2026-01-01T00:00:00Z",
+                        classifierVersion: "task-family-classifier-v1",
+                        confidence: 0.5,
+                        descriptorVersion: 1,
+                        learningReusable: false,
+                        state: "pending",
+                    },
+                    taskFamilySource: "declared",
+                    traceId: "support-001",
+                    updatedAt: "2026-01-01T00:00:00Z",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verification: "none",
                 },
             ],
-            nextCursor: "next_cursor",
+            nextCursor: "eyJvZmZzZXQiOjEwfQ",
             totalSize: 1,
         };
         const page = await client.agent.trace.list("agent_uuid");
@@ -172,56 +226,56 @@ describe("TraceClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            abandoned_at: "abandoned_at",
-            agent_uuid: "agent_uuid",
-            attempt_family_uuid: "attempt_family_uuid",
-            closed_at: "closed_at",
-            created_at: "created_at",
+            abandoned_at: "2026-01-01T00:01:00Z",
+            agent_uuid: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+            attempt_family_uuid: "d4e5f6a7-b8c9-4d0e-9f2a-3b4c5d6e7f80",
+            closed_at: "2026-01-01T00:01:00Z",
+            created_at: "2026-01-01T00:00:00Z",
             internal: {
-                assertion_uuid: "assertion_uuid",
+                assertion_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 closing_sequence: 1,
                 current_summary_version: 1,
-                last_task_uuid: "last_task_uuid",
+                last_task_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 next_sequence: 1,
                 processing_state: "idle",
             },
             learn_from: true,
-            learn_from_reason: "learn_from_reason",
+            learn_from_reason: "caller_opt_out",
             metadata: { key: "value" },
-            objective: "objective",
+            objective: "Refund a duplicate charge.",
             outcome: "succeeded",
-            parent_trace_uuid: "parent_trace_uuid",
+            parent_trace_uuid: "c3d4e5f6-a7b8-4c9d-8e1f-2a3b4c5d6e7f",
             revision: 1,
             source: {
-                connection_uuid: "connection_uuid",
-                import_uuid: "import_uuid",
-                imported_at: "imported_at",
+                connection_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                import_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                imported_at: "2026-01-01T00:00:00Z",
                 kind: "trace_import",
-                provider: "provider",
-                provider_project_id: "provider_project_id",
-                run_uuid: "run_uuid",
+                provider: "braintrust",
+                provider_project_id: "project-123",
+                run_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 scores: { key: 1.1 },
                 source_changed: false,
-                source_revision: "source_revision",
-                source_url: "source_url",
-                trace_ended_at: "trace_ended_at",
-                trace_id: "trace_id",
-                trace_started_at: "trace_started_at",
+                source_revision: "revision-1",
+                source_url: "https://example.com/traces/trace-123",
+                trace_ended_at: "2026-01-01T00:00:00Z",
+                trace_id: "provider-trace-123",
+                trace_started_at: "2026-01-01T00:00:00Z",
             },
             status: "open",
-            task_family: "task_family",
+            task_family: "support/refund",
             task_family_inference: {
-                assigned_at: "assigned_at",
-                classifier_version: "classifier_version",
-                confidence: 1.1,
+                assigned_at: "2026-01-01T00:00:00Z",
+                classifier_version: "task-family-classifier-v1",
+                confidence: 0.5,
                 descriptor_version: 1,
-                learning_reusable: true,
-                state: "state",
+                learning_reusable: false,
+                state: "pending",
             },
-            task_family_source: "task_family_source",
-            trace_id: "trace_id",
-            updated_at: "updated_at",
-            uuid: "uuid",
+            task_family_source: "declared",
+            trace_id: "support-001",
+            updated_at: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             verification: "none",
         };
 
@@ -235,60 +289,60 @@ describe("TraceClient", () => {
 
         const response = await client.agent.trace.get("agent_uuid", "trace_uuid");
         expect(response).toEqual({
-            abandonedAt: "abandoned_at",
-            agentUuid: "agent_uuid",
-            attemptFamilyUuid: "attempt_family_uuid",
-            closedAt: "closed_at",
-            createdAt: "created_at",
+            abandonedAt: "2026-01-01T00:01:00Z",
+            agentUuid: "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+            attemptFamilyUuid: "d4e5f6a7-b8c9-4d0e-9f2a-3b4c5d6e7f80",
+            closedAt: "2026-01-01T00:01:00Z",
+            createdAt: "2026-01-01T00:00:00Z",
             internal: {
-                assertionUuid: "assertion_uuid",
+                assertionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 closingSequence: 1,
                 currentSummaryVersion: 1,
-                lastTaskUuid: "last_task_uuid",
+                lastTaskUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 nextSequence: 1,
                 processingState: "idle",
             },
             learnFrom: true,
-            learnFromReason: "learn_from_reason",
+            learnFromReason: "caller_opt_out",
             metadata: {
                 key: "value",
             },
-            objective: "objective",
+            objective: "Refund a duplicate charge.",
             outcome: "succeeded",
-            parentTraceUuid: "parent_trace_uuid",
+            parentTraceUuid: "c3d4e5f6-a7b8-4c9d-8e1f-2a3b4c5d6e7f",
             revision: 1,
             source: {
-                connectionUuid: "connection_uuid",
-                importUuid: "import_uuid",
-                importedAt: "imported_at",
+                connectionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                importUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                importedAt: "2026-01-01T00:00:00Z",
                 kind: "trace_import",
-                provider: "provider",
-                providerProjectId: "provider_project_id",
-                runUuid: "run_uuid",
+                provider: "braintrust",
+                providerProjectId: "project-123",
+                runUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 scores: {
                     key: 1.1,
                 },
                 sourceChanged: false,
-                sourceRevision: "source_revision",
-                sourceUrl: "source_url",
-                traceEndedAt: "trace_ended_at",
-                traceId: "trace_id",
-                traceStartedAt: "trace_started_at",
+                sourceRevision: "revision-1",
+                sourceUrl: "https://example.com/traces/trace-123",
+                traceEndedAt: "2026-01-01T00:00:00Z",
+                traceId: "provider-trace-123",
+                traceStartedAt: "2026-01-01T00:00:00Z",
             },
             status: "open",
-            taskFamily: "task_family",
+            taskFamily: "support/refund",
             taskFamilyInference: {
-                assignedAt: "assigned_at",
-                classifierVersion: "classifier_version",
-                confidence: 1.1,
+                assignedAt: "2026-01-01T00:00:00Z",
+                classifierVersion: "task-family-classifier-v1",
+                confidence: 0.5,
                 descriptorVersion: 1,
-                learningReusable: true,
-                state: "state",
+                learningReusable: false,
+                state: "pending",
             },
-            taskFamilySource: "task_family_source",
-            traceId: "trace_id",
-            updatedAt: "updated_at",
-            uuid: "uuid",
+            taskFamilySource: "declared",
+            traceId: "support-001",
+            updatedAt: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             verification: "none",
         });
     });
@@ -388,12 +442,13 @@ describe("TraceClient", () => {
                     processing_state: "pending",
                     sequence: 1,
                     sources: [{ kind: "kind", uuid: "uuid" }],
+                    tool_call_id: "call_8f2b",
                     trace_uuid: "trace_uuid",
                     updated_at: "updated_at",
                     uuid: "uuid",
                 },
             ],
-            next_cursor: "next_cursor",
+            next_cursor: "eyJvZmZzZXQiOjEwfQ",
             total_size: 1,
         };
 
@@ -427,12 +482,13 @@ describe("TraceClient", () => {
                             uuid: "uuid",
                         },
                     ],
+                    toolCallId: "call_8f2b",
                     traceUuid: "trace_uuid",
                     updatedAt: "updated_at",
                     uuid: "uuid",
                 },
             ],
-            nextCursor: "next_cursor",
+            nextCursor: "eyJvZmZzZXQiOjEwfQ",
             totalSize: 1,
         };
         const page = await client.agent.trace.listEvents("agent_uuid", "trace_uuid");
@@ -472,6 +528,63 @@ describe("TraceClient", () => {
             .mockEndpoint()
             .get("/agents/agent_uuid/traces/trace_uuid/events")
             .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.trace.listEvents("agent_uuid", "trace_uuid");
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list_events (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/traces/trace_uuid/events")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.trace.listEvents("agent_uuid", "trace_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_events (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/traces/trace_uuid/events")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.trace.listEvents("agent_uuid", "trace_uuid");
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("list_events (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/traces/trace_uuid/events")
+            .respondWith()
             .statusCode(503)
             .jsonBody(rawResponseBody)
             .build();
@@ -486,49 +599,103 @@ describe("TraceClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            agent_uuid: "agent_uuid",
-            assertion_uuid: "assertion_uuid",
-            created_at: "created_at",
+            agent_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            assertion_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            created_at: "2026-01-01T00:00:00Z",
             creation_reason: "close",
-            first_occurred_at: "first_occurred_at",
+            first_occurred_at: "2026-01-01T00:00:00Z",
             first_sequence: 1,
-            last_occurred_at: "last_occurred_at",
+            last_occurred_at: "2026-01-01T00:00:00Z",
             last_sequence: 1,
             omitted_sequence_ranges: [
                 { first_sequence: 1, last_sequence: 1, reason: "narrower_authorization_boundary" },
             ],
             outcome: "succeeded",
-            parent_version_uuid: "parent_version_uuid",
+            parent_version_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             structured_summary: {
-                ambiguities: [{}],
-                approach: [{}],
-                artifacts: [{}],
-                candidate_lessons: [{}],
-                corrections: [{}],
+                ambiguities: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
+                approach: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
+                artifacts: [
+                    {
+                        citations: [{ event_id: "event-001", sequence: 1 }],
+                        name: "payment_gateway",
+                        version: "2026.09.01",
+                    },
+                ],
+                candidate_lessons: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
+                corrections: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
                 coverage: {
-                    excerpted_events: [{}],
+                    excerpted_events: [
+                        {
+                            content_bytes: 1,
+                            event_id: "event-001",
+                            omitted_byte_ranges: [{ end: 1, start: 1 }],
+                            sequence: 1,
+                        },
+                    ],
                     first_sequence: 1,
                     last_sequence: 1,
-                    omitted_sequence_ranges: [{}],
+                    omitted_sequence_ranges: [{ first_sequence: 1, last_sequence: 1 }],
                 },
-                effective_steps: [{}],
-                environments: [{}],
-                errors: [{}],
-                event_time_basis: "event_time_basis",
-                first_event_time: "first_event_time",
-                ineffective_steps: [{}],
-                last_event_time: "last_event_time",
-                objective: "objective",
-                recoveries: [{}],
+                effective_steps: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
+                environments: [
+                    {
+                        citations: [{ event_id: "event-001", sequence: 1 }],
+                        name: "payment_gateway",
+                        version: "2026.09.01",
+                    },
+                ],
+                errors: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
+                event_time_basis: "source",
+                first_event_time: "2026-09-01T12:00:00Z",
+                ineffective_steps: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
+                last_event_time: "2026-09-01T12:05:00Z",
+                objective: "Refund a duplicate charge.",
+                recoveries: [
+                    { citations: [{ event_id: "event-001", sequence: 1 }], text: "The duplicate charge was refunded." },
+                ],
                 reported_outcome: "succeeded",
-                result: { citations: [{}], text: "text" },
-                task_family: "task_family",
-                tools: [{}],
-                verification: { citations: [{}], details: [{}], status: "unverified", verifier_ids: ["verifier_ids"] },
+                result: {
+                    citations: [{ event_id: "event-001", sequence: 1 }],
+                    text: "The duplicate charge was refunded.",
+                },
+                task_family: "support/refund",
+                tools: [
+                    {
+                        citations: [{ event_id: "event-001", sequence: 1 }],
+                        name: "payment_gateway",
+                        version: "2026.09.01",
+                    },
+                ],
+                verification: {
+                    citations: [{ event_id: "event-001", sequence: 1 }],
+                    details: [
+                        {
+                            citations: [{ event_id: "event-001", sequence: 1 }],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
+                    status: "unverified",
+                    verifier_ids: ["billing-audit"],
+                },
             },
-            text: "text",
-            trace_uuid: "trace_uuid",
-            uuid: "uuid",
+            text: "The duplicate charge was refunded.",
+            trace_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             verification: "none",
             version: 1,
         };
@@ -543,13 +710,13 @@ describe("TraceClient", () => {
 
         const response = await client.agent.trace.getSummary("agent_uuid", "trace_uuid");
         expect(response).toEqual({
-            agentUuid: "agent_uuid",
-            assertionUuid: "assertion_uuid",
-            createdAt: "created_at",
+            agentUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            assertionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            createdAt: "2026-01-01T00:00:00Z",
             creationReason: "close",
-            firstOccurredAt: "first_occurred_at",
+            firstOccurredAt: "2026-01-01T00:00:00Z",
             firstSequence: 1,
-            lastOccurredAt: "last_occurred_at",
+            lastOccurredAt: "2026-01-01T00:00:00Z",
             lastSequence: 1,
             omittedSequenceRanges: [
                 {
@@ -559,45 +726,195 @@ describe("TraceClient", () => {
                 },
             ],
             outcome: "succeeded",
-            parentVersionUuid: "parent_version_uuid",
+            parentVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             structuredSummary: {
-                ambiguities: [{}],
-                approach: [{}],
-                artifacts: [{}],
-                candidateLessons: [{}],
-                corrections: [{}],
+                ambiguities: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                approach: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                artifacts: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        name: "payment_gateway",
+                        version: "2026.09.01",
+                    },
+                ],
+                candidateLessons: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                corrections: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
                 coverage: {
-                    excerptedEvents: [{}],
+                    excerptedEvents: [
+                        {
+                            contentBytes: 1,
+                            eventId: "event-001",
+                            omittedByteRanges: [
+                                {
+                                    end: 1,
+                                    start: 1,
+                                },
+                            ],
+                            sequence: 1,
+                        },
+                    ],
                     firstSequence: 1,
                     lastSequence: 1,
-                    omittedSequenceRanges: [{}],
+                    omittedSequenceRanges: [
+                        {
+                            firstSequence: 1,
+                            lastSequence: 1,
+                        },
+                    ],
                 },
-                effectiveSteps: [{}],
-                environments: [{}],
-                errors: [{}],
-                eventTimeBasis: "event_time_basis",
-                firstEventTime: "first_event_time",
-                ineffectiveSteps: [{}],
-                lastEventTime: "last_event_time",
-                objective: "objective",
-                recoveries: [{}],
+                effectiveSteps: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                environments: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        name: "payment_gateway",
+                        version: "2026.09.01",
+                    },
+                ],
+                errors: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                eventTimeBasis: "source",
+                firstEventTime: "2026-09-01T12:00:00Z",
+                ineffectiveSteps: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
+                lastEventTime: "2026-09-01T12:05:00Z",
+                objective: "Refund a duplicate charge.",
+                recoveries: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        text: "The duplicate charge was refunded.",
+                    },
+                ],
                 reportedOutcome: "succeeded",
                 result: {
-                    citations: [{}],
-                    text: "text",
+                    citations: [
+                        {
+                            eventId: "event-001",
+                            sequence: 1,
+                        },
+                    ],
+                    text: "The duplicate charge was refunded.",
                 },
-                taskFamily: "task_family",
-                tools: [{}],
+                taskFamily: "support/refund",
+                tools: [
+                    {
+                        citations: [
+                            {
+                                eventId: "event-001",
+                                sequence: 1,
+                            },
+                        ],
+                        name: "payment_gateway",
+                        version: "2026.09.01",
+                    },
+                ],
                 verification: {
-                    citations: [{}],
-                    details: [{}],
+                    citations: [
+                        {
+                            eventId: "event-001",
+                            sequence: 1,
+                        },
+                    ],
+                    details: [
+                        {
+                            citations: [
+                                {
+                                    eventId: "event-001",
+                                    sequence: 1,
+                                },
+                            ],
+                            text: "The duplicate charge was refunded.",
+                        },
+                    ],
                     status: "unverified",
-                    verifierIds: ["verifier_ids"],
+                    verifierIds: ["billing-audit"],
                 },
             },
-            text: "text",
-            traceUuid: "trace_uuid",
-            uuid: "uuid",
+            text: "The duplicate charge was refunded.",
+            traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             verification: "none",
             version: 1,
         });
@@ -629,25 +946,128 @@ describe("TraceClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    agent_uuid: "agent_uuid",
-                    assertion_uuid: "assertion_uuid",
-                    created_at: "created_at",
+                    agent_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    assertion_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    created_at: "2026-01-01T00:00:00Z",
                     creation_reason: "close",
-                    first_occurred_at: "first_occurred_at",
+                    first_occurred_at: "2026-01-01T00:00:00Z",
                     first_sequence: 1,
-                    last_occurred_at: "last_occurred_at",
+                    last_occurred_at: "2026-01-01T00:00:00Z",
                     last_sequence: 1,
-                    omitted_sequence_ranges: [{}],
+                    omitted_sequence_ranges: [{ first_sequence: 1, last_sequence: 1 }],
                     outcome: "succeeded",
-                    parent_version_uuid: "parent_version_uuid",
-                    text: "text",
-                    trace_uuid: "trace_uuid",
-                    uuid: "uuid",
+                    parent_version_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    structured_summary: {
+                        ambiguities: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        approach: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        artifacts: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                name: "payment_gateway",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        candidate_lessons: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        corrections: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        coverage: {
+                            excerpted_events: [
+                                {
+                                    content_bytes: 1,
+                                    event_id: "event-001",
+                                    omitted_byte_ranges: [{ end: 1, start: 1 }],
+                                    sequence: 1,
+                                },
+                            ],
+                            first_sequence: 1,
+                            last_sequence: 1,
+                            omitted_sequence_ranges: [{ first_sequence: 1, last_sequence: 1 }],
+                        },
+                        effective_steps: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        environments: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                name: "payment_gateway",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        errors: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        event_time_basis: "source",
+                        first_event_time: "2026-09-01T12:00:00Z",
+                        ineffective_steps: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        last_event_time: "2026-09-01T12:05:00Z",
+                        objective: "Refund a duplicate charge.",
+                        recoveries: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        result: {
+                            citations: [{ event_id: "event-001", sequence: 1 }],
+                            text: "The duplicate charge was refunded.",
+                        },
+                        task_family: "support/refund",
+                        tools: [
+                            {
+                                citations: [{ event_id: "event-001", sequence: 1 }],
+                                name: "payment_gateway",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        verification: {
+                            citations: [{ event_id: "event-001", sequence: 1 }],
+                            details: [
+                                {
+                                    citations: [{ event_id: "event-001", sequence: 1 }],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            ],
+                            verifier_ids: ["billing-audit"],
+                        },
+                    },
+                    text: "The duplicate charge was refunded.",
+                    trace_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verification: "none",
                     version: 1,
                 },
             ],
-            next_cursor: "next_cursor",
+            next_cursor: "eyJvZmZzZXQiOjEwfQ",
             total_size: 1,
         };
 
@@ -662,25 +1082,213 @@ describe("TraceClient", () => {
         const expected = {
             items: [
                 {
-                    agentUuid: "agent_uuid",
-                    assertionUuid: "assertion_uuid",
-                    createdAt: "created_at",
+                    agentUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    assertionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    createdAt: "2026-01-01T00:00:00Z",
                     creationReason: "close",
-                    firstOccurredAt: "first_occurred_at",
+                    firstOccurredAt: "2026-01-01T00:00:00Z",
                     firstSequence: 1,
-                    lastOccurredAt: "last_occurred_at",
+                    lastOccurredAt: "2026-01-01T00:00:00Z",
                     lastSequence: 1,
-                    omittedSequenceRanges: [{}],
+                    omittedSequenceRanges: [
+                        {
+                            firstSequence: 1,
+                            lastSequence: 1,
+                        },
+                    ],
                     outcome: "succeeded",
-                    parentVersionUuid: "parent_version_uuid",
-                    text: "text",
-                    traceUuid: "trace_uuid",
-                    uuid: "uuid",
+                    parentVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    structuredSummary: {
+                        ambiguities: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        approach: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        artifacts: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                name: "payment_gateway",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        candidateLessons: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        corrections: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        coverage: {
+                            excerptedEvents: [
+                                {
+                                    contentBytes: 1,
+                                    eventId: "event-001",
+                                    omittedByteRanges: [
+                                        {
+                                            end: 1,
+                                            start: 1,
+                                        },
+                                    ],
+                                    sequence: 1,
+                                },
+                            ],
+                            firstSequence: 1,
+                            lastSequence: 1,
+                            omittedSequenceRanges: [
+                                {
+                                    firstSequence: 1,
+                                    lastSequence: 1,
+                                },
+                            ],
+                        },
+                        effectiveSteps: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        environments: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                name: "payment_gateway",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        errors: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        eventTimeBasis: "source",
+                        firstEventTime: "2026-09-01T12:00:00Z",
+                        ineffectiveSteps: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        lastEventTime: "2026-09-01T12:05:00Z",
+                        objective: "Refund a duplicate charge.",
+                        recoveries: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                text: "The duplicate charge was refunded.",
+                            },
+                        ],
+                        result: {
+                            citations: [
+                                {
+                                    eventId: "event-001",
+                                    sequence: 1,
+                                },
+                            ],
+                            text: "The duplicate charge was refunded.",
+                        },
+                        taskFamily: "support/refund",
+                        tools: [
+                            {
+                                citations: [
+                                    {
+                                        eventId: "event-001",
+                                        sequence: 1,
+                                    },
+                                ],
+                                name: "payment_gateway",
+                                version: "2026.09.01",
+                            },
+                        ],
+                        verification: {
+                            citations: [
+                                {
+                                    eventId: "event-001",
+                                    sequence: 1,
+                                },
+                            ],
+                            details: [
+                                {
+                                    citations: [
+                                        {
+                                            eventId: "event-001",
+                                            sequence: 1,
+                                        },
+                                    ],
+                                    text: "The duplicate charge was refunded.",
+                                },
+                            ],
+                            verifierIds: ["billing-audit"],
+                        },
+                    },
+                    text: "The duplicate charge was refunded.",
+                    traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verification: "none",
                     version: 1,
                 },
             ],
-            nextCursor: "next_cursor",
+            nextCursor: "eyJvZmZzZXQiOjEwfQ",
             totalSize: 1,
         };
         const page = await client.agent.trace.listSummaryVersions("agent_uuid", "trace_uuid");

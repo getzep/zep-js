@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryStatement {
+    /** The service returns the events that support this statement. */
     citations?: Zep.AgentTraceSummaryCitation[];
+    /** The service returns one statement from the summary. */
     text?: string;
 }

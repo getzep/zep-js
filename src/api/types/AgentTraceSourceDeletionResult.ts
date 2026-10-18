@@ -3,9 +3,14 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSourceDeletionResult {
+    /** The service returns the number of Skills affected by this deletion. */
     affectedSkills?: number;
+    /** The service returns the UUID of the deletion operation. */
     deletionUuid?: string;
+    /** The service returns the Task that repairs Skills affected by this deletion. */
     skillRepairTask?: Zep.Task;
+    /** The service returns the Task that repairs summaries affected by this deletion. */
     summaryRepairTask?: Zep.Task;
+    /** The service returns the Trace. */
     trace?: Zep.AgentTrace;
 }

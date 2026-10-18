@@ -35,6 +35,8 @@ export class VersionClient {
     }
 
     /**
+     * Restore Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} skill_uuid - Skill UUID
      * @param {Zep.agent.skill.RestoreAgentSkillVersionRequest} request
@@ -203,6 +205,8 @@ export class VersionClient {
     }
 
     /**
+     * List Agent Skill Versions. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} skill_uuid - Skill UUID
      * @param {Zep.agent.skill.VersionListRequest} request
@@ -367,6 +371,8 @@ export class VersionClient {
     }
 
     /**
+     * Compare Agent Skill Versions. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} skill_uuid - Skill UUID
      * @param {Zep.agent.skill.CompareAgentSkillVersionsRequest} request
@@ -521,6 +527,8 @@ export class VersionClient {
     }
 
     /**
+     * Get Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} skill_uuid - Skill UUID
      * @param {number} version - Skill version

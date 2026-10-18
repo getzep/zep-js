@@ -3,10 +3,19 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceInternal {
+    /** The service returns the UUID of the assertion linked to this Trace. */
     assertionUuid?: string;
+    /** The service returns the final sequence number expected when the Trace closes. */
     closingSequence?: number;
+    /** The service returns the current summary version number. */
     currentSummaryVersion?: number;
+    /** The service returns the UUID of the last Task linked to this Trace. */
     lastTaskUuid?: string;
+    /** The service returns the next sequence number that the Trace can accept. */
     nextSequence?: number;
+    /**
+     * The service returns the current processing state. Valid values are idle, pending, processing,
+     * failed.
+     */
     processingState?: Zep.AgentTraceProcessingState;
 }

@@ -4,7 +4,8 @@
  * @example
  *     {
  *         expectedRevision: 1,
- *         reason: "reason"
+ *         reason: "acknowledged_gap",
+ *         taskFamily: "support/refund"
  *     }
  */
 export interface CorrectAgentTraceTaskFamilyRequest {

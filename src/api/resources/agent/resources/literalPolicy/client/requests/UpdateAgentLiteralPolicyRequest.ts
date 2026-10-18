@@ -6,12 +6,12 @@ import type * as Zep from "../../../../../../index.js";
  * @example
  *     {
  *         allowlistedClasses: {
- *             environments: ["environments"],
- *             tools: ["tools"]
+ *             environments: ["environment_name"],
+ *             tools: ["command_name"]
  *         },
  *         allowlistedValues: {
- *             environments: ["environments"],
- *             tools: ["tools"]
+ *             environments: ["production"],
+ *             tools: ["refund_payment"]
  *         },
  *         "default": "parameterize"
  *     }

@@ -12,21 +12,43 @@ describe("AgentClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    agent_id: "agent_id",
-                    created_at: "created_at",
-                    deployment_id: "deployment_id",
-                    description: "description",
+                    agent_id: "payments-agent",
+                    created_at: "2026-01-01T00:00:00Z",
+                    deployment_id: "production",
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    memory_settings: {
+                        admission_evaluation_requirements: [
+                            {
+                                requirements: [
+                                    {
+                                        controlled: false,
+                                        environment: "production",
+                                        evaluated_by: "customer",
+                                        evaluator_version: "v1.0.0",
+                                        result: "succeeded",
+                                    },
+                                ],
+                                task_family: "support/refund",
+                            },
+                        ],
+                        approval_minimum_attempt_families: 1,
+                        approval_required_tools: ["refund_order"],
+                        auto_approval_task_families: ["support/refund"],
+                        provisional_expiry_days: 1,
+                        provisional_skill_limit: 1,
+                        retention_days: 30,
+                    },
                     metadata: { key: "value" },
-                    name: "name",
+                    name: "Refund a duplicate charge",
                     revision: 1,
-                    security_domain: "security_domain",
+                    security_domain: "customer:support",
                     status: "active",
-                    updated_at: "updated_at",
-                    uuid: "uuid",
-                    version: "version",
+                    updated_at: "2026-01-01T00:00:00Z",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    version: "2026.09.01",
                 },
             ],
-            next_cursor: "next_cursor",
+            next_cursor: "eyJvZmZzZXQiOjEwfQ",
             total_size: 1,
         };
 
@@ -42,23 +64,45 @@ describe("AgentClient", () => {
         const expected = {
             items: [
                 {
-                    agentId: "agent_id",
-                    createdAt: "created_at",
-                    deploymentId: "deployment_id",
-                    description: "description",
+                    agentId: "payments-agent",
+                    createdAt: "2026-01-01T00:00:00Z",
+                    deploymentId: "production",
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    memorySettings: {
+                        admissionEvaluationRequirements: [
+                            {
+                                requirements: [
+                                    {
+                                        controlled: false,
+                                        environment: "production",
+                                        evaluatedBy: "customer",
+                                        evaluatorVersion: "v1.0.0",
+                                        result: "succeeded",
+                                    },
+                                ],
+                                taskFamily: "support/refund",
+                            },
+                        ],
+                        approvalMinimumAttemptFamilies: 1,
+                        approvalRequiredTools: ["refund_order"],
+                        autoApprovalTaskFamilies: ["support/refund"],
+                        provisionalExpiryDays: 1,
+                        provisionalSkillLimit: 1,
+                        retentionDays: 30,
+                    },
                     metadata: {
                         key: "value",
                     },
-                    name: "name",
+                    name: "Refund a duplicate charge",
                     revision: 1,
-                    securityDomain: "security_domain",
+                    securityDomain: "customer:support",
                     status: "active",
-                    updatedAt: "updated_at",
-                    uuid: "uuid",
-                    version: "version",
+                    updatedAt: "2026-01-01T00:00:00Z",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    version: "2026.09.01",
                 },
             ],
-            nextCursor: "next_cursor",
+            nextCursor: "eyJvZmZzZXQiOjEwfQ",
             totalSize: 1,
         };
         const page = await client.agent.list();
@@ -154,78 +198,86 @@ describe("AgentClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            agent_id: "agent_id",
-            created_at: "created_at",
-            deployment_id: "deployment_id",
-            description: "description",
+            agent_id: "payments-agent",
+            created_at: "2026-01-01T00:00:00Z",
+            deployment_id: "production",
+            description: "Refund a duplicate charge after you confirm the duplicate payment.",
             memory_settings: {
                 admission_evaluation_requirements: [
                     {
                         requirements: [
-                            { evaluated_by: "evaluated_by", evaluator_version: "evaluator_version", result: "result" },
+                            {
+                                controlled: false,
+                                environment: "production",
+                                evaluated_by: "customer",
+                                evaluator_version: "v1.0.0",
+                                result: "succeeded",
+                            },
                         ],
-                        task_family: "task_family",
+                        task_family: "support/refund",
                     },
                 ],
                 approval: "manual",
                 approval_minimum_attempt_families: 1,
-                approval_required_tools: ["approval_required_tools"],
-                auto_approval_task_families: ["auto_approval_task_families"],
+                approval_required_tools: ["refund_order"],
+                auto_approval_task_families: ["support/refund"],
                 compilation_mode: "scheduled",
                 provisional_expiry_days: 1,
                 provisional_skill_limit: 1,
-                retention_days: 1,
+                retention_days: 30,
             },
             metadata: { key: "value" },
-            name: "name",
+            name: "Refund a duplicate charge",
             revision: 1,
-            security_domain: "security_domain",
+            security_domain: "customer:support",
             status: "active",
-            updated_at: "updated_at",
-            uuid: "uuid",
-            version: "version",
+            updated_at: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            version: "2026.09.01",
         };
 
         server.mockEndpoint().get("/agents/agent_uuid").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
         const response = await client.agent.get("agent_uuid");
         expect(response).toEqual({
-            agentId: "agent_id",
-            createdAt: "created_at",
-            deploymentId: "deployment_id",
-            description: "description",
+            agentId: "payments-agent",
+            createdAt: "2026-01-01T00:00:00Z",
+            deploymentId: "production",
+            description: "Refund a duplicate charge after you confirm the duplicate payment.",
             memorySettings: {
                 admissionEvaluationRequirements: [
                     {
                         requirements: [
                             {
-                                evaluatedBy: "evaluated_by",
-                                evaluatorVersion: "evaluator_version",
-                                result: "result",
+                                controlled: false,
+                                environment: "production",
+                                evaluatedBy: "customer",
+                                evaluatorVersion: "v1.0.0",
+                                result: "succeeded",
                             },
                         ],
-                        taskFamily: "task_family",
+                        taskFamily: "support/refund",
                     },
                 ],
                 approval: "manual",
                 approvalMinimumAttemptFamilies: 1,
-                approvalRequiredTools: ["approval_required_tools"],
-                autoApprovalTaskFamilies: ["auto_approval_task_families"],
+                approvalRequiredTools: ["refund_order"],
+                autoApprovalTaskFamilies: ["support/refund"],
                 compilationMode: "scheduled",
                 provisionalExpiryDays: 1,
                 provisionalSkillLimit: 1,
-                retentionDays: 1,
+                retentionDays: 30,
             },
             metadata: {
                 key: "value",
             },
-            name: "name",
+            name: "Refund a duplicate charge",
             revision: 1,
-            securityDomain: "security_domain",
+            securityDomain: "customer:support",
             status: "active",
-            updatedAt: "updated_at",
-            uuid: "uuid",
-            version: "version",
+            updatedAt: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            version: "2026.09.01",
         });
     });
 
@@ -286,23 +338,26 @@ describe("AgentClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
         const rawResponseBody = {
-            context: "context",
-            objective: "objective",
-            partial_sources: [{ reason: "reason", source: "source", task_uuid: "task_uuid" }],
-            request_id: "request_id",
-            skipped: [{ reason: "reason", skill_uuid: "skill_uuid", version: 1 }],
+            context: "A customer reports a duplicate charge.",
+            objective: "Refund a duplicate charge.",
+            partial_sources: [
+                { reason: "acknowledged_gap", source: "trace", task_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa" },
+            ],
+            request_id: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            skipped: [{ reason: "acknowledged_gap", skill_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa", version: 1 }],
             snapshot: [
                 {
-                    artifact_sha256: "artifact_sha256",
-                    evidence_citations: ["evidence_citations"],
+                    artifact_sha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                    evidence_citations: ["event-001"],
+                    evidence_counts: { contradicting: 1, neutral: 1, supporting: 1 },
                     rank: 1,
-                    skill_uuid: "skill_uuid",
+                    skill_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     version: 1,
                 },
             ],
-            task_family: "task_family",
-            trace_uuid: "trace_uuid",
-            truncated: true,
+            task_family: "support/refund",
+            trace_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            truncated: false,
         };
 
         server
@@ -316,35 +371,40 @@ describe("AgentClient", () => {
 
         const response = await client.agent.getContext("agent_uuid");
         expect(response).toEqual({
-            context: "context",
-            objective: "objective",
+            context: "A customer reports a duplicate charge.",
+            objective: "Refund a duplicate charge.",
             partialSources: [
                 {
-                    reason: "reason",
-                    source: "source",
-                    taskUuid: "task_uuid",
+                    reason: "acknowledged_gap",
+                    source: "trace",
+                    taskUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 },
             ],
-            requestId: "request_id",
+            requestId: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             skipped: [
                 {
-                    reason: "reason",
-                    skillUuid: "skill_uuid",
+                    reason: "acknowledged_gap",
+                    skillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     version: 1,
                 },
             ],
             snapshot: [
                 {
-                    artifactSha256: "artifact_sha256",
-                    evidenceCitations: ["evidence_citations"],
+                    artifactSha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                    evidenceCitations: ["event-001"],
+                    evidenceCounts: {
+                        contradicting: 1,
+                        neutral: 1,
+                        supporting: 1,
+                    },
                     rank: 1,
-                    skillUuid: "skill_uuid",
+                    skillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     version: 1,
                 },
             ],
-            taskFamily: "task_family",
-            traceUuid: "trace_uuid",
-            truncated: true,
+            taskFamily: "support/refund",
+            traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            truncated: false,
         });
     });
 

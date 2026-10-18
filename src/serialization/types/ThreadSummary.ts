@@ -7,6 +7,7 @@ import type * as serializers from "../index.js";
 export const ThreadSummary: core.serialization.ObjectSchema<serializers.ThreadSummary.Raw, Zep.ThreadSummary> =
     core.serialization.object({
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+        graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         lastSummarizedAt: core.serialization.property("last_summarized_at", core.serialization.string().optional()),
         lastSummarizedEpisodeValidAt: core.serialization.property(
             "last_summarized_episode_valid_at",
@@ -22,6 +23,7 @@ export const ThreadSummary: core.serialization.ObjectSchema<serializers.ThreadSu
 export declare namespace ThreadSummary {
     export interface Raw {
         created_at?: string | null;
+        graph_uuid?: string | null;
         last_summarized_at?: string | null;
         last_summarized_episode_valid_at?: string | null;
         relevance?: number | null;

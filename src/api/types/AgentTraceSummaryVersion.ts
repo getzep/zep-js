@@ -3,21 +3,48 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryVersion {
+    /** The service returns the UUID of the owning Agent. */
     agentUuid?: string;
+    /** The service returns the verification assertion linked to this evidence. */
     assertionUuid?: string;
+    /** The service returns when Zep created this resource. */
     createdAt?: string;
+    /**
+     * The service returns what caused this summary version. Valid values are close, abandon, revision,
+     * task_family_correction, evidence_deletion, policy_change.
+     */
     creationReason?: Zep.AgentTraceSummaryCreationReason;
+    /** The service returns when the first event occurred. */
     firstOccurredAt?: string;
+    /** The service returns the first event sequence included in this summary. */
     firstSequence?: number;
+    /** The service returns when the last event occurred. */
     lastOccurredAt?: string;
+    /** The service returns the last event sequence included in this summary. */
     lastSequence?: number;
+    /** The service returns event sequence ranges that this summary omits. */
     omittedSequenceRanges?: Zep.AgentTraceSummaryOmittedRange[];
+    /**
+     * The service returns the task outcome. Valid values are succeeded, failed, partial, abandoned,
+     * unknown.
+     */
     outcome?: Zep.AgentTraceOutcome;
+    /** The service returns the UUID of the parent summary version, when one exists. */
     parentVersionUuid?: string;
+    /** The service returns the structured summary generated for this Trace. */
     structuredSummary?: Zep.AgentTraceStructuredSummary;
+    /** The service returns text that a person can read. */
     text?: string;
+    /** The service returns the UUID of the source Trace. */
     traceUuid?: string;
+    /** The service returns the UUID that identifies this summary version. */
     uuid?: string;
+    /**
+     * The service returns how the outcome was verified. Valid values are none, agent, tool,
+     * customer, external, unverified, agent_verified, tool_verified, customer_verified,
+     * externally_verified.
+     */
     verification?: Zep.AgentTraceVerification;
+    /** The service returns this summary version number. */
     version?: number;
 }

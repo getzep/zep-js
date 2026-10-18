@@ -9,8 +9,12 @@ export interface AgentSkillListRequest {
     pageSize?: number;
     /** Opaque page cursor */
     cursor?: string;
+    /** The developer filters results by environment names. */
     environments?: string[];
+    /** The developer supplies a Skill kind. */
     kind?: string;
+    /** The developer supplies the task-family slug. */
     taskFamily?: string;
+    /** The developer supplies tool names used by the Skill. */
     tools?: string[];
 }

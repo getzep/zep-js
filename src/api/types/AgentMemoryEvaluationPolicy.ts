@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface AgentMemoryEvaluationPolicy {
+    /** The developer lists one or more evaluation requirements for this policy. */
     requirements: Zep.AgentMemoryEvaluationRequirement[];
+    /** The developer selects the task family that uses this evaluation policy. */
     taskFamily: string;
 }

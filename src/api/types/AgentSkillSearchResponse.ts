@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillSearchResponse {
+    /** The service returns the items in this page. */
     items?: Zep.AgentSkillSearchHit[];
+    /** The service returns the cursor for the next page, when one exists. */
     nextCursor?: string;
+    /** The service returns the signed token for this result set. */
     searchId?: string;
 }
