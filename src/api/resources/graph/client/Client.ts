@@ -1296,7 +1296,7 @@ export class Graph {
      * Default `pageSize` is 50 (range 1–100). To list users, use
      * `user.list_ordered` instead. See the
      * [graph directory guide](/graph-directory) for pagination, relevance
-     * ordering, and Memory MCP exposure.
+     * ordering, and Context MCP exposure.
      *
      * @param {Zep.GraphListAllRequest} request
      * @param {Graph.RequestOptions} requestOptions - Request-specific configuration.

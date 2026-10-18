@@ -5,7 +5,12 @@
 import * as Zep from "../index.js";
 
 export interface EpisodeMetadataFilter {
-    /** Comparison operator: =, <>, >, <, >=, <=, IS NULL, IS NOT NULL, IN, CONTAINS */
+    /**
+     * Comparison operator: =, <>, >, <, >=, <=, IS NULL, IS NOT NULL, CONTAINS, IN.
+     * CONTAINS is a case-sensitive substring match on the stored value.
+     * IN takes an array of up to 100 values and matches when the stored value equals one of them exactly.
+     * v3 API: CONTAINS takes one comma-separated string and matches one of its items; IN is not accepted.
+     */
     comparisonOperator: Zep.ComparisonOperator;
     /** Metadata key to filter on */
     propertyName: string;

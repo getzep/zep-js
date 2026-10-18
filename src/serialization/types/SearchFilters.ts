@@ -14,6 +14,10 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
             "connected_node_uuids",
             core.serialization.list(core.serialization.string()).optional(),
         ),
+        contentPolicyViolated: core.serialization.property(
+            "content_policy_violated",
+            core.serialization.boolean().optional(),
+        ),
         createdAt: core.serialization.property(
             "created_at",
             core.serialization.list(core.serialization.list(DateFilter)).optional(),
@@ -75,6 +79,7 @@ export const SearchFilters: core.serialization.ObjectSchema<serializers.SearchFi
 export declare namespace SearchFilters {
     export interface Raw {
         connected_node_uuids?: string[] | null;
+        content_policy_violated?: boolean | null;
         created_at?: DateFilter.Raw[][] | null;
         edge_types?: string[] | null;
         edge_uuids?: string[] | null;

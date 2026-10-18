@@ -15,15 +15,15 @@ export interface EntityNode {
     degree?: number;
     /**
      * The UUIDs of the live episodes that mention this node, newest first. The
-     * list is complete when `episodes_truncated` is false. The list is empty
-     * when the node has more than 100 source episodes; list episodes with the
-     * `mentioned_node_uuids` filter to read them.
+     * list is complete when `episodes_truncated` is false. The list holds the
+     * newest 100 when the node has more than 100 source episodes; list
+     * episodes with the `mentioned_node_uuids` filter to read them all.
      */
     episodes?: string[];
     /**
-     * True when the node has more than 100 source episodes, so `episodes` is
-     * empty, or when provenance is unavailable. False means `episodes` is the
-     * complete set.
+     * True when the node has more than 100 source episodes, so `episodes` holds
+     * only the newest 100, or when provenance is unavailable. False means
+     * `episodes` is the complete set.
      */
     episodesTruncated?: boolean;
     /** Labels associated with the node */

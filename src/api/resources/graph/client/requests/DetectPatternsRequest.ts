@@ -37,7 +37,7 @@ export interface DetectPatternsRequest {
     recencyWeight?: Zep.RecencyWeight;
     /**
      * Filters which edges/nodes participate in pattern detection.
-     * Reuses the same filter format as /graph/search.
+     * Reuses the same filter format as the `graph.search` SDK method.
      */
     searchFilters?: Zep.SearchFilters;
     /** Seed selection. If omitted, analyzes the entire graph. Mutually exclusive with query. */

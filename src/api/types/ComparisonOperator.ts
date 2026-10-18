@@ -3,7 +3,7 @@
  */
 
 export type ComparisonOperator =
-    "=" | "<>" | ">" | "<" | ">=" | "<=" | "IS NULL" | "is_null" | "IS NOT NULL" | "CONTAINS";
+    "=" | "<>" | ">" | "<" | ">=" | "<=" | "IS NULL" | "is_null" | "IS NOT NULL" | "CONTAINS" | "IN";
 export const ComparisonOperator = {
     Equals: "=",
     NotEquals: "<>",
@@ -15,4 +15,5 @@ export const ComparisonOperator = {
     IsNullAlias: "is_null",
     IsNotNull: "IS NOT NULL",
     Contains: "CONTAINS",
+    In: "IN",
 } as const;

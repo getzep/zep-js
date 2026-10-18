@@ -12,6 +12,13 @@ export interface SearchFilters {
      */
     connectedNodeUuids?: string[];
     /**
+     * Exact match on the complete content policy violation state of an
+     * episode. Supported on the episodes scope while the project includes
+     * flagged episodes. Zep applies it at hydration; it never reaches the
+     * graph service.
+     */
+    contentPolicyViolated?: boolean;
+    /**
      * 2D array of date filters for the created_at field.
      * The outer array elements are combined with OR logic.
      * The inner array elements are combined with AND logic.
@@ -57,7 +64,13 @@ export interface SearchFilters {
     invalidAt?: Zep.DateFilter[][];
     /** List of node labels to filter on */
     nodeLabels?: string[];
-    /** List of property filters to apply to nodes and edges */
+    /**
+     * List of property filters. Each filter compares one attribute value.
+     * On a node search and on a node list, the filters match node attributes.
+     * On an edge search and on an edge list, the filters match edge attributes
+     * only. To get the edges of nodes that match a node attribute, first get
+     * the matching nodes, then send their UUIDs in connected_node_uuids.
+     */
     propertyFilters?: Zep.PropertyFilter[];
     /**
      * List of node UUIDs to filter edges on: an edge matches if its source
