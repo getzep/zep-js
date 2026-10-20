@@ -12,19 +12,19 @@ describe("TaskFamilyClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    agent_uuid: "agent_uuid",
-                    created_at: "created_at",
-                    description: "description",
+                    agent_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    created_at: "2026-01-01T00:00:00Z",
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
                     descriptor_version: 1,
-                    distinguishing_tools: ["distinguishing_tools"],
-                    not_for: "not_for",
-                    slug: "slug",
-                    updated_at: "updated_at",
-                    use_when: "use_when",
-                    uuid: "uuid",
+                    distinguishing_tools: ["refund_payment"],
+                    not_for: "Do not use for pending payments.",
+                    slug: "support/refund",
+                    updated_at: "2026-01-01T00:00:00Z",
+                    use_when: "A customer reports a duplicate charge.",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 },
             ],
-            next_cursor: "next_cursor",
+            next_cursor: "eyJvZmZzZXQiOjEwfQ",
             total_size: 1,
         };
 
@@ -39,19 +39,19 @@ describe("TaskFamilyClient", () => {
         const expected = {
             items: [
                 {
-                    agentUuid: "agent_uuid",
-                    createdAt: "created_at",
-                    description: "description",
+                    agentUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    createdAt: "2026-01-01T00:00:00Z",
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
                     descriptorVersion: 1,
-                    distinguishingTools: ["distinguishing_tools"],
-                    notFor: "not_for",
-                    slug: "slug",
-                    updatedAt: "updated_at",
-                    useWhen: "use_when",
-                    uuid: "uuid",
+                    distinguishingTools: ["refund_payment"],
+                    notFor: "Do not use for pending payments.",
+                    slug: "support/refund",
+                    updatedAt: "2026-01-01T00:00:00Z",
+                    useWhen: "A customer reports a duplicate charge.",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 },
             ],
-            nextCursor: "next_cursor",
+            nextCursor: "eyJvZmZzZXQiOjEwfQ",
             totalSize: 1,
         };
         const page = await client.agent.taskFamily.list("agent_uuid");

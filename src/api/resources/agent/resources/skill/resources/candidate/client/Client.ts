@@ -27,6 +27,8 @@ export class CandidateClient {
     }
 
     /**
+     * List Agent Skill Candidate Reviews. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.skill.CandidateListRequest} request
      * @param {CandidateClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -182,6 +184,8 @@ export class CandidateClient {
     }
 
     /**
+     * Get Agent Skill Candidate Review. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} review_uuid - Candidate review UUID
      * @param {CandidateClient.RequestOptions} requestOptions - Request-specific configuration.

@@ -671,6 +671,7 @@ describe("ThreadClient", () => {
 
         const rawResponseBody = {
             created_at: "created_at",
+            graph_uuid: "graph_uuid",
             last_summarized_at: "last_summarized_at",
             last_summarized_episode_valid_at: "last_summarized_episode_valid_at",
             relevance: 1.1,
@@ -691,6 +692,7 @@ describe("ThreadClient", () => {
         const response = await client.thread.getSummary("thread_uuid");
         expect(response).toEqual({
             createdAt: "created_at",
+            graphUuid: "graph_uuid",
             lastSummarizedAt: "last_summarized_at",
             lastSummarizedEpisodeValidAt: "last_summarized_episode_valid_at",
             relevance: 1.1,

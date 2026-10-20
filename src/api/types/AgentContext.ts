@@ -3,13 +3,22 @@
 import type * as Zep from "../index.js";
 
 export interface AgentContext {
+    /** The service returns context for this result. */
     context?: string;
+    /** The service returns the task-instance objective. */
     objective?: string;
+    /** The service returns sources that it could not include in full. */
     partialSources?: Zep.AgentContextPartialSource[];
+    /** The service returns the UUID that identifies this context request. */
     requestId?: string;
+    /** The service returns the Skills that it skipped. */
     skipped?: Zep.AgentContextSkippedSkill[];
+    /** The service returns a snapshot of the source data. */
     snapshot?: Zep.AgentContextSkillSnapshot[];
+    /** The service returns the task-family slug. */
     taskFamily?: string;
+    /** The service returns the UUID of the source Trace. */
     traceUuid?: string;
+    /** The service sets this to true when the context exceeds its output limit. */
     truncated?: boolean;
 }

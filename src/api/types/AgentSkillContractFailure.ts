@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillContractFailure {
+    /** The service returns the failure condition. */
     condition?: Zep.AgentSkillContractText;
+    /** The service returns actions that recover from this failure. */
     recovery?: Zep.AgentSkillContractText[];
 }

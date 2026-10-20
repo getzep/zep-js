@@ -290,6 +290,25 @@ describe("PublicationClient", () => {
             .mockEndpoint()
             .get("/agents/agent_uuid/skills/skill_uuid/publication")
             .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.skill.publication.get("agent_uuid", "skill_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
+    test("get (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/skills/skill_uuid/publication")
+            .respondWith()
             .statusCode(503)
             .jsonBody(rawResponseBody)
             .build();

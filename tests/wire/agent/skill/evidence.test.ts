@@ -12,15 +12,15 @@ describe("EvidenceClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    assertion_uuid: "assertion_uuid",
-                    created_at: "created_at",
-                    occurred_at: "occurred_at",
-                    polarity: "polarity",
-                    source_kind: "source_kind",
-                    summary_version_uuid: "summary_version_uuid",
-                    trace_event_uuid: "trace_event_uuid",
-                    trace_uuid: "trace_uuid",
-                    verification: "verification",
+                    assertion_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    created_at: "2026-01-01T00:00:00Z",
+                    occurred_at: "2026-01-01T00:00:00Z",
+                    polarity: "supporting",
+                    source_kind: "trace",
+                    summary_version_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    trace_event_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    trace_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    verification: "customer",
                 },
             ],
             next_cursor: "next_cursor",
@@ -38,15 +38,15 @@ describe("EvidenceClient", () => {
         const expected = {
             items: [
                 {
-                    assertionUuid: "assertion_uuid",
-                    createdAt: "created_at",
-                    occurredAt: "occurred_at",
-                    polarity: "polarity",
-                    sourceKind: "source_kind",
-                    summaryVersionUuid: "summary_version_uuid",
-                    traceEventUuid: "trace_event_uuid",
-                    traceUuid: "trace_uuid",
-                    verification: "verification",
+                    assertionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    createdAt: "2026-01-01T00:00:00Z",
+                    occurredAt: "2026-01-01T00:00:00Z",
+                    polarity: "supporting",
+                    sourceKind: "trace",
+                    summaryVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    traceEventUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    verification: "customer",
                 },
             ],
             nextCursor: "next_cursor",
@@ -137,6 +137,25 @@ describe("EvidenceClient", () => {
     });
 
     test("list (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/skills/skill_uuid/evidence")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.skill.evidence.list("agent_uuid", "skill_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
+    test("list (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 

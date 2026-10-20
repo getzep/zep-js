@@ -42,10 +42,24 @@ export class TaskClient {
     ): Promise<core.Page<Zep.Task, Zep.TaskPage>> {
         const list = core.HttpResponsePromise.interceptFunction(
             async (request: Zep.TaskListRequest): Promise<core.WithRawResponse<Zep.TaskPage>> => {
-                const { pageSize, cursor } = request;
+                const { pageSize, cursor, status, type: type_ } = request;
                 const _queryParams: Record<string, unknown> = {
                     page_size: pageSize,
                     cursor,
+                    status:
+                        status != null
+                            ? serializers.TaskListRequestStatus.jsonOrThrow(status, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
+                    type:
+                        type_ != null
+                            ? serializers.TaskListRequestType.jsonOrThrow(type_, {
+                                  unrecognizedObjectKeys: "strip",
+                                  omitUndefined: true,
+                              })
+                            : undefined,
                 };
                 const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
                 const _headers: core.Fetcher.Args["headers"] = mergeHeaders(

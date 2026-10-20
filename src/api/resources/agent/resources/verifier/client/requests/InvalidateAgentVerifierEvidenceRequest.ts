@@ -3,12 +3,12 @@
 /**
  * @example
  *     {
- *         reason: "reason",
+ *         reason: "acknowledged_gap",
  *         verifierRevisions: [1]
  *     }
  */
 export interface InvalidateAgentVerifierEvidenceRequest {
-    /** Why evidence from these verifier revisions is invalid. */
+    /** The developer supplies why evidence from these verifier revisions is invalid. */
     reason: string;
     /** Verifier revisions whose accepted evidence is no longer valid. */
     verifierRevisions: number[];

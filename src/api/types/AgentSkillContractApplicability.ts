@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillContractApplicability {
+    /** The service returns Agent versions that can use the Skill. */
     agentVersions?: string[];
+    /** The service returns evidence identifiers that support this applicability. */
     citations?: string[];
+    /** The service returns model names and their allowed versions. */
     models?: Zep.AgentSkillContractVersionConstraint[];
 }

@@ -80,6 +80,8 @@ export class SkillClient {
     }
 
     /**
+     * Create Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.CreateAgentSkillRequest} request
      * @param {SkillClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -237,7 +239,7 @@ export class SkillClient {
     }
 
     /**
-     * Submit a portable Skill archive. The completed Task returns `{"result":{"skill_uuid":"<uuid>"}}`. Approve that Skill before retrieval.
+     * Submit a portable Skill archive. The completed Task returns `{"result":{"skill_uuid":"<uuid>"}}`. Approve that Skill before retrieval. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {core.file.Uploadable} uploadable
      * @param {string} agent_uuid
@@ -393,6 +395,8 @@ export class SkillClient {
     }
 
     /**
+     * List Agent Skills. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.AgentSkillListRequest} request
      * @param {SkillClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -558,6 +562,8 @@ export class SkillClient {
     }
 
     /**
+     * Search Agent Skills. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.AgentSkillSearchRequest} request
      * @param {SkillClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -572,7 +578,7 @@ export class SkillClient {
      *
      * @example
      *     await client.agent.skill.search("agent_uuid", {
-     *         query: "query"
+     *         query: "How do I refund a duplicate charge?"
      *     })
      */
     public async search(
@@ -725,14 +731,17 @@ export class SkillClient {
     }
 
     /**
+     * Get Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {SkillClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link Zep.ServiceUnavailableError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -834,6 +843,17 @@ export class SkillClient {
                         }),
                         _response.rawResponse,
                     );
+                case 409:
+                    throw new Zep.ConflictError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 503:
                     throw new Zep.ServiceUnavailableError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -863,8 +883,10 @@ export class SkillClient {
     }
 
     /**
+     * Approve Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {Zep.agent.ApproveAgentSkillRequest} request
      * @param {SkillClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1016,8 +1038,10 @@ export class SkillClient {
     }
 
     /**
+     * Retire Agent Skill. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {Zep.agent.RetireAgentSkillRequest} request
      * @param {SkillClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -1181,8 +1205,10 @@ export class SkillClient {
     }
 
     /**
+     * Create Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {Zep.agent.CreateAgentSkillVersionRequest} request
      * @param {SkillClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *

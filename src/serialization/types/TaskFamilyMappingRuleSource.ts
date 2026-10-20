@@ -7,8 +7,8 @@ import type * as serializers from "../index.js";
 export const TaskFamilyMappingRuleSource: core.serialization.Schema<
     serializers.TaskFamilyMappingRuleSource.Raw,
     Zep.TaskFamilyMappingRuleSource
-> = core.serialization.enum_(["fixed", "metadata", "tag_prefix", "name"]);
+> = core.serialization.enum_(["fixed", "metadata", "tag_prefix", "name", "infer"]);
 
 export declare namespace TaskFamilyMappingRuleSource {
-    export type Raw = "fixed" | "metadata" | "tag_prefix" | "name";
+    export type Raw = "fixed" | "metadata" | "tag_prefix" | "name" | "infer";
 }

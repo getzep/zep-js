@@ -35,8 +35,10 @@ export class UseClient {
     }
 
     /**
+     * Create Agent Skill Use. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {Zep.agent.skill.CreateAgentSkillUseRequest} request
      * @param {UseClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -46,8 +48,8 @@ export class UseClient {
      *
      * @example
      *     await client.agent.skill.use.create("agent_uuid", "skill_uuid", {
-     *         searchId: "search_id",
-     *         traceUuid: "trace_uuid",
+     *         searchId: "eyJ2IjoxLCJyZXF1ZXN0X2lkIjoiNmE5MDZlNzAtNTBjYS00ZTQzLWE4NzQtNWZjYWUwMmE3MWZhIn0.signature",
+     *         traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
      *         usage: "selected"
      *     })
      */
@@ -142,8 +144,10 @@ export class UseClient {
     }
 
     /**
+     * Record Agent Skill Feedback. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {string} use_uuid - Skill use UUID
      * @param {Zep.AddAgentSkillUseOutcomeRequest} request
      * @param {UseClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.

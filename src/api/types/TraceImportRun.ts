@@ -11,7 +11,7 @@ export interface TraceImportRun {
     dueAt?: string;
     /** ErrorCode is the safe run error code, when present. */
     errorCode?: string;
-    /** ImportUUID is the owning import identifier. */
+    /** The service returns the UUID of the import that owns this run. */
     importUuid?: string;
     /** MoreAvailable reports whether more matching traces remain. */
     moreAvailable?: boolean;
@@ -21,7 +21,7 @@ export interface TraceImportRun {
     startedAt?: string;
     /** Status is the run status. */
     status?: string;
-    /** TaskUUID is the Task identifier. */
+    /** The service returns the Task UUID for this import run. */
     taskUuid?: string;
     /** Trigger is the event that created the run. */
     trigger?: string;

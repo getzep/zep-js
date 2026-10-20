@@ -21,6 +21,7 @@ export const AgentSkillSearchHit: core.serialization.ObjectSchema<
     name: core.serialization.string().optional(),
     packageName: core.serialization.property("package_name", core.serialization.string().optional()),
     selfContained: core.serialization.property("self_contained", core.serialization.boolean().optional()),
+    shortId: core.serialization.property("short_id", core.serialization.string().optional()),
     skillId: core.serialization.property("skill_id", core.serialization.string().optional()),
     sourceAttemptFamilies: core.serialization.property(
         "source_attempt_families",
@@ -45,6 +46,7 @@ export declare namespace AgentSkillSearchHit {
         name?: string | null;
         package_name?: string | null;
         self_contained?: boolean | null;
+        short_id?: string | null;
         skill_id?: string | null;
         source_attempt_families?: number | null;
         task_family?: string | null;

@@ -3,24 +3,47 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceStructuredSummary {
+    /** The service returns unresolved ambiguities. */
     ambiguities?: Zep.AgentTraceSummaryStatement[];
+    /** The service returns verification method. */
     approach?: Zep.AgentTraceSummaryStatement[];
+    /** The service returns linked artifacts. */
     artifacts?: Zep.AgentTraceSummaryResource[];
+    /** The service returns lessons that the learning process may use. */
     candidateLessons?: Zep.AgentTraceSummaryStatement[];
+    /** The service returns corrective actions. */
     corrections?: Zep.AgentTraceSummaryStatement[];
+    /** The service returns the event coverage of the summary. */
     coverage?: Zep.AgentTraceSummaryCoverage;
+    /** The service returns actions that helped complete the task. */
     effectiveSteps?: Zep.AgentTraceSummaryStatement[];
+    /** The service returns environment names used by the Skill. */
     environments?: Zep.AgentTraceSummaryResource[];
+    /** The service returns verification errors. */
     errors?: Zep.AgentTraceSummaryStatement[];
+    /** The service returns how event times were selected for the summary. */
     eventTimeBasis?: string;
+    /** The service returns the time of the first event in the summary. */
     firstEventTime?: string;
+    /** The service returns actions that did not help complete the task. */
     ineffectiveSteps?: Zep.AgentTraceSummaryStatement[];
+    /** The service returns the time of the last event in the summary. */
     lastEventTime?: string;
+    /** The service returns the task-instance objective. */
     objective?: string;
+    /** The service returns recovery actions. */
     recoveries?: Zep.AgentTraceSummaryStatement[];
+    /**
+     * The service returns the outcome reported for the Trace. Valid values are succeeded, failed, partial,
+     * abandoned, unknown.
+     */
     reportedOutcome?: Zep.AgentTraceOutcome;
+    /** The service returns verification result. */
     result?: Zep.AgentTraceSummaryStatement;
+    /** The service returns the task-family slug. */
     taskFamily?: string;
+    /** The service returns tool names used by the Skill. */
     tools?: Zep.AgentTraceSummaryResource[];
+    /** The service returns the verification status and its evidence. */
     verification?: Zep.AgentTraceSummaryVerification;
 }

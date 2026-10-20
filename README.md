@@ -14,6 +14,7 @@ The Zep TypeScript library provides convenient access to the Zep APIs from TypeS
 - [Environments](#environments)
 - [Request and Response Types](#request-and-response-types)
 - [Exception Handling](#exception-handling)
+- [Streaming Response](#streaming-response)
 - [File Uploads](#file-uploads)
 - [Binary Response](#binary-response)
 - [Pagination](#pagination)
@@ -73,9 +74,9 @@ import { ZepClient } from "@getzep/zep-cloud";
 
 const client = new ZepClient({ apiKey: "YOUR_API_KEY" });
 await client.agent.create({
-    agentId: "agent_id",
-    name: "name",
-    securityDomain: "security_domain"
+    agentId: "payments-agent",
+    name: "Refund a duplicate charge",
+    securityDomain: "customer:support"
 });
 ```
 
@@ -121,6 +122,24 @@ try {
         console.log(err.body);
         console.log(err.rawResponse);
     }
+}
+```
+
+## Streaming Response
+
+Some endpoints return streaming responses instead of returning the full response at once.
+The SDK uses async iterators, so you can consume the responses using a `for await...of` loop.
+
+```typescript
+import { ZepClient } from "@getzep/zep-cloud";
+
+const client = new ZepClient({ apiKey: "YOUR_API_KEY" });
+const response = await client.graph.queryStream({
+    graphUuids: ["graph_uuids"],
+    query: "query"
+});
+for await (const item of response) {
+    console.log(item);
 }
 ```
 

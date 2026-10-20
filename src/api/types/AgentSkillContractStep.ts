@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillContractStep {
+    /** The service returns the decision for this operation. */
     decision?: Zep.AgentSkillContractText;
+    /** The service returns results to look for after this procedure step. */
     expectedObservations?: Zep.AgentSkillContractText[];
+    /** The service returns the action for this procedure step. */
     instruction?: Zep.AgentSkillContractText;
 }

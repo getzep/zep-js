@@ -3,23 +3,38 @@
 /**
  * @example
  *     {
- *         objective: "objective"
+ *         objective: "Refund a duplicate charge."
  *     }
  */
 export interface CreateAgentTraceRequest {
-    /** Whether eligible evidence may participate in learning. Defaults to true. */
+    /**
+     * The developer supplies whether eligible evidence may participate in learning. Defaults to
+     * true.
+     */
     learnFrom?: boolean;
     /** Developer metadata used to organize and filter Traces. */
     metadata?: Record<string, unknown>;
-    /** The task-instance objective captured for this attempt. */
+    /**
+     * The developer describes the task instance. The create request requires a non-empty value but
+     * does not check its size. An AppendAgentTraceEventRequest returns 400 if the Trace objective
+     * exceeds 8 KiB (8,192 bytes).
+     */
     objective: string;
-    /** The parent Trace UUID when this attempt retries an earlier attempt. */
+    /** The developer supplies the parent Trace UUID when this attempt retries an earlier attempt. */
     parentTraceUuid?: string;
     /**
-     * The task-family slug. Optional when inferred task families are enabled
-     * for the account: the service assigns one after the Trace closes.
+     * The developer may set a task-family slug. If the developer omits it, Agent Skills assigns the
+     * Trace to a task family automatically. If Agent Skills cannot assign a task family, the
+     * `task_family_inference` field of the Trace is `unassigned`. A BYOM configuration requires `task_family`. A
+     * strict-residency deployment requires `task_family`. Without task_family in either case, the
+     * API returns 400 `invalid_request` with the message `task_family is required`. The slug must
+     * contain 1 to 128 lowercase letters, digits, `.`, `_`, `/`, or `-`. It must start with a
+     * lowercase letter or digit.
      */
     taskFamily?: string;
-    /** The optional customer-assigned identifier, unique within the Agent. */
+    /**
+     * The developer may set an identifier that is unique within the Agent. A retry with the same
+     * create parameters returns 200 and the existing Trace. Different parameters return 409.
+     */
     traceId?: string;
 }

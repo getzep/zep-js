@@ -13,7 +13,7 @@ export interface SourceSpan {
     kind?: string;
     /** Metadata contains provider span metadata. Example: {"team":"support"}. */
     metadata?: Record<string, unknown>;
-    /** Model is the model identifier, when present. */
+    /** The provider supplies the model name when it is available. */
     model?: string;
     /** Name is the provider span name. */
     name?: string;

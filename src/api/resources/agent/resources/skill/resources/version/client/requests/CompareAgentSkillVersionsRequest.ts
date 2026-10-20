@@ -8,6 +8,8 @@
  *     }
  */
 export interface CompareAgentSkillVersionsRequest {
+    /** The developer supplies the source version to compare. It must be at least 1. */
     fromVersion: number;
+    /** The developer supplies the destination version to compare. It must be at least 1. */
     toVersion: number;
 }

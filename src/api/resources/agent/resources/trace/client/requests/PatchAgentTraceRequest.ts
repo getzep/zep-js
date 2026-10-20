@@ -3,7 +3,8 @@
 /**
  * @example
  *     {
- *         expectedRevision: 1
+ *         expectedRevision: 1,
+ *         taskFamily: "support/refund"
  *     }
  */
 export interface PatchAgentTraceRequest {

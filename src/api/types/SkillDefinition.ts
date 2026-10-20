@@ -3,23 +3,45 @@
 import type * as Zep from "../index.js";
 
 export interface SkillDefinition {
+    /** The developer lists Agent versions that can use the Skill. */
     agentVersions?: string[];
+    /** The developer supplies alternate names for the resource. */
     aliases?: string[];
+    /** The developer supplies the resource description. */
     description?: string;
+    /** The developer supplies situations in which the Skill must not be used. */
     doNotUseWhen?: string[];
+    /** The developer supplies conditions that show when the Skill work is complete. */
     doneWhen?: string[];
+    /** The developer supplies environment names used by the Skill. */
     environments?: Zep.SkillResource[];
+    /** The developer supplies failure conditions and recovery steps. */
     failures?: Zep.SkillFailure[];
+    /**
+     * The developer supplies a Skill kind. Valid values are principle, procedure, workflow,
+     * failure_mode, recovery, constraint.
+     */
     kind?: Zep.SkillKind;
+    /** The developer supplies a display name. */
     name?: string;
+    /** The developer supplies results that the Skill produces. */
     outputs?: string[];
+    /** The developer supplies the stable package name for the Skill. */
     packageName?: string;
+    /** The developer supplies conditions that must be true before use. */
     preconditions?: string[];
+    /** The developer supplies ordered procedure steps. */
     procedure?: Zep.SkillProcedureStep[];
+    /** The developer lists Skills that relate to this Skill. */
     relatedSkills?: Zep.SkillRelation[];
+    /** The developer supplies structured sections of the Skill. */
     sections?: Zep.SkillDefinitionSection[];
+    /** The developer supplies conditions that require the workflow to stop. */
     stopWhen?: string[];
+    /** The developer supplies the task-family slug. */
     taskFamily?: string;
+    /** The developer supplies tool names used by the Skill. */
     tools?: Zep.SkillResource[];
+    /** The developer supplies conditions that must hold before the Skill is used. */
     useWhen?: string[];
 }

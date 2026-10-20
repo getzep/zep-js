@@ -8,6 +8,8 @@
  *     }
  */
 export interface RestoreAgentSkillVersionRequest {
+    /** The developer supplies the current Skill version to protect against concurrent edits. */
     expectedVersion: number;
+    /** The developer supplies the Skill version to restore. */
     version: number;
 }

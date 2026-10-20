@@ -1,6 +1,6 @@
 {
     "name": "@getzep/zep-cloud",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "private": false,
     "repository": {
         "type": "git",
@@ -518,5 +518,6 @@
     "engines": {
         "node": ">=18.0.0"
     },
-    "sideEffects": false
+    "sideEffects": false,
+    "description": "The TypeScript SDK for Zep, the context layer for AI agents."
 }

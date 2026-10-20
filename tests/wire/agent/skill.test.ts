@@ -12,21 +12,22 @@ describe("SkillClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    agent_versions: ["agent_versions"],
-                    description: "description",
-                    environments: ["environments"],
-                    kind: "kind",
-                    markdown: "markdown",
+                    agent_versions: ["2026.09.01"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: ["production"],
+                    kind: "procedure",
+                    markdown: "Confirm the duplicate charge before issuing a refund.",
                     maturity: "provisional",
-                    name: "name",
-                    package_name: "package_name",
-                    self_contained: true,
-                    skill_id: "skill_id",
+                    name: "Refund a duplicate charge",
+                    package_name: "payments",
+                    self_contained: false,
+                    short_id: "6a906e70",
+                    skill_id: "refund-duplicate-charge",
                     source_attempt_families: 1,
-                    task_family: "task_family",
-                    tools: ["tools"],
+                    task_family: "support/refund",
+                    tools: ["refund_payment"],
                     trust: 0.61,
-                    uuid: "uuid",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verified_applications: 6,
                     version: 1,
                 },
@@ -47,21 +48,22 @@ describe("SkillClient", () => {
         const expected = {
             items: [
                 {
-                    agentVersions: ["agent_versions"],
-                    description: "description",
-                    environments: ["environments"],
-                    kind: "kind",
-                    markdown: "markdown",
+                    agentVersions: ["2026.09.01"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: ["production"],
+                    kind: "procedure",
+                    markdown: "Confirm the duplicate charge before issuing a refund.",
                     maturity: "provisional",
-                    name: "name",
-                    packageName: "package_name",
-                    selfContained: true,
-                    skillId: "skill_id",
+                    name: "Refund a duplicate charge",
+                    packageName: "payments",
+                    selfContained: false,
+                    shortId: "6a906e70",
+                    skillId: "refund-duplicate-charge",
                     sourceAttemptFamilies: 1,
-                    taskFamily: "task_family",
-                    tools: ["tools"],
+                    taskFamily: "support/refund",
+                    tools: ["refund_payment"],
                     trust: 0.61,
-                    uuid: "uuid",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verifiedApplications: 6,
                     version: 1,
                 },
@@ -180,31 +182,32 @@ describe("SkillClient", () => {
     test("search (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { query: "query" };
+        const rawRequestBody = { query: "How do I refund a duplicate charge?" };
         const rawResponseBody = {
             items: [
                 {
-                    agent_versions: ["agent_versions"],
-                    description: "description",
-                    environments: ["environments"],
-                    kind: "kind",
-                    markdown: "markdown",
+                    agent_versions: ["2026.09.01"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: ["production"],
+                    kind: "procedure",
+                    markdown: "Confirm the duplicate charge before issuing a refund.",
                     maturity: "provisional",
-                    name: "name",
-                    package_name: "package_name",
-                    self_contained: true,
-                    skill_id: "skill_id",
+                    name: "Refund a duplicate charge",
+                    package_name: "payments",
+                    self_contained: false,
+                    short_id: "6a906e70",
+                    skill_id: "refund-duplicate-charge",
                     source_attempt_families: 1,
-                    task_family: "task_family",
-                    tools: ["tools"],
+                    task_family: "support/refund",
+                    tools: ["refund_payment"],
                     trust: 0.61,
-                    uuid: "uuid",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verified_applications: 6,
                     version: 1,
                 },
             ],
-            next_cursor: "next_cursor",
-            search_id: "search_id",
+            next_cursor: "eyJvZmZzZXQiOjEwfQ",
+            search_id: "eyJ2IjoxLCJyZXF1ZXN0X2lkIjoiNmE5MDZlNzAtNTBjYS00ZTQzLWE4NzQtNWZjYWUwMmE3MWZhIn0.signature",
         };
 
         server
@@ -219,30 +222,31 @@ describe("SkillClient", () => {
         const expected = {
             items: [
                 {
-                    agentVersions: ["agent_versions"],
-                    description: "description",
-                    environments: ["environments"],
-                    kind: "kind",
-                    markdown: "markdown",
+                    agentVersions: ["2026.09.01"],
+                    description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                    environments: ["production"],
+                    kind: "procedure",
+                    markdown: "Confirm the duplicate charge before issuing a refund.",
                     maturity: "provisional",
-                    name: "name",
-                    packageName: "package_name",
-                    selfContained: true,
-                    skillId: "skill_id",
+                    name: "Refund a duplicate charge",
+                    packageName: "payments",
+                    selfContained: false,
+                    shortId: "6a906e70",
+                    skillId: "refund-duplicate-charge",
                     sourceAttemptFamilies: 1,
-                    taskFamily: "task_family",
-                    tools: ["tools"],
+                    taskFamily: "support/refund",
+                    tools: ["refund_payment"],
                     trust: 0.61,
-                    uuid: "uuid",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     verifiedApplications: 6,
                     version: 1,
                 },
             ],
-            nextCursor: "next_cursor",
-            searchId: "search_id",
+            nextCursor: "eyJvZmZzZXQiOjEwfQ",
+            searchId: "eyJ2IjoxLCJyZXF1ZXN0X2lkIjoiNmE5MDZlNzAtNTBjYS00ZTQzLWE4NzQtNWZjYWUwMmE3MWZhIn0.signature",
         };
         const page = await client.agent.skill.search("agent_uuid", {
-            query: "query",
+            query: "How do I refund a duplicate charge?",
         });
 
         expect(expected.items).toEqual(page.data);
@@ -366,18 +370,19 @@ describe("SkillClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            agent_versions: ["agent_versions"],
-            created_at: "created_at",
+            agent_versions: ["2026.09.01"],
+            created_at: "2026-01-01T00:00:00Z",
             current_version: 1,
-            kind: "kind",
-            package_name: "package_name",
-            searchable: true,
-            skill_id: "skill_id",
-            status: "status",
-            task_family: "task_family",
-            unavailable_reason: "unavailable_reason",
-            updated_at: "updated_at",
-            uuid: "uuid",
+            kind: "procedure",
+            package_name: "payments",
+            searchable: false,
+            short_id: "6a906e70",
+            skill_id: "refund-duplicate-charge",
+            status: "active",
+            task_family: "support/refund",
+            unavailable_reason: "no_active_version",
+            updated_at: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
         };
 
         server
@@ -390,18 +395,19 @@ describe("SkillClient", () => {
 
         const response = await client.agent.skill.get("agent_uuid", "skill_uuid");
         expect(response).toEqual({
-            agentVersions: ["agent_versions"],
-            createdAt: "created_at",
+            agentVersions: ["2026.09.01"],
+            createdAt: "2026-01-01T00:00:00Z",
             currentVersion: 1,
-            kind: "kind",
-            packageName: "package_name",
-            searchable: true,
-            skillId: "skill_id",
-            status: "status",
-            taskFamily: "task_family",
-            unavailableReason: "unavailable_reason",
-            updatedAt: "updated_at",
-            uuid: "uuid",
+            kind: "procedure",
+            packageName: "payments",
+            searchable: false,
+            shortId: "6a906e70",
+            skillId: "refund-duplicate-charge",
+            status: "active",
+            taskFamily: "support/refund",
+            unavailableReason: "no_active_version",
+            updatedAt: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
         });
     });
 
@@ -482,6 +488,25 @@ describe("SkillClient", () => {
     });
 
     test("get (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/skills/skill_uuid")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.skill.get("agent_uuid", "skill_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
+    test("get (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 

@@ -10,6 +10,8 @@ import type * as Zep from "../../../../../../index.js";
  *     }
  */
 export interface CreateAgentSkillVersionRequest {
+    /** The developer supplies the structured content for the new Skill version. */
     definition: Zep.SkillDefinition;
+    /** The developer supplies the current Skill version to protect against concurrent edits. */
     expectedVersion: number;
 }

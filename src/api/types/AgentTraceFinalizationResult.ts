@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceFinalizationResult {
+    /** The service returns the asynchronous Task. */
     task?: Zep.Task;
+    /** The service returns the finalized Trace. */
     trace?: Zep.AgentTrace;
 }

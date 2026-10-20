@@ -38,7 +38,7 @@ export class TraceImportClient {
     }
 
     /**
-     * List trace imports that belong to this Agent.
+     * List trace imports that belong to this Agent. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.TraceImportListRequest} request
@@ -169,7 +169,7 @@ export class TraceImportClient {
     }
 
     /**
-     * Create a scheduled import or queue a one-time import. A scheduled import returns HTTP 201 with `import`. A one-time import returns HTTP 202 with `import`, `run`, and `task`. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`.
+     * Create a scheduled import or queue a one-time import. A scheduled import returns HTTP 201 with `import`. A one-time import returns HTTP 202 with `import`, `run`, and `task`. Example request: `{"connection_uuid":"8c78a85e-eac2-4f57-b5f5-59a68a1e77a1","provider_project_id":"project-123","name":"Support traces","selection":{"trace_ids":["trace-123"]},"mapping":{"task_family":{"source":"fixed","value":"support"}}}`. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.CreateTraceImportRequest} request
@@ -331,7 +331,7 @@ export class TraceImportClient {
     }
 
     /**
-     * Read one trace import. The response does not include its source cursor.
+     * Read one trace import. The response does not include its source cursor. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID
@@ -447,7 +447,7 @@ export class TraceImportClient {
     }
 
     /**
-     * Set `traces=delete` to queue asynchronous Trace deletion. The default keeps Traces. Example query: `?traces=delete`.
+     * Set `traces=delete` to queue asynchronous Trace deletion. The default keeps Traces. Example query: `?traces=delete`. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID
@@ -581,7 +581,7 @@ export class TraceImportClient {
     }
 
     /**
-     * Use `expected_revision` to reject a stale update. Example request: `{"expected_revision":1,"name":"Updated support traces"}`.
+     * Use `expected_revision` to reject a stale update. Example request: `{"expected_revision":1,"name":"Updated support traces"}`. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID
@@ -734,7 +734,7 @@ export class TraceImportClient {
     }
 
     /**
-     * Pause a scheduled trace import. One-time imports cannot be paused.
+     * Pause a scheduled trace import. One-time imports cannot be paused. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID
@@ -863,7 +863,7 @@ export class TraceImportClient {
     }
 
     /**
-     * Resume a scheduled trace import. Zep verifies credentials first when they caused the pause.
+     * Resume a scheduled trace import. Zep verifies credentials first when they caused the pause. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
      *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} import_uuid - Trace import UUID

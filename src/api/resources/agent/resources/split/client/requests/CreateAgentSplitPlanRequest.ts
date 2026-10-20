@@ -7,24 +7,31 @@ import type * as Zep from "../../../../../../index.js";
  *     {
  *         destinations: [{
  *                 agent: {
- *                     agentId: "agent_id",
- *                     name: "name",
- *                     securityDomain: "security_domain"
+ *                     agentId: "payments-agent",
+ *                     name: "Refund a duplicate charge",
+ *                     securityDomain: "customer:support"
  *                 },
  *                 skills: [{
- *                         skillUuid: "skill_uuid",
- *                         skillVersionUuid: "skill_version_uuid",
+ *                         skillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+ *                         skillVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
  *                         version: 1
  *                     }]
  *             }],
  *         expectedRevision: 1,
- *         rationale: "rationale",
+ *         rationale: "Keep payment refunds separate from charge disputes.",
  *         reviewAcknowledged: true
  *     }
  */
 export interface CreateAgentSplitPlanRequest {
+    /** The developer lists 1 to 100 destination Agents. */
     destinations: Zep.AgentSplitPlanDestinationRequest[];
+    /** The developer supplies the current revision used for optimistic concurrency. At least 1. */
     expectedRevision: number;
+    /**
+     * The developer explains the requested change. The limit is 2,000
+     * characters.
+     */
     rationale: string;
+    /** The developer sets this to true to confirm that the review is complete. */
     reviewAcknowledged: boolean;
 }

@@ -13,6 +13,8 @@ export * from "./lookup/client/requests/index.js";
 export * as lookup from "./lookup/index.js";
 export * from "./project/client/requests/index.js";
 export * as project from "./project/index.js";
+export * as task from "./task/index.js";
+export * from "./task/types/index.js";
 export * from "./thread/client/requests/index.js";
 export * as thread from "./thread/index.js";
 export * from "./thread/types/index.js";

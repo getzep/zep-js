@@ -3,17 +3,33 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillCandidate {
+    /** The service returns Agent versions that can use the Skill. */
     agentVersions?: string[];
+    /** The service returns Skill versions used as the split-plan base. */
     baseVersions?: Zep.AgentSkillCandidateBaseVersion[];
+    /** The service returns classifier confidence score. */
     confidence?: number;
+    /**
+     * The service returns the candidate operation. Valid values are add, patch,
+     * and retire.
+     */
     decision?: string;
+    /** The service returns the resource description. */
     description?: string;
+    /** The service returns situations in which the Skill must not be used. */
     doNotUseWhen?: string[];
+    /** The service returns evidence linked to this result. */
     evidence?: Zep.AgentSkillCandidateEvidence[];
+    /** The service returns the Skill kind. */
     kind?: string;
+    /** The service returns the Skill content in Markdown. */
     markdown?: string;
+    /** The service returns the display name. */
     name?: string;
+    /** The service returns the stable package name of the Skill. */
     packageName?: string;
+    /** The service returns the task-family slug. */
     taskFamily?: string;
+    /** The service returns the UUID that identifies this resource. */
     uuid?: string;
 }

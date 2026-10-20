@@ -26,6 +26,8 @@ export class SplitClient {
     }
 
     /**
+     * Plan an Agent split. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Source Agent UUID
      * @param {Zep.agent.CreateAgentSplitPlanRequest} request
      * @param {SplitClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -42,18 +44,18 @@ export class SplitClient {
      *     await client.agent.split.plan("agent_uuid", {
      *         destinations: [{
      *                 agent: {
-     *                     agentId: "agent_id",
-     *                     name: "name",
-     *                     securityDomain: "security_domain"
+     *                     agentId: "payments-agent",
+     *                     name: "Refund a duplicate charge",
+     *                     securityDomain: "customer:support"
      *                 },
      *                 skills: [{
-     *                         skillUuid: "skill_uuid",
-     *                         skillVersionUuid: "skill_version_uuid",
+     *                         skillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+     *                         skillVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
      *                         version: 1
      *                     }]
      *             }],
      *         expectedRevision: 1,
-     *         rationale: "rationale",
+     *         rationale: "Keep payment refunds separate from charge disputes.",
      *         reviewAcknowledged: true
      *     })
      */

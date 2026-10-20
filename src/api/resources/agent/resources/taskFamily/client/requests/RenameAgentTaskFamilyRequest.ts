@@ -3,8 +3,8 @@
 /**
  * @example
  *     {
- *         fromSlug: "from_slug",
- *         toSlug: "to_slug"
+ *         fromSlug: "support/refund",
+ *         toSlug: "support/refund"
  *     }
  */
 export interface RenameAgentTaskFamilyRequest {

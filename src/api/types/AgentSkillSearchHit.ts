@@ -3,10 +3,15 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillSearchHit {
+    /** The service returns Agent versions that can use this Skill. */
     agentVersions?: string[];
+    /** The service returns the resource description. */
     description?: string;
+    /** The service returns environment names used by the Skill. */
     environments?: string[];
+    /** The service returns the Skill kind. */
     kind?: string;
+    /** The service returns the rendered Skill instructions in Markdown. */
     markdown?: string;
     /**
      * Maturity is the trust tier of the Skill: provisional (one source attempt
@@ -14,16 +19,24 @@ export interface AgentSkillSearchHit {
      * more from verified applications), or authored (no compiled source).
      */
     maturity?: Zep.AgentSkillSearchHitMaturity;
+    /** The service returns the display name. */
     name?: string;
+    /** The service returns the stable package name of the Skill. */
     packageName?: string;
+    /** The service reports whether this Skill can run without external context. */
     selfContained?: boolean;
+    /** The first 8 hex characters of uuid. Every route that takes skill_uuid also accepts this value in place of the full UUID. */
+    shortId?: string;
+    /** The service returns the stable developer-facing ID of the Skill, when set. */
     skillId?: string;
     /**
      * SourceAttemptFamilies is the count of distinct, successful, verified
      * attempt families that support the current version.
      */
     sourceAttemptFamilies?: number;
+    /** The service returns the task-family slug. */
     taskFamily?: string;
+    /** The service returns tool names used by the Skill. */
     tools?: string[];
     /**
      * Trust is the lower bound of the 95% Wilson score interval for the
@@ -31,11 +44,13 @@ export interface AgentSkillSearchHit {
      * when the Skill has no verified application.
      */
     trust?: number;
+    /** The service returns the UUID that identifies this resource. */
     uuid?: string;
     /**
-     * VerifiedApplications is the count of strongly verified applications
-     * that end in success or failure.
+     * The service returns the count of strongly verified applications that end in success or
+     * failure.
      */
     verifiedApplications?: number;
+    /** The service returns the Skill version number. */
     version?: number;
 }

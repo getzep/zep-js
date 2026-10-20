@@ -5,15 +5,26 @@ import type * as Zep from "../../../../../../../../index.js";
 /**
  * @example
  *     {
- *         searchId: "search_id",
- *         traceUuid: "trace_uuid",
+ *         searchId: "eyJ2IjoxLCJyZXF1ZXN0X2lkIjoiNmE5MDZlNzAtNTBjYS00ZTQzLWE4NzQtNWZjYWUwMmE3MWZhIn0.signature",
+ *         traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
  *         usage: "selected"
  *     }
  */
 export interface CreateAgentSkillUseRequest {
+    /**
+     * The developer records the outcome of the attempt. Valid values are
+     * succeeded, failed, partial, abandoned, and unknown.
+     */
     outcome?: Zep.AddAgentSkillUseOutcomeRequest;
+    /** The developer supplies a reason code for this outcome. It can contain up to 255 characters. */
     reasonCode?: string;
+    /** The developer supplies the signed search token returned by Skill search. */
     searchId: string;
+    /** The developer supplies the UUID of the source Trace. */
     traceUuid: string;
+    /**
+     * The developer supplies how the Skill was used. Valid values are selected, used,
+     * partially_used, ignored, inapplicable.
+     */
     usage: Zep.agent.skill.CreateAgentSkillUseRequestUsage;
 }

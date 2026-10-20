@@ -7,12 +7,20 @@ import type * as Zep from "../../../../index.js";
  *     {}
  */
 export interface GetAgentContextRequest {
+    /** The developer supplies environment names used by the Skill. At most 32. */
     environments?: Zep.AgentContextResource[];
+    /** The developer supplies a Skill kind. At most 64. */
     kind?: string;
+    /** The developer sets the maximum number of characters in the context response. */
     maxCharacters?: number;
+    /** The developer supplies models used for this evaluation. At most 32. */
     models?: Zep.AgentContextResource[];
+    /** The developer supplies the task-instance objective. At most 512. */
     objective?: string;
+    /** The developer supplies the task-family slug. At most 128. */
     taskFamily?: string;
+    /** The developer supplies tool names used by the Skill. At most 32. */
     tools?: Zep.AgentContextResource[];
+    /** The developer supplies the UUID of the source Trace. */
     traceUuid?: string;
 }

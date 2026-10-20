@@ -15,6 +15,7 @@ export const AgentSkill: core.serialization.ObjectSchema<serializers.AgentSkill.
         kind: core.serialization.string().optional(),
         packageName: core.serialization.property("package_name", core.serialization.string().optional()),
         searchable: core.serialization.boolean().optional(),
+        shortId: core.serialization.property("short_id", core.serialization.string().optional()),
         skillId: core.serialization.property("skill_id", core.serialization.string().optional()),
         status: core.serialization.string().optional(),
         taskFamily: core.serialization.property("task_family", core.serialization.string().optional()),
@@ -31,6 +32,7 @@ export declare namespace AgentSkill {
         kind?: string | null;
         package_name?: string | null;
         searchable?: boolean | null;
+        short_id?: string | null;
         skill_id?: string | null;
         status?: string | null;
         task_family?: string | null;

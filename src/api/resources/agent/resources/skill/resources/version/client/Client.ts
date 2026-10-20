@@ -35,8 +35,10 @@ export class VersionClient {
     }
 
     /**
+     * Restore Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {Zep.agent.skill.RestoreAgentSkillVersionRequest} request
      * @param {VersionClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -203,8 +205,10 @@ export class VersionClient {
     }
 
     /**
+     * List Agent Skill Versions. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {Zep.agent.skill.VersionListRequest} request
      * @param {VersionClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -212,6 +216,7 @@ export class VersionClient {
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link Zep.ServiceUnavailableError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -325,6 +330,17 @@ export class VersionClient {
                                 }),
                                 _response.rawResponse,
                             );
+                        case 409:
+                            throw new Zep.ConflictError(
+                                serializers.ApiError.parseOrThrow(_response.error.body, {
+                                    unrecognizedObjectKeys: "passthrough",
+                                    allowUnrecognizedUnionMembers: true,
+                                    allowUnrecognizedEnumValues: true,
+                                    skipValidation: true,
+                                    breadcrumbsPrefix: ["response"],
+                                }),
+                                _response.rawResponse,
+                            );
                         case 503:
                             throw new Zep.ServiceUnavailableError(
                                 serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -367,8 +383,10 @@ export class VersionClient {
     }
 
     /**
+     * Compare Agent Skill Versions. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {Zep.agent.skill.CompareAgentSkillVersionsRequest} request
      * @param {VersionClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -376,6 +394,7 @@ export class VersionClient {
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link Zep.ServiceUnavailableError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -492,6 +511,17 @@ export class VersionClient {
                         }),
                         _response.rawResponse,
                     );
+                case 409:
+                    throw new Zep.ConflictError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
                 case 503:
                     throw new Zep.ServiceUnavailableError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
@@ -521,8 +551,10 @@ export class VersionClient {
     }
 
     /**
+     * Get Agent Skill Version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {number} version - Skill version
      * @param {Zep.agent.skill.VersionGetRequest} request
      * @param {VersionClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -531,6 +563,7 @@ export class VersionClient {
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link Zep.ServiceUnavailableError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
@@ -557,7 +590,7 @@ export class VersionClient {
         request: Zep.agent.skill.VersionGetRequest = {},
         requestOptions?: VersionClient.RequestOptions,
     ): Promise<core.WithRawResponse<Zep.AgentSkillVersion>> {
-        const { markdownFormat } = request;
+        const { markdownFormat, include } = request;
         const _queryParams: Record<string, unknown> = {
             markdown_format:
                 markdownFormat != null
@@ -566,6 +599,7 @@ export class VersionClient {
                           omitUndefined: true,
                       })
                     : undefined,
+            include: include != null ? include : undefined,
         };
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -643,6 +677,17 @@ export class VersionClient {
                     );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

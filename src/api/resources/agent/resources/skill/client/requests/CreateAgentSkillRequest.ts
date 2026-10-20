@@ -9,6 +9,11 @@ import type * as Zep from "../../../../../../index.js";
  *     }
  */
 export interface CreateAgentSkillRequest {
+    /** The developer supplies the structured content of the Skill. */
     definition: Zep.SkillDefinition;
+    /**
+     * The developer can set a stable ID for the Skill. If omitted, the service
+     * assigns one.
+     */
     skillId?: string;
 }

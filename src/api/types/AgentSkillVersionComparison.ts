@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillVersionComparison {
+    /** The service lists fields that changed between these Skill versions. */
     changedFields?: string[];
+    /** The service returns the Skill version before the comparison. */
     from?: Zep.AgentSkillVersion;
+    /** The service returns the Skill version after the comparison. */
     to?: Zep.AgentSkillVersion;
 }

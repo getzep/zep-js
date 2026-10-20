@@ -6,18 +6,32 @@ import type * as Zep from "../../../../../../../../index.js";
  * @example
  *     {
  *         evaluatedBy: "customer",
- *         evaluatorVersion: "evaluator_version",
+ *         evaluatorVersion: "v1.0.0",
  *         expectedRevision: 1,
  *         verdict: "succeeded"
  *     }
  */
 export interface CreateAgentSkillCandidateEvaluationRequest {
+    /** The developer sets this to true when a controlled test produced the result. */
     controlledTest?: boolean;
+    /** The developer supplies the environment for this evaluation. */
     environment?: string;
+    /**
+     * The developer selects the evaluation source. Valid values are customer, tool,
+     * offline_corpus, policy.
+     */
     evaluatedBy: Zep.agent.skill.CreateAgentSkillCandidateEvaluationRequestEvaluatedBy;
+    /** The developer supplies the version of the evaluation rule. */
     evaluatorVersion: string;
+    /** The developer links this evaluation to an evidence record. */
     evidenceReference?: string;
+    /** The developer supplies the current revision used for optimistic concurrency. At least 1. */
     expectedRevision: number;
+    /** The developer supplies evaluation metrics. */
     metrics?: Record<string, number>;
+    /**
+     * The developer supplies evaluation verdict. Valid values are succeeded, failed, partial,
+     * unknown.
+     */
     verdict: Zep.agent.skill.CreateAgentSkillCandidateEvaluationRequestVerdict;
 }

@@ -11,24 +11,75 @@ describe("SplitClient", () => {
         const rawRequestBody = {
             destinations: [
                 {
-                    agent: { agent_id: "agent_id", name: "name", security_domain: "security_domain" },
-                    skills: [{ skill_uuid: "skill_uuid", skill_version_uuid: "skill_version_uuid", version: 1 }],
+                    agent: {
+                        agent_id: "payments-agent",
+                        name: "Refund a duplicate charge",
+                        security_domain: "customer:support",
+                    },
+                    skills: [
+                        {
+                            skill_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            skill_version_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            version: 1,
+                        },
+                    ],
                 },
             ],
             expected_revision: 1,
-            rationale: "rationale",
+            rationale: "Keep payment refunds separate from charge disputes.",
             review_acknowledged: true,
         };
         const rawResponseBody = {
-            authorizes_agent_creation: true,
-            authorizes_publication: true,
-            creates_resources: true,
+            authorizes_agent_creation: false,
+            authorizes_publication: false,
+            creates_resources: false,
             destinations: [
-                { agent: { agent_id: "agent_id", name: "name", security_domain: "security_domain" }, skills: [{}] },
+                {
+                    agent: {
+                        agent_id: "payments-agent",
+                        deployment_id: "production",
+                        description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                        memory_settings: {
+                            admission_evaluation_requirements: [
+                                {
+                                    requirements: [
+                                        {
+                                            controlled: false,
+                                            environment: "production",
+                                            evaluated_by: "customer",
+                                            evaluator_version: "v1.0.0",
+                                            result: "succeeded",
+                                        },
+                                    ],
+                                    task_family: "support/refund",
+                                },
+                            ],
+                            approval_minimum_attempt_families: 1,
+                            approval_required_tools: ["refund_order"],
+                            auto_approval_task_families: ["support/refund"],
+                            provisional_expiry_days: 1,
+                            provisional_skill_limit: 1,
+                            retention_days: 30,
+                        },
+                        name: "Refund a duplicate charge",
+                        security_domain: "customer:support",
+                        version: "2026.09.01",
+                    },
+                    skills: [
+                        {
+                            package_name: "payments",
+                            skill_id: "refund-duplicate-charge",
+                            skill_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            skill_version_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            status: "active",
+                            version: 1,
+                        },
+                    ],
+                },
             ],
-            rationale: "rationale",
+            rationale: "Keep payment refunds separate from charge disputes.",
             review_acknowledged: true,
-            source: { agent_uuid: "agent_uuid", revision: 1 },
+            source: { agent_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa", revision: 1 },
         };
 
         server
@@ -44,41 +95,75 @@ describe("SplitClient", () => {
             destinations: [
                 {
                     agent: {
-                        agentId: "agent_id",
-                        name: "name",
-                        securityDomain: "security_domain",
+                        agentId: "payments-agent",
+                        name: "Refund a duplicate charge",
+                        securityDomain: "customer:support",
                     },
                     skills: [
                         {
-                            skillUuid: "skill_uuid",
-                            skillVersionUuid: "skill_version_uuid",
+                            skillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            skillVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                             version: 1,
                         },
                     ],
                 },
             ],
             expectedRevision: 1,
-            rationale: "rationale",
+            rationale: "Keep payment refunds separate from charge disputes.",
             reviewAcknowledged: true,
         });
         expect(response).toEqual({
-            authorizesAgentCreation: true,
-            authorizesPublication: true,
-            createsResources: true,
+            authorizesAgentCreation: false,
+            authorizesPublication: false,
+            createsResources: false,
             destinations: [
                 {
                     agent: {
-                        agentId: "agent_id",
-                        name: "name",
-                        securityDomain: "security_domain",
+                        agentId: "payments-agent",
+                        deploymentId: "production",
+                        description: "Refund a duplicate charge after you confirm the duplicate payment.",
+                        memorySettings: {
+                            admissionEvaluationRequirements: [
+                                {
+                                    requirements: [
+                                        {
+                                            controlled: false,
+                                            environment: "production",
+                                            evaluatedBy: "customer",
+                                            evaluatorVersion: "v1.0.0",
+                                            result: "succeeded",
+                                        },
+                                    ],
+                                    taskFamily: "support/refund",
+                                },
+                            ],
+                            approvalMinimumAttemptFamilies: 1,
+                            approvalRequiredTools: ["refund_order"],
+                            autoApprovalTaskFamilies: ["support/refund"],
+                            provisionalExpiryDays: 1,
+                            provisionalSkillLimit: 1,
+                            retentionDays: 30,
+                        },
+                        name: "Refund a duplicate charge",
+                        securityDomain: "customer:support",
+                        version: "2026.09.01",
                     },
-                    skills: [{}],
+                    skills: [
+                        {
+                            packageName: "payments",
+                            skillId: "refund-duplicate-charge",
+                            skillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            skillVersionUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                            status: "active",
+                            version: 1,
+                        },
+                    ],
                 },
             ],
-            rationale: "rationale",
+            rationale: "Keep payment refunds separate from charge disputes.",
             reviewAcknowledged: true,
             source: {
-                agentUuid: "agent_uuid",
+                agentUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                 revision: 1,
             },
         });

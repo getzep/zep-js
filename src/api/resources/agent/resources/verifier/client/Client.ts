@@ -32,6 +32,8 @@ export class VerifierClient {
     }
 
     /**
+     * List Agent Verifiers. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.AgentVerifierListRequest} request
      * @param {VerifierClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -161,6 +163,8 @@ export class VerifierClient {
     }
 
     /**
+     * Get Agent Verifier. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} verifier_uuid - Verifier UUID
      * @param {VerifierClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -263,6 +267,8 @@ export class VerifierClient {
     }
 
     /**
+     * Update Agent Verifier. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} verifier_uuid - Verifier UUID
      * @param {Zep.agent.PatchAgentVerifierRequest} request
@@ -392,6 +398,8 @@ export class VerifierClient {
     }
 
     /**
+     * Invalidate Agent Verifier Evidence. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} verifier_uuid - Verifier UUID
      * @param {Zep.agent.InvalidateAgentVerifierEvidenceRequest} request
@@ -405,7 +413,7 @@ export class VerifierClient {
      *
      * @example
      *     await client.agent.verifier.invalidateEvidence("agent_uuid", "verifier_uuid", {
-     *         reason: "reason",
+     *         reason: "acknowledged_gap",
      *         verifierRevisions: [1]
      *     })
      */
@@ -524,6 +532,8 @@ export class VerifierClient {
     }
 
     /**
+     * Revoke Agent Verifier. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {string} verifier_uuid - Verifier UUID
      * @param {Zep.agent.RevokeAgentVerifierRequest} request

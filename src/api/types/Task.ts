@@ -29,8 +29,8 @@ export interface Task {
     /** The time a worker began processing the task; absent until then. */
     startedAt?: string;
     /**
-     * The task's current state: pending, processing, succeeded, partial, or
-     * failed.
+     * The service returns the task state. Valid values are pending, processing,
+     * succeeded, partial, and failed.
      */
     status?: Zep.TaskStatus;
     /** The kind of asynchronous operation the task represents. */

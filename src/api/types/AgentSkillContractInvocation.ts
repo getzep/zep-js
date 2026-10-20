@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillContractInvocation {
+    /** The service returns conditions that must hold before the Skill is used. */
     conditions?: Zep.AgentSkillContractText[];
+    /** The service returns a summary of when to use the Skill. */
     summary?: Zep.AgentSkillContractText;
 }
