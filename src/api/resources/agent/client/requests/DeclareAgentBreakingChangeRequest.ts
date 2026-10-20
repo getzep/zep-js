@@ -4,10 +4,15 @@
  * @example
  *     {
  *         expectedRevision: 1,
- *         version: "version"
+ *         version: "2026.09.01"
  *     }
  */
 export interface DeclareAgentBreakingChangeRequest {
+    /**
+     * The developer supplies the current Agent revision for optimistic concurrency.
+     * It must be at least 1.
+     */
     expectedRevision: number;
+    /** The developer supplies the new deployment version. It must differ from the current version. */
     version: string;
 }

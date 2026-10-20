@@ -17,12 +17,12 @@ export interface AgentListRequest {
     order?: Zep.AgentListRequestOrder;
     /** Filters to the exact developer-assigned Agent identifier. */
     agentId?: string;
-    /** Filters to the exact deployment identifier. */
+    /** The developer supplies filters to the exact deployment identifier. */
     deploymentId?: string;
     /** Filters to Agents whose metadata contains these key-value pairs. */
     metadata?: Record<string, unknown>;
     /**
-     * Filters to Agents whose name, Agent identifier, deployment identifier,
+     * The developer supplies filters to Agents whose name, Agent identifier, deployment identifier,
      * or deployment version contains this text. Matching is case-insensitive.
      */
     search?: string;

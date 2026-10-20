@@ -12,21 +12,21 @@ describe("RelationClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    application_state: "application_state",
-                    kind: "kind",
-                    related_package_name: "related_package_name",
-                    related_skill_kind: "related_skill_kind",
-                    related_skill_name: "related_skill_name",
-                    related_skill_task_family: "related_skill_task_family",
-                    related_skill_uuid: "related_skill_uuid",
+                    application_state: "active",
+                    kind: "procedure",
+                    related_package_name: "payments",
+                    related_skill_kind: "procedure",
+                    related_skill_name: "Refund a duplicate charge",
+                    related_skill_task_family: "support/refund",
+                    related_skill_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     related_skill_version: 1,
-                    related_version_constraint: "related_version_constraint",
-                    resource_name: "resource_name",
-                    resource_version_constraint: "resource_version_constraint",
-                    trace_outcome: "trace_outcome",
-                    trace_task_family: "trace_task_family",
-                    trace_uuid: "trace_uuid",
-                    trace_verification: "trace_verification",
+                    related_version_constraint: ">=1.0.0",
+                    resource_name: "refund_payment",
+                    resource_version_constraint: ">=1.0.0",
+                    trace_outcome: "succeeded",
+                    trace_task_family: "support/refund",
+                    trace_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    trace_verification: "customer",
                 },
             ],
             next_cursor: "next_cursor",
@@ -44,21 +44,21 @@ describe("RelationClient", () => {
         const expected = {
             items: [
                 {
-                    applicationState: "application_state",
-                    kind: "kind",
-                    relatedPackageName: "related_package_name",
-                    relatedSkillKind: "related_skill_kind",
-                    relatedSkillName: "related_skill_name",
-                    relatedSkillTaskFamily: "related_skill_task_family",
-                    relatedSkillUuid: "related_skill_uuid",
+                    applicationState: "active",
+                    kind: "procedure",
+                    relatedPackageName: "payments",
+                    relatedSkillKind: "procedure",
+                    relatedSkillName: "Refund a duplicate charge",
+                    relatedSkillTaskFamily: "support/refund",
+                    relatedSkillUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     relatedSkillVersion: 1,
-                    relatedVersionConstraint: "related_version_constraint",
-                    resourceName: "resource_name",
-                    resourceVersionConstraint: "resource_version_constraint",
-                    traceOutcome: "trace_outcome",
-                    traceTaskFamily: "trace_task_family",
-                    traceUuid: "trace_uuid",
-                    traceVerification: "trace_verification",
+                    relatedVersionConstraint: ">=1.0.0",
+                    resourceName: "refund_payment",
+                    resourceVersionConstraint: ">=1.0.0",
+                    traceOutcome: "succeeded",
+                    traceTaskFamily: "support/refund",
+                    traceUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    traceVerification: "customer",
                 },
             ],
             nextCursor: "next_cursor",
@@ -149,6 +149,25 @@ describe("RelationClient", () => {
     });
 
     test("list (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/agents/agent_uuid/skills/skill_uuid/relations")
+            .respondWith()
+            .statusCode(409)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.agent.skill.relation.list("agent_uuid", "skill_uuid");
+        }).rejects.toThrow(Zep.ConflictError);
+    });
+
+    test("list (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 

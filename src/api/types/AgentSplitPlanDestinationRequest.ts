@@ -3,6 +3,8 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSplitPlanDestinationRequest {
+    /** The developer supplies the Agent settings for this destination. */
     agent: Zep.CreateAgentRequest;
+    /** The developer lists 1 to 100 Skills to include in this plan. */
     skills: Zep.AgentSplitPlanSkillSelectionRequest[];
 }

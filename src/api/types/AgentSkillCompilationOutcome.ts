@@ -3,23 +3,46 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillCompilationOutcome {
+    /** The service assigns the UUID of the Agent that owns this learning run. */
     agentUuid?: string;
+    /** The service returns the number of attempts made in the last stage. */
     attempts?: number;
+    /** The service returns the number of candidate Skills that the run produced. */
     candidateCount?: number;
+    /**
+     * The service assigns the UUID that identifies this idempotent compilation
+     * attempt.
+     */
     compilationIdentity?: string;
+    /** The service assigns the UUID of the scheduled window when one applies. */
     compilationWindowUuid?: string;
+    /** The service returns when Zep recorded this learning-run outcome. */
     createdAt?: string;
+    /** The service returns the final result of the learning run. */
     decision?: string;
+    /** The service returns the number of Skill proposals that the run produced. */
     proposalCount?: number;
+    /** The service explains why the learning run stopped or made no change. */
     reasonText?: string;
     /**
-     * RejectedAddCount is the count of add proposals that the Reflector,
-     * the proposal scanner, or the Curator rejected in this compilation.
+     * The service returns the count of add proposals that the Reflector, the proposal scanner, or
+     * the Curator rejected in this compilation.
      */
     rejectedAddCount?: number;
+    /**
+     * The service returns why compilation rejected the candidate. Valid values are
+     * no_eligible_traces,reflector_invalid_output,applicability_ungrounded,corroboration_insufficient,scanner_rejected,curator_rejected,curator_attempts_exhausted,prompt_budget_exceeded,provider_error.
+     */
     rejectionClass?: Zep.AgentSkillCompilationOutcomeRejectionClass;
+    /**
+     * The service reports the last stage reached: selection, reflector, scanner, curator, or
+     * admission.
+     */
     stage?: string;
+    /** The service returns the category that this learning run processed. */
     taskFamily?: string;
+    /** The service returns the number of eligible Traces that the run processed. */
     traceCount?: number;
+    /** The service returns the stable identifier for this learning run. */
     uuid?: string;
 }

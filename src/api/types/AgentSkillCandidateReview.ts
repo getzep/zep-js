@@ -3,16 +3,26 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillCandidateReview {
+    /** The service returns the number of related resources. */
     candidateCount?: number;
+    /** The service returns candidate Skills. */
     candidates?: Zep.AgentSkillCandidate[];
+    /** The service returns when Zep created this resource. */
     createdAt?: string;
     /** ImportReviewRequired reports whether any evidence import requires approval. */
     importReviewRequired?: boolean;
+    /** The service returns the code that explains this result. */
     reasonCode?: string;
+    /** The service returns evaluation results. */
     results?: Zep.AgentSkillCandidateReviewResult[];
+    /** The service returns when the review occurred. */
     reviewedAt?: string;
+    /** The service returns the current revision number. */
     revision?: number;
+    /** The service returns the lifecycle status. */
     status?: string;
+    /** The service returns the task-family slug. */
     taskFamily?: string;
+    /** The service returns the UUID that identifies this resource. */
     uuid?: string;
 }

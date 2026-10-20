@@ -10,11 +10,23 @@ import type * as Zep from "../../../../../../index.js";
  */
 export interface AppendAgentTraceEventRequest {
     content?: string;
+    /**
+     * Context gives the model, the tools, and the environments of the event. context.tools is the tool
+     * that the event calls or returns, and Skills learning reads it. A tool event can omit the tool name.
+     */
     context?: Zep.AgentTraceEventContext;
     eventId?: string;
     eventType: Zep.AgentTraceEventType;
+    /** Metadata is developer data. Skills learning does not read it. */
     metadata?: Record<string, unknown>;
     occurredAt?: string;
     sequence?: number;
     sources?: Zep.AgentTraceEventSource[];
+    /**
+     * ToolCallID is the ID that the agent framework gives a tool call. Use the same ID on
+     * the tool_call and tool_result events. It is valid only on these event types. A result
+     * without a matching call is valid. OpenAI uses tool_calls[].id, Anthropic uses the
+     * tool_use block id, and LangChain uses ToolMessage.tool_call_id.
+     */
+    toolCallId?: string;
 }

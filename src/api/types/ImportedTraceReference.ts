@@ -3,7 +3,7 @@
 export interface ImportedTraceReference {
     /** AgentUUID is the visible Agent identifier. */
     agentUuid?: string;
-    /** ImportUUID is the active import owner identifier. */
+    /** The service returns the UUID of the active import. */
     importUuid?: string;
     /** TraceUUID is the imported Trace identifier. */
     traceUuid?: string;

@@ -12,7 +12,7 @@ import type * as Zep from "../../../../../../index.js";
 export interface SourceTraceGetRequest {
     /** Mapping is an optional mapping preview configuration. Example: {"task_family":{"source":"fixed","value":"support"}}. */
     mapping?: Zep.TraceMapping;
-    /** ProviderProjectID is the provider project identifier. */
+    /** The developer supplies the project ID from the selected provider. */
     providerProjectId: string;
     /** TraceID is the provider trace identifier. */
     traceId: string;

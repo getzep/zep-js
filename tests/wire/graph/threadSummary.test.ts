@@ -13,6 +13,7 @@ describe("ThreadSummaryClient", () => {
             items: [
                 {
                     created_at: "created_at",
+                    graph_uuid: "graph_uuid",
                     last_summarized_at: "last_summarized_at",
                     last_summarized_episode_valid_at: "last_summarized_episode_valid_at",
                     relevance: 1.1,
@@ -39,6 +40,7 @@ describe("ThreadSummaryClient", () => {
             items: [
                 {
                     createdAt: "created_at",
+                    graphUuid: "graph_uuid",
                     lastSummarizedAt: "last_summarized_at",
                     lastSummarizedEpisodeValidAt: "last_summarized_episode_valid_at",
                     relevance: 1.1,

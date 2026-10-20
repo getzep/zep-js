@@ -15,7 +15,7 @@ export const AgentSkillContractEvidence: core.serialization.ObjectSchema<
     polarity: AgentSkillContractEvidencePolarity.optional(),
     sourceId: core.serialization.property("source_id", core.serialization.string().optional()),
     sourceKind: core.serialization.property("source_kind", AgentSkillContractEvidenceSourceKind.optional()),
-    trajectoryId: core.serialization.property("trajectory_id", core.serialization.string().optional()),
+    traceId: core.serialization.property("trace_id", core.serialization.string().optional()),
 });
 
 export declare namespace AgentSkillContractEvidence {
@@ -25,6 +25,6 @@ export declare namespace AgentSkillContractEvidence {
         polarity?: AgentSkillContractEvidencePolarity.Raw | null;
         source_id?: string | null;
         source_kind?: AgentSkillContractEvidenceSourceKind.Raw | null;
-        trajectory_id?: string | null;
+        trace_id?: string | null;
     }
 }

@@ -3,13 +3,22 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillUse {
+    /** The service returns the Agent version that used this Skill. */
     agentVersion?: string;
+    /** The service returns when Zep created this resource. */
     createdAt?: string;
+    /** The service returns the task outcome. */
     outcome?: Zep.AgentSkillUseOutcome;
+    /** The service returns the code that explains this result. */
     reasonCode?: string;
+    /** The service returns the UUID of the Skill. */
     skillUuid?: string;
+    /** The service returns the version number of the Skill. */
     skillVersion?: number;
+    /** The service returns the UUID of the source Trace. */
     traceUuid?: string;
+    /** The service returns how the Skill was used. */
     usage?: string;
+    /** The service returns the UUID that identifies this resource. */
     uuid?: string;
 }

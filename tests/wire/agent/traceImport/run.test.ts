@@ -13,13 +13,13 @@ describe("RunClient", () => {
             items: [
                 {
                     completed_at: "2026-01-01T00:01:00Z",
-                    counts: { imported: 10 },
+                    counts: { key: 1 },
                     created_at: "2026-01-01T00:00:00Z",
                     due_at: "2026-01-01T04:00:00Z",
                     error_code: "credential_rejected",
                     import_uuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
                     more_available: false,
-                    skip_reasons: { trace_not_closed: 1 },
+                    skip_reasons: { key: 1 },
                     started_at: "2026-01-01T00:00:01Z",
                     status: "pending",
                     task_uuid: "3124c01a-8f49-4bfd-9758-6ce491a377c1",
@@ -44,7 +44,7 @@ describe("RunClient", () => {
                 {
                     completedAt: "2026-01-01T00:01:00Z",
                     counts: {
-                        imported: 10,
+                        key: 1,
                     },
                     createdAt: "2026-01-01T00:00:00Z",
                     dueAt: "2026-01-01T04:00:00Z",
@@ -52,7 +52,7 @@ describe("RunClient", () => {
                     importUuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
                     moreAvailable: false,
                     skipReasons: {
-                        trace_not_closed: 1,
+                        key: 1,
                     },
                     startedAt: "2026-01-01T00:00:01Z",
                     status: "pending",
@@ -135,13 +135,13 @@ describe("RunClient", () => {
 
         const rawResponseBody = {
             completed_at: "2026-01-01T00:01:00Z",
-            counts: { imported: 10 },
+            counts: { key: 1 },
             created_at: "2026-01-01T00:00:00Z",
             due_at: "2026-01-01T04:00:00Z",
             error_code: "credential_rejected",
             import_uuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
             more_available: false,
-            skip_reasons: { trace_not_closed: 1 },
+            skip_reasons: { key: 1 },
             started_at: "2026-01-01T00:00:01Z",
             status: "pending",
             task_uuid: "3124c01a-8f49-4bfd-9758-6ce491a377c1",
@@ -161,7 +161,7 @@ describe("RunClient", () => {
         expect(response).toEqual({
             completedAt: "2026-01-01T00:01:00Z",
             counts: {
-                imported: 10,
+                key: 1,
             },
             createdAt: "2026-01-01T00:00:00Z",
             dueAt: "2026-01-01T04:00:00Z",
@@ -169,7 +169,7 @@ describe("RunClient", () => {
             importUuid: "332c28e1-e6a7-4bca-97b2-ef1ec82c65fa",
             moreAvailable: false,
             skipReasons: {
-                trace_not_closed: 1,
+                key: 1,
             },
             startedAt: "2026-01-01T00:00:01Z",
             status: "pending",

@@ -23,6 +23,7 @@ export const AgentTraceEvent: core.serialization.ObjectSchema<serializers.AgentT
         processingState: core.serialization.property("processing_state", AgentTraceEventProcessingState.optional()),
         sequence: core.serialization.number().optional(),
         sources: core.serialization.list(AgentTraceEventSource).optional(),
+        toolCallId: core.serialization.property("tool_call_id", core.serialization.string().optional()),
         traceUuid: core.serialization.property("trace_uuid", core.serialization.string().optional()),
         updatedAt: core.serialization.property("updated_at", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
@@ -43,6 +44,7 @@ export declare namespace AgentTraceEvent {
         processing_state?: AgentTraceEventProcessingState.Raw | null;
         sequence?: number | null;
         sources?: AgentTraceEventSource.Raw[] | null;
+        tool_call_id?: string | null;
         trace_uuid?: string | null;
         updated_at?: string | null;
         uuid?: string | null;

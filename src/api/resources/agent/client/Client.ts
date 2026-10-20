@@ -89,9 +89,9 @@ export class AgentClient {
      *
      * @example
      *     await client.agent.create({
-     *         agentId: "agent_id",
-     *         name: "name",
-     *         securityDomain: "security_domain"
+     *         agentId: "payments-agent",
+     *         name: "Refund a duplicate charge",
+     *         securityDomain: "customer:support"
      *     })
      */
     public create(
@@ -783,6 +783,8 @@ export class AgentClient {
     }
 
     /**
+     * Declare a breaking Agent deployment change. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.DeclareAgentBreakingChangeRequest} request
      * @param {AgentClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -798,7 +800,7 @@ export class AgentClient {
      * @example
      *     await client.agent.declareBreakingChange("agent_uuid", {
      *         expectedRevision: 1,
-     *         version: "version"
+     *         version: "2026.09.01"
      *     })
      */
     public declareBreakingChange(
@@ -934,6 +936,8 @@ export class AgentClient {
     }
 
     /**
+     * Get Agent context. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.GetAgentContextRequest} request
      * @param {AgentClient.RequestOptions} requestOptions - Request-specific configuration.

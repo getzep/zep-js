@@ -3,5 +3,9 @@
 import type * as Zep from "../index.js";
 
 export interface AddAgentSkillUseOutcomeRequest {
+    /**
+     * The developer records the attempt outcome. Valid values are succeeded,
+     * failed, partial, abandoned, and unknown.
+     */
     outcome: Zep.AddAgentSkillUseOutcomeRequestOutcome;
 }

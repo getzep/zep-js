@@ -5,7 +5,7 @@ import type * as Zep from "../../../../../../index.js";
 /**
  * @example
  *     {
- *         query: "query"
+ *         query: "How do I refund a duplicate charge?"
  *     }
  */
 export interface AgentSkillSearchRequest {
@@ -13,8 +13,11 @@ export interface AgentSkillSearchRequest {
     pageSize?: number;
     /** Opaque page cursor */
     cursor?: string;
+    /** The developer supplies environment names used by the Skill. */
     environments?: string[];
+    /** The developer sets this to true to include the Skill instructions in Markdown. */
     includeMarkdown?: boolean;
+    /** The developer supplies a Skill kind. */
     kind?: string;
     /**
      * MarkdownFormat selects the form of inline `markdown`. `agent` (the
@@ -23,7 +26,10 @@ export interface AgentSkillSearchRequest {
      * sections. `full` returns the stored SKILL.md with its evidence markers.
      */
     markdownFormat?: Zep.agent.AgentSkillSearchRequestMarkdownFormat;
+    /** The developer supplies a search query for Skills. */
     query: string;
+    /** The developer supplies the task-family slug. */
     taskFamily?: string;
+    /** The developer supplies tool names used by the Skill. */
     tools?: string[];
 }

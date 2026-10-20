@@ -12,20 +12,22 @@ describe("VerifierClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    agent_uuid: "agent_uuid",
+                    agent_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     capabilities: { key: "value" },
-                    class: "class",
-                    created_at: "created_at",
-                    created_by: { principal_id: "principal_id", principal_type: "principal_type" },
+                    class: "tooling",
+                    created_at: "2026-01-01T00:00:00Z",
+                    created_by: { principal_id: "member-123", principal_type: "member" },
                     metadata: { key: "value" },
                     permitted_strengths: ["tool_verified"],
-                    principal_bindings: [{}],
+                    principal_bindings: [
+                        { created_at: "2026-01-01T00:00:00Z", principal_id: "member-123", principal_type: "member" },
+                    ],
                     revision: 1,
-                    revoked_at: "revoked_at",
+                    revoked_at: "2026-01-01T00:00:00Z",
                     status: "active",
-                    updated_at: "updated_at",
-                    uuid: "uuid",
-                    verifier_id: "verifier_id",
+                    updated_at: "2026-01-01T00:00:00Z",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    verifier_id: "billing-audit",
                 },
             ],
             next_cursor: "next_cursor",
@@ -44,27 +46,33 @@ describe("VerifierClient", () => {
         const expected = {
             items: [
                 {
-                    agentUuid: "agent_uuid",
+                    agentUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
                     capabilities: {
                         key: "value",
                     },
-                    class: "class",
-                    createdAt: "created_at",
+                    class: "tooling",
+                    createdAt: "2026-01-01T00:00:00Z",
                     createdBy: {
-                        principalId: "principal_id",
-                        principalType: "principal_type",
+                        principalId: "member-123",
+                        principalType: "member",
                     },
                     metadata: {
                         key: "value",
                     },
                     permittedStrengths: ["tool_verified"],
-                    principalBindings: [{}],
+                    principalBindings: [
+                        {
+                            createdAt: "2026-01-01T00:00:00Z",
+                            principalId: "member-123",
+                            principalType: "member",
+                        },
+                    ],
                     revision: 1,
-                    revokedAt: "revoked_at",
+                    revokedAt: "2026-01-01T00:00:00Z",
                     status: "active",
-                    updatedAt: "updated_at",
-                    uuid: "uuid",
-                    verifierId: "verifier_id",
+                    updatedAt: "2026-01-01T00:00:00Z",
+                    uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+                    verifierId: "billing-audit",
                 },
             ],
             nextCursor: "next_cursor",
@@ -123,27 +131,27 @@ describe("VerifierClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            agent_uuid: "agent_uuid",
+            agent_uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             capabilities: { key: "value" },
-            class: "class",
-            created_at: "created_at",
-            created_by: { principal_id: "principal_id", principal_type: "principal_type" },
+            class: "tooling",
+            created_at: "2026-01-01T00:00:00Z",
+            created_by: { principal_id: "member-123", principal_type: "member" },
             metadata: { key: "value" },
             permitted_strengths: ["tool_verified"],
             principal_bindings: [
                 {
-                    created_at: "created_at",
+                    created_at: "2026-01-01T00:00:00Z",
                     effective_strength: "tool_verified",
-                    principal_id: "principal_id",
-                    principal_type: "principal_type",
+                    principal_id: "member-123",
+                    principal_type: "member",
                 },
             ],
             revision: 1,
-            revoked_at: "revoked_at",
+            revoked_at: "2026-01-01T00:00:00Z",
             status: "active",
-            updated_at: "updated_at",
-            uuid: "uuid",
-            verifier_id: "verifier_id",
+            updated_at: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            verifier_id: "billing-audit",
         };
 
         server
@@ -156,15 +164,15 @@ describe("VerifierClient", () => {
 
         const response = await client.agent.verifier.get("agent_uuid", "verifier_uuid");
         expect(response).toEqual({
-            agentUuid: "agent_uuid",
+            agentUuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
             capabilities: {
                 key: "value",
             },
-            class: "class",
-            createdAt: "created_at",
+            class: "tooling",
+            createdAt: "2026-01-01T00:00:00Z",
             createdBy: {
-                principalId: "principal_id",
-                principalType: "principal_type",
+                principalId: "member-123",
+                principalType: "member",
             },
             metadata: {
                 key: "value",
@@ -172,18 +180,18 @@ describe("VerifierClient", () => {
             permittedStrengths: ["tool_verified"],
             principalBindings: [
                 {
-                    createdAt: "created_at",
+                    createdAt: "2026-01-01T00:00:00Z",
                     effectiveStrength: "tool_verified",
-                    principalId: "principal_id",
-                    principalType: "principal_type",
+                    principalId: "member-123",
+                    principalType: "member",
                 },
             ],
             revision: 1,
-            revokedAt: "revoked_at",
+            revokedAt: "2026-01-01T00:00:00Z",
             status: "active",
-            updatedAt: "updated_at",
-            uuid: "uuid",
-            verifierId: "verifier_id",
+            updatedAt: "2026-01-01T00:00:00Z",
+            uuid: "6a906e70-50ca-4e43-a874-5fcae02a71fa",
+            verifierId: "billing-audit",
         });
     });
 

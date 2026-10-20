@@ -9,4 +9,6 @@ import type * as Zep from "../../../../../../../../index.js";
 export interface VersionGetRequest {
     /** Markdown form: agent (default) or full */
     markdownFormat?: Zep.agent.skill.VersionGetRequestMarkdownFormat;
+    /** Optional field to add to the response: contract */
+    include?: "contract";
 }

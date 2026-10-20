@@ -3,29 +3,60 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillContract {
+    /** The service returns alternate names for the resource. */
     aliases?: string[];
+    /** The service returns the Agent versions and models that can use the Skill. */
     applicability?: Zep.AgentSkillContractApplicability;
+    /** The service returns evidence identifiers that support the contract. */
     citations?: string[];
+    /** The service returns the confidence score for the contract, from 0 to 1. */
     confidence?: number;
+    /** The service returns situations in which the Skill must not be used. */
     contraindications?: Zep.AgentSkillContractText[];
+    /** The service returns extra sections that a customer added to the Skill. */
     customerSections?: Zep.AgentSkillContractSection[];
+    /** The service returns packages that the Skill requires. */
     dependencies?: Zep.AgentSkillContractDependency[];
+    /** The service returns the resource description. */
     description?: string;
+    /** The service returns environment names used by the Skill. */
     environments?: Zep.AgentSkillContractResource[];
+    /** The service returns the evidence records cited by the contract. */
     evidence?: Zep.AgentSkillContractEvidence[];
+    /** The service returns failure conditions and recovery steps. */
     failures?: Zep.AgentSkillContractFailure[];
+    /** The service returns when the Skill should be used. */
     invocation?: Zep.AgentSkillContractInvocation;
+    /**
+     * The service returns the Skill kind. Valid values are principle, procedure, workflow, failure_mode,
+     * recovery, constraint.
+     */
     kind?: Zep.SkillKind;
+    /** The service returns the display name. */
     name?: string;
+    /**
+     * The service returns how the Skill contract was created. Valid values are
+     * evidence_derived and customer_authored.
+     */
     origin?: Zep.AgentSkillContractOrigin;
+    /** The service returns results that the Skill produces. */
     outputs?: Zep.AgentSkillContractText[];
+    /** The service returns the stable package name of the Skill. */
     packageName?: string;
+    /** The service returns conditions that must be true before use. */
     preconditions?: Zep.AgentSkillContractText[];
+    /** The service returns ordered procedure steps. */
     procedure?: Zep.AgentSkillContractStep[];
+    /** The service returns links from this Skill to other Skills. */
     relations?: Zep.AgentSkillContractRelation[];
+    /** The service returns the contract schema version. The current value is v1. */
     schemaVersion?: string;
+    /** The service returns conditions that show when the Skill task is complete. */
     successCriteria?: Zep.AgentSkillContractText[];
+    /** The service returns the task-family slug. */
     taskFamily?: string;
+    /** The service returns conditions that show when the Skill's work is complete. */
     terminationConditions?: Zep.AgentSkillContractText[];
+    /** The service returns tool names used by the Skill. */
     tools?: Zep.AgentSkillContractResource[];
 }

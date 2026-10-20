@@ -10,13 +10,13 @@ describe("LiteralPolicyClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            allowlisted_classes: { environments: ["environments"], tools: ["tools"] },
-            allowlisted_values: { environments: ["environments"], tools: ["tools"] },
-            created_at: "created_at",
-            created_by_principal_id: "created_by_principal_id",
-            created_by_principal_type: "created_by_principal_type",
-            default: "default",
-            digest: "digest",
+            allowlisted_classes: { environments: ["environment_name"], tools: ["command_name"] },
+            allowlisted_values: { environments: ["production"], tools: ["refund_payment"] },
+            created_at: "2026-01-01T00:00:00Z",
+            created_by_principal_id: "member-123",
+            created_by_principal_type: "member",
+            default: "parameterize",
+            digest: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
             revision: 1,
         };
 
@@ -31,18 +31,18 @@ describe("LiteralPolicyClient", () => {
         const response = await client.agent.literalPolicy.get("agent_uuid");
         expect(response).toEqual({
             allowlistedClasses: {
-                environments: ["environments"],
-                tools: ["tools"],
+                environments: ["environment_name"],
+                tools: ["command_name"],
             },
             allowlistedValues: {
-                environments: ["environments"],
-                tools: ["tools"],
+                environments: ["production"],
+                tools: ["refund_payment"],
             },
-            createdAt: "created_at",
-            createdByPrincipalId: "created_by_principal_id",
-            createdByPrincipalType: "created_by_principal_type",
-            default: "default",
-            digest: "digest",
+            createdAt: "2026-01-01T00:00:00Z",
+            createdByPrincipalId: "member-123",
+            createdByPrincipalType: "member",
+            default: "parameterize",
+            digest: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
             revision: 1,
         });
     });

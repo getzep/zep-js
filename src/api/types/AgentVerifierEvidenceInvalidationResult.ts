@@ -3,13 +3,22 @@
 import type * as Zep from "../index.js";
 
 export interface AgentVerifierEvidenceInvalidationResult {
+    /** The service returns UUIDs of Skills affected by this invalidation. */
     affectedSkillUuids?: string[];
+    /** The service returns the UUID of the owning Agent. */
     agentUuid?: string;
+    /** The service returns when Zep created this resource. */
     createdAt?: string;
+    /** The service returns the principal that created this assertion. */
     createdBy?: Zep.AgentVerifierPrincipal;
+    /** The service returns why the Verifier revisions were invalidated. */
     reason?: string;
+    /** The service returns the Task that tracks this asynchronous operation. */
     task?: Zep.Task;
+    /** The service returns the UUID that identifies this resource. */
     uuid?: string;
+    /** The service returns revisions of the Verifiers affected by this invalidation. */
     verifierRevisions?: number[];
+    /** The service returns the UUID of the Verifier linked to this invalidation. */
     verifierUuid?: string;
 }

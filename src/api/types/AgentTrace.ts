@@ -5,9 +5,9 @@ import type * as Zep from "../index.js";
 export interface AgentTrace {
     /** The time the Trace was abandoned. */
     abandonedAt?: string;
-    /** The owning Agent UUID. */
+    /** The service returns the owning Agent UUID. */
     agentUuid?: string;
-    /** The stable retry-family identity shared with declared child attempts. */
+    /** The service returns the stable retry-family identity shared by attempts. */
     attemptFamilyUuid?: string;
     /** The time the Trace closed. */
     closedAt?: string;
@@ -15,42 +15,60 @@ export interface AgentTrace {
     createdAt?: string;
     /** Server-owned fields that are not part of the top-level capture contract. */
     internal?: Zep.AgentTraceInternal;
-    /** Whether eligible evidence may participate in learning. */
+    /** The service returns whether eligible evidence may participate in learning. */
     learnFrom?: boolean;
-    /** Why the Trace is not eligible for learning. */
+    /**
+     * The service returns why the Trace is not eligible for learning, when it
+     * is not eligible.
+     */
     learnFromReason?: string;
     /** Developer metadata used for exact containment filters. */
     metadata?: Record<string, unknown>;
-    /** The task-instance objective captured for this attempt. */
+    /** The service returns the task-instance objective captured for this attempt. */
     objective?: string;
-    /** The caller-owned task outcome. */
+    /**
+     * The service returns the task outcome that the developer recorded. Valid
+     * values are succeeded, failed, partial, abandoned, and unknown.
+     */
     outcome?: Zep.AgentTraceOutcome;
-    /** The parent attempt when this Trace is a retry. */
+    /** The service returns the parent attempt when this Trace is a retry. */
     parentTraceUuid?: string;
-    /** The revision required by the next update or lifecycle command. */
+    /**
+     * The service returns the current revision for the next update or lifecycle
+     * command.
+     */
     revision?: number;
     /** The source record for an imported Trace. */
     source?: Zep.AgentTraceSource;
-    /** The current lifecycle state. */
+    /** The service returns the current lifecycle state. Valid values are open, closing, closed, abandoned, and deleted. */
     status?: Zep.AgentTraceLifecycle;
-    /** The optional opaque task-family classification slug. */
+    /**
+     * The service returns the declared or assigned task-family slug, when one
+     * is available.
+     */
     taskFamily?: string;
     /**
-     * The latest task-family inference outcome. Absent when inference never
-     * ran for this Trace.
+     * The service returns the latest classification result. Its state is pending, assigned, or
+     * unassigned. It is absent if classification did not run for this Trace.
      */
     taskFamilyInference?: Zep.AgentTraceTaskFamilyInference;
     /**
-     * Who supplied task_family: the caller (declared), an import rule
-     * (import_rule), or the service classifier (inferred).
+     * The service returns how it selected the task family. Valid values are
+     * declared, import_rule, and inferred.
      */
     taskFamilySource?: string;
-    /** The optional customer-assigned identifier, unique within the Agent. */
+    /**
+     * The developer may set an identifier that is unique within the Agent. A retry with the same
+     * create parameters returns 200 and the existing Trace. Different parameters return 409.
+     */
     traceId?: string;
     /** The time the Trace was last updated. */
     updatedAt?: string;
-    /** The stable Trace UUID. */
+    /** The service returns the stable Trace UUID. */
     uuid?: string;
-    /** The strength of the accepted outcome verification. */
+    /**
+     * The service returns how the outcome was verified. Valid values are none,
+     * agent, tool, customer, and external.
+     */
     verification?: Zep.AgentTraceVerification;
 }

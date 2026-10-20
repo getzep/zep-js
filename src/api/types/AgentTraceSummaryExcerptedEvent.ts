@@ -3,8 +3,12 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryExcerptedEvent {
+    /** The service returns the excerpted event content in bytes. */
     contentBytes?: number;
+    /** The service returns the ID of the source event. */
     eventId?: string;
+    /** The service returns byte ranges removed from the excerpted event content. */
     omittedByteRanges?: Zep.AgentTraceSummaryByteRange[];
+    /** The service returns the sequence number of the excerpted event. */
     sequence?: number;
 }

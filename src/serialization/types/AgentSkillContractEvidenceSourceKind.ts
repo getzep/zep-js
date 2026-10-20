@@ -7,8 +7,8 @@ import type * as serializers from "../index.js";
 export const AgentSkillContractEvidenceSourceKind: core.serialization.Schema<
     serializers.AgentSkillContractEvidenceSourceKind.Raw,
     Zep.AgentSkillContractEvidenceSourceKind
-> = core.serialization.enum_(["trajectory", "event", "summary"]);
+> = core.serialization.enum_(["trace", "event", "summary"]);
 
 export declare namespace AgentSkillContractEvidenceSourceKind {
-    export type Raw = "trajectory" | "event" | "summary";
+    export type Raw = "trace" | "event" | "summary";
 }

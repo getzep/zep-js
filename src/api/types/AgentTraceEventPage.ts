@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceEventPage {
+    /** The service returns the events in this page. */
     items?: Zep.AgentTraceEvent[];
+    /** The service returns the cursor for the next page, when one exists. */
     nextCursor?: string;
+    /** The service returns the total number of items. */
     totalSize?: number;
 }

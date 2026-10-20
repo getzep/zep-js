@@ -9,6 +9,7 @@ export const ContextThreadSummary: core.serialization.ObjectSchema<
     Zep.ContextThreadSummary
 > = core.serialization.object({
     createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
+    graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
     lastSummarizedAt: core.serialization.property("last_summarized_at", core.serialization.string().optional()),
     lastSummarizedEpisodeValidAt: core.serialization.property(
         "last_summarized_episode_valid_at",
@@ -25,6 +26,7 @@ export const ContextThreadSummary: core.serialization.ObjectSchema<
 export declare namespace ContextThreadSummary {
     export interface Raw {
         created_at?: string | null;
+        graph_uuid?: string | null;
         last_summarized_at?: string | null;
         last_summarized_episode_valid_at?: string | null;
         relevance?: number | null;

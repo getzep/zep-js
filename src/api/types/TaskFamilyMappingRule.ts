@@ -3,14 +3,14 @@
 import type * as Zep from "../index.js";
 
 export interface TaskFamilyMappingRule {
-    /** Fallback is used when the selected source has no value. */
+    /** The service uses this task family when the source gives no value. The value infer asks Agent Skills to assign the task family automatically. */
     fallback?: string;
     /** Key is the metadata key for metadata mapping. */
     key?: string;
     /** Prefix is the tag prefix for tag mapping. */
     prefix?: string;
-    /** Source selects the task family source. */
+    /** The service reads the task family from this source. The value infer asks Agent Skills to assign the task family automatically. */
     source?: Zep.TaskFamilyMappingRuleSource;
-    /** Value is the fixed task family value. */
+    /** The developer supplies the task-family slug when the source is fixed. */
     value?: string;
 }

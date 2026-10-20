@@ -3,8 +3,15 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryVerification {
+    /** The service returns the events that support this verification result. */
     citations?: Zep.AgentTraceSummaryCitation[];
+    /** The service returns the detailed verification statements. */
     details?: Zep.AgentTraceSummaryStatement[];
+    /**
+     * The service returns the lifecycle status. Valid values are
+     * unverified,agent_verified,tool_verified,customer_verified,externally_verified.
+     */
     status?: Zep.AgentTraceSummaryVerificationStatus;
+    /** The service returns IDs of Verifiers that checked this summary. */
     verifierIds?: string[];
 }

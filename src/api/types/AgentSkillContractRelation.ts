@@ -3,8 +3,15 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillContractRelation {
+    /** The service returns evidence identifiers that support this relation. */
     citations?: string[];
+    /**
+     * The service returns the relation type. Valid values are composes, requires,
+     * conflicts_with, supersedes, and related.
+     */
     kind?: Zep.AgentSkillContractRelationKind;
+    /** The service returns the package name of the related Skill. */
     targetPackageName?: string;
+    /** The service returns the allowed versions for the related Skill. */
     versionConstraint?: string;
 }

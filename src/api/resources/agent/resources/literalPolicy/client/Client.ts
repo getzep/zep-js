@@ -32,6 +32,8 @@ export class LiteralPolicyClient {
     }
 
     /**
+     * Get Agent Literal Policy. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {LiteralPolicyClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -155,6 +157,8 @@ export class LiteralPolicyClient {
     }
 
     /**
+     * Update Agent Literal Policy. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
      * @param {Zep.agent.UpdateAgentLiteralPolicyRequest} request
      * @param {LiteralPolicyClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -170,12 +174,12 @@ export class LiteralPolicyClient {
      * @example
      *     await client.agent.literalPolicy.update("agent_uuid", {
      *         allowlistedClasses: {
-     *             environments: ["environments"],
-     *             tools: ["tools"]
+     *             environments: ["environment_name"],
+     *             tools: ["command_name"]
      *         },
      *         allowlistedValues: {
-     *             environments: ["environments"],
-     *             tools: ["tools"]
+     *             environments: ["production"],
+     *             tools: ["refund_payment"]
      *         },
      *         "default": "parameterize"
      *     })

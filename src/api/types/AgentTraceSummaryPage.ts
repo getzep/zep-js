@@ -3,7 +3,10 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryPage {
+    /** The service returns the summary versions in this page. */
     items?: Zep.AgentTraceSummaryVersion[];
+    /** The service returns the cursor for the next page, when one exists. */
     nextCursor?: string;
+    /** The service returns the total number of matching items. */
     totalSize?: number;
 }

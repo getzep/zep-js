@@ -5,7 +5,7 @@ import type * as Zep from "../index.js";
 export interface TraceImport {
     /** AgentUUID is the owning Agent identifier. */
     agentUuid?: string;
-    /** ConnectionUUID is the trace connection identifier. */
+    /** The service returns the configured provider connection used by this import. */
     connectionUuid?: string;
     /** CreatedAt is the resource creation time. */
     createdAt?: string;
@@ -29,7 +29,7 @@ export interface TraceImport {
     provider?: Zep.TraceImportProvider;
     /** ProviderOrganizationID is the provider organization identifier. */
     providerOrganizationId?: string;
-    /** ProviderProjectID is the source project identifier. */
+    /** The service returns the provider project selected for this import. */
     providerProjectId?: string;
     /** RequireReview reports whether candidate review is required. */
     requireReview?: boolean;

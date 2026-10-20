@@ -3,8 +3,12 @@
 import type * as Zep from "../index.js";
 
 export interface AgentTraceSummaryCoverage {
+    /** The service returns events that the summary includes as excerpts. */
     excerptedEvents?: Zep.AgentTraceSummaryExcerptedEvent[];
+    /** The service returns the first sequence number covered by this summary. */
     firstSequence?: number;
+    /** The service returns the last sequence number covered by this summary. */
     lastSequence?: number;
+    /** The service returns sequence ranges that the summary omits. */
     omittedSequenceRanges?: Zep.AgentTraceSummaryOmittedRange[];
 }

@@ -3,7 +3,7 @@
 import type * as Zep from "../index.js";
 
 export interface AgentPage {
-    /** The Agents on this page. */
+    /** The service returns the Agents on this page. */
     items?: Zep.Agent[];
     /**
      * Opaque cursor for retrieving the next page, present only when more results

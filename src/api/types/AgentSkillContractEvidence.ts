@@ -3,10 +3,35 @@
 import type * as Zep from "../index.js";
 
 export interface AgentSkillContractEvidence {
+    /**
+     * AttemptFamilyID is the ID of the attempt family that supplied this
+     * evidence. The service returns this value.
+     */
     attemptFamilyId?: string;
+    /**
+     * ID is the citation identifier that the service returns. It is unique in
+     * the evidence list.
+     */
     id?: string;
+    /**
+     * Polarity states whether the evidence supports, contradicts, or does not
+     * affect the contract claim. The service returns supporting, contradicting,
+     * or neutral.
+     */
     polarity?: Zep.AgentSkillContractEvidencePolarity;
+    /**
+     * SourceID is the ID of the Trace, event, or summary version named by
+     * source_kind. The service returns this value.
+     */
     sourceId?: string;
+    /**
+     * SourceKind is the source type. The service returns trace, event, or
+     * summary.
+     */
     sourceKind?: Zep.AgentSkillContractEvidenceSourceKind;
-    trajectoryId?: string;
+    /**
+     * TraceID is the ID of the Trace that supplied this evidence. The service
+     * returns this value.
+     */
+    traceId?: string;
 }

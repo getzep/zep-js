@@ -189,8 +189,8 @@ export class TaskFamilyClient {
      *
      * @example
      *     await client.agent.taskFamily.rename("agent_uuid", {
-     *         fromSlug: "from_slug",
-     *         toSlug: "to_slug"
+     *         fromSlug: "support/refund",
+     *         toSlug: "support/refund"
      *     })
      */
     public rename(

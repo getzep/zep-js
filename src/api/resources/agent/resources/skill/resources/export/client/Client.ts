@@ -34,8 +34,10 @@ export class ExportClient {
     }
 
     /**
+     * Export an Agent Skill version. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @param {string} agent_uuid - Agent UUID
-     * @param {string} skill_uuid - Skill UUID
+     * @param {string} skill_uuid - Skill UUID, or the 8-character short_id
      * @param {number} version - Skill version
      * @param {ExportClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -176,6 +178,8 @@ export class ExportClient {
     }
 
     /**
+     * Download an Agent Skill export. Agent Skills is in closed release. Zep enables Agent Skills only for select accounts. A request from an account without access returns `403 permission_denied`. To get access, contact support@getzep.com.
+     *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}

@@ -21,7 +21,10 @@ export interface AgentTraceListRequest {
     sourceKind?: Zep.agent.TraceListRequestSourceKind;
     /** Filters to Traces whose metadata contains these key-value pairs. */
     metadata?: Record<string, unknown>;
-    /** Filters to one reported outcome. */
+    /**
+     * The developer supplies filters to one reported outcome. Valid values are succeeded, failed,
+     * partial, abandoned, unknown.
+     */
     outcome?: Zep.AgentTraceOutcome;
     /** Filters to direct retries of this parent Trace. */
     parentTraceUuid?: string;

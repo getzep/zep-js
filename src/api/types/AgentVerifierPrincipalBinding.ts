@@ -5,10 +5,13 @@ import type * as Zep from "../index.js";
 export interface AgentVerifierPrincipalBinding {
     /** The time the binding was created. */
     createdAt?: string;
-    /** The verification strength assigned to this principal binding. */
+    /**
+     * The service returns the verification strength assigned to this principal binding. Valid values
+     * are tool_verified, customer_verified, externally_verified.
+     */
     effectiveStrength?: Zep.AgentVerificationStrength;
-    /** The exact principal identifier bound to this verifier. */
+    /** The service returns the exact principal identifier bound to this verifier. */
     principalId?: string;
-    /** The authenticated principal type bound to this verifier. */
+    /** The service returns the authenticated principal type bound to this verifier. */
     principalType?: string;
 }

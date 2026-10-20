@@ -6,19 +6,34 @@ import type * as Zep from "../../../../../../../../index.js";
  * @example
  *     {
  *         evaluatedBy: "customer",
- *         evaluatorVersion: "evaluator_version",
+ *         evaluatorVersion: "v1.0.0",
  *         skillVersion: 1,
  *         verdict: "succeeded"
  *     }
  */
 export interface CreateAgentSkillEvaluationRequest {
+    /** The developer sets this to true when a controlled test produced the result. */
     controlledTest?: boolean;
+    /** The developer supplies the environment for this evaluation. At most 1024. */
     environment?: string;
+    /**
+     * The developer selects the evaluation source. Valid values are customer, tool,
+     * offline_corpus, policy.
+     */
     evaluatedBy: Zep.agent.skill.CreateAgentSkillEvaluationRequestEvaluatedBy;
+    /** The developer supplies the evaluation rule version. It can contain up to 255 characters. */
     evaluatorVersion: string;
+    /** The developer links this evaluation to an evidence record. */
     evidenceReference?: string;
+    /** The developer supplies evaluation metrics. */
     metrics?: Record<string, number>;
+    /** The developer supplies the Skill version to evaluate. It must be at least 1. */
     skillVersion: number;
+    /** The developer can link this evaluation to a recorded Skill use. */
     useUuid?: string;
+    /**
+     * The developer supplies evaluation verdict. Valid values are succeeded, failed, partial,
+     * unknown.
+     */
     verdict: Zep.agent.skill.CreateAgentSkillEvaluationRequestVerdict;
 }

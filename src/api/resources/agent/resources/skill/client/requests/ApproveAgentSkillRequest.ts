@@ -7,5 +7,6 @@
  *     }
  */
 export interface ApproveAgentSkillRequest {
+    /** The developer supplies the current Skill version to protect against concurrent edits. */
     expectedVersion: number;
 }
