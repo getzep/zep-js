@@ -1392,6 +1392,116 @@ describe("GraphClient", () => {
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
+    test("list_metadata_keys (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            items: [{ created_at: "2026-10-13T12:00:00Z", key: "customer_tier" }],
+            next_cursor: "eyJrIjoiY3VzdG9tZXJfdGllciJ9",
+        };
+
+        server
+            .mockEndpoint({ once: false })
+            .get("/graphs/graph_uuid/metadata-keys")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const expected = {
+            items: [
+                {
+                    createdAt: "2026-10-13T12:00:00Z",
+                    key: "customer_tier",
+                },
+            ],
+            nextCursor: "eyJrIjoiY3VzdG9tZXJfdGllciJ9",
+        };
+        const page = await client.graph.listMetadataKeys("graph_uuid");
+
+        expect(expected.items).toEqual(page.data);
+        expect(page.hasNextPage()).toBe(true);
+        const nextPage = await page.getNextPage();
+        expect(expected.items).toEqual(nextPage.data);
+    });
+
+    test("list_metadata_keys (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/metadata-keys")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.listMetadataKeys("graph_uuid");
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("list_metadata_keys (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/metadata-keys")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.listMetadataKeys("graph_uuid");
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("list_metadata_keys (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/metadata-keys")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.listMetadataKeys("graph_uuid");
+        }).rejects.toThrow(Zep.ForbiddenError);
+    });
+
+    test("list_metadata_keys (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/metadata-keys")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.listMetadataKeys("graph_uuid");
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("get_observation_steering (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -1485,6 +1595,7 @@ describe("GraphClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
+            edge_type_hierarchy: { key: "value" },
             edge_types: [
                 { description: "description", name: "name", properties: [{ protected: true }], source_targets: [{}] },
             ],
@@ -1510,6 +1621,9 @@ describe("GraphClient", () => {
 
         const response = await client.graph.getOntology("graph_uuid");
         expect(response).toEqual({
+            edgeTypeHierarchy: {
+                key: "value",
+            },
             edgeTypes: [
                 {
                     description: "description",

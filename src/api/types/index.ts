@@ -199,6 +199,8 @@ export * from "./GraphContentPolicyRequest.js";
 export * from "./GraphContextResponse.js";
 export * from "./GraphDataType.js";
 export * from "./GraphDeleteResult.js";
+export * from "./GraphMetadataKey.js";
+export * from "./GraphMetadataKeyList.js";
 export * from "./GraphPage.js";
 export * from "./GraphQueryCitations.js";
 export * from "./GraphQueryEdge.js";

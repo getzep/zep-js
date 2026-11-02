@@ -19,7 +19,7 @@ export interface GraphQueryStreamRequest {
     graphUuids: string[];
     /** Optional caller guidance for the answer. The agent treats it as untrusted text. */
     guidance?: string;
-    /** The retrieval mode. The default is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. A project with a BYOM configuration supports only deep. A BYOC deployment supports only deep. */
+    /** The retrieval mode. The default is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. A BYOM project or BYOC deployment also needs a SystemOne decision model for fast. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. */
     mode?: Zep.GraphQueryRequestMode;
     /** The natural-language question about the graph. */
     query: string;

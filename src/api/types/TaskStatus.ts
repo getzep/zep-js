@@ -2,7 +2,9 @@
 
 /**
  * The service returns the task state. Valid values are pending, processing,
- * succeeded, partial, and failed.
+ * succeeded, partial, and failed. A task has no canceled state. When a batch
+ * becomes canceled, its batch.process task becomes failed, and the task error
+ * code is batch_canceled.
  */
 export const TaskStatus = {
     Pending: "pending",

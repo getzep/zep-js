@@ -33,163 +33,6 @@ export class EpisodeClient {
 
     /**
      * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
-     * @param {string} document_id - Document ID
-     * @param {Zep.graph.EpisodeListForDocumentRequest} request
-     * @param {EpisodeClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Zep.BadRequestError}
-     * @throws {@link Zep.UnauthorizedError}
-     * @throws {@link Zep.ForbiddenError}
-     * @throws {@link Zep.NotFoundError}
-     * @throws {@link Zep.ConflictError}
-     * @throws {@link errors.ZepError}
-     * @throws {@link errors.ZepTimeoutError}
-     *
-     * @example
-     *     await client.graph.episode.listForDocument("graph_uuid", "document_id")
-     */
-    public async listForDocument(
-        graph_uuid: string,
-        document_id: string,
-        request: Zep.graph.EpisodeListForDocumentRequest = {},
-        requestOptions?: EpisodeClient.RequestOptions,
-    ): Promise<core.Page<Zep.Episode, Zep.EpisodePage>> {
-        const list = core.HttpResponsePromise.interceptFunction(
-            async (
-                request: Zep.graph.EpisodeListForDocumentRequest,
-            ): Promise<core.WithRawResponse<Zep.EpisodePage>> => {
-                const { pageSize, cursor } = request;
-                const _queryParams: Record<string, unknown> = {
-                    page_size: pageSize,
-                    cursor,
-                };
-                const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
-                const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-                    _authRequest.headers,
-                    this._options?.headers,
-                    requestOptions?.headers,
-                );
-                const _response = await (this._options.fetcher ?? core.fetcher)({
-                    url: core.url.join(
-                        (await core.Supplier.get(this._options.baseUrl)) ??
-                            (await core.Supplier.get(this._options.environment)) ??
-                            environments.ZepEnvironment.Default,
-                        `graphs/${core.url.encodePathParam(graph_uuid)}/documents/${core.url.encodePathParam(document_id)}/episodes`,
-                    ),
-                    method: "GET",
-                    headers: _headers,
-                    queryString: core.url
-                        .queryBuilder()
-                        .addMany(_queryParams)
-                        .mergeAdditional(requestOptions?.queryParams)
-                        .build(),
-                    timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-                    maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-                    abortSignal: requestOptions?.abortSignal,
-                    fetchFn: this._options?.fetch,
-                    logging: this._options.logging,
-                });
-                if (_response.ok) {
-                    return {
-                        data: serializers.EpisodePage.parseOrThrow(_response.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            skipValidation: true,
-                            breadcrumbsPrefix: ["response"],
-                        }),
-                        rawResponse: _response.rawResponse,
-                    };
-                }
-                if (_response.error.reason === "status-code") {
-                    switch (_response.error.statusCode) {
-                        case 400:
-                            throw new Zep.BadRequestError(
-                                serializers.ApiError.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
-                                _response.rawResponse,
-                            );
-                        case 401:
-                            throw new Zep.UnauthorizedError(
-                                serializers.ApiError.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
-                                _response.rawResponse,
-                            );
-                        case 403:
-                            throw new Zep.ForbiddenError(
-                                serializers.ApiError.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
-                                _response.rawResponse,
-                            );
-                        case 404:
-                            throw new Zep.NotFoundError(
-                                serializers.ApiError.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
-                                _response.rawResponse,
-                            );
-                        case 409:
-                            throw new Zep.ConflictError(
-                                serializers.ApiError.parseOrThrow(_response.error.body, {
-                                    unrecognizedObjectKeys: "passthrough",
-                                    allowUnrecognizedUnionMembers: true,
-                                    allowUnrecognizedEnumValues: true,
-                                    skipValidation: true,
-                                    breadcrumbsPrefix: ["response"],
-                                }),
-                                _response.rawResponse,
-                            );
-                        default:
-                            throw new errors.ZepError({
-                                statusCode: _response.error.statusCode,
-                                body: _response.error.body,
-                                rawResponse: _response.rawResponse,
-                            });
-                    }
-                }
-                return handleNonStatusCodeError(
-                    _response.error,
-                    _response.rawResponse,
-                    "GET",
-                    "/graphs/{graph_uuid}/documents/{document_id}/episodes",
-                );
-            },
-        );
-        const dataWithRawResponse = await list(request).withRawResponse();
-        return new core.Page<Zep.Episode, Zep.EpisodePage>({
-            response: dataWithRawResponse.data,
-            rawResponse: dataWithRawResponse.rawResponse,
-            hasNextPage: (response) =>
-                response?.nextCursor != null &&
-                !(typeof response?.nextCursor === "string" && response?.nextCursor === ""),
-            getItems: (response) => response?.items ?? [],
-            loadPage: (response) => {
-                return list(core.setObjectProperty(request, "cursor", response?.nextCursor));
-            },
-        });
-    }
-
-    /**
-     * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.AddEpisodeRequest} request
      * @param {EpisodeClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
      *
@@ -344,7 +187,10 @@ export class EpisodeClient {
      * list can also contain episode UUIDs: an episode UUID matches that episode,
      * so one request can return a known set of episodes. At most 256 entries.
      * `filters.metadata_filters` restricts the results to episodes whose stored
-     * metadata matches the predicate.
+     * metadata matches the predicate. `filters.document_id` restricts the results
+     * to the episodes of one document.
+     *
+     * Example body: `{"filters": {"document_id": "gdrive.test-folder.weird-document"}}`
      *
      * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.graph.EpisodeListRequest} request

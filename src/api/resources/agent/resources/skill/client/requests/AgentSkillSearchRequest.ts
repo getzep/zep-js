@@ -26,7 +26,7 @@ export interface AgentSkillSearchRequest {
      * sections. `full` returns the stored SKILL.md with its evidence markers.
      */
     markdownFormat?: Zep.agent.AgentSkillSearchRequestMarkdownFormat;
-    /** The developer supplies a search query for Skills. */
+    /** The developer supplies a search query for Skills. A term is a sequence of characters between whitespace. When the query has more than 64 terms, Zep searches with the first 64 terms and ignores the other terms. The query must not be longer than 512 bytes. */
     query: string;
     /** The developer supplies the task-family slug. */
     taskFamily?: string;

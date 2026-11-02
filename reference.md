@@ -1308,7 +1308,7 @@ await client.graph.lookup({});
 <dl>
 <dd>
 
-Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. A project with a BYOM configuration supports only deep. A BYOC deployment supports only deep. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
+Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. BYOM and BYOC projects can use fast mode when they have a configured decision model. Other projects can use fast mode without a decision model. BYOM and BYOC projects without a decision model must use deep mode. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -1377,7 +1377,7 @@ for await (const item of response) {
 <dl>
 <dd>
 
-Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. A project with a BYOM configuration supports only deep. A BYOC deployment supports only deep. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
+Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. BYOM and BYOC projects can use fast mode when they have a configured decision model. Other projects can use fast mode without a decision model. BYOM and BYOC projects without a decision model must use deep mode. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
 </dd>
 </dl>
 </dd>
@@ -1945,6 +1945,89 @@ await client.graph.setInstructions("graph_uuid", {});
 <dd>
 
 **requestOptions:** `GraphClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.<a href="/src/api/resources/graph/client/Client.ts">listMetadataKeys</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.GraphMetadataKey, Zep.GraphMetadataKeyList&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the append-only metadata keys recorded for a graph. A key can remain in the list after no episode or message uses it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.graph.listMetadataKeys("graph_uuid");
+for await (const item of pageableResponse) {
+    console.log(item);
+}
+
+// Or you can manually iterate page-by-page
+let page = await client.graph.listMetadataKeys("graph_uuid");
+while (page.hasNextPage()) {
+    page = await page.getNextPage();
+}
+
+// You can also access the underlying response
+const response = page.response;
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.GraphListMetadataKeysRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GraphClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -5410,6 +5493,77 @@ await client.user.create();
 <dd>
 
 **requestOptions:** `UserClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getByEmail</a>({ ...params }) -> Zep.User</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send `{"email": "jane@example.com"}` to get the user with this email.
+An email matches only when the stored and requested values are equal after normalization.
+Normalization lowercases both values and trims leading and trailing whitespace.
+The operation returns `404 not_found` when no active user matches.
+The operation returns `400 invalid_request` with `param: "email"` when multiple active users match.
+The operation returns `400 invalid_request` with `param: "email"` when BYOK is active for the account.
+An email that was stored encrypted with BYOK does not match.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.getByEmail({
+    email: "jane@example.com"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Zep.GetUserByEmailRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `UserClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -10563,10 +10717,25 @@ const response = page.response;
 </dl>
 </details>
 
-## Graph Episode
-<details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">listForDocument</a>(graph_uuid, document_id, { ...params }) -> core.Page&lt;Zep.Episode, Zep.EpisodePage&gt;</code></summary>
+## Graph Edge
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddEdgesResult</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Adds 1 to 100 edges. A name creates a node when deduplicate is false. When deduplicate is true, Zep matches a node by name first.
+Example: {"edges":[{"fact":"Ada works at Acme Corp","fact_name":"WORKS_AT","source_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d479"},"target_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d480"}},{"fact":"Ada leads a team","fact_name":"LEADS","source_node":{"name":"Ada Lovelace","labels":["Person"]},"target_node":{"name":"Engineering","labels":["Department"]}}],"deduplicate":false}
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -10577,13 +10746,94 @@ const response = page.response;
 <dd>
 
 ```typescript
-const pageableResponse = await client.graph.episode.listForDocument("graph_uuid", "document_id");
+await client.graph.edge.add("graph_uuid", {
+    edges: [{
+            fact: "Ada works at Acme Corp",
+            factName: "WORKS_AT",
+            sourceNode: {},
+            targetNode: {}
+        }]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.AddEdgesRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.Edge, Zep.EdgePage&gt;</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Lists the edges of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
+You can sort by `uuid`, `created_at`, or `valid_at`. The default sort is `uuid` in descending order. An edge with no `valid_at` sorts as if its `valid_at` is 1970-01-01T00:00:00Z. Thus it comes before an edge with a later `valid_at` in ascending order, and after an edge with an earlier `valid_at`.
+You can use all `filters` fields except `content_policy_violated`.
+If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+const pageableResponse = await client.graph.edge.list("graph_uuid");
 for await (const item of pageableResponse) {
     console.log(item);
 }
 
 // Or you can manually iterate page-by-page
-let page = await client.graph.episode.listForDocument("graph_uuid", "document_id");
+let page = await client.graph.edge.list("graph_uuid");
 while (page.hasNextPage()) {
     page = await page.getNextPage();
 }
@@ -10613,7 +10863,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**document_id:** `string` — Document ID
+**request:** `Zep.graph.EdgeListRequest` 
     
 </dd>
 </dl>
@@ -10621,15 +10871,7 @@ const response = page.response;
 <dl>
 <dd>
 
-**request:** `Zep.graph.EpisodeListForDocumentRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EpisodeClient.RequestOptions` 
+**requestOptions:** `EdgeClient.RequestOptions` 
     
 </dd>
 </dl>
@@ -10641,6 +10883,203 @@ const response = page.response;
 </dl>
 </details>
 
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">get</a>(graph_uuid, edge_uuid) -> Zep.Edge</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.get("graph_uuid", "edge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**edge_uuid:** `string` — Edge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">delete</a>(graph_uuid, edge_uuid) -> Zep.AsyncResult</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.delete("graph_uuid", "edge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**edge_uuid:** `string` — Edge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">update</a>(graph_uuid, edge_uuid, { ...params }) -> Zep.Edge</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates one edge. When the edge belongs to a hyperedge, changing fact
+rewrites it on every member of that hyperedge in one all-or-nothing
+write, because the members share it. Attribute-only edits touch this
+edge alone.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.graph.edge.update("graph_uuid", "edge_uuid");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**edge_uuid:** `string` — Edge UUID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Zep.graph.PatchEdgeRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Graph Episode
 <details><summary><code>client.graph.episode.<a href="/src/api/resources/graph/resources/episode/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddEpisodeResult</code></summary>
 <dl>
 <dd>
@@ -10717,7 +11156,10 @@ the results to episodes that mention any of the listed node UUIDs. The
 list can also contain episode UUIDs: an episode UUID matches that episode,
 so one request can return a known set of episodes. At most 256 entries.
 `filters.metadata_filters` restricts the results to episodes whose stored
-metadata matches the predicate.
+metadata matches the predicate. `filters.document_id` restricts the results
+to the episodes of one document.
+
+Example body: `{"filters": {"document_id": "gdrive.test-folder.weird-document"}}`
 </dd>
 </dl>
 </dd>
@@ -11118,368 +11560,6 @@ const response = page.response;
 <dd>
 
 **requestOptions:** `EpisodeClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Graph Edge
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">add</a>(graph_uuid, { ...params }) -> Zep.AddEdgesResult</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Adds 1 to 100 edges. A name creates a node when deduplicate is false. When deduplicate is true, Zep matches a node by name first.
-Example: {"edges":[{"fact":"Ada works at Acme Corp","fact_name":"WORKS_AT","source_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d479"},"target_node":{"uuid":"f47ac10b-58cc-4372-a567-0e02b2c3d480"}},{"fact":"Ada leads a team","fact_name":"LEADS","source_node":{"name":"Ada Lovelace","labels":["Person"]},"target_node":{"name":"Engineering","labels":["Department"]}}],"deduplicate":false}
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.edge.add("graph_uuid", {
-    edges: [{
-            fact: "Ada works at Acme Corp",
-            factName: "WORKS_AT",
-            sourceNode: {},
-            targetNode: {}
-        }]
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.graph.AddEdgesRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">list</a>(graph_uuid, { ...params }) -> core.Page&lt;Zep.Edge, Zep.EdgePage&gt;</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Lists the edges of a graph and returns one page of results. The default `page_size` is 50, and the maximum `page_size` is 100.
-You can sort by `uuid`, `created_at`, or `valid_at`. The default sort is `uuid` in descending order. An edge with no `valid_at` sorts as if its `valid_at` is 1970-01-01T00:00:00Z. Thus it comes before an edge with a later `valid_at` in ascending order, and after an edge with an earlier `valid_at`.
-You can use all `filters` fields except `content_policy_violated`.
-If the request has an unsupported or unknown filter field, the API returns an `unsupported_filter` error.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-const pageableResponse = await client.graph.edge.list("graph_uuid");
-for await (const item of pageableResponse) {
-    console.log(item);
-}
-
-// Or you can manually iterate page-by-page
-let page = await client.graph.edge.list("graph_uuid");
-while (page.hasNextPage()) {
-    page = await page.getNextPage();
-}
-
-// You can also access the underlying response
-const response = page.response;
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.graph.EdgeListRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EdgeClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">get</a>(graph_uuid, edge_uuid) -> Zep.Edge</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.edge.get("graph_uuid", "edge_uuid");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**edge_uuid:** `string` — Edge UUID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EdgeClient.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">delete</a>(graph_uuid, edge_uuid) -> Zep.AsyncResult</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.edge.delete("graph_uuid", "edge_uuid");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**edge_uuid:** `string` — Edge UUID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.graph.edge.<a href="/src/api/resources/graph/resources/edge/client/Client.ts">update</a>(graph_uuid, edge_uuid, { ...params }) -> Zep.Edge</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Updates one edge. When the edge belongs to a hyperedge, changing fact
-rewrites it on every member of that hyperedge in one all-or-nothing
-write, because the members share it. Attribute-only edits touch this
-edge alone.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.graph.edge.update("graph_uuid", "edge_uuid");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**graph_uuid:** `string` — The UUID of the graph. For a user graph, you can also use the UUID of the user.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**edge_uuid:** `string` — Edge UUID
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Zep.graph.PatchEdgeRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `EdgeClient.IdempotentRequestOptions` 
     
 </dd>
 </dl>

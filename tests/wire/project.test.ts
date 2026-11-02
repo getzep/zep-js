@@ -610,6 +610,7 @@ describe("ProjectClient", () => {
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
+            edge_type_hierarchy: { key: "value" },
             edge_types: [
                 { description: "description", name: "name", properties: [{ protected: true }], source_targets: [{}] },
             ],
@@ -629,6 +630,9 @@ describe("ProjectClient", () => {
 
         const response = await client.project.getOntology();
         expect(response).toEqual({
+            edgeTypeHierarchy: {
+                key: "value",
+            },
             edgeTypes: [
                 {
                     description: "description",

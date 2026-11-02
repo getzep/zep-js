@@ -5,6 +5,117 @@ import { ZepClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("UserClient", () => {
+    test("get_by_email (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { email: "jane@example.com" };
+        const rawResponseBody = {
+            created_at: "created_at",
+            disable_default_ontology: true,
+            email: "email",
+            first_name: "first_name",
+            graph_uuid: "graph_uuid",
+            last_name: "last_name",
+            metadata: { key: "value" },
+            time_zone: "time_zone",
+            user_id: "user_id",
+            uuid: "uuid",
+        };
+
+        server
+            .mockEndpoint()
+            .post("/users/get-by-email")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.getByEmail({
+            email: "jane@example.com",
+        });
+        expect(response).toEqual({
+            createdAt: "created_at",
+            disableDefaultOntology: true,
+            email: "email",
+            firstName: "first_name",
+            graphUuid: "graph_uuid",
+            lastName: "last_name",
+            metadata: {
+                key: "value",
+            },
+            timeZone: "time_zone",
+            userId: "user_id",
+            uuid: "uuid",
+        });
+    });
+
+    test("get_by_email (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { email: "email" };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/users/get-by-email")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.user.getByEmail({
+                email: "email",
+            });
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("get_by_email (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { email: "email" };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/users/get-by-email")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.user.getByEmail({
+                email: "email",
+            });
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("get_by_email (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { email: "email" };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/users/get-by-email")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.user.getByEmail({
+                email: "email",
+            });
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("list (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });

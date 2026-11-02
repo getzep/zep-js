@@ -12,6 +12,7 @@ export const EpisodeListFilters: core.serialization.ObjectSchema<
         "content_policy_violated",
         core.serialization.boolean().optional(),
     ),
+    documentId: core.serialization.property("document_id", core.serialization.string().optional()),
     mentionedNodeUuids: core.serialization.property(
         "mentioned_node_uuids",
         core.serialization.list(core.serialization.string()).optional(),
@@ -25,6 +26,7 @@ export const EpisodeListFilters: core.serialization.ObjectSchema<
 export declare namespace EpisodeListFilters {
     export interface Raw {
         content_policy_violated?: boolean | null;
+        document_id?: string | null;
         mentioned_node_uuids?: string[] | null;
         metadata_filters?: serializers.MetadataFilterGroup.Raw | null;
     }
