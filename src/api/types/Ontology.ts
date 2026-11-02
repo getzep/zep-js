@@ -3,9 +3,11 @@
 import type * as Zep from "../index.js";
 
 export interface Ontology {
+    /** The edge type hierarchy. Omitted when the ontology has no edge subtypes. */
+    edgeTypeHierarchy?: Record<string, unknown>;
     /** The edge types defined in the ontology in effect at this scope. */
     edgeTypes?: Zep.EdgeType[];
-    /** The entity type hierarchy (spec ontology-1). Omitted when the ontology is flat. */
+    /** The entity type hierarchy. Omitted when the ontology has no entity subtypes. */
     entityTypeHierarchy?: Record<string, unknown>;
     /** The entity types defined in the ontology in effect at this scope. */
     entityTypes?: Zep.EntityType[];

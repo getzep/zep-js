@@ -12,16 +12,16 @@
         "enableInlineTypes": false,
         "skipResponseValidation": true,
         "extraDependencies": {
-            "zod": "^3.23.8"
+            "zod": "^4.6.7"
         },
         "extraDevDependencies": {
             "msw": "2.11.2"
         }
     },
-    "originGitCommit": "f0e48e5c5364c0db5a1c445306aa80bd400f6839",
+    "originGitCommit": "ed4d7fcaa984c22ae4ad55dd1970106aae190446",
     "originGitCommitIsDirty": true,
     "invokedBy": "ci",
-    "requestedVersion": "4.0.1",
+    "requestedVersion": "4.1.0",
     "ciProvider": "github",
-    "sdkVersion": "4.0.1"
+    "sdkVersion": "4.1.0"
 }

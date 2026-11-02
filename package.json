@@ -1,6 +1,6 @@
 {
     "name": "@getzep/zep-cloud",
-    "version": "4.0.1",
+    "version": "4.1.0",
     "private": false,
     "repository": {
         "type": "git",
@@ -374,17 +374,6 @@
             },
             "default": "./dist/cjs/api/resources/graph/resources/documentSummary/exports.js"
         },
-        "./graph/episode": {
-            "import": {
-                "types": "./dist/esm/api/resources/graph/resources/episode/exports.d.mts",
-                "default": "./dist/esm/api/resources/graph/resources/episode/exports.mjs"
-            },
-            "require": {
-                "types": "./dist/cjs/api/resources/graph/resources/episode/exports.d.ts",
-                "default": "./dist/cjs/api/resources/graph/resources/episode/exports.js"
-            },
-            "default": "./dist/cjs/api/resources/graph/resources/episode/exports.js"
-        },
         "./graph/edge": {
             "import": {
                 "types": "./dist/esm/api/resources/graph/resources/edge/exports.d.mts",
@@ -395,6 +384,17 @@
                 "default": "./dist/cjs/api/resources/graph/resources/edge/exports.js"
             },
             "default": "./dist/cjs/api/resources/graph/resources/edge/exports.js"
+        },
+        "./graph/episode": {
+            "import": {
+                "types": "./dist/esm/api/resources/graph/resources/episode/exports.d.mts",
+                "default": "./dist/esm/api/resources/graph/resources/episode/exports.mjs"
+            },
+            "require": {
+                "types": "./dist/cjs/api/resources/graph/resources/episode/exports.d.ts",
+                "default": "./dist/cjs/api/resources/graph/resources/episode/exports.js"
+            },
+            "default": "./dist/cjs/api/resources/graph/resources/episode/exports.js"
         },
         "./graph/hyperedge": {
             "import": {
@@ -496,7 +496,7 @@
         "test:wire": "vitest --project wire"
     },
     "dependencies": {
-        "zod": "^3.23.8"
+        "zod": "^4.6.7"
     },
     "devDependencies": {
         "webpack": "^5.105.4",

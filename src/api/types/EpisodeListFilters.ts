@@ -10,6 +10,11 @@ export interface EpisodeListFilters {
      */
     contentPolicyViolated?: boolean;
     /**
+     * Include only the episodes of this document. The value is the
+     * document_id of the episodes. At most 100 characters.
+     */
+    documentId?: string;
+    /**
      * Include only episodes that mention at least one of these nodes. At
      * most 256 node UUIDs.
      */
