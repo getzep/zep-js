@@ -512,7 +512,7 @@ export class TraceConnectionClient {
     }
 
     /**
-     * Verify changed settings before Zep stores them. Both providers accept 1 to 60 requests per minute and an optional retention window. Example request: `{"requests_per_minute":60,"retention_days":30}`.
+     * Verify changed settings before Zep stores them. A request that changes `api_url` must also include `credential`. Otherwise Zep returns `400 invalid_request`. Both providers accept 1 to 60 requests per minute and an optional retention window. Example request: `{"requests_per_minute":60,"retention_days":30}`.
      *
      * @param {string} connection_uuid - Trace connection UUID
      * @param {Zep.UpdateTraceConnectionRequest} request

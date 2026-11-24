@@ -785,6 +785,9 @@ export class HyperedgeClient {
      * Adds one member edge to an existing hyperedge. The new member inherits the
      * hyperedge's fact and timestamps and joins its episodes, so only its own
      * name and node pair are supplied.
+     * The response contains the UUID that Zep assigned and the name and nodes that you supplied.
+     * It does not contain the shared fact or timestamps of the hyperedge.
+     * To read them, use graph.hyperedge.get.
      *
      * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {string} hyperedge_uuid - Hyperedge UUID

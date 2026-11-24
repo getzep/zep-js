@@ -6,7 +6,10 @@ import type * as Zep from "../../../../index.js";
  * @example
  *     {
  *         items: [{
- *                 type: "graph_episode"
+ *                 type: "graph_episode",
+ *                 graphUuid: "815f9d31-eef0-4201-90e6-02c1e6f16e90",
+ *                 dataType: "text",
+ *                 data: "A sample item."
  *             }]
  *     }
  */

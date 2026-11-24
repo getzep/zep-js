@@ -5,6 +5,7 @@ import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { ContentPolicyEventArtifactKind } from "./ContentPolicyEventArtifactKind.js";
 import { ContentPolicyEventDropReason } from "./ContentPolicyEventDropReason.js";
+import { ContentPolicyMatchedBy } from "./ContentPolicyMatchedBy.js";
 
 export const ContentPolicyEvent: core.serialization.ObjectSchema<
     serializers.ContentPolicyEvent.Raw,
@@ -19,6 +20,7 @@ export const ContentPolicyEvent: core.serialization.ObjectSchema<
     dropReason: core.serialization.property("drop_reason", ContentPolicyEventDropReason.optional()),
     episodeUuid: core.serialization.property("episode_uuid", core.serialization.string().optional()),
     id: core.serialization.string().optional(),
+    matchedBy: core.serialization.property("matched_by", core.serialization.list(ContentPolicyMatchedBy).optional()),
     revision: core.serialization.number().optional(),
     ruleIds: core.serialization.property("rule_ids", core.serialization.list(core.serialization.string()).optional()),
 });
@@ -31,6 +33,7 @@ export declare namespace ContentPolicyEvent {
         drop_reason?: ContentPolicyEventDropReason.Raw | null;
         episode_uuid?: string | null;
         id?: string | null;
+        matched_by?: ContentPolicyMatchedBy.Raw[] | null;
         revision?: number | null;
         rule_ids?: string[] | null;
     }

@@ -4,6 +4,7 @@ import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { GraphQueryCitations } from "./GraphQueryCitations.js";
+import { GraphQueryResponseAnswerStatus } from "./GraphQueryResponseAnswerStatus.js";
 import { GraphQueryResults } from "./GraphQueryResults.js";
 
 export const GraphQueryResponse: core.serialization.ObjectSchema<
@@ -11,6 +12,7 @@ export const GraphQueryResponse: core.serialization.ObjectSchema<
     Zep.GraphQueryResponse
 > = core.serialization.object({
     answer: core.serialization.string().optional(),
+    answerStatus: core.serialization.property("answer_status", GraphQueryResponseAnswerStatus.optional()),
     citations: GraphQueryCitations.optional(),
     results: GraphQueryResults.optional(),
     truncated: core.serialization.boolean().optional(),
@@ -19,6 +21,7 @@ export const GraphQueryResponse: core.serialization.ObjectSchema<
 export declare namespace GraphQueryResponse {
     export interface Raw {
         answer?: string | null;
+        answer_status?: GraphQueryResponseAnswerStatus.Raw | null;
         citations?: GraphQueryCitations.Raw | null;
         results?: GraphQueryResults.Raw | null;
         truncated?: boolean | null;

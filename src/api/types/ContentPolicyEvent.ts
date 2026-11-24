@@ -12,15 +12,14 @@ export interface ContentPolicyEvent {
     categoryKeys?: string[];
     /** The time of the decision. */
     decidedAt?: string;
-    /**
-     * Why the artifact was dropped: match, indeterminate, oversize, or
-     * dependent.
-     */
+    /** Why the artifact was dropped: match, indeterminate, oversize, dependent, or not_included. */
     dropReason?: Zep.ContentPolicyEventDropReason;
     /** The episode the decision belongs to. */
     episodeUuid?: string;
     /** The opaque identifier of the event. */
     id?: string;
+    /** The match mechanisms. The list is empty for a not_included event. */
+    matchedBy?: Zep.ContentPolicyMatchedBy[];
     /** The project revision number of the policy the graph bound. */
     revision?: number;
     /** The identifiers of the rules that matched. */

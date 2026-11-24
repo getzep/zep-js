@@ -3,7 +3,7 @@
 import type * as Zep from "../index.js";
 
 export interface EpisodeSearchFilters {
-    /** Match episodes by their content-policy result. Supported only on episode search when the project setting include_policy_violating_episodes is true. */
+    /** Experimental. Match episodes by their content-policy result. Supported only on episode search when the project setting include_policy_violating_episodes is true. */
     contentPolicyViolated?: boolean;
     /** Filter results by the episode's own stored metadata. */
     metadataFilters?: Zep.MetadataFilterGroup;

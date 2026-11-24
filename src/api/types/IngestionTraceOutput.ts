@@ -4,6 +4,11 @@ import type * as Zep from "../index.js";
 
 export interface IngestionTraceOutput {
     /**
+     * The outcomes that the step recorded for each extracted and candidate pair.
+     * Present for resolve_nodes and resolve_edges and empty for the other steps.
+     */
+    candidateOutcomes?: Zep.IngestionTraceCandidateOutcome[];
+    /**
      * The existing edges that the resolved edges invalidated. Present for resolve_edges and empty for
      * the other steps.
      */

@@ -3,14 +3,26 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { ContentPolicyRuleAction } from "./ContentPolicyRuleAction.js";
 
 export const ContentPolicyRule: core.serialization.ObjectSchema<
     serializers.ContentPolicyRule.Raw,
     Zep.ContentPolicyRule
 > = core.serialization.object({
+    action: ContentPolicyRuleAction.optional(),
     categoryKey: core.serialization.property("category_key", core.serialization.string().optional()),
+    condition: core.serialization.string().optional(),
     description: core.serialization.string().optional(),
+    edgeTypes: core.serialization.property(
+        "edge_types",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
+    entityTypes: core.serialization.property(
+        "entity_types",
+        core.serialization.list(core.serialization.string()).optional(),
+    ),
     id: core.serialization.string().optional(),
+    patterns: core.serialization.list(core.serialization.string()).optional(),
     permittedExamples: core.serialization.property(
         "permitted_examples",
         core.serialization.list(core.serialization.string()).optional(),
@@ -23,9 +35,14 @@ export const ContentPolicyRule: core.serialization.ObjectSchema<
 
 export declare namespace ContentPolicyRule {
     export interface Raw {
+        action?: ContentPolicyRuleAction.Raw | null;
         category_key?: string | null;
+        condition?: string | null;
         description?: string | null;
+        edge_types?: string[] | null;
+        entity_types?: string[] | null;
         id?: string | null;
+        patterns?: string[] | null;
         permitted_examples?: string[] | null;
         prohibited_examples?: string[] | null;
     }

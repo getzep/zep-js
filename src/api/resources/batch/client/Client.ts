@@ -509,7 +509,7 @@ export class BatchClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.batch.listItems("batch_uuid")
+     *     await client.batch.listItems("366ac0d2-69b5-4140-89e8-15d025a33340")
      */
     public async listItems(
         batch_uuid: string,
@@ -639,9 +639,12 @@ export class BatchClient {
      * @throws {@link errors.ZepTimeoutError}
      *
      * @example
-     *     await client.batch.addItems("batch_uuid", {
+     *     await client.batch.addItems("366ac0d2-69b5-4140-89e8-15d025a33340", {
      *         items: [{
-     *                 type: "graph_episode"
+     *                 type: "graph_episode",
+     *                 graphUuid: "815f9d31-eef0-4201-90e6-02c1e6f16e90",
+     *                 dataType: "text",
+     *                 data: "A sample item."
      *             }]
      *     })
      */
@@ -767,6 +770,7 @@ export class BatchClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
@@ -837,6 +841,17 @@ export class BatchClient {
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Zep.ForbiddenError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

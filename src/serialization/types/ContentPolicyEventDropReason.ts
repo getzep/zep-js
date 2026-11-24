@@ -7,8 +7,8 @@ import type * as serializers from "../index.js";
 export const ContentPolicyEventDropReason: core.serialization.Schema<
     serializers.ContentPolicyEventDropReason.Raw,
     Zep.ContentPolicyEventDropReason
-> = core.serialization.enum_(["match", "indeterminate", "oversize", "dependent"]);
+> = core.serialization.enum_(["match", "indeterminate", "oversize", "dependent", "not_included"]);
 
 export declare namespace ContentPolicyEventDropReason {
-    export type Raw = "match" | "indeterminate" | "oversize" | "dependent";
+    export type Raw = "match" | "indeterminate" | "oversize" | "dependent" | "not_included";
 }

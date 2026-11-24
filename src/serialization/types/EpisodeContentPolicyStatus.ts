@@ -7,8 +7,8 @@ import type * as serializers from "../index.js";
 export const EpisodeContentPolicyStatus: core.serialization.Schema<
     serializers.EpisodeContentPolicyStatus.Raw,
     Zep.EpisodeContentPolicyStatus
-> = core.serialization.enum_(["pending", "complete", "failed"]);
+> = core.serialization.enum_(["pending", "complete", "failed", "not_evaluated"]);
 
 export declare namespace EpisodeContentPolicyStatus {
-    export type Raw = "pending" | "complete" | "failed";
+    export type Raw = "pending" | "complete" | "failed" | "not_evaluated";
 }

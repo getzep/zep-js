@@ -3,6 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { IngestionTraceCandidateOutcome } from "./IngestionTraceCandidateOutcome.js";
 import { IngestionTraceEdge } from "./IngestionTraceEdge.js";
 import { IngestionTraceEdgeInvalidation } from "./IngestionTraceEdgeInvalidation.js";
 import { IngestionTraceNode } from "./IngestionTraceNode.js";
@@ -13,6 +14,10 @@ export const IngestionTraceOutput: core.serialization.ObjectSchema<
     serializers.IngestionTraceOutput.Raw,
     Zep.IngestionTraceOutput
 > = core.serialization.object({
+    candidateOutcomes: core.serialization.property(
+        "candidate_outcomes",
+        core.serialization.list(IngestionTraceCandidateOutcome).optional(),
+    ),
     edgeInvalidations: core.serialization.property(
         "edge_invalidations",
         core.serialization.list(IngestionTraceEdgeInvalidation).optional(),
@@ -40,6 +45,7 @@ export const IngestionTraceOutput: core.serialization.ObjectSchema<
 
 export declare namespace IngestionTraceOutput {
     export interface Raw {
+        candidate_outcomes?: IngestionTraceCandidateOutcome.Raw[] | null;
         edge_invalidations?: IngestionTraceEdgeInvalidation.Raw[] | null;
         edges?: IngestionTraceEdge.Raw[] | null;
         extracted_edges?: IngestionTraceEdge.Raw[] | null;

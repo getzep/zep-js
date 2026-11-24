@@ -15,7 +15,7 @@ export interface GraphContentPolicyRequest {
     projectRevision?: number;
     /**
      * Rules to add for this graph. A rule that the project policy already has,
-     * with the same category key and description, is ignored.
+     * with the same effective rule identity is ignored.
      */
     rules?: Zep.ContentPolicyRuleRequest[];
 }

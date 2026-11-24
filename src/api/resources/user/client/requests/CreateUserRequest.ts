@@ -8,7 +8,7 @@ import type * as Zep from "../../../../index.js";
  */
 export interface CreateUserRequest {
     /**
-     * Content policy additions for the user's graph. The graph binds the
+     * Experimental. Content policy additions for the user's graph. The graph binds the
      * current project content policy plus these additions, and the binding
      * does not change after creation.
      */

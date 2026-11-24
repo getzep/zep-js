@@ -4,7 +4,7 @@ import type * as Zep from "../index.js";
 
 export interface EpisodeListFilters {
     /**
-     * When true, include only episodes that a content policy flagged. When
+     * Experimental. When true, include only episodes that a content policy flagged. When
      * false, include only episodes that no content policy flagged. The
      * project setting include_policy_violating_episodes must be on.
      */

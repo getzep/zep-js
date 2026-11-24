@@ -7,8 +7,8 @@ import type * as serializers from "../index.js";
 export const IngestionTraceStatus: core.serialization.Schema<
     serializers.IngestionTraceStatus.Raw,
     Zep.IngestionTraceStatus
-> = core.serialization.enum_(["recorded", "failed"]);
+> = core.serialization.enum_(["pending", "recorded", "failed"]);
 
 export declare namespace IngestionTraceStatus {
-    export type Raw = "recorded" | "failed";
+    export type Raw = "pending" | "recorded" | "failed";
 }

@@ -4,10 +4,13 @@
  * The evaluation status. pending means the evaluation has not finished,
  * complete means every candidate was evaluated and the graph batch was
  * written, and failed means ingestion retries were exhausted.
+ * not_evaluated means Zep processed the episode without an evaluation, for
+ * example because the account had no content policy entitlement.
  */
 export const EpisodeContentPolicyStatus = {
     Pending: "pending",
     Complete: "complete",
     Failed: "failed",
+    NotEvaluated: "not_evaluated",
 } as const;
 export type EpisodeContentPolicyStatus = (typeof EpisodeContentPolicyStatus)[keyof typeof EpisodeContentPolicyStatus];
