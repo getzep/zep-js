@@ -5,7 +5,7 @@ import type * as Zep from "../index.js";
 export interface SearchFilters {
     /** Include edges connected to any of these node UUIDs. Node search does not support this filter. */
     connectedNodeUuids?: string[];
-    /** Match episodes by their content-policy result. Supported only on episode search when the project setting include_policy_violating_episodes is true. */
+    /** Experimental. Match episodes by their content-policy result. Supported only on episode search when the project setting include_policy_violating_episodes is true. */
     contentPolicyViolated?: boolean;
     /** Filter results by temporal values. */
     dateFilters?: Zep.DateFilters;

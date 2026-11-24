@@ -6,7 +6,7 @@ export interface Episode {
     /** The raw content of the episode. */
     content?: string;
     /**
-     * The content policy state of the episode, present only on a graph with a
+     * Experimental. The content policy state of the episode, present only on a graph with a
      * bound content policy rule.
      */
     contentPolicy?: Zep.EpisodeContentPolicy;
@@ -17,6 +17,13 @@ export interface Episode {
      * present only for episodes added to a document.
      */
     documentId?: string;
+    /**
+     * The time when Zep stopped the processing of the episode because the
+     * episode waited for more than 7 days. An expired episode is not in the
+     * graph. Add the episode again to process it. The field is omitted for an
+     * episode that did not expire.
+     */
+    expiredAt?: string;
     /** The unique identifier of the graph this episode belongs to. */
     graphUuid?: string;
     /** Custom metadata associated with the episode. */
@@ -66,4 +73,10 @@ export interface Episode {
     userUuid?: string;
     /** The unique identifier of the episode. */
     uuid?: string;
+    /**
+     * Why an episode that is not processed waits. The field is present when
+     * the episode has waited for more than 24 hours, and when the episode
+     * expired. It is omitted for a processed episode.
+     */
+    waitStatus?: Zep.EpisodeWaitStatus;
 }

@@ -1072,6 +1072,7 @@ export class ThreadClient {
      *
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.ForbiddenError}
      * @throws {@link Zep.NotFoundError}
      * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
@@ -1155,6 +1156,17 @@ export class ThreadClient {
                     );
                 case 401:
                     throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Zep.ForbiddenError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

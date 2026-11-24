@@ -484,7 +484,7 @@ export class GraphClient {
     }
 
     /**
-     * Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. BYOM and BYOC projects can use fast mode when they have a configured decision model. Other projects can use fast mode without a decision model. BYOM and BYOC projects without a decision model must use deep mode. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
+     * Experimental. Smart Query retrieves multi-hop context from a graph in one call. Some agent tasks need multi-hop retrieval: the agent does not know in advance what to search for, so it must retrieve a record, learn from it, and then plan the next retrieval. Zep explores the graph with searches and graph traversals, and it uses the records from each retrieval round to plan the next round. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items and an `answer_status` of `answered`, `partial`, or `refused`. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: Optimized for latency. Retrieves the context for multi-hop queries. The query runs at most 3 search rounds. deep: Runs more retrieval steps, so it can retrieve complete lists, such as the records for a count. It takes longer than fast mode. BYOM and BYOC projects can use fast mode when they have a configured decision model. Other projects can use fast mode without a decision model. BYOM and BYOC projects without a decision model must use deep mode. The operation is experimental and available to every Zep account. The request, the response, the events, and the modes of the operation can change.
      */
     public queryStream(
         request: Zep.GraphQueryStreamRequest,
@@ -658,7 +658,7 @@ export class GraphClient {
     }
 
     /**
-     * Experimental. Retrieves the graph records for a natural-language question about a graph with a read-only retrieval loop. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: A decision model selects the types of search for each round and stops when it has enough context. The query runs at most 3 search rounds. deep: A model plans its own searches. It can page through complete lists and read more records before it answers. BYOM and BYOC projects can use fast mode when they have a configured decision model. Other projects can use fast mode without a decision model. BYOM and BYOC projects without a decision model must use deep mode. The operation is experimental and in closed release. Zep enables the operation only for select accounts. The request, the response, the events, and the modes of the operation can change. A request from an account without access returns `404 not_found`. To get access, contact support@getzep.com.
+     * Experimental. Smart Query retrieves multi-hop context from a graph in one call. Some agent tasks need multi-hop retrieval: the agent does not know in advance what to search for, so it must retrieve a record, learn from it, and then plan the next retrieval. Zep explores the graph with searches and graph traversals, and it uses the records from each retrieval round to plan the next round. By default, the response has the retrieved records and no answer. Set `generate_answer` to `true` to also get an answer that a model writes from the records, with the cited graph items and an `answer_status` of `answered`, `partial`, or `refused`. Set `stream` to `true` to get the retrieval calls as server-sent events. The default mode is fast. fast: Optimized for latency. Retrieves the context for multi-hop queries. The query runs at most 3 search rounds. deep: Runs more retrieval steps, so it can retrieve complete lists, such as the records for a count. It takes longer than fast mode. BYOM and BYOC projects can use fast mode when they have a configured decision model. Other projects can use fast mode without a decision model. BYOM and BYOC projects without a decision model must use deep mode. The operation is experimental and available to every Zep account. The request, the response, the events, and the modes of the operation can change.
      *
      * @param {Zep.GraphQueryRequest} request
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -1376,7 +1376,7 @@ export class GraphClient {
     }
 
     /**
-     * Returns the content policy the graph bound at creation. The policy of a graph does not change after creation. A graph without a content policy returns revision 0 with no categories and no rules.
+     * Experimental: the request, the response, and the behavior of this operation can change. Returns the content policy the graph bound at creation. The policy of a graph does not change after creation. A graph without a content policy returns revision 0 with no categories and no rules.
      *
      * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -1501,7 +1501,7 @@ export class GraphClient {
     }
 
     /**
-     * Lists the content policy decisions recorded for a graph, newest first. Each event carries identifiers only. A graph without a content policy returns an empty list.
+     * Experimental: the request, the response, and the behavior of this operation can change. Lists the content policy decisions recorded for a graph, newest first. Each event carries identifiers only. A graph without a content policy returns an empty list.
      *
      * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {Zep.ContentPolicyEventListRequest} request
@@ -1801,6 +1801,245 @@ export class GraphClient {
     }
 
     /**
+     * Returns the graph rules, for example {"inclusion_rules":[],"inherited":true}.
+     *
+     * @param {string} graph_uuid - Graph UUID
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.graph.getInclusionRules("graph_uuid")
+     */
+    public getInclusionRules(
+        graph_uuid: string,
+        requestOptions?: GraphClient.RequestOptions,
+    ): core.HttpResponsePromise<Zep.InclusionRules> {
+        return core.HttpResponsePromise.fromPromise(this.__getInclusionRules(graph_uuid, requestOptions));
+    }
+
+    private async __getInclusionRules(
+        graph_uuid: string,
+        requestOptions?: GraphClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.InclusionRules>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graphs/${core.url.encodePathParam(graph_uuid)}/inclusion-rules`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.InclusionRules.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/graphs/{graph_uuid}/inclusion-rules",
+        );
+    }
+
+    /**
+     * Replaces the graph rules. Request: {"inclusion_rules":[]}. Response: {"inclusion_rules":[],"inherited":true}.
+     *
+     * @param {string} graph_uuid - Graph UUID
+     * @param {Zep.InclusionRules} request
+     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.graph.setInclusionRules("graph_uuid", {})
+     */
+    public setInclusionRules(
+        graph_uuid: string,
+        request: Zep.InclusionRules,
+        requestOptions?: GraphClient.IdempotentRequestOptions,
+    ): core.HttpResponsePromise<Zep.InclusionRules> {
+        return core.HttpResponsePromise.fromPromise(this.__setInclusionRules(graph_uuid, request, requestOptions));
+    }
+
+    private async __setInclusionRules(
+        graph_uuid: string,
+        request: Zep.InclusionRules,
+        requestOptions?: GraphClient.IdempotentRequestOptions,
+    ): Promise<core.WithRawResponse<Zep.InclusionRules>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graphs/${core.url.encodePathParam(graph_uuid)}/inclusion-rules`,
+            ),
+            method: "PUT",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(
+                serializers.InclusionRules.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                requestOptions?.additionalBodyParameters,
+            ),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.InclusionRules.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "PUT",
+            "/graphs/{graph_uuid}/inclusion-rules",
+        );
+    }
+
+    /**
      * @param {string} graph_uuid - The UUID of the graph. For a user graph, you can also use the UUID of the user.
      * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -2029,6 +2268,248 @@ export class GraphClient {
             _response.rawResponse,
             "PUT",
             "/graphs/{graph_uuid}/instructions",
+        );
+    }
+
+    /**
+     * Returns the domain knowledge in effect at this scope. The knowledge_api account flag must be enabled.
+     * Response example: {"knowledge":[{"name":"CRM","text":"CRM means the customer service."}],"inherited":false}
+     *
+     * @param {string} graph_uuid - The UUID of the graph or its user.
+     * @param {GraphClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.graph.getKnowledge("graph_uuid")
+     */
+    public getKnowledge(
+        graph_uuid: string,
+        requestOptions?: GraphClient.RequestOptions,
+    ): core.HttpResponsePromise<Zep.KnowledgeResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getKnowledge(graph_uuid, requestOptions));
+    }
+
+    private async __getKnowledge(
+        graph_uuid: string,
+        requestOptions?: GraphClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.KnowledgeResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graphs/${core.url.encodePathParam(graph_uuid)}/knowledge`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.KnowledgeResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/graphs/{graph_uuid}/knowledge",
+        );
+    }
+
+    /**
+     * Replaces the complete set of domain knowledge entries at this scope. The knowledge_api account flag must be enabled.
+     * Response example: {"knowledge":[{"name":"CRM","text":"CRM means the customer service."}],"inherited":false}
+     * Request example: {"knowledge":[{"name":"CRM","text":"CRM means the customer service."}]}
+     *
+     * @param {string} graph_uuid - The UUID of the graph or its user.
+     * @param {Zep.SetKnowledgeRequest} request
+     * @param {GraphClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.graph.setKnowledge("graph_uuid", {})
+     */
+    public setKnowledge(
+        graph_uuid: string,
+        request: Zep.SetKnowledgeRequest,
+        requestOptions?: GraphClient.IdempotentRequestOptions,
+    ): core.HttpResponsePromise<Zep.KnowledgeResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__setKnowledge(graph_uuid, request, requestOptions));
+    }
+
+    private async __setKnowledge(
+        graph_uuid: string,
+        request: Zep.SetKnowledgeRequest,
+        requestOptions?: GraphClient.IdempotentRequestOptions,
+    ): Promise<core.WithRawResponse<Zep.KnowledgeResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                `graphs/${core.url.encodePathParam(graph_uuid)}/knowledge`,
+            ),
+            method: "PUT",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(
+                serializers.SetKnowledgeRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                requestOptions?.additionalBodyParameters,
+            ),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.KnowledgeResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "PUT",
+            "/graphs/{graph_uuid}/knowledge",
         );
     }
 
@@ -2526,6 +3007,7 @@ export class GraphClient {
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -2613,6 +3095,17 @@ export class GraphClient {
                     );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

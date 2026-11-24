@@ -269,7 +269,7 @@ export class ProjectClient {
     }
 
     /**
-     * Returns the current content policy revision of the project. A new graph binds this revision at creation.
+     * Experimental: the request, the response, and the behavior of this operation can change. Returns the current content policy revision of the project. A new graph binds this revision at creation.
      *
      * @param {ProjectClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -362,7 +362,7 @@ export class ProjectClient {
     }
 
     /**
-     * Replaces the project content policy and creates a new immutable revision. Graphs that already exist keep the revision they bound. An empty policy (no categories and no rules) removes the content policy for new graphs.
+     * Experimental: this operation and the new rule fields can change. The typed rule fields are in private preview and are available only to enabled accounts. Replaces the project content policy and creates a new immutable revision. Graphs that already exist keep the revision they bound. For example, {"categories":[{"key":"health"}],"rules":[{"category_key":"health","action":"exclude","entity_types":["Person"],"condition":"The statement names a person's health condition.","prohibited_examples":["Jordan has a chronic back condition."],"patterns":["diagnosed with"]}]}.
      *
      * @param {Zep.ContentPolicyRequest} request
      * @param {ProjectClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
@@ -480,7 +480,7 @@ export class ProjectClient {
     }
 
     /**
-     * Lists every revision of the project content policy, newest first, including revision 0.
+     * Experimental: the request, the response, and the behavior of this operation can change. Lists every revision of the project content policy, newest first, including revision 0.
      *
      * @param {Zep.ProjectListContentPolicyRevisionsRequest} request
      * @param {ProjectClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -611,6 +611,8 @@ export class ProjectClient {
     }
 
     /**
+     * Experimental: the request, the response, and the behavior of this operation can change.
+     *
      * @param {string} revision_uuid - Revision UUID
      * @param {ProjectClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -731,6 +733,229 @@ export class ProjectClient {
             "GET",
             "/project/content-policy/revisions/{revision_uuid}",
         );
+    }
+
+    /**
+     * Returns the project rules, for example {"inclusion_rules":[],"inherited":false}.
+     *
+     * @param {ProjectClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.project.getInclusionRules()
+     */
+    public getInclusionRules(
+        requestOptions?: ProjectClient.RequestOptions,
+    ): core.HttpResponsePromise<Zep.InclusionRules> {
+        return core.HttpResponsePromise.fromPromise(this.__getInclusionRules(requestOptions));
+    }
+
+    private async __getInclusionRules(
+        requestOptions?: ProjectClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.InclusionRules>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "project/inclusion-rules",
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.InclusionRules.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/project/inclusion-rules");
+    }
+
+    /**
+     * Replaces the project rules. Request: {"inclusion_rules":[]}. Response: {"inclusion_rules":[],"inherited":false}.
+     *
+     * @param {Zep.InclusionRules} request
+     * @param {ProjectClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.project.setInclusionRules({})
+     */
+    public setInclusionRules(
+        request: Zep.InclusionRules,
+        requestOptions?: ProjectClient.IdempotentRequestOptions,
+    ): core.HttpResponsePromise<Zep.InclusionRules> {
+        return core.HttpResponsePromise.fromPromise(this.__setInclusionRules(request, requestOptions));
+    }
+
+    private async __setInclusionRules(
+        request: Zep.InclusionRules,
+        requestOptions?: ProjectClient.IdempotentRequestOptions,
+    ): Promise<core.WithRawResponse<Zep.InclusionRules>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "project/inclusion-rules",
+            ),
+            method: "PUT",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(
+                serializers.InclusionRules.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                requestOptions?.additionalBodyParameters,
+            ),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.InclusionRules.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/project/inclusion-rules");
     }
 
     /**
@@ -945,6 +1170,232 @@ export class ProjectClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/project/instructions");
+    }
+
+    /**
+     * Returns the domain knowledge in effect at this scope. The knowledge_api account flag must be enabled.
+     * Response example: {"knowledge":[{"name":"CRM","text":"CRM means the customer service."}],"inherited":false}
+     *
+     * @param {ProjectClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.project.getKnowledge()
+     */
+    public getKnowledge(
+        requestOptions?: ProjectClient.RequestOptions,
+    ): core.HttpResponsePromise<Zep.KnowledgeResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getKnowledge(requestOptions));
+    }
+
+    private async __getKnowledge(
+        requestOptions?: ProjectClient.RequestOptions,
+    ): Promise<core.WithRawResponse<Zep.KnowledgeResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "project/knowledge",
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.KnowledgeResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/project/knowledge");
+    }
+
+    /**
+     * Replaces the complete set of domain knowledge entries at this scope. The knowledge_api account flag must be enabled.
+     * Response example: {"knowledge":[{"name":"CRM","text":"CRM means the customer service."}],"inherited":false}
+     * Request example: {"knowledge":[{"name":"CRM","text":"CRM means the customer service."}]}
+     *
+     * @param {Zep.SetKnowledgeRequest} request
+     * @param {ProjectClient.IdempotentRequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Zep.BadRequestError}
+     * @throws {@link Zep.UnauthorizedError}
+     * @throws {@link Zep.NotFoundError}
+     * @throws {@link errors.ZepError}
+     * @throws {@link errors.ZepTimeoutError}
+     *
+     * @example
+     *     await client.project.setKnowledge({})
+     */
+    public setKnowledge(
+        request: Zep.SetKnowledgeRequest,
+        requestOptions?: ProjectClient.IdempotentRequestOptions,
+    ): core.HttpResponsePromise<Zep.KnowledgeResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__setKnowledge(request, requestOptions));
+    }
+
+    private async __setKnowledge(
+        request: Zep.SetKnowledgeRequest,
+        requestOptions?: ProjectClient.IdempotentRequestOptions,
+    ): Promise<core.WithRawResponse<Zep.KnowledgeResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ "Idempotency-Key": requestOptions?.idempotencyKey ?? generateIdempotencyKey() }),
+            requestOptions?.headers,
+        );
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.ZepEnvironment.Default,
+                "project/knowledge",
+            ),
+            method: "PUT",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: mergeAdditionalBodyParameters(
+                serializers.SetKnowledgeRequest.jsonOrThrow(request, {
+                    unrecognizedObjectKeys: "strip",
+                    omitUndefined: true,
+                }),
+                requestOptions?.additionalBodyParameters,
+            ),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: serializers.KnowledgeResponse.parseOrThrow(_response.body, {
+                    unrecognizedObjectKeys: "passthrough",
+                    allowUnrecognizedUnionMembers: true,
+                    allowUnrecognizedEnumValues: true,
+                    skipValidation: true,
+                    breadcrumbsPrefix: ["response"],
+                }),
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Zep.BadRequestError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new Zep.UnauthorizedError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.ZepError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "PUT", "/project/knowledge");
     }
 
     /**
@@ -1276,6 +1727,7 @@ export class ProjectClient {
      * @throws {@link Zep.BadRequestError}
      * @throws {@link Zep.UnauthorizedError}
      * @throws {@link Zep.NotFoundError}
+     * @throws {@link Zep.ConflictError}
      * @throws {@link errors.ZepError}
      * @throws {@link errors.ZepTimeoutError}
      *
@@ -1361,6 +1813,17 @@ export class ProjectClient {
                     );
                 case 404:
                     throw new Zep.NotFoundError(
+                        serializers.ApiError.parseOrThrow(_response.error.body, {
+                            unrecognizedObjectKeys: "passthrough",
+                            allowUnrecognizedUnionMembers: true,
+                            allowUnrecognizedEnumValues: true,
+                            skipValidation: true,
+                            breadcrumbsPrefix: ["response"],
+                        }),
+                        _response.rawResponse,
+                    );
+                case 409:
+                    throw new Zep.ConflictError(
                         serializers.ApiError.parseOrThrow(_response.error.body, {
                             unrecognizedObjectKeys: "passthrough",
                             allowUnrecognizedUnionMembers: true,

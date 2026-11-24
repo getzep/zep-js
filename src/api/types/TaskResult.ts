@@ -3,7 +3,7 @@
 import type * as Zep from "../index.js";
 
 export interface TaskResult {
-    /** The content policy outcome of the task. */
+    /** Experimental. The content policy outcome of the task. */
     contentPolicy?: Zep.TaskResultContentPolicy;
     /** The UUID of the edge that the task wrote. */
     edgeUuid?: string;

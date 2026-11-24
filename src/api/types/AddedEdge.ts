@@ -7,7 +7,10 @@ export interface AddedEdge {
     attributes?: Record<string, unknown>;
     /** The time the fact was superseded or removed. */
     expiredAt?: string;
-    /** The natural-language fact you submitted for this edge. */
+    /**
+     * The natural-language fact you submitted for this edge.
+     * graph.hyperedge.create_edge does not return this field.
+     */
     fact?: string;
     /** The name of the edge, in upper snake case, for example RELATES_TO. */
     factName?: string;

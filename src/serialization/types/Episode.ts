@@ -4,6 +4,7 @@ import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
 import { EpisodeContentPolicy } from "./EpisodeContentPolicy.js";
+import { EpisodeWaitStatus } from "./EpisodeWaitStatus.js";
 import { GraphDataType } from "./GraphDataType.js";
 import { RoleType } from "./RoleType.js";
 
@@ -13,6 +14,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         contentPolicy: core.serialization.property("content_policy", EpisodeContentPolicy.optional()),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         documentId: core.serialization.property("document_id", core.serialization.string().optional()),
+        expiredAt: core.serialization.property("expired_at", core.serialization.string().optional()),
         graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         metadata: core.serialization.record(core.serialization.string(), core.serialization.unknown()).optional(),
         processed: core.serialization.boolean().optional(),
@@ -26,6 +28,7 @@ export const Episode: core.serialization.ObjectSchema<serializers.Episode.Raw, Z
         threadUuid: core.serialization.property("thread_uuid", core.serialization.string().optional()),
         userUuid: core.serialization.property("user_uuid", core.serialization.string().optional()),
         uuid: core.serialization.string().optional(),
+        waitStatus: core.serialization.property("wait_status", EpisodeWaitStatus.optional()),
     },
 );
 
@@ -35,6 +38,7 @@ export declare namespace Episode {
         content_policy?: EpisodeContentPolicy.Raw | null;
         created_at?: string | null;
         document_id?: string | null;
+        expired_at?: string | null;
         graph_uuid?: string | null;
         metadata?: Record<string, unknown> | null;
         processed?: boolean | null;
@@ -48,5 +52,6 @@ export declare namespace Episode {
         thread_uuid?: string | null;
         user_uuid?: string | null;
         uuid?: string | null;
+        wait_status?: EpisodeWaitStatus.Raw | null;
     }
 }

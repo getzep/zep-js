@@ -88,9 +88,14 @@ describe("ProjectClient", () => {
             revision: 3,
             rules: [
                 {
+                    action: "exclude",
                     category_key: "health",
+                    condition: "Statements that a named person has a diagnosed medical condition.",
                     description: "Statements that a named person has a diagnosed medical condition.",
+                    edge_types: ["WorksFor"],
+                    entity_types: ["Person"],
                     id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    patterns: ["diagnosed with"],
                     permitted_examples: ["Jane works at a diabetes research lab."],
                     prohibited_examples: ["Jane was diagnosed with type 2 diabetes last year."],
                 },
@@ -119,9 +124,14 @@ describe("ProjectClient", () => {
             revision: 3,
             rules: [
                 {
+                    action: "exclude",
                     categoryKey: "health",
+                    condition: "Statements that a named person has a diagnosed medical condition.",
                     description: "Statements that a named person has a diagnosed medical condition.",
+                    edgeTypes: ["WorksFor"],
+                    entityTypes: ["Person"],
                     id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    patterns: ["diagnosed with"],
                     permittedExamples: ["Jane works at a diabetes research lab."],
                     prohibitedExamples: ["Jane was diagnosed with type 2 diabetes last year."],
                 },
@@ -187,8 +197,12 @@ describe("ProjectClient", () => {
                     rules: [
                         {
                             category_key: "health",
+                            condition: "Statements that a named person has a diagnosed medical condition.",
                             description: "Statements that a named person has a diagnosed medical condition.",
+                            edge_types: ["WorksFor"],
+                            entity_types: ["Person"],
                             id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                            patterns: ["diagnosed with"],
                             permitted_examples: ["Jane works at a diabetes research lab."],
                             prohibited_examples: ["Jane was diagnosed with type 2 diabetes last year."],
                         },
@@ -223,8 +237,12 @@ describe("ProjectClient", () => {
                     rules: [
                         {
                             categoryKey: "health",
+                            condition: "Statements that a named person has a diagnosed medical condition.",
                             description: "Statements that a named person has a diagnosed medical condition.",
+                            edgeTypes: ["WorksFor"],
+                            entityTypes: ["Person"],
                             id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                            patterns: ["diagnosed with"],
                             permittedExamples: ["Jane works at a diabetes research lab."],
                             prohibitedExamples: ["Jane was diagnosed with type 2 diabetes last year."],
                         },
@@ -316,9 +334,14 @@ describe("ProjectClient", () => {
             revision: 3,
             rules: [
                 {
+                    action: "exclude",
                     category_key: "health",
+                    condition: "Statements that a named person has a diagnosed medical condition.",
                     description: "Statements that a named person has a diagnosed medical condition.",
+                    edge_types: ["WorksFor"],
+                    entity_types: ["Person"],
                     id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    patterns: ["diagnosed with"],
                     permitted_examples: ["Jane works at a diabetes research lab."],
                     prohibited_examples: ["Jane was diagnosed with type 2 diabetes last year."],
                 },
@@ -347,9 +370,14 @@ describe("ProjectClient", () => {
             revision: 3,
             rules: [
                 {
+                    action: "exclude",
                     categoryKey: "health",
+                    condition: "Statements that a named person has a diagnosed medical condition.",
                     description: "Statements that a named person has a diagnosed medical condition.",
+                    edgeTypes: ["WorksFor"],
+                    entityTypes: ["Person"],
                     id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    patterns: ["diagnosed with"],
                     permittedExamples: ["Jane works at a diabetes research lab."],
                     prohibitedExamples: ["Jane was diagnosed with type 2 diabetes last year."],
                 },
@@ -434,6 +462,103 @@ describe("ProjectClient", () => {
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
+    test("get_inclusion_rules (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            inclusion_rules: [
+                {
+                    condition: "The person is an employee.",
+                    effect: "include",
+                    name: "Relevant people",
+                    target: "entity",
+                    types: ["Person"],
+                },
+            ],
+            inherited: false,
+        };
+
+        server
+            .mockEndpoint()
+            .get("/project/inclusion-rules")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.project.getInclusionRules();
+        expect(response).toEqual({
+            inclusionRules: [
+                {
+                    condition: "The person is an employee.",
+                    effect: "include",
+                    name: "Relevant people",
+                    target: "entity",
+                    types: ["Person"],
+                },
+            ],
+            inherited: false,
+        });
+    });
+
+    test("get_inclusion_rules (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/inclusion-rules")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getInclusionRules();
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("get_inclusion_rules (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/inclusion-rules")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getInclusionRules();
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("get_inclusion_rules (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/project/inclusion-rules")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.project.getInclusionRules();
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("get_instructions (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -514,6 +639,68 @@ describe("ProjectClient", () => {
 
         await expect(async () => {
             return await client.project.getInstructions();
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("get_knowledge (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            inherited: false,
+            knowledge: [{ name: "CRM", text: "CRM means the Acme customer relationship management service." }],
+        };
+
+        server.mockEndpoint().get("/project/knowledge").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.project.getKnowledge();
+        expect(response).toEqual({
+            inherited: false,
+            knowledge: [
+                {
+                    name: "CRM",
+                    text: "CRM means the Acme customer relationship management service.",
+                },
+            ],
+        });
+    });
+
+    test("get_knowledge (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server.mockEndpoint().get("/project/knowledge").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.project.getKnowledge();
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("get_knowledge (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server.mockEndpoint().get("/project/knowledge").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.project.getKnowledge();
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("get_knowledge (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server.mockEndpoint().get("/project/knowledge").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.project.getKnowledge();
         }).rejects.toThrow(Zep.NotFoundError);
     });
 

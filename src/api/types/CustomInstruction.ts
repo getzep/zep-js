@@ -3,6 +3,6 @@
 export interface CustomInstruction {
     /** logical key for identifying the instruction */
     name: string;
-    /** the actual instruction text */
+    /** the domain knowledge text */
     text: string;
 }

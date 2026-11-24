@@ -5,7 +5,10 @@
  *     {}
  */
 export interface UpdateTraceConnectionRequest {
-    /** APIURL is the new custom provider endpoint, when supplied. */
+    /**
+     * APIURL is the new custom provider endpoint, when supplied.
+     * A request that changes api_url must also include credential.
+     */
     apiUrl?: string;
     /** Credential is the new write-only provider credential, when supplied. */
     credential?: string;

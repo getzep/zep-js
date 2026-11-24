@@ -8,6 +8,8 @@ export interface GraphQueryResponse {
      * request sets generate_answer to true.
      */
     answer?: string;
+    /** The outcome of the answer: answered, partial (the answer covers only part of the question), or refused (the records do not answer the question). Present only when the request sets generate_answer to true. */
+    answerStatus?: Zep.GraphQueryResponseAnswerStatus;
     /**
      * The UUIDs of the graph items cited by the answer. The lists are empty
      * when the response has no answer.

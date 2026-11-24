@@ -3,6 +3,7 @@
 import type * as Zep from "../../api/index.js";
 import * as core from "../../core/index.js";
 import type * as serializers from "../index.js";
+import { BatchItemError } from "./BatchItemError.js";
 import { BatchItemKind } from "./BatchItemKind.js";
 import { BatchItemStatus } from "./BatchItemStatus.js";
 import { EpisodeContentPolicy } from "./EpisodeContentPolicy.js";
@@ -12,6 +13,7 @@ export const BatchItem: core.serialization.ObjectSchema<serializers.BatchItem.Ra
         contentPolicy: core.serialization.property("content_policy", EpisodeContentPolicy.optional()),
         createdAt: core.serialization.property("created_at", core.serialization.string().optional()),
         episodeUuid: core.serialization.property("episode_uuid", core.serialization.string().optional()),
+        error: BatchItemError.optional(),
         graphUuid: core.serialization.property("graph_uuid", core.serialization.string().optional()),
         sequenceIndex: core.serialization.property("sequence_index", core.serialization.number().optional()),
         sourceUuid: core.serialization.property("source_uuid", core.serialization.string().optional()),
@@ -27,6 +29,7 @@ export declare namespace BatchItem {
         content_policy?: EpisodeContentPolicy.Raw | null;
         created_at?: string | null;
         episode_uuid?: string | null;
+        error?: BatchItemError.Raw | null;
         graph_uuid?: string | null;
         sequence_index?: number | null;
         source_uuid?: string | null;

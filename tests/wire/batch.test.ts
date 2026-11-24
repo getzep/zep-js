@@ -217,32 +217,26 @@ describe("BatchClient", () => {
         const rawResponseBody = {
             items: [
                 {
-                    content_policy: {
-                        category_keys: ["health"],
-                        dropped_count: 0,
-                        retained_count: 7,
-                        revision: 3,
-                        violated: false,
-                    },
-                    created_at: "created_at",
-                    episode_uuid: "episode_uuid",
-                    graph_uuid: "graph_uuid",
-                    sequence_index: 1,
-                    source_uuid: "source_uuid",
-                    status: "pending",
-                    thread_uuid: "thread_uuid",
+                    uuid: "9e185ca7-9677-4a02-bd1c-366d23422a5e",
+                    sequence_index: 0,
                     type: "graph_episode",
-                    user_uuid: "user_uuid",
-                    uuid: "uuid",
+                    graph_uuid: "815f9d31-eef0-4201-90e6-02c1e6f16e90",
+                    source_uuid: "c39dd799-e05c-4375-ab63-07195ce548af",
+                    episode_uuid: "c39dd799-e05c-4375-ab63-07195ce548af",
+                    created_at: "2026-11-08T12:00:00Z",
+                    status: "failed",
+                    error: {
+                        code: "item_too_large",
+                        message: "This item is too large to process. Split the item into smaller items.",
+                    },
                 },
             ],
-            next_cursor: "next_cursor",
             total_size: 1,
         };
 
         server
-            .mockEndpoint({ once: false })
-            .get("/batches/batch_uuid/items")
+            .mockEndpoint()
+            .get("/batches/366ac0d2-69b5-4140-89e8-15d025a33340/items")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -251,34 +245,25 @@ describe("BatchClient", () => {
         const expected = {
             items: [
                 {
-                    contentPolicy: {
-                        categoryKeys: ["health"],
-                        droppedCount: 0,
-                        retainedCount: 7,
-                        revision: 3,
-                        violated: false,
-                    },
-                    createdAt: "created_at",
-                    episodeUuid: "episode_uuid",
-                    graphUuid: "graph_uuid",
-                    sequenceIndex: 1,
-                    sourceUuid: "source_uuid",
-                    status: "pending",
-                    threadUuid: "thread_uuid",
+                    uuid: "9e185ca7-9677-4a02-bd1c-366d23422a5e",
+                    sequenceIndex: 0,
                     type: "graph_episode",
-                    userUuid: "user_uuid",
-                    uuid: "uuid",
+                    graphUuid: "815f9d31-eef0-4201-90e6-02c1e6f16e90",
+                    sourceUuid: "c39dd799-e05c-4375-ab63-07195ce548af",
+                    episodeUuid: "c39dd799-e05c-4375-ab63-07195ce548af",
+                    createdAt: "2026-11-08T12:00:00Z",
+                    status: "failed",
+                    error: {
+                        code: "item_too_large",
+                        message: "This item is too large to process. Split the item into smaller items.",
+                    },
                 },
             ],
-            nextCursor: "next_cursor",
             totalSize: 1,
         };
-        const page = await client.batch.listItems("batch_uuid");
+        const page = await client.batch.listItems("366ac0d2-69b5-4140-89e8-15d025a33340");
 
         expect(expected.items).toEqual(page.data);
-        expect(page.hasNextPage()).toBe(true);
-        const nextPage = await page.getNextPage();
-        expect(expected.items).toEqual(nextPage.data);
     });
 
     test("list_items (2)", async () => {

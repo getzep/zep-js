@@ -3,7 +3,7 @@
 import type * as Zep from "../index.js";
 
 export interface TaskResultEpisode {
-    /** The content policy state of the episode. */
+    /** Experimental. The content policy state of the episode. */
     contentPolicy?: Zep.TaskResultContentPolicy;
     /** The UUID of the episode of the message. */
     episodeUuid?: string;

@@ -22,6 +22,7 @@ describe("EpisodeClient", () => {
                     },
                     created_at: "created_at",
                     document_id: "document_id",
+                    expired_at: "2026-01-08T12:00:00Z",
                     graph_uuid: "graph_uuid",
                     metadata: { key: "value" },
                     processed: true,
@@ -35,6 +36,7 @@ describe("EpisodeClient", () => {
                     thread_uuid: "thread_uuid",
                     user_uuid: "user_uuid",
                     uuid: "uuid",
+                    wait_status: "account_rate_limit_reached",
                 },
             ],
             next_cursor: "next_cursor",
@@ -63,6 +65,7 @@ describe("EpisodeClient", () => {
                     },
                     createdAt: "created_at",
                     documentId: "document_id",
+                    expiredAt: "2026-01-08T12:00:00Z",
                     graphUuid: "graph_uuid",
                     metadata: {
                         key: "value",
@@ -78,6 +81,7 @@ describe("EpisodeClient", () => {
                     threadUuid: "thread_uuid",
                     userUuid: "user_uuid",
                     uuid: "uuid",
+                    waitStatus: "account_rate_limit_reached",
                 },
             ],
             nextCursor: "next_cursor",
@@ -187,6 +191,7 @@ describe("EpisodeClient", () => {
             },
             created_at: "created_at",
             document_id: "document_id",
+            expired_at: "2026-01-08T12:00:00Z",
             graph_uuid: "graph_uuid",
             metadata: { key: "value" },
             processed: true,
@@ -200,6 +205,7 @@ describe("EpisodeClient", () => {
             thread_uuid: "thread_uuid",
             user_uuid: "user_uuid",
             uuid: "uuid",
+            wait_status: "account_rate_limit_reached",
         };
 
         server
@@ -223,6 +229,7 @@ describe("EpisodeClient", () => {
             },
             createdAt: "created_at",
             documentId: "document_id",
+            expiredAt: "2026-01-08T12:00:00Z",
             graphUuid: "graph_uuid",
             metadata: {
                 key: "value",
@@ -238,6 +245,7 @@ describe("EpisodeClient", () => {
             threadUuid: "thread_uuid",
             userUuid: "user_uuid",
             uuid: "uuid",
+            waitStatus: "account_rate_limit_reached",
         });
     });
 
@@ -442,7 +450,15 @@ describe("EpisodeClient", () => {
                         edge_types: [{ properties: [{ protected: true }] }],
                         entity_types: [{ properties: [{ protected: true }] }],
                     },
-                    status: "recorded",
+                    output: {
+                        candidate_outcomes: [
+                            {
+                                candidate_uuid: "00000000-0000-0000-0000-000000000002",
+                                extracted_uuid: "00000000-0000-0000-0000-000000000001",
+                            },
+                        ],
+                    },
+                    status: "pending",
                     step: "combined_extraction",
                     uuid: "uuid",
                 },
@@ -483,7 +499,15 @@ describe("EpisodeClient", () => {
                             },
                         ],
                     },
-                    status: "recorded",
+                    output: {
+                        candidateOutcomes: [
+                            {
+                                candidateUuid: "00000000-0000-0000-0000-000000000002",
+                                extractedUuid: "00000000-0000-0000-0000-000000000001",
+                            },
+                        ],
+                    },
+                    status: "pending",
                     step: "combined_extraction",
                     uuid: "uuid",
                 },

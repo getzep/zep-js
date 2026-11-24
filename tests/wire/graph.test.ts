@@ -471,6 +471,7 @@ describe("GraphClient", () => {
         const rawRequestBody = { graph_uuids: ["graph_uuids"], query: "query", stream: false };
         const rawResponseBody = {
             answer: "answer",
+            answer_status: "answered",
             citations: { edge_uuids: ["edge_uuids"], episode_uuids: ["episode_uuids"], node_uuids: ["node_uuids"] },
             results: {
                 edges: [
@@ -503,6 +504,7 @@ describe("GraphClient", () => {
                             revision: 3,
                             violated: false,
                         },
+                        expired_at: "2026-01-08T12:00:00Z",
                     },
                 ],
                 nodes: [
@@ -537,6 +539,7 @@ describe("GraphClient", () => {
         });
         expect(response).toEqual({
             answer: "answer",
+            answerStatus: "answered",
             citations: {
                 edgeUuids: ["edge_uuids"],
                 episodeUuids: ["episode_uuids"],
@@ -573,6 +576,7 @@ describe("GraphClient", () => {
                             revision: 3,
                             violated: false,
                         },
+                        expiredAt: "2026-01-08T12:00:00Z",
                     },
                 ],
                 nodes: [
@@ -879,9 +883,14 @@ describe("GraphClient", () => {
             revision: 3,
             rules: [
                 {
+                    action: "exclude",
                     category_key: "health",
+                    condition: "Statements that a named person has a diagnosed medical condition.",
                     description: "Statements that a named person has a diagnosed medical condition.",
+                    edge_types: ["WorksFor"],
+                    entity_types: ["Person"],
                     id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    patterns: ["diagnosed with"],
                     permitted_examples: ["Jane works at a diabetes research lab."],
                     prohibited_examples: ["Jane was diagnosed with type 2 diabetes last year."],
                 },
@@ -912,9 +921,14 @@ describe("GraphClient", () => {
             revision: 3,
             rules: [
                 {
+                    action: "exclude",
                     categoryKey: "health",
+                    condition: "Statements that a named person has a diagnosed medical condition.",
                     description: "Statements that a named person has a diagnosed medical condition.",
+                    edgeTypes: ["WorksFor"],
+                    entityTypes: ["Person"],
                     id: "rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z",
+                    patterns: ["diagnosed with"],
                     permittedExamples: ["Jane works at a diabetes research lab."],
                     prohibitedExamples: ["Jane was diagnosed with type 2 diabetes last year."],
                 },
@@ -1012,6 +1026,7 @@ describe("GraphClient", () => {
                     drop_reason: "match",
                     episode_uuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
                     id: "cpe_3f9a1c2b4d5e6f708192a3b4",
+                    matched_by: ["condition"],
                     revision: 3,
                     rule_ids: ["rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z"],
                 },
@@ -1038,6 +1053,7 @@ describe("GraphClient", () => {
                     dropReason: "match",
                     episodeUuid: "7a1f3c2e-4b5d-4e6f-8a9b-0c1d2e3f4a5b",
                     id: "cpe_3f9a1c2b4d5e6f708192a3b4",
+                    matchedBy: ["condition"],
                     revision: 3,
                     ruleIds: ["rule_01J8ZJ1P2Q3R4S5T6U7V8W9X0Z"],
                 },
@@ -1150,6 +1166,7 @@ describe("GraphClient", () => {
                             revision: 3,
                             violated: false,
                         },
+                        expired_at: "2026-01-08T12:00:00Z",
                     },
                 ],
                 nodes: [{ episode_uuids: ["episode_uuids"], episode_uuids_truncated: true }],
@@ -1184,6 +1201,7 @@ describe("GraphClient", () => {
                             revision: 3,
                             violated: false,
                         },
+                        expiredAt: "2026-01-08T12:00:00Z",
                     },
                 ],
                 nodes: [
@@ -1309,6 +1327,103 @@ describe("GraphClient", () => {
         }).rejects.toThrow(Zep.ConflictError);
     });
 
+    test("get_inclusion_rules (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            inclusion_rules: [
+                {
+                    condition: "The person is an employee.",
+                    effect: "include",
+                    name: "Relevant people",
+                    target: "entity",
+                    types: ["Person"],
+                },
+            ],
+            inherited: false,
+        };
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/inclusion-rules")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.getInclusionRules("graph_uuid");
+        expect(response).toEqual({
+            inclusionRules: [
+                {
+                    condition: "The person is an employee.",
+                    effect: "include",
+                    name: "Relevant people",
+                    target: "entity",
+                    types: ["Person"],
+                },
+            ],
+            inherited: false,
+        });
+    });
+
+    test("get_inclusion_rules (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/inclusion-rules")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.getInclusionRules("graph_uuid");
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("get_inclusion_rules (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/inclusion-rules")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.getInclusionRules("graph_uuid");
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("get_inclusion_rules (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/inclusion-rules")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.getInclusionRules("graph_uuid");
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
     test("get_instructions (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -1389,6 +1504,92 @@ describe("GraphClient", () => {
 
         await expect(async () => {
             return await client.graph.getInstructions("graph_uuid");
+        }).rejects.toThrow(Zep.NotFoundError);
+    });
+
+    test("get_knowledge (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            inherited: false,
+            knowledge: [{ name: "CRM", text: "CRM means the Acme customer relationship management service." }],
+        };
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/knowledge")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.graph.getKnowledge("graph_uuid");
+        expect(response).toEqual({
+            inherited: false,
+            knowledge: [
+                {
+                    name: "CRM",
+                    text: "CRM means the Acme customer relationship management service.",
+                },
+            ],
+        });
+    });
+
+    test("get_knowledge (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/knowledge")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.getKnowledge("graph_uuid");
+        }).rejects.toThrow(Zep.BadRequestError);
+    });
+
+    test("get_knowledge (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/knowledge")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.getKnowledge("graph_uuid");
+        }).rejects.toThrow(Zep.UnauthorizedError);
+    });
+
+    test("get_knowledge (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new ZepClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/graphs/graph_uuid/knowledge")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.graph.getKnowledge("graph_uuid");
         }).rejects.toThrow(Zep.NotFoundError);
     });
 
@@ -1901,6 +2102,7 @@ describe("GraphClient", () => {
                     },
                     created_at: "created_at",
                     document_id: "document_id",
+                    expired_at: "2026-01-08T12:00:00Z",
                     graph_uuid: "graph_uuid",
                     metadata: { key: "value" },
                     processed: true,
@@ -1914,6 +2116,7 @@ describe("GraphClient", () => {
                     thread_uuid: "thread_uuid",
                     user_uuid: "user_uuid",
                     uuid: "uuid",
+                    wait_status: "account_rate_limit_reached",
                 },
             ],
             next_cursor: "next_cursor",
@@ -1942,6 +2145,7 @@ describe("GraphClient", () => {
                     },
                     createdAt: "created_at",
                     documentId: "document_id",
+                    expiredAt: "2026-01-08T12:00:00Z",
                     graphUuid: "graph_uuid",
                     metadata: {
                         key: "value",
@@ -1957,6 +2161,7 @@ describe("GraphClient", () => {
                     threadUuid: "thread_uuid",
                     userUuid: "user_uuid",
                     uuid: "uuid",
+                    waitStatus: "account_rate_limit_reached",
                 },
             ],
             nextCursor: "next_cursor",
